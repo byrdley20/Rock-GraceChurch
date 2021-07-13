@@ -67,6 +67,18 @@ namespace Rock.Rest.Controllers
                 {
                     return false;
                 }
+
+                // Do not allow login if account is locked out.
+                if ( userLogin.IsLockedOut.HasValue && userLogin.IsLockedOut.Value )
+                {
+                    return false;
+                }
+
+                // Do not allow login if account is not confirmed.
+                if ( !userLogin.IsConfirmed.HasValue || userLogin.IsConfirmed.Value == false )
+                {
+                    return false;
+                }
             }
 
             var pinAuthentication = AuthenticationContainer.GetComponent( typeof( Rock.Security.Authentication.PINAuthentication ).FullName );

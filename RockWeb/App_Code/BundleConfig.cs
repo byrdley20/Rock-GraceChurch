@@ -36,6 +36,7 @@ public class BundleConfig
             "~/Scripts/jquery-migrate-3.1.0.min.js" ) );
         
         bundles.Add( new ScriptBundle( "~/Scripts/Bundles/RockLibs" ).Include(
+            "~/Scripts/Rock/microsoft-ajax-shims.js",
             "~/Scripts/jquery-ui-1.12.1.custom.min.js",
             "~/Scripts/bootstrap.min.js",
             "~/Scripts/bootstrap-timepicker.js",

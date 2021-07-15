@@ -17,14 +17,13 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+
 using Newtonsoft.Json;
-using Rock.Data;
+
 using Rock.Model;
 using Rock.Web.Cache;
 
@@ -329,7 +328,8 @@ namespace Rock.Web.UI.Controls
 
             if ( this.Visible && !ScriptManager.GetCurrent( this.Page ).IsInAsyncPostBack )
             {
-                RockPage.AddScriptLink( Page, "~/Scripts/Bundles/StructureContentEditorPlugins", false );
+                RockPage.AddScriptLink( Page, "~/Scripts/Rock/UI/structuredcontent/editor.js" );
+                RockPage.AddScriptLink( Page, "~/Scripts/Rock/UI/structuredcontent/editor-tools.js" );
             }
 
             EnsureChildControls();
@@ -380,9 +380,8 @@ namespace Rock.Web.UI.Controls
             // add script on demand only when there will be an htmleditor rendered
             if ( ScriptManager.GetCurrent( this.Page ).IsInAsyncPostBack )
             {
-                ScriptManager.RegisterClientScriptInclude( this.Page, this.Page.GetType(), "summernote-lib", ( ( RockPage ) this.Page ).ResolveRockUrl( "~/Scripts/summernote/summernote.min.js", true ) );
-                var bundleUrl = System.Web.Optimization.BundleResolver.Current.GetBundleUrl( "~/Scripts/Bundles/StructureContentEditorPlugins" );
-                ScriptManager.RegisterClientScriptInclude( this.Page, this.Page.GetType(), "editorjs-plugins", bundleUrl );
+                ScriptManager.RegisterClientScriptInclude( Page, Page.GetType(), "rock-editorjs", "~/Scripts/Rock/UI/structuredcontent/editor.js" );
+                ScriptManager.RegisterClientScriptInclude( Page, Page.GetType(), "rock-editorjs-tools", "~/Scripts/Rock/UI/structuredcontent/editor-tools.js" );
             }
 
             RegisterJavascript();
@@ -413,20 +412,25 @@ namespace Rock.Web.UI.Controls
             }
 
             var script = string.Format( @"
+;(function() {{
 var fieldContent = $('#{1}').val();
-var editor = new EditorJS({{
-holder: '{0}',
-tools: {2},
-initialBlock: 'paragraph',
-data: JSON.parse(decodeURIComponent(fieldContent)),
-onChange: function() {{
-    editor.save().then( function(savedData) {{
-        $('#{1}').val(encodeURIComponent(JSON.stringify(savedData)));
-    }}).catch((e) => {{
-        console.log('Saving failed: ', e)
-    }});
-}}
+var editor = new Rock.UI.StructuredContent.EditorJS({{
+    holder: '{0}',
+    tools: {2},
+    defaultBlock: 'paragraph',
+    data: JSON.parse(decodeURIComponent(fieldContent)),
+    onReady: function() {{
+        new Rock.UI.StructuredContent.EditorDragDrop(editor);
+    }},
+    onChange: function() {{
+        editor.save().then( function(savedData) {{
+            $('#{1}').val(encodeURIComponent(JSON.stringify(savedData)));
+        }}).catch((e) => {{
+            console.log('Saving failed: ', e)
+        }});
+    }}
 }});
+}})();
 ", this.ClientID, _hfValue.ClientID, structuredContentToolConfiguration );
             ScriptManager.RegisterStartupScript( this, this.GetType(), "structure-content-script" + this.ClientID, script, true );
         }
@@ -555,7 +559,7 @@ onChange: function() {{
         private class Block
         {
             public string type { get; set; }
-            public Data data { get; set; }
+            public dynamic data { get; set; }
         }
     }
 }

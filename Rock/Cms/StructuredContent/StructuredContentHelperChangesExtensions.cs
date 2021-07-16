@@ -142,16 +142,16 @@ namespace Rock.Cms.StructuredContent
         }
 
         /// <summary>
-        /// Updates the binary files referenced by the content. This will mark newly
-        /// uploaded files as permanent and mark removed files as temporary so they
-        /// get cleaned up later. This method will call SaveChanges() so you may
-        /// want to call this inside a transaction to ensure everything either works
-        /// or is rolled back.
+        /// Applies any changes detected by a previous call to
+        /// <see cref="DetectChanges(StructuredContentHelper, string)"/> to the
+        /// database. This method does not persist any changes to the database,
+        /// you must still call <see cref="DbContext.SaveChanges()"/>.
         /// </summary>
         /// <param name="helper">The content helper.</param>
         /// <param name="changes">The changes that were returned by a previous call to DetectChanges()." />.</param>
         /// <param name="rockContext">The rock database context to use when saving changes.</param>
-        public static void SaveDatabaseChanges( this StructuredContentHelper helper, StructuredContentChanges changes, RockContext rockContext )
+        /// <returns><c>true</c> if any changes were made that require you to call <see cref="DbContext.SaveChanges()"/>; otherwise <c>false</c>.</returns>
+        public static bool ApplyDatabaseChanges( this StructuredContentHelper helper, StructuredContentChanges changes, RockContext rockContext )
         {
             if ( changes == null )
             {
@@ -163,22 +163,22 @@ namespace Rock.Cms.StructuredContent
                 throw new ArgumentNullException( nameof( rockContext ) );
             }
 
-            SaveDatabaseChanges( helper, changes, rockContext, GetBlockChangeHandlers() );
+            return ApplyDatabaseChanges( helper, changes, rockContext, GetBlockChangeHandlers() );
         }
 
         /// <summary>
-        /// Updates the binary files referenced by the content. This will mark newly
-        /// uploaded files as permanent and mark removed files as temporary so they
-        /// get cleaned up later. This method will call SaveChanges() so you may
-        /// want to call this inside a transaction to ensure everything either works
-        /// or is rolled back.
+        /// Applies any changes detected by a previous call to
+        /// <see cref="DetectChanges(StructuredContentHelper, string)"/> to the
+        /// database. This method does not persist any changes to the database,
+        /// you must still call <see cref="DbContext.SaveChanges()"/>.
         /// </summary>
         /// <param name="helper">The content helper.</param>
         /// <param name="changes">The changes that were returned by a previous call to DetectChanges()." />.</param>
         /// <param name="rockContext">The rock database context to use when saving changes.</param>
         /// <param name="changeHandlers">The change handlers to use for applying changes.</param>
+        /// <returns><c>true</c> if any changes were made that require you to call <see cref="DbContext.SaveChanges()"/>; otherwise <c>false</c>.</returns>
         /// <remarks>This method is internal so that it can be used for unit testing.</remarks>
-        public static void SaveDatabaseChanges( this StructuredContentHelper helper, StructuredContentChanges changes, RockContext rockContext, IReadOnlyDictionary<string, IReadOnlyList<IStructuredContentBlockChangeHandler>> changeHandlers )
+        internal static bool ApplyDatabaseChanges( this StructuredContentHelper helper, StructuredContentChanges changes, RockContext rockContext, IReadOnlyDictionary<string, IReadOnlyList<IStructuredContentBlockChangeHandler>> changeHandlers )
         {
             bool needSave = false;
 
@@ -191,10 +191,7 @@ namespace Rock.Cms.StructuredContent
                 }
             }
 
-            if ( needSave )
-            {
-                rockContext.SaveChanges();
-            }
+            return needSave;
         }
     }
 }

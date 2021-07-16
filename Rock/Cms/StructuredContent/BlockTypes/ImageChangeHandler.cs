@@ -40,11 +40,13 @@ namespace Rock.Cms.StructuredContent.BlockTypes
                 changes.AddOrReplaceData( imageChanges );
             }
 
+            // If the new data has a file identifier then store it for later review.
             if ( newData?.File?.FileId != null )
             {
                 imageChanges.NewFileIds.Add( newData.File.FileId.Value );
             }
 
+            // If the old data has a file identifier then store it for alter review.
             if ( oldData?.File?.FileId != null )
             {
                 imageChanges.OldFileIds.Add( oldData.File.FileId.Value );

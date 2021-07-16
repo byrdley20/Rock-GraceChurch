@@ -81,6 +81,19 @@ namespace Rock.Field.Types
 
         #region Formatting
 
+        /// <inheritdoc/>
+        public override string FormatValue( string value, Dictionary<string, ConfigurationValue> configurationValues, bool condensed )
+        {
+            if ( condensed )
+            {
+                return base.FormatValue( value, configurationValues, condensed );
+            }
+
+            var helper = new StructuredContentHelper( value );
+
+            return helper.Render();
+        }
+
         /// <summary>
         /// Formats the value as HTML.
         /// </summary>

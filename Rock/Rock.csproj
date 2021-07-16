@@ -586,6 +586,19 @@
     <Compile Include="Blocks\RockClientType.cs" />
     <Compile Include="Blocks\Types\Mobile\Core\Notes.cs" />
     <Compile Include="Bus\Faults\ReceiveFaultObserver.cs" />
+    <Compile Include="Cms\StructuredContent\BlockType\Paragraph.cs" />
+    <Compile Include="Cms\StructuredContent\BlockType\ParagraphData.cs" />
+    <Compile Include="Cms\StructuredContent\IStructuredContentBlockType.cs" />
+    <Compile Include="Cms\StructuredContent\IStructuredContentBlockTypeChanges.cs" />
+    <Compile Include="Cms\StructuredContent\StandardBlockTypes.cs" />
+    <Compile Include="Cms\StructuredContent\StructuredContentBlock.cs" />
+    <Compile Include="Cms\StructuredContent\StructuredContentBlockTypeChanges.cs" />
+    <Compile Include="Cms\StructuredContent\StructuredContentChanges.cs" />
+    <Compile Include="Cms\StructuredContent\StructuredContentData.cs" />
+    <Compile Include="Cms\StructuredContent\StructuredContentHelperChangesExtensions.cs" />
+    <Compile Include="Cms\StructuredContent\StructuredContentImageData.cs" />
+    <Compile Include="Cms\StructuredContent\StructuredContentImageFileData.cs" />
+    <Compile Include="Cms\StructuredContent\StructuredContentBlockType.cs" />
     <Compile Include="Communication\EmailAddressFieldValidator.cs" />
     <Compile Include="Blocks\Types\Mobile\Cms\DailyChallengeEntry.cs" />
     <Compile Include="Blocks\Types\Mobile\Groups\AddToGroup.cs" />
@@ -943,6 +956,7 @@
     <Compile Include="Financial\FinancialStatementTemplateReportSettings.cs" />
     <Compile Include="Utility\Settings\GivingAnalytcis\GivingAnalyticsSetting.cs" />
     <Compile Include="Utility\RockDynamic.cs" />
+    <Compile Include="Cms\StructuredContent\StructuredContentHelper.cs" />
     <Compile Include="Utility\TaskActivityMessageHub.cs" />
     <Compile Include="Utility\RockSerializableList.cs" />
     <Compile Include="Model\CampaignConnectionItem.cs" />

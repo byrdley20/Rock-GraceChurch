@@ -383,8 +383,11 @@ namespace Rock.Web.UI.Controls
             // add script on demand only when there will be an htmleditor rendered
             if ( ScriptManager.GetCurrent( this.Page ).IsInAsyncPostBack )
             {
-                ScriptManager.RegisterClientScriptInclude( Page, Page.GetType(), "rock-editorjs", "~/Scripts/Rock/UI/structuredcontent/editor.js" );
-                ScriptManager.RegisterClientScriptInclude( Page, Page.GetType(), "rock-editorjs-tools", "~/Scripts/Rock/UI/structuredcontent/editor-tools.js" );
+                var editorUrl = Page.ResolveUrl( "~/Scripts/Rock/UI/structuredcontent/editor.js" );
+                var toolsUrl = Page.ResolveUrl( "~/Scripts/Rock/UI/structuredcontent/editor-tools.js" );
+
+                ScriptManager.RegisterClientScriptInclude( Page, Page.GetType(), "rock-editorjs", editorUrl );
+                ScriptManager.RegisterClientScriptInclude( Page, Page.GetType(), "rock-editorjs-tools", toolsUrl );
             }
 
             RegisterJavascript();

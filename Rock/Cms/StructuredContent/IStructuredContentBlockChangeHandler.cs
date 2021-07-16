@@ -19,8 +19,7 @@ using Rock.Data;
 namespace Rock.Cms.StructuredContent
 {
     /// <summary>
-    /// A <see cref="IStructuredContentBlockType"/> that supports database
-    /// access methods.
+    /// Adds ability to detect and respond to changes in structured content.
     /// </summary>
     /// <remarks>
     /// This is an internal API that supports the Rock infrastructure and not
@@ -29,13 +28,15 @@ namespace Rock.Cms.StructuredContent
     /// it directly in your code with extreme caution and knowing that doing so
     /// can result in application failures when updating to a new Rock release.
     /// </remarks>
-    public interface IStructuredContentBlockTypeChanges : IStructuredContentBlockType
+    public interface IStructuredContentBlockChangeHandler
     {
         /// <summary>
         /// Detects the content changes from the previous version. Any data
         /// that needs to be stored for later use should be stored in
         /// <see cref="StructuredContentChanges.AddOrReplaceData{TData}(TData)"/>.
+        /// This method is called once for each block.
         /// </summary>
+        /// <remarks></remarks>
         /// <param name="newData">The new data for the block; or <c>null</c> if the block was removed.</param>
         /// <param name="oldData">The old data for the block; or <c>null</c> if the block is new.</param>
         /// <param name="changes">The changes.</param>
@@ -43,7 +44,8 @@ namespace Rock.Cms.StructuredContent
 
         /// <summary>
         /// Apply changes to the database that the component needs to make from
-        /// the changes specified.
+        /// the changes specified. This method is called once for the entire
+        /// save operation.
         /// </summary>
         /// <remarks>
         /// SaveChanges() should not be called, it will be called automatically.

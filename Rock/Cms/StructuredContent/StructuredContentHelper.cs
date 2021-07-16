@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace Rock.Cms.StructuredContent
@@ -31,19 +32,19 @@ namespace Rock.Cms.StructuredContent
         #region Fields
 
         /// <summary>
-        /// The custom block types that have been found.
+        /// The custom block renderers that have been found.
         /// </summary>
-        private static List<IStructuredContentBlockType> _customBlockTypes;
+        private static Dictionary<string, IStructuredContentBlockRenderer> _customRenderers;
 
         /// <summary>
-        /// The standard block types that have been found.
+        /// The standard block renderers that have been found.
         /// </summary>
-        private static List<IStructuredContentBlockType> _standardBlockTypes;
+        private static Dictionary<string, IStructuredContentBlockRenderer> _standardRenderers;
 
         /// <summary>
-        /// The block types that will be used during standard render operations.
+        /// The block renderers that will be used during standard render operations.
         /// </summary>
-        private static Dictionary<string, IStructuredContentBlockType> _blockTypes;
+        private static Dictionary<string, IStructuredContentBlockRenderer> _blockRenderers;
 
         #endregion
 
@@ -75,25 +76,27 @@ namespace Rock.Cms.StructuredContent
         #region Method
 
         /// <summary>
-        /// Gets the custom block types registered in the system.
+        /// Gets the custom block renderers registered in the system.
         /// </summary>
-        /// <returns>An enumeration of <see cref="IStructuredContentBlockType"/> instances.</returns>
-        public virtual IEnumerable<IStructuredContentBlockType> GetCustomBlockTypes()
+        /// <returns>A dictionary of <see cref="IStructuredContentBlockRenderer"/> instances.</returns>
+        public virtual IReadOnlyDictionary<string, IStructuredContentBlockRenderer> GetCustomRenderers()
         {
-            if ( _customBlockTypes == null )
+            if ( _customRenderers == null )
             {
-                var blockTypeTypes = Reflection.FindTypes( typeof( IStructuredContentBlockType ) )
-                    .Where( a => a.Value.Assembly != typeof( BlockType.Paragraph ).Assembly )
+                var blockRendererTypes = Reflection.FindTypes( typeof( IStructuredContentBlockRenderer ) )
+                    .Where( a => a.Value.Assembly != typeof( BlockTypes.ParagraphRenderer ).Assembly )
+                    .Where( t => t.Value.GetCustomAttribute<StructuredContentBlockAttribute>() != null )
                     .Select( a => a.Value );
 
-                var blockTypes = new List<IStructuredContentBlockType>();
+                var blockRenderers = new Dictionary<string, IStructuredContentBlockRenderer>();
 
-                foreach ( var type in blockTypeTypes )
+                foreach ( var type in blockRendererTypes )
                 {
                     try
                     {
-                        var blockType = ( IStructuredContentBlockType ) Activator.CreateInstance( type );
-                        blockTypes.Add( blockType );
+                        var renderer = ( IStructuredContentBlockRenderer ) Activator.CreateInstance( type );
+
+                        blockRenderers.AddOrIgnore( type.GetCustomAttribute<StructuredContentBlockAttribute>().BlockType, renderer );
                     }
                     catch
                     {
@@ -101,32 +104,34 @@ namespace Rock.Cms.StructuredContent
                     }
                 }
 
-                _customBlockTypes = blockTypes;
+                _customRenderers = blockRenderers;
             }
 
-            return _customBlockTypes;
+            return _customRenderers;
         }
 
         /// <summary>
-        /// Gets the standard block types registered in the system.
+        /// Gets the standard block renderers registered in the system.
         /// </summary>
-        /// <returns>An enumeration of <see cref="IStructuredContentBlockType"/> instances.</returns>
-        public virtual IEnumerable<IStructuredContentBlockType> GetStandardBlockTypes()
+        /// <returns>A dictionary of <see cref="IStructuredContentBlockRenderer"/> instances.</returns>
+        public virtual IReadOnlyDictionary<string, IStructuredContentBlockRenderer> GetStandardRenderers()
         {
-            if ( _standardBlockTypes == null )
+            if ( _standardRenderers == null )
             {
-                var blockTypeTypes = Reflection.FindTypes( typeof( IStructuredContentBlockType ) )
-                    .Where( a => a.Value.Assembly == typeof( BlockType.Paragraph ).Assembly )
+                var blockRendererTypes = Reflection.FindTypes( typeof( IStructuredContentBlockRenderer ) )
+                    .Where( a => a.Value.Assembly == typeof( BlockTypes.ParagraphRenderer ).Assembly )
+                    .Where( t => t.Value.GetCustomAttribute<StructuredContentBlockAttribute>() != null )
                     .Select( a => a.Value );
 
-                var blockTypes = new List<IStructuredContentBlockType>();
+                var blockRenderers = new Dictionary<string, IStructuredContentBlockRenderer>();
 
-                foreach ( var type in blockTypeTypes )
+                foreach ( var type in blockRendererTypes )
                 {
                     try
                     {
-                        var blockType = ( IStructuredContentBlockType ) Activator.CreateInstance( type );
-                        blockTypes.Add( blockType );
+                        var renderer = ( IStructuredContentBlockRenderer ) Activator.CreateInstance( type );
+
+                        blockRenderers.AddOrIgnore( type.GetCustomAttribute<StructuredContentBlockAttribute>().BlockType, renderer );
                     }
                     catch
                     {
@@ -134,29 +139,31 @@ namespace Rock.Cms.StructuredContent
                     }
                 }
 
-                _standardBlockTypes = blockTypes;
+                _standardRenderers = blockRenderers;
             }
 
-            return _standardBlockTypes;
+            return _standardRenderers;
         }
 
         /// <summary>
         /// Gets the block types used for standard rendering operations.
         /// </summary>
-        /// <returns>A dictionary of <see cref="IStructuredContentBlockType"/> instances.</returns>
-        public virtual IReadOnlyDictionary<string, IStructuredContentBlockType> GetBlockTypes()
+        /// <returns>A dictionary of <see cref="IStructuredContentBlockRenderer"/> instances.</returns>
+        public virtual IReadOnlyDictionary<string, IStructuredContentBlockRenderer> GetBlockTypes()
         {
-            if ( _blockTypes == null )
+            if ( _blockRenderers == null )
             {
-                var blockTypes = GetStandardBlockTypes().ToDictionary( b => b.BlockType, b => b );
+                var blockTypes = GetStandardRenderers().ToDictionary( a => a.Key, a => a.Value );
 
-                foreach ( var blockType in GetCustomBlockTypes() )
+                foreach ( var renderer in GetCustomRenderers() )
                 {
-                    blockTypes.AddOrIgnore( blockType.BlockType, blockType );
+                    blockTypes.AddOrIgnore( renderer.Key, renderer.Value );
                 }
+
+                _blockRenderers = blockTypes;
             }
 
-            return _blockTypes;
+            return _blockRenderers;
         }
 
         /// <summary>
@@ -167,7 +174,7 @@ namespace Rock.Cms.StructuredContent
         {
             var sb = new StringBuilder();
 
-            using ( var writer = new StringWriter() )
+            using ( var writer = new StringWriter( sb ) )
             {
                 Render( writer );
             }
@@ -188,14 +195,14 @@ namespace Rock.Cms.StructuredContent
         /// Renders the block contents using the specified block types.
         /// </summary>
         /// <param name="writer">The writer to use when rendering blocks.</param>
-        /// <param name="blockTypes">The block types used to render</param>
-        public void Render( TextWriter writer, IReadOnlyDictionary<string, IStructuredContentBlockType> blockTypes )
+        /// <param name="blockRenderers">The block types used to render</param>
+        public void Render( TextWriter writer, IReadOnlyDictionary<string, IStructuredContentBlockRenderer> blockRenderers )
         {
             var contentData = Content?.FromJsonOrNull<StructuredContentData>() ?? new StructuredContentData();
 
             foreach ( var block in contentData.Blocks )
             {
-                if ( blockTypes.TryGetValue( block.Type, out var blockType ) )
+                if ( blockRenderers.TryGetValue( block.Type, out var blockType ) )
                 {
                     blockType.Render( writer, block.Data );
                 }

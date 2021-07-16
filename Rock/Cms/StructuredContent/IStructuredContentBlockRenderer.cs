@@ -29,17 +29,8 @@ namespace Rock.Cms.StructuredContent
     /// it directly in your code with extreme caution and knowing that doing so
     /// can result in application failures when updating to a new Rock release.
     /// </remarks>
-    public interface IStructuredContentBlockType
+    public interface IStructuredContentBlockRenderer
     {
-        /// <summary>
-        /// Gets the type of the block. This is the key used to identify the
-        /// block tool to Editor.Js.
-        /// </summary>
-        /// <value>
-        /// The type of the block.
-        /// </value>
-        string BlockType { get; }
-
         /// <summary>
         /// Renders the block data to the writer.
         /// </summary>

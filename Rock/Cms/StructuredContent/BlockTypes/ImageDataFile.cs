@@ -14,13 +14,15 @@
 // limitations under the License.
 // </copyright>
 //
+using System.Runtime.Serialization;
 
-namespace Rock.Cms.StructuredContent
+namespace Rock.Cms.StructuredContent.BlockTypes
 {
     /// <summary>
     /// The file data to be used when displaying the image.
     /// </summary>
-    public class StructuredContentImageFileData
+    [DataContract]
+    public class ImageDataFile
     {
         /// <summary>
         /// Gets or sets the URL. This may be either a relative URL or absolute
@@ -29,6 +31,7 @@ namespace Rock.Cms.StructuredContent
         /// <value>
         /// The URL.
         /// </value>
+        [DataMember( Name = "url" )]
         public string Url { get; set; }
 
         /// <summary>
@@ -38,6 +41,8 @@ namespace Rock.Cms.StructuredContent
         /// <value>
         /// The binary file identifier.
         /// </value>
+        [DataMember( Name = "fileId" )]
         public int? FileId { get; set; }
     }
+
 }

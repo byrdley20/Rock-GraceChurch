@@ -34,26 +34,6 @@ namespace Rock.Cms.StructuredContent
 
         #endregion
 
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the added binary file identifiers.
-        /// </summary>
-        /// <value>
-        /// The added binary file identifiers.
-        /// </value>
-        public List<int> AddedBinaryFileIds { get; set; }
-
-        /// <summary>
-        /// Gets or sets the removed binary file identifiers.
-        /// </summary>
-        /// <value>
-        /// The removed binary file identifiers.
-        /// </value>
-        public List<int> RemovedBinaryFileIds { get; set; }
-
-        #endregion
-
         #region Methods
 
         /// <summary>

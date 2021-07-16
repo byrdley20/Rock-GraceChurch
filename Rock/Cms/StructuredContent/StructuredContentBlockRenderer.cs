@@ -24,18 +24,15 @@ namespace Rock.Cms.StructuredContent
     /// content block type to the system so it can be rendered out by Rock.
     /// </summary>
     /// <remarks>
-    /// Subclass this class rather than trying to implement <see cref="IStructuredContentBlockType"/> directly.
+    /// Subclass this class rather than trying to implement <see cref="IStructuredContentBlockRenderer"/> directly.
     /// </remarks>
     /// <typeparam name="TData">The type of the block data.</typeparam>
-    /// <seealso cref="IStructuredContentBlockType" />
-    public abstract class StructuredContentBlockType<TData> : IStructuredContentBlockType
+    /// <seealso cref="IStructuredContentBlockRenderer" />
+    public abstract class StructuredContentBlockRenderer<TData> : IStructuredContentBlockRenderer
         where TData : class
     {
         /// <inheritdoc/>
-        public abstract string BlockType { get; }
-
-        /// <inheritdoc/>
-        void IStructuredContentBlockType.Render( TextWriter writer, dynamic data )
+        void IStructuredContentBlockRenderer.Render( TextWriter writer, dynamic data )
         {
             if ( data == null )
             {

@@ -16,17 +16,15 @@
 //
 using System.IO;
 
-namespace Rock.Cms.StructuredContent.BlockType
+namespace Rock.Cms.StructuredContent.BlockTypes
 {
     /// <summary>
     /// The Paragraph block type used in the structured content system.
     /// </summary>
-    /// <seealso cref="StructuredContentBlockType{TData}" />
-    public class Paragraph : StructuredContentBlockType<ParagraphData>
+    /// <seealso cref="StructuredContentBlockRenderer{TData}" />
+    [StructuredContentBlock( "paragraph" )]
+    public class ParagraphRenderer : StructuredContentBlockRenderer<ParagraphData>
     {
-        /// <inheritdoc/>
-        public override string BlockType => StandardBlockTypes.Paragraph;
-
         /// <inheritdoc/>
         protected override void Render( TextWriter writer, ParagraphData data )
         {

@@ -3,7 +3,7 @@ declare module "@editorjs/embed" {
 
     export interface EmbedData {
         service: string;
-        url: string;
+        source: string;
         embed: string;
         width: number;
         height: number;

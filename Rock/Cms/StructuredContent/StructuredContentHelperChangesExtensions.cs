@@ -17,13 +17,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
-using Newtonsoft.Json.Linq;
+using System.Reflection;
 
 using Rock.Data;
 using Rock.Model;
-
-using StandardBlockTypes = Rock.Cms.StructuredContentHelper.StandardBlockTypes;
 
 namespace Rock.Cms.StructuredContent
 {
@@ -33,6 +30,55 @@ namespace Rock.Cms.StructuredContent
     /// </summary>
     public static class StructuredContentHelperChangesExtensions
     {
+        /// <summary>
+        /// The change handlers to be used by this class.
+        /// </summary>
+        private static IReadOnlyDictionary<string, IReadOnlyList<IStructuredContentBlockChangeHandler>> _changeHandlers;
+
+        /// <summary>
+        /// Gets the block change handlers used for change detection.
+        /// </summary>
+        /// <returns>A dictionary of <see cref="IStructuredContentBlockChangeHandler"/> instances.</returns>
+        private static IReadOnlyDictionary<string, IReadOnlyList<IStructuredContentBlockChangeHandler>> GetBlockChangeHandlers()
+        {
+            if ( _changeHandlers == null )
+            {
+                var blockChangesTypes = Reflection.FindTypes( typeof( IStructuredContentBlockChangeHandler ) )
+                    .Where( a => a.Value.GetCustomAttribute<StructuredContentBlockAttribute>() != null )
+                    .OrderBy( a => a.Value.Assembly == typeof( BlockTypes.ParagraphRenderer ).Assembly )
+                    .Select( a => a.Value );
+
+                var changeHandlers = new Dictionary<string, IReadOnlyList<IStructuredContentBlockChangeHandler>>();
+
+                foreach ( var type in blockChangesTypes )
+                {
+                    try
+                    {
+                        var blockType = type.GetCustomAttribute<StructuredContentBlockAttribute>().BlockType;
+                        var list = ( List<IStructuredContentBlockChangeHandler> ) changeHandlers.GetValueOrNull( blockType );
+
+                        if ( list == null )
+                        {
+                            list = new List<IStructuredContentBlockChangeHandler>();
+                            changeHandlers.Add( blockType, list );
+                        }
+
+                        var changeHandler = ( IStructuredContentBlockChangeHandler ) Activator.CreateInstance( type );
+
+                        list.Add( changeHandler );
+                    }
+                    catch
+                    {
+                        /* Intentionally left blank. */
+                    }
+                }
+
+                _changeHandlers = changeHandlers;
+            }
+
+            return _changeHandlers;
+        }
+
         /// <summary>
         /// Detects the changes that need to be applied to the database by
         /// looking at the old content and the current content.
@@ -44,73 +90,50 @@ namespace Rock.Cms.StructuredContent
         /// </returns>
         public static StructuredContentChanges DetectChanges( this StructuredContentHelper helper, string oldContent = "" )
         {
+            return DetectChanges( helper, oldContent, GetBlockChangeHandlers() );
+        }
+
+        /// <summary>
+        /// Detects the changes that need to be applied to the database by
+        /// looking at the old content and the current content.
+        /// </summary>
+        /// <param name="helper">The content helper.</param>
+        /// <param name="oldContent">The old structured content before the save.</param>
+        /// <param name="changeHandlers">The change handlers to use for detection.</param>
+        /// <returns>
+        /// The changes that were detected.
+        /// </returns>
+        /// <remarks>This method is internal so that it can be used for unit testing.</remarks>
+        internal static StructuredContentChanges DetectChanges( this StructuredContentHelper helper, string oldContent, IReadOnlyDictionary<string, IReadOnlyList<IStructuredContentBlockChangeHandler>> changeHandlers )
+        {
             var changes = new StructuredContentChanges();
-            var oldBinaryFileIds = new List<int>();
-            var newBinaryFileIds = new List<int>();
             var newData = helper.Content?.FromJsonOrNull<StructuredContentData>() ?? new StructuredContentData();
             var oldData = oldContent?.FromJsonOrNull<StructuredContentData>() ?? new StructuredContentData();
 
-            // Find all image blocks in the new data that have a binary file
-            // identifier and store it.
-            foreach ( var block in newData.Blocks )
+            // Walk all the blocks that already existed and still exist or
+            // are new in the data.
+            foreach ( var newBlock in newData.Blocks )
             {
-                if ( block.Type == StandardBlockTypes.Image )
+                if ( changeHandlers.TryGetValue( newBlock.Type, out var handlers ) )
                 {
-                    var data = ( ( JToken ) block.Data ).ToObject<StructuredContentImageData>();
+                    var oldBlock = oldData.Blocks.FirstOrDefault( b => b.Id == newBlock.Id );
 
-                    if ( data.File?.FileId != null )
+                    foreach ( var handler in handlers )
                     {
-                        newBinaryFileIds.Add( data.File.FileId.Value );
+                        handler.DetectChanges( newBlock.Data, oldBlock?.Data, changes );
                     }
                 }
             }
 
-            // Find all image blocks in the old data that have a binary file
-            // identifier and store it.
-            foreach ( var block in oldData.Blocks )
+            // Walk all the old blocks that no longer exist.
+            var newBlockIds = newData.Blocks.Select( b => b.Id ).ToList();
+            foreach ( var removedBlock in oldData.Blocks.Where( b => !newBlockIds.Contains( b.Id ) ) )
             {
-                if ( block.Type == StandardBlockTypes.Image )
+                if ( changeHandlers.TryGetValue( removedBlock.Type, out var handlers ) )
                 {
-                    var data = ( ( JToken ) block.Data ).ToObject<StructuredContentImageData>();
-
-                    if ( data.File?.FileId != null )
+                    foreach ( var handler in handlers )
                     {
-                        oldBinaryFileIds.Add( data.File.FileId.Value );
-                    }
-                }
-            }
-
-            // Determine if we have any added or removed binary file identifiers.
-            changes.AddedBinaryFileIds = newBinaryFileIds.Except( oldBinaryFileIds ).ToList();
-            changes.RemovedBinaryFileIds = oldBinaryFileIds.Except( newBinaryFileIds ).ToList();
-
-            // Let all custom block types partake in the change detection.
-            foreach ( var blockType in helper.GetCustomBlockTypes() )
-            {
-                if ( !( blockType is IStructuredContentBlockTypeChanges blockTypeChanges ) )
-                {
-                    continue;
-                }
-
-                // Walk all the blocks that already existed and still exist or
-                // are new in the data.
-                foreach ( var newBlock in newData.Blocks )
-                {
-                    if ( newBlock.Type == blockTypeChanges.BlockType )
-                    {
-                        var oldBlock = oldData.Blocks.FirstOrDefault( b => b.Id == newBlock.Id );
-
-                        blockTypeChanges.DetectChanges( newBlock.Data, oldBlock?.Data, changes );
-                    }
-                }
-
-                // Walk all the old blocks that no longer exist.
-                var newBlockIds = newData.Blocks.Select( b => b.Id ).ToList();
-                foreach ( var removedBlock in oldData.Blocks.Where( b => !newBlockIds.Contains( b.Id ) ) )
-                {
-                    if ( removedBlock.Type == blockTypeChanges.BlockType )
-                    {
-                        blockTypeChanges.DetectChanges( null, removedBlock.Data, changes );
+                        handler.DetectChanges( null, removedBlock.Data, changes );
                     }
                 }
             }
@@ -140,42 +163,29 @@ namespace Rock.Cms.StructuredContent
                 throw new ArgumentNullException( nameof( rockContext ) );
             }
 
+            SaveDatabaseChanges( helper, changes, rockContext, GetBlockChangeHandlers() );
+        }
+
+        /// <summary>
+        /// Updates the binary files referenced by the content. This will mark newly
+        /// uploaded files as permanent and mark removed files as temporary so they
+        /// get cleaned up later. This method will call SaveChanges() so you may
+        /// want to call this inside a transaction to ensure everything either works
+        /// or is rolled back.
+        /// </summary>
+        /// <param name="helper">The content helper.</param>
+        /// <param name="changes">The changes that were returned by a previous call to DetectChanges()." />.</param>
+        /// <param name="rockContext">The rock database context to use when saving changes.</param>
+        /// <param name="changeHandlers">The change handlers to use for applying changes.</param>
+        /// <remarks>This method is internal so that it can be used for unit testing.</remarks>
+        public static void SaveDatabaseChanges( this StructuredContentHelper helper, StructuredContentChanges changes, RockContext rockContext, IReadOnlyDictionary<string, IReadOnlyList<IStructuredContentBlockChangeHandler>> changeHandlers )
+        {
             bool needSave = false;
-            var binaryFileService = new BinaryFileService( rockContext );
 
-            // If there are any newly added binary files then mark them as
-            // permanent so they will persist in the database.
-            if ( changes.AddedBinaryFileIds != null && changes.AddedBinaryFileIds.Count > 0 )
+            // Notify each change handler about the change.
+            foreach ( var handler in changeHandlers.SelectMany( a => a.Value ) )
             {
-                var filesToAdd = binaryFileService.Queryable()
-                    .Where( b => changes.AddedBinaryFileIds.Contains( b.Id ) )
-                    .ToList();
-
-                filesToAdd.ForEach( b => b.IsTemporary = false );
-                needSave = true;
-            }
-
-            // If there are any removed binary files then mark them as temporary
-            // so they will be later removed by the cleanup job.
-            if ( changes.RemovedBinaryFileIds != null && changes.RemovedBinaryFileIds.Count > 0 )
-            {
-                var filesToRemove = binaryFileService.Queryable()
-                    .Where( b => changes.RemovedBinaryFileIds.Contains( b.Id ) )
-                    .ToList();
-
-                filesToRemove.ForEach( b => b.IsTemporary = true );
-                needSave = true;
-            }
-
-            // Let all custom block types partake in the change detection.
-            foreach ( var blockType in helper.GetCustomBlockTypes() )
-            {
-                if ( !( blockType is IStructuredContentBlockTypeChanges blockTypeChanges ) )
-                {
-                    continue;
-                }
-
-                if ( blockTypeChanges.ApplyDatabaseChanges( helper, changes, rockContext ) )
+                if ( handler.ApplyDatabaseChanges( helper, changes, rockContext ) )
                 {
                     needSave = true;
                 }

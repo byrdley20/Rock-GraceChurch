@@ -14,8 +14,24 @@
 // limitations under the License.
 // </copyright>
 //
-using System;
+using System.Runtime.Serialization;
 
-namespace Rock.Cms.StructuredContent
+namespace Rock.Cms.StructuredContent.BlockTypes
 {
+    /// <summary>
+    /// The data used by the <see cref="Note"/> block type.
+    /// </summary>
+    [DataContract]
+    public class NoteData
+    {
+        /// <summary>
+        /// Gets or sets the note placeholder text.
+        /// </summary>
+        /// <value>
+        /// The note placeholder text.
+        /// </value>
+        [DataMember( Name = "note" )]
+        public string Note { get; set; }
+    }
+
 }

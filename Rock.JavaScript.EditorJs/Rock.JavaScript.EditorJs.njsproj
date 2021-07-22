@@ -70,6 +70,7 @@
     <Content Include="src\vendor\table\webpack.config.js" />
     <Content Include="src\vendor\table\yarn.lock" />
     <Content Include="tsconfig.json" />
+    <Content Include="webpack-eol-plugin.js" />
     <Content Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>

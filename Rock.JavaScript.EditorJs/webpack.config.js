@@ -1,5 +1,6 @@
 const path = require("path");
 const TerserPlugin = require("terser-webpack-plugin");
+const EolPlugin = require("./webpack-eol-plugin");
 
 module.exports = {
     mode: "production",
@@ -64,6 +65,9 @@ module.exports = {
             }),
         ],
     },
+    plugins: [
+        new EolPlugin(),
+    ],
     /* Warn if any file goes over 500KB. */
     performance: {
         maxEntrypointSize: 512000,

@@ -1,0 +1,65 @@
+import { Guid } from '../../Util/Guid';
+import { InvokeBlockActionFunc } from '../../Controls/RockBlock';
+import { ConfigurationValues } from '../../Index';
+import Person from '../../ViewModels/CodeGenerated/PersonViewModel';
+import FinancialAccount from '../../ViewModels/CodeGenerated/FinancialAccountViewModel';
+import Campus from '../../ViewModels/CodeGenerated/CampusViewModel';
+import { RockDateType } from '../../Util/RockDate';
+import { GatewayControlModel } from '../../Controls/GatewayControl';
+export declare type ProcessTransactionArgs = {
+    IsGivingAsPerson: boolean;
+    Email: string;
+    PhoneNumber: string;
+    PhoneCountryCode: string;
+    AccountAmounts: Record<Guid, number>;
+    Street1: string;
+    Street2: string;
+    City: string;
+    State: string;
+    PostalCode: string;
+    Country: string;
+    FirstName: string;
+    LastName: string;
+    BusinessName: string;
+    FinancialPersonSavedAccountGuid: Guid | null;
+    Comment: string;
+    TransactionEntityId: number | null;
+    ReferenceNumber: string;
+    CampusGuid: Guid | null;
+    BusinessGuid: Guid | null;
+    FrequencyValueGuid: Guid;
+    GiftDate: RockDateType;
+    IsGiveAnonymously: boolean;
+};
+declare const _default: import("vue").DefineComponent<{}, {
+    invokeBlockAction: InvokeBlockActionFunc;
+    configurationValues: ConfigurationValues;
+}, {
+    loading: boolean;
+    gatewayErrorMessage: string;
+    gatewayValidationFields: Record<string, string>;
+    transactionGuid: string;
+    criticalError: string;
+    doGatewayControlSubmit: boolean;
+    pageIndex: number;
+    page1Error: string;
+    frequencyDefinedTypeGuid: string;
+    args: ProcessTransactionArgs;
+}, {
+    totalAmount(): number;
+    totalAmountFormatted(): string;
+    gatewayControlModel(): GatewayControlModel;
+    currentPerson(): Person | null;
+    accounts(): FinancialAccount[];
+    campus(): Campus | null;
+    accountAndCampusString(): string;
+}, {
+    goBack(): void;
+    onPageOneSubmit(): void;
+    onPageTwoSubmit(): void;
+    onGatewayControlSuccess(token: string): void;
+    onGatewayControlError(message: string): void;
+    onGatewayControlValidation(invalidFields: Record<string, string>): void;
+    onPageThreeSubmit(): Promise<void>;
+}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, import("vue").EmitsOptions, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{} & {} & {}>, {}>;
+export default _default;

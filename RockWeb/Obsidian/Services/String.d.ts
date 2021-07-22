@@ -1,0 +1,21 @@
+export declare function isEmpty(val: unknown): boolean;
+export declare function isWhitespace(val: unknown): boolean;
+export declare function isNullOrWhitespace(val: unknown): boolean;
+export declare function splitCamelCase(val: unknown): unknown;
+export declare function asCommaAnd(strs: string[]): string;
+export declare function toTitleCase(str: string | null): string;
+export declare function pluralConditional(num: number, singular: string, plural: string): string;
+export declare function formatPhoneNumber(str: string): string;
+export declare function stripPhoneNumber(str: string): string;
+declare const _default: {
+    asCommaAnd: typeof asCommaAnd;
+    splitCamelCase: typeof splitCamelCase;
+    isNullOrWhitespace: typeof isNullOrWhitespace;
+    isWhitespace: typeof isWhitespace;
+    isEmpty: typeof isEmpty;
+    toTitleCase: typeof toTitleCase;
+    pluralConditional: typeof pluralConditional;
+    formatPhoneNumber: typeof formatPhoneNumber;
+    stripPhoneNumber: typeof stripPhoneNumber;
+};
+export default _default;

@@ -1,0 +1,430 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <Name>Rock.JavaScript.Obsidian</Name>
+    <RootNamespace>Rock.JavaScript.ObsidianJs</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>a4fb4b9b-3564-4c25-938c-4350a9515b24</ProjectGuid>
+    <ProjectHome>
+    </ProjectHome>
+    <StartupFile>Core\core.ts</StartupFile>
+    <StartWebBrowser>False</StartWebBrowser>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <EnableTypeScript>true</EnableTypeScript>
+    <StartWebBrowser>false</StartWebBrowser>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Framework\tsconfig.json" />
+    <Content Include="webpack.config.js" />
+    <None Include="Core\core.ts" />
+    <Content Include="package.json" />
+    <Content Include="README.md" />
+    <Content Include="Core\tsconfig.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Framework\" />
+    <Folder Include="Core\" />
+    <Folder Include="Framework\Blocks\" />
+    <Folder Include="Framework\Blocks\Crm\" />
+    <Folder Include="Framework\Blocks\Event\" />
+    <Folder Include="Framework\Blocks\Event\RegistrationEntry\" />
+    <Folder Include="Framework\Blocks\Example\" />
+    <Folder Include="Framework\Blocks\Finance\" />
+    <Folder Include="Framework\Blocks\Groups\" />
+    <Folder Include="Framework\Blocks\Security\" />
+    <Folder Include="Framework\Blocks\Utility\" />
+    <Folder Include="Framework\Controls\" />
+    <Folder Include="Framework\Elements\" />
+    <Folder Include="Framework\Fields\" />
+    <Folder Include="Framework\Rules\" />
+    <Folder Include="Framework\Services\" />
+    <Folder Include="Framework\Store\" />
+    <Folder Include="Framework\SystemGuid\" />
+    <Folder Include="Framework\Templates\" />
+    <Folder Include="Framework\Tests\" />
+    <Folder Include="Framework\Tests\Elements\" />
+    <Folder Include="Framework\Util\" />
+    <Folder Include="Framework\ViewModels\" />
+    <Folder Include="Framework\ViewModels\CodeGenerated\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Framework\Blocks\Crm\AttributeValues.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\CostSummary.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\DiscountCodeForm.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\FeeField.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\Intro.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\Registrant.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\RegistrantAttributeField.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\RegistrantPersonField.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\Registrants.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\Registrar.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\RegistrationEnd.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\RegistrationEntryBlockArgs.d.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\RegistrationEntryBlockViewModel.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\RegistrationStart.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\SessionRenewal.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\Success.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\Summary.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Example\ControlGallery.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Example\FieldTypeGallery.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Example\LargeDatasetGrid.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Example\PersonDetail.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Example\PersonSecondary.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Finance\TransactionEntry.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Groups\GroupMemberList.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Security\Login.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Utility\StarkDetail.ts" />
+    <TypeScriptCompile Include="Framework\Controls\AddressControl.ts" />
+    <TypeScriptCompile Include="Framework\Controls\AttributeValuesContainer.ts" />
+    <TypeScriptCompile Include="Framework\Controls\BlockActionSourcedGrid.ts" />
+    <TypeScriptCompile Include="Framework\Controls\CampusPicker.ts" />
+    <TypeScriptCompile Include="Framework\Controls\ComponentFromUrl.ts" />
+    <TypeScriptCompile Include="Framework\Controls\DefinedTypePicker.ts" />
+    <TypeScriptCompile Include="Framework\Controls\DefinedValuePicker.ts" />
+    <TypeScriptCompile Include="Framework\Controls\Dialog.ts" />
+    <TypeScriptCompile Include="Framework\Controls\GatewayControl.ts" />
+    <TypeScriptCompile Include="Framework\Controls\Grid.ts" />
+    <TypeScriptCompile Include="Framework\Controls\GridColumn.ts" />
+    <TypeScriptCompile Include="Framework\Controls\GridProfileLinkColumn.ts" />
+    <TypeScriptCompile Include="Framework\Controls\GridRow.ts" />
+    <TypeScriptCompile Include="Framework\Controls\GridSelectColumn.ts" />
+    <TypeScriptCompile Include="Framework\Controls\Loading.ts" />
+    <TypeScriptCompile Include="Framework\Controls\MyWellGatewayControl.ts" />
+    <TypeScriptCompile Include="Framework\Controls\PageDebugTimings.ts" />
+    <TypeScriptCompile Include="Framework\Controls\PrimaryBlock.ts" />
+    <TypeScriptCompile Include="Framework\Controls\RockBlock.ts" />
+    <TypeScriptCompile Include="Framework\Controls\RockField.ts" />
+    <TypeScriptCompile Include="Framework\Controls\RockForm.ts" />
+    <TypeScriptCompile Include="Framework\Controls\RockValidation.ts" />
+    <TypeScriptCompile Include="Framework\Controls\SaveFinancialAccountForm.ts" />
+    <TypeScriptCompile Include="Framework\Controls\SecondaryBlock.ts" />
+    <TypeScriptCompile Include="Framework\Controls\TestGatewayControl.ts" />
+    <TypeScriptCompile Include="Framework\Elements\Alert.ts" />
+    <TypeScriptCompile Include="Framework\Elements\BirthdayPicker.ts" />
+    <TypeScriptCompile Include="Framework\Elements\CheckBox.ts" />
+    <TypeScriptCompile Include="Framework\Elements\ColorPicker.ts" />
+    <TypeScriptCompile Include="Framework\Elements\CountdownTimer.ts" />
+    <TypeScriptCompile Include="Framework\Elements\CurrencyBox.ts" />
+    <TypeScriptCompile Include="Framework\Elements\DatePartsPicker.ts" />
+    <TypeScriptCompile Include="Framework\Elements\DatePicker.ts" />
+    <TypeScriptCompile Include="Framework\Elements\DropDownList.ts" />
+    <TypeScriptCompile Include="Framework\Elements\EmailBox.ts" />
+    <TypeScriptCompile Include="Framework\Elements\GenderDropDownList.ts" />
+    <TypeScriptCompile Include="Framework\Elements\HelpBlock.ts" />
+    <TypeScriptCompile Include="Framework\Elements\ItemsWithPreAndPostHtml.ts" />
+    <TypeScriptCompile Include="Framework\Elements\JavaScriptAnchor.ts" />
+    <TypeScriptCompile Include="Framework\Elements\LoadingIndicator.ts" />
+    <TypeScriptCompile Include="Framework\Elements\NumberUpDown.ts" />
+    <TypeScriptCompile Include="Framework\Elements\NumberUpDownGroup.ts" />
+    <TypeScriptCompile Include="Framework\Elements\PanelWidget.ts" />
+    <TypeScriptCompile Include="Framework\Elements\PhoneNumberBox.ts" />
+    <TypeScriptCompile Include="Framework\Elements\ProgressBar.ts" />
+    <TypeScriptCompile Include="Framework\Elements\ProgressTracker.ts" />
+    <TypeScriptCompile Include="Framework\Elements\RadioButtonList.ts" />
+    <TypeScriptCompile Include="Framework\Elements\RockButton.ts" />
+    <TypeScriptCompile Include="Framework\Elements\RockFormField.ts" />
+    <TypeScriptCompile Include="Framework\Elements\RockLabel.ts" />
+    <TypeScriptCompile Include="Framework\Elements\StaticFormControl.ts" />
+    <TypeScriptCompile Include="Framework\Elements\TextBox.ts" />
+    <TypeScriptCompile Include="Framework\Elements\Toggle.ts" />
+    <TypeScriptCompile Include="Framework\Fields\BooleanField.ts" />
+    <TypeScriptCompile Include="Framework\Fields\ColorField.ts" />
+    <TypeScriptCompile Include="Framework\Fields\DateField.ts" />
+    <TypeScriptCompile Include="Framework\Fields\DefinedValueField.ts" />
+    <TypeScriptCompile Include="Framework\Fields\GenderField.ts" />
+    <TypeScriptCompile Include="Framework\Fields\Index.ts" />
+    <TypeScriptCompile Include="Framework\Fields\MemoField.ts" />
+    <TypeScriptCompile Include="Framework\Fields\PhoneNumber.ts" />
+    <TypeScriptCompile Include="Framework\Fields\SingleSelect.ts" />
+    <TypeScriptCompile Include="Framework\Fields\TextField.ts" />
+    <TypeScriptCompile Include="Framework\index.ts" />
+    <TypeScriptCompile Include="Framework\Rules\Index.ts" />
+    <TypeScriptCompile Include="Framework\Services\Boolean.ts" />
+    <TypeScriptCompile Include="Framework\Services\Date.ts" />
+    <TypeScriptCompile Include="Framework\Services\DateKey.ts" />
+    <TypeScriptCompile Include="Framework\Services\Email.ts" />
+    <TypeScriptCompile Include="Framework\Services\Number.ts" />
+    <TypeScriptCompile Include="Framework\Services\String.ts" />
+    <TypeScriptCompile Include="Framework\Store\CommonEntities.ts" />
+    <TypeScriptCompile Include="Framework\Store\generators.ts" />
+    <TypeScriptCompile Include="Framework\Store\index.ts" />
+    <TypeScriptCompile Include="Framework\SystemGuid\DefinedType.ts" />
+    <TypeScriptCompile Include="Framework\Templates\PaneledBlockTemplate.ts" />
+    <TypeScriptCompile Include="Framework\Tests\Elements\RockFormField.spec.ts" />
+    <TypeScriptCompile Include="Framework\Tests\Elements\TextBox.spec.ts" />
+    <TypeScriptCompile Include="Framework\Util\bus.ts" />
+    <TypeScriptCompile Include="Framework\Util\cache.ts" />
+    <TypeScriptCompile Include="Framework\Util\guid.ts" />
+    <TypeScriptCompile Include="Framework\Util\http.ts" />
+    <TypeScriptCompile Include="Framework\Util\Page.ts" />
+    <TypeScriptCompile Include="Framework\Util\RockDate.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\AchievementAttemptViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\AchievementTypePrerequisiteViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\AchievementTypeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\AssessmentTypeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\AssessmentViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\AssetStorageProviderViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\AttendanceOccurrenceViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\AttendanceViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\AttributeMatrixItemViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\AttributeMatrixTemplateViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\AttributeMatrixViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\AttributeValueHistoricalViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\AttributeValueViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\AttributeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\AuthClaimViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\AuthClientViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\AuthScopeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\AuthViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\BackgroundCheckViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\BadgeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\BenevolenceRequestDocumentViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\BenevolenceRequestViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\BenevolenceResultViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\BinaryFileDataViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\BinaryFileTypeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\BinaryFileViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\BlockTypeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\BlockViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\CampusScheduleViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\CampusViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\CategoryViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\CommunicationAttachmentViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\CommunicationRecipientViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\CommunicationResponseAttachmentViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\CommunicationResponseViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\CommunicationTemplateAttachmentViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\CommunicationTemplateViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\CommunicationViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\ConnectionActivityTypeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\ConnectionOpportunityCampusViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\ConnectionOpportunityConnectorGroupViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\ConnectionOpportunityGroupConfigViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\ConnectionOpportunityGroupViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\ConnectionOpportunityViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\ConnectionRequestActivityViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\ConnectionRequestViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\ConnectionRequestWorkflowViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\ConnectionStatusViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\ConnectionTypeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\ConnectionWorkflowViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\ContentChannelItemAssociationViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\ContentChannelItemSlugViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\ContentChannelItemViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\ContentChannelTypeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\ContentChannelViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\DataViewFilterViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\DataViewViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\DefinedTypeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\DefinedValueViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\DeviceViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\DocumentTypeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\DocumentViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\EntityCampusFilterViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\EntitySetItemViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\EntitySetViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\EventCalendarContentChannelViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\EventCalendarItemViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\EventCalendarViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\EventItemAudienceViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\EventItemOccurrenceChannelItemViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\EventItemOccurrenceGroupMapViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\EventItemOccurrenceViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\EventItemViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\ExceptionLogViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\FieldTypeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\FinancialAccountViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\FinancialBatchViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\FinancialGatewayViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\FinancialPaymentDetailViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\FinancialPersonBankAccountViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\FinancialPersonSavedAccountViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\FinancialPledgeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\FinancialScheduledTransactionDetailViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\FinancialScheduledTransactionViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\FinancialStatementTemplateViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\FinancialTransactionAlertTypeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\FinancialTransactionAlertViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\FinancialTransactionDetailViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\FinancialTransactionImageViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\FinancialTransactionRefundViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\FinancialTransactionViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\FollowingEventNotificationViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\FollowingEventSubscriptionViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\FollowingEventTypeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\FollowingSuggestedViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\FollowingSuggestionTypeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\FollowingViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\GroupDemographicTypeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\GroupDemographicValueViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\GroupHistoricalViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\GroupLocationHistoricalViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\GroupLocationViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\GroupMemberAssignmentViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\GroupMemberHistoricalViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\GroupMemberRequirementViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\GroupMemberScheduleTemplateViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\GroupMemberViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\GroupRequirementTypeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\GroupRequirementViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\GroupScheduleExclusionViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\GroupSyncViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\GroupTypeRoleViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\GroupTypeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\GroupViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\HistoryViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\HtmlContentViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\IdentityVerificationCodeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\IdentityVerificationViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\InteractionChannelViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\InteractionComponentViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\InteractionDeviceTypeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\InteractionSessionViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\InteractionViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\LavaShortcodeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\LayoutViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\LocationViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\MediaAccountViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\MediaElementViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\MediaFolderViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\MergeTemplateViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\MetricPartitionViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\MetricValuePartitionViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\MetricValueViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\MetricViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\NcoaHistoryViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\NoteAttachmentViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\NoteTypeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\NoteViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\NoteWatchViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\NotificationRecipientViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\NotificationViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\PageContextViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\PageRouteViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\PageShortLinkViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\PageViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\PersonalDeviceViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\PersonDuplicateViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\PersonPreviousNameViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\PersonScheduleExclusionViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\PersonSearchKeyViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\PersonSignalViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\PersonViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\PhoneNumberViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\PluginMigrationViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\PrayerRequestViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\RegistrationInstanceViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\RegistrationRegistrantFeeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\RegistrationRegistrantViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\RegistrationSessionViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\RegistrationTemplateDiscountViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\RegistrationTemplateFeeItemViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\RegistrationTemplateFeeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\RegistrationTemplateFormFieldViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\RegistrationTemplateFormViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\RegistrationTemplatePlacementViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\RegistrationTemplateViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\RegistrationViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\RelatedEntityViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\ReportFieldViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\ReportViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\RestActionViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\RestControllerViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\ScheduleCategoryExclusionViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\ScheduleViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\ServiceJobHistoryViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\ServiceJobViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\ServiceLogViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\SignalTypeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\SignatureDocumentTemplateViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\SignatureDocumentViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\SiteDomainViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\SiteViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\SmsActionViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\SmsPipelineViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\StepProgramCompletionViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\StepProgramViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\StepStatusViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\StepTypePrerequisiteViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\StepTypeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\StepViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\StepWorkflowTriggerViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\StepWorkflowViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\StreakTypeExclusionViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\StreakTypeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\StreakViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\SystemCommunicationViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\SystemEmailViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\TaggedItemViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\TagViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\UserLoginViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\WebFarmNodeLogViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\WebFarmNodeMetricViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\WebFarmNodeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\WorkflowActionFormAttributeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\WorkflowActionFormViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\WorkflowActionTypeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\WorkflowActionViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\WorkflowActivityTypeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\WorkflowActivityViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\WorkflowTypeViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\WorkflowViewModel.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\Entity.d.ts" />
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

@@ -1338,25 +1338,15 @@ Rock.settings.initialize({{
 
                     if ( _pageNeedsObsidian )
                     {
-                        _scriptManager.Scripts.Add( new ScriptReference( "~/Scripts/Bundles/Obsidian" ) );
+                        _scriptManager.Scripts.Add( new ScriptReference( "~/Scripts/obsidian-core.js" ) );
 
                         Page.Trace.Warn( "Initializing Obsidian" );
-                        if ( !ClientScript.IsStartupScriptRegistered( "rock-obsidian-systemjs-map" ) )
-                        {
-                            var script = $@"
-<script type=""systemjs-importmap"">
-{{
-    ""imports"": {{
-        ""vue"": ""/ObsidianJs/SystemJsVendor/Vue/vue.js"",
-        ""vuex"": ""/ObsidianJs/SystemJsVendor/Vuex/index.js"",
-        ""vee-validate"": ""/ObsidianJs/SystemJsVendor/VeeValidate/vee-validate.js"",
-        ""axios"": ""/ObsidianJs/SystemJsVendor/Axios/index.js"",
-        ""mitt"": ""/ObsidianJs/SystemJsVendor/Mitt/index.js""
-    }}
-}}
-</script>";
+                        var currentProcess = System.Diagnostics.Process.GetCurrentProcess();
+                        string fingerprint = string.Empty;
 
-                            ClientScript.RegisterStartupScript( this.Page.GetType(), "rock-obsidian-systemjs-map", script, false );
+                        if ( currentProcess != null )
+                        {
+                            fingerprint = currentProcess.StartTime.ToJavascriptMilliseconds().ToString();
                         }
 
                         if ( !ClientScript.IsStartupScriptRegistered( "rock-obsidian-init" ) )
@@ -1374,7 +1364,10 @@ Obsidian.onReady(() => {{
             loginUrlWithReturnUrl: '{GetLoginUrlWithReturnUrl()}'
         }});
     }});
-}});";
+}});
+
+Obsidian.init({{ debug: true, fingerprint: {fingerprint} }});
+";
 
                             ClientScript.RegisterStartupScript( this.Page.GetType(), "rock-obsidian-init", script, true );
                         }

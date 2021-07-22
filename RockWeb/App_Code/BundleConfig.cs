@@ -76,11 +76,6 @@ public class BundleConfig
         bundles.Add( new ScriptBundle( "~/Scripts/Bundles/RockHtmlEditorPlugins" ).Include(
             "~/Scripts/summernote/plugins/*.js" ) );
 
-        // Creating a separate "StructureContentEditorPlugins" bundle specifically for JS functionality that needs
-        // to be included for HtmlEditor
-        bundles.Add( new ScriptBundle( "~/Scripts/Bundles/StructureContentEditorPlugins" ).Include(
-            "~/Scripts/editor.js/*.js" ) );
-
         // Add Obsidian scripts
         bundles.Add( new ScriptBundle( "~/Scripts/Bundles/Obsidian" ).Include(
             "~/ObsidianJs/Obsidian.js",

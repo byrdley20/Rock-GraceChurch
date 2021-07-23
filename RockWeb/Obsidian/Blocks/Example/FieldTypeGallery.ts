@@ -243,6 +243,8 @@ export default defineComponent( {
             showcountdown: 'true',
             allowhtml: 'true'
         } ),
+        MonthDayGallery: GetFieldTypeGalleryComponent('MonthDay', '7/4', '8BED8DD8-8167-4052-B807-A1E72C133611', {
+        }),
         PhoneNumberGallery: GetFieldTypeGalleryComponent( 'PhoneNumber', '(321) 456-7890', '6B1908EC-12A2-463A-A7BD-970CE0FAF097', {
         } ),
         SingleSelectGallery: GetFieldTypeGalleryComponent('SingleSelect', 'pizza', '7525C4CB-EE6B-41D4-9B64-A08048D5A5C0', {
@@ -274,6 +276,7 @@ export default defineComponent( {
         <GenderGallery />
         <IntegerGallery />
         <MemoGallery />
+        <MonthDayGallery />
         <PhoneNumberGallery />
         <SingleSelectGallery />
         <TextGallery />

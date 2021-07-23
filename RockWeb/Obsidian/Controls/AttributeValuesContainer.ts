@@ -65,13 +65,13 @@ export default defineComponent({
     },
     template: `
 <div v-if="!isEditMode" v-for="a in valuesToShow" class="form-group static-control">
-    <template v-if="a.Value">
+    <template v-if="a.value">
         <label class="control-label">
             {{ getAttributeLabel(a) }}
         </label>
         <div class="control-wrapper">
             <div class="form-control-static">
-                <RockField :fieldTypeGuid="a.attribute.fieldTypeGuid" v-model="a.Value" :configurationValues="a.attribute.qualifierValues" />
+                <RockField :fieldTypeGuid="a.attribute.fieldTypeGuid" v-model="a.value" :configurationValues="a.attribute.qualifierValues" />
             </div>
         </div>
     </template>

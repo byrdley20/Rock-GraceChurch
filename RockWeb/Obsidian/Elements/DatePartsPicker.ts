@@ -17,23 +17,24 @@
 import { defineComponent, PropType } from 'vue';
 import { ruleArrayToString, ruleStringToArray } from '../Rules/Index';
 import DateKey from '../Services/DateKey';
+import { toNumber } from '../Services/Number';
 import RockFormField from './RockFormField';
 
 export interface DatePartsPickerModel {
-    Year: number,
-    Month: number;
-    Day: number;
+    year: number,
+    month: number;
+    day: number;
 }
 
 export function getDefaultDatePartsPickerModel() {
     return {
-        Year: 0,
-        Month: 0,
-        Day: 0
+        year: 0,
+        month: 0,
+        day: 0
     } as DatePartsPickerModel;
 }
 
-export default defineComponent( {
+export default defineComponent({
     name: 'DatePartsPicker',
     components: {
         RockFormField
@@ -51,29 +52,82 @@ export default defineComponent( {
             type: Boolean as PropType<boolean>,
             default: true
         },
+        showYear: {
+            type: Boolean as PropType<boolean>,
+            default: true
+        },
         allowFutureDates: {
             type: Boolean as PropType<boolean>,
             default: true
         },
         futureYearCount: {
             type: Number as PropType<number>,
-            default: -1
+            default: 50
         },
         startYear: {
             type: Number as PropType<number>,
             default: 1900
         }
     },
+
+    data() {
+        return {
+            internalDay: "0",
+            internalMonth: "0",
+            internalYear: "0",
+            days: [] as Array<string>
+        };
+    },
+
+    methods: {
+        getValue(): DatePartsPickerModel {
+            return {
+                day: toNumber(this.internalDay),
+                month: toNumber(this.internalMonth),
+                year: toNumber(this.internalYear)
+            };
+        },
+
+        updateDays(): void {
+            let dayCount = 31;
+
+            const year = toNumber(this.internalYear);
+            const month = toNumber(this.internalMonth);
+            if (this.showYear && year > 0 && month > 0) {
+                dayCount = new Date(year, month, 0).getDate();
+            }
+            else if ([1, 3, 5, 7, 8, 10, 12].indexOf(month) !== -1) {
+                dayCount = 31;
+            }
+            else if ([4, 6, 9, 11].indexOf(month) !== -1) {
+                dayCount = 30;
+            }
+            else if (month === 2) {
+                dayCount = 29;
+            }
+
+            let days: Array<string> = [];
+            for (let day = 1; day <= dayCount; day++) {
+                days.push(day.toString());
+            }
+
+            this.days = days;
+        }
+    },
+
     computed: {
+        computedRequireYear(): boolean {
+            return this.showYear && this.requireYear;
+        },
         internalDateKey (): string
         {
-            if ( !this.modelValue.Year && !this.requireYear )
+            if ( !this.modelValue.year && !this.computedRequireYear )
             {
-                const dateKey = DateKey.toNoYearDateKey( this.modelValue.Month, this.modelValue.Day );
+                const dateKey = DateKey.toNoYearDateKey( this.modelValue.month, this.modelValue.day );
                 return dateKey;
             }
 
-            const dateKey = DateKey.toDateKey( this.modelValue.Year, this.modelValue.Month, this.modelValue.Day );
+            const dateKey = DateKey.toDateKey( this.modelValue.year, this.modelValue.month, this.modelValue.day );
             return dateKey;
         },
         computedRules (): string
@@ -92,7 +146,7 @@ export default defineComponent( {
             const years: number[] = [];
             let year = new Date().getFullYear();
 
-            if ( this.futureYearCount > 0 )
+            if (this.futureYearCount > 0 && this.allowFutureDates)
             {
                 year += this.futureYearCount;
             }
@@ -104,8 +158,43 @@ export default defineComponent( {
             }
 
             return years;
-        }
+        },
     },
+
+    watch: {
+        modelValue: {
+            immediate: true,
+            handler() {
+                this.internalDay = this.modelValue.day.toString();
+                this.internalMonth = this.modelValue.month.toString();
+                this.internalYear = this.modelValue.year.toString();
+                this.updateDays();
+            }
+        },
+
+        showYear: {
+            immediate: true,
+            handler() {
+                this.updateDays();
+            }
+        },
+
+        internalDay() {
+            this.updateDays();
+            this.$emit('update:modelValue', this.getValue());
+        },
+
+        internalMonth() {
+            this.updateDays();
+            this.$emit('update:modelValue', this.getValue());
+        },
+
+        internalYear() {
+            this.updateDays();
+            this.$emit('update:modelValue', this.getValue());
+        },
+    },
+
     template: `
 <RockFormField
     :modelValue="internalDateKey"
@@ -115,7 +204,7 @@ export default defineComponent( {
     <template #default="{uniqueId, field, errors, disabled}">
         <div class="control-wrapper">
             <div class="form-control-group">
-                <select :id="uniqueId + '-month'" class="form-control input-width-sm" :disabled="disabled" v-model="modelValue.Month">
+                <select :id="uniqueId + '-month'" class="form-control input-width-sm" :disabled="disabled" v-model="internalMonth">
                     <option value="0"></option>
                     <option value="1">Jan</option>
                     <option value="2">Feb</option>
@@ -131,42 +220,12 @@ export default defineComponent( {
                     <option value="12">Dec</option>
                 </select>
                 <span class="separator">/</span>
-                <select :id="uniqueId + '-day'" class="form-control input-width-sm" v-model="modelValue.Day">
+                <select :id="uniqueId + '-day'" class="form-control input-width-sm" v-model="internalDay">
                     <option value="0"></option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                    <option value="13">13</option>
-                    <option value="14">14</option>
-                    <option value="15">15</option>
-                    <option value="16">16</option>
-                    <option value="17">17</option>
-                    <option value="18">18</option>
-                    <option value="19">19</option>
-                    <option value="20">20</option>
-                    <option value="21">21</option>
-                    <option value="22">22</option>
-                    <option value="23">23</option>
-                    <option value="24">24</option>
-                    <option value="25">25</option>
-                    <option value="26">26</option>
-                    <option value="27">27</option>
-                    <option value="28">28</option>
-                    <option value="29">29</option>
-                    <option value="30">30</option>
-                    <option value="31">31</option>
+                    <option v-for="day in days" :key="day" :value="day">{{day}}</option>
                 </select>
-                <span class="separator">/</span>
-                <select :id="uniqueId + '-year'" class="form-control input-width-sm" v-model="modelValue.Year">
+                <span v-if="showYear" class="separator">/</span>
+                <select v-if="showYear" :id="uniqueId + '-year'" class="form-control input-width-sm" v-model="internalYear">
                     <option value="0"></option>
                     <option v-for="year in years" :value="year">{{year}}</option>
                 </select>

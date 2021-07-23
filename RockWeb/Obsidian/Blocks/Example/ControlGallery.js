@@ -245,20 +245,21 @@ System.register(["../../Templates/PaneledBlockTemplate", "../../Controls/Defined
                 name: 'DatePartsPickerGallery',
                 components: {
                     GalleryAndResult: GalleryAndResult,
-                    DatePicker: DatePicker_1.default,
+                    Toggle: Toggle_1.default,
                     BirthdayPicker: BirthdayPicker_1.default,
                     DatePartsPicker: DatePartsPicker_1.default
                 },
                 data: function () {
                     return {
+                        showYear: true,
                         datePartsModel: {
-                            Month: 1,
-                            Day: 1,
-                            Year: 2020
+                            month: 1,
+                            day: 1,
+                            year: 2020
                         }
                     };
                 },
-                template: "\n<GalleryAndResult>\n    <template #header>\n        DatePartsPicker\n    </template>\n    <template #gallery>\n        <DatePartsPicker label=\"DatePartsPicker 1\" v-model=\"datePartsModel\" />\n        <DatePartsPicker label=\"DatePartsPicker 2\" v-model=\"datePartsModel\" />\n    </template>\n    <template #result>\n        {{datePartsModel.Month}} / {{datePartsModel.Day}} / {{datePartsModel.Year}}\n    </template>\n</GalleryAndResult>"
+                template: "\n<GalleryAndResult>\n    <template #header>\n        DatePartsPicker\n    </template>\n    <template #gallery>\n        <Toggle label=\"Show Year\" v-model=\"showYear\" />\n        <DatePartsPicker label=\"DatePartsPicker 1\" v-model=\"datePartsModel\" :showYear=\"showYear\" />\n        <DatePartsPicker label=\"DatePartsPicker 2\" v-model=\"datePartsModel\" :showYear=\"showYear\" />\n    </template>\n    <template #result>\n        <span>{{datePartsModel.month}} / {{datePartsModel.day}}</span><span v-if=\"showYear\"> / {{datePartsModel.year}}</span>\n    </template>\n</GalleryAndResult>"
             });
             TextBoxGallery = vue_1.defineComponent({
                 name: 'TextBoxGallery',

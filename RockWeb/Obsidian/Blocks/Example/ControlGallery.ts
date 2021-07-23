@@ -369,17 +369,18 @@ const DatePartsPickerGallery = defineComponent( {
     name: 'DatePartsPickerGallery',
     components: {
         GalleryAndResult,
-        DatePicker,
+        Toggle,
         BirthdayPicker,
         DatePartsPicker
     },
     data ()
     {
         return {
+            showYear: true,
             datePartsModel: {
-                Month: 1,
-                Day: 1,
-                Year: 2020
+                month: 1,
+                day: 1,
+                year: 2020
             } as DatePartsPickerModel
         };
     },
@@ -389,11 +390,12 @@ const DatePartsPickerGallery = defineComponent( {
         DatePartsPicker
     </template>
     <template #gallery>
-        <DatePartsPicker label="DatePartsPicker 1" v-model="datePartsModel" />
-        <DatePartsPicker label="DatePartsPicker 2" v-model="datePartsModel" />
+        <Toggle label="Show Year" v-model="showYear" />
+        <DatePartsPicker label="DatePartsPicker 1" v-model="datePartsModel" :showYear="showYear" />
+        <DatePartsPicker label="DatePartsPicker 2" v-model="datePartsModel" :showYear="showYear" />
     </template>
     <template #result>
-        {{datePartsModel.Month}} / {{datePartsModel.Day}} / {{datePartsModel.Year}}
+        <span>{{datePartsModel.month}} / {{datePartsModel.day}}</span><span v-if="showYear"> / {{datePartsModel.year}}</span>
     </template>
 </GalleryAndResult>`
 } );

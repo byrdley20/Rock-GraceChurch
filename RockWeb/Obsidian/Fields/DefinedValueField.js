@@ -33,6 +33,7 @@ System.register(["vue", "./Index", "../Controls/DefinedValuePicker", "../Service
             })(ConfigurationValueKey || (ConfigurationValueKey = {}));
             exports_1("default", Index_1.registerFieldType(fieldTypeGuid, vue_1.defineComponent({
                 name: 'DefinedValueField',
+                inheritAttrs: false,
                 components: {
                     DefinedValuePicker: DefinedValuePicker_1.default
                 },
@@ -44,18 +45,18 @@ System.register(["vue", "./Index", "../Controls/DefinedValuePicker", "../Service
                     };
                 },
                 computed: {
-                    selectedDefinedValue: function () {
-                        var _this = this;
-                        return this.definedValues.find(function (dv) { return dv.guid === _this.internalValue; }) || null;
+                    selectedDefinedValues: function () {
+                        var guids = this.internalValue.toLowerCase().split(",");
+                        return this.definedValues.filter(function (dv) { return guids.indexOf(dv.guid.toLowerCase()) !== -1; });
                     },
                     displayValue: function () {
-                        if (!this.selectedDefinedValue) {
+                        if (this.selectedDefinedValues.length === 0) {
                             return '';
                         }
                         if (this.displayDescription) {
-                            return this.selectedDefinedValue.description || '';
+                            return this.selectedDefinedValues.map(function (v) { var _a; return (_a = v.description) !== null && _a !== void 0 ? _a : ""; }).join(", ");
                         }
-                        return this.selectedDefinedValue.value || '';
+                        return this.selectedDefinedValues.map(function (v) { var _a; return (_a = v.value) !== null && _a !== void 0 ? _a : ""; }).join(", ");
                     },
                     displayDescription: function () {
                         var displayDescription = Index_1.getConfigurationValue(ConfigurationValueKey.DisplayDescription, this.configurationValues);

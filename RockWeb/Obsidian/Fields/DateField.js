@@ -93,10 +93,10 @@ System.register(["vue", "./Index", "../Elements/DatePicker", "../Services/Date",
                 computed: {
                     datePartsAsDate: function () {
                         var _a;
-                        if (!((_a = this.internalDateParts) === null || _a === void 0 ? void 0 : _a.Day) || !this.internalDateParts.Month || !this.internalDateParts.Year) {
+                        if (!((_a = this.internalDateParts) === null || _a === void 0 ? void 0 : _a.day) || !this.internalDateParts.month || !this.internalDateParts.year) {
                             return null;
                         }
-                        return new Date(this.internalDateParts.Year, this.internalDateParts.Month - 1, this.internalDateParts.Day) || null;
+                        return new Date(this.internalDateParts.year, this.internalDateParts.month - 1, this.internalDateParts.day) || null;
                     },
                     isDatePartsPicker: function () {
                         var _a;
@@ -153,14 +153,14 @@ System.register(["vue", "./Index", "../Elements/DatePicker", "../Services/Date",
                                         this.internalValue = this.modelValue || '';
                                         asDate = Date_1.asDateOrNull(this.modelValue);
                                         if (asDate) {
-                                            this.internalDateParts.Year = asDate.getFullYear();
-                                            this.internalDateParts.Month = asDate.getMonth() + 1;
-                                            this.internalDateParts.Day = asDate.getDate();
+                                            this.internalDateParts.year = asDate.getFullYear();
+                                            this.internalDateParts.month = asDate.getMonth() + 1;
+                                            this.internalDateParts.day = asDate.getDate();
                                         }
                                         else {
-                                            this.internalDateParts.Year = 0;
-                                            this.internalDateParts.Month = 0;
-                                            this.internalDateParts.Day = 0;
+                                            this.internalDateParts.year = 0;
+                                            this.internalDateParts.month = 0;
+                                            this.internalDateParts.day = 0;
                                         }
                                         return [4, this.fetchAndSetFormattedValue()];
                                     case 1:

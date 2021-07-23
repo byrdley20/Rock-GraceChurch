@@ -32,6 +32,7 @@ import '../Fields/DefinedValueField';
 import '../Fields/EmailField';
 import '../Fields/GenderField';
 import '../Fields/IntegerField';
+import '../Fields/MonthDayField';
 import '../Fields/SingleSelect';
 import '../Fields/PhoneNumber';
 import '../Fields/MemoField';

@@ -47,6 +47,8 @@ import PhoneNumberBox from '../../Elements/PhoneNumberBox';
 import HelpBlock from '../../Elements/HelpBlock';
 import DatePartsPicker, { DatePartsPickerModel } from '../../Elements/DatePartsPicker';
 import ColorPicker from '../../Elements/ColorPicker';
+import NumberBox from '../../Elements/NumberBox';
+import { toNumber, toNumberOrNull } from '../../Services/Number';
 
 /** An inner component that describes the template used for each of the controls
  *  within this control gallery */
@@ -512,6 +514,50 @@ const ColorPickerGallery = defineComponent({
 </GalleryAndResult>`
 });
 
+/** Demonstrates a color picker */
+const NumberBoxGallery = defineComponent({
+    name: 'NumberBoxGallery',
+    components: {
+        GalleryAndResult,
+        RockForm,
+        RockButton,
+        TextBox,
+        NumberBox
+    },
+    data() {
+        return {
+            minimumValue: '-2147483648',
+            maximumValue: '2147483647',
+            value: 42,
+        };
+    },
+    computed: {
+        numericMinimumValue(): number {
+            return toNumber(this.minimumValue);
+        },
+        numericMaximumValue(): number {
+            return toNumber(this.maximumValue);
+        }
+    },
+    template: `
+<GalleryAndResult>
+    <template #header>
+        NumberBox
+    </template>
+    <template #gallery>
+        <TextBox label="Minimum Value" v-model="minimumValue" />
+        <TextBox label="Maximum Value" v-model="maximumValue" />
+        <RockForm>
+            <NumberBox label="Number" v-model="value" :minimumValue="numericMinimumValue" :maximumValue="numericMaximumValue" />
+            <RockButton btnType="primary" type="submit">Test</RockButton>
+        </RockForm>
+    </template>
+    <template #result>
+        {{value}}
+    </template>
+</GalleryAndResult>`
+});
+
 export default defineComponent({
     name: 'Example.ControlGallery',
     components: {
@@ -540,7 +586,8 @@ export default defineComponent({
         HelpBlockGallery,
         FormRulesGallery,
         DefinedTypeAndValueGallery,
-        ColorPickerGallery
+        ColorPickerGallery,
+        NumberBoxGallery
     },
     data() {
         return {
@@ -724,6 +771,7 @@ export default defineComponent({
         <DropDownListGallery />
         <HelpBlockGallery />
         <ColorPickerGallery />
+        <NumberBoxGallery />
     </template>
 </PaneledBlockTemplate>`
 });

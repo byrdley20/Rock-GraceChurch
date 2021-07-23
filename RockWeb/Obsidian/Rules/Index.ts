@@ -16,7 +16,7 @@
 //
 import DateKey from '../Services/DateKey';
 import { isEmail } from '../Services/Email';
-import { isNullOrWhitespace } from '../Services/String';
+import { isEmpty, isNullOrWhitespace } from '../Services/String';
 import { defineRule } from 'vee-validate';
 import { toNumberOrNull } from '../Services/Number';
 
@@ -200,7 +200,31 @@ defineRule( 'datekey', ( value =>
     }
 
     return true;
-} ) as ValidationRuleFunction );
+}) as ValidationRuleFunction);
+
+defineRule("integer", ((value, params) => {
+    if (isEmpty(value)) {
+        return true;
+    }
+
+    if (/^-?[0-9]+$/.test(String(value))) {
+        return true;
+    }
+
+    return "must be an integer value."
+}));
+
+defineRule("decimal", ((value, params) => {
+    if (isEmpty(value)) {
+        return true;
+    }
+
+    if (/^-?[0-9]+(\.[0-9]+)?$/.test(String(value))) {
+        return true;
+    }
+
+    return "must be a decimal value."
+}));
 
 /**
  * Convert the string to a number

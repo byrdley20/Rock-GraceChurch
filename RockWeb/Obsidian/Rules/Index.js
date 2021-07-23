@@ -141,6 +141,24 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
                 }
                 return true;
             }));
+            vee_validate_1.defineRule("integer", (function (value, params) {
+                if (String_1.isEmpty(value)) {
+                    return true;
+                }
+                if (/^-?[0-9]+$/.test(String(value))) {
+                    return true;
+                }
+                return "must be an integer value.";
+            }));
+            vee_validate_1.defineRule("decimal", (function (value, params) {
+                if (String_1.isEmpty(value)) {
+                    return true;
+                }
+                if (/^-?[0-9]+(\.[0-9]+)?$/.test(String(value))) {
+                    return true;
+                }
+                return "must be a decimal value.";
+            }));
             convertToNumber = function (value) {
                 if (typeof value === 'number') {
                     return value;

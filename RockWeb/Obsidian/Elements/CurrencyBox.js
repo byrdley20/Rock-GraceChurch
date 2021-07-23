@@ -1,67 +1,61 @@
-System.register(["../Services/Number", "vue", "../Util/Guid", "./RockFormField"], function (exports_1, context_1) {
+System.register(["vue", "./NumberBox"], function (exports_1, context_1) {
     "use strict";
-    var Number_1, vue_1, Guid_1, RockFormField_1;
+    var vue_1, NumberBox_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
-            function (Number_1_1) {
-                Number_1 = Number_1_1;
-            },
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (Guid_1_1) {
-                Guid_1 = Guid_1_1;
-            },
-            function (RockFormField_1_1) {
-                RockFormField_1 = RockFormField_1_1;
+            function (NumberBox_1_1) {
+                NumberBox_1 = NumberBox_1_1;
             }
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
                 name: 'CurrencyBox',
                 components: {
-                    RockFormField: RockFormField_1.default
+                    NumberBox: NumberBox_1.default
                 },
                 props: {
                     modelValue: {
                         type: Number,
                         default: null
-                    }
+                    },
+                    minimumValue: {
+                        type: Number
+                    },
+                    maximumValue: {
+                        type: Number
+                    },
                 },
                 emits: [
                     'update:modelValue'
                 ],
                 data: function () {
                     return {
-                        uniqueId: "rock-currencybox-" + Guid_1.newGuid(),
-                        internalValue: ''
+                        internalValue: null
                     };
                 },
-                methods: {
-                    onChange: function () {
-                        this.internalValue = Number_1.asFormattedString(this.modelValue);
-                    }
-                },
                 computed: {
-                    internalNumberValue: function () {
-                        return Number_1.toNumberOrNull(this.internalValue);
+                    placeholder: function () {
+                        return "0.00";
                     }
                 },
                 watch: {
-                    internalNumberValue: function () {
-                        this.$emit('update:modelValue', this.internalNumberValue);
+                    internalValue: function () {
+                        this.$emit('update:modelValue', this.internalValue);
                     },
                     modelValue: {
                         immediate: true,
                         handler: function () {
-                            if (this.modelValue !== this.internalNumberValue) {
-                                this.internalValue = Number_1.asFormattedString(this.modelValue);
+                            if (this.modelValue !== this.internalValue) {
+                                this.internalValue = this.modelValue;
                             }
                         }
                     }
                 },
-                template: "\n<RockFormField\n    v-model=\"internalValue\"\n    @change=\"onChange\"\n    formGroupClasses=\"rock-currency-box\"\n    name=\"currencybox\">\n    <template #default=\"{uniqueId, field, errors, disabled, inputGroupClasses}\">\n        <div class=\"control-wrapper\">\n            <div class=\"input-group\" :class=\"inputGroupClasses\">\n                <span class=\"input-group-addon\">$</span>\n                <input :id=\"uniqueId\" type=\"text\" class=\"form-control\" v-bind=\"field\" :disabled=\"disabled\" />\n            </div>\n        </div>\n    </template>\n</RockFormField>"
+                template: "\n<NumberBox v-model=\"internalValue\"\n    :placeholder=\"placeholder\"\n    :minimum-value=\"minimumValue\"\n    :maximum-value=\"maximumValue\"\n    :decimal-count=\"2\"\n    rules=\"decimal\">\n    <template v-slot:prepend>\n        <span class=\"input-group-addon\">$</span>\n    </template>\n</NumberBox>\n"
             }));
         }
     };

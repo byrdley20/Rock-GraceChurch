@@ -24,9 +24,13 @@ import TextField from '../Fields/TextField';
 // Import other field types so they are registered and available upon dynamic request
 import '../Fields/BooleanField';
 import '../Fields/ColorField';
+import '../Fields/CurrencyField';
 import '../Fields/DateField';
+import '../Fields/DecimalField';
 import '../Fields/DefinedValueField';
+import '../Fields/EmailField';
 import '../Fields/GenderField';
+import '../Fields/IntegerField';
 import '../Fields/SingleSelect';
 import '../Fields/PhoneNumber';
 import '../Fields/MemoField';
@@ -51,7 +55,7 @@ export default defineComponent( {
     computed: {
         fieldComponent (): Component | null
         {
-            const field = getFieldTypeComponent( this.fieldTypeGuid );
+            const field = getFieldTypeComponent(this.fieldTypeGuid);
 
             if ( !field )
             {

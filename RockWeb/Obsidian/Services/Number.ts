@@ -61,6 +61,18 @@ export function toNumberOrNull ( str: string | null )
     return Number( replaced ) || null;
 }
 
+export function toCurrencyOrNull(value: string | number | null) {
+    if (typeof value === "string") {
+        value = toNumberOrNull(value);
+    }
+
+    if (value === null) {
+        return null;
+    }
+
+    return "$" + asFormattedString(value, 2);
+}
+
 /**
  * Adds an ordinal suffix.
  * Ex: 1 => 1st

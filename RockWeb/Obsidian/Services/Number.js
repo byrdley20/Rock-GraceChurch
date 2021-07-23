@@ -23,6 +23,16 @@ System.register([], function (exports_1, context_1) {
         return Number(replaced) || null;
     }
     exports_1("toNumberOrNull", toNumberOrNull);
+    function toCurrencyOrNull(value) {
+        if (typeof value === "string") {
+            value = toNumberOrNull(value);
+        }
+        if (value === null) {
+            return null;
+        }
+        return "$" + asFormattedString(value, 2);
+    }
+    exports_1("toCurrencyOrNull", toCurrencyOrNull);
     function toOrdinalSuffix(num) {
         if (!num) {
             return '';

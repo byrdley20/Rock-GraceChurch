@@ -25,6 +25,14 @@ System.register(["../Rules/Index", "vue", "./RockFormField"], function (exports_
                         type: String,
                         required: true
                     },
+                    allowLava: {
+                        type: Boolean,
+                        default: false
+                    },
+                    allowMultiple: {
+                        type: Boolean,
+                        default: false
+                    },
                     rules: {
                         type: String,
                         default: ''
@@ -41,10 +49,13 @@ System.register(["../Rules/Index", "vue", "./RockFormField"], function (exports_
                 computed: {
                     computedRules: function () {
                         var rules = Index_1.ruleStringToArray(this.rules);
-                        if (rules.indexOf('email') === -1) {
+                        if (rules.indexOf('email') === -1 && !this.allowLava && !this.allowMultiple) {
                             rules.push('email');
                         }
                         return Index_1.ruleArrayToString(rules);
+                    },
+                    computedType: function () {
+                        return this.allowLava || this.allowMultiple ? "text" : "email";
                     }
                 },
                 watch: {
@@ -55,7 +66,7 @@ System.register(["../Rules/Index", "vue", "./RockFormField"], function (exports_
                         this.internalValue = this.modelValue;
                     }
                 },
-                template: "\n<RockFormField\n    v-model=\"internalValue\"\n    formGroupClasses=\"rock-text-box\"\n    name=\"textbox\"\n    :rules=\"computedRules\">\n    <template #default=\"{uniqueId, field, errors, tabIndex, disabled}\">\n        <div class=\"control-wrapper\">\n            <div class=\"input-group\">\n                <span class=\"input-group-addon\">\n                    <i class=\"fa fa-envelope\"></i>\n                </span>\n                <input :id=\"uniqueId\" class=\"form-control\" v-bind=\"field\" :disabled=\"disabled\" :tabindex=\"tabIndex\" />\n            </div>\n        </div>\n    </template>\n</RockFormField>"
+                template: "\n<RockFormField\n    v-model=\"internalValue\"\n    formGroupClasses=\"rock-text-box\"\n    name=\"textbox\"\n    :rules=\"computedRules\">\n    <template #default=\"{uniqueId, field, errors, tabIndex, disabled}\">\n        <div class=\"control-wrapper\">\n            <div class=\"input-group\">\n                <span class=\"input-group-addon\">\n                    <i class=\"fa fa-envelope\"></i>\n                </span>\n                <input :id=\"uniqueId\" class=\"form-control\" v-bind=\"field\" :disabled=\"disabled\" :tabindex=\"tabIndex\" :type=\"computedType\" />\n            </div>\n        </div>\n    </template>\n</RockFormField>"
             }));
         }
     };

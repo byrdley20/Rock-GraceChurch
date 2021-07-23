@@ -48,6 +48,7 @@ import HelpBlock from '../../Elements/HelpBlock';
 import DatePartsPicker, { DatePartsPickerModel } from '../../Elements/DatePartsPicker';
 import ColorPicker from '../../Elements/ColorPicker';
 import NumberBox from '../../Elements/NumberBox';
+import GenderDropDownList from '../../Elements/GenderDropDownList';
 import { toNumber, toNumberOrNull } from '../../Services/Number';
 
 /** An inner component that describes the template used for each of the controls
@@ -526,8 +527,8 @@ const NumberBoxGallery = defineComponent({
     },
     data() {
         return {
-            minimumValue: '-2147483648',
-            maximumValue: '2147483647',
+            minimumValue: '0',
+            maximumValue: '100',
             value: 42,
         };
     },
@@ -549,6 +550,38 @@ const NumberBoxGallery = defineComponent({
         <TextBox label="Maximum Value" v-model="maximumValue" />
         <RockForm>
             <NumberBox label="Number" v-model="value" :minimumValue="numericMinimumValue" :maximumValue="numericMaximumValue" />
+            <RockButton btnType="primary" type="submit">Test</RockButton>
+        </RockForm>
+    </template>
+    <template #result>
+        {{value}}
+    </template>
+</GalleryAndResult>`
+});
+
+/** Demonstrates a color picker */
+const GenderDropDownListGallery = defineComponent({
+    name: 'GenderDropDownListGallery',
+    components: {
+        GalleryAndResult,
+        RockForm,
+        RockButton,
+        TextBox,
+        GenderDropDownList
+    },
+    data() {
+        return {
+            value: '1',
+        };
+    },
+    template: `
+<GalleryAndResult>
+    <template #header>
+        GenderDropDownList
+    </template>
+    <template #gallery>
+        <RockForm>
+            <GenderDropDownList label="Your Gender" v-model="value" />
             <RockButton btnType="primary" type="submit">Test</RockButton>
         </RockForm>
     </template>
@@ -587,7 +620,8 @@ export default defineComponent({
         FormRulesGallery,
         DefinedTypeAndValueGallery,
         ColorPickerGallery,
-        NumberBoxGallery
+        NumberBoxGallery,
+        GenderDropDownListGallery
     },
     data() {
         return {
@@ -772,6 +806,7 @@ export default defineComponent({
         <HelpBlockGallery />
         <ColorPickerGallery />
         <NumberBoxGallery />
+        <GenderDropDownListGallery />
     </template>
 </PaneledBlockTemplate>`
 });

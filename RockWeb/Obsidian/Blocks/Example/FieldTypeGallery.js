@@ -43,22 +43,22 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 }
                 return [
                     {
-                        Attribute: {
-                            Name: name + " 1",
-                            Description: "This is the description of the " + name + " without an initial value",
-                            FieldTypeGuid: fieldTypeGuid,
-                            QualifierValues: configurationValues
+                        attribute: {
+                            name: name + " 1",
+                            description: "This is the description of the " + name + " without an initial value",
+                            fieldTypeGuid: fieldTypeGuid,
+                            qualifierValues: configurationValues
                         },
-                        Value: ''
+                        value: ''
                     },
                     {
-                        Attribute: {
-                            Name: name + " 2",
-                            Description: "This is the description of the " + name + " with an initial value",
-                            FieldTypeGuid: fieldTypeGuid,
-                            QualifierValues: configurationValues
+                        attribute: {
+                            name: name + " 2",
+                            description: "This is the description of the " + name + " with an initial value",
+                            fieldTypeGuid: fieldTypeGuid,
+                            qualifierValues: configurationValues
                         },
-                        Value: initialValue
+                        value: initialValue
                     }
                 ];
             };
@@ -80,10 +80,10 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 },
                 computed: {
                     value1Json: function () {
-                        return JSON.stringify(this.attributeValues[0].Value, null, 4);
+                        return JSON.stringify(this.attributeValues[0].value, null, 4);
                     },
                     value2Json: function () {
-                        return JSON.stringify(this.attributeValues[1].Value, null, 4);
+                        return JSON.stringify(this.attributeValues[1].value, null, 4);
                     }
                 },
                 template: "\n<PanelWidget>\n    <template #header>{{title}}</template>\n    <div class=\"row\">\n        <div class=\"col-md-6\">\n            <h4>Qualifier Values</h4>\n            <slot />\n            <hr />\n            <h4>Attribute Values Container (edit)</h4>\n            <AttributeValuesContainer :attributeValues=\"attributeValues\" :isEditMode=\"true\" />\n        </div>\n        <div class=\"col-md-6\">\n            <h4>Attribute Values Container (view)</h4>\n            <AttributeValuesContainer :attributeValues=\"attributeValues\" :isEditMode=\"false\" />\n            <hr />\n            <h4>Values</h4>\n            <p>\n                <strong>Value 1</strong>\n                <pre>{{value1Json}}</pre>\n            </p>\n            <p>\n                <strong>Value 2</strong>\n                <pre>{{value2Json}}</pre>\n            </p>\n        </div>\n    </div>\n</PanelWidget>"
@@ -107,7 +107,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                             var keys = [];
                             for (var _i = 0, _a = this.attributeValues; _i < _a.length; _i++) {
                                 var attributeValue = _a[_i];
-                                for (var key in attributeValue.Attribute.QualifierValues) {
+                                for (var key in attributeValue.attribute.qualifierValues) {
                                     if (keys.indexOf(key) === -1) {
                                         keys.push(key);
                                     }
@@ -122,9 +122,9 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                             handler: function () {
                                 for (var _i = 0, _a = this.attributeValues; _i < _a.length; _i++) {
                                     var attributeValue = _a[_i];
-                                    for (var key in attributeValue.Attribute.QualifierValues) {
+                                    for (var key in attributeValue.attribute.qualifierValues) {
                                         var value = this.configValues[key] || '';
-                                        attributeValue.Attribute.QualifierValues[key].Value = value;
+                                        attributeValue.attribute.qualifierValues[key].Value = value;
                                     }
                                 }
                             }

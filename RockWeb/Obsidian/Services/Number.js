@@ -21,7 +21,7 @@ System.register([], function (exports_1, context_1) {
             return null;
         }
         var replaced = str.replace(/[$,]/g, '');
-        return Number(replaced) || 0;
+        return Number(replaced) || null;
     }
     exports_1("toNumberOrNull", toNumberOrNull);
     function toOrdinalSuffix(num) {

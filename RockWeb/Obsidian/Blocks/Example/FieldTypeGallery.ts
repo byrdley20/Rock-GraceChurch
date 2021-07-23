@@ -26,13 +26,13 @@ import TextBox from '../../Elements/TextBox';
 /** A subset interface of the AttributeValue view model to simplify this block */
 interface AttributeValueData
 {
-    Attribute: {
-        Name: string,
-        Description: string,
-        FieldTypeGuid: Guid,
-        QualifierValues: ConfigurationValues
+    attribute: {
+        name: string,
+        description: string,
+        fieldTypeGuid: Guid,
+        qualifierValues: ConfigurationValues
     },
-    Value: string
+    value: string
 }
 
 /**
@@ -41,7 +41,7 @@ interface AttributeValueData
  * @param fieldTypeGuid
  * @param configValues
  */
-const GetAttributeValueData = ( name: string, initialValue: string, fieldTypeGuid: Guid, configValues: Record<string, string> ) =>
+const GetAttributeValueData = ( name: string, initialValue: string, fieldTypeGuid: Guid, configValues: Record<string, string> ): Array<AttributeValueData> =>
 {
     const configurationValues: ConfigurationValues = {};
 
@@ -56,22 +56,22 @@ const GetAttributeValueData = ( name: string, initialValue: string, fieldTypeGui
 
     return [
         {
-            Attribute: {
-                Name: `${name} 1`,
-                Description: `This is the description of the ${name} without an initial value`,
-                FieldTypeGuid: fieldTypeGuid,
-                QualifierValues: configurationValues
+            attribute: {
+                name: `${name} 1`,
+                description: `This is the description of the ${name} without an initial value`,
+                fieldTypeGuid: fieldTypeGuid,
+                qualifierValues: configurationValues
             },
-            Value: ''
+            value: ''
         },
         {
-            Attribute: {
-                Name: `${name} 2`,
-                Description: `This is the description of the ${name} with an initial value`,
-                FieldTypeGuid: fieldTypeGuid,
-                QualifierValues: configurationValues
+            attribute: {
+                name: `${name} 2`,
+                description: `This is the description of the ${name} with an initial value`,
+                fieldTypeGuid: fieldTypeGuid,
+                qualifierValues: configurationValues
             },
-            Value: initialValue
+            value: initialValue
         }
     ];
 };
@@ -97,11 +97,11 @@ const GalleryAndResult = defineComponent( {
     computed: {
         value1Json (): string
         {
-            return JSON.stringify( this.attributeValues[ 0 ].Value, null, 4 );
+            return JSON.stringify( this.attributeValues[ 0 ].value, null, 4 );
         },
         value2Json (): string
         {
-            return JSON.stringify( this.attributeValues[ 1 ].Value, null, 4 );
+            return JSON.stringify( this.attributeValues[ 1 ].value, null, 4 );
         }
     },
     template: `
@@ -162,7 +162,7 @@ const GetFieldTypeGalleryComponent = ( name: string, initialValue: string, field
 
                 for ( const attributeValue of this.attributeValues )
                 {
-                    for ( const key in attributeValue.Attribute.QualifierValues )
+                    for ( const key in attributeValue.attribute.qualifierValues )
                     {
                         if ( keys.indexOf( key ) === -1 )
                         {
@@ -181,10 +181,10 @@ const GetFieldTypeGalleryComponent = ( name: string, initialValue: string, field
                 {
                     for ( const attributeValue of this.attributeValues )
                     {
-                        for ( const key in attributeValue.Attribute.QualifierValues )
+                        for ( const key in attributeValue.attribute.qualifierValues )
                         {
                             const value = this.configValues[ key ] || '';
-                            attributeValue.Attribute.QualifierValues[ key ].Value = value;
+                            attributeValue.attribute.qualifierValues[ key ].Value = value;
                         }
                     }
                 }

@@ -58,7 +58,7 @@ export function toNumberOrNull ( str: string | null )
     }
 
     const replaced = str.replace( /[$,]/g, '' );
-    return Number( replaced ) || 0;
+    return Number( replaced ) || null;
 }
 
 /**

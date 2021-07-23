@@ -635,21 +635,21 @@ export default defineComponent({
             address: getDefaultAddressControlModel(),
             toggle: false,
             prePostHtmlItems: [
-                { PreHtml: '<div class="row"><div class="col-sm-6">', PostHtml: '</div>', SlotName: 'item1' },
-                { PreHtml: '<div class="col-sm-6">', PostHtml: '</div></div>', SlotName: 'item2' }
+                { preHtml: '<div class="row"><div class="col-sm-6">', postHtml: '</div>', slotName: 'item1' },
+                { preHtml: '<div class="col-sm-6">', postHtml: '</div></div>', slotName: 'item2' }
             ] as ItemWithPreAndPostHtml[],
             progressTrackerIndex: 0,
             progressTrackerItems: [
-                { Key: 'S', Title: 'Start', Subtitle: 'The beginning' },
-                { Key: '1', Title: 'Step 1', Subtitle: 'The first step' },
-                { Key: '2', Title: 'Step 2', Subtitle: 'The second step' },
-                { Key: '3', Title: 'Step 3', Subtitle: 'The third step' },
-                { Key: '4', Title: 'Step 4', Subtitle: 'The fourth step' },
-                { Key: '5', Title: 'Step 5', Subtitle: 'The fifth step' },
-                { Key: '6', Title: 'Step 6', Subtitle: 'The sixth step' },
-                { Key: '7', Title: 'Step 7', Subtitle: 'The seventh step' },
-                { Key: '8', Title: 'Step 8', Subtitle: 'The eighth step' },
-                { Key: 'F', Title: 'Finish', Subtitle: 'The finish' }
+                { key: 'S', title: 'Start', subtitle: 'The beginning' },
+                { key: '1', title: 'Step 1', subtitle: 'The first step' },
+                { key: '2', title: 'Step 2', subtitle: 'The second step' },
+                { key: '3', title: 'Step 3', subtitle: 'The third step' },
+                { key: '4', title: 'Step 4', subtitle: 'The fourth step' },
+                { key: '5', title: 'Step 5', subtitle: 'The fifth step' },
+                { key: '6', title: 'Step 6', subtitle: 'The sixth step' },
+                { key: '7', title: 'Step 7', subtitle: 'The seventh step' },
+                { key: '8', title: 'Step 8', subtitle: 'The eighth step' },
+                { key: 'F', title: 'Finish', subtitle: 'The finish' }
             ] as ProgressTrackerItem[]
         };
     },
@@ -772,10 +772,10 @@ export default defineComponent({
                 ItemsWithPreAndPostHtml
             </template>
             <template #gallery>
-                <TextBox label="Item 1 - Pre Html" v-model="prePostHtmlItems[0].PreHtml" />
-                <TextBox label="Item 1 - Post Html" v-model="prePostHtmlItems[0].PostHtml" />
-                <TextBox label="Item 2 - Pre Html" v-model="prePostHtmlItems[1].PreHtml" />
-                <TextBox label="Item 2 - Post Html" v-model="prePostHtmlItems[1].PostHtml" />
+                <TextBox label="Item 1 - Pre Html" v-model="prePostHtmlItems[0].preHtml" />
+                <TextBox label="Item 1 - Post Html" v-model="prePostHtmlItems[0].postHtml" />
+                <TextBox label="Item 2 - Pre Html" v-model="prePostHtmlItems[1].preHtml" />
+                <TextBox label="Item 2 - Post Html" v-model="prePostHtmlItems[1].postHtml" />
             </template>
             <template #result>
                 <ItemsWithPreAndPostHtml :items="prePostHtmlItems">

@@ -26,9 +26,9 @@ import { Guid } from '../Util/Guid';
 import Entity from '../ViewModels/Entity';
 
 export type CommonEntityOption = {
-    Guid: Guid;
-    Id: number;
-    Text: string;
+    guid: Guid;
+    id: number;
+    text: string;
 };
 
 /**
@@ -65,9 +65,9 @@ export function createCommonEntityPicker(entityName: string, getOptionsFunc: () 
         computed: {
             options(): DropDownListOption[] {
                 return getOptionsFunc().map(o => ({
-                    key: o.Guid,
-                    text: o.Text,
-                    value: o.Guid
+                    key: o.guid,
+                    text: o.text,
+                    value: o.guid
                 } as DropDownListOption));
             }
         },

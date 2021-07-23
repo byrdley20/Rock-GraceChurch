@@ -60,8 +60,8 @@ export default defineComponent({
             errorMessage: '',
             members: [] as GroupMemberViewModel[],
             sortProperty: {
-                Direction: SortDirection.Ascending,
-                Property: ''
+                direction: SortDirection.Ascending,
+                property: ''
             } as SortProperty
         };
     },
@@ -83,8 +83,8 @@ export default defineComponent({
                 const result = await this.invokeBlockAction<GetGroupMemberListResponse>('GetGroupMemberList', {
                     groupId: this.groupId,
                     filterOptions: {
-                        Take: 50,
-                        Skip: 0
+                        take: 50,
+                        skip: 0
                     } as FilterOptions,
                     sortProperty: this.sortProperty
                 });

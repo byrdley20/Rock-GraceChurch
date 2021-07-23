@@ -43,10 +43,10 @@ declare module '@vue/runtime-core' {
 }
 
 export type ReportDebugTimingArgs = {
-    Title: string;
-    Subtitle: string;
-    StartTimeMs: number;
-    FinishTimeMs: number;
+    title: string;
+    subtitle: string;
+    startTimeMs: number;
+    finishTimeMs: number;
 };
 
 // Declare the Vuex store
@@ -94,16 +94,16 @@ export default createStore<RootState>({
         },
         reportOnLoadDebugTiming(state, payload: ReportDebugTimingArgs) {
             const pageStartTime = state.executionStartTime.getTime();
-            const timestampMs = payload.StartTimeMs - pageStartTime;
-            const durationMs = payload.FinishTimeMs - payload.StartTimeMs;
+            const timestampMs = payload.startTimeMs - pageStartTime;
+            const durationMs = payload.finishTimeMs - payload.startTimeMs;
 
             state.debugTimings.push({
                 TimestampMs: timestampMs,
                 DurationMs: durationMs,
                 IndentLevel: 1,
                 IsTitleBold: false,
-                SubTitle: payload.Subtitle,
-                Title: payload.Title
+                SubTitle: payload.subtitle,
+                Title: payload.title
             });
         }
     },

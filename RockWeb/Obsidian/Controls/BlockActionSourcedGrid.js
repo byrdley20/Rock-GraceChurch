@@ -76,15 +76,15 @@ System.register(["vue", "./Grid"], function (exports_1, context_1) {
                         isLoading: false,
                         errorMessage: '',
                         sortProperty: {
-                            Direction: Grid_1.SortDirection.Ascending,
-                            Property: this.rowIdKey
+                            direction: Grid_1.SortDirection.Ascending,
+                            property: this.rowIdKey
                         },
                         currentPageData: []
                     };
                 },
                 computed: {
                     sortString: function () {
-                        return this.sortProperty.Property + " " + this.sortProperty.Direction;
+                        return this.sortProperty.property + " " + this.sortProperty.direction;
                     }
                 },
                 methods: {
@@ -104,16 +104,16 @@ System.register(["vue", "./Grid"], function (exports_1, context_1) {
                                         _a.trys.push([1, 3, 4, 5]);
                                         return [4, this.invokeBlockAction(this.blockActionName, {
                                                 filterOptions: {
-                                                    Take: this.pageSize,
-                                                    Skip: (this.currentPageIndex - 1) * this.pageSize
+                                                    take: this.pageSize,
+                                                    skip: (this.currentPageIndex - 1) * this.pageSize
                                                 },
                                                 sortProperty: this.sortProperty
                                             })];
                                     case 2:
                                         result = _a.sent();
-                                        if (result.data && result.data.CurrentPageData) {
-                                            this.currentPageData = result.data.CurrentPageData;
-                                            this.totalRowCount = result.data.TotalCount;
+                                        if (result.data && result.data.currentPageData) {
+                                            this.currentPageData = result.data.currentPageData;
+                                            this.totalRowCount = result.data.totalCount;
                                         }
                                         else {
                                             this.currentPageData = [];

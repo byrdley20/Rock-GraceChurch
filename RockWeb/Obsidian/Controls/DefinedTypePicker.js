@@ -13,9 +13,9 @@ System.register(["../Store/Generators", "../Store/Index"], function (exports_1, 
         ],
         execute: function () {
             exports_1("default", Generators_1.createCommonEntityPicker('DefinedType', function () { return Index_1.default.getters['definedTypes/all'].map(function (dt) { return ({
-                Guid: dt.Guid,
-                Id: dt.Id,
-                Text: dt.Name
+                guid: dt.guid,
+                id: dt.id,
+                text: dt.name
             }); }); }));
         }
     };

@@ -21,9 +21,9 @@ import { newGuid } from '../Util/Guid';
 /** The data needed to represent an item in a ProgressTracker */
 export interface ProgressTrackerItem
 {
-    Title: string;
-    Subtitle: string;
-    Key: string;
+    title: string;
+    subtitle: string;
+    key: string;
 }
 
 const ProgressTrackerItem = defineComponent( {
@@ -57,22 +57,22 @@ const ProgressTrackerItem = defineComponent( {
             <i class="fas fa-check"></i>
         </div>
         <div class="progress-tracker-details">
-            <span class="progress-tracker-title text-truncate">{{item.Title}}</span>
-            <p class="progress-tracker-subtitle text-truncate">{{item.Subtitle}}</p>
+            <span class="progress-tracker-title text-truncate">{{item.title}}</span>
+            <p class="progress-tracker-subtitle text-truncate">{{item.subtitle}}</p>
         </div>
     </div>
     <div v-else-if="isPresent" class="progress-step-link">
         <div class="progress-tracker-icon current"></div>
         <div class="progress-tracker-details">
-            <span class="progress-tracker-title text-truncate">{{item.Title}}</span>
-            <p class="progress-tracker-subtitle text-truncate">{{item.Subtitle}}</p>
+            <span class="progress-tracker-title text-truncate">{{item.title}}</span>
+            <p class="progress-tracker-subtitle text-truncate">{{item.subtitle}}</p>
         </div>
     </div>
     <div v-else-if="isFuture" class="progress-step-link">
         <div class="progress-tracker-icon upcoming"></div>
         <div class="progress-tracker-details">
-            <span class="progress-tracker-title text-truncate">{{item.Title}}</span>
-            <p class="progress-tracker-subtitle text-truncate">{{item.Subtitle}}</p>
+            <span class="progress-tracker-title text-truncate">{{item.title}}</span>
+            <p class="progress-tracker-subtitle text-truncate">{{item.subtitle}}</p>
         </div>
     </div>
     <div v-if="!isLast" class="progress-tracker-arrow">

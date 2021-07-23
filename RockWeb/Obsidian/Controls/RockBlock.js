@@ -202,10 +202,10 @@ System.register(["../Util/Http", "vue", "../Store/Index", "../Elements/Alert"], 
                     }
                     if (nameParts.length) {
                         Index_1.default.commit('reportOnLoadDebugTiming', {
-                            Title: nameParts[1] || '<Unnamed>',
-                            Subtitle: subtitle,
-                            StartTimeMs: this.startTimeMs,
-                            FinishTimeMs: this.finishTimeMs
+                            title: nameParts[1] || '<Unnamed>',
+                            subtitle: subtitle,
+                            startTimeMs: this.startTimeMs,
+                            finishTimeMs: this.finishTimeMs
                         });
                     }
                 },

@@ -65,9 +65,9 @@ System.register(["vue", "../Elements/DropDownList", "../Util/Cache", "../Util/Ht
             computed: {
                 options: function () {
                     return getOptionsFunc().map(function (o) { return ({
-                        key: o.Guid,
-                        text: o.Text,
-                        value: o.Guid
+                        key: o.guid,
+                        text: o.text,
+                        value: o.guid
                     }); });
                 }
             },

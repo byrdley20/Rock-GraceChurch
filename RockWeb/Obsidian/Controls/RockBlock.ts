@@ -169,10 +169,10 @@ export default defineComponent( {
         if ( nameParts.length )
         {
             store.commit( 'reportOnLoadDebugTiming', {
-                Title: nameParts[ 1 ] || '<Unnamed>',
-                Subtitle: subtitle,
-                StartTimeMs: this.startTimeMs,
-                FinishTimeMs: this.finishTimeMs
+                title: nameParts[ 1 ] || '<Unnamed>',
+                subtitle: subtitle,
+                startTimeMs: this.startTimeMs,
+                finishTimeMs: this.finishTimeMs
             } as ReportDebugTimingArgs );
         }
     },

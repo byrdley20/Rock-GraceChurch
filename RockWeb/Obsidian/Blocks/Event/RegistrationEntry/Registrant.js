@@ -129,9 +129,9 @@ System.register(["vue", "../../../Elements/DropDownList", "../../../Elements/Rad
                     prePostHtmlItems: function () {
                         return this.currentFormFields
                             .map(function (f) { return ({
-                            PreHtml: f.preHtml,
-                            PostHtml: f.postHtml,
-                            SlotName: f.guid
+                            preHtml: f.preHtml,
+                            postHtml: f.postHtml,
+                            slotName: f.guid
                         }); });
                     },
                     currentPerson: function () {

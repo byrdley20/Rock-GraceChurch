@@ -16,12 +16,13 @@
 //
 import { CommonEntityOption, createCommonEntityPicker } from '../Store/Generators';
 import store from '../Store/Index';
+import DefinedType from '../ViewModels/CodeGenerated/DefinedTypeViewModel';
 
 export default createCommonEntityPicker(
     'DefinedType',
-    () => store.getters['definedTypes/all'].map(dt => ({
-        Guid: dt.Guid,
-        Id: dt.Id,
-        Text: dt.Name
+    () => store.getters['definedTypes/all'].map((dt: DefinedType) => ({
+        guid: dt.guid,
+        id: dt.id,
+        text: dt.name
     } as CommonEntityOption))
 );

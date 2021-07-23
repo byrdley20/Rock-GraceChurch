@@ -23,22 +23,22 @@ import { newGuid } from '../Util/Guid';
 import Location from '../ViewModels/CodeGenerated/LocationViewModel';
 
 export interface AddressControlModel {
-    Street1: string;
-    Street2: string;
-    City: string;
-    State: string;
-    PostalCode: string;
-    Country: string;
+    street1: string;
+    street2: string;
+    city: string;
+    state: string;
+    postalCode: string;
+    country: string;
 }
 
 export function getDefaultAddressControlModel() {
     return {
-        Street1: '',
-        Street2: '',
-        City: '',
-        State: 'AZ',
-        PostalCode: '',
-        Country: 'US'
+        street1: '',
+        street2: '',
+        city: '',
+        state: 'AZ',
+        postalCode: '',
+        country: 'US'
     } as AddressControlModel;
 }
 
@@ -146,12 +146,12 @@ export default defineComponent({
         {{label}}
     </RockLabel>
     <div class="control-wrapper">
-        <TextBox placeholder="Address Line 1" :rules="rules" v-model="modelValue.Street1" validationTitle="Address Line 1" />
-        <TextBox placeholder="Address Line 2" v-model="modelValue.Street2" validationTitle="Address Line 2" />
+        <TextBox placeholder="Address Line 1" :rules="rules" v-model="modelValue.street1" validationTitle="Address Line 1" />
+        <TextBox placeholder="Address Line 2" v-model="modelValue.street2" validationTitle="Address Line 2" />
         <div class="form-row">
-            <TextBox placeholder="City" :rules="rules" v-model="modelValue.City" class="col-sm-6" validationTitle="City" />
-            <DropDownList :showBlankItem="false" v-model="modelValue.State" class="col-sm-3" :options="stateOptions" />
-            <TextBox placeholder="Zip" :rules="rules" v-model="modelValue.PostalCode" class="col-sm-3" validationTitle="Zip" />
+            <TextBox placeholder="City" :rules="rules" v-model="modelValue.city" class="col-sm-6" validationTitle="City" />
+            <DropDownList :showBlankItem="false" v-model="modelValue.state" class="col-sm-3" :options="stateOptions" />
+            <TextBox placeholder="Zip" :rules="rules" v-model="modelValue.postalCode" class="col-sm-3" validationTitle="Zip" />
         </div>
     </div>
 </div>`

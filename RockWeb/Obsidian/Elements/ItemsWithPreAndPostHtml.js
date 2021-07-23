@@ -35,13 +35,13 @@ System.register(["vue"], function (exports_1, context_1) {
                 },
                 computed: {
                     augmentedItems: function () {
-                        return this.items.map(function (i) { return (__assign(__assign({}, i), { InnerSlotName: "inner-" + i.SlotName })); });
+                        return this.items.map(function (i) { return (__assign(__assign({}, i), { innerSlotName: "inner-" + i.slotName })); });
                     },
                     innerTemplate: function () {
                         if (!this.items.length) {
                             return '<slot />';
                         }
-                        var templateParts = this.items.map(function (i) { return i.PreHtml + "<slot name=\"inner-" + i.SlotName + "\" />" + i.PostHtml; });
+                        var templateParts = this.items.map(function (i) { return i.preHtml + "<slot name=\"inner-" + i.slotName + "\" />" + i.postHtml; });
                         return templateParts.join('');
                     },
                     innerComponent: function () {
@@ -51,7 +51,7 @@ System.register(["vue"], function (exports_1, context_1) {
                         };
                     }
                 },
-                template: "\n<component :is=\"innerComponent\">\n    <template v-for=\"item in augmentedItems\" :key=\"item.SlotName\" v-slot:[item.InnerSlotName]>\n        <slot :name=\"item.SlotName\" />\n    </template>\n</component>"
+                template: "\n<component :is=\"innerComponent\">\n    <template v-for=\"item in augmentedItems\" :key=\"item.slotName\" v-slot:[item.innerSlotName]>\n        <slot :name=\"item.slotName\" />\n    </template>\n</component>"
             }));
         }
     };

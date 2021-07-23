@@ -4,12 +4,12 @@ System.register(["vue", "../Elements/DropDownList", "../Elements/RockLabel", "..
     var __moduleName = context_1 && context_1.id;
     function getDefaultAddressControlModel() {
         return {
-            Street1: '',
-            Street2: '',
-            City: '',
-            State: 'AZ',
-            PostalCode: '',
-            Country: 'US'
+            street1: '',
+            street2: '',
+            city: '',
+            state: 'AZ',
+            postalCode: '',
+            country: 'US'
         };
     }
     exports_1("getDefaultAddressControlModel", getDefaultAddressControlModel);
@@ -133,7 +133,7 @@ System.register(["vue", "../Elements/DropDownList", "../Elements/RockLabel", "..
                         return rules.indexOf('required') !== -1;
                     }
                 },
-                template: "\n<div class=\"form-group address-control\" :class=\"isRequired ? 'required' : ''\">\n    <RockLabel v-if=\"label || help\" :for=\"uniqueId\" :help=\"help\">\n        {{label}}\n    </RockLabel>\n    <div class=\"control-wrapper\">\n        <TextBox placeholder=\"Address Line 1\" :rules=\"rules\" v-model=\"modelValue.Street1\" validationTitle=\"Address Line 1\" />\n        <TextBox placeholder=\"Address Line 2\" v-model=\"modelValue.Street2\" validationTitle=\"Address Line 2\" />\n        <div class=\"form-row\">\n            <TextBox placeholder=\"City\" :rules=\"rules\" v-model=\"modelValue.City\" class=\"col-sm-6\" validationTitle=\"City\" />\n            <DropDownList :showBlankItem=\"false\" v-model=\"modelValue.State\" class=\"col-sm-3\" :options=\"stateOptions\" />\n            <TextBox placeholder=\"Zip\" :rules=\"rules\" v-model=\"modelValue.PostalCode\" class=\"col-sm-3\" validationTitle=\"Zip\" />\n        </div>\n    </div>\n</div>"
+                template: "\n<div class=\"form-group address-control\" :class=\"isRequired ? 'required' : ''\">\n    <RockLabel v-if=\"label || help\" :for=\"uniqueId\" :help=\"help\">\n        {{label}}\n    </RockLabel>\n    <div class=\"control-wrapper\">\n        <TextBox placeholder=\"Address Line 1\" :rules=\"rules\" v-model=\"modelValue.street1\" validationTitle=\"Address Line 1\" />\n        <TextBox placeholder=\"Address Line 2\" v-model=\"modelValue.street2\" validationTitle=\"Address Line 2\" />\n        <div class=\"form-row\">\n            <TextBox placeholder=\"City\" :rules=\"rules\" v-model=\"modelValue.city\" class=\"col-sm-6\" validationTitle=\"City\" />\n            <DropDownList :showBlankItem=\"false\" v-model=\"modelValue.state\" class=\"col-sm-3\" :options=\"stateOptions\" />\n            <TextBox placeholder=\"Zip\" :rules=\"rules\" v-model=\"modelValue.postalCode\" class=\"col-sm-3\" validationTitle=\"Zip\" />\n        </div>\n    </div>\n</div>"
             }));
         }
     };

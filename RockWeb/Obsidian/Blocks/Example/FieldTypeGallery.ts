@@ -218,6 +218,8 @@ export default defineComponent( {
             datePickerControlType: 'Date Parts Picker',
             futureYearCount: '2'
         }),
+        DayOfWeekGallery: GetFieldTypeGalleryComponent('DayOfWeek', '2', '7EDFA2DE-FDD3-4AC1-B356-1F5BFC231DAE', {
+        }),
         DecimalGallery: GetFieldTypeGalleryComponent('Decimal', '18.283', 'C757A554-3009-4214-B05D-CEA2B2EA6B8F', {
         }),
         DefinedValueGallery: GetFieldTypeGalleryComponent('DefinedValue (WIP)', 'af28af43-8461-41ac-a2c5-85122712be96', '59D5A94C-94A0-4630-B80A-BB25697D74C7', {
@@ -265,6 +267,7 @@ export default defineComponent( {
         <ColorGallery />
         <CurrencyGallery />
         <DateGallery />
+        <DayOfWeekGallery />
         <DecimalGallery />
         <DefinedValueGallery />
         <EmailGallery />

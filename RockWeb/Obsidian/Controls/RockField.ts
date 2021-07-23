@@ -26,6 +26,7 @@ import '../Fields/BooleanField';
 import '../Fields/ColorField';
 import '../Fields/CurrencyField';
 import '../Fields/DateField';
+import '../Fields/DayOfWeekField';
 import '../Fields/DecimalField';
 import '../Fields/DefinedValueField';
 import '../Fields/EmailField';

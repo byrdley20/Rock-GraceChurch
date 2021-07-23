@@ -19,7 +19,7 @@ import { newGuid } from '../Util/Guid.js';
 import RockFormField from './RockFormField.js';
 
 export type DropDownListOption = {
-    key: string,
+    key?: string,
     value: string,
     text: string
 };
@@ -179,7 +179,7 @@ export default defineComponent( {
         <div class="control-wrapper">
             <select :id="uniqueId" class="form-control" :class="compiledFormControlClasses" :disabled="disabled" v-bind="field" v-model="internalValue" ref="theSelect">
                 <option v-if="showBlankItem" :value="blankValue"></option>
-                <option v-for="o in options" :key="o.key" :value="o.value">{{o.text}}</option>
+                <option v-for="o in options" :key="o.value" :value="o.value">{{o.text}}</option>
             </select>
         </div>
     </template>

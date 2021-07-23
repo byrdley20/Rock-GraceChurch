@@ -153,6 +153,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                         datePickerControlType: 'Date Parts Picker',
                         futureYearCount: '2'
                     }),
+                    DayOfWeekGallery: GetFieldTypeGalleryComponent('DayOfWeek', '2', '7EDFA2DE-FDD3-4AC1-B356-1F5BFC231DAE', {}),
                     DecimalGallery: GetFieldTypeGalleryComponent('Decimal', '18.283', 'C757A554-3009-4214-B05D-CEA2B2EA6B8F', {}),
                     DefinedValueGallery: GetFieldTypeGalleryComponent('DefinedValue (WIP)', 'af28af43-8461-41ac-a2c5-85122712be96', '59D5A94C-94A0-4630-B80A-BB25697D74C7', {
                         definedtype: '92',
@@ -184,7 +185,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                         showcountdown: 'true'
                     }),
                 },
-                template: "\n<PaneledBlockTemplate>\n    <template v-slot:title>\n        <i class=\"fa fa-flask\"></i>\n        Obsidian Field Type Gallery\n    </template>\n    <template v-slot:default>\n        <BooleanGallery />\n        <ColorGallery />\n        <CurrencyGallery />\n        <DateGallery />\n        <DecimalGallery />\n        <DefinedValueGallery />\n        <EmailGallery />\n        <GenderGallery />\n        <IntegerGallery />\n        <MemoGallery />\n        <PhoneNumberGallery />\n        <SingleSelectGallery />\n        <TextGallery />\n    </template>\n</PaneledBlockTemplate>"
+                template: "\n<PaneledBlockTemplate>\n    <template v-slot:title>\n        <i class=\"fa fa-flask\"></i>\n        Obsidian Field Type Gallery\n    </template>\n    <template v-slot:default>\n        <BooleanGallery />\n        <ColorGallery />\n        <CurrencyGallery />\n        <DateGallery />\n        <DayOfWeekGallery />\n        <DecimalGallery />\n        <DefinedValueGallery />\n        <EmailGallery />\n        <GenderGallery />\n        <IntegerGallery />\n        <MemoGallery />\n        <PhoneNumberGallery />\n        <SingleSelectGallery />\n        <TextGallery />\n    </template>\n</PaneledBlockTemplate>"
             }));
         }
     };

@@ -61,6 +61,11 @@ export function toNumberOrNull ( str: string | null )
     return Number( replaced ) || null;
 }
 
+/**
+ * Get a currency value from a string or number. If the number cannot be parsed, then null is returned by default.
+ * Ex: 1000.20 => $1,000.20
+ * @param value The value to be converted to a currency.
+ */
 export function toCurrencyOrNull(value: string | number | null) {
     if (typeof value === "string") {
         value = toNumberOrNull(value);

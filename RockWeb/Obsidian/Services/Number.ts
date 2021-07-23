@@ -19,7 +19,7 @@
  * Ex: 10001.2 => 10,001.2
  * @param num
  */
-export function asFormattedString ( num: number | null, digits = 2 )
+export function asFormattedString ( num: number | null, digits?: number )
 {
     if ( num === null )
     {
@@ -30,7 +30,7 @@ export function asFormattedString ( num: number | null, digits = 2 )
         'en-US',
         {
             minimumFractionDigits: digits,
-            maximumFractionDigits: digits
+            maximumFractionDigits: digits ?? 9
         }
     );
 }

@@ -160,7 +160,7 @@ System.register(["../../Controls/CampusPicker", "../../Controls/DefinedValuePick
                         return total;
                     },
                     totalAmountFormatted: function () {
-                        return "$" + Number_1.asFormattedString(this.totalAmount);
+                        return "$" + Number_1.asFormattedString(this.totalAmount, 2);
                     },
                     gatewayControlModel: function () {
                         return this.configurationValues['GatewayControl'];

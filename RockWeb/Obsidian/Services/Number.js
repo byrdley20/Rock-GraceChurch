@@ -2,13 +2,12 @@ System.register([], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     function asFormattedString(num, digits) {
-        if (digits === void 0) { digits = 2; }
         if (num === null) {
             return '';
         }
         return num.toLocaleString('en-US', {
             minimumFractionDigits: digits,
-            maximumFractionDigits: digits
+            maximumFractionDigits: digits !== null && digits !== void 0 ? digits : 9
         });
     }
     exports_1("asFormattedString", asFormattedString);

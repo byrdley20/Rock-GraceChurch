@@ -24,7 +24,6 @@ import Alert from '../../../Elements/Alert';
 import CheckBox from '../../../Elements/CheckBox';
 import EmailBox from '../../../Elements/EmailBox';
 import RockButton from '../../../Elements/RockButton';
-import { asFormattedString } from '../../../Services/Number';
 import { getRegistrantBasicInfo, RegistrantBasicInfo, RegistrationEntryState } from '../RegistrationEntry';
 import CostSummary from './CostSummary';
 import DiscountCodeForm from './DiscountCodeForm';

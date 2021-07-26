@@ -49,7 +49,8 @@ import DatePartsPicker, { DatePartsPickerModel } from '../../Elements/DatePartsP
 import ColorPicker from '../../Elements/ColorPicker';
 import NumberBox from '../../Elements/NumberBox';
 import GenderDropDownList from '../../Elements/GenderDropDownList';
-import { toNumber, toNumberOrNull } from '../../Services/Number';
+import SocialSecurityNumberBox from '../../Elements/SocialSecurityNumberBox';
+import { toNumber } from '../../Services/Number';
 
 /** An inner component that describes the template used for each of the controls
  *  within this control gallery */
@@ -593,6 +594,38 @@ const GenderDropDownListGallery = defineComponent({
 </GalleryAndResult>`
 });
 
+/** Demonstrates a color picker */
+const SocialSecurityNumberBoxGallery = defineComponent({
+    name: 'SocialSecurityNumberBoxGallery',
+    components: {
+        GalleryAndResult,
+        RockForm,
+        RockButton,
+        TextBox,
+        SocialSecurityNumberBox
+    },
+    data() {
+        return {
+            value: '123-45-6789',
+        };
+    },
+    template: `
+<GalleryAndResult>
+    <template #header>
+        SocialSecurityNumberBox
+    </template>
+    <template #gallery>
+        <RockForm>
+            <SocialSecurityNumberBox label="SSN" v-model="value" />
+            <RockButton btnType="primary" type="submit">Test</RockButton>
+        </RockForm>
+    </template>
+    <template #result>
+        {{value}}
+    </template>
+</GalleryAndResult>`
+});
+
 export default defineComponent({
     name: 'Example.ControlGallery',
     components: {
@@ -623,7 +656,8 @@ export default defineComponent({
         DefinedTypeAndValueGallery,
         ColorPickerGallery,
         NumberBoxGallery,
-        GenderDropDownListGallery
+        GenderDropDownListGallery,
+        SocialSecurityNumberBoxGallery
     },
     data() {
         return {
@@ -809,6 +843,7 @@ export default defineComponent({
         <ColorPickerGallery />
         <NumberBoxGallery />
         <GenderDropDownListGallery />
+        <SocialSecurityNumberBoxGallery />
     </template>
 </PaneledBlockTemplate>`
 });

@@ -226,6 +226,18 @@ defineRule("decimal", ((value, params) => {
     return "must be a decimal value."
 }));
 
+defineRule("ssn", ((value, params) => {
+    if (isEmpty(value)) {
+        return true;
+    }
+
+    if (/^[0-9]{3}\-[0-9]{2}\-[0-9]{4}$/.test(String(value))) {
+        return true;
+    }
+
+    return "must be a valid social security number";
+}));
+
 /**
  * Convert the string to a number
  * @param val

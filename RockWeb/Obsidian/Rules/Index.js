@@ -159,6 +159,15 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
                 }
                 return "must be a decimal value.";
             }));
+            vee_validate_1.defineRule("ssn", (function (value, params) {
+                if (String_1.isEmpty(value)) {
+                    return true;
+                }
+                if (/^[0-9]{3}\-[0-9]{2}\-[0-9]{4}$/.test(String(value))) {
+                    return true;
+                }
+                return "must be a valid social security number";
+            }));
             convertToNumber = function (value) {
                 if (typeof value === 'number') {
                     return value;

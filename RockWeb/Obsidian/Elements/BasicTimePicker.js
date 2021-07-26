@@ -22,6 +22,10 @@ System.register(["vue", "../Services/Number", "../Services/String"], function (e
                     modelValue: {
                         type: Object,
                         default: {}
+                    },
+                    disabled: {
+                        type: Boolean,
+                        default: false
                     }
                 },
                 data: function () {
@@ -124,7 +128,7 @@ System.register(["vue", "../Services/Number", "../Services/String"], function (e
                         }
                     }
                 },
-                template: "\n<div class=\"input-group input-width-md\">\n    <input class=\"form-control\" type=\"text\" v-model=\"internalValue\" v-on:change=\"updateValue\" v-on:keypress=\"keyPress\" />\n    <span class=\"input-group-btn\"><button class=\"btn btn-default\" v-on:click=\"toggleMeridiem\">{{ internalMeridiem }}</button></span>\n</div>\n"
+                template: "\n<div class=\"input-group input-width-md\">\n    <input class=\"form-control\" type=\"text\" v-model=\"internalValue\" v-on:change=\"updateValue\" v-on:keypress=\"keyPress\" :disabled=\"disabled\" />\n    <span class=\"input-group-btn\"><button class=\"btn btn-default\" v-on:click=\"toggleMeridiem\" :disabled=\"disabled\">{{ internalMeridiem }}</button></span>\n</div>\n"
             }));
         }
     };

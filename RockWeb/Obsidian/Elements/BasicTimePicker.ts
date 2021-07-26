@@ -37,6 +37,10 @@ export default defineComponent({
         modelValue: {
             type: Object as PropType<BasicTimePickerModelValue>,
             default: {}
+        },
+        disabled: {
+            type: Boolean as PropType<boolean>,
+            default: false
         }
     },
 
@@ -169,8 +173,8 @@ export default defineComponent({
 
     template: `
 <div class="input-group input-width-md">
-    <input class="form-control" type="text" v-model="internalValue" v-on:change="updateValue" v-on:keypress="keyPress" />
-    <span class="input-group-btn"><button class="btn btn-default" v-on:click="toggleMeridiem">{{ internalMeridiem }}</button></span>
+    <input class="form-control" type="text" v-model="internalValue" v-on:change="updateValue" v-on:keypress="keyPress" :disabled="disabled" />
+    <span class="input-group-btn"><button class="btn btn-default" v-on:click="toggleMeridiem" :disabled="disabled">{{ internalMeridiem }}</button></span>
 </div>
 `
 });

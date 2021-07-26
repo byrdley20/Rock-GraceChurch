@@ -29,6 +29,7 @@ import DefinedType from '../../ViewModels/CodeGenerated/DefinedTypeViewModel';
 import CurrencyBox from '../../Elements/CurrencyBox';
 import PanelWidget from '../../Elements/PanelWidget';
 import DatePicker from '../../Elements/DatePicker';
+import DateTimePicker from '../../Elements/DateTimePicker';
 import { RockDateType } from '../../Util/RockDate';
 import BirthdayPicker from '../../Elements/BirthdayPicker';
 import NumberUpDown from '../../Elements/NumberUpDown';
@@ -366,6 +367,33 @@ const DatePickerGallery = defineComponent( {
 </GalleryAndResult>`
 } );
 
+/** Demonstrates date time pickers */
+const DateTimePickerGallery = defineComponent({
+    name: 'DatePickerGallery',
+    components: {
+        GalleryAndResult,
+        DateTimePicker
+    },
+    data() {
+        return {
+            date: null as RockDateType | null
+        };
+    },
+    template: `
+<GalleryAndResult>
+    <template #header>
+        DateTimePicker
+    </template>
+    <template #gallery>
+        <DateTimePicker label="Date 1" v-model="date" />
+        <DateTimePicker label="Date 2" v-model="date" />
+    </template>
+    <template #result>
+        Date: {{JSON.stringify(date, null, 2)}}
+    </template>
+</GalleryAndResult>`
+});
+
 /** Demonstrates date part pickers */
 const DatePartsPickerGallery = defineComponent( {
     name: 'DatePartsPickerGallery',
@@ -670,6 +698,7 @@ export default defineComponent({
         CurrencyBox,
         EmailBox,
         DatePickerGallery,
+        DateTimePickerGallery,
         DatePartsPickerGallery,
         NumberUpDown,
         AddressControl,
@@ -741,6 +770,7 @@ export default defineComponent({
     <template v-slot:default>
         <TextBoxGallery />
         <DatePickerGallery />
+        <DateTimePickerGallery />
         <GalleryAndResult>
             <template #header>
                 CurrencyBox

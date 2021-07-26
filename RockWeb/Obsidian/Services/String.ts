@@ -161,6 +161,58 @@ export function stripPhoneNumber ( str: string )
     return str.replace( /\D/g, '' );
 }
 
+/**
+ * Pad the left side of a string so it is at least length characters long.
+ * 
+ * @param str The string to be padded.
+ * @param length The minimum length to make the string.
+ * @param padCharacter The character to use to pad the string.
+ */
+export function padLeft(str: string | undefined | null, length: number, padCharacter: string = " "): string {
+    if (padCharacter == "") {
+        padCharacter = " ";
+    }
+    else if (padCharacter.length > 1) {
+        padCharacter = padCharacter.substr(0, 1);
+    }
+
+    if (!str) {
+        return Array(length).join(padCharacter);
+    }
+
+    if (str.length >= length) {
+        return str;
+    }
+
+    return Array(length - str.length + 1).join(padCharacter) + str;
+}
+
+/**
+ * Pad the right side of a string so it is at least length characters long.
+ *
+ * @param str The string to be padded.
+ * @param length The minimum length to make the string.
+ * @param padCharacter The character to use to pad the string.
+ */
+export function padRight(str: string | undefined | null, length: number, padCharacter: string = " "): string {
+    if (padCharacter == "") {
+        padCharacter = " ";
+    }
+    else if (padCharacter.length > 1) {
+        padCharacter = padCharacter.substr(0, 1);
+    }
+
+    if (!str) {
+        return Array(length).join(padCharacter);
+    }
+
+    if (str.length >= length) {
+        return str;
+    }
+
+    return str + Array(length - str.length + 1).join(padCharacter);
+}
+
 export default {
     asCommaAnd,
     splitCamelCase,
@@ -170,5 +222,7 @@ export default {
     toTitleCase,
     pluralConditional,
     formatPhoneNumber,
-    stripPhoneNumber
+    stripPhoneNumber,
+    padLeft,
+    padRight
 };

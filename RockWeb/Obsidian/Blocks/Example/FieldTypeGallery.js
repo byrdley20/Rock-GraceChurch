@@ -185,8 +185,9 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                         maxcharacters: '10',
                         showcountdown: 'true'
                     }),
+                    TimeGallery: GetFieldTypeGalleryComponent('Time', '13:15:00', '2F8F5EC4-57FA-4F6C-AB15-9D6616994580', {}),
                 },
-                template: "\n<PaneledBlockTemplate>\n    <template v-slot:title>\n        <i class=\"fa fa-flask\"></i>\n        Obsidian Field Type Gallery\n    </template>\n    <template v-slot:default>\n        <BooleanGallery />\n        <ColorGallery />\n        <CurrencyGallery />\n        <DateGallery />\n        <DayOfWeekGallery />\n        <DecimalGallery />\n        <DefinedValueGallery />\n        <EmailGallery />\n        <GenderGallery />\n        <IntegerGallery />\n        <MemoGallery />\n        <MonthDayGallery />\n        <PhoneNumberGallery />\n        <SingleSelectGallery />\n        <TextGallery />\n    </template>\n</PaneledBlockTemplate>"
+                template: "\n<PaneledBlockTemplate>\n    <template v-slot:title>\n        <i class=\"fa fa-flask\"></i>\n        Obsidian Field Type Gallery\n    </template>\n    <template v-slot:default>\n        <BooleanGallery />\n        <ColorGallery />\n        <CurrencyGallery />\n        <DateGallery />\n        <DayOfWeekGallery />\n        <DecimalGallery />\n        <DefinedValueGallery />\n        <EmailGallery />\n        <GenderGallery />\n        <IntegerGallery />\n        <MemoGallery />\n        <MonthDayGallery />\n        <PhoneNumberGallery />\n        <SingleSelectGallery />\n        <TextGallery />\n        <TimeGallery />\n    </template>\n</PaneledBlockTemplate>"
             }));
         }
     };

@@ -2,14 +2,6 @@ System.register(["vue", "../Rules/Index", "./RockFormField"], function (exports_
     "use strict";
     var vue_1, Index_1, RockFormField_1;
     var __moduleName = context_1 && context_1.id;
-    function getDefaultDatePartsPickerModel() {
-        return {
-            year: 0,
-            month: 0,
-            day: 0
-        };
-    }
-    exports_1("getDefaultDatePartsPickerModel", getDefaultDatePartsPickerModel);
     return {
         setters: [
             function (vue_1_1) {
@@ -117,7 +109,7 @@ System.register(["vue", "../Rules/Index", "./RockFormField"], function (exports_
                         }
                     },
                 },
-                template: "\n<RockFormField\n    :modelValue=\"internalValue\"\n    formGroupClasses=\"social-security-number-box\"\n    name=\"birthday\"\n    :rules=\"computedRules\">\n    <template #default=\"{uniqueId, field, errors, disabled}\">\n        <div class=\"control-wrapper\">\n            <div class=\"form-control-group\">\n                <input ref=\"area\" class=\"form-control ssn-part ssn-area\" type=\"password\" pattern=\"[0-9]*\" maxlength=\"3\" v-model=\"internalArea\" v-on:keypress=\"keyPress\" v-on:keyup=\"keyUp\" />\n                <span class=\"separator\">-</span>\n                <input ref=\"group\" class=\"form-control ssn-part ssn-group\" type=\"password\" pattern=\"[0-9]*\" maxlength=\"2\" v-model=\"internalGroup\" v-on:keypress=\"keyPress\" v-on:keyup=\"keyUp\" />\n                <span class=\"separator\">-</span>\n                <input ref=\"serial\" class=\"form-control ssn-part ssn-serial\" type=\"password\" pattern=\"[0-9]*\" maxlength=\"4\" v-model=\"internalSerial\" v-on:keypress=\"keyPress\" v-on:keyup=\"keyUp\" />\n            </div>\n        </div>\n    </template>\n</RockFormField>"
+                template: "\n<RockFormField\n    :modelValue=\"internalValue\"\n    formGroupClasses=\"social-security-number-box\"\n    name=\"social-security-number-box\"\n    :rules=\"computedRules\">\n    <template #default=\"{uniqueId, field, errors, disabled}\">\n        <div class=\"control-wrapper\">\n            <div class=\"form-control-group\">\n                <input ref=\"area\" class=\"form-control ssn-part ssn-area\" type=\"password\" pattern=\"[0-9]*\" maxlength=\"3\" v-model=\"internalArea\" v-on:keypress=\"keyPress\" v-on:keyup=\"keyUp\" />\n                <span class=\"separator\">-</span>\n                <input ref=\"group\" class=\"form-control ssn-part ssn-group\" type=\"password\" pattern=\"[0-9]*\" maxlength=\"2\" v-model=\"internalGroup\" v-on:keypress=\"keyPress\" v-on:keyup=\"keyUp\" />\n                <span class=\"separator\">-</span>\n                <input ref=\"serial\" class=\"form-control ssn-part ssn-serial\" type=\"password\" pattern=\"[0-9]*\" maxlength=\"4\" v-model=\"internalSerial\" v-on:keypress=\"keyPress\" v-on:keyup=\"keyUp\" />\n            </div>\n        </div>\n    </template>\n</RockFormField>"
             }));
         }
     };

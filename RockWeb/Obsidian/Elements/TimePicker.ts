@@ -1,0 +1,207 @@
+﻿// <copyright>
+// Copyright by the Spark Development Network
+//
+// Licensed under the Rock Community License (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.rockrms.com/license
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// </copyright>
+
+import { defineComponent, PropType } from 'vue';
+import { ruleArrayToString, ruleStringToArray } from '../Rules/Index';
+import { toNumber } from '../Services/Number';
+import { padLeft } from '../Services/String';
+import RockFormField from './RockFormField';
+
+/** The value expected by the TimePicker. */
+export interface TimePickerModelValue {
+    /** Hour of the time, 0-23. */
+    hour?: number;
+
+    /** Minute of the time, 0-59. */
+    minute?: number;
+}
+
+export default defineComponent({
+    name: 'TimePicker',
+    components: {
+        RockFormField
+    },
+    props: {
+        rules: {
+            type: String as PropType<string>,
+            default: ''
+        },
+        modelValue: {
+            type: Object as PropType<TimePickerModelValue>,
+            default: {}
+        }
+    },
+
+    data() {
+        return {
+            internalHour: null as number | null,
+            internalMinute: null as number | null,
+            internalMeridiem: "AM" as ("AM" | "PM"),
+            internalValue: ""
+        };
+    },
+
+    methods: {
+        keyPress(e: KeyboardEvent): boolean {
+            if (e.key === "a" || e.key === "p" || e.key === "A" || e.key == "P") {
+                this.internalMeridiem = e.key === "a" || e.key === "A" ? "AM" : "PM";
+                this.maybeUpdateValue();
+
+                e.preventDefault();
+                return false;
+            }
+
+            if (/^[0-9:]$/.test(e.key) === false) {
+                e.preventDefault()
+                return false;
+            }
+
+            return true;
+        },
+
+        keyUp(e: KeyboardEvent): boolean {
+            const area = <HTMLInputElement>this.$refs.area;
+            const group = <HTMLInputElement>this.$refs.group;
+            const serial = <HTMLInputElement>this.$refs.serial;
+
+            // Only move to next field if a number was pressed.
+            if (/^[0-9]$/.test(e.key) === false) {
+                return true;
+            }
+
+            if (area === e.target && area.selectionStart === 3) {
+                this.$nextTick(() => {
+                    group.focus();
+                    group.setSelectionRange(0, 2);
+                });
+            }
+            else if (group === e.target && group.selectionStart === 2) {
+                this.$nextTick(() => {
+                    serial.focus();
+                    serial.setSelectionRange(0, 4);
+                });
+            }
+
+            return true;
+        },
+
+        updateValue(): void {
+            const values = /(\d+):(\d+)/.exec(this.internalValue);
+            const value: TimePickerModelValue = {};
+
+            if (values !== null) {
+                value.hour = toNumber(values[1]) + (this.internalMeridiem === "PM" ? 12 : 0);
+                value.minute = toNumber(values[2]);
+            }
+
+            this.$emit('update:modelValue', value);
+        },
+
+        maybeUpdateValue(): void {
+            const values = /(\d+):(\d+)/.exec(this.internalValue);
+
+            if (values !== null) {
+                this.updateValue();
+            }
+        },
+
+        toggleMeridiem(e: Event): boolean {
+            e.preventDefault();
+
+            this.internalMeridiem = this.internalMeridiem === "AM" ? "PM" : "AM";
+            this.maybeUpdateValue();
+
+            return false;
+        }
+    },
+
+    computed: {
+        computedRules(): string {
+            const rules = ruleStringToArray(this.rules);
+
+            //rules.push("ssn");
+
+            return ruleArrayToString(rules);
+        }
+    },
+
+    watch: {
+        modelValue: {
+            immediate: true,
+            handler() {
+                ///^(\d{1,2})(?:\:(\d{2})(?: ?([aApP])[mM]?)?)?$/
+
+                if (this.modelValue.hour) {
+                    if (this.modelValue.hour > 12) {
+                        this.internalHour = this.modelValue.hour - 12;
+                    }
+                    else {
+                        this.internalHour = this.modelValue.hour;
+                    }
+
+                    if (this.modelValue.hour >= 12) {
+                        this.internalMeridiem = "PM";
+                    }
+                }
+                else {
+                    this.internalHour = null;
+                }
+
+                if (this.modelValue.minute) {
+                    this.internalMinute = this.modelValue.minute;
+                }
+                else if (this.internalHour != null) {
+                    this.internalMinute = 0;
+                }
+                else {
+                    this.internalMinute = null;
+                }
+
+                if (this.internalHour === null || this.internalMinute === null) {
+                    return "";
+                }
+
+                this.internalValue = `${this.internalHour}:${padLeft(this.internalMinute.toString(), 2, "0")}`;
+            }
+        },
+
+        internalValue() {
+            const values = /(\d+):(\d+)/.exec(this.internalValue);
+
+            if (values === null) {
+                return;
+            }
+        }
+    },
+
+    template: `
+<RockFormField
+    :modelValue="internalValue"
+    formGroupClasses="timepicker-input"
+    name="time-picker"
+    :rules="computedRules">
+    <template #default="{uniqueId, field, errors, disabled}">
+        <div class="control-wrapper">
+            <div class="timepicker-input">
+                <div class="input-group input-width-md">
+                    <input class="form-control" type="text" v-model="internalValue" v-on:change="updateValue" v-on:keypress="keyPress" />
+                    <span class="input-group-btn"><button class="btn btn-default" v-on:click="toggleMeridiem">{{ internalMeridiem }}</button></span>
+                </div>
+            </div>
+        </div>
+    </template>
+</RockFormField>`
+});

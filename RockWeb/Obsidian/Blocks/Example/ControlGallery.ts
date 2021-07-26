@@ -50,6 +50,7 @@ import ColorPicker from '../../Elements/ColorPicker';
 import NumberBox from '../../Elements/NumberBox';
 import GenderDropDownList from '../../Elements/GenderDropDownList';
 import SocialSecurityNumberBox from '../../Elements/SocialSecurityNumberBox';
+import TimePicker from '../../Elements/TimePicker';
 import { toNumber } from '../../Services/Number';
 
 /** An inner component that describes the template used for each of the controls
@@ -594,7 +595,7 @@ const GenderDropDownListGallery = defineComponent({
 </GalleryAndResult>`
 });
 
-/** Demonstrates a color picker */
+/** Demonstrates a social security number box */
 const SocialSecurityNumberBoxGallery = defineComponent({
     name: 'SocialSecurityNumberBoxGallery',
     components: {
@@ -622,6 +623,38 @@ const SocialSecurityNumberBoxGallery = defineComponent({
     </template>
     <template #result>
         {{value}}
+    </template>
+</GalleryAndResult>`
+});
+
+/** Demonstrates a time picker */
+const TimePickerGallery = defineComponent({
+    name: 'TimePickerGallery',
+    components: {
+        GalleryAndResult,
+        RockForm,
+        RockButton,
+        TextBox,
+        TimePicker
+    },
+    data() {
+        return {
+            value: { hour: 14, minute: 15 },
+        };
+    },
+    template: `
+<GalleryAndResult>
+    <template #header>
+        TimePicker
+    </template>
+    <template #gallery>
+        <RockForm>
+            <TimePicker label="Time" v-model="value" />
+            <RockButton btnType="primary" type="submit">Test</RockButton>
+        </RockForm>
+    </template>
+    <template #result>
+        {{value.hour}}:{{value.minute}}
     </template>
 </GalleryAndResult>`
 });
@@ -657,7 +690,8 @@ export default defineComponent({
         ColorPickerGallery,
         NumberBoxGallery,
         GenderDropDownListGallery,
-        SocialSecurityNumberBoxGallery
+        SocialSecurityNumberBoxGallery,
+        TimePickerGallery
     },
     data() {
         return {
@@ -844,6 +878,7 @@ export default defineComponent({
         <NumberBoxGallery />
         <GenderDropDownListGallery />
         <SocialSecurityNumberBoxGallery />
+        <TimePickerGallery />
     </template>
 </PaneledBlockTemplate>`
 });

@@ -18,20 +18,6 @@ import { defineComponent, PropType } from 'vue';
 import { ruleArrayToString, ruleStringToArray } from '../Rules/Index';
 import RockFormField from './RockFormField';
 
-export interface DatePartsPickerModel {
-    year: number,
-    month: number;
-    day: number;
-}
-
-export function getDefaultDatePartsPickerModel() {
-    return {
-        year: 0,
-        month: 0,
-        day: 0
-    } as DatePartsPickerModel;
-}
-
 export default defineComponent({
     name: 'SocialSecurityNumberBox',
     components: {
@@ -153,7 +139,7 @@ export default defineComponent({
 <RockFormField
     :modelValue="internalValue"
     formGroupClasses="social-security-number-box"
-    name="birthday"
+    name="social-security-number-box"
     :rules="computedRules">
     <template #default="{uniqueId, field, errors, disabled}">
         <div class="control-wrapper">

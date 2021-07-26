@@ -257,6 +257,8 @@ export default defineComponent( {
             maxcharacters: '10',
             showcountdown: 'true'
         }),
+        TimeGallery: GetFieldTypeGalleryComponent('Time', '13:15:00', '2F8F5EC4-57FA-4F6C-AB15-9D6616994580', {
+        }),
     },
     template: `
 <PaneledBlockTemplate>
@@ -280,6 +282,7 @@ export default defineComponent( {
         <PhoneNumberGallery />
         <SingleSelectGallery />
         <TextGallery />
+        <TimeGallery />
     </template>
 </PaneledBlockTemplate>`
 } );

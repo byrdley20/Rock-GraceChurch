@@ -32,10 +32,11 @@ import '../Fields/DefinedValueField';
 import '../Fields/EmailField';
 import '../Fields/GenderField';
 import '../Fields/IntegerField';
+import '../Fields/MemoField';
 import '../Fields/MonthDayField';
 import '../Fields/SingleSelect';
 import '../Fields/PhoneNumber';
-import '../Fields/MemoField';
+import '../Fields/TimeField';
 
 export default defineComponent( {
     name: 'RockField',

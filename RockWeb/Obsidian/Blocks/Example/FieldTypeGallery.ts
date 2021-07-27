@@ -258,6 +258,9 @@ export default defineComponent( {
         }),
         PhoneNumberGallery: GetFieldTypeGalleryComponent( 'PhoneNumber', '(321) 456-7890', '6B1908EC-12A2-463A-A7BD-970CE0FAF097', {
         } ),
+        RatingGallery: GetFieldTypeGalleryComponent('Rating', '3', '24BC2DD2-5745-4A97-A0F9-C1EC0E6E1862', {
+            max: '5'
+        }),
         SingleSelectGallery: GetFieldTypeGalleryComponent('SingleSelect', 'pizza', '7525C4CB-EE6B-41D4-9B64-A08048D5A5C0', {
             repeatColumns: '4',
             fieldtype: 'rb',
@@ -295,6 +298,7 @@ export default defineComponent( {
         <MemoGallery />
         <MonthDayGallery />
         <PhoneNumberGallery />
+        <RatingGallery />
         <SingleSelectGallery />
         <TextGallery />
         <TimeGallery />

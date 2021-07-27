@@ -1,4 +1,4 @@
-System.register(["../Fields/Index", "vue", "../Fields/TextField", "../Fields/BooleanField", "../Fields/ColorField", "../Fields/CurrencyField", "../Fields/DateField", "../Fields/DateTimeField", "../Fields/DayOfWeekField", "../Fields/DaysOfWeekField", "../Fields/DecimalField", "../Fields/DecimalRangeField", "../Fields/DefinedValueField", "../Fields/EmailField", "../Fields/GenderField", "../Fields/IntegerField", "../Fields/IntegerRangeField", "../Fields/MemoField", "../Fields/MonthDayField", "../Fields/SingleSelect", "../Fields/PhoneNumber", "../Fields/TimeField"], function (exports_1, context_1) {
+System.register(["../Fields/Index", "vue", "../Fields/TextField", "../Fields/BooleanField", "../Fields/ColorField", "../Fields/CurrencyField", "../Fields/DateField", "../Fields/DateTimeField", "../Fields/DayOfWeekField", "../Fields/DaysOfWeekField", "../Fields/DecimalField", "../Fields/DecimalRangeField", "../Fields/DefinedValueField", "../Fields/EmailField", "../Fields/GenderField", "../Fields/IntegerField", "../Fields/IntegerRangeField", "../Fields/MemoField", "../Fields/MonthDayField", "../Fields/SingleSelect", "../Fields/PhoneNumber", "../Fields/RatingField", "../Fields/TimeField"], function (exports_1, context_1) {
     "use strict";
     var Index_1, vue_1, TextField_1;
     var __moduleName = context_1 && context_1.id;
@@ -50,6 +50,8 @@ System.register(["../Fields/Index", "vue", "../Fields/TextField", "../Fields/Boo
             function (_18) {
             },
             function (_19) {
+            },
+            function (_20) {
             }
         ],
         execute: function () {

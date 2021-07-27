@@ -54,6 +54,7 @@ import GenderDropDownList from '../../Elements/GenderDropDownList';
 import SocialSecurityNumberBox from '../../Elements/SocialSecurityNumberBox';
 import TimePicker from '../../Elements/TimePicker';
 import CheckBoxList from '../../Elements/CheckBoxList';
+import Rating from '../../Elements/Rating';
 import { toNumber } from '../../Services/Number';
 
 /** An inner component that describes the template used for each of the controls
@@ -753,6 +754,38 @@ const TimePickerGallery = defineComponent({
 </GalleryAndResult>`
 });
 
+/** Demonstrates a rating picker */
+const RatingGallery = defineComponent({
+    name: 'RatingGallery',
+    components: {
+        GalleryAndResult,
+        RockForm,
+        NumberBox,
+        Rating
+    },
+    data() {
+        return {
+            value: 3,
+            maximumValue: 5
+        };
+    },
+    template: `
+<GalleryAndResult>
+    <template #header>
+        Rating
+    </template>
+    <template #gallery>
+        <NumberBox label="Maximum Rating" v-model="maximumValue" />
+        <RockForm>
+            <Rating label="Time" v-model="value" :maxRating="maximumValue || 5" />
+        </RockForm>
+    </template>
+    <template #result>
+        {{value}}
+    </template>
+</GalleryAndResult>`
+});
+
 export default defineComponent({
     name: 'Example.ControlGallery',
     components: {
@@ -788,7 +821,8 @@ export default defineComponent({
         NumberRangeBoxGallery,
         GenderDropDownListGallery,
         SocialSecurityNumberBoxGallery,
-        TimePickerGallery
+        TimePickerGallery,
+        RatingGallery
     },
     data() {
         return {
@@ -979,6 +1013,7 @@ export default defineComponent({
         <GenderDropDownListGallery />
         <SocialSecurityNumberBoxGallery />
         <TimePickerGallery />
+        <RatingGallery />
     </template>
 </PaneledBlockTemplate>`
 });

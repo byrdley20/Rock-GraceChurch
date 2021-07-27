@@ -67,20 +67,21 @@ System.register(["../Fields/Index", "vue", "../Fields/TextField", "../Fields/Boo
                         default: ''
                     }
                 },
-                setup: function (props) {
-                    var isRequired = vue_1.computed(function () { return props.rules.includes('required'); });
+                setup(props) {
+                    const isRequired = vue_1.computed(() => props.rules.includes('required'));
                     vue_1.provide('isRequired', isRequired);
                 },
                 computed: {
-                    fieldComponent: function () {
-                        var field = Index_1.getFieldTypeComponent(this.fieldTypeGuid);
+                    fieldComponent() {
+                        const field = Index_1.getFieldTypeComponent(this.fieldTypeGuid);
                         if (!field) {
                             return TextField_1.default.component;
                         }
                         return field;
                     }
                 },
-                template: "\n<component :is=\"fieldComponent\" :rules=\"rules\" />"
+                template: `
+<component :is="fieldComponent" :rules="rules" />`
             }));
         }
     };

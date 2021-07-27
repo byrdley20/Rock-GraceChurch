@@ -39,7 +39,7 @@ System.register(["../Services/String", "vue", "./RockField"], function (exports_
                     }
                 },
                 methods: {
-                    getAttributeLabel: function (attributeValue) {
+                    getAttributeLabel(attributeValue) {
                         var _a, _b;
                         if (this.showAbbreviatedName && ((_a = attributeValue.attribute) === null || _a === void 0 ? void 0 : _a.abbreviatedName)) {
                             return attributeValue.attribute.abbreviatedName;
@@ -48,17 +48,41 @@ System.register(["../Services/String", "vue", "./RockField"], function (exports_
                     }
                 },
                 computed: {
-                    validAttributeValues: function () {
-                        return this.attributeValues.filter(function (av) { return av.attribute; });
+                    validAttributeValues() {
+                        return this.attributeValues.filter(av => av.attribute);
                     },
-                    valuesToShow: function () {
+                    valuesToShow() {
                         if (this.showEmptyValues) {
                             return this.validAttributeValues;
                         }
-                        return this.validAttributeValues.filter(function (av) { return !String_1.isNullOrWhitespace(av.value); });
+                        return this.validAttributeValues.filter(av => !String_1.isNullOrWhitespace(av.value));
                     }
                 },
-                template: "\n<div v-if=\"!isEditMode\" v-for=\"a in valuesToShow\" class=\"form-group static-control\">\n    <template v-if=\"a.value\">\n        <label class=\"control-label\">\n            {{ getAttributeLabel(a) }}\n        </label>\n        <div class=\"control-wrapper\">\n            <div class=\"form-control-static\">\n                <RockField :fieldTypeGuid=\"a.attribute.fieldTypeGuid\" v-model=\"a.value\" :configurationValues=\"a.attribute.qualifierValues\" />\n            </div>\n        </div>\n    </template>\n</div>\n<template v-else>\n    <template v-for=\"a in validAttributeValues\">\n        <RockField\n            isEditMode\n            :fieldTypeGuid=\"a.attribute.fieldTypeGuid\"\n            v-model=\"a.value\"\n            :label=\"getAttributeLabel(a)\"\n            :help=\"a.attribute.description\"\n            :rules=\"a.attribute.isRequired ? 'required' : ''\"\n            :configurationValues=\"a.attribute.qualifierValues\"  />\n    </template>\n</template>"
+                template: `
+<div v-if="!isEditMode" v-for="a in valuesToShow" class="form-group static-control">
+    <template v-if="a.value">
+        <label class="control-label">
+            {{ getAttributeLabel(a) }}
+        </label>
+        <div class="control-wrapper">
+            <div class="form-control-static">
+                <RockField :fieldTypeGuid="a.attribute.fieldTypeGuid" v-model="a.value" :configurationValues="a.attribute.qualifierValues" />
+            </div>
+        </div>
+    </template>
+</div>
+<template v-else>
+    <template v-for="a in validAttributeValues">
+        <RockField
+            isEditMode
+            :fieldTypeGuid="a.attribute.fieldTypeGuid"
+            v-model="a.value"
+            :label="getAttributeLabel(a)"
+            :help="a.attribute.description"
+            :rules="a.attribute.isRequired ? 'required' : ''"
+            :configurationValues="a.attribute.qualifierValues"  />
+    </template>
+</template>`
             }));
         }
     };

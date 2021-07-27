@@ -34,30 +34,43 @@ System.register(["vue", "../Rules/Index", "./BasicTimePicker", "./RockFormField"
                         default: {}
                     }
                 },
-                data: function () {
+                data() {
                     return {
                         internalValue: {}
                     };
                 },
                 methods: {},
                 computed: {
-                    computedRules: function () {
-                        var rules = Index_1.ruleStringToArray(this.rules);
+                    computedRules() {
+                        const rules = Index_1.ruleStringToArray(this.rules);
                         return Index_1.ruleArrayToString(rules);
                     }
                 },
                 watch: {
                     modelValue: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             this.internalValue = this.modelValue;
                         }
                     },
-                    internalValue: function () {
+                    internalValue() {
                         this.$emit("update:modelValue", this.internalValue);
                     }
                 },
-                template: "\n<RockFormField\n    :modelValue=\"internalValue\"\n    formGroupClasses=\"timepicker-input\"\n    name=\"time-picker\"\n    :rules=\"computedRules\">\n    <template #default=\"{uniqueId, field, errors, disabled}\">\n        <div class=\"control-wrapper\">\n            <div class=\"timepicker-input\">\n                <BasicTimePicker v-model=\"internalValue\" />\n            </div>\n        </div>\n    </template>\n</RockFormField>"
+                template: `
+<RockFormField
+    :modelValue="internalValue"
+    formGroupClasses="timepicker-input"
+    name="time-picker"
+    :rules="computedRules">
+    <template #default="{uniqueId, field, errors, disabled}">
+        <div class="control-wrapper">
+            <div class="timepicker-input">
+                <BasicTimePicker v-model="internalValue" />
+            </div>
+        </div>
+    </template>
+</RockFormField>`
             }));
         }
     };

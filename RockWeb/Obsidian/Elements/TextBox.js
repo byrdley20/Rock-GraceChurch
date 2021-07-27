@@ -60,14 +60,14 @@ System.register(["vue", "./RockFormField"], function (exports_1, context_1) {
                     };
                 },
                 computed: {
-                    isTextarea: function () {
+                    isTextarea() {
                         var _a;
                         return ((_a = this.textMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'multiline';
                     },
-                    charsRemaining: function () {
+                    charsRemaining() {
                         return this.maxLength - this.modelValue.length;
                     },
-                    countdownClass: function () {
+                    countdownClass() {
                         if (this.charsRemaining >= 10) {
                             return 'badge-default';
                         }
@@ -78,14 +78,30 @@ System.register(["vue", "./RockFormField"], function (exports_1, context_1) {
                     }
                 },
                 watch: {
-                    internalValue: function () {
+                    internalValue() {
                         this.$emit('update:modelValue', this.internalValue);
                     },
-                    modelValue: function () {
+                    modelValue() {
                         this.internalValue = this.modelValue;
                     }
                 },
-                template: "\n<RockFormField\n    v-model=\"internalValue\"\n    formGroupClasses=\"rock-text-box\"\n    name=\"textbox\">\n    <template #pre>\n        <em v-if=\"showCountDown\" class=\"pull-right badge\" :class=\"countdownClass\">\n            {{charsRemaining}}\n        </em>\n    </template>\n    <template #default=\"{uniqueId, field, errors, disabled, tabIndex}\">\n        <div class=\"control-wrapper\">\n            <textarea v-if=\"isTextarea\" :rows=\"rows\" cols=\"20\" :maxlength=\"maxLength\" :id=\"uniqueId\" class=\"form-control\" v-bind=\"field\"></textarea>\n            <input v-else :id=\"uniqueId\" :type=\"type\" class=\"form-control\" :class=\"inputClasses\" v-bind=\"field\" :disabled=\"disabled\" :maxlength=\"maxLength\" :placeholder=\"placeholder\" :tabindex=\"tabIndex\" />\n        </div>\n    </template>\n</RockFormField>"
+                template: `
+<RockFormField
+    v-model="internalValue"
+    formGroupClasses="rock-text-box"
+    name="textbox">
+    <template #pre>
+        <em v-if="showCountDown" class="pull-right badge" :class="countdownClass">
+            {{charsRemaining}}
+        </em>
+    </template>
+    <template #default="{uniqueId, field, errors, disabled, tabIndex}">
+        <div class="control-wrapper">
+            <textarea v-if="isTextarea" :rows="rows" cols="20" :maxlength="maxLength" :id="uniqueId" class="form-control" v-bind="field"></textarea>
+            <input v-else :id="uniqueId" :type="type" class="form-control" :class="inputClasses" v-bind="field" :disabled="disabled" :maxlength="maxLength" :placeholder="placeholder" :tabindex="tabIndex" />
+        </div>
+    </template>
+</RockFormField>`
             }));
         }
     };

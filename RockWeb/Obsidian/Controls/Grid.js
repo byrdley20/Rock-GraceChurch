@@ -3,7 +3,7 @@ System.register(["vue", "../Elements/JavaScriptAnchor"], function (exports_1, co
     var vue_1, JavaScriptAnchor_1, SortDirection;
     var __moduleName = context_1 && context_1.id;
     function getRowId(rowData, rowIdKey) {
-        return "" + rowData[rowIdKey];
+        return `${rowData[rowIdKey]}`;
     }
     exports_1("getRowId", getRowId);
     return {
@@ -56,7 +56,7 @@ System.register(["vue", "../Elements/JavaScriptAnchor"], function (exports_1, co
                         default: 0
                     }
                 },
-                data: function () {
+                data() {
                     return {
                         gridContext: {
                             selectedRowIds: {},
@@ -66,21 +66,21 @@ System.register(["vue", "../Elements/JavaScriptAnchor"], function (exports_1, co
                     };
                 },
                 computed: {
-                    rowCount: function () {
+                    rowCount() {
                         if (this.rowCountOverride) {
                             return this.rowCountOverride;
                         }
                         return this.gridData.length;
                     },
-                    pageCount: function () {
+                    pageCount() {
                         return Math.ceil(this.rowCount / this.pageSize);
                     },
-                    currentPageSet: function () {
-                        var pagesPerSet = 10;
-                        var firstNumber = Math.floor(this.currentPageIndex / pagesPerSet) * pagesPerSet + 1;
-                        var set = [];
-                        for (var i = 0; i < pagesPerSet; i++) {
-                            var pageIndex = firstNumber + i;
+                    currentPageSet() {
+                        const pagesPerSet = 10;
+                        const firstNumber = Math.floor(this.currentPageIndex / pagesPerSet) * pagesPerSet + 1;
+                        const set = [];
+                        for (let i = 0; i < pagesPerSet; i++) {
+                            const pageIndex = firstNumber + i;
                             if (pageIndex <= this.pageCount) {
                                 set.push(pageIndex);
                             }
@@ -89,47 +89,46 @@ System.register(["vue", "../Elements/JavaScriptAnchor"], function (exports_1, co
                     }
                 },
                 watch: {
-                    gridData: function () {
+                    gridData() {
                         this.gridContext.selectedRowIds = {};
-                        for (var _i = 0, _a = this.gridData; _i < _a.length; _i++) {
-                            var rowData = _a[_i];
-                            var rowId = getRowId(rowData, this.rowIdKey);
+                        for (const rowData of this.gridData) {
+                            const rowId = getRowId(rowData, this.rowIdKey);
                             this.gridContext.selectedRowIds[rowId] = false;
                         }
                     },
                     'gridContext.sortProperty': {
                         deep: true,
-                        handler: function () {
+                        handler() {
                             this.$emit('update:sortProperty', this.gridContext.sortProperty);
                         }
                     },
                 },
                 methods: {
-                    getRowId: getRowId,
-                    getRowContext: function (rowData, isHeader) {
-                        var rowId = getRowId(rowData, this.rowIdKey);
+                    getRowId,
+                    getRowContext(rowData, isHeader) {
+                        const rowId = getRowId(rowData, this.rowIdKey);
                         return {
-                            rowData: rowData,
-                            isHeader: isHeader,
-                            rowId: rowId
+                            rowData,
+                            isHeader,
+                            rowId
                         };
                     },
-                    setPageSize: function (pageSize) {
+                    setPageSize(pageSize) {
                         this.$emit('update:pageSize', pageSize);
                     },
-                    setPageIndex: function (pageIndex) {
+                    setPageIndex(pageIndex) {
                         this.$emit('update:currentPageIndex', pageIndex);
                     },
-                    goToPreviousPageSet: function () {
-                        var lowestPageInCurrentSet = this.currentPageSet[0] || 0;
+                    goToPreviousPageSet() {
+                        const lowestPageInCurrentSet = this.currentPageSet[0] || 0;
                         if (lowestPageInCurrentSet <= 1) {
                             return;
                         }
                         this.setPageIndex(lowestPageInCurrentSet - 1);
                     },
-                    goToNextPageSet: function () {
-                        var lastIndex = this.currentPageSet.length - 1;
-                        var highestPageInCurrentSet = this.currentPageSet[lastIndex] || 0;
+                    goToNextPageSet() {
+                        const lastIndex = this.currentPageSet.length - 1;
+                        const highestPageInCurrentSet = this.currentPageSet[lastIndex] || 0;
                         if (highestPageInCurrentSet <= 1) {
                             return;
                         }
@@ -139,12 +138,73 @@ System.register(["vue", "../Elements/JavaScriptAnchor"], function (exports_1, co
                         this.setPageIndex(highestPageInCurrentSet + 1);
                     }
                 },
-                provide: function () {
+                provide() {
                     return {
                         gridContext: this.gridContext
                     };
                 },
-                template: "\n<div class=\"table-responsive\">\n    <table class=\"grid-table table table-bordered table-striped table-hover\">\n        <thead>\n            <slot :rowData=\"null\" :isHeader=\"true\" :rowId=\"null\" />\n        </thead>\n        <tbody>\n            <template v-if=\"!gridData.length\">\n                <tr data-original-title=\"\" title=\"\">\n                    <td colspan=\"28\">\n                        <span class=\"table-empty\">\n                            No {{rowItemText}}s Found\n                        </span>\n                    </td>\n                </tr>\n            </template>\n            <template v-else v-for=\"rowData in gridData\" :key=\"getRowId(rowData, rowIdKey)\" >\n                <slot v-bind=\"getRowContext(rowData, false, )\" />\n            </template>\n        </tbody>\n        <tfoot>\n            <tr>\n                <td class=\"grid-paging\" colspan=\"6\">\n                    <ul class=\"grid-pagesize pagination pagination-sm\">\n                        <li :class=\"pageSize === 50 ? 'active' : ''\">\n                            <JavaScriptAnchor @click=\"setPageSize(50)\">50</JavaScriptAnchor>\n                        </li>\n                        <li :class=\"pageSize === 500 ? 'active' : ''\">\n                            <JavaScriptAnchor @click=\"setPageSize(500)\">500</JavaScriptAnchor>\n                        </li>\n                        <li :class=\"pageSize === 5000 ? 'active' : ''\">\n                            <JavaScriptAnchor @click=\"setPageSize(5000)\">5000</JavaScriptAnchor>\n                        </li>\n                    </ul>\n                    <div class=\"grid-itemcount\">{{rowCount}} {{rowItemText}}</div>\n                    <ul v-if=\"pageCount > 1\" class=\"grid-pager pagination pagination-sm\">\n                        <li class=\"prev disabled\">\n                            <JavaScriptAnchor @click=\"goToPreviousPageSet\" class=\"aspNetDisabled\">\u00AB</JavaScriptAnchor>\n                        </li>\n                        <li v-for=\"pageIndex in currentPageSet\" :key=\"pageIndex\" :class=\"pageIndex === currentPageIndex ? 'active' : ''\">\n                            <JavaScriptAnchor @click=\"setPageIndex(pageIndex)\">{{pageIndex}}</JavaScriptAnchor>\n                        </li>\n                        <li class=\"next disabled\">\n                            <JavaScriptAnchor @click=\"goToNextPageSet\" class=\"aspNetDisabled\">\u00BB</JavaScriptAnchor>\n                        </li>\n                    </ul>\n                </td>\n            </tr>\n            <tr>\n                <td class=\"grid-actions\" colspan=\"6\">\n                    <JavaScriptAnchor title=\"Communicate\" class=\"btn btn-grid-action btn-communicate btn-default btn-sm\"><i class=\"fa fa-comment fa-fw\"></i></JavaScriptAnchor>\n                    <JavaScriptAnchor title=\"Merge Person Records\" class=\"btn btn-grid-action btn-merge btn-default btn-sm\"><i class=\"fa fa-users fa-fw\"></i></JavaScriptAnchor>\n                    <JavaScriptAnchor title=\"Bulk Update\" class=\"btn btn-grid-action btn-bulk-update btn-default btn-sm\"><i class=\"fa fa-truck fa-fw\"></i></JavaScriptAnchor>\n                    <JavaScriptAnchor title=\"Launch Workflow\" class=\"btn-grid-action btn-launch-workflow btn btn-default btn-sm\"><i class=\"fa fa-cog fa-fw\"></i></JavaScriptAnchor>\n                    <JavaScriptAnchor title=\"Export to Excel\" class=\"btn btn-grid-action btn-excelexport btn-default btn-sm\"><i class=\"fa fa-table fa-fw\"></i></JavaScriptAnchor>\n                    <JavaScriptAnchor title=\"Merge Records into Merge Template\" class=\"btn btn-grid-action btn-merge-template btn-default btn-sm\"><i class=\"fa fa-files-o fa-fw\"></i></JavaScriptAnchor>\n                    <JavaScriptAnchor accesskey=\"n\" title=\"Alt+N\" class=\"btn btn-grid-action btn-add btn-default btn-sm\"><i class=\"fa fa-plus-circle fa-fw\"></i></JavaScriptAnchor>\n                </td>\n            </tr>\n        </tfoot>\n    </table>\n</div>"
+                template: `
+<div class="table-responsive">
+    <table class="grid-table table table-bordered table-striped table-hover">
+        <thead>
+            <slot :rowData="null" :isHeader="true" :rowId="null" />
+        </thead>
+        <tbody>
+            <template v-if="!gridData.length">
+                <tr data-original-title="" title="">
+                    <td colspan="28">
+                        <span class="table-empty">
+                            No {{rowItemText}}s Found
+                        </span>
+                    </td>
+                </tr>
+            </template>
+            <template v-else v-for="rowData in gridData" :key="getRowId(rowData, rowIdKey)" >
+                <slot v-bind="getRowContext(rowData, false, )" />
+            </template>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td class="grid-paging" colspan="6">
+                    <ul class="grid-pagesize pagination pagination-sm">
+                        <li :class="pageSize === 50 ? 'active' : ''">
+                            <JavaScriptAnchor @click="setPageSize(50)">50</JavaScriptAnchor>
+                        </li>
+                        <li :class="pageSize === 500 ? 'active' : ''">
+                            <JavaScriptAnchor @click="setPageSize(500)">500</JavaScriptAnchor>
+                        </li>
+                        <li :class="pageSize === 5000 ? 'active' : ''">
+                            <JavaScriptAnchor @click="setPageSize(5000)">5000</JavaScriptAnchor>
+                        </li>
+                    </ul>
+                    <div class="grid-itemcount">{{rowCount}} {{rowItemText}}</div>
+                    <ul v-if="pageCount > 1" class="grid-pager pagination pagination-sm">
+                        <li class="prev disabled">
+                            <JavaScriptAnchor @click="goToPreviousPageSet" class="aspNetDisabled">«</JavaScriptAnchor>
+                        </li>
+                        <li v-for="pageIndex in currentPageSet" :key="pageIndex" :class="pageIndex === currentPageIndex ? 'active' : ''">
+                            <JavaScriptAnchor @click="setPageIndex(pageIndex)">{{pageIndex}}</JavaScriptAnchor>
+                        </li>
+                        <li class="next disabled">
+                            <JavaScriptAnchor @click="goToNextPageSet" class="aspNetDisabled">»</JavaScriptAnchor>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td class="grid-actions" colspan="6">
+                    <JavaScriptAnchor title="Communicate" class="btn btn-grid-action btn-communicate btn-default btn-sm"><i class="fa fa-comment fa-fw"></i></JavaScriptAnchor>
+                    <JavaScriptAnchor title="Merge Person Records" class="btn btn-grid-action btn-merge btn-default btn-sm"><i class="fa fa-users fa-fw"></i></JavaScriptAnchor>
+                    <JavaScriptAnchor title="Bulk Update" class="btn btn-grid-action btn-bulk-update btn-default btn-sm"><i class="fa fa-truck fa-fw"></i></JavaScriptAnchor>
+                    <JavaScriptAnchor title="Launch Workflow" class="btn-grid-action btn-launch-workflow btn btn-default btn-sm"><i class="fa fa-cog fa-fw"></i></JavaScriptAnchor>
+                    <JavaScriptAnchor title="Export to Excel" class="btn btn-grid-action btn-excelexport btn-default btn-sm"><i class="fa fa-table fa-fw"></i></JavaScriptAnchor>
+                    <JavaScriptAnchor title="Merge Records into Merge Template" class="btn btn-grid-action btn-merge-template btn-default btn-sm"><i class="fa fa-files-o fa-fw"></i></JavaScriptAnchor>
+                    <JavaScriptAnchor accesskey="n" title="Alt+N" class="btn btn-grid-action btn-add btn-default btn-sm"><i class="fa fa-plus-circle fa-fw"></i></JavaScriptAnchor>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>`
             }));
         }
     };

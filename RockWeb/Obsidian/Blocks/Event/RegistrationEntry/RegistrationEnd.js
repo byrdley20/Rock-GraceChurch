@@ -25,31 +25,30 @@ System.register(["vue", "../../../Controls/AttributeValuesContainer", "../../../
                     AttributeValuesContainer: AttributeValuesContainer_1.default,
                     RockForm: RockForm_1.default
                 },
-                setup: function () {
+                setup() {
                     return {
                         registrationEntryState: vue_1.inject('registrationEntryState')
                     };
                 },
-                data: function () {
+                data() {
                     return {
                         attributeValues: []
                     };
                 },
                 methods: {
-                    onPrevious: function () {
+                    onPrevious() {
                         this.$emit('previous');
                     },
-                    onNext: function () {
+                    onNext() {
                         this.$emit('next');
                     }
                 },
                 watch: {
                     viewModel: {
                         immediate: true,
-                        handler: function () {
-                            var _this = this;
-                            this.attributeValues = this.registrationEntryState.ViewModel.registrationAttributesEnd.map(function (a) {
-                                var currentValue = _this.registrationEntryState.RegistrationFieldValues[a.guid] || '';
+                        handler() {
+                            this.attributeValues = this.registrationEntryState.ViewModel.registrationAttributesEnd.map(a => {
+                                const currentValue = this.registrationEntryState.RegistrationFieldValues[a.guid] || '';
                                 return {
                                     attribute: a,
                                     attributeId: a.id,
@@ -61,10 +60,9 @@ System.register(["vue", "../../../Controls/AttributeValuesContainer", "../../../
                     attributeValues: {
                         immediate: true,
                         deep: true,
-                        handler: function () {
-                            for (var _i = 0, _a = this.attributeValues; _i < _a.length; _i++) {
-                                var attributeValue = _a[_i];
-                                var attribute = attributeValue.attribute;
+                        handler() {
+                            for (const attributeValue of this.attributeValues) {
+                                const attribute = attributeValue.attribute;
                                 if (attribute) {
                                     this.registrationEntryState.RegistrationFieldValues[attribute.guid] = attributeValue.value;
                                 }
@@ -72,7 +70,21 @@ System.register(["vue", "../../../Controls/AttributeValuesContainer", "../../../
                         }
                     }
                 },
-                template: "\n<div class=\"registrationentry-registration-attributes\">\n    <RockForm @submit=\"onNext\">\n        <AttributeValuesContainer :attributeValues=\"attributeValues\" isEditMode />\n\n        <div class=\"actions\">\n            <RockButton btnType=\"default\" @click=\"onPrevious\">\n                Previous\n            </RockButton>\n            <RockButton btnType=\"primary\" class=\"pull-right\" type=\"submit\">\n                Next\n            </RockButton>\n        </div>\n    </RockForm>\n</div>"
+                template: `
+<div class="registrationentry-registration-attributes">
+    <RockForm @submit="onNext">
+        <AttributeValuesContainer :attributeValues="attributeValues" isEditMode />
+
+        <div class="actions">
+            <RockButton btnType="default" @click="onPrevious">
+                Previous
+            </RockButton>
+            <RockButton btnType="primary" class="pull-right" type="submit">
+                Next
+            </RockButton>
+        </div>
+    </RockForm>
+</div>`
             }));
         }
     };

@@ -65,20 +65,26 @@ System.register(["vue"], function (exports_1, context_1) {
                     }
                 },
                 computed: {
-                    typeClass: function () {
-                        return "btn-" + this.btnType;
+                    typeClass() {
+                        return `btn-${this.btnType}`;
                     },
-                    sizeClass: function () {
+                    sizeClass() {
                         if (!this.btnSize) {
                             return '';
                         }
-                        return "btn-" + this.btnSize;
+                        return `btn-${this.btnSize}`;
                     },
-                    cssClasses: function () {
-                        return "btn " + this.typeClass + " " + this.sizeClass;
+                    cssClasses() {
+                        return `btn ${this.typeClass} ${this.sizeClass}`;
                     }
                 },
-                template: "\n<button :class=\"cssClasses\" :disabled=\"isLoading || disabled\" @click=\"handleClick\" :type=\"type\">\n    <template v-if=\"isLoading\">\n        {{loadingText}}\n    </template>\n    <slot v-else />\n</button>"
+                template: `
+<button :class="cssClasses" :disabled="isLoading || disabled" @click="handleClick" :type="type">
+    <template v-if="isLoading">
+        {{loadingText}}
+    </template>
+    <slot v-else />
+</button>`
             }));
         }
     };

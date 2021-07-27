@@ -28,40 +28,42 @@ System.register(["vue", "./Index", "../Services/Number", "../Elements/Rating"], 
                     Rating: Rating_1.default
                 },
                 props: Index_1.getFieldTypeProps(),
-                data: function () {
+                data() {
                     return {
                         internalValue: 0
                     };
                 },
                 computed: {
-                    displayValue: function () {
-                        var value = Number_1.toNumber(this.modelValue || '');
-                        var html = "";
-                        for (var i = 0; i < value && i < this.maxRating; i++) {
-                            html += "<i class=\"fa fa-rating-selected\"></i>";
+                    displayValue() {
+                        const value = Number_1.toNumber(this.modelValue || '');
+                        let html = "";
+                        for (let i = 0; i < value && i < this.maxRating; i++) {
+                            html += `<i class="fa fa-rating-selected"></i>`;
                         }
-                        for (var i = value; i < this.maxRating; i++) {
-                            html += "<i class=\"fa fa-rating-unselected\"></i>";
+                        for (let i = value; i < this.maxRating; i++) {
+                            html += `<i class="fa fa-rating-unselected"></i>`;
                         }
                         return html;
                     },
-                    maxRating: function () {
-                        var maxRatingConfig = this.configurationValues[ConfigurationValueKey.MaxRating];
+                    maxRating() {
+                        const maxRatingConfig = this.configurationValues[ConfigurationValueKey.MaxRating];
                         return Number_1.toNumberOrNull(maxRatingConfig === null || maxRatingConfig === void 0 ? void 0 : maxRatingConfig.Value) || 5;
                     },
                 },
                 watch: {
-                    internalValue: function () {
+                    internalValue() {
                         this.$emit('update:modelValue', this.internalValue !== 0 ? this.internalValue.toString() : '');
                     },
                     modelValue: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             this.internalValue = Number_1.toNumber(this.modelValue || '');
                         }
                     }
                 },
-                template: "\n<Rating v-if=\"isEditMode\" v-model=\"internalValue\" :maxRating=\"maxRating\" />\n<span v-else v-html=\"displayValue\"></span>"
+                template: `
+<Rating v-if="isEditMode" v-model="internalValue" :maxRating="maxRating" />
+<span v-else v-html="displayValue"></span>`
             })));
         }
     };

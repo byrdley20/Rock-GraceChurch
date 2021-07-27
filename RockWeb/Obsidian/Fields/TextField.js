@@ -30,53 +30,56 @@ System.register(["vue", "./Index", "../Elements/TextBox", "../Services/Boolean"]
                     TextBox: TextBox_1.default
                 },
                 props: Index_1.getFieldTypeProps(),
-                data: function () {
+                data() {
                     return {
                         internalValue: ''
                     };
                 },
                 computed: {
-                    safeValue: function () {
+                    safeValue() {
                         return (this.modelValue || '').trim();
                     },
-                    configAttributes: function () {
-                        var attributes = {};
-                        var maxCharsConfig = this.configurationValues[ConfigurationValueKey.MaxCharacters];
+                    configAttributes() {
+                        const attributes = {};
+                        const maxCharsConfig = this.configurationValues[ConfigurationValueKey.MaxCharacters];
                         if (maxCharsConfig && maxCharsConfig.Value) {
-                            var maxCharsValue = Number(maxCharsConfig.Value);
+                            const maxCharsValue = Number(maxCharsConfig.Value);
                             if (maxCharsValue) {
                                 attributes.maxLength = maxCharsValue;
                             }
                         }
-                        var showCountDownConfig = this.configurationValues[ConfigurationValueKey.ShowCountDown];
+                        const showCountDownConfig = this.configurationValues[ConfigurationValueKey.ShowCountDown];
                         if (showCountDownConfig && showCountDownConfig.Value) {
-                            var showCountDownValue = Boolean_1.asBooleanOrNull(showCountDownConfig.Value) || false;
+                            const showCountDownValue = Boolean_1.asBooleanOrNull(showCountDownConfig.Value) || false;
                             if (showCountDownValue) {
                                 attributes.showCountDown = showCountDownValue;
                             }
                         }
                         return attributes;
                     },
-                    isPassword: function () {
-                        var isPasswordConfig = this.configurationValues[ConfigurationValueKey.IsPassword];
+                    isPassword() {
+                        const isPasswordConfig = this.configurationValues[ConfigurationValueKey.IsPassword];
                         return Boolean_1.asBooleanOrNull(isPasswordConfig === null || isPasswordConfig === void 0 ? void 0 : isPasswordConfig.Value) || false;
                     },
-                    passwordDisplay: function () {
+                    passwordDisplay() {
                         return this.safeValue ? '********' : '';
                     }
                 },
                 watch: {
-                    internalValue: function () {
+                    internalValue() {
                         this.$emit('update:modelValue', this.internalValue);
                     },
                     modelValue: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             this.internalValue = this.modelValue || '';
                         }
                     }
                 },
-                template: "\n<TextBox v-if=\"isEditMode\" v-model=\"internalValue\" v-bind=\"configAttributes\" :type=\"isPassword ? 'password' : ''\" />\n<span v-else-if=\"isPassword\">{{passwordDisplay}}</span>\n<span v-else>{{ safeValue }}</span>"
+                template: `
+<TextBox v-if="isEditMode" v-model="internalValue" v-bind="configAttributes" :type="isPassword ? 'password' : ''" />
+<span v-else-if="isPassword">{{passwordDisplay}}</span>
+<span v-else>{{ safeValue }}</span>`
             })));
         }
     };

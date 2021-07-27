@@ -1,16 +1,5 @@
 System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/PanelWidget", "../../Controls/AttributeValuesContainer", "../../Elements/TextBox"], function (exports_1, context_1) {
     "use strict";
-    var __assign = (this && this.__assign) || function () {
-        __assign = Object.assign || function(t) {
-            for (var s, i = 1, n = arguments.length; i < n; i++) {
-                s = arguments[i];
-                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                    t[p] = s[p];
-            }
-            return t;
-        };
-        return __assign.apply(this, arguments);
-    };
     var PaneledBlockTemplate_1, vue_1, PanelWidget_1, AttributeValuesContainer_1, TextBox_1, GetAttributeValueData, GalleryAndResult, GetFieldTypeGalleryComponent;
     var __moduleName = context_1 && context_1.id;
     return {
@@ -32,9 +21,9 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
             }
         ],
         execute: function () {
-            GetAttributeValueData = function (name, initialValue, fieldTypeGuid, configValues) {
-                var configurationValues = {};
-                for (var key in configValues) {
+            GetAttributeValueData = (name, initialValue, fieldTypeGuid, configValues) => {
+                const configurationValues = {};
+                for (const key in configValues) {
                     configurationValues[key] = {
                         Name: '',
                         Description: '',
@@ -44,8 +33,8 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 return [
                     {
                         attribute: {
-                            name: name + " 1",
-                            description: "This is the description of the " + name + " without an initial value",
+                            name: `${name} 1`,
+                            description: `This is the description of the ${name} without an initial value`,
                             fieldTypeGuid: fieldTypeGuid,
                             qualifierValues: configurationValues
                         },
@@ -53,8 +42,8 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                     },
                     {
                         attribute: {
-                            name: name + " 2",
-                            description: "This is the description of the " + name + " with an initial value",
+                            name: `${name} 2`,
+                            description: `This is the description of the ${name} with an initial value`,
                             fieldTypeGuid: fieldTypeGuid,
                             qualifierValues: configurationValues
                         },
@@ -79,35 +68,60 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                     }
                 },
                 computed: {
-                    value1Json: function () {
+                    value1Json() {
                         return JSON.stringify(this.attributeValues[0].value, null, 4);
                     },
-                    value2Json: function () {
+                    value2Json() {
                         return JSON.stringify(this.attributeValues[1].value, null, 4);
                     }
                 },
-                template: "\n<PanelWidget>\n    <template #header>{{title}}</template>\n    <div class=\"row\">\n        <div class=\"col-md-6\">\n            <h4>Qualifier Values</h4>\n            <slot />\n            <hr />\n            <h4>Attribute Values Container (edit)</h4>\n            <AttributeValuesContainer :attributeValues=\"attributeValues\" :isEditMode=\"true\" />\n        </div>\n        <div class=\"col-md-6\">\n            <h4>Attribute Values Container (view)</h4>\n            <AttributeValuesContainer :attributeValues=\"attributeValues\" :isEditMode=\"false\" />\n            <hr />\n            <h4>Values</h4>\n            <p>\n                <strong>Value 1</strong>\n                <pre>{{value1Json}}</pre>\n            </p>\n            <p>\n                <strong>Value 2</strong>\n                <pre>{{value2Json}}</pre>\n            </p>\n        </div>\n    </div>\n</PanelWidget>"
+                template: `
+<PanelWidget>
+    <template #header>{{title}}</template>
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Qualifier Values</h4>
+            <slot />
+            <hr />
+            <h4>Attribute Values Container (edit)</h4>
+            <AttributeValuesContainer :attributeValues="attributeValues" :isEditMode="true" />
+        </div>
+        <div class="col-md-6">
+            <h4>Attribute Values Container (view)</h4>
+            <AttributeValuesContainer :attributeValues="attributeValues" :isEditMode="false" />
+            <hr />
+            <h4>Values</h4>
+            <p>
+                <strong>Value 1</strong>
+                <pre>{{value1Json}}</pre>
+            </p>
+            <p>
+                <strong>Value 2</strong>
+                <pre>{{value2Json}}</pre>
+            </p>
+        </div>
+    </div>
+</PanelWidget>`
             });
-            GetFieldTypeGalleryComponent = function (name, initialValue, fieldTypeGuid, initialConfigValues) {
+            GetFieldTypeGalleryComponent = (name, initialValue, fieldTypeGuid, initialConfigValues) => {
                 return vue_1.defineComponent({
-                    name: name + "Gallery",
+                    name: `${name}Gallery`,
                     components: {
-                        GalleryAndResult: GalleryAndResult,
+                        GalleryAndResult,
                         TextBox: TextBox_1.default
                     },
-                    data: function () {
+                    data() {
                         return {
-                            name: name,
-                            configValues: __assign({}, initialConfigValues),
+                            name,
+                            configValues: Object.assign({}, initialConfigValues),
                             attributeValues: GetAttributeValueData(name, initialValue, fieldTypeGuid, initialConfigValues)
                         };
                     },
                     computed: {
-                        configKeys: function () {
-                            var keys = [];
-                            for (var _i = 0, _a = this.attributeValues; _i < _a.length; _i++) {
-                                var attributeValue = _a[_i];
-                                for (var key in attributeValue.attribute.qualifierValues) {
+                        configKeys() {
+                            const keys = [];
+                            for (const attributeValue of this.attributeValues) {
+                                for (const key in attributeValue.attribute.qualifierValues) {
                                     if (keys.indexOf(key) === -1) {
                                         keys.push(key);
                                     }
@@ -119,18 +133,20 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                     watch: {
                         configValues: {
                             deep: true,
-                            handler: function () {
-                                for (var _i = 0, _a = this.attributeValues; _i < _a.length; _i++) {
-                                    var attributeValue = _a[_i];
-                                    for (var key in attributeValue.attribute.qualifierValues) {
-                                        var value = this.configValues[key] || '';
+                            handler() {
+                                for (const attributeValue of this.attributeValues) {
+                                    for (const key in attributeValue.attribute.qualifierValues) {
+                                        const value = this.configValues[key] || '';
                                         attributeValue.attribute.qualifierValues[key].Value = value;
                                     }
                                 }
                             }
                         }
                     },
-                    template: "\n<GalleryAndResult :title=\"name\" :attributeValues=\"attributeValues\">\n    <TextBox v-for=\"configKey in configKeys\" :key=\"configKey\" :label=\"configKey\" v-model=\"configValues[configKey]\" />\n</GalleryAndResult>"
+                    template: `
+<GalleryAndResult :title="name" :attributeValues="attributeValues">
+    <TextBox v-for="configKey in configKeys" :key="configKey" :label="configKey" v-model="configValues[configKey]" />
+</GalleryAndResult>`
                 });
             };
             exports_1("default", vue_1.defineComponent({
@@ -198,7 +214,36 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                     }),
                     TimeGallery: GetFieldTypeGalleryComponent('Time', '13:15:00', '2F8F5EC4-57FA-4F6C-AB15-9D6616994580', {}),
                 },
-                template: "\n<PaneledBlockTemplate>\n    <template v-slot:title>\n        <i class=\"fa fa-flask\"></i>\n        Obsidian Field Type Gallery\n    </template>\n    <template v-slot:default>\n        <BooleanGallery />\n        <ColorGallery />\n        <CurrencyGallery />\n        <DateGallery />\n        <DateTimeGallery />\n        <DayOfWeekGallery />\n        <DaysOfWeekGallery />\n        <DecimalGallery />\n        <DecimalRangeGallery />\n        <DefinedValueGallery />\n        <EmailGallery />\n        <GenderGallery />\n        <IntegerGallery />\n        <IntegerRangeGallery />\n        <MemoGallery />\n        <MonthDayGallery />\n        <PhoneNumberGallery />\n        <RatingGallery />\n        <SingleSelectGallery />\n        <TextGallery />\n        <TimeGallery />\n    </template>\n</PaneledBlockTemplate>"
+                template: `
+<PaneledBlockTemplate>
+    <template v-slot:title>
+        <i class="fa fa-flask"></i>
+        Obsidian Field Type Gallery
+    </template>
+    <template v-slot:default>
+        <BooleanGallery />
+        <ColorGallery />
+        <CurrencyGallery />
+        <DateGallery />
+        <DateTimeGallery />
+        <DayOfWeekGallery />
+        <DaysOfWeekGallery />
+        <DecimalGallery />
+        <DecimalRangeGallery />
+        <DefinedValueGallery />
+        <EmailGallery />
+        <GenderGallery />
+        <IntegerGallery />
+        <IntegerRangeGallery />
+        <MemoGallery />
+        <MonthDayGallery />
+        <PhoneNumberGallery />
+        <RatingGallery />
+        <SingleSelectGallery />
+        <TextGallery />
+        <TimeGallery />
+    </template>
+</PaneledBlockTemplate>`
             }));
         }
     };

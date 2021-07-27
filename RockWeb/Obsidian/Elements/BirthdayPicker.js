@@ -17,7 +17,8 @@ System.register(["vue", "./DatePartsPicker"], function (exports_1, context_1) {
                 components: {
                     DatePartsPicker: DatePartsPicker_1.default
                 },
-                template: "\n<DatePartsPicker :allowFutureDates=\"false\" :requireYear=\"false\" />"
+                template: `
+<DatePartsPicker :allowFutureDates="false" :requireYear="false" />`
             }));
         }
     };

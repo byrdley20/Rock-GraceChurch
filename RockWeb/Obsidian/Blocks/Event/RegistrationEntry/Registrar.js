@@ -39,61 +39,60 @@ System.register(["vue", "../../../Elements/CheckBox", "../../../Elements/EmailBo
                     StaticFormControl: StaticFormControl_1.default,
                     RadioButtonList: RadioButtonList_1.default
                 },
-                setup: function () {
+                setup() {
                     return {
                         getRegistrationEntryBlockArgs: vue_1.inject('getRegistrationEntryBlockArgs'),
                         registrationEntryState: vue_1.inject('registrationEntryState')
                     };
                 },
-                data: function () {
+                data() {
                     return {
                         isRegistrarPanelShown: true
                     };
                 },
                 computed: {
-                    useLoggedInPersonForRegistrar: function () {
+                    useLoggedInPersonForRegistrar() {
                         return (!!this.currentPerson) && this.viewModel.registrarOption === RegistrationEntryBlockViewModel_1.RegistrarOption.UseLoggedInPerson;
                     },
-                    currentPerson: function () {
+                    currentPerson() {
                         return this.$store.state.currentPerson;
                     },
-                    registrar: function () {
+                    registrar() {
                         return this.registrationEntryState.Registrar;
                     },
-                    firstRegistrant: function () {
+                    firstRegistrant() {
                         return this.registrationEntryState.Registrants[0];
                     },
-                    viewModel: function () {
+                    viewModel() {
                         return this.registrationEntryState.ViewModel;
                     },
-                    doShowUpdateEmailOption: function () {
+                    doShowUpdateEmailOption() {
                         var _a;
                         return !this.viewModel.forceEmailUpdate && !!((_a = this.currentPerson) === null || _a === void 0 ? void 0 : _a.email);
                     },
-                    registrantInfos: function () {
-                        var _this = this;
-                        return this.registrationEntryState.Registrants.map(function (r) { return RegistrationEntry_1.getRegistrantBasicInfo(r, _this.viewModel.registrantForms); });
+                    registrantInfos() {
+                        return this.registrationEntryState.Registrants.map(r => RegistrationEntry_1.getRegistrantBasicInfo(r, this.viewModel.registrantForms));
                     },
-                    registrantTerm: function () {
+                    registrantTerm() {
                         return this.registrantInfos.length === 1 ? this.viewModel.registrantTerm : this.viewModel.pluralRegistrantTerm;
                     },
-                    instanceName: function () {
+                    instanceName() {
                         return this.viewModel.instanceName;
                     },
-                    familyOptions: function () {
+                    familyOptions() {
                         var _a;
-                        var options = [];
-                        var usedFamilyGuids = {};
+                        const options = [];
+                        const usedFamilyGuids = {};
                         if (this.viewModel.registrantsSameFamily !== RegistrationEntryBlockViewModel_1.RegistrantsSameFamily.Ask) {
                             return options;
                         }
-                        for (var i = 0; i < this.registrationEntryState.Registrants.length; i++) {
-                            var registrant = this.registrationEntryState.Registrants[i];
-                            var info = RegistrationEntry_1.getRegistrantBasicInfo(registrant, this.viewModel.registrantForms);
+                        for (let i = 0; i < this.registrationEntryState.Registrants.length; i++) {
+                            const registrant = this.registrationEntryState.Registrants[i];
+                            const info = RegistrationEntry_1.getRegistrantBasicInfo(registrant, this.viewModel.registrantForms);
                             if (!usedFamilyGuids[registrant.FamilyGuid] && (info === null || info === void 0 ? void 0 : info.FirstName) && (info === null || info === void 0 ? void 0 : info.LastName)) {
                                 options.push({
                                     key: registrant.FamilyGuid,
-                                    text: info.FirstName + " " + info.LastName,
+                                    text: `${info.FirstName} ${info.LastName}`,
                                     value: registrant.FamilyGuid
                                 });
                                 usedFamilyGuids[registrant.FamilyGuid] = true;
@@ -115,7 +114,7 @@ System.register(["vue", "../../../Elements/CheckBox", "../../../Elements/EmailBo
                     },
                 },
                 methods: {
-                    prefillRegistrar: function () {
+                    prefillRegistrar() {
                         this.isRegistrarPanelShown = true;
                         if (this.currentPerson &&
                             (this.viewModel.registrarOption === RegistrationEntryBlockViewModel_1.RegistrarOption.UseLoggedInPerson || this.viewModel.registrarOption === RegistrationEntryBlockViewModel_1.RegistrarOption.PromptForRegistrar)) {
@@ -129,12 +128,12 @@ System.register(["vue", "../../../Elements/CheckBox", "../../../Elements/EmailBo
                             return;
                         }
                         if (this.viewModel.registrarOption === RegistrationEntryBlockViewModel_1.RegistrarOption.PrefillFirstRegistrant || this.viewModel.registrarOption === RegistrationEntryBlockViewModel_1.RegistrarOption.UseFirstRegistrant) {
-                            var firstRegistrantInfo = RegistrationEntry_1.getRegistrantBasicInfo(this.firstRegistrant, this.viewModel.registrantForms);
+                            const firstRegistrantInfo = RegistrationEntry_1.getRegistrantBasicInfo(this.firstRegistrant, this.viewModel.registrantForms);
                             this.registrar.NickName = firstRegistrantInfo.FirstName;
                             this.registrar.LastName = firstRegistrantInfo.LastName;
                             this.registrar.Email = firstRegistrantInfo.Email;
                             this.registrar.FamilyGuid = this.firstRegistrant.FamilyGuid;
-                            var hasAllInfo = (!!this.registrar.NickName) && (!!this.registrar.LastName) && (!!this.registrar.Email);
+                            const hasAllInfo = (!!this.registrar.NickName) && (!!this.registrar.LastName) && (!!this.registrar.Email);
                             if (hasAllInfo && this.viewModel.registrarOption === RegistrationEntryBlockViewModel_1.RegistrarOption.UseFirstRegistrant) {
                                 this.isRegistrarPanelShown = false;
                             }
@@ -145,12 +144,45 @@ System.register(["vue", "../../../Elements/CheckBox", "../../../Elements/EmailBo
                 watch: {
                     currentPerson: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             this.prefillRegistrar();
                         }
                     }
                 },
-                template: "\n<div v-if=\"isRegistrarPanelShown\" class=\"well\">\n    <h4>This Registration Was Completed By</h4>\n    <template v-if=\"useLoggedInPersonForRegistrar\">\n        <div class=\"row\">\n            <div class=\"col-md-6\">\n                <StaticFormControl label=\"First Name\" v-model=\"registrar.NickName\" />\n                <StaticFormControl label=\"Email\" v-model=\"registrar.Email\" />\n            </div>\n            <div class=\"col-md-6\">\n                <StaticFormControl label=\"Last Name\" v-model=\"registrar.LastName\" />\n            </div>\n        </div>\n    </template>\n    <template v-else>\n        <div class=\"row\">\n            <div class=\"col-md-6\">\n                <TextBox label=\"First Name\" rules=\"required\" v-model=\"registrar.NickName\" tabIndex=\"1\" />\n                <EmailBox label=\"Send Confirmation Emails To\" rules=\"required\" v-model=\"registrar.Email\" tabIndex=\"3\" />\n                <CheckBox v-if=\"doShowUpdateEmailOption\" label=\"Should Your Account Be Updated To Use This Email Address?\" v-model=\"registrar.UpdateEmail\" />\n            </div>\n            <div class=\"col-md-6\">\n                <TextBox label=\"Last Name\" rules=\"required\" v-model=\"registrar.LastName\" tabIndex=\"2\" />\n                <RadioButtonList\n                    v-if=\"familyOptions.length\"\n                    :label=\"(registrar.NickName || 'Person') + ' is in the same immediate family as'\"\n                    rules='required:{\"allowEmptyString\": true}'\n                    v-model=\"registrar.FamilyGuid\"\n                    :options=\"familyOptions\"\n                    validationTitle=\"Family\" />\n            </div>\n        </div>\n    </template>\n</div>"
+                template: `
+<div v-if="isRegistrarPanelShown" class="well">
+    <h4>This Registration Was Completed By</h4>
+    <template v-if="useLoggedInPersonForRegistrar">
+        <div class="row">
+            <div class="col-md-6">
+                <StaticFormControl label="First Name" v-model="registrar.NickName" />
+                <StaticFormControl label="Email" v-model="registrar.Email" />
+            </div>
+            <div class="col-md-6">
+                <StaticFormControl label="Last Name" v-model="registrar.LastName" />
+            </div>
+        </div>
+    </template>
+    <template v-else>
+        <div class="row">
+            <div class="col-md-6">
+                <TextBox label="First Name" rules="required" v-model="registrar.NickName" tabIndex="1" />
+                <EmailBox label="Send Confirmation Emails To" rules="required" v-model="registrar.Email" tabIndex="3" />
+                <CheckBox v-if="doShowUpdateEmailOption" label="Should Your Account Be Updated To Use This Email Address?" v-model="registrar.UpdateEmail" />
+            </div>
+            <div class="col-md-6">
+                <TextBox label="Last Name" rules="required" v-model="registrar.LastName" tabIndex="2" />
+                <RadioButtonList
+                    v-if="familyOptions.length"
+                    :label="(registrar.NickName || 'Person') + ' is in the same immediate family as'"
+                    rules='required:{"allowEmptyString": true}'
+                    v-model="registrar.FamilyGuid"
+                    :options="familyOptions"
+                    validationTitle="Family" />
+            </div>
+        </div>
+    </template>
+</div>`
             }));
         }
     };

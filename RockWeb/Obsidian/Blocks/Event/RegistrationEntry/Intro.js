@@ -34,22 +34,22 @@ System.register(["vue", "../../../Elements/Alert", "../../../Elements/NumberUpDo
                     RockButton: RockButton_1.default,
                     Alert: Alert_1.default
                 },
-                data: function () {
-                    var registrationEntryState = vue_1.inject('registrationEntryState');
+                data() {
+                    const registrationEntryState = vue_1.inject('registrationEntryState');
                     return {
                         numberOfRegistrants: registrationEntryState.Registrants.length,
-                        registrationEntryState: registrationEntryState,
+                        registrationEntryState,
                         showRemainingCapacity: false
                     };
                 },
                 computed: {
-                    currentPerson: function () {
+                    currentPerson() {
                         return this.$store.state.currentPerson;
                     },
-                    viewModel: function () {
+                    viewModel() {
                         return this.registrationEntryState.ViewModel;
                     },
-                    numberToAddToWaitlist: function () {
+                    numberToAddToWaitlist() {
                         if (this.viewModel.spotsRemaining === null || !this.viewModel.waitListEnabled) {
                             return 0;
                         }
@@ -58,76 +58,111 @@ System.register(["vue", "../../../Elements/Alert", "../../../Elements/NumberUpDo
                         }
                         return this.numberOfRegistrants - this.viewModel.spotsRemaining;
                     },
-                    remainingCapacityPhrase: function () {
-                        var spots = this.viewModel.spotsRemaining;
+                    remainingCapacityPhrase() {
+                        const spots = this.viewModel.spotsRemaining;
                         if (spots === null) {
                             return '';
                         }
-                        return String_1.pluralConditional(spots, "1 more " + this.registrantTerm, spots + " more " + this.registrantTermPlural);
+                        return String_1.pluralConditional(spots, `1 more ${this.registrantTerm}`, `${spots} more ${this.registrantTermPlural}`);
                     },
-                    isFull: function () {
+                    isFull() {
                         if (this.viewModel.spotsRemaining === null) {
                             return false;
                         }
                         return this.viewModel.spotsRemaining < 1;
                     },
-                    registrantTerm: function () {
+                    registrantTerm() {
                         this.viewModel.instanceName;
                         return (this.viewModel.registrantTerm || 'registrant').toLowerCase();
                     },
-                    registrantTermPlural: function () {
+                    registrantTermPlural() {
                         return (this.viewModel.pluralRegistrantTerm || 'registrants').toLowerCase();
                     },
-                    registrationTerm: function () {
+                    registrationTerm() {
                         return (this.viewModel.registrationTerm || 'registration').toLowerCase();
                     },
-                    registrationTermPlural: function () {
+                    registrationTermPlural() {
                         return (this.viewModel.pluralRegistrationTerm || 'registrations').toLowerCase();
                     },
-                    registrationTermTitleCase: function () {
+                    registrationTermTitleCase() {
                         return String_1.toTitleCase(this.registrationTerm);
                     }
                 },
                 methods: {
                     pluralConditional: String_1.pluralConditional,
-                    onNext: function () {
-                        var forcedFamilyGuid = RegistrationEntry_1.getForcedFamilyGuid(this.currentPerson, this.viewModel);
-                        var usedFamilyMemberGuids = this.registrationEntryState.Registrants
-                            .filter(function (r) { return r.PersonGuid; })
-                            .map(function (r) { return r.PersonGuid; });
-                        var availableFamilyMembers = this.viewModel.familyMembers
-                            .filter(function (fm) {
-                            return Guid_1.areEqual(fm.familyGuid, forcedFamilyGuid) &&
-                                !usedFamilyMemberGuids.includes(fm.guid);
-                        });
+                    onNext() {
+                        const forcedFamilyGuid = RegistrationEntry_1.getForcedFamilyGuid(this.currentPerson, this.viewModel);
+                        const usedFamilyMemberGuids = this.registrationEntryState.Registrants
+                            .filter(r => r.PersonGuid)
+                            .map(r => r.PersonGuid);
+                        const availableFamilyMembers = this.viewModel.familyMembers
+                            .filter(fm => Guid_1.areEqual(fm.familyGuid, forcedFamilyGuid) &&
+                            !usedFamilyMemberGuids.includes(fm.guid));
                         while (this.numberOfRegistrants > this.registrationEntryState.Registrants.length) {
-                            var registrant = RegistrationEntry_1.getDefaultRegistrantInfo(this.currentPerson, this.viewModel, forcedFamilyGuid);
+                            const registrant = RegistrationEntry_1.getDefaultRegistrantInfo(this.currentPerson, this.viewModel, forcedFamilyGuid);
                             this.registrationEntryState.Registrants.push(registrant);
                         }
                         this.registrationEntryState.Registrants.length = this.numberOfRegistrants;
-                        var firstWaitListIndex = this.numberOfRegistrants - this.numberToAddToWaitlist;
-                        for (var i = firstWaitListIndex; i < this.numberOfRegistrants; i++) {
+                        const firstWaitListIndex = this.numberOfRegistrants - this.numberToAddToWaitlist;
+                        for (let i = firstWaitListIndex; i < this.numberOfRegistrants; i++) {
                             this.registrationEntryState.Registrants[i].IsOnWaitList = true;
                         }
                         if (availableFamilyMembers.length && this.registrationEntryState.Registrants.length) {
-                            var familyMember = availableFamilyMembers[0];
-                            var registrant = this.registrationEntryState.Registrants[0];
+                            const familyMember = availableFamilyMembers[0];
+                            const registrant = this.registrationEntryState.Registrants[0];
                             registrant.PersonGuid = familyMember.guid;
                         }
                         this.$emit('next');
                     },
                 },
                 watch: {
-                    numberOfRegistrants: function () {
-                        var _this = this;
+                    numberOfRegistrants() {
                         if (!this.viewModel.waitListEnabled && this.viewModel.spotsRemaining !== null && this.viewModel.spotsRemaining < this.numberOfRegistrants) {
                             this.showRemainingCapacity = true;
-                            var spotsRemaining_1 = this.viewModel.spotsRemaining;
-                            this.$nextTick(function () { return _this.numberOfRegistrants = spotsRemaining_1; });
+                            const spotsRemaining = this.viewModel.spotsRemaining;
+                            this.$nextTick(() => this.numberOfRegistrants = spotsRemaining);
                         }
                     }
                 },
-                template: "\n<div class=\"registrationentry-intro\">\n    <Alert v-if=\"isFull && numberToAddToWaitlist !== numberOfRegistrants\" class=\"text-left\" alertType=\"warning\">\n        <strong>{{registrationTermTitleCase}} Full</strong>\n        <p>\n            There are not any more {{registrationTermPlural}} available for {{viewModel.instanceName}}. \n        </p>\n    </Alert>\n    <Alert v-if=\"showRemainingCapacity\" class=\"text-left\" alertType=\"warning\">\n        <strong>{{registrationTermTitleCase}} Full</strong>\n        <p>\n            This {{registrationTerm}} only has capacity for {{remainingCapacityPhrase}}.\n        </p>\n    </Alert>\n    <div class=\"text-left\" v-html=\"viewModel.instructionsHtml\">\n    </div>\n    <div v-if=\"viewModel.maxRegistrants > 1\" class=\"registrationentry-intro\">\n        <h1>How many {{viewModel.pluralRegistrantTerm}} will you be registering?</h1>\n        <NumberUpDown v-model=\"numberOfRegistrants\" class=\"margin-t-sm\" numberIncrementClasses=\"input-lg\" :max=\"viewModel.maxRegistrants\" />\n    </div>\n    <Alert v-if=\"viewModel.timeoutMinutes\" alertType=\"info\" class=\"text-left\">\n        Due to a high-volume of expected interest, your {{registrationTerm}} session will expire after\n        {{pluralConditional(viewModel.timeoutMinutes, 'a minute', viewModel.timeoutMinutes + ' minutes')}}\n        of inactivity.\n    </Alert>\n    <Alert v-if=\"numberToAddToWaitlist === numberOfRegistrants\" class=\"text-left\" alertType=\"warning\">\n        This {{registrationTerm}} has reached its capacity. Complete the registration to be added to the waitlist.\n    </Alert>\n    <Alert v-else-if=\"numberToAddToWaitlist\" class=\"text-left\" alertType=\"warning\">\n        This {{registrationTerm}} only has capacity for {{remainingCapacityPhrase}}.\n        The first {{pluralConditional(viewModel.spotsRemaining, registrantTerm, viewModel.spotsRemaining + ' ' + registrantTermPlural)}} you add will be registered for {{viewModel.instanceName}}.\n        The remaining {{pluralConditional(numberToAddToWaitlist, registrantTerm, numberToAddToWaitlist + ' ' + registrantTermPlural)}} will be added to the waitlist. \n    </Alert>\n    <div class=\"actions text-right\">\n        <RockButton btnType=\"primary\" @click=\"onNext\">\n            Next\n        </RockButton>\n    </div>\n</div>"
+                template: `
+<div class="registrationentry-intro">
+    <Alert v-if="isFull && numberToAddToWaitlist !== numberOfRegistrants" class="text-left" alertType="warning">
+        <strong>{{registrationTermTitleCase}} Full</strong>
+        <p>
+            There are not any more {{registrationTermPlural}} available for {{viewModel.instanceName}}. 
+        </p>
+    </Alert>
+    <Alert v-if="showRemainingCapacity" class="text-left" alertType="warning">
+        <strong>{{registrationTermTitleCase}} Full</strong>
+        <p>
+            This {{registrationTerm}} only has capacity for {{remainingCapacityPhrase}}.
+        </p>
+    </Alert>
+    <div class="text-left" v-html="viewModel.instructionsHtml">
+    </div>
+    <div v-if="viewModel.maxRegistrants > 1" class="registrationentry-intro">
+        <h1>How many {{viewModel.pluralRegistrantTerm}} will you be registering?</h1>
+        <NumberUpDown v-model="numberOfRegistrants" class="margin-t-sm" numberIncrementClasses="input-lg" :max="viewModel.maxRegistrants" />
+    </div>
+    <Alert v-if="viewModel.timeoutMinutes" alertType="info" class="text-left">
+        Due to a high-volume of expected interest, your {{registrationTerm}} session will expire after
+        {{pluralConditional(viewModel.timeoutMinutes, 'a minute', viewModel.timeoutMinutes + ' minutes')}}
+        of inactivity.
+    </Alert>
+    <Alert v-if="numberToAddToWaitlist === numberOfRegistrants" class="text-left" alertType="warning">
+        This {{registrationTerm}} has reached its capacity. Complete the registration to be added to the waitlist.
+    </Alert>
+    <Alert v-else-if="numberToAddToWaitlist" class="text-left" alertType="warning">
+        This {{registrationTerm}} only has capacity for {{remainingCapacityPhrase}}.
+        The first {{pluralConditional(viewModel.spotsRemaining, registrantTerm, viewModel.spotsRemaining + ' ' + registrantTermPlural)}} you add will be registered for {{viewModel.instanceName}}.
+        The remaining {{pluralConditional(numberToAddToWaitlist, registrantTerm, numberToAddToWaitlist + ' ' + registrantTermPlural)}} will be added to the waitlist. 
+    </Alert>
+    <div class="actions text-right">
+        <RockButton btnType="primary" @click="onNext">
+            Next
+        </RockButton>
+    </div>
+</div>`
             }));
         }
     };

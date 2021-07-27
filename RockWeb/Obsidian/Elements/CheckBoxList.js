@@ -35,14 +35,32 @@ System.register(["vue", "./RockFormField.js"], function (exports_1, context_1) {
                 methods: {},
                 computed: {},
                 watch: {
-                    modelValue: function () {
+                    modelValue() {
                         this.internalValue = this.modelValue;
                     },
-                    internalValue: function () {
+                    internalValue() {
                         this.$emit('update:modelValue', this.internalValue);
                     },
                 },
-                template: "\n<RockFormField\n    :modelValue=\"internalValue\"\n    formGroupClasses=\"check-box-list\"\n    name=\"check-box-list\">\n    <template #default=\"{uniqueId, field, errors, disabled}\">\n        <div class=\"control-wrapper\">\n            <div class=\"controls rockcheckboxlist rockcheckboxlist-vertical\">\n                <div class=\"checkbox\" v-for=\"o in options\" :key=\"o.value\">\n                    <label>\n                        <input type=\"checkbox\" :value=\"o.value\" v-model=\"internalValue\" />\n                        <span class=\"label-text\">{{ o.text }}</span>\n                    </label>\n                </div>\n            </div>\n        </div>\n    </template>\n</RockFormField>\n"
+                template: `
+<RockFormField
+    :modelValue="internalValue"
+    formGroupClasses="check-box-list"
+    name="check-box-list">
+    <template #default="{uniqueId, field, errors, disabled}">
+        <div class="control-wrapper">
+            <div class="controls rockcheckboxlist rockcheckboxlist-vertical">
+                <div class="checkbox" v-for="o in options" :key="o.value">
+                    <label>
+                        <input type="checkbox" :value="o.value" v-model="internalValue" />
+                        <span class="label-text">{{ o.text }}</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </template>
+</RockFormField>
+`
             }));
         }
     };

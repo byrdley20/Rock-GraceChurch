@@ -2,7 +2,7 @@ System.register([], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     function stripTimezone(val) {
-        var asUtc = new Date(val.getTime() + val.getTimezoneOffset() * 60000);
+        const asUtc = new Date(val.getTime() + val.getTimezoneOffset() * 60000);
         return asUtc;
     }
     exports_1("stripTimezone", stripTimezone);
@@ -21,7 +21,7 @@ System.register([], function (exports_1, context_1) {
         if (!d) {
             return null;
         }
-        var asDate = stripTimezone(new Date(d));
+        const asDate = stripTimezone(new Date(d));
         return asDate.getDate();
     }
     exports_1("getDay", getDay);
@@ -29,7 +29,7 @@ System.register([], function (exports_1, context_1) {
         if (!d) {
             return null;
         }
-        var asDate = stripTimezone(new Date(d));
+        const asDate = stripTimezone(new Date(d));
         return asDate.getMonth() + 1;
     }
     exports_1("getMonth", getMonth);
@@ -37,7 +37,7 @@ System.register([], function (exports_1, context_1) {
         if (!d) {
             return null;
         }
-        var asDate = stripTimezone(new Date(d));
+        const asDate = stripTimezone(new Date(d));
         return asDate.getFullYear();
     }
     exports_1("getYear", getYear);
@@ -45,12 +45,12 @@ System.register([], function (exports_1, context_1) {
         setters: [],
         execute: function () {
             exports_1("default", {
-                newDate: newDate,
-                toRockDate: toRockDate,
-                getDay: getDay,
-                getMonth: getMonth,
-                getYear: getYear,
-                stripTimezone: stripTimezone
+                newDate,
+                toRockDate,
+                getDay,
+                getMonth,
+                getYear,
+                stripTimezone
             });
         }
     };

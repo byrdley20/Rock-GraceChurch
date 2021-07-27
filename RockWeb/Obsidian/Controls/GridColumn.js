@@ -34,37 +34,37 @@ System.register(["../Elements/JavaScriptAnchor", "vue", "./Grid"], function (exp
                         default: ''
                     }
                 },
-                setup: function () {
+                setup() {
                     return {
                         gridContext: vue_1.inject('gridContext'),
                         rowContext: vue_1.inject('rowContext')
                     };
                 },
                 computed: {
-                    mySortExpression: function () {
+                    mySortExpression() {
                         return this.sortExpression || this.property;
                     },
-                    canSort: function () {
+                    canSort() {
                         return !!this.sortProperty;
                     },
-                    sortProperty: function () {
+                    sortProperty() {
                         return this.gridContext.sortProperty;
                     },
-                    isCurrentlySorted: function () {
+                    isCurrentlySorted() {
                         var _a;
                         return !!this.mySortExpression && ((_a = this.sortProperty) === null || _a === void 0 ? void 0 : _a.property) === this.mySortExpression;
                     },
-                    isCurrentlySortedDesc: function () {
+                    isCurrentlySortedDesc() {
                         var _a;
                         return this.isCurrentlySorted && ((_a = this.sortProperty) === null || _a === void 0 ? void 0 : _a.direction) === Grid_1.SortDirection.Descending;
                     },
-                    isCurrentlySortedAsc: function () {
+                    isCurrentlySortedAsc() {
                         var _a;
                         return this.isCurrentlySorted && ((_a = this.sortProperty) === null || _a === void 0 ? void 0 : _a.direction) === Grid_1.SortDirection.Ascending;
                     }
                 },
                 methods: {
-                    onHeaderClick: function () {
+                    onHeaderClick() {
                         this.$emit('click:header', this.property);
                         if (this.mySortExpression && this.sortProperty) {
                             if (this.isCurrentlySortedAsc) {
@@ -77,7 +77,28 @@ System.register(["../Elements/JavaScriptAnchor", "vue", "./Grid"], function (exp
                         }
                     },
                 },
-                template: "\n<th\n    v-if=\"rowContext.isHeader\"\n    scope=\"col\"\n    @click=\"onHeaderClick\"\n    :class=\"isCurrentlySortedAsc ? 'ascending' : isCurrentlySortedDesc ? 'descending' : ''\">\n    <JavaScriptAnchor v-if=\"mySortExpression && canSort\">\n        <slot name=\"header\">\n            {{title}}\n        </slot>\n    </JavaScriptAnchor>\n    <template v-else>\n        <slot name=\"header\">\n            {{title}}\n        </slot>\n    </template>\n</th>\n<td v-else class=\"grid-select-cell\">\n    <slot>\n        {{rowContext.rowData[property]}}\n    </slot>\n</td>"
+                template: `
+<th
+    v-if="rowContext.isHeader"
+    scope="col"
+    @click="onHeaderClick"
+    :class="isCurrentlySortedAsc ? 'ascending' : isCurrentlySortedDesc ? 'descending' : ''">
+    <JavaScriptAnchor v-if="mySortExpression && canSort">
+        <slot name="header">
+            {{title}}
+        </slot>
+    </JavaScriptAnchor>
+    <template v-else>
+        <slot name="header">
+            {{title}}
+        </slot>
+    </template>
+</th>
+<td v-else class="grid-select-cell">
+    <slot>
+        {{rowContext.rowData[property]}}
+    </slot>
+</td>`
             }));
         }
     };

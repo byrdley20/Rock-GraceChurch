@@ -34,36 +34,52 @@ System.register(["vue", "./RockFormField.js"], function (exports_1, context_1) {
                     };
                 },
                 methods: {
-                    setRating: function (value) {
+                    setRating(value) {
                         this.internalValue = value;
                     },
-                    onClear: function (e) {
+                    onClear(e) {
                         e.preventDefault();
                         this.setRating(0);
                         return false;
                     },
-                    classForRating: function (position) {
+                    classForRating(position) {
                         var _a;
-                        var filledCount = Math.min(this.maxRating, (_a = this.hoverValue) !== null && _a !== void 0 ? _a : this.internalValue);
+                        const filledCount = Math.min(this.maxRating, (_a = this.hoverValue) !== null && _a !== void 0 ? _a : this.internalValue);
                         return position <= filledCount ? "fa fa-rating-selected" : "fa fa-rating-unselected";
                     },
-                    setHover: function (position) {
+                    setHover(position) {
                         this.hoverValue = position;
                     },
-                    clearHover: function () {
+                    clearHover() {
                         this.hoverValue = null;
                     }
                 },
                 computed: {},
                 watch: {
-                    modelValue: function () {
+                    modelValue() {
                         this.internalValue = this.modelValue;
                     },
-                    internalValue: function () {
+                    internalValue() {
                         this.$emit('update:modelValue', this.internalValue);
                     },
                 },
-                template: "\n<RockFormField\n    :modelValue=\"internalValue\"\n    formGroupClasses=\"rock-rating\"\n    name=\"rock-rating\">\n    <template #default=\"{uniqueId, field, errors, disabled}\">\n        <div class=\"control-wrapper\">\n            <div class=\"rating-input\">\n                <i v-for=\"i in maxRating\" :key=\"i\" :class=\"classForRating(i)\" @click=\"setRating(i)\" @mouseover=\"setHover(i)\" @mouseleave=\"clearHover()\"></i>\n                <a class=\"clear-rating\" href=\"#\" v-on:click=\"onClear\" @mouseover=\"setHover(0)\" @mouseleave=\"clearHover()\">\n                    <span class=\"fa fa-remove\"></span>\n                </a>\n            </div>\n        </div>\n    </template>\n</RockFormField>\n"
+                template: `
+<RockFormField
+    :modelValue="internalValue"
+    formGroupClasses="rock-rating"
+    name="rock-rating">
+    <template #default="{uniqueId, field, errors, disabled}">
+        <div class="control-wrapper">
+            <div class="rating-input">
+                <i v-for="i in maxRating" :key="i" :class="classForRating(i)" @click="setRating(i)" @mouseover="setHover(i)" @mouseleave="clearHover()"></i>
+                <a class="clear-rating" href="#" v-on:click="onClear" @mouseover="setHover(0)" @mouseleave="clearHover()">
+                    <span class="fa fa-remove"></span>
+                </a>
+            </div>
+        </div>
+    </template>
+</RockFormField>
+`
             }));
         }
     };

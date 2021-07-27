@@ -40,11 +40,17 @@ System.register(["vue"], function (exports_1, context_1) {
                     }
                 },
                 computed: {
-                    typeClass: function () {
-                        return "alert-" + this.alertType;
+                    typeClass() {
+                        return `alert-${this.alertType}`;
                     },
                 },
-                template: "\n<div class=\"alert\" :class=\"typeClass\">\n    <button v-if=\"dismissible\" type=\"button\" class=\"close\" @click=\"onDismiss\">\n        <span>&times;</span>\n    </button>\n    <slot />\n</div>"
+                template: `
+<div class="alert" :class="typeClass">
+    <button v-if="dismissible" type="button" class="close" @click="onDismiss">
+        <span>&times;</span>
+    </button>
+    <slot />
+</div>`
             });
             exports_1("default", Alert);
         }

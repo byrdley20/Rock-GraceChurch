@@ -9,7 +9,7 @@ System.register([], function (exports_1, context_1) {
             return val;
         }
         if (typeof val === 'string') {
-            var asString = (val || '').trim().toLowerCase();
+            const asString = (val || '').trim().toLowerCase();
             if (!asString) {
                 return null;
             }
@@ -26,7 +26,7 @@ System.register([], function (exports_1, context_1) {
     }
     exports_1("asBoolean", asBoolean);
     function asYesNoOrNull(val) {
-        var boolOrNull = asBooleanOrNull(val);
+        const boolOrNull = asBooleanOrNull(val);
         if (boolOrNull === null) {
             return null;
         }
@@ -34,7 +34,7 @@ System.register([], function (exports_1, context_1) {
     }
     exports_1("asYesNoOrNull", asYesNoOrNull);
     function asTrueFalseOrNull(val) {
-        var boolOrNull = asBooleanOrNull(val);
+        const boolOrNull = asBooleanOrNull(val);
         if (boolOrNull === null) {
             return null;
         }

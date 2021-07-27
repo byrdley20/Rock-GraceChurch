@@ -37,12 +37,12 @@ System.register(["vue", "../Util/Guid", "../Rules/Index"], function (exports_1, 
                 },
                 data: function () {
                     return {
-                        uniqueId: "rock-checkbox-" + Guid_1.newGuid(),
+                        uniqueId: `rock-checkbox-${Guid_1.newGuid()}`,
                         internalValue: this.modelValue
                     };
                 },
                 methods: {
-                    toggle: function () {
+                    toggle() {
                         if (!this.isRequired) {
                             this.internalValue = !this.internalValue;
                         }
@@ -52,28 +52,43 @@ System.register(["vue", "../Util/Guid", "../Rules/Index"], function (exports_1, 
                     }
                 },
                 computed: {
-                    isRequired: function () {
-                        var rules = Index_1.ruleStringToArray(this.rules);
+                    isRequired() {
+                        const rules = Index_1.ruleStringToArray(this.rules);
                         return rules.indexOf('required') !== -1;
                     }
                 },
                 watch: {
-                    modelValue: function () {
+                    modelValue() {
                         this.internalValue = this.modelValue;
                     },
-                    internalValue: function () {
+                    internalValue() {
                         this.$emit('update:modelValue', this.internalValue);
                     },
                     isRequired: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             if (this.isRequired) {
                                 this.internalValue = true;
                             }
                         }
                     }
                 },
-                template: "\n<div v-if=\"inline\" class=\"checkbox\">\n    <label title=\"\">\n        <input type=\"checkbox\" v-model=\"internalValue\" />\n        <span class=\"label-text \">{{label}}</span>\n    </label>\n</div>\n<div v-else class=\"form-group rock-check-box\" :class=\"isRequired ? 'required' : ''\">\n    <label class=\"control-label\" :for=\"uniqueId\">{{label}}</label>\n    <div class=\"control-wrapper\">\n        <div class=\"rock-checkbox-icon\" @click=\"toggle\" :class=\"isRequired ? 'text-muted' : ''\">\n            <i v-if=\"modelValue\" class=\"fa fa-check-square-o fa-lg\"></i>\n            <i v-else class=\"fa fa-square-o fa-lg\"></i>\n        </div>\n    </div>\n</div>"
+                template: `
+<div v-if="inline" class="checkbox">
+    <label title="">
+        <input type="checkbox" v-model="internalValue" />
+        <span class="label-text ">{{label}}</span>
+    </label>
+</div>
+<div v-else class="form-group rock-check-box" :class="isRequired ? 'required' : ''">
+    <label class="control-label" :for="uniqueId">{{label}}</label>
+    <div class="control-wrapper">
+        <div class="rock-checkbox-icon" @click="toggle" :class="isRequired ? 'text-muted' : ''">
+            <i v-if="modelValue" class="fa fa-check-square-o fa-lg"></i>
+            <i v-else class="fa fa-square-o fa-lg"></i>
+        </div>
+    </div>
+</div>`
             }));
         }
     };

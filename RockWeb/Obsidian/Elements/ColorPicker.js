@@ -35,24 +35,38 @@ System.register(["vue", "./RockFormField"], function (exports_1, context_1) {
                         internalValue: this.modelValue
                     };
                 },
-                mounted: function () {
-                    var _this = this;
-                    var $colorPicker = window['$'](this.$refs.colorPicker);
+                mounted() {
+                    const $colorPicker = window['$'](this.$refs.colorPicker);
                     $colorPicker.colorpicker();
-                    $colorPicker.find('> input').on('change', function () {
-                        _this.internalValue = $colorPicker.find('> input').val();
+                    $colorPicker.find('> input').on('change', () => {
+                        this.internalValue = $colorPicker.find('> input').val();
                     });
                 },
                 computed: {},
                 watch: {
-                    internalValue: function () {
+                    internalValue() {
                         this.$emit('update:modelValue', this.internalValue);
                     },
-                    modelValue: function () {
+                    modelValue() {
                         this.internalValue = this.modelValue;
                     }
                 },
-                template: "\n<RockFormField\n    v-model=\"internalValue\"\n    formGroupClasses=\"rock-color-picker\"\n    name=\"colorpicker\">\n    <template #default=\"{uniqueId, field, errors, disabled, tabIndex}\">\n        <div class=\"control-wrapper\">\n            <div ref=\"colorPicker\" class=\"input-group input-width-lg\">\n                <input :id=\"uniqueId\" type=\"text\" class=\"form-control\" v-bind=\"field\" :disabled=\"disabled\" :placeholder=\"placeholder\" :tabindex=\"tabIndex\" />\n                <span class=\"input-group-addon\">\n                    <i></i>\n                </span>\n            </div>\n        </div>\n    </template>\n</RockFormField>"
+                template: `
+<RockFormField
+    v-model="internalValue"
+    formGroupClasses="rock-color-picker"
+    name="colorpicker">
+    <template #default="{uniqueId, field, errors, disabled, tabIndex}">
+        <div class="control-wrapper">
+            <div ref="colorPicker" class="input-group input-width-lg">
+                <input :id="uniqueId" type="text" class="form-control" v-bind="field" :disabled="disabled" :placeholder="placeholder" :tabindex="tabIndex" />
+                <span class="input-group-addon">
+                    <i></i>
+                </span>
+            </div>
+        </div>
+    </template>
+</RockFormField>`
             }));
         }
     };

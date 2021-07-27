@@ -32,16 +32,30 @@ System.register(["vue", "./NumberUpDown", "./RockFormField"], function (exports_
                     }
                 },
                 computed: {
-                    total: function () {
-                        var total = 0;
-                        for (var _i = 0, _a = this.options; _i < _a.length; _i++) {
-                            var option = _a[_i];
+                    total() {
+                        let total = 0;
+                        for (const option of this.options) {
                             total += (this.modelValue[option.key] || 0);
                         }
                         return total;
                     }
                 },
-                template: "\n<RockFormField\n    :modelValue=\"total\"\n    formGroupClasses=\"margin-b-md number-up-down-group\"\n    name=\"numberupdowngroup\">\n    <template #default=\"{uniqueId, field, errors, disabled}\">\n        <div class=\"control-wrapper\">\n            <div v-for=\"option in options\" :key=\"option.key\" class=\"margin-l-sm margin-b-sm\">\n                <div v-if=\"option.label\" class=\"margin-b-sm\">\n                    {{option.label}}\n                </div>\n                <NumberUpDownInternal v-model=\"modelValue[option.key]\" :min=\"option.min\" :max=\"option.max\" class=\"margin-t-sm\" />\n            </div>\n        </div>\n    </template>\n</RockFormField>"
+                template: `
+<RockFormField
+    :modelValue="total"
+    formGroupClasses="margin-b-md number-up-down-group"
+    name="numberupdowngroup">
+    <template #default="{uniqueId, field, errors, disabled}">
+        <div class="control-wrapper">
+            <div v-for="option in options" :key="option.key" class="margin-l-sm margin-b-sm">
+                <div v-if="option.label" class="margin-b-sm">
+                    {{option.label}}
+                </div>
+                <NumberUpDownInternal v-model="modelValue[option.key]" :min="option.min" :max="option.max" class="margin-t-sm" />
+            </div>
+        </div>
+    </template>
+</RockFormField>`
             }));
         }
     };

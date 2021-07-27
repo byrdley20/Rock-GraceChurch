@@ -17,7 +17,7 @@ System.register(["vue", "./GridColumn"], function (exports_1, context_1) {
                 components: {
                     GridColumn: GridColumn_1.default
                 },
-                setup: function () {
+                setup() {
                     return {
                         rowContext: vue_1.inject('rowContext')
                     };
@@ -33,17 +33,22 @@ System.register(["vue", "./GridColumn"], function (exports_1, context_1) {
                     }
                 },
                 computed: {
-                    personId: function () {
+                    personId() {
                         return this.rowContext.rowData[this.property] || null;
                     },
-                    url: function () {
+                    url() {
                         if (this.personId) {
                             return this.urlTemplate.replace('{id}', this.personId.toString());
                         }
                         return '';
                     }
                 },
-                template: "\n<GridColumn :rowContext=\"rowContext\" class=\"grid-columncommand\" align=\"center\">\n    <a v-if=\"url\" @click.stop class=\"btn btn-default btn-sm\" :href=\"url\">\n        <i class=\"fa fa-user\"></i>\n    </a>\n</GridColumn>"
+                template: `
+<GridColumn :rowContext="rowContext" class="grid-columncommand" align="center">
+    <a v-if="url" @click.stop class="btn btn-default btn-sm" :href="url">
+        <i class="fa fa-user"></i>
+    </a>
+</GridColumn>`
             }));
         }
     };

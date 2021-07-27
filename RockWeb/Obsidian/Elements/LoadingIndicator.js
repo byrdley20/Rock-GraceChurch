@@ -11,7 +11,10 @@ System.register(["vue"], function (exports_1, context_1) {
         execute: function () {
             exports_1("default", vue_1.defineComponent({
                 name: 'LoadingIndicator',
-                template: "\n<div class=\"text-muted\">\n    Loading...\n</div>"
+                template: `
+<div class="text-muted">
+    Loading...
+</div>`
             }));
         }
     };

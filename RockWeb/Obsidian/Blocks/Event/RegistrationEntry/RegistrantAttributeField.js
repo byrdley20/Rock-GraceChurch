@@ -34,20 +34,20 @@ System.register(["vue", "../../../Controls/RockField", "../../../Elements/Alert"
                         required: true
                     }
                 },
-                data: function () {
+                data() {
                     return {
                         fieldControlComponent: null,
                         fieldControlComponentProps: {}
                     };
                 },
                 methods: {
-                    isRuleMet: function (rule) {
-                        var value = this.fieldValues[rule.comparedToRegistrationTemplateFormFieldGuid] || '';
+                    isRuleMet(rule) {
+                        const value = this.fieldValues[rule.comparedToRegistrationTemplateFormFieldGuid] || '';
                         if (typeof value !== 'string') {
                             return false;
                         }
-                        var strVal = value.toLowerCase().trim();
-                        var comparison = rule.comparedToValue.toLowerCase().trim();
+                        const strVal = value.toLowerCase().trim();
+                        const comparison = rule.comparedToValue.toLowerCase().trim();
                         if (!strVal) {
                             return false;
                         }
@@ -65,24 +65,23 @@ System.register(["vue", "../../../Controls/RockField", "../../../Elements/Alert"
                     }
                 },
                 computed: {
-                    isVisible: function () {
-                        var _this = this;
+                    isVisible() {
                         switch (this.field.visibilityRuleType) {
                             case RegistrationEntryBlockViewModel_1.FilterExpressionType.GroupAll:
-                                return this.field.visibilityRules.every(function (vr) { return _this.isRuleMet(vr); });
+                                return this.field.visibilityRules.every(vr => this.isRuleMet(vr));
                             case RegistrationEntryBlockViewModel_1.FilterExpressionType.GroupAllFalse:
-                                return this.field.visibilityRules.every(function (vr) { return !_this.isRuleMet(vr); });
+                                return this.field.visibilityRules.every(vr => !this.isRuleMet(vr));
                             case RegistrationEntryBlockViewModel_1.FilterExpressionType.GroupAny:
-                                return this.field.visibilityRules.some(function (vr) { return _this.isRuleMet(vr); });
+                                return this.field.visibilityRules.some(vr => this.isRuleMet(vr));
                             case RegistrationEntryBlockViewModel_1.FilterExpressionType.GroupAnyFalse:
-                                return this.field.visibilityRules.some(function (vr) { return !_this.isRuleMet(vr); });
+                                return this.field.visibilityRules.some(vr => !this.isRuleMet(vr));
                         }
                         return true;
                     },
-                    attribute: function () {
+                    attribute() {
                         return this.field.attribute || null;
                     },
-                    fieldProps: function () {
+                    fieldProps() {
                         if (!this.attribute) {
                             return {};
                         }
@@ -99,7 +98,7 @@ System.register(["vue", "../../../Controls/RockField", "../../../Elements/Alert"
                 watch: {
                     field: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             var _a;
                             if (!(this.field.guid in this.fieldValues)) {
                                 this.fieldValues[this.field.guid] = ((_a = this.attribute) === null || _a === void 0 ? void 0 : _a.defaultValue) || '';
@@ -107,7 +106,11 @@ System.register(["vue", "../../../Controls/RockField", "../../../Elements/Alert"
                         }
                     }
                 },
-                template: "\n<template v-if=\"isVisible\">\n    <RockField v-if=\"attribute\" v-bind=\"fieldProps\" v-model=\"this.fieldValues[this.field.guid]\" />\n    <Alert v-else alertType=\"danger\">Could not resolve attribute field</Alert>\n</template>"
+                template: `
+<template v-if="isVisible">
+    <RockField v-if="attribute" v-bind="fieldProps" v-model="this.fieldValues[this.field.guid]" />
+    <Alert v-else alertType="danger">Could not resolve attribute field</Alert>
+</template>`
             }));
         }
     };

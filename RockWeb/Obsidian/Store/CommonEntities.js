@@ -14,8 +14,7 @@ System.register(["./Generators"], function (exports_1, context_1) {
                 { namespace: 'definedTypes', apiUrl: '/api/v2/CommonEntities/DefinedTypes' }
             ]);
             exports_1("commonEntityModules", commonEntityModules = {});
-            for (var _i = 0, commonEntities_1 = commonEntities; _i < commonEntities_1.length; _i++) {
-                var commonEntity = commonEntities_1[_i];
+            for (const commonEntity of commonEntities) {
                 commonEntityModules[commonEntity.namespace] = Generators_1.generateCommonEntityModule(commonEntity);
             }
         }

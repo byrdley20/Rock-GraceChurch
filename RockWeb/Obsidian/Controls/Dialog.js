@@ -33,63 +33,81 @@ System.register(["vue", "../Elements/RockButton"], function (exports_1, context_
                         default: true
                     }
                 },
-                data: function () {
+                data() {
                     return {
                         doShake: false
                     };
                 },
                 computed: {
-                    hasHeader: function () {
+                    hasHeader() {
                         return !!this.$slots['header'];
                     }
                 },
                 methods: {
-                    close: function () {
+                    close() {
                         this.$emit('update:modelValue', false);
                     },
-                    shake: function () {
-                        var _this = this;
+                    shake() {
                         if (!this.doShake) {
                             this.doShake = true;
-                            setTimeout(function () { return _this.doShake = false; }, 1000);
+                            setTimeout(() => this.doShake = false, 1000);
                         }
                     },
-                    centerOnScreen: function () {
-                        var _this = this;
-                        this.$nextTick(function () {
-                            var div = _this.$refs['modalDiv'];
+                    centerOnScreen() {
+                        this.$nextTick(() => {
+                            const div = this.$refs['modalDiv'];
                             if (!div) {
                                 return;
                             }
-                            var height = div.offsetHeight;
-                            var margin = height / 2;
-                            div.style.marginTop = "-" + margin + "px";
+                            const height = div.offsetHeight;
+                            const margin = height / 2;
+                            div.style.marginTop = `-${margin}px`;
                         });
                     }
                 },
                 watch: {
                     modelValue: {
                         immediate: true,
-                        handler: function () {
-                            var body = document.body;
-                            var cssClasses = ['modal-open', 'page-overflow'];
+                        handler() {
+                            const body = document.body;
+                            const cssClasses = ['modal-open', 'page-overflow'];
                             if (this.modelValue) {
-                                for (var _i = 0, cssClasses_1 = cssClasses; _i < cssClasses_1.length; _i++) {
-                                    var cssClass = cssClasses_1[_i];
+                                for (const cssClass of cssClasses) {
                                     body.classList.add(cssClass);
                                 }
                                 this.centerOnScreen();
                             }
                             else {
-                                for (var _a = 0, cssClasses_2 = cssClasses; _a < cssClasses_2.length; _a++) {
-                                    var cssClass = cssClasses_2[_a];
+                                for (const cssClass of cssClasses) {
                                     body.classList.remove(cssClass);
                                 }
                             }
                         }
                     }
                 },
-                template: "\n<div v-if=\"modelValue\">\n    <div @click=\"shake\" class=\"modal-scrollable\" style=\"z-index: 1060;\">\n        <div @click.stop ref=\"modalDiv\" class=\"modal fade in\" :class=\"{'animated shake': doShake}\" tabindex=\"-1\" role=\"dialog\" style=\"display: block;\">\n            <div class=\"modal-dialog\">\n                <div class=\"modal-content\">\n                    <div v-if=\"hasHeader\" class=\"modal-header\">\n                        <button v-if=\"dismissible\" @click=\"close\" type=\"button\" class=\"close\" style=\"margin-top: -10px;\">\u00D7</button>\n                        <slot name=\"header\" />\n                    </div>\n                    <div class=\"modal-body\">\n                        <button v-if=\"!hasHeader && dismissible\" @click=\"close\" type=\"button\" class=\"close\" style=\"margin-top: -10px;\">\u00D7</button>\n                        <slot />\n                    </div>\n                    <div v-if=\"$slots.footer\" class=\"modal-footer\">\n                        <slot name=\"footer\" />\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"modal-backdrop fade in\" style=\"z-index: 1050;\"></div>\n</div>"
+                template: `
+<div v-if="modelValue">
+    <div @click="shake" class="modal-scrollable" style="z-index: 1060;">
+        <div @click.stop ref="modalDiv" class="modal fade in" :class="{'animated shake': doShake}" tabindex="-1" role="dialog" style="display: block;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div v-if="hasHeader" class="modal-header">
+                        <button v-if="dismissible" @click="close" type="button" class="close" style="margin-top: -10px;">×</button>
+                        <slot name="header" />
+                    </div>
+                    <div class="modal-body">
+                        <button v-if="!hasHeader && dismissible" @click="close" type="button" class="close" style="margin-top: -10px;">×</button>
+                        <slot />
+                    </div>
+                    <div v-if="$slots.footer" class="modal-footer">
+                        <slot name="footer" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade in" style="z-index: 1050;"></div>
+</div>`
             }));
         }
     };

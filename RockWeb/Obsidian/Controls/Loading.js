@@ -23,7 +23,11 @@ System.register(["../Elements/LoadingIndicator", "vue"], function (exports_1, co
                         required: true
                     }
                 },
-                template: "\n<div>\n    <slot v-if=\"!isLoading\" />\n    <LoadingIndicator v-else />\n</div>"
+                template: `
+<div>
+    <slot v-if="!isLoading" />
+    <LoadingIndicator v-else />
+</div>`
             }));
         }
     };

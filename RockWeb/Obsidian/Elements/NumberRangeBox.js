@@ -54,7 +54,7 @@ System.register(["vue", "../Rules/Index", "../Services/Number", "./RockFormField
                     };
                 },
                 methods: {
-                    onChange: function () {
+                    onChange() {
                         var _a, _b;
                         this.internalValue = {
                             lower: Number_1.asFormattedString(this.modelValue.lower, (_a = this.internalDecimalCount) !== null && _a !== void 0 ? _a : undefined),
@@ -63,45 +63,45 @@ System.register(["vue", "../Rules/Index", "../Services/Number", "./RockFormField
                     }
                 },
                 computed: {
-                    computedValue: function () {
+                    computedValue() {
                         return {
                             lower: Number_1.toNumberOrNull(this.internalValue.lower),
                             upper: Number_1.toNumberOrNull(this.internalValue.upper)
                         };
                     },
-                    internalDecimalCount: function () {
+                    internalDecimalCount() {
                         return this.decimalCount;
                     },
-                    internalStep: function () {
+                    internalStep() {
                         return this.internalDecimalCount === null ? "any" : (1 / Math.pow(10, this.internalDecimalCount)).toString();
                     },
-                    computedRules: function () {
-                        var rules = Index_1.ruleStringToArray(this.rules);
+                    computedRules() {
+                        const rules = Index_1.ruleStringToArray(this.rules);
                         return Index_1.ruleArrayToString(rules);
                     },
                 },
                 watch: {
-                    computedValue: function () {
+                    computedValue() {
                         this.$emit('update:modelValue', this.computedValue);
                     },
-                    internalValue: function () {
+                    internalValue() {
                         var _a, _b;
-                        var value = ((_a = this.internalValue.lower) !== null && _a !== void 0 ? _a : "") + "," + ((_b = this.internalValue.upper) !== null && _b !== void 0 ? _b : "");
+                        const value = `${(_a = this.internalValue.lower) !== null && _a !== void 0 ? _a : ""},${(_b = this.internalValue.upper) !== null && _b !== void 0 ? _b : ""}`;
                         this.validationValue = value;
-                        var emitValue = {
+                        const emitValue = {
                             lower: Number_1.toNumberOrNull(this.internalValue.lower),
                             upper: Number_1.toNumberOrNull(this.internalValue.upper)
                         };
                         this.$emit('update:modelValue', emitValue);
                     },
-                    internalStep: function () {
+                    internalStep() {
                         return this.decimalCount === null ? "any" : (1 / Math.pow(10, this.decimalCount)).toString();
                     },
                     modelValue: {
                         immediate: true,
-                        handler: function () {
-                            var lower = this.modelValue.lower !== null ? this.modelValue.lower.toString() : "";
-                            var upper = this.modelValue.upper !== null ? this.modelValue.upper.toString() : "";
+                        handler() {
+                            const lower = this.modelValue.lower !== null ? this.modelValue.lower.toString() : "";
+                            const upper = this.modelValue.upper !== null ? this.modelValue.upper.toString() : "";
                             if (this.internalValue.lower !== lower || this.internalValue.upper !== upper) {
                                 this.internalValue = {
                                     lower: lower,
@@ -111,7 +111,40 @@ System.register(["vue", "../Rules/Index", "../Services/Number", "./RockFormField
                         }
                     }
                 },
-                template: "\n<RockFormField\n    v-model=\"validationValue\"\n    formGroupClasses=\"number-range-editor\"\n    name=\"number-range-box\"\n    :rules=\"computedRules\">\n    <template #default=\"{uniqueId, field, errors, disabled, tabIndex}\">\n        <div class=\"control-wrapper\">\n            <div class=\"form-control-group\">\n                <input\n                    :id=\"uniqueId + '_lower'\"\n                    @change=\"onChange\"\n                    type=\"number\"\n                    class=\"input-width-md form-control\"\n                    :class=\"inputClasses\"\n                    v-model=\"internalValue.lower\"\n                    :disabled=\"disabled\"\n                    :tabindex=\"tabIndex\"\n                    :step=\"internalStep\" />\n                <span class=\"to\">to</span>\n                <input\n                    :id=\"uniqueId + '_upper'\"\n                    @change=\"onChange\"\n                    type=\"number\"\n                    class=\"input-width-md form-control\"\n                    :class=\"inputClasses\"\n                    v-model=\"internalValue.upper\"\n                    :disabled=\"disabled\"\n                    :tabindex=\"tabIndex\"\n                    :step=\"internalStep\" />\n            </div>\n        </div>\n    </template>\n</RockFormField>"
+                template: `
+<RockFormField
+    v-model="validationValue"
+    formGroupClasses="number-range-editor"
+    name="number-range-box"
+    :rules="computedRules">
+    <template #default="{uniqueId, field, errors, disabled, tabIndex}">
+        <div class="control-wrapper">
+            <div class="form-control-group">
+                <input
+                    :id="uniqueId + '_lower'"
+                    @change="onChange"
+                    type="number"
+                    class="input-width-md form-control"
+                    :class="inputClasses"
+                    v-model="internalValue.lower"
+                    :disabled="disabled"
+                    :tabindex="tabIndex"
+                    :step="internalStep" />
+                <span class="to">to</span>
+                <input
+                    :id="uniqueId + '_upper'"
+                    @change="onChange"
+                    type="number"
+                    class="input-width-md form-control"
+                    :class="inputClasses"
+                    v-model="internalValue.upper"
+                    :disabled="disabled"
+                    :tabindex="tabIndex"
+                    :step="internalStep" />
+            </div>
+        </div>
+    </template>
+</RockFormField>`
             }));
         }
     };

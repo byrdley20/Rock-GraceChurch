@@ -27,28 +27,30 @@ System.register(["vue", "./Index", "../Services/Number", "../Elements/NumberBox"
                     NumberBox: NumberBox_1.default
                 },
                 props: Index_1.getFieldTypeProps(),
-                data: function () {
+                data() {
                     return {
                         internalValue: null
                     };
                 },
                 computed: {
-                    displayValue: function () {
+                    displayValue() {
                         return (this.modelValue || '').trim();
                     }
                 },
                 watch: {
-                    internalValue: function () {
+                    internalValue() {
                         this.$emit('update:modelValue', this.internalValue !== null ? this.internalValue.toString() : '');
                     },
                     modelValue: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             this.internalValue = Number_1.toNumberOrNull(this.modelValue || '');
                         }
                     }
                 },
-                template: "\n<NumberBox v-if=\"isEditMode\" v-model=\"internalValue\" rules=\"decimal\" />\n<span v-else>{{ displayValue }}</span>"
+                template: `
+<NumberBox v-if="isEditMode" v-model="internalValue" rules="decimal" />
+<span v-else>{{ displayValue }}</span>`
             })));
         }
     };

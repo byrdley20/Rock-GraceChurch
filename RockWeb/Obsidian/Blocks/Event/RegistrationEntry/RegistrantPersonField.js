@@ -45,8 +45,8 @@ System.register(["vue", "../../../Controls/AddressControl", "../../../Controls/C
                     }
                 },
                 computed: {
-                    componentUrl: function () {
-                        var componentPath = '';
+                    componentUrl() {
+                        let componentPath = '';
                         switch (this.field.personFieldType) {
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.FirstName:
                                 componentPath = 'Elements/TextBox';
@@ -73,10 +73,10 @@ System.register(["vue", "../../../Controls/AddressControl", "../../../Controls/C
                                 componentPath = 'Controls/AddressControl';
                                 break;
                         }
-                        return componentPath ? "../" + componentPath : '';
+                        return componentPath ? `../${componentPath}` : '';
                     },
-                    fieldControlComponentProps: function () {
-                        var props = {
+                    fieldControlComponentProps() {
+                        const props = {
                             rules: this.field.isRequired ? 'required' : ''
                         };
                         switch (this.field.personFieldType) {
@@ -112,11 +112,11 @@ System.register(["vue", "../../../Controls/AddressControl", "../../../Controls/C
                     fieldValues: {
                         immediate: true,
                         deep: true,
-                        handler: function () {
+                        handler() {
                             if (this.field.guid in this.fieldValues) {
                                 return;
                             }
-                            var defaultValue = '';
+                            let defaultValue = '';
                             switch (this.field.personFieldType) {
                                 case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.Birthdate:
                                     defaultValue = DatePartsPicker_1.getDefaultDatePartsPickerModel();
@@ -129,7 +129,8 @@ System.register(["vue", "../../../Controls/AddressControl", "../../../Controls/C
                         }
                     },
                 },
-                template: "\n<ComponentFromUrl v-if=\"componentUrl\" :url=\"componentUrl\" v-bind=\"fieldControlComponentProps\" v-model=\"fieldValues[field.guid]\" />"
+                template: `
+<ComponentFromUrl v-if="componentUrl" :url="componentUrl" v-bind="fieldControlComponentProps" v-model="fieldValues[field.guid]" />`
             }));
         }
     };

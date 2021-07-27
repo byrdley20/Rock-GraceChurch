@@ -36,12 +36,43 @@ System.register(["vue", "../Util/Guid"], function (exports_1, context_1) {
                         required: true
                     }
                 },
-                template: "\n<li class=\"progress-step progress-tracker-priority\">\n    <div v-if=\"isPast\" class=\"progress-step-link\">\n        <div class=\"progress-tracker-icon\">\n            <i class=\"fas fa-check\"></i>\n        </div>\n        <div class=\"progress-tracker-details\">\n            <span class=\"progress-tracker-title text-truncate\">{{item.title}}</span>\n            <p class=\"progress-tracker-subtitle text-truncate\">{{item.subtitle}}</p>\n        </div>\n    </div>\n    <div v-else-if=\"isPresent\" class=\"progress-step-link\">\n        <div class=\"progress-tracker-icon current\"></div>\n        <div class=\"progress-tracker-details\">\n            <span class=\"progress-tracker-title text-truncate\">{{item.title}}</span>\n            <p class=\"progress-tracker-subtitle text-truncate\">{{item.subtitle}}</p>\n        </div>\n    </div>\n    <div v-else-if=\"isFuture\" class=\"progress-step-link\">\n        <div class=\"progress-tracker-icon upcoming\"></div>\n        <div class=\"progress-tracker-details\">\n            <span class=\"progress-tracker-title text-truncate\">{{item.title}}</span>\n            <p class=\"progress-tracker-subtitle text-truncate\">{{item.subtitle}}</p>\n        </div>\n    </div>\n    <div v-if=\"!isLast\" class=\"progress-tracker-arrow\">\n        <svg viewBox=\"0 0 22 80\" fill=\"none\" preserveAspectRatio=\"none\">\n            <path d=\"M0 -2L20 40L0 82\" vector-effect=\"non-scaling-stroke\" stroke=\"currentcolor\" stroke-linejoin=\"round\" />\n        </svg>\n    </div>\n</li>\n"
+                template: `
+<li class="progress-step progress-tracker-priority">
+    <div v-if="isPast" class="progress-step-link">
+        <div class="progress-tracker-icon">
+            <i class="fas fa-check"></i>
+        </div>
+        <div class="progress-tracker-details">
+            <span class="progress-tracker-title text-truncate">{{item.title}}</span>
+            <p class="progress-tracker-subtitle text-truncate">{{item.subtitle}}</p>
+        </div>
+    </div>
+    <div v-else-if="isPresent" class="progress-step-link">
+        <div class="progress-tracker-icon current"></div>
+        <div class="progress-tracker-details">
+            <span class="progress-tracker-title text-truncate">{{item.title}}</span>
+            <p class="progress-tracker-subtitle text-truncate">{{item.subtitle}}</p>
+        </div>
+    </div>
+    <div v-else-if="isFuture" class="progress-step-link">
+        <div class="progress-tracker-icon upcoming"></div>
+        <div class="progress-tracker-details">
+            <span class="progress-tracker-title text-truncate">{{item.title}}</span>
+            <p class="progress-tracker-subtitle text-truncate">{{item.subtitle}}</p>
+        </div>
+    </div>
+    <div v-if="!isLast" class="progress-tracker-arrow">
+        <svg viewBox="0 0 22 80" fill="none" preserveAspectRatio="none">
+            <path d="M0 -2L20 40L0 82" vector-effect="non-scaling-stroke" stroke="currentcolor" stroke-linejoin="round" />
+        </svg>
+    </div>
+</li>
+`
             });
             ProgressTracker = vue_1.defineComponent({
                 name: 'ProgressTracker',
                 components: {
-                    ProgressTrackerItem: ProgressTrackerItem
+                    ProgressTrackerItem
                 },
                 props: {
                     currentIndex: {
@@ -53,48 +84,45 @@ System.register(["vue", "../Util/Guid"], function (exports_1, context_1) {
                         required: true
                     }
                 },
-                data: function () {
+                data() {
                     return {
                         guid: Guid_1.newGuid(),
                         collapsedIndexes: []
                     };
                 },
                 computed: {
-                    isCollapsed: function () {
-                        var _this = this;
-                        return function (index) { return _this.collapsedIndexes.indexOf(index) !== -1; };
+                    isCollapsed() {
+                        return (index) => this.collapsedIndexes.indexOf(index) !== -1;
                     },
-                    doNotCollapseIndexes: function () {
+                    doNotCollapseIndexes() {
                         return [0, this.currentIndex - 1, this.currentIndex, this.currentIndex + 1, this.lastIndex];
                     },
-                    lastIndex: function () {
+                    lastIndex() {
                         return this.items.length - 1;
                     },
-                    progressTrackerElementId: function () {
-                        return "progress-tracker-" + this.guid;
+                    progressTrackerElementId() {
+                        return `progress-tracker-${this.guid}`;
                     },
-                    progressTrackerContainerElementId: function () {
-                        return "progress-tracker-container-" + this.guid;
+                    progressTrackerContainerElementId() {
+                        return `progress-tracker-container-${this.guid}`;
                     },
                 },
                 methods: {
-                    expandAndCollapseItemsBecauseOfWidth: function () {
-                        var _this = this;
+                    expandAndCollapseItemsBecauseOfWidth() {
                         this.collapsedIndexes = [];
-                        this.$nextTick(function () { return _this.collapseItemsBecauseOfWidth(); });
+                        this.$nextTick(() => this.collapseItemsBecauseOfWidth());
                     },
-                    collapseItemsBecauseOfWidth: function () {
-                        var _this = this;
-                        var progressTracker = document.getElementById(this.progressTrackerElementId);
-                        var progressTrackerContainer = document.getElementById(this.progressTrackerContainerElementId);
-                        var containerWidth = progressTrackerContainer === null || progressTrackerContainer === void 0 ? void 0 : progressTrackerContainer.clientWidth;
-                        var childWidth = progressTracker === null || progressTracker === void 0 ? void 0 : progressTracker.scrollWidth;
+                    collapseItemsBecauseOfWidth() {
+                        const progressTracker = document.getElementById(this.progressTrackerElementId);
+                        const progressTrackerContainer = document.getElementById(this.progressTrackerContainerElementId);
+                        const containerWidth = progressTrackerContainer === null || progressTrackerContainer === void 0 ? void 0 : progressTrackerContainer.clientWidth;
+                        const childWidth = progressTracker === null || progressTracker === void 0 ? void 0 : progressTracker.scrollWidth;
                         if (!containerWidth || !childWidth || childWidth <= containerWidth) {
                             return;
                         }
-                        var midPoint = this.lastIndex / 2;
+                        const midPoint = this.lastIndex / 2;
                         if (this.currentIndex > midPoint) {
-                            for (var i = 0; i <= this.lastIndex; i++) {
+                            for (let i = 0; i <= this.lastIndex; i++) {
                                 if (this.doNotCollapseIndexes.indexOf(i) !== -1) {
                                     continue;
                                 }
@@ -102,12 +130,12 @@ System.register(["vue", "../Util/Guid"], function (exports_1, context_1) {
                                     continue;
                                 }
                                 this.collapsedIndexes.push(i);
-                                this.$nextTick(function () { return _this.collapseItemsBecauseOfWidth(); });
+                                this.$nextTick(() => this.collapseItemsBecauseOfWidth());
                                 return;
                             }
                         }
                         else {
-                            for (var i = this.lastIndex; i >= 0; i--) {
+                            for (let i = this.lastIndex; i >= 0; i--) {
                                 if (this.doNotCollapseIndexes.indexOf(i) !== -1) {
                                     continue;
                                 }
@@ -115,7 +143,7 @@ System.register(["vue", "../Util/Guid"], function (exports_1, context_1) {
                                     continue;
                                 }
                                 this.collapsedIndexes.push(i);
-                                this.$nextTick(function () { return _this.collapseItemsBecauseOfWidth(); });
+                                this.$nextTick(() => this.collapseItemsBecauseOfWidth());
                                 return;
                             }
                         }
@@ -124,12 +152,38 @@ System.register(["vue", "../Util/Guid"], function (exports_1, context_1) {
                 watch: {
                     currentIndex: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             this.expandAndCollapseItemsBecauseOfWidth();
                         }
                     }
                 },
-                template: "\n<nav class=\"progress-tracker\" style=\"margin: 20px auto; max-width: 1200px; width:100%\">\n    <div :id=\"progressTrackerContainerElementId\" class=\"progress-tracker-container d-none d-md-block\">\n        <ul :id=\"progressTrackerElementId\" class=\"progress-steps\">\n            <template v-for=\"(item, index) in items\" :key=\"item.key\">\n                <li v-if=\"isCollapsed(index)\" class=\"progress-step progress-tracker-more\">\n                    <div class=\"progress-step-link\">\n                        <i class=\"fas fa-ellipsis-v\"></i>\n                    </div>\n                    <div class=\"progress-tracker-arrow\">\n                        <svg viewBox=\"0 0 22 80\" fill=\"none\" preserveAspectRatio=\"none\">\n                            <path d=\"M0 -2L20 40L0 82\" vector-effect=\"non-scaling-stroke\" stroke=\"currentcolor\" stroke-linejoin=\"round\" />\n                        </svg>\n                    </div>\n                </li>\n                <ProgressTrackerItem\n                    v-else\n                    :item=\"item\"\n                    :isPast=\"index < currentIndex\"\n                    :isPresent=\"index === currentIndex\"\n                    :isFuture=\"index > currentIndex\"\n                    :isLast=\"index === lastIndex\" />\n            </template>\n        </ul>\n    </div>\n    <slot name=\"aside\" />\n</nav>"
+                template: `
+<nav class="progress-tracker" style="margin: 20px auto; max-width: 1200px; width:100%">
+    <div :id="progressTrackerContainerElementId" class="progress-tracker-container d-none d-md-block">
+        <ul :id="progressTrackerElementId" class="progress-steps">
+            <template v-for="(item, index) in items" :key="item.key">
+                <li v-if="isCollapsed(index)" class="progress-step progress-tracker-more">
+                    <div class="progress-step-link">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </div>
+                    <div class="progress-tracker-arrow">
+                        <svg viewBox="0 0 22 80" fill="none" preserveAspectRatio="none">
+                            <path d="M0 -2L20 40L0 82" vector-effect="non-scaling-stroke" stroke="currentcolor" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                </li>
+                <ProgressTrackerItem
+                    v-else
+                    :item="item"
+                    :isPast="index < currentIndex"
+                    :isPresent="index === currentIndex"
+                    :isFuture="index > currentIndex"
+                    :isLast="index === lastIndex" />
+            </template>
+        </ul>
+    </div>
+    <slot name="aside" />
+</nav>`
             });
             exports_1("default", ProgressTracker);
         }

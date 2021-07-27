@@ -29,11 +29,10 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
             }
         ],
         execute: function () {
-            vee_validate_1.defineRule('required', (function (value, _a) {
-                var optionsJson = _a[0];
-                var options = optionsJson ? JSON.parse(optionsJson) : {};
+            vee_validate_1.defineRule('required', ((value, [optionsJson]) => {
+                const options = optionsJson ? JSON.parse(optionsJson) : {};
                 if (typeof value === 'string') {
-                    var allowEmptyString = !!(options.allowEmptyString);
+                    const allowEmptyString = !!(options.allowEmptyString);
                     if (!allowEmptyString && String_1.isNullOrWhitespace(value)) {
                         return 'is required';
                     }
@@ -47,7 +46,7 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
                 }
                 return true;
             }));
-            vee_validate_1.defineRule('email', (function (value) {
+            vee_validate_1.defineRule('email', (value => {
                 if (String_1.isNullOrWhitespace(value)) {
                     return true;
                 }
@@ -56,8 +55,7 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
                 }
                 return true;
             }));
-            vee_validate_1.defineRule('notequal', (function (value, _a) {
-                var compare = _a[0];
+            vee_validate_1.defineRule('notequal', ((value, [compare]) => {
                 if (isNumeric(value) && isNumeric(compare)) {
                     if (convertToNumber(value) !== convertToNumber(compare)) {
                         return true;
@@ -66,10 +64,9 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
                 else if (value !== compare) {
                     return true;
                 }
-                return "must not equal " + compare;
+                return `must not equal ${compare}`;
             }));
-            vee_validate_1.defineRule('equal', (function (value, _a) {
-                var compare = _a[0];
+            vee_validate_1.defineRule('equal', ((value, [compare]) => {
                 if (isNumeric(value) && isNumeric(compare)) {
                     if (convertToNumber(value) === convertToNumber(compare)) {
                         return true;
@@ -78,10 +75,9 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
                 else if (value === compare) {
                     return true;
                 }
-                return "must equal " + compare;
+                return `must equal ${compare}`;
             }));
-            vee_validate_1.defineRule('gt', (function (value, _a) {
-                var compare = _a[0];
+            vee_validate_1.defineRule('gt', ((value, [compare]) => {
                 if (String_1.isNullOrWhitespace(value)) {
                     return true;
                 }
@@ -93,10 +89,9 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
                 else if (value > compare) {
                     return true;
                 }
-                return "must be greater than " + compare;
+                return `must be greater than ${compare}`;
             }));
-            vee_validate_1.defineRule('gte', (function (value, _a) {
-                var compare = _a[0];
+            vee_validate_1.defineRule('gte', ((value, [compare]) => {
                 if (String_1.isNullOrWhitespace(value)) {
                     return true;
                 }
@@ -108,10 +103,9 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
                 else if (value >= compare) {
                     return true;
                 }
-                return "must not be less than " + compare;
+                return `must not be less than ${compare}`;
             }));
-            vee_validate_1.defineRule('lt', (function (value, _a) {
-                var compare = _a[0];
+            vee_validate_1.defineRule('lt', ((value, [compare]) => {
                 if (String_1.isNullOrWhitespace(value)) {
                     return true;
                 }
@@ -123,10 +117,9 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
                 else if (value < compare) {
                     return true;
                 }
-                return "must be less than " + compare;
+                return `must be less than ${compare}`;
             }));
-            vee_validate_1.defineRule('lte', (function (value, _a) {
-                var compare = _a[0];
+            vee_validate_1.defineRule('lte', ((value, [compare]) => {
                 if (String_1.isNullOrWhitespace(value)) {
                     return true;
                 }
@@ -138,10 +131,10 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
                 else if (value <= compare) {
                     return true;
                 }
-                return "must not be more than " + compare;
+                return `must not be more than ${compare}`;
             }));
-            vee_validate_1.defineRule('datekey', (function (value) {
-                var asString = value;
+            vee_validate_1.defineRule('datekey', (value => {
+                const asString = value;
                 if (!DateKey_1.default.getYear(asString)) {
                     return 'must have a year';
                 }
@@ -153,7 +146,7 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
                 }
                 return true;
             }));
-            vee_validate_1.defineRule("integer", (function (value, params) {
+            vee_validate_1.defineRule("integer", ((value, params) => {
                 if (String_1.isNullOrWhitespace(value)) {
                     return true;
                 }
@@ -162,7 +155,7 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
                 }
                 return "must be an integer value.";
             }));
-            vee_validate_1.defineRule("decimal", (function (value, params) {
+            vee_validate_1.defineRule("decimal", ((value, params) => {
                 if (String_1.isNullOrWhitespace(value)) {
                     return true;
                 }
@@ -171,7 +164,7 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
                 }
                 return "must be a decimal value.";
             }));
-            vee_validate_1.defineRule("ssn", (function (value, params) {
+            vee_validate_1.defineRule("ssn", ((value, params) => {
                 if (String_1.isNullOrWhitespace(value)) {
                     return true;
                 }
@@ -180,7 +173,7 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
                 }
                 return "must be a valid social security number";
             }));
-            convertToNumber = function (value) {
+            convertToNumber = (value) => {
                 if (typeof value === 'number') {
                     return value;
                 }
@@ -189,7 +182,7 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
                 }
                 return 0;
             };
-            isNumeric = function (value) {
+            isNumeric = (value) => {
                 if (typeof value === 'number') {
                     return true;
                 }

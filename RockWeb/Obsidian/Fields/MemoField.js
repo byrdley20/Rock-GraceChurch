@@ -34,38 +34,38 @@ System.register(["vue", "./Index", "../Elements/TextBox", "../Services/Boolean",
                     TextBox: TextBox_1.default
                 },
                 props: Index_1.getFieldTypeProps(),
-                data: function () {
+                data() {
                     return {
                         internalValue: ''
                     };
                 },
                 computed: {
-                    allowHtml: function () {
-                        var config = this.configurationValues[ConfigurationValueKey.AllowHtml];
+                    allowHtml() {
+                        const config = this.configurationValues[ConfigurationValueKey.AllowHtml];
                         return Boolean_1.asBoolean(config === null || config === void 0 ? void 0 : config.Value);
                     },
-                    safeValue: function () {
+                    safeValue() {
                         return (this.modelValue || '').trim();
                     },
-                    configAttributes: function () {
-                        var attributes = {};
-                        var maxCharsConfig = this.configurationValues[ConfigurationValueKey.MaxCharacters];
+                    configAttributes() {
+                        const attributes = {};
+                        const maxCharsConfig = this.configurationValues[ConfigurationValueKey.MaxCharacters];
                         if (maxCharsConfig && maxCharsConfig.Value) {
-                            var maxCharsValue = Number(maxCharsConfig.Value);
+                            const maxCharsValue = Number(maxCharsConfig.Value);
                             if (maxCharsValue) {
                                 attributes.maxLength = maxCharsValue;
                             }
                         }
-                        var showCountDownConfig = this.configurationValues[ConfigurationValueKey.ShowCountDown];
+                        const showCountDownConfig = this.configurationValues[ConfigurationValueKey.ShowCountDown];
                         if (showCountDownConfig && showCountDownConfig.Value) {
-                            var showCountDownValue = Boolean_1.asBooleanOrNull(showCountDownConfig.Value) || false;
+                            const showCountDownValue = Boolean_1.asBooleanOrNull(showCountDownConfig.Value) || false;
                             if (showCountDownValue) {
                                 attributes.showCountDown = showCountDownValue;
                             }
                         }
-                        var rowsConfig = this.configurationValues[ConfigurationValueKey.NumberOfRows];
+                        const rowsConfig = this.configurationValues[ConfigurationValueKey.NumberOfRows];
                         if (rowsConfig === null || rowsConfig === void 0 ? void 0 : rowsConfig.Value) {
-                            var rows = Number_1.toNumber(rowsConfig.Value) || 3;
+                            const rows = Number_1.toNumber(rowsConfig.Value) || 3;
                             if (rows > 0) {
                                 attributes.rows = rows;
                             }
@@ -74,17 +74,22 @@ System.register(["vue", "./Index", "../Elements/TextBox", "../Services/Boolean",
                     }
                 },
                 watch: {
-                    internalValue: function () {
+                    internalValue() {
                         this.$emit('update:modelValue', this.internalValue);
                     },
                     modelValue: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             this.internalValue = this.modelValue || '';
                         }
                     }
                 },
-                template: "\n<TextBox v-if=\"isEditMode\" v-model=\"internalValue\" v-bind=\"configAttributes\" textMode=\"MultiLine\" />\n<div v-else-if=\"allowHtml\">\n    <div v-html=\"modelValue\"></div>\n</div>\n<span v-else>{{ safeValue }}</span>"
+                template: `
+<TextBox v-if="isEditMode" v-model="internalValue" v-bind="configAttributes" textMode="MultiLine" />
+<div v-else-if="allowHtml">
+    <div v-html="modelValue"></div>
+</div>
+<span v-else>{{ safeValue }}</span>`
             })));
         }
     };

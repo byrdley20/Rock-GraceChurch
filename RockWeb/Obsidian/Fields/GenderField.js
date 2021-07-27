@@ -22,13 +22,13 @@ System.register(["vue", "./Index", "../Elements/DropDownList"], function (export
                     DropDownList: DropDownList_1.default
                 },
                 props: Index_1.getFieldTypeProps(),
-                data: function () {
+                data() {
                     return {
                         internalValue: ''
                     };
                 },
                 computed: {
-                    displayValue: function () {
+                    displayValue() {
                         if (this.internalValue === '0') {
                             return 'Unknown';
                         }
@@ -42,7 +42,7 @@ System.register(["vue", "./Index", "../Elements/DropDownList"], function (export
                             return '';
                         }
                     },
-                    dropDownListOptions: function () {
+                    dropDownListOptions() {
                         return [
                             { key: '0', text: 'Unknown', value: '0' },
                             { key: '1', text: 'Male', value: '1' },
@@ -51,17 +51,19 @@ System.register(["vue", "./Index", "../Elements/DropDownList"], function (export
                     }
                 },
                 watch: {
-                    internalValue: function () {
+                    internalValue() {
                         this.$emit('update:modelValue', this.internalValue);
                     },
                     modelValue: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             this.internalValue = this.modelValue || '';
                         }
                     }
                 },
-                template: "\n<DropDownList v-if=\"isEditMode\" v-model=\"internalValue\" :options=\"dropDownListOptions\" />\n<span v-else>{{ displayValue }}</span>"
+                template: `
+<DropDownList v-if="isEditMode" v-model="internalValue" :options="dropDownListOptions" />
+<span v-else>{{ displayValue }}</span>`
             })));
         }
     };

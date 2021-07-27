@@ -35,44 +35,73 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                     TextBox: TextBox_1.default,
                     RockButton: RockButton_1.default
                 },
-                data: function () {
+                data() {
                     return {
                         messageToPublish: '',
                         receivedMessage: ''
                     };
                 },
                 methods: {
-                    receiveMessage: function (message) {
+                    receiveMessage(message) {
                         this.receivedMessage = message;
                     },
-                    doPublish: function () {
+                    doPublish() {
                         Bus_1.default.publish('PersonSecondary:Message', this.messageToPublish);
                         this.messageToPublish = '';
                     },
-                    doThrowError: function () {
+                    doThrowError() {
                         throw new Error('This is an uncaught error');
                     }
                 },
                 computed: {
-                    currentPerson: function () {
+                    currentPerson() {
                         return Index_1.default.state.currentPerson;
                     },
-                    currentPersonName: function () {
+                    currentPersonName() {
                         var _a;
                         return ((_a = this.currentPerson) === null || _a === void 0 ? void 0 : _a.fullName) || 'anonymous';
                     },
-                    imageUrl: function () {
+                    imageUrl() {
                         var _a;
                         return ((_a = this.currentPerson) === null || _a === void 0 ? void 0 : _a.photoUrl) || '/Assets/Images/person-no-photo-unknown.svg';
                     },
-                    photoElementStyle: function () {
-                        return "background-image: url(\"" + this.imageUrl + "\"); background-size: cover; background-repeat: no-repeat;";
+                    photoElementStyle() {
+                        return `background-image: url("${this.imageUrl}"); background-size: cover; background-repeat: no-repeat;`;
                     }
                 },
-                created: function () {
+                created() {
                     Bus_1.default.subscribe('PersonDetail:Message', this.receiveMessage);
                 },
-                template: "<SecondaryBlock>\n    <PaneledBlockTemplate>\n        <template v-slot:title>\n            <i class=\"fa fa-flask\"></i>\n            Secondary Block\n        </template>\n        <template v-slot:default>\n            <div class=\"row\">\n                <div class=\"col-sm-6\">\n                    <p>\n                        Hi, {{currentPersonName}}!\n                        <div class=\"photo-icon photo-round photo-round-sm\" :style=\"photoElementStyle\"></div>\n                    </p>\n                    <p>This is a secondary block. It respects the store's value indicating if secondary blocks are visible.</p>\n                    <RockButton btnType=\"danger\" btnSize=\"sm\" @click=\"doThrowError\">Throw Error</RockButton>\n                </div>\n                <div class=\"col-sm-6\">\n                    <div class=\"well\">\n                        <TextBox label=\"Message\" v-model=\"messageToPublish\" />\n                        <RockButton btnType=\"primary\" btnSize=\"sm\" @click=\"doPublish\">Publish</RockButton>\n                    </div>\n                    <p>\n                        <strong>Detail block says:</strong>\n                        {{receivedMessage}}\n                    </p>\n                </div>\n            </div>\n        </template>\n    </PaneledBlockTemplate>\n</SecondaryBlock>"
+                template: `<SecondaryBlock>
+    <PaneledBlockTemplate>
+        <template v-slot:title>
+            <i class="fa fa-flask"></i>
+            Secondary Block
+        </template>
+        <template v-slot:default>
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>
+                        Hi, {{currentPersonName}}!
+                        <div class="photo-icon photo-round photo-round-sm" :style="photoElementStyle"></div>
+                    </p>
+                    <p>This is a secondary block. It respects the store's value indicating if secondary blocks are visible.</p>
+                    <RockButton btnType="danger" btnSize="sm" @click="doThrowError">Throw Error</RockButton>
+                </div>
+                <div class="col-sm-6">
+                    <div class="well">
+                        <TextBox label="Message" v-model="messageToPublish" />
+                        <RockButton btnType="primary" btnSize="sm" @click="doPublish">Publish</RockButton>
+                    </div>
+                    <p>
+                        <strong>Detail block says:</strong>
+                        {{receivedMessage}}
+                    </p>
+                </div>
+            </div>
+        </template>
+    </PaneledBlockTemplate>
+</SecondaryBlock>`
             }));
         }
     };

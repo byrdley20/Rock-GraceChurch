@@ -27,7 +27,7 @@ System.register(["vue", "./Index", "../Services/Number", "../Elements/DatePartsP
                     DatePartsPicker: DatePartsPicker_1.default
                 },
                 props: Index_1.getFieldTypeProps(),
-                data: function () {
+                data() {
                     return {
                         internalValue: {
                             year: 0,
@@ -37,30 +37,30 @@ System.register(["vue", "./Index", "../Services/Number", "../Elements/DatePartsP
                     };
                 },
                 computed: {
-                    displayValue: function () {
-                        var components = (this.modelValue || "").split("/");
+                    displayValue() {
+                        const components = (this.modelValue || "").split("/");
                         if (components.length == 2) {
-                            var month = Number_1.toNumber(components[0]);
-                            var day = Number_1.toNumber(components[1]);
+                            const month = Number_1.toNumber(components[0]);
+                            const day = Number_1.toNumber(components[1]);
                             if (month !== 0 && day !== 0 && month <= 12) {
-                                var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-                                return months[month] + " " + day;
+                                const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                                return `${months[month]} ${day}`;
                             }
                         }
                         return "";
                     }
                 },
                 watch: {
-                    internalValue: function () {
-                        var value = this.internalValue.month !== 0 && this.internalValue.day !== 0
-                            ? this.internalValue.month + "/" + this.internalValue.day
+                    internalValue() {
+                        const value = this.internalValue.month !== 0 && this.internalValue.day !== 0
+                            ? `${this.internalValue.month}/${this.internalValue.day}`
                             : "";
                         this.$emit('update:modelValue', value);
                     },
                     modelValue: {
                         immediate: true,
-                        handler: function () {
-                            var components = (this.modelValue || "").split("/");
+                        handler() {
+                            const components = (this.modelValue || "").split("/");
                             if (components.length == 2) {
                                 this.internalValue = {
                                     year: 0,
@@ -78,7 +78,9 @@ System.register(["vue", "./Index", "../Services/Number", "../Elements/DatePartsP
                         }
                     }
                 },
-                template: "\n<DatePartsPicker v-show=\"isEditMode\" v-model=\"internalValue\" :showYear=\"false\" />\n<span v-else>{{ displayValue }}</span>"
+                template: `
+<DatePartsPicker v-show="isEditMode" v-model="internalValue" :showYear="false" />
+<span v-else>{{ displayValue }}</span>`
             })));
         }
     };

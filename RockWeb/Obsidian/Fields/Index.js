@@ -7,11 +7,11 @@ System.register(["../Util/Guid"], function (exports_1, context_1) {
         if (!configurationValues || !key) {
             return '';
         }
-        var objectKey = Object.keys(configurationValues).find(function (k) { return k.toLowerCase().trim() === key; });
+        const objectKey = Object.keys(configurationValues).find(k => k.toLowerCase().trim() === key);
         if (!objectKey) {
             return '';
         }
-        var configObject = configurationValues[objectKey];
+        const configObject = configurationValues[objectKey];
         return (configObject === null || configObject === void 0 ? void 0 : configObject.Value) || '';
     }
     exports_1("getConfigurationValue", getConfigurationValue);
@@ -27,19 +27,19 @@ System.register(["../Util/Guid"], function (exports_1, context_1) {
             },
             configurationValues: {
                 type: Object,
-                default: function () { return ({}); }
+                default: () => ({})
             }
         };
     }
     exports_1("getFieldTypeProps", getFieldTypeProps);
     function registerFieldType(fieldTypeGuid, component) {
-        var normalizedGuid = Guid_1.normalize(fieldTypeGuid);
-        var dataToExport = {
+        const normalizedGuid = Guid_1.normalize(fieldTypeGuid);
+        const dataToExport = {
             fieldTypeGuid: normalizedGuid,
             component: component
         };
         if (fieldTypeComponentPaths[normalizedGuid]) {
-            console.error("Field type \"" + fieldTypeGuid + "\" is already registered");
+            console.error(`Field type "${fieldTypeGuid}" is already registered`);
         }
         else {
             fieldTypeComponentPaths[normalizedGuid] = component;
@@ -48,11 +48,11 @@ System.register(["../Util/Guid"], function (exports_1, context_1) {
     }
     exports_1("registerFieldType", registerFieldType);
     function getFieldTypeComponent(fieldTypeGuid) {
-        var field = fieldTypeComponentPaths[Guid_1.normalize(fieldTypeGuid)];
+        const field = fieldTypeComponentPaths[Guid_1.normalize(fieldTypeGuid)];
         if (field) {
             return field;
         }
-        console.error("Field type \"" + fieldTypeGuid + "\" was not found");
+        console.error(`Field type "${fieldTypeGuid}" was not found`);
         return null;
     }
     exports_1("getFieldTypeComponent", getFieldTypeComponent);

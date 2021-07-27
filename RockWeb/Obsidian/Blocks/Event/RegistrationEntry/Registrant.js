@@ -1,16 +1,5 @@
 System.register(["vue", "../../../Elements/DropDownList", "../../../Elements/RadioButtonList", "../RegistrationEntry", "../../../Services/String", "../../../Elements/RockButton", "./RegistrantPersonField", "./RegistrantAttributeField", "../../../Elements/Alert", "./RegistrationEntryBlockViewModel", "../../../Util/Guid", "../../../Controls/RockForm", "./FeeField", "../../../Elements/ItemsWithPreAndPostHtml"], function (exports_1, context_1) {
     "use strict";
-    var __assign = (this && this.__assign) || function () {
-        __assign = Object.assign || function(t) {
-            for (var s, i = 1, n = arguments.length; i < n; i++) {
-                s = arguments[i];
-                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                    t[p] = s[p];
-            }
-            return t;
-        };
-        return __assign.apply(this, arguments);
-    };
     var vue_1, DropDownList_1, RadioButtonList_1, RegistrationEntry_1, String_1, RockButton_1, RegistrantPersonField_1, RegistrantAttributeField_1, Alert_1, RegistrationEntryBlockViewModel_1, Guid_1, RockForm_1, FeeField_1, ItemsWithPreAndPostHtml_1;
     var __moduleName = context_1 && context_1.id;
     return {
@@ -82,13 +71,13 @@ System.register(["vue", "../../../Elements/DropDownList", "../../../Elements/Rad
                         required: true
                     }
                 },
-                setup: function () {
-                    var registrationEntryState = vue_1.inject('registrationEntryState');
+                setup() {
+                    const registrationEntryState = vue_1.inject('registrationEntryState');
                     return {
-                        registrationEntryState: registrationEntryState
+                        registrationEntryState
                     };
                 },
-                data: function () {
+                data() {
                     return {
                         fieldSources: {
                             PersonField: RegistrationEntryBlockViewModel_1.RegistrationFieldSource.PersonField,
@@ -99,61 +88,60 @@ System.register(["vue", "../../../Elements/DropDownList", "../../../Elements/Rad
                     };
                 },
                 computed: {
-                    showPrevious: function () {
+                    showPrevious() {
                         return this.registrationEntryState.FirstStep !== this.registrationEntryState.Steps.perRegistrantForms;
                     },
-                    viewModel: function () {
+                    viewModel() {
                         return this.registrationEntryState.ViewModel;
                     },
-                    currentFormIndex: function () {
+                    currentFormIndex() {
                         return this.registrationEntryState.CurrentRegistrantFormIndex;
                     },
-                    currentForm: function () {
+                    currentForm() {
                         return this.formsToShow[this.currentFormIndex] || null;
                     },
-                    isLastForm: function () {
+                    isLastForm() {
                         return (this.currentFormIndex + 1) === this.formsToShow.length;
                     },
-                    formsToShow: function () {
+                    formsToShow() {
                         if (!this.isWaitList) {
                             return this.viewModel.registrantForms;
                         }
-                        return this.viewModel.registrantForms.filter(function (form) { return form.fields.some(function (field) { return field.showOnWaitList; }); });
+                        return this.viewModel.registrantForms.filter(form => form.fields.some(field => field.showOnWaitList));
                     },
-                    currentFormFields: function () {
-                        var _this = this;
+                    currentFormFields() {
                         var _a;
                         return (((_a = this.currentForm) === null || _a === void 0 ? void 0 : _a.fields) || [])
-                            .filter(function (f) { return !_this.isWaitList || f.showOnWaitList; });
+                            .filter(f => !this.isWaitList || f.showOnWaitList);
                     },
-                    prePostHtmlItems: function () {
+                    prePostHtmlItems() {
                         return this.currentFormFields
-                            .map(function (f) { return ({
+                            .map(f => ({
                             preHtml: f.preHtml,
                             postHtml: f.postHtml,
                             slotName: f.guid
-                        }); });
+                        }));
                     },
-                    currentPerson: function () {
+                    currentPerson() {
                         return this.$store.state.currentPerson;
                     },
-                    pluralFeeTerm: function () {
+                    pluralFeeTerm() {
                         return String_1.default.toTitleCase(this.viewModel.pluralFeeTerm || 'fees');
                     },
-                    familyOptions: function () {
+                    familyOptions() {
                         var _a;
-                        var options = [];
-                        var usedFamilyGuids = {};
+                        const options = [];
+                        const usedFamilyGuids = {};
                         if (this.viewModel.registrantsSameFamily !== RegistrationEntryBlockViewModel_1.RegistrantsSameFamily.Ask) {
                             return options;
                         }
-                        for (var i = 0; i < this.registrationEntryState.CurrentRegistrantIndex; i++) {
-                            var registrant = this.registrationEntryState.Registrants[i];
-                            var info = RegistrationEntry_1.getRegistrantBasicInfo(registrant, this.viewModel.registrantForms);
+                        for (let i = 0; i < this.registrationEntryState.CurrentRegistrantIndex; i++) {
+                            const registrant = this.registrationEntryState.Registrants[i];
+                            const info = RegistrationEntry_1.getRegistrantBasicInfo(registrant, this.viewModel.registrantForms);
                             if (!usedFamilyGuids[registrant.FamilyGuid] && (info === null || info === void 0 ? void 0 : info.FirstName) && (info === null || info === void 0 ? void 0 : info.LastName)) {
                                 options.push({
                                     key: registrant.FamilyGuid,
-                                    text: info.FirstName + " " + info.LastName,
+                                    text: `${info.FirstName} ${info.LastName}`,
                                     value: registrant.FamilyGuid
                                 });
                                 usedFamilyGuids[registrant.FamilyGuid] = true;
@@ -173,71 +161,66 @@ System.register(["vue", "../../../Elements/DropDownList", "../../../Elements/Rad
                         });
                         return options;
                     },
-                    familyMemberOptions: function () {
-                        var _this = this;
-                        var selectedFamily = this.currentRegistrant.FamilyGuid;
+                    familyMemberOptions() {
+                        const selectedFamily = this.currentRegistrant.FamilyGuid;
                         if (!selectedFamily) {
                             return [];
                         }
-                        var usedFamilyMemberGuids = this.registrationEntryState.Registrants
-                            .filter(function (r) { return r.PersonGuid && r.PersonGuid !== _this.currentRegistrant.PersonGuid; })
-                            .map(function (r) { return r.PersonGuid; });
+                        const usedFamilyMemberGuids = this.registrationEntryState.Registrants
+                            .filter(r => r.PersonGuid && r.PersonGuid !== this.currentRegistrant.PersonGuid)
+                            .map(r => r.PersonGuid);
                         return this.viewModel.familyMembers
-                            .filter(function (fm) {
-                            return Guid_1.areEqual(fm.familyGuid, selectedFamily) &&
-                                !usedFamilyMemberGuids.includes(fm.guid);
-                        })
-                            .map(function (fm) { return ({
+                            .filter(fm => Guid_1.areEqual(fm.familyGuid, selectedFamily) &&
+                            !usedFamilyMemberGuids.includes(fm.guid))
+                            .map(fm => ({
                             key: fm.guid,
                             text: fm.fullName,
                             value: fm.guid
-                        }); });
+                        }));
                     },
-                    uppercaseRegistrantTerm: function () {
+                    uppercaseRegistrantTerm() {
                         return String_1.default.toTitleCase(this.viewModel.registrantTerm);
                     },
-                    firstName: function () {
+                    firstName() {
                         return RegistrationEntry_1.getRegistrantBasicInfo(this.currentRegistrant, this.viewModel.registrantForms).FirstName;
                     },
-                    familyMember: function () {
-                        var personGuid = this.currentRegistrant.PersonGuid;
+                    familyMember() {
+                        const personGuid = this.currentRegistrant.PersonGuid;
                         if (!personGuid) {
                             return null;
                         }
-                        return this.viewModel.familyMembers.find(function (fm) { return Guid_1.areEqual(fm.guid, personGuid); }) || null;
+                        return this.viewModel.familyMembers.find(fm => Guid_1.areEqual(fm.guid, personGuid)) || null;
                     }
                 },
                 methods: {
-                    onPrevious: function () {
+                    onPrevious() {
                         if (this.currentFormIndex <= 0) {
                             this.$emit('previous');
                             return;
                         }
                         this.registrationEntryState.CurrentRegistrantFormIndex--;
                     },
-                    onNext: function () {
-                        var lastFormIndex = this.formsToShow.length - 1;
+                    onNext() {
+                        const lastFormIndex = this.formsToShow.length - 1;
                         if (this.currentFormIndex >= lastFormIndex) {
                             this.$emit('next');
                             return;
                         }
                         this.registrationEntryState.CurrentRegistrantFormIndex++;
                     },
-                    copyValuesFromFamilyMember: function () {
+                    copyValuesFromFamilyMember() {
                         if (!this.familyMember) {
                             return;
                         }
-                        for (var _i = 0, _a = this.viewModel.registrantForms; _i < _a.length; _i++) {
-                            var form = _a[_i];
-                            for (var _b = 0, _c = form.fields; _b < _c.length; _b++) {
-                                var field = _c[_b];
+                        for (const form of this.viewModel.registrantForms) {
+                            for (const field of form.fields) {
                                 if (field.guid in this.familyMember.fieldValues) {
-                                    var familyMemberValue = this.familyMember.fieldValues[field.guid];
+                                    const familyMemberValue = this.familyMember.fieldValues[field.guid];
                                     if (!familyMemberValue) {
                                         delete this.currentRegistrant.FieldValues[field.guid];
                                     }
                                     else if (typeof familyMemberValue === 'object') {
-                                        this.currentRegistrant.FieldValues[field.guid] = __assign({}, familyMemberValue);
+                                        this.currentRegistrant.FieldValues[field.guid] = Object.assign({}, familyMemberValue);
                                     }
                                     else {
                                         this.currentRegistrant.FieldValues[field.guid] = familyMemberValue;
@@ -248,16 +231,14 @@ System.register(["vue", "../../../Elements/DropDownList", "../../../Elements/Rad
                     }
                 },
                 watch: {
-                    'currentRegistrant.FamilyGuid': function () {
+                    'currentRegistrant.FamilyGuid'() {
                         this.currentRegistrant.PersonGuid = '';
                     },
                     familyMember: {
-                        handler: function () {
+                        handler() {
                             if (!this.familyMember) {
-                                for (var _i = 0, _a = this.viewModel.registrantForms; _i < _a.length; _i++) {
-                                    var form = _a[_i];
-                                    for (var _b = 0, _c = form.fields; _b < _c.length; _b++) {
-                                        var field = _c[_b];
+                                for (const form of this.viewModel.registrantForms) {
+                                    for (const field of form.fields) {
                                         delete this.currentRegistrant.FieldValues[field.guid];
                                     }
                                 }
@@ -268,10 +249,52 @@ System.register(["vue", "../../../Elements/DropDownList", "../../../Elements/Rad
                         }
                     }
                 },
-                created: function () {
+                created() {
                     this.copyValuesFromFamilyMember();
                 },
-                template: "\n<div>\n    <RockForm @submit=\"onNext\">\n        <template v-if=\"currentFormIndex === 0\">\n            <div v-if=\"familyOptions.length > 1\" class=\"well js-registration-same-family\">\n                <RadioButtonList :label=\"(firstName || uppercaseRegistrantTerm) + ' is in the same immediate family as'\" rules='required:{\"allowEmptyString\": true}' v-model=\"currentRegistrant.FamilyGuid\" :options=\"familyOptions\" validationTitle=\"Family\" />\n            </div>\n            <div v-if=\"familyMemberOptions.length\" class=\"row\">\n                <div class=\"col-md-6\">\n                    <DropDownList v-model=\"currentRegistrant.PersonGuid\" :options=\"familyMemberOptions\" label=\"Family Member to Register\" />\n                </div>\n            </div>\n        </template>\n\n        <ItemsWithPreAndPostHtml :items=\"prePostHtmlItems\">\n            <template v-for=\"field in currentFormFields\" :key=\"field.guid\" v-slot:[field.guid]>\n                <RegistrantPersonField v-if=\"field.fieldSource === fieldSources.PersonField\" :field=\"field\" :fieldValues=\"currentRegistrant.FieldValues\" :isKnownFamilyMember=\"!!currentRegistrant.PersonGuid\" />\n                <RegistrantAttributeField v-else-if=\"field.fieldSource === fieldSources.RegistrantAttribute || field.fieldSource === fieldSources.PersonAttribute\" :field=\"field\" :fieldValues=\"currentRegistrant.FieldValues\" />\n                <Alert alertType=\"danger\" v-else>Could not resolve field source {{field.fieldSource}}</Alert>\n            </template>\n        </ItemsWithPreAndPostHtml>\n\n        <div v-if=\"!isWaitList && isLastForm && viewModel.fees.length\" class=\"well registration-additional-options\">\n            <h4>{{pluralFeeTerm}}</h4>\n            <template v-for=\"fee in viewModel.fees\" :key=\"fee.Guid\">\n                <FeeField :fee=\"fee\" v-model=\"currentRegistrant.FeeItemQuantities\" />\n            </template>\n        </div>\n\n        <div class=\"actions row\">\n            <div class=\"col-xs-6\">\n                <RockButton v-if=\"showPrevious\" btnType=\"default\" @click=\"onPrevious\">\n                    Previous\n                </RockButton>\n            </div>\n            <div class=\"col-xs-6 text-right\">\n                <RockButton btnType=\"primary\" type=\"submit\">\n                    Next\n                </RockButton>\n            </div>\n        </div>\n    </RockForm>\n</div>"
+                template: `
+<div>
+    <RockForm @submit="onNext">
+        <template v-if="currentFormIndex === 0">
+            <div v-if="familyOptions.length > 1" class="well js-registration-same-family">
+                <RadioButtonList :label="(firstName || uppercaseRegistrantTerm) + ' is in the same immediate family as'" rules='required:{"allowEmptyString": true}' v-model="currentRegistrant.FamilyGuid" :options="familyOptions" validationTitle="Family" />
+            </div>
+            <div v-if="familyMemberOptions.length" class="row">
+                <div class="col-md-6">
+                    <DropDownList v-model="currentRegistrant.PersonGuid" :options="familyMemberOptions" label="Family Member to Register" />
+                </div>
+            </div>
+        </template>
+
+        <ItemsWithPreAndPostHtml :items="prePostHtmlItems">
+            <template v-for="field in currentFormFields" :key="field.guid" v-slot:[field.guid]>
+                <RegistrantPersonField v-if="field.fieldSource === fieldSources.PersonField" :field="field" :fieldValues="currentRegistrant.FieldValues" :isKnownFamilyMember="!!currentRegistrant.PersonGuid" />
+                <RegistrantAttributeField v-else-if="field.fieldSource === fieldSources.RegistrantAttribute || field.fieldSource === fieldSources.PersonAttribute" :field="field" :fieldValues="currentRegistrant.FieldValues" />
+                <Alert alertType="danger" v-else>Could not resolve field source {{field.fieldSource}}</Alert>
+            </template>
+        </ItemsWithPreAndPostHtml>
+
+        <div v-if="!isWaitList && isLastForm && viewModel.fees.length" class="well registration-additional-options">
+            <h4>{{pluralFeeTerm}}</h4>
+            <template v-for="fee in viewModel.fees" :key="fee.Guid">
+                <FeeField :fee="fee" v-model="currentRegistrant.FeeItemQuantities" />
+            </template>
+        </div>
+
+        <div class="actions row">
+            <div class="col-xs-6">
+                <RockButton v-if="showPrevious" btnType="default" @click="onPrevious">
+                    Previous
+                </RockButton>
+            </div>
+            <div class="col-xs-6 text-right">
+                <RockButton btnType="primary" type="submit">
+                    Next
+                </RockButton>
+            </div>
+        </div>
+    </RockForm>
+</div>`
             }));
         }
     };

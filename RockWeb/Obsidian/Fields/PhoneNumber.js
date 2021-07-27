@@ -25,32 +25,34 @@ System.register(["vue", "./Index", "../Services/String", "../Elements/PhoneNumbe
                     PhoneNumberBox: PhoneNumberBox_1.default
                 },
                 props: Index_1.getFieldTypeProps(),
-                data: function () {
+                data() {
                     return {
                         internalValue: ''
                     };
                 },
                 computed: {
-                    safeValue: function () {
+                    safeValue() {
                         return String_1.formatPhoneNumber(this.modelValue || '');
                     },
-                    configAttributes: function () {
-                        var attributes = {};
+                    configAttributes() {
+                        const attributes = {};
                         return attributes;
                     }
                 },
                 watch: {
-                    internalValue: function () {
+                    internalValue() {
                         this.$emit('update:modelValue', this.internalValue);
                     },
                     modelValue: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             this.internalValue = this.modelValue || '';
                         }
                     }
                 },
-                template: "\n<PhoneNumberBox v-if=\"isEditMode\" v-model=\"internalValue\" v-bind=\"configAttributes\" />\n<span v-else>{{ safeValue }}</span>"
+                template: `
+<PhoneNumberBox v-if="isEditMode" v-model="internalValue" v-bind="configAttributes" />
+<span v-else>{{ safeValue }}</span>`
             })));
         }
     };

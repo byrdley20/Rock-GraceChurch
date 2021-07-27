@@ -22,7 +22,19 @@ System.register(["vue", "./RockFormField"], function (exports_1, context_1) {
                         required: true
                     }
                 },
-                template: "\n<RockFormField\n    :modelValue=\"modelValue\"\n    formGroupClasses=\"static-control\"\n    name=\"static-form-control\">\n    <template #default=\"{uniqueId, field, errors, disabled}\">\n        <div class=\"control-wrapper\">\n            <div class=\"form-control-static\">\n                {{ modelValue }}\n            </div>\n        </div>\n    </template>\n</RockFormField>"
+                template: `
+<RockFormField
+    :modelValue="modelValue"
+    formGroupClasses="static-control"
+    name="static-form-control">
+    <template #default="{uniqueId, field, errors, disabled}">
+        <div class="control-wrapper">
+            <div class="form-control-static">
+                {{ modelValue }}
+            </div>
+        </div>
+    </template>
+</RockFormField>`
             }));
         }
     };

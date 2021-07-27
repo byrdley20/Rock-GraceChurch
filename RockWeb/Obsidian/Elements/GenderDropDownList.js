@@ -32,28 +32,29 @@ System.register(["vue", "../Rules/Index", "./DropDownList"], function (exports_1
                         default: ''
                     }
                 },
-                data: function () {
+                data() {
                     return {
-                        blankValue: "" + Gender.Unknown
+                        blankValue: `${Gender.Unknown}`
                     };
                 },
                 computed: {
-                    options: function () {
+                    options() {
                         return [
                             { key: Gender.Male.toString(), text: 'Male', value: Gender.Male.toString() },
                             { key: Gender.Female.toString(), text: 'Female', value: Gender.Female.toString() }
                         ];
                     },
-                    computedRules: function () {
-                        var rules = Index_1.ruleStringToArray(this.rules);
-                        var notEqualRule = "notequal:" + Gender.Unknown;
+                    computedRules() {
+                        const rules = Index_1.ruleStringToArray(this.rules);
+                        const notEqualRule = `notequal:${Gender.Unknown}`;
                         if (rules.indexOf('required') !== -1 && rules.indexOf(notEqualRule) === -1) {
                             rules.push(notEqualRule);
                         }
                         return Index_1.ruleArrayToString(rules);
                     }
                 },
-                template: "\n<DropDownList label=\"Gender\" :options=\"options\" :showBlankItem=\"true\" :blankValue=\"blankValue\" :rules=\"computedRules\" />"
+                template: `
+<DropDownList label="Gender" :options="options" :showBlankItem="true" :blankValue="blankValue" :rules="computedRules" />`
             }));
         }
     };

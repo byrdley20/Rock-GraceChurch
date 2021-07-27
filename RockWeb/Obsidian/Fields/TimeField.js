@@ -30,41 +30,41 @@ System.register(["vue", "./Index", "../Elements/TimePicker", "../Services/Number
                     TimePicker: TimePicker_1.default
                 },
                 props: Index_1.getFieldTypeProps(),
-                data: function () {
+                data() {
                     return {
                         internalTimeValue: {},
                         internalValue: ''
                     };
                 },
                 computed: {
-                    displayValue: function () {
+                    displayValue() {
                         if (this.internalTimeValue.hour === undefined || this.internalTimeValue.minute === undefined) {
                             return "";
                         }
-                        var hour = this.internalTimeValue.hour;
-                        var minute = this.internalTimeValue.minute;
-                        var meridiem = hour >= 12 ? "PM" : "AM";
+                        let hour = this.internalTimeValue.hour;
+                        const minute = this.internalTimeValue.minute;
+                        const meridiem = hour >= 12 ? "PM" : "AM";
                         if (hour > 12) {
                             hour -= 12;
                         }
-                        return hour + ":" + String_1.padLeft(minute.toString(), 2, "0") + " " + meridiem;
+                        return `${hour}:${String_1.padLeft(minute.toString(), 2, "0")} ${meridiem}`;
                     },
                 },
                 watch: {
-                    internalValue: function () {
+                    internalValue() {
                         this.$emit('update:modelValue', this.internalValue);
                     },
-                    internalTimeValue: function () {
+                    internalTimeValue() {
                         if (this.internalTimeValue.hour === undefined || this.internalTimeValue.minute === undefined) {
                             this.internalValue = "";
                         }
                         else {
-                            this.internalValue = this.internalTimeValue.hour + ":" + String_1.padLeft(this.internalTimeValue.minute.toString(), 2, "0") + ":00";
+                            this.internalValue = `${this.internalTimeValue.hour}:${String_1.padLeft(this.internalTimeValue.minute.toString(), 2, "0")}:00`;
                         }
                     },
                     modelValue: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             var _a;
                             var values = /^(\d+):(\d+)/.exec((_a = this.modelValue) !== null && _a !== void 0 ? _a : "");
                             if (values !== null) {
@@ -79,7 +79,9 @@ System.register(["vue", "./Index", "../Elements/TimePicker", "../Services/Number
                         }
                     }
                 },
-                template: "\n<TimePicker v-if=\"isEditMode\" v-model=\"internalTimeValue\" />\n<span v-else>{{ displayValue }}</span>"
+                template: `
+<TimePicker v-if="isEditMode" v-model="internalTimeValue" />
+<span v-else>{{ displayValue }}</span>`
             })));
         }
     };

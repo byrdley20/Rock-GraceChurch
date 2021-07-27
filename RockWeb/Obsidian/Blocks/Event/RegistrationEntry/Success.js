@@ -17,34 +17,42 @@ System.register(["vue", "../../../Controls/SaveFinancialAccountForm"], function 
                 components: {
                     SaveFinancialAccountForm: SaveFinancialAccountForm_1.default
                 },
-                setup: function () {
+                setup() {
                     return {
                         registrationEntryState: vue_1.inject('registrationEntryState')
                     };
                 },
                 computed: {
-                    registrationTerm: function () {
+                    registrationTerm() {
                         return this.registrationEntryState.ViewModel.registrationTerm.toLowerCase();
                     },
-                    messageHtml: function () {
+                    messageHtml() {
                         var _a;
-                        return ((_a = this.registrationEntryState.SuccessViewModel) === null || _a === void 0 ? void 0 : _a.messageHtml) || "You have successfully completed this " + this.registrationTerm;
+                        return ((_a = this.registrationEntryState.SuccessViewModel) === null || _a === void 0 ? void 0 : _a.messageHtml) || `You have successfully completed this ${this.registrationTerm}`;
                     },
-                    gatewayGuid: function () {
+                    gatewayGuid() {
                         return this.registrationEntryState.ViewModel.gatewayGuid;
                     },
-                    transactionCode: function () {
+                    transactionCode() {
                         var _a;
                         return this.registrationEntryState.ViewModel.isRedirectGateway ?
                             '' :
                             ((_a = this.registrationEntryState.SuccessViewModel) === null || _a === void 0 ? void 0 : _a.transactionCode) || '';
                     },
-                    gatewayPersonIdentifier: function () {
+                    gatewayPersonIdentifier() {
                         var _a;
                         return ((_a = this.registrationEntryState.SuccessViewModel) === null || _a === void 0 ? void 0 : _a.gatewayPersonIdentifier) || '';
                     }
                 },
-                template: "\n<div>\n    <div v-html=\"messageHtml\"></div>\n    <SaveFinancialAccountForm v-if=\"gatewayGuid && transactionCode && gatewayPersonIdentifier\" :gatewayGuid=\"gatewayGuid\" :transactionCode=\"transactionCode\" :gatewayPersonIdentifier=\"gatewayPersonIdentifier\" class=\"well\">\n        <template #header>\n            <h3>Make Payments Even Easier</h3>\n        </template>\n    </SaveFinancialAccountForm>\n</div>"
+                template: `
+<div>
+    <div v-html="messageHtml"></div>
+    <SaveFinancialAccountForm v-if="gatewayGuid && transactionCode && gatewayPersonIdentifier" :gatewayGuid="gatewayGuid" :transactionCode="transactionCode" :gatewayPersonIdentifier="gatewayPersonIdentifier" class="well">
+        <template #header>
+            <h3>Make Payments Even Easier</h3>
+        </template>
+    </SaveFinancialAccountForm>
+</div>`
             }));
         }
     };

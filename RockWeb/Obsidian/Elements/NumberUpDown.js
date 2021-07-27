@@ -32,49 +32,58 @@ System.register(["vue", "./RockFormField"], function (exports_1, context_1) {
                         default: false
                     }
                 },
-                data: function () {
+                data() {
                     return {
                         internalValue: 0
                     };
                 },
                 methods: {
-                    goUp: function () {
+                    goUp() {
                         if (!this.isUpDisabled) {
                             this.internalValue++;
                         }
                     },
-                    goDown: function () {
+                    goDown() {
                         if (!this.isDownDisabled) {
                             this.internalValue--;
                         }
                     }
                 },
                 computed: {
-                    isUpDisabled: function () {
+                    isUpDisabled() {
                         return this.internalValue >= this.max;
                     },
-                    isDownDisabled: function () {
+                    isDownDisabled() {
                         return this.internalValue <= this.min;
                     }
                 },
                 watch: {
                     modelValue: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             this.internalValue = this.modelValue;
                         }
                     },
-                    internalValue: function () {
+                    internalValue() {
                         this.$emit('update:modelValue', this.internalValue);
                     }
                 },
-                template: "\n<div class=\"numberincrement\">\n    <a @click=\"goDown\" class=\"numberincrement-down\" :class=\"{disabled: disabled || isDownDisabled}\" :disabled=\"disabled || isDownDisabled\">\n        <i class=\"fa fa-minus \"></i>\n    </a>\n    <span class=\"numberincrement-value\">{{modelValue}}</span>\n    <a @click=\"goUp\" class=\"numberincrement-up\" :class=\"{disabled: disabled || isUpDisabled}\" :disabled=\"disabled || isUpDisabled\">\n        <i class=\"fa fa-plus \"></i>\n    </a>\n</div>"
+                template: `
+<div class="numberincrement">
+    <a @click="goDown" class="numberincrement-down" :class="{disabled: disabled || isDownDisabled}" :disabled="disabled || isDownDisabled">
+        <i class="fa fa-minus "></i>
+    </a>
+    <span class="numberincrement-value">{{modelValue}}</span>
+    <a @click="goUp" class="numberincrement-up" :class="{disabled: disabled || isUpDisabled}" :disabled="disabled || isUpDisabled">
+        <i class="fa fa-plus "></i>
+    </a>
+</div>`
             }));
             exports_1("default", vue_1.defineComponent({
                 name: 'NumberUpDown',
                 components: {
                     RockFormField: RockFormField_1.default,
-                    NumberUpDownInternal: NumberUpDownInternal
+                    NumberUpDownInternal
                 },
                 props: {
                     modelValue: {
@@ -94,7 +103,7 @@ System.register(["vue", "./RockFormField"], function (exports_1, context_1) {
                         default: ''
                     }
                 },
-                data: function () {
+                data() {
                     return {
                         internalValue: 0
                     };
@@ -102,15 +111,25 @@ System.register(["vue", "./RockFormField"], function (exports_1, context_1) {
                 watch: {
                     modelValue: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             this.internalValue = this.modelValue;
                         }
                     },
-                    internalValue: function () {
+                    internalValue() {
                         this.$emit('update:modelValue', this.internalValue);
                     }
                 },
-                template: "\n<RockFormField\n    :modelValue=\"internalValue\"\n    formGroupClasses=\"number-up-down\"\n    name=\"numberupdown\">\n    <template #default=\"{uniqueId, field, errors, disabled}\">\n        <div class=\"control-wrapper\">\n            <NumberUpDownInternal v-model=\"internalValue\" :min=\"min\" :max=\"max\" :class=\"numberIncrementClasses\" />\n        </div>\n    </template>\n</RockFormField>"
+                template: `
+<RockFormField
+    :modelValue="internalValue"
+    formGroupClasses="number-up-down"
+    name="numberupdown">
+    <template #default="{uniqueId, field, errors, disabled}">
+        <div class="control-wrapper">
+            <NumberUpDownInternal v-model="internalValue" :min="min" :max="max" :class="numberIncrementClasses" />
+        </div>
+    </template>
+</RockFormField>`
             }));
         }
     };

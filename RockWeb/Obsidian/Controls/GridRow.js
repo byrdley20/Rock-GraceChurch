@@ -17,13 +17,13 @@ System.register(["vue"], function (exports_1, context_1) {
                         required: true
                     }
                 },
-                provide: function () {
+                provide() {
                     return {
                         rowContext: this.rowContext
                     };
                 },
                 methods: {
-                    onRowClick: function () {
+                    onRowClick() {
                         if (!this.rowContext.isHeader) {
                             this.$emit('click:body', this.rowContext);
                         }
@@ -32,7 +32,10 @@ System.register(["vue"], function (exports_1, context_1) {
                         }
                     }
                 },
-                template: "\n<tr @click=\"onRowClick\">\n    <slot />\n</tr>"
+                template: `
+<tr @click="onRowClick">
+    <slot />
+</tr>`
             }));
         }
     };

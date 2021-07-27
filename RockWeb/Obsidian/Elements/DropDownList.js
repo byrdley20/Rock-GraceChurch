@@ -48,13 +48,13 @@ System.register(["vue", "../Util/Guid.js", "./RockFormField.js"], function (expo
                 },
                 data: function () {
                     return {
-                        uniqueId: "rock-dropdownlist-" + Guid_js_1.newGuid(),
+                        uniqueId: `rock-dropdownlist-${Guid_js_1.newGuid()}`,
                         internalValue: this.blankValue,
                         isMounted: false
                     };
                 },
                 computed: {
-                    compiledFormControlClasses: function () {
+                    compiledFormControlClasses() {
                         if (this.enhanceForLongLists) {
                             return this.formControlClasses + ' chosen-select';
                         }
@@ -62,20 +62,19 @@ System.register(["vue", "../Util/Guid.js", "./RockFormField.js"], function (expo
                     }
                 },
                 methods: {
-                    getChosenJqueryEl: function () {
-                        var jquery = window['$'];
-                        var $chosenDropDown = jquery(this.$refs['theSelect']);
+                    getChosenJqueryEl() {
+                        const jquery = window['$'];
+                        let $chosenDropDown = jquery(this.$refs['theSelect']);
                         if (!$chosenDropDown || !$chosenDropDown.length) {
-                            $chosenDropDown = jquery("#" + this.uniqueId);
+                            $chosenDropDown = jquery(`#${this.uniqueId}`);
                         }
                         return $chosenDropDown;
                     },
-                    createOrDestroyChosen: function () {
-                        var _this = this;
+                    createOrDestroyChosen() {
                         if (!this.isMounted) {
                             return;
                         }
-                        var $chosenDropDown = this.getChosenJqueryEl();
+                        const $chosenDropDown = this.getChosenJqueryEl();
                         if (this.enhanceForLongLists) {
                             $chosenDropDown
                                 .chosen({
@@ -84,27 +83,26 @@ System.register(["vue", "../Util/Guid.js", "./RockFormField.js"], function (expo
                                 placeholder_text_multiple: ' ',
                                 placeholder_text_single: ' '
                             })
-                                .change(function (ev) {
-                                _this.internalValue = ev.target.value;
+                                .change(ev => {
+                                this.internalValue = ev.target.value;
                             });
                         }
                         else {
                             $chosenDropDown.chosen('destroy');
                         }
                     },
-                    syncValue: function () {
-                        var _this = this;
+                    syncValue() {
                         var _a;
                         this.internalValue = this.modelValue;
-                        var selectedOption = this.options.find(function (o) { return o.value === _this.internalValue; }) || null;
+                        const selectedOption = this.options.find(o => o.value === this.internalValue) || null;
                         if (!selectedOption) {
                             this.internalValue = this.showBlankItem ?
                                 this.blankValue :
                                 (((_a = this.options[0]) === null || _a === void 0 ? void 0 : _a.value) || this.blankValue);
                         }
                         if (this.enhanceForLongLists) {
-                            this.$nextTick(function () {
-                                var $chosenDropDown = _this.getChosenJqueryEl();
+                            this.$nextTick(() => {
+                                const $chosenDropDown = this.getChosenJqueryEl();
                                 $chosenDropDown.trigger('chosen:updated');
                             });
                         }
@@ -113,28 +111,41 @@ System.register(["vue", "../Util/Guid.js", "./RockFormField.js"], function (expo
                 watch: {
                     modelValue: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             this.syncValue();
                         }
                     },
                     options: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             this.syncValue();
                         }
                     },
-                    internalValue: function () {
+                    internalValue() {
                         this.$emit('update:modelValue', this.internalValue);
                     },
-                    enhanceForLongLists: function () {
+                    enhanceForLongLists() {
                         this.createOrDestroyChosen();
                     }
                 },
-                mounted: function () {
+                mounted() {
                     this.isMounted = true;
                     this.createOrDestroyChosen();
                 },
-                template: "\n<RockFormField\n    :modelValue=\"internalValue\"\n    formGroupClasses=\"rock-drop-down-list\"\n    name=\"dropdownlist\">\n    <template #default=\"{uniqueId, field, errors, disabled}\">\n        <div class=\"control-wrapper\">\n            <select :id=\"uniqueId\" class=\"form-control\" :class=\"compiledFormControlClasses\" :disabled=\"disabled\" v-bind=\"field\" v-model=\"internalValue\" ref=\"theSelect\">\n                <option v-if=\"showBlankItem\" :value=\"blankValue\"></option>\n                <option v-for=\"o in options\" :key=\"o.value\" :value=\"o.value\">{{o.text}}</option>\n            </select>\n        </div>\n    </template>\n</RockFormField>"
+                template: `
+<RockFormField
+    :modelValue="internalValue"
+    formGroupClasses="rock-drop-down-list"
+    name="dropdownlist">
+    <template #default="{uniqueId, field, errors, disabled}">
+        <div class="control-wrapper">
+            <select :id="uniqueId" class="form-control" :class="compiledFormControlClasses" :disabled="disabled" v-bind="field" v-model="internalValue" ref="theSelect">
+                <option v-if="showBlankItem" :value="blankValue"></option>
+                <option v-for="o in options" :key="o.value" :value="o.value">{{o.text}}</option>
+            </select>
+        </div>
+    </template>
+</RockFormField>`
             }));
         }
     };

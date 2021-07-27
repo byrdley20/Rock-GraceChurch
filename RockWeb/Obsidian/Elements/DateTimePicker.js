@@ -59,31 +59,31 @@ System.register(["vue", "../Services/Number", "./RockFormField", "./TextBox", ".
                     };
                 },
                 computed: {
-                    asRockDateTimeOrNull: function () {
+                    asRockDateTimeOrNull() {
                         if (this.internalDateValue) {
-                            var date = new Date(this.internalDateValue);
+                            const date = new Date(this.internalDateValue);
                             if (this.internalTimeValue.hour !== undefined && this.internalTimeValue.minute !== undefined) {
                                 date.setHours(this.internalTimeValue.hour);
                                 date.setMinutes(this.internalTimeValue.minute);
                             }
-                            var year = date.getFullYear().toString();
-                            var month = String_1.padLeft((date.getMonth() + 1).toString(), 2, "0");
-                            var day = String_1.padLeft(date.getDate().toString(), 2, "0");
-                            var hour = String_1.padLeft(date.getHours().toString(), 2, "0");
-                            var minute = String_1.padLeft(date.getMinutes().toString(), 2, "0");
-                            var second = String_1.padLeft(date.getSeconds().toString(), 2, "0");
-                            var millisecond = String_1.padLeft(date.getMilliseconds().toString(), 3, "0");
-                            return year + "-" + month + "-" + day + "T" + hour + ":" + minute + ":" + second + "." + millisecond;
+                            const year = date.getFullYear().toString();
+                            const month = String_1.padLeft((date.getMonth() + 1).toString(), 2, "0");
+                            const day = String_1.padLeft(date.getDate().toString(), 2, "0");
+                            const hour = String_1.padLeft(date.getHours().toString(), 2, "0");
+                            const minute = String_1.padLeft(date.getMinutes().toString(), 2, "0");
+                            const second = String_1.padLeft(date.getSeconds().toString(), 2, "0");
+                            const millisecond = String_1.padLeft(date.getMilliseconds().toString(), 3, "0");
+                            return `${year}-${month}-${day}T${hour}:${minute}:${second}.${millisecond}`;
                         }
                         else {
                             return null;
                         }
                     },
-                    asCurrentDateValue: function () {
-                        var plusMinus = "" + Number_1.toNumber(this.currentDiff);
-                        return "CURRENT:" + plusMinus;
+                    asCurrentDateValue() {
+                        const plusMinus = `${Number_1.toNumber(this.currentDiff)}`;
+                        return `CURRENT:${plusMinus}`;
                     },
-                    valueToEmit: function () {
+                    valueToEmit() {
                         var _a;
                         if (this.isCurrent) {
                             return this.asCurrentDateValue;
@@ -94,20 +94,20 @@ System.register(["vue", "../Services/Number", "./RockFormField", "./TextBox", ".
                 watch: {
                     isCurrentDateOffset: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             if (!this.isCurrentDateOffset) {
                                 this.currentDiff = '0';
                             }
                         }
                     },
-                    valueToEmit: function () {
+                    valueToEmit() {
                         if (!this.skipEmit) {
                             this.$emit('update:modelValue', this.valueToEmit);
                         }
                     },
                     modelValue: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             if (!this.modelValue) {
                                 this.internalDateValue = null;
                                 this.internalTimeValue = {};
@@ -117,18 +117,18 @@ System.register(["vue", "../Services/Number", "./RockFormField", "./TextBox", ".
                             }
                             if (this.modelValue.indexOf('CURRENT') === 0) {
                                 this.isCurrent = true;
-                                var parts = this.modelValue.split(':');
+                                const parts = this.modelValue.split(':');
                                 if (parts.length === 2) {
-                                    this.currentDiff = "" + Number_1.toNumber(parts[1]);
+                                    this.currentDiff = `${Number_1.toNumber(parts[1])}`;
                                 }
                                 return;
                             }
-                            var date = new Date(this.modelValue);
-                            var month = date.getMonth() + 1;
-                            var day = date.getDate();
-                            var year = date.getFullYear();
+                            const date = new Date(this.modelValue);
+                            const month = date.getMonth() + 1;
+                            const day = date.getDate();
+                            const year = date.getFullYear();
                             this.skipEmit = true;
-                            this.internalDateValue = month + "/" + day + "/" + year;
+                            this.internalDateValue = `${month}/${day}/${year}`;
                             this.internalTimeValue = {
                                 hour: date.getHours(),
                                 minute: date.getMinutes()
@@ -137,11 +137,10 @@ System.register(["vue", "../Services/Number", "./RockFormField", "./TextBox", ".
                         }
                     }
                 },
-                mounted: function () {
-                    var _this = this;
-                    var input = this.$refs['input'];
-                    var inputId = input.id;
-                    var Rock = window['Rock'];
+                mounted() {
+                    const input = this.$refs['input'];
+                    const inputId = input.id;
+                    const Rock = window['Rock'];
                     Rock.controls.datePicker.initialize({
                         id: inputId,
                         startView: 0,
@@ -149,14 +148,39 @@ System.register(["vue", "../Services/Number", "./RockFormField", "./TextBox", ".
                         format: 'mm/dd/yyyy',
                         todayHighlight: true,
                         forceParse: true,
-                        onChangeScript: function () {
-                            if (!_this.isCurrent) {
-                                _this.internalDateValue = input.value;
+                        onChangeScript: () => {
+                            if (!this.isCurrent) {
+                                this.internalDateValue = input.value;
                             }
                         }
                     });
                 },
-                template: "\n<RockFormField formGroupClasses=\"date-picker\" #default=\"{uniqueId}\" name=\"datepicker\" v-model.lazy=\"internalDateValue\">\n    <div class=\"control-wrapper\">\n        <div class=\"form-control-group\">\n            <div class=\"form-row\">\n                <div class=\"input-group input-width-md js-date-picker date\">\n                    <input ref=\"input\" type=\"text\" :id=\"uniqueId\" class=\"form-control\" v-model.lazy=\"internalDateValue\" :disabled=\"isCurrent\" />\n                    <span class=\"input-group-addon\">\n                        <i class=\"fa fa-calendar\"></i>\n                    </span>\n                </div>\n                <BasicTimePicker v-model=\"internalTimeValue\" :disabled=\"isCurrent\" />\n                <div v-if=\"displayCurrentOption || isCurrent\" class=\"input-group\">\n                    <div class=\"checkbox\">\n                        <label title=\"\">\n                        <input type=\"checkbox\" v-model=\"isCurrent\" />\n                        <span class=\"label-text\">Current Date</span></label>\n                    </div>\n                </div>\n            </div>\n            <div v-if=\"isCurrent && isCurrentDateOffset\" class=\"form-row\">\n                <TextBox label=\"+- Minutes\" v-model=\"currentDiff\" inputClasses=\"input-width-md\" help=\"Enter the number of minutes after the current time to use as the date. Use a negative number to specify minutes before.\" />\n            </div>\n        </div>\n    </div>\n</RockFormField>"
+                template: `
+<RockFormField formGroupClasses="date-picker" #default="{uniqueId}" name="datepicker" v-model.lazy="internalDateValue">
+    <div class="control-wrapper">
+        <div class="form-control-group">
+            <div class="form-row">
+                <div class="input-group input-width-md js-date-picker date">
+                    <input ref="input" type="text" :id="uniqueId" class="form-control" v-model.lazy="internalDateValue" :disabled="isCurrent" />
+                    <span class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                </div>
+                <BasicTimePicker v-model="internalTimeValue" :disabled="isCurrent" />
+                <div v-if="displayCurrentOption || isCurrent" class="input-group">
+                    <div class="checkbox">
+                        <label title="">
+                        <input type="checkbox" v-model="isCurrent" />
+                        <span class="label-text">Current Date</span></label>
+                    </div>
+                </div>
+            </div>
+            <div v-if="isCurrent && isCurrentDateOffset" class="form-row">
+                <TextBox label="+- Minutes" v-model="currentDiff" inputClasses="input-width-md" help="Enter the number of minutes after the current time to use as the date. Use a negative number to specify minutes before." />
+            </div>
+        </div>
+    </div>
+</RockFormField>`
             }));
         }
     };

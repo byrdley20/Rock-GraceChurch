@@ -49,69 +49,67 @@ System.register(["vue", "../../../Elements/Alert", "../../../Elements/CheckBox",
                         required: true
                     }
                 },
-                data: function () {
+                data() {
                     return {
                         dropDownValue: '',
                         checkboxValue: false
                     };
                 },
                 methods: {
-                    getItemLabel: function (item) {
-                        var formattedCost = Number_1.default.asFormattedString(item.cost, 2);
+                    getItemLabel(item) {
+                        const formattedCost = Number_1.default.asFormattedString(item.cost, 2);
                         if (item.countRemaining) {
-                            var formattedRemaining = Number_1.default.asFormattedString(item.countRemaining, 0);
-                            return item.name + " ($" + formattedCost + ") (" + formattedRemaining + " remaining)";
+                            const formattedRemaining = Number_1.default.asFormattedString(item.countRemaining, 0);
+                            return `${item.name} ($${formattedCost}) (${formattedRemaining} remaining)`;
                         }
-                        return item.name + " ($" + formattedCost + ")";
+                        return `${item.name} ($${formattedCost})`;
                     }
                 },
                 computed: {
-                    label: function () {
+                    label() {
                         if (this.singleItem) {
-                            var formattedCost = Number_1.default.asFormattedString(this.singleItem.cost, 2);
-                            return this.fee.name + " ($" + formattedCost + ")";
+                            const formattedCost = Number_1.default.asFormattedString(this.singleItem.cost, 2);
+                            return `${this.fee.name} ($${formattedCost})`;
                         }
                         return this.fee.name;
                     },
-                    singleItem: function () {
+                    singleItem() {
                         if (this.fee.items.length !== 1) {
                             return null;
                         }
                         return this.fee.items[0];
                     },
-                    isHidden: function () {
+                    isHidden() {
                         return !this.fee.items.length;
                     },
-                    isCheckbox: function () {
+                    isCheckbox() {
                         return !!this.singleItem && !this.fee.allowMultiple;
                     },
-                    isNumberUpDown: function () {
+                    isNumberUpDown() {
                         return !!this.singleItem && this.fee.allowMultiple;
                     },
-                    isNumberUpDownGroup: function () {
+                    isNumberUpDownGroup() {
                         return this.fee.items.length > 1 && this.fee.allowMultiple;
                     },
-                    isDropDown: function () {
+                    isDropDown() {
                         return this.fee.items.length > 1 && !this.fee.allowMultiple;
                     },
-                    dropDownListOptions: function () {
-                        var _this = this;
-                        return this.fee.items.map(function (i) { return ({
+                    dropDownListOptions() {
+                        return this.fee.items.map(i => ({
                             key: i.guid,
-                            text: _this.getItemLabel(i),
+                            text: this.getItemLabel(i),
                             value: i.guid
-                        }); });
+                        }));
                     },
-                    numberUpDownGroupOptions: function () {
-                        var _this = this;
-                        return this.fee.items.map(function (i) { return ({
+                    numberUpDownGroupOptions() {
+                        return this.fee.items.map(i => ({
                             key: i.guid,
-                            label: _this.getItemLabel(i),
+                            label: this.getItemLabel(i),
                             max: i.countRemaining || 100,
                             min: 0
-                        }); });
+                        }));
                     },
-                    rules: function () {
+                    rules() {
                         return this.fee.isRequired ? 'required' : '';
                     }
                 },
@@ -119,11 +117,10 @@ System.register(["vue", "../../../Elements/Alert", "../../../Elements/CheckBox",
                     modelValue: {
                         immediate: true,
                         deep: true,
-                        handler: function () {
+                        handler() {
                             if (this.isDropDown) {
                                 this.dropDownValue = '';
-                                for (var _i = 0, _a = this.fee.items; _i < _a.length; _i++) {
-                                    var item = _a[_i];
+                                for (const item of this.fee.items) {
                                     if (!this.dropDownValue && this.modelValue[item.guid]) {
                                         this.modelValue[item.guid] = 1;
                                         this.dropDownValue = item.guid;
@@ -141,27 +138,32 @@ System.register(["vue", "../../../Elements/Alert", "../../../Elements/CheckBox",
                     },
                     fee: {
                         immediate: true,
-                        handler: function () {
-                            for (var _i = 0, _a = this.fee.items; _i < _a.length; _i++) {
-                                var item = _a[_i];
+                        handler() {
+                            for (const item of this.fee.items) {
                                 this.modelValue[item.guid] = this.modelValue[item.guid] || 0;
                             }
                         }
                     },
-                    dropDownValue: function () {
-                        for (var _i = 0, _a = this.fee.items; _i < _a.length; _i++) {
-                            var item = _a[_i];
-                            var isSelected = Guid_1.default.areEqual(this.dropDownValue, item.guid);
+                    dropDownValue() {
+                        for (const item of this.fee.items) {
+                            const isSelected = Guid_1.default.areEqual(this.dropDownValue, item.guid);
                             this.modelValue[item.guid] = isSelected ? 1 : 0;
                         }
                     },
-                    checkboxValue: function () {
+                    checkboxValue() {
                         if (this.singleItem) {
                             this.modelValue[this.singleItem.guid] = this.checkboxValue ? 1 : 0;
                         }
                     }
                 },
-                template: "\n<template v-if=\"!isHidden\">\n    <CheckBox v-if=\"isCheckbox\" :label=\"label\" v-model=\"checkboxValue\" :inline=\"false\" :rules=\"rules\" />\n    <NumberUpDown v-else-if=\"isNumberUpDown\" :label=\"label\" :min=\"0\" :max=\"singleItem.countRemaining || 100\" v-model=\"modelValue[singleItem.guid]\" :rules=\"rules\" />\n    <DropDownList v-else-if=\"isDropDown\" :label=\"label\" :options=\"dropDownListOptions\" v-model=\"dropDownValue\" :rules=\"rules\" formControlClasses=\"input-width-md\" />\n    <NumberUpDownGroup v-else-if=\"isNumberUpDownGroup\" :label=\"label\" :options=\"numberUpDownGroupOptions\" v-model=\"modelValue\" :rules=\"rules\" />\n    <Alert v-else alertType=\"danger\">This fee configuration is not supported</Alert>\n</template>"
+                template: `
+<template v-if="!isHidden">
+    <CheckBox v-if="isCheckbox" :label="label" v-model="checkboxValue" :inline="false" :rules="rules" />
+    <NumberUpDown v-else-if="isNumberUpDown" :label="label" :min="0" :max="singleItem.countRemaining || 100" v-model="modelValue[singleItem.guid]" :rules="rules" />
+    <DropDownList v-else-if="isDropDown" :label="label" :options="dropDownListOptions" v-model="dropDownValue" :rules="rules" formControlClasses="input-width-md" />
+    <NumberUpDownGroup v-else-if="isNumberUpDownGroup" :label="label" :options="numberUpDownGroupOptions" v-model="modelValue" :rules="rules" />
+    <Alert v-else alertType="danger">This fee configuration is not supported</Alert>
+</template>`
             }));
         }
     };

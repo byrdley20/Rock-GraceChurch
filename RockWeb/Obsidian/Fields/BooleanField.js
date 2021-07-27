@@ -43,15 +43,15 @@ System.register(["vue", "./Index", "../Services/Boolean", "../Elements/DropDownL
                     CheckBox: CheckBox_1.default
                 },
                 props: Index_1.getFieldTypeProps(),
-                data: function () {
+                data() {
                     return {
                         internalBooleanValue: false,
                         internalValue: ''
                     };
                 },
                 computed: {
-                    booleanControlType: function () {
-                        var controlType = Index_1.getConfigurationValue(ConfigurationValueKey.BooleanControlType, this.configurationValues);
+                    booleanControlType() {
+                        const controlType = Index_1.getConfigurationValue(ConfigurationValueKey.BooleanControlType, this.configurationValues);
                         switch (controlType) {
                             case '1':
                                 return BooleanControlType.Checkbox;
@@ -61,32 +61,32 @@ System.register(["vue", "./Index", "../Services/Boolean", "../Elements/DropDownL
                                 return BooleanControlType.DropDown;
                         }
                     },
-                    trueText: function () {
-                        var trueText = Boolean_1.asYesNoOrNull(true);
-                        var trueConfig = Index_1.getConfigurationValue(ConfigurationValueKey.TrueText, this.configurationValues);
+                    trueText() {
+                        let trueText = Boolean_1.asYesNoOrNull(true);
+                        const trueConfig = Index_1.getConfigurationValue(ConfigurationValueKey.TrueText, this.configurationValues);
                         if (trueConfig) {
                             trueText = trueConfig;
                         }
                         return trueText || 'Yes';
                     },
-                    falseText: function () {
-                        var falseText = Boolean_1.asYesNoOrNull(false);
-                        var falseConfig = Index_1.getConfigurationValue(ConfigurationValueKey.FalseText, this.configurationValues);
+                    falseText() {
+                        let falseText = Boolean_1.asYesNoOrNull(false);
+                        const falseConfig = Index_1.getConfigurationValue(ConfigurationValueKey.FalseText, this.configurationValues);
                         if (falseConfig) {
                             falseText = falseConfig;
                         }
                         return falseText || 'No';
                     },
-                    isToggle: function () {
+                    isToggle() {
                         return this.booleanControlType === BooleanControlType.Toggle;
                     },
-                    isCheckBox: function () {
+                    isCheckBox() {
                         return this.booleanControlType === BooleanControlType.Checkbox;
                     },
-                    valueAsBooleanOrNull: function () {
+                    valueAsBooleanOrNull() {
                         return Boolean_1.asBooleanOrNull(this.modelValue);
                     },
-                    displayValue: function () {
+                    displayValue() {
                         if (this.valueAsBooleanOrNull === null) {
                             return '';
                         }
@@ -95,15 +95,15 @@ System.register(["vue", "./Index", "../Services/Boolean", "../Elements/DropDownL
                         }
                         return this.falseText;
                     },
-                    toggleOptions: function () {
+                    toggleOptions() {
                         return {
                             trueText: this.trueText,
                             falseText: this.falseText
                         };
                     },
-                    dropDownListOptions: function () {
-                        var trueVal = Boolean_1.asTrueFalseOrNull(true);
-                        var falseVal = Boolean_1.asTrueFalseOrNull(false);
+                    dropDownListOptions() {
+                        const trueVal = Boolean_1.asTrueFalseOrNull(true);
+                        const falseVal = Boolean_1.asTrueFalseOrNull(false);
                         return [
                             { key: falseVal, text: this.falseText, value: falseVal },
                             { key: trueVal, text: this.trueText, value: trueVal }
@@ -111,22 +111,26 @@ System.register(["vue", "./Index", "../Services/Boolean", "../Elements/DropDownL
                     }
                 },
                 watch: {
-                    internalValue: function () {
+                    internalValue() {
                         this.$emit('update:modelValue', this.internalValue);
                     },
-                    internalBooleanValue: function () {
-                        var valueToEmit = Boolean_1.asTrueFalseOrNull(this.internalBooleanValue) || '';
+                    internalBooleanValue() {
+                        const valueToEmit = Boolean_1.asTrueFalseOrNull(this.internalBooleanValue) || '';
                         this.$emit('update:modelValue', valueToEmit);
                     },
                     modelValue: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             this.internalValue = Boolean_1.asTrueFalseOrNull(this.modelValue) || '';
                             this.internalBooleanValue = Boolean_1.asBoolean(this.modelValue);
                         }
                     }
                 },
-                template: "\n<Toggle v-if=\"isEditMode && isToggle\" v-model=\"internalBooleanValue\" v-bind=\"toggleOptions\" />\n<CheckBox v-else-if=\"isEditMode && isCheckBox\" v-model=\"internalBooleanValue\" :inline=\"false\" />\n<DropDownList v-else-if=\"isEditMode\" v-model=\"internalValue\" :options=\"dropDownListOptions\" />\n<span v-else>{{ displayValue }}</span>"
+                template: `
+<Toggle v-if="isEditMode && isToggle" v-model="internalBooleanValue" v-bind="toggleOptions" />
+<CheckBox v-else-if="isEditMode && isCheckBox" v-model="internalBooleanValue" :inline="false" />
+<DropDownList v-else-if="isEditMode" v-model="internalValue" :options="dropDownListOptions" />
+<span v-else>{{ displayValue }}</span>`
             })));
         }
     };

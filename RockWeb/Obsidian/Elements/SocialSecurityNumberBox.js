@@ -30,7 +30,7 @@ System.register(["vue", "../Rules/Index", "./RockFormField"], function (exports_
                         default: ""
                     }
                 },
-                data: function () {
+                data() {
                     return {
                         internalArea: "",
                         internalGroup: "",
@@ -39,32 +39,32 @@ System.register(["vue", "../Rules/Index", "./RockFormField"], function (exports_
                     };
                 },
                 methods: {
-                    getValue: function () {
-                        var value = this.internalArea + "-" + this.internalGroup + "-" + this.internalSerial;
+                    getValue() {
+                        let value = `${this.internalArea}-${this.internalGroup}-${this.internalSerial}`;
                         return value === "--" ? "" : value;
                     },
-                    keyPress: function (e) {
+                    keyPress(e) {
                         if (/^[0-9]$/.test(e.key) === false) {
                             e.preventDefault();
                             return false;
                         }
                         return true;
                     },
-                    keyUp: function (e) {
-                        var area = this.$refs.area;
-                        var group = this.$refs.group;
-                        var serial = this.$refs.serial;
+                    keyUp(e) {
+                        const area = this.$refs.area;
+                        const group = this.$refs.group;
+                        const serial = this.$refs.serial;
                         if (/^[0-9]$/.test(e.key) === false) {
                             return true;
                         }
                         if (area === e.target && area.selectionStart === 3) {
-                            this.$nextTick(function () {
+                            this.$nextTick(() => {
                                 group.focus();
                                 group.setSelectionRange(0, 2);
                             });
                         }
                         else if (group === e.target && group.selectionStart === 2) {
-                            this.$nextTick(function () {
+                            this.$nextTick(() => {
                                 serial.focus();
                                 serial.setSelectionRange(0, 4);
                             });
@@ -73,8 +73,8 @@ System.register(["vue", "../Rules/Index", "./RockFormField"], function (exports_
                     }
                 },
                 computed: {
-                    computedRules: function () {
-                        var rules = Index_1.ruleStringToArray(this.rules);
+                    computedRules() {
+                        const rules = Index_1.ruleStringToArray(this.rules);
                         rules.push("ssn");
                         return Index_1.ruleArrayToString(rules);
                     }
@@ -82,34 +82,51 @@ System.register(["vue", "../Rules/Index", "./RockFormField"], function (exports_
                 watch: {
                     modelValue: {
                         immediate: true,
-                        handler: function () {
-                            var components = this.modelValue.split("-");
+                        handler() {
+                            const components = this.modelValue.split("-");
                             this.internalArea = components.length >= 1 ? components[0] : "";
                             this.internalGroup = components.length >= 2 ? components[1] : "";
                             this.internalSerial = components.length >= 3 ? components[2] : "";
                             this.internalValue = this.getValue();
                         }
                     },
-                    internalArea: function () {
+                    internalArea() {
                         this.internalValue = this.getValue();
                         if (this.internalValue.length === 0 || this.internalValue.length === 11) {
                             this.$emit('update:modelValue', this.internalValue);
                         }
                     },
-                    internalGroup: function () {
+                    internalGroup() {
                         this.internalValue = this.getValue();
                         if (this.internalValue.length === 0 || this.internalValue.length === 11) {
                             this.$emit('update:modelValue', this.internalValue);
                         }
                     },
-                    internalSerial: function () {
+                    internalSerial() {
                         this.internalValue = this.getValue();
                         if (this.internalValue.length === 0 || this.internalValue.length === 11) {
                             this.$emit('update:modelValue', this.internalValue);
                         }
                     },
                 },
-                template: "\n<RockFormField\n    :modelValue=\"internalValue\"\n    formGroupClasses=\"social-security-number-box\"\n    name=\"social-security-number-box\"\n    :rules=\"computedRules\">\n    <template #default=\"{uniqueId, field, errors, disabled}\">\n        <div class=\"control-wrapper\">\n            <div class=\"form-control-group\">\n                <input ref=\"area\" class=\"form-control ssn-part ssn-area\" type=\"password\" pattern=\"[0-9]*\" maxlength=\"3\" v-model=\"internalArea\" v-on:keypress=\"keyPress\" v-on:keyup=\"keyUp\" />\n                <span class=\"separator\">-</span>\n                <input ref=\"group\" class=\"form-control ssn-part ssn-group\" type=\"password\" pattern=\"[0-9]*\" maxlength=\"2\" v-model=\"internalGroup\" v-on:keypress=\"keyPress\" v-on:keyup=\"keyUp\" />\n                <span class=\"separator\">-</span>\n                <input ref=\"serial\" class=\"form-control ssn-part ssn-serial\" type=\"password\" pattern=\"[0-9]*\" maxlength=\"4\" v-model=\"internalSerial\" v-on:keypress=\"keyPress\" v-on:keyup=\"keyUp\" />\n            </div>\n        </div>\n    </template>\n</RockFormField>"
+                template: `
+<RockFormField
+    :modelValue="internalValue"
+    formGroupClasses="social-security-number-box"
+    name="social-security-number-box"
+    :rules="computedRules">
+    <template #default="{uniqueId, field, errors, disabled}">
+        <div class="control-wrapper">
+            <div class="form-control-group">
+                <input ref="area" class="form-control ssn-part ssn-area" type="password" pattern="[0-9]*" maxlength="3" v-model="internalArea" v-on:keypress="keyPress" v-on:keyup="keyUp" />
+                <span class="separator">-</span>
+                <input ref="group" class="form-control ssn-part ssn-group" type="password" pattern="[0-9]*" maxlength="2" v-model="internalGroup" v-on:keypress="keyPress" v-on:keyup="keyUp" />
+                <span class="separator">-</span>
+                <input ref="serial" class="form-control ssn-part ssn-serial" type="password" pattern="[0-9]*" maxlength="4" v-model="internalSerial" v-on:keypress="keyPress" v-on:keyup="keyUp" />
+            </div>
+        </div>
+    </template>
+</RockFormField>`
             }));
         }
     };

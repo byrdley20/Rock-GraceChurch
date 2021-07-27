@@ -19,8 +19,8 @@ System.register([], function (exports_1, context_1) {
         if (str === null || str == "") {
             return null;
         }
-        var replaced = str.replace(/[$,]/g, '');
-        var num = Number(replaced);
+        const replaced = str.replace(/[$,]/g, '');
+        const num = Number(replaced);
         return !isNaN(num) ? num : null;
     }
     exports_1("toNumberOrNull", toNumberOrNull);
@@ -38,8 +38,8 @@ System.register([], function (exports_1, context_1) {
         if (!num) {
             return '';
         }
-        var j = num % 10;
-        var k = num % 100;
+        const j = num % 10;
+        const k = num % 100;
         if (j == 1 && k != 11) {
             return num + 'st';
         }
@@ -83,12 +83,12 @@ System.register([], function (exports_1, context_1) {
             case 8: return 'eight';
             case 9: return 'nine';
             case 10: return 'ten';
-            default: return "" + num;
+            default: return `${num}`;
         }
     }
     exports_1("toWord", toWord);
     function zeroPad(num, length) {
-        var str = num.toString();
+        let str = num.toString();
         while (str.length < length) {
             str = '0' + str;
         }
@@ -99,10 +99,10 @@ System.register([], function (exports_1, context_1) {
         setters: [],
         execute: function () {
             exports_1("default", {
-                toOrdinal: toOrdinal,
-                toOrdinalSuffix: toOrdinalSuffix,
-                toNumberOrNull: toNumberOrNull,
-                asFormattedString: asFormattedString
+                toOrdinal,
+                toOrdinalSuffix,
+                toNumberOrNull,
+                asFormattedString
             });
         }
     };

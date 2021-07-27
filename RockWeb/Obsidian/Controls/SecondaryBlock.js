@@ -15,11 +15,14 @@ System.register(["vue", "../Store/Index"], function (exports_1, context_1) {
             exports_1("default", vue_1.defineComponent({
                 name: 'SecondaryBlock',
                 computed: {
-                    isVisible: function () {
+                    isVisible() {
                         return Index_1.default.state.areSecondaryBlocksShown;
                     }
                 },
-                template: "\n<div class=\"secondary-block\">\n    <slot v-if=\"isVisible\" />\n</div>"
+                template: `
+<div class="secondary-block">
+    <slot v-if="isVisible" />
+</div>`
             }));
         }
     };

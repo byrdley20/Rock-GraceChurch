@@ -11,17 +11,38 @@ System.register(["vue"], function (exports_1, context_1) {
         execute: function () {
             PaneledBlockTemplate = vue_1.defineComponent({
                 name: 'PaneledBlockTemplate',
-                data: function () {
+                data() {
                     return {
                         isDrawerOpen: false
                     };
                 },
                 methods: {
-                    onDrawerPullClick: function () {
+                    onDrawerPullClick() {
                         this.isDrawerOpen = !this.isDrawerOpen;
                     }
                 },
-                template: "\n<div class=\"panel panel-block\">\n    <div class=\"panel-heading rollover-container\">\n        <h1 class=\"panel-title pull-left\">\n            <slot name=\"title\" />\n        </h1>\n        <slot name=\"titleAside\" />\n    </div>\n    <div v-if=\"$slots.drawer\" class=\"panel-drawer rock-panel-drawer\" :class=\"isDrawerOpen ? 'open' : ''\">\n        <div class=\"drawer-content\" v-show=\"isDrawerOpen\">\n            <slot name=\"drawer\" />\n        </div>\n        <div class=\"drawer-pull\" @click=\"onDrawerPullClick\">\n            <i :class=\"isDrawerOpen ? 'fa fa-chevron-up' : 'fa fa-chevron-down'\"></i>\n        </div>\n    </div>\n    <div class=\"panel-body\">\n        <div class=\"block-content\">\n            <slot />\n        </div>\n    </div>\n</div>"
+                template: `
+<div class="panel panel-block">
+    <div class="panel-heading rollover-container">
+        <h1 class="panel-title pull-left">
+            <slot name="title" />
+        </h1>
+        <slot name="titleAside" />
+    </div>
+    <div v-if="$slots.drawer" class="panel-drawer rock-panel-drawer" :class="isDrawerOpen ? 'open' : ''">
+        <div class="drawer-content" v-show="isDrawerOpen">
+            <slot name="drawer" />
+        </div>
+        <div class="drawer-pull" @click="onDrawerPullClick">
+            <i :class="isDrawerOpen ? 'fa fa-chevron-up' : 'fa fa-chevron-down'"></i>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="block-content">
+            <slot />
+        </div>
+    </div>
+</div>`
             });
             exports_1("default", PaneledBlockTemplate);
         }

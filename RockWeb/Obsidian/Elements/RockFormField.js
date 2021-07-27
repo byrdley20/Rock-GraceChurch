@@ -24,10 +24,10 @@ System.register(["vue", "../Util/Guid", "vee-validate", "./RockLabel"], function
                     Field: vee_validate_1.Field,
                     RockLabel: RockLabel_1.default
                 },
-                setup: function () {
-                    var formState = vue_1.inject('formState', null);
+                setup() {
+                    const formState = vue_1.inject('formState', null);
                     return {
-                        formState: formState
+                        formState
                     };
                 },
                 props: {
@@ -80,19 +80,19 @@ System.register(["vue", "../Util/Guid", "vee-validate", "./RockLabel"], function
                 ],
                 data: function () {
                     return {
-                        uniqueId: "rock-" + this.name + "-" + Guid_1.newGuid(),
+                        uniqueId: `rock-${this.name}-${Guid_1.newGuid()}`,
                         internalValue: this.modelValue
                     };
                 },
                 computed: {
-                    isRequired: function () {
+                    isRequired() {
                         return this.rules.includes('required');
                     },
-                    classAttr: function () {
+                    classAttr() {
                         return this.class;
                     },
-                    errorClasses: function () {
-                        return function (formState, errors) {
+                    errorClasses() {
+                        return (formState, errors) => {
                             if (!formState || formState.submitCount < 1) {
                                 return '';
                             }
@@ -101,14 +101,24 @@ System.register(["vue", "../Util/Guid", "vee-validate", "./RockLabel"], function
                     }
                 },
                 watch: {
-                    internalValue: function () {
+                    internalValue() {
                         this.$emit('update:modelValue', this.internalValue);
                     },
-                    modelValue: function () {
+                    modelValue() {
                         this.internalValue = this.modelValue;
                     }
                 },
-                template: "\n<Field v-model=\"internalValue\" :name=\"validationTitle || label\" :rules=\"rules\" #default=\"{field, errors}\">\n    <slot name=\"pre\" />\n    <div class=\"form-group\" :class=\"[classAttr, formGroupClasses, isRequired ? 'required' : '', errorClasses(formState, errors)]\">\n        <RockLabel v-if=\"label || help\" :for=\"uniqueId\" :help=\"help\">\n            {{label}}\n        </RockLabel>\n        <slot v-bind=\"{uniqueId, field, errors, disabled, inputGroupClasses, tabIndex}\" />\n    </div>\n    <slot name=\"post\" />\n</Field>"
+                template: `
+<Field v-model="internalValue" :name="validationTitle || label" :rules="rules" #default="{field, errors}">
+    <slot name="pre" />
+    <div class="form-group" :class="[classAttr, formGroupClasses, isRequired ? 'required' : '', errorClasses(formState, errors)]">
+        <RockLabel v-if="label || help" :for="uniqueId" :help="help">
+            {{label}}
+        </RockLabel>
+        <slot v-bind="{uniqueId, field, errors, disabled, inputGroupClasses, tabIndex}" />
+    </div>
+    <slot name="post" />
+</Field>`
             }));
         }
     };

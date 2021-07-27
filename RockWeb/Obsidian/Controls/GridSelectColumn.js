@@ -17,45 +17,63 @@ System.register(["vue", "./GridColumn"], function (exports_1, context_1) {
                 components: {
                     GridColumn: GridColumn_1.default
                 },
-                setup: function () {
-                    var gridContext = vue_1.inject('gridContext');
-                    var rowContext = vue_1.inject('rowContext');
-                    var selectAllRows = gridContext.selectAllRows;
-                    var isThisRowSelected = gridContext.selectedRowIds[rowContext.rowId];
-                    var isSelected = vue_1.ref(selectAllRows || isThisRowSelected);
+                setup() {
+                    const gridContext = vue_1.inject('gridContext');
+                    const rowContext = vue_1.inject('rowContext');
+                    const selectAllRows = gridContext.selectAllRows;
+                    const isThisRowSelected = gridContext.selectedRowIds[rowContext.rowId];
+                    const isSelected = vue_1.ref(selectAllRows || isThisRowSelected);
                     return {
-                        gridContext: gridContext,
-                        rowContext: rowContext,
-                        isSelected: isSelected
+                        gridContext,
+                        rowContext,
+                        isSelected
                     };
                 },
                 computed: {
-                    rowId: function () {
+                    rowId() {
                         return this.rowContext.rowId;
                     },
-                    isHeader: function () {
+                    isHeader() {
                         return this.rowContext.isHeader;
                     }
                 },
                 watch: {
-                    'gridContext.selectAllRows': function () {
+                    'gridContext.selectAllRows'() {
                         if (!this.isHeader) {
                             this.isSelected = this.gridContext.selectAllRows;
                             this.gridContext.selectedRowIds[this.rowId] = this.isSelected;
                         }
                     },
-                    'gridContext.selectedRowIds': function () {
+                    'gridContext.selectedRowIds'() {
                         if (!this.isHeader) {
                             this.isSelected = this.gridContext.selectedRowIds[this.rowId];
                         }
                     },
-                    isSelected: function () {
+                    isSelected() {
                         if (!this.isHeader) {
                             this.gridContext.selectedRowIds[this.rowId] = this.isSelected;
                         }
                     }
                 },
-                template: "\n<GridColumn class=\"grid-select-field\" align=\"center\">\n    <template #header>\n        <div @click.stop class=\"checkbox\">\n            <label title=\"\">\n                <input type=\"checkbox\" class=\"select-all\" v-model=\"gridContext.selectAllRows\" />\n                <span class=\"label-text\">&nbsp;</span>\n            </label>\n        </div>\n    </template>\n    <template #default>\n        <div @click.stop class=\"checkbox\">\n            <label title=\"\">\n                <input type=\"checkbox\" class=\"select-all\" v-model=\"isSelected\" />\n                <span class=\"label-text\">&nbsp;</span>\n            </label>\n        </div>\n    </template>\n</GridColumn>"
+                template: `
+<GridColumn class="grid-select-field" align="center">
+    <template #header>
+        <div @click.stop class="checkbox">
+            <label title="">
+                <input type="checkbox" class="select-all" v-model="gridContext.selectAllRows" />
+                <span class="label-text">&nbsp;</span>
+            </label>
+        </div>
+    </template>
+    <template #default>
+        <div @click.stop class="checkbox">
+            <label title="">
+                <input type="checkbox" class="select-all" v-model="isSelected" />
+                <span class="label-text">&nbsp;</span>
+            </label>
+        </div>
+    </template>
+</GridColumn>`
             }));
         }
     };

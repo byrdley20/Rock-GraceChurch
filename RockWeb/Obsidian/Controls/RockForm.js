@@ -21,30 +21,36 @@ System.register(["vue", "vee-validate", "./RockValidation"], function (exports_1
                     Form: vee_validate_1.Form,
                     RockValidation: RockValidation_1.default
                 },
-                setup: function () {
-                    var formState = {
+                setup() {
+                    const formState = {
                         submitCount: 0
                     };
                     vue_1.provide('formState', formState);
                     return {
-                        formState: formState
+                        formState
                     };
                 },
-                data: function () {
+                data() {
                     return {
                         errorsToDisplay: []
                     };
                 },
                 methods: {
-                    onInternalSubmit: function (handleSubmit, $event) {
+                    onInternalSubmit(handleSubmit, $event) {
                         this.formState.submitCount++;
                         return handleSubmit($event, this.emitSubmit);
                     },
-                    emitSubmit: function (payload) {
+                    emitSubmit(payload) {
                         this.$emit('submit', payload);
                     }
                 },
-                template: "\n<Form as=\"\" #default=\"{errors, handleSubmit}\">\n    <RockValidation :submitCount=\"formState.submitCount\" :errors=\"errors\" />\n    <form @submit=\"onInternalSubmit(handleSubmit, $event)\">\n        <slot />\n    </form>\n</Form>"
+                template: `
+<Form as="" #default="{errors, handleSubmit}">
+    <RockValidation :submitCount="formState.submitCount" :errors="errors" />
+    <form @submit="onInternalSubmit(handleSubmit, $event)">
+        <slot />
+    </form>
+</Form>`
             }));
         }
     };

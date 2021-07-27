@@ -34,17 +34,17 @@ System.register([], function (exports_1, context_1) {
             return strs[0];
         }
         if (strs.length === 2) {
-            return strs[0] + " and " + strs[1];
+            return `${strs[0]} and ${strs[1]}`;
         }
-        var last = strs.pop();
-        return strs.join(', ') + ", and " + last;
+        const last = strs.pop();
+        return `${strs.join(', ')}, and ${last}`;
     }
     exports_1("asCommaAnd", asCommaAnd);
     function toTitleCase(str) {
         if (!str) {
             return '';
         }
-        return str.replace(/\w\S*/g, function (word) {
+        return str.replace(/\w\S*/g, (word) => {
             return word.charAt(0).toUpperCase() + word.substr(1).toLowerCase();
         });
     }
@@ -56,10 +56,10 @@ System.register([], function (exports_1, context_1) {
     function formatPhoneNumber(str) {
         str = stripPhoneNumber(str);
         if (str.length === 7) {
-            return str.substring(0, 3) + "-" + str.substring(3, 7);
+            return `${str.substring(0, 3)}-${str.substring(3, 7)}`;
         }
         if (str.length === 10) {
-            return "(" + str.substring(0, 3) + ") " + str.substring(3, 6) + "-" + str.substring(6, 10);
+            return `(${str.substring(0, 3)}) ${str.substring(3, 6)}-${str.substring(6, 10)}`;
         }
         return str;
     }
@@ -71,8 +71,7 @@ System.register([], function (exports_1, context_1) {
         return str.replace(/\D/g, '');
     }
     exports_1("stripPhoneNumber", stripPhoneNumber);
-    function padLeft(str, length, padCharacter) {
-        if (padCharacter === void 0) { padCharacter = " "; }
+    function padLeft(str, length, padCharacter = " ") {
         if (padCharacter == "") {
             padCharacter = " ";
         }
@@ -88,8 +87,7 @@ System.register([], function (exports_1, context_1) {
         return Array(length - str.length + 1).join(padCharacter) + str;
     }
     exports_1("padLeft", padLeft);
-    function padRight(str, length, padCharacter) {
-        if (padCharacter === void 0) { padCharacter = " "; }
+    function padRight(str, length, padCharacter = " ") {
         if (padCharacter == "") {
             padCharacter = " ";
         }
@@ -109,17 +107,17 @@ System.register([], function (exports_1, context_1) {
         setters: [],
         execute: function () {
             exports_1("default", {
-                asCommaAnd: asCommaAnd,
-                splitCamelCase: splitCamelCase,
-                isNullOrWhitespace: isNullOrWhitespace,
-                isWhitespace: isWhitespace,
-                isEmpty: isEmpty,
-                toTitleCase: toTitleCase,
-                pluralConditional: pluralConditional,
-                formatPhoneNumber: formatPhoneNumber,
-                stripPhoneNumber: stripPhoneNumber,
-                padLeft: padLeft,
-                padRight: padRight
+                asCommaAnd,
+                splitCamelCase,
+                isNullOrWhitespace,
+                isWhitespace,
+                isEmpty,
+                toTitleCase,
+                pluralConditional,
+                formatPhoneNumber,
+                stripPhoneNumber,
+                padLeft,
+                padRight
             });
         }
     };

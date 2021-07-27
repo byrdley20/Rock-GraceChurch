@@ -38,24 +38,35 @@ System.register(["vue", "./NumberBox"], function (exports_1, context_1) {
                     };
                 },
                 computed: {
-                    placeholder: function () {
+                    placeholder() {
                         return "0.00";
                     }
                 },
                 watch: {
-                    internalValue: function () {
+                    internalValue() {
                         this.$emit('update:modelValue', this.internalValue);
                     },
                     modelValue: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             if (this.modelValue !== this.internalValue) {
                                 this.internalValue = this.modelValue;
                             }
                         }
                     }
                 },
-                template: "\n<NumberBox v-model=\"internalValue\"\n    :placeholder=\"placeholder\"\n    :minimum-value=\"minimumValue\"\n    :maximum-value=\"maximumValue\"\n    :decimal-count=\"2\"\n    rules=\"decimal\">\n    <template v-slot:prepend>\n        <span class=\"input-group-addon\">$</span>\n    </template>\n</NumberBox>\n"
+                template: `
+<NumberBox v-model="internalValue"
+    :placeholder="placeholder"
+    :minimum-value="minimumValue"
+    :maximum-value="maximumValue"
+    :decimal-count="2"
+    rules="decimal">
+    <template v-slot:prepend>
+        <span class="input-group-addon">$</span>
+    </template>
+</NumberBox>
+`
             }));
         }
     };

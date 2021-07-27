@@ -27,29 +27,31 @@ System.register(["vue", "./Index", "../Services/Number", "../Elements/CurrencyBo
                     CurrencyBox: CurrencyBox_1.default
                 },
                 props: Index_1.getFieldTypeProps(),
-                data: function () {
+                data() {
                     return {
                         internalValue: null
                     };
                 },
                 computed: {
-                    safeValue: function () {
+                    safeValue() {
                         var _a;
                         return (_a = Number_1.toCurrencyOrNull((this.modelValue || '').trim())) !== null && _a !== void 0 ? _a : "";
                     }
                 },
                 watch: {
-                    internalValue: function () {
+                    internalValue() {
                         this.$emit('update:modelValue', this.internalValue !== null ? this.internalValue.toString() : '');
                     },
                     modelValue: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             this.internalValue = Number_1.toNumberOrNull(this.modelValue || '');
                         }
                     }
                 },
-                template: "\n<CurrencyBox v-if=\"isEditMode\" v-model=\"internalValue\" />\n<span v-else>{{ safeValue }}</span>"
+                template: `
+<CurrencyBox v-if="isEditMode" v-model="internalValue" />
+<span v-else>{{ safeValue }}</span>`
             })));
         }
     };

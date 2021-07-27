@@ -10,7 +10,7 @@ System.register(["../Util/RockDate"], function (exports_1, context_1) {
             return val;
         }
         if (typeof val === 'string') {
-            var ms = Date.parse(val);
+            const ms = Date.parse(val);
             if (isNaN(ms)) {
                 return null;
             }
@@ -20,7 +20,7 @@ System.register(["../Util/RockDate"], function (exports_1, context_1) {
     }
     exports_1("asDateOrNull", asDateOrNull);
     function toRockDateOrNull(val) {
-        var date = asDateOrNull(val);
+        const date = asDateOrNull(val);
         if (date === null) {
             return null;
         }
@@ -28,7 +28,7 @@ System.register(["../Util/RockDate"], function (exports_1, context_1) {
     }
     exports_1("toRockDateOrNull", toRockDateOrNull);
     function asDateString(val) {
-        var dateOrNull = asDateOrNull(val);
+        const dateOrNull = asDateOrNull(val);
         if (!dateOrNull) {
             return '';
         }
@@ -36,32 +36,32 @@ System.register(["../Util/RockDate"], function (exports_1, context_1) {
     }
     exports_1("asDateString", asDateString);
     function asElapsedString(dateTime) {
-        var now = new Date();
-        var msPerHour = 1000 * 60 * 60;
-        var hoursPerDay = 24;
-        var daysPerMonth = 30.4167;
-        var daysPerYear = 365.25;
-        var totalMs = Math.abs(now.getTime() - dateTime.getTime());
-        var totalHours = totalMs / msPerHour;
-        var totalDays = totalHours / hoursPerDay;
+        const now = new Date();
+        const msPerHour = 1000 * 60 * 60;
+        const hoursPerDay = 24;
+        const daysPerMonth = 30.4167;
+        const daysPerYear = 365.25;
+        const totalMs = Math.abs(now.getTime() - dateTime.getTime());
+        const totalHours = totalMs / msPerHour;
+        const totalDays = totalHours / hoursPerDay;
         if (totalDays < 2) {
             return '1day';
         }
         if (totalDays < 31) {
-            return Math.floor(totalDays) + "days";
+            return `${Math.floor(totalDays)}days`;
         }
-        var totalMonths = totalDays / daysPerMonth;
+        const totalMonths = totalDays / daysPerMonth;
         if (totalMonths <= 1) {
             return '1mon';
         }
         if (totalMonths <= 18) {
-            return Math.round(totalMonths) + "mon";
+            return `${Math.round(totalMonths)}mon`;
         }
-        var totalYears = totalDays / daysPerYear;
+        const totalYears = totalDays / daysPerYear;
         if (totalYears <= 1) {
             return '1yr';
         }
-        return Math.round(totalYears) + "yrs";
+        return `${Math.round(totalYears)}yrs`;
     }
     exports_1("asElapsedString", asElapsedString);
     return {

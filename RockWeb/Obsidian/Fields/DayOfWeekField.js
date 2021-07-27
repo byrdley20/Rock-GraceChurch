@@ -33,13 +33,13 @@ System.register(["vue", "./Index", "../Elements/DropDownList"], function (export
                     DropDownList: DropDownList_1.default
                 },
                 props: Index_1.getFieldTypeProps(),
-                data: function () {
+                data() {
                     return {
                         internalValue: ''
                     };
                 },
                 methods: {
-                    options: function () {
+                    options() {
                         return [
                             { text: 'Sunday', value: DayOfWeek.Sunday.toString() },
                             { text: 'Monday', value: DayOfWeek.Monday.toString() },
@@ -52,28 +52,30 @@ System.register(["vue", "./Index", "../Elements/DropDownList"], function (export
                     },
                 },
                 computed: {
-                    displayValue: function () {
+                    displayValue() {
                         var _a;
-                        var value = (_a = this.modelValue) !== null && _a !== void 0 ? _a : "";
+                        const value = (_a = this.modelValue) !== null && _a !== void 0 ? _a : "";
                         if (value === "") {
                             return "";
                         }
-                        var matchedOptions = this.options().filter(function (v) { return v.value === value; });
+                        const matchedOptions = this.options().filter(v => v.value === value);
                         return matchedOptions.length === 0 ? "" : matchedOptions[0].text;
                     }
                 },
                 watch: {
-                    internalValue: function () {
+                    internalValue() {
                         this.$emit('update:modelValue', this.internalValue);
                     },
                     modelValue: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             this.internalValue = this.modelValue || '';
                         }
                     }
                 },
-                template: "\n<DropDownList v-if=\"isEditMode\" v-model=\"internalValue\" :options=\"options()\" />\n<span v-else>{{ displayValue }}</span>"
+                template: `
+<DropDownList v-if="isEditMode" v-model="internalValue" :options="options()" />
+<span v-else>{{ displayValue }}</span>`
             })));
         }
     };

@@ -23,11 +23,14 @@ System.register(["vue", "./JavaScriptAnchor"], function (exports_1, context_1) {
                         required: true
                     }
                 },
-                mounted: function () {
-                    var jquery = window['$'];
+                mounted() {
+                    const jquery = window['$'];
                     jquery(this.$el).tooltip();
                 },
-                template: "\n<JavaScriptAnchor class=\"help\" tabindex=\"-1\" data-toggle=\"tooltip\" data-placement=\"auto\" data-container=\"body\" data-html=\"true\" title=\"\" :data-original-title=\"text\">\n    <i class=\"fa fa-info-circle\"></i>\n</JavaScriptAnchor>"
+                template: `
+<JavaScriptAnchor class="help" tabindex="-1" data-toggle="tooltip" data-placement="auto" data-container="body" data-html="true" title="" :data-original-title="text">
+    <i class="fa fa-info-circle"></i>
+</JavaScriptAnchor>`
             });
             exports_1("default", HelpBlock);
         }

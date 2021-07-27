@@ -23,7 +23,11 @@ System.register(["vue", "./HelpBlock"], function (exports_1, context_1) {
                         default: ''
                     }
                 },
-                template: "\n<label class=\"control-label\">\n    <slot />\n    <HelpBlock v-if=\"help\" :text=\"help\" />\n</label>"
+                template: `
+<label class="control-label">
+    <slot />
+    <HelpBlock v-if="help" :text="help" />
+</label>`
             }));
         }
     };

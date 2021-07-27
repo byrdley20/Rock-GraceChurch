@@ -38,44 +38,44 @@ System.register(["vue", "./Index", "../Controls/DefinedValuePicker", "../Service
                     DefinedValuePicker: DefinedValuePicker_1.default
                 },
                 props: Index_1.getFieldTypeProps(),
-                data: function () {
+                data() {
                     return {
                         definedValues: [],
                         internalValue: ''
                     };
                 },
                 computed: {
-                    selectedDefinedValues: function () {
-                        var guids = this.internalValue.toLowerCase().split(",");
-                        return this.definedValues.filter(function (dv) { return guids.indexOf(dv.guid.toLowerCase()) !== -1; });
+                    selectedDefinedValues() {
+                        const guids = this.internalValue.toLowerCase().split(",");
+                        return this.definedValues.filter(dv => guids.indexOf(dv.guid.toLowerCase()) !== -1);
                     },
-                    displayValue: function () {
+                    displayValue() {
                         if (this.selectedDefinedValues.length === 0) {
                             return '';
                         }
                         if (this.displayDescription) {
-                            return this.selectedDefinedValues.map(function (v) { var _a; return (_a = v.description) !== null && _a !== void 0 ? _a : ""; }).join(", ");
+                            return this.selectedDefinedValues.map(v => { var _a; return (_a = v.description) !== null && _a !== void 0 ? _a : ""; }).join(", ");
                         }
-                        return this.selectedDefinedValues.map(function (v) { var _a; return (_a = v.value) !== null && _a !== void 0 ? _a : ""; }).join(", ");
+                        return this.selectedDefinedValues.map(v => { var _a; return (_a = v.value) !== null && _a !== void 0 ? _a : ""; }).join(", ");
                     },
-                    displayDescription: function () {
-                        var displayDescription = Index_1.getConfigurationValue(ConfigurationValueKey.DisplayDescription, this.configurationValues);
+                    displayDescription() {
+                        const displayDescription = Index_1.getConfigurationValue(ConfigurationValueKey.DisplayDescription, this.configurationValues);
                         return Boolean_1.asBoolean(displayDescription);
                     },
-                    configAttributes: function () {
-                        var attributes = {};
-                        var definedType = Index_1.getConfigurationValue(ConfigurationValueKey.DefinedType, this.configurationValues);
+                    configAttributes() {
+                        const attributes = {};
+                        const definedType = Index_1.getConfigurationValue(ConfigurationValueKey.DefinedType, this.configurationValues);
                         if (definedType) {
-                            var definedTypeId = Number_1.toNumberOrNull(definedType);
+                            const definedTypeId = Number_1.toNumberOrNull(definedType);
                             if (definedTypeId) {
-                                var definedType_1 = this.$store.getters['definedTypes/getById'](definedTypeId);
-                                attributes.definedTypeGuid = (definedType_1 === null || definedType_1 === void 0 ? void 0 : definedType_1.guid) || '';
+                                const definedType = this.$store.getters['definedTypes/getById'](definedTypeId);
+                                attributes.definedTypeGuid = (definedType === null || definedType === void 0 ? void 0 : definedType.guid) || '';
                             }
                         }
                         if (this.displayDescription) {
                             attributes.displayDescriptions = true;
                         }
-                        var enhancedConfig = Index_1.getConfigurationValue(ConfigurationValueKey.EnhancedSelection, this.configurationValues);
+                        const enhancedConfig = Index_1.getConfigurationValue(ConfigurationValueKey.EnhancedSelection, this.configurationValues);
                         if (enhancedConfig) {
                             attributes.enhanceForLongLists = Boolean_1.asBoolean(enhancedConfig);
                         }
@@ -83,22 +83,24 @@ System.register(["vue", "./Index", "../Controls/DefinedValuePicker", "../Service
                     }
                 },
                 methods: {
-                    receivedDefinedValues: function (definedValues) {
+                    receivedDefinedValues(definedValues) {
                         this.definedValues = definedValues;
                     }
                 },
                 watch: {
-                    internalValue: function () {
+                    internalValue() {
                         this.$emit('update:modelValue', this.internalValue);
                     },
                     modelValue: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             this.internalValue = this.modelValue || '';
                         }
                     }
                 },
-                template: "\n<DefinedValuePicker :show=\"isEditMode\" v-model=\"internalValue\" v-bind=\"configAttributes\" @receivedDefinedValues=\"receivedDefinedValues\" />\n<span v-if=\"!isEditMode\">{{ displayValue }}</span>"
+                template: `
+<DefinedValuePicker :show="isEditMode" v-model="internalValue" v-bind="configAttributes" @receivedDefinedValues="receivedDefinedValues" />
+<span v-if="!isEditMode">{{ displayValue }}</span>`
             })));
         }
     };

@@ -28,7 +28,7 @@ System.register(["vue", "../Services/Number", "../Services/String"], function (e
                         default: false
                     }
                 },
-                data: function () {
+                data() {
                     return {
                         internalHour: null,
                         internalMinute: null,
@@ -37,7 +37,7 @@ System.register(["vue", "../Services/Number", "../Services/String"], function (e
                     };
                 },
                 methods: {
-                    keyPress: function (e) {
+                    keyPress(e) {
                         if (e.key === "a" || e.key === "p" || e.key === "A" || e.key == "P") {
                             this.internalMeridiem = e.key === "a" || e.key === "A" ? "AM" : "PM";
                             this.maybeUpdateValue();
@@ -50,43 +50,43 @@ System.register(["vue", "../Services/Number", "../Services/String"], function (e
                         }
                         return true;
                     },
-                    keyUp: function (e) {
-                        var area = this.$refs.area;
-                        var group = this.$refs.group;
-                        var serial = this.$refs.serial;
+                    keyUp(e) {
+                        const area = this.$refs.area;
+                        const group = this.$refs.group;
+                        const serial = this.$refs.serial;
                         if (/^[0-9]$/.test(e.key) === false) {
                             return true;
                         }
                         if (area === e.target && area.selectionStart === 3) {
-                            this.$nextTick(function () {
+                            this.$nextTick(() => {
                                 group.focus();
                                 group.setSelectionRange(0, 2);
                             });
                         }
                         else if (group === e.target && group.selectionStart === 2) {
-                            this.$nextTick(function () {
+                            this.$nextTick(() => {
                                 serial.focus();
                                 serial.setSelectionRange(0, 4);
                             });
                         }
                         return true;
                     },
-                    updateValue: function () {
-                        var values = /(\d+):(\d+)/.exec(this.internalValue);
-                        var value = {};
+                    updateValue() {
+                        const values = /(\d+):(\d+)/.exec(this.internalValue);
+                        const value = {};
                         if (values !== null) {
                             value.hour = Number_1.toNumber(values[1]) + (this.internalMeridiem === "PM" ? 12 : 0);
                             value.minute = Number_1.toNumber(values[2]);
                         }
                         this.$emit('update:modelValue', value);
                     },
-                    maybeUpdateValue: function () {
-                        var values = /(\d+):(\d+)/.exec(this.internalValue);
+                    maybeUpdateValue() {
+                        const values = /(\d+):(\d+)/.exec(this.internalValue);
                         if (values !== null) {
                             this.updateValue();
                         }
                     },
-                    toggleMeridiem: function (e) {
+                    toggleMeridiem(e) {
                         e.preventDefault();
                         this.internalMeridiem = this.internalMeridiem === "AM" ? "PM" : "AM";
                         this.maybeUpdateValue();
@@ -97,7 +97,7 @@ System.register(["vue", "../Services/Number", "../Services/String"], function (e
                 watch: {
                     modelValue: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             if (this.modelValue.hour) {
                                 if (this.modelValue.hour > 12) {
                                     this.internalHour = this.modelValue.hour - 12;
@@ -124,11 +124,16 @@ System.register(["vue", "../Services/Number", "../Services/String"], function (e
                             if (this.internalHour === null || this.internalMinute === null) {
                                 return "";
                             }
-                            this.internalValue = this.internalHour + ":" + String_1.padLeft(this.internalMinute.toString(), 2, "0");
+                            this.internalValue = `${this.internalHour}:${String_1.padLeft(this.internalMinute.toString(), 2, "0")}`;
                         }
                     }
                 },
-                template: "\n<div class=\"input-group input-width-md\">\n    <input class=\"form-control\" type=\"text\" v-model=\"internalValue\" v-on:change=\"updateValue\" v-on:keypress=\"keyPress\" :disabled=\"disabled\" />\n    <span class=\"input-group-btn\"><button class=\"btn btn-default\" v-on:click=\"toggleMeridiem\" :disabled=\"disabled\">{{ internalMeridiem }}</button></span>\n</div>\n"
+                template: `
+<div class="input-group input-width-md">
+    <input class="form-control" type="text" v-model="internalValue" v-on:change="updateValue" v-on:keypress="keyPress" :disabled="disabled" />
+    <span class="input-group-btn"><button class="btn btn-default" v-on:click="toggleMeridiem" :disabled="disabled">{{ internalMeridiem }}</button></span>
+</div>
+`
             }));
         }
     };

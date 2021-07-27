@@ -27,20 +27,20 @@ System.register(["vue"], function (exports_1, context_1) {
                         required: true
                     }
                 },
-                data: function () {
+                data() {
                     return {
                         handle: null
                     };
                 },
                 computed: {
-                    timeString: function () {
-                        var minutes = Math.floor(this.modelValue / 60);
-                        var seconds = Math.floor(this.modelValue % 60);
-                        return minutes + ":" + (seconds < 10 ? '0' + seconds : seconds);
+                    timeString() {
+                        const minutes = Math.floor(this.modelValue / 60);
+                        const seconds = Math.floor(this.modelValue % 60);
+                        return `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
                     },
                 },
                 methods: {
-                    onInterval: function () {
+                    onInterval() {
                         if (this.modelValue <= 0) {
                             this.$emit('update:modelValue', 0);
                             return;
@@ -48,20 +48,20 @@ System.register(["vue"], function (exports_1, context_1) {
                         this.$emit('update:modelValue', Math.floor(this.modelValue - 1));
                     }
                 },
-                mounted: function () {
-                    var _this = this;
+                mounted() {
                     if (this.handle) {
                         clearInterval(this.handle);
                     }
-                    this.handle = setInterval(function () { return _this.onInterval(); }, 1000);
+                    this.handle = setInterval(() => this.onInterval(), 1000);
                 },
-                unmounted: function () {
+                unmounted() {
                     if (this.handle) {
                         clearInterval(this.handle);
                         this.handle = null;
                     }
                 },
-                template: "\n<span>{{timeString}}</span>"
+                template: `
+<span>{{timeString}}</span>`
             });
             exports_1("default", CountdownTimer);
         }

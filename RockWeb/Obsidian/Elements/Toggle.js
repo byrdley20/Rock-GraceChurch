@@ -35,18 +35,37 @@ System.register(["vue", "./JavaScriptAnchor", "./RockFormField"], function (expo
                         default: 'Off'
                     }
                 },
-                data: function () {
+                data() {
                     return {
                         selectedClasses: 'active btn btn-primary',
                         unselectedClasses: 'btn btn-default'
                     };
                 },
                 methods: {
-                    onClick: function (isOn) {
+                    onClick(isOn) {
                         this.$emit('update:modelValue', isOn);
                     }
                 },
-                template: "\n<RockFormField\n    :modelValue=\"modelValue\"\n    formGroupClasses=\"toggle\"\n    name=\"toggle\">\n    <template #default=\"{uniqueId, field, errors, disabled}\">\n        <div class=\"control-wrapper\">\n            <div class=\"toggle-container\">\n                <div class=\"btn-group btn-toggle\">\n                    <JavaScriptAnchor :class=\"modelValue ? unselectedClasses : selectedClasses\" @click=\"onClick(false)\">\n                        <slot name=\"off\">{{falseText}}</slot>\n                    </JavaScriptAnchor>\n                    <JavaScriptAnchor :class=\"modelValue ? selectedClasses : unselectedClasses\" @click=\"onClick(true)\">\n                        <slot name=\"on\">{{trueText}}</slot>\n                    </JavaScriptAnchor>\n                </div>\n            </div>\n        </div>\n    </template>\n</RockFormField>"
+                template: `
+<RockFormField
+    :modelValue="modelValue"
+    formGroupClasses="toggle"
+    name="toggle">
+    <template #default="{uniqueId, field, errors, disabled}">
+        <div class="control-wrapper">
+            <div class="toggle-container">
+                <div class="btn-group btn-toggle">
+                    <JavaScriptAnchor :class="modelValue ? unselectedClasses : selectedClasses" @click="onClick(false)">
+                        <slot name="off">{{falseText}}</slot>
+                    </JavaScriptAnchor>
+                    <JavaScriptAnchor :class="modelValue ? selectedClasses : unselectedClasses" @click="onClick(true)">
+                        <slot name="on">{{trueText}}</slot>
+                    </JavaScriptAnchor>
+                </div>
+            </div>
+        </div>
+    </template>
+</RockFormField>`
             }));
         }
     };

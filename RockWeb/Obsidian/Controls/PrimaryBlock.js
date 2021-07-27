@@ -21,16 +21,16 @@ System.register(["vue", "../Store/Index"], function (exports_1, context_1) {
                     }
                 },
                 methods: {
-                    setAreSecondaryBlocksShown: function (isVisible) {
+                    setAreSecondaryBlocksShown(isVisible) {
                         Index_1.default.commit('setAreSecondaryBlocksShown', { areSecondaryBlocksShown: isVisible });
                     }
                 },
                 watch: {
-                    hideSecondaryBlocks: function () {
+                    hideSecondaryBlocks() {
                         this.setAreSecondaryBlocksShown(!this.hideSecondaryBlocks);
                     }
                 },
-                template: "<slot />"
+                template: `<slot />`
             }));
         }
     };

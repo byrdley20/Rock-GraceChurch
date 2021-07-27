@@ -37,19 +37,45 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Controls/
                     GridProfileLinkColumn: GridProfileLinkColumn_1.default,
                     Dialog: Dialog_1.default
                 },
-                data: function () {
+                data() {
                     return {
                         rowContextClicked: null,
                         isRowClickedDialogOpen: false
                     };
                 },
                 methods: {
-                    onRowClick: function (rowContext) {
+                    onRowClick(rowContext) {
                         this.rowContextClicked = rowContext;
                         this.isRowClickedDialogOpen = true;
                     }
                 },
-                template: "\n<PaneledBlockTemplate>\n    <template #title>\n        <i class=\"fa fa-dumbbell\"></i>\n        Large Dataset Grid\n    </template>\n    <template #default>\n        <div class=\"grid grid-panel\">\n            <BlockActionSourcedGrid blockActionName=\"GetAttributeValues\" #default=\"rowContext\" rowItemText=\"Attribute Values\" rowIdKey=\"Id\">\n                <GridRow :rowContext=\"rowContext\" @click:body=\"onRowClick\">\n                    <GridColumn title=\"Id\" property=\"Id\" sortExpression=\"Id\" />\n                    <GridColumn title=\"Guid\" property=\"Guid\" sortExpression=\"Guid\" />\n                    <GridColumn title=\"Attribute\" property=\"Attribute\" sortExpression=\"Attribute.Id\" />\n                    <GridColumn title=\"Value\" property=\"Value\" sortExpression=\"Value\" />\n                </GridRow>\n            </BlockActionSourcedGrid>\n        </div>\n        <Dialog v-model=\"isRowClickedDialogOpen\">\n            <template #header>\n                <h3>Row Clicked</h3>\n            </template>\n            <template #default>\n                <pre>{{ JSON.stringify( rowContextClicked, null, 2 ) }}</pre>\n            </template>\n        </Dialog>\n    </template>\n</PaneledBlockTemplate>"
+                template: `
+<PaneledBlockTemplate>
+    <template #title>
+        <i class="fa fa-dumbbell"></i>
+        Large Dataset Grid
+    </template>
+    <template #default>
+        <div class="grid grid-panel">
+            <BlockActionSourcedGrid blockActionName="GetAttributeValues" #default="rowContext" rowItemText="Attribute Values" rowIdKey="Id">
+                <GridRow :rowContext="rowContext" @click:body="onRowClick">
+                    <GridColumn title="Id" property="Id" sortExpression="Id" />
+                    <GridColumn title="Guid" property="Guid" sortExpression="Guid" />
+                    <GridColumn title="Attribute" property="Attribute" sortExpression="Attribute.Id" />
+                    <GridColumn title="Value" property="Value" sortExpression="Value" />
+                </GridRow>
+            </BlockActionSourcedGrid>
+        </div>
+        <Dialog v-model="isRowClickedDialogOpen">
+            <template #header>
+                <h3>Row Clicked</h3>
+            </template>
+            <template #default>
+                <pre>{{ JSON.stringify( rowContextClicked, null, 2 ) }}</pre>
+            </template>
+        </Dialog>
+    </template>
+</PaneledBlockTemplate>`
             }));
         }
     };

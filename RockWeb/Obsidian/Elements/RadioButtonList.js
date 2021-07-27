@@ -38,16 +38,16 @@ System.register(["vue", "./RockFormField"], function (exports_1, context_1) {
                 emits: [
                     'update:modelValue'
                 ],
-                data: function () {
+                data() {
                     return {
                         internalValue: ''
                     };
                 },
                 computed: {
-                    containerClasses: function () {
-                        var classes = [];
+                    containerClasses() {
+                        const classes = [];
                         if (this.repeatColumns > 0) {
-                            classes.push("in-columns in-columns-" + this.repeatColumns);
+                            classes.push(`in-columns in-columns-${this.repeatColumns}`);
                         }
                         if (this.horizontal) {
                             classes.push('rockradiobuttonlist-horizontal');
@@ -59,22 +59,44 @@ System.register(["vue", "./RockFormField"], function (exports_1, context_1) {
                     }
                 },
                 methods: {
-                    getOptionUniqueId: function (uniqueId, option) {
-                        return uniqueId + "-" + option.key;
+                    getOptionUniqueId(uniqueId, option) {
+                        return `${uniqueId}-${option.key}`;
                     }
                 },
                 watch: {
-                    internalValue: function () {
+                    internalValue() {
                         this.$emit('update:modelValue', this.internalValue);
                     },
                     modelValue: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             this.internalValue = this.modelValue;
                         }
                     }
                 },
-                template: "\n<RockFormField formGroupClasses=\"rock-radio-button-list\" #default=\"{uniqueId}\" name=\"radiobuttonlist\" v-model=\"internalValue\">\n    <div class=\"control-wrapper\">\n        <div class=\"controls rockradiobuttonlist\" :class=\"containerClasses\">\n            <span>\n                <template v-if=\"horizontal\">\n                    <label v-for=\"option in options\" class=\"radio-inline\" :for=\"getOptionUniqueId(uniqueId, option)\">\n                        <input :id=\"getOptionUniqueId(uniqueId, option)\" :name=\"uniqueId\" type=\"radio\" :value=\"option.value\" v-model=\"internalValue\" />\n                        <span class=\"label-text\">{{option.text}}</span>\n                    </label>\n                </template>\n                <template v-else>\n                    <div v-for=\"option in options\" class=\"radio\">\n                        <label :for=\"getOptionUniqueId(uniqueId, option)\">\n                            <input :id=\"getOptionUniqueId(uniqueId, option)\" :name=\"uniqueId\" type=\"radio\" :value=\"option.value\" v-model=\"internalValue\" />\n                            <span class=\"label-text\">{{option.text}}</span>\n                        </label>\n                    </div>\n                </template>\n            </span>\n        </div>\n    </div>\n</RockFormField>"
+                template: `
+<RockFormField formGroupClasses="rock-radio-button-list" #default="{uniqueId}" name="radiobuttonlist" v-model="internalValue">
+    <div class="control-wrapper">
+        <div class="controls rockradiobuttonlist" :class="containerClasses">
+            <span>
+                <template v-if="horizontal">
+                    <label v-for="option in options" class="radio-inline" :for="getOptionUniqueId(uniqueId, option)">
+                        <input :id="getOptionUniqueId(uniqueId, option)" :name="uniqueId" type="radio" :value="option.value" v-model="internalValue" />
+                        <span class="label-text">{{option.text}}</span>
+                    </label>
+                </template>
+                <template v-else>
+                    <div v-for="option in options" class="radio">
+                        <label :for="getOptionUniqueId(uniqueId, option)">
+                            <input :id="getOptionUniqueId(uniqueId, option)" :name="uniqueId" type="radio" :value="option.value" v-model="internalValue" />
+                            <span class="label-text">{{option.text}}</span>
+                        </label>
+                    </div>
+                </template>
+            </span>
+        </div>
+    </div>
+</RockFormField>`
             }));
         }
     };

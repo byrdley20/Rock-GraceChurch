@@ -35,15 +35,15 @@ System.register(["vue", "../Elements/DropDownList", "../Elements/ColorPicker", "
                     ColorPicker: ColorPicker_1.default
                 },
                 props: Index_1.getFieldTypeProps(),
-                data: function () {
+                data() {
                     return {
                         internalBooleanValue: false,
                         internalValue: ''
                     };
                 },
                 computed: {
-                    colorControlType: function () {
-                        var controlType = Index_1.getConfigurationValue(ConfigurationValueKey.ColorControlType, this.configurationValues);
+                    colorControlType() {
+                        const controlType = Index_1.getConfigurationValue(ConfigurationValueKey.ColorControlType, this.configurationValues);
                         switch (controlType) {
                             case ConfigurationValueKey.ColorPicker:
                                 return ColorControlType.ColorPicker;
@@ -52,16 +52,16 @@ System.register(["vue", "../Elements/DropDownList", "../Elements/ColorPicker", "
                                 return ColorControlType.NamedColor;
                         }
                     },
-                    isColorPicker: function () {
+                    isColorPicker() {
                         return this.colorControlType === ColorControlType.ColorPicker;
                     },
-                    isNamedPicker: function () {
+                    isNamedPicker() {
                         return this.colorControlType === ColorControlType.NamedColor;
                     },
-                    displayValue: function () {
+                    displayValue() {
                         return this.internalValue;
                     },
-                    dropDownListOptions: function () {
+                    dropDownListOptions() {
                         return [
                             { "key": "Transparent", "text": "Transparent", "value": "Transparent" },
                             { "key": "AliceBlue", "text": "AliceBlue", "value": "AliceBlue" },
@@ -208,17 +208,20 @@ System.register(["vue", "../Elements/DropDownList", "../Elements/ColorPicker", "
                     }
                 },
                 watch: {
-                    internalValue: function () {
+                    internalValue() {
                         this.$emit('update:modelValue', this.internalValue);
                     },
                     modelValue: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             this.internalValue = this.modelValue || '';
                         }
                     }
                 },
-                template: "\n<DropDownList v-if=\"isEditMode && isNamedPicker\" v-model=\"internalValue\" :options=\"dropDownListOptions\" />\n<ColorPicker v-else-if=\"isEditMode && isColorPicker\" v-model=\"internalValue\" />\n<span v-else>{{ displayValue }}</span>"
+                template: `
+<DropDownList v-if="isEditMode && isNamedPicker" v-model="internalValue" :options="dropDownListOptions" />
+<ColorPicker v-else-if="isEditMode && isColorPicker" v-model="internalValue" />
+<span v-else>{{ displayValue }}</span>`
             })));
         }
     };

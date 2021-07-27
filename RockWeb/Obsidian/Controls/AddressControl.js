@@ -60,10 +60,10 @@ System.register(["vue", "../Elements/DropDownList", "../Elements/RockLabel", "..
                         default: ''
                     }
                 },
-                data: function () {
+                data() {
                     return {
                         state: '',
-                        uniqueId: "rock-addresscontrol-" + Guid_1.newGuid(),
+                        uniqueId: `rock-addresscontrol-${Guid_1.newGuid()}`,
                         stateOptions: [
                             { key: 'AL', value: 'AL', text: 'AL' },
                             { key: 'AK', value: 'AK', text: 'AK' },
@@ -128,12 +128,26 @@ System.register(["vue", "../Elements/DropDownList", "../Elements/RockLabel", "..
                     };
                 },
                 computed: {
-                    isRequired: function () {
-                        var rules = Index_1.ruleStringToArray(this.rules);
+                    isRequired() {
+                        const rules = Index_1.ruleStringToArray(this.rules);
                         return rules.indexOf('required') !== -1;
                     }
                 },
-                template: "\n<div class=\"form-group address-control\" :class=\"isRequired ? 'required' : ''\">\n    <RockLabel v-if=\"label || help\" :for=\"uniqueId\" :help=\"help\">\n        {{label}}\n    </RockLabel>\n    <div class=\"control-wrapper\">\n        <TextBox placeholder=\"Address Line 1\" :rules=\"rules\" v-model=\"modelValue.street1\" validationTitle=\"Address Line 1\" />\n        <TextBox placeholder=\"Address Line 2\" v-model=\"modelValue.street2\" validationTitle=\"Address Line 2\" />\n        <div class=\"form-row\">\n            <TextBox placeholder=\"City\" :rules=\"rules\" v-model=\"modelValue.city\" class=\"col-sm-6\" validationTitle=\"City\" />\n            <DropDownList :showBlankItem=\"false\" v-model=\"modelValue.state\" class=\"col-sm-3\" :options=\"stateOptions\" />\n            <TextBox placeholder=\"Zip\" :rules=\"rules\" v-model=\"modelValue.postalCode\" class=\"col-sm-3\" validationTitle=\"Zip\" />\n        </div>\n    </div>\n</div>"
+                template: `
+<div class="form-group address-control" :class="isRequired ? 'required' : ''">
+    <RockLabel v-if="label || help" :for="uniqueId" :help="help">
+        {{label}}
+    </RockLabel>
+    <div class="control-wrapper">
+        <TextBox placeholder="Address Line 1" :rules="rules" v-model="modelValue.street1" validationTitle="Address Line 1" />
+        <TextBox placeholder="Address Line 2" v-model="modelValue.street2" validationTitle="Address Line 2" />
+        <div class="form-row">
+            <TextBox placeholder="City" :rules="rules" v-model="modelValue.city" class="col-sm-6" validationTitle="City" />
+            <DropDownList :showBlankItem="false" v-model="modelValue.state" class="col-sm-3" :options="stateOptions" />
+            <TextBox placeholder="Zip" :rules="rules" v-model="modelValue.postalCode" class="col-sm-3" validationTitle="Zip" />
+        </div>
+    </div>
+</div>`
             }));
         }
     };

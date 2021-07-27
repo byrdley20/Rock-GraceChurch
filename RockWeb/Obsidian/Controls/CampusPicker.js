@@ -12,11 +12,11 @@ System.register(["../Store/Generators", "../Store/Index"], function (exports_1, 
             }
         ],
         execute: function () {
-            exports_1("default", Generators_1.createCommonEntityPicker('Campus', function () { return Index_1.default.getters['campuses/all'].map(function (c) { return ({
+            exports_1("default", Generators_1.createCommonEntityPicker('Campus', () => Index_1.default.getters['campuses/all'].map((c) => ({
                 guid: c.guid,
                 id: c.id,
                 text: c.name
-            }); }); }));
+            }))));
         }
     };
 });

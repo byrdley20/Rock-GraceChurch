@@ -24,28 +24,30 @@ System.register(["vue", "./Index", "../Elements/EmailBox"], function (exports_1,
                     EmailBox: EmailBox_1.default
                 },
                 props: Index_1.getFieldTypeProps(),
-                data: function () {
+                data() {
                     return {
                         internalValue: ''
                     };
                 },
                 computed: {
-                    safeValue: function () {
+                    safeValue() {
                         return (this.modelValue || '').trim();
                     },
                 },
                 watch: {
-                    internalValue: function () {
+                    internalValue() {
                         this.$emit('update:modelValue', this.internalValue);
                     },
                     modelValue: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             this.internalValue = this.modelValue || '';
                         }
                     }
                 },
-                template: "\n<EmailBox v-if=\"isEditMode\" v-model=\"internalValue\" />\n<span v-else>{{ safeValue }}</span>"
+                template: `
+<EmailBox v-if="isEditMode" v-model="internalValue" />
+<span v-else>{{ safeValue }}</span>`
             })));
         }
     };

@@ -34,38 +34,54 @@ System.register(["vue", "../Util/Guid", "./RockFormField", "../Services/String"]
                 ],
                 data: function () {
                     return {
-                        uniqueId: "rock-phonenumberbox-" + Guid_1.newGuid(),
+                        uniqueId: `rock-phonenumberbox-${Guid_1.newGuid()}`,
                         internalValue: ''
                     };
                 },
                 methods: {
-                    onChange: function () {
+                    onChange() {
                         this.internalValue = this.formattedValue;
                     }
                 },
                 computed: {
-                    strippedValue: function () {
+                    strippedValue() {
                         return String_1.stripPhoneNumber(this.internalValue);
                     },
-                    formattedValue: function () {
+                    formattedValue() {
                         return String_1.formatPhoneNumber(this.internalValue);
                     }
                 },
                 watch: {
-                    formattedValue: function () {
+                    formattedValue() {
                         this.$emit('update:modelValue', this.formattedValue);
                     },
                     modelValue: {
                         immediate: true,
-                        handler: function () {
-                            var stripped = String_1.stripPhoneNumber(this.modelValue);
+                        handler() {
+                            const stripped = String_1.stripPhoneNumber(this.modelValue);
                             if (stripped !== this.strippedValue) {
                                 this.internalValue = String_1.formatPhoneNumber(stripped);
                             }
                         }
                     }
                 },
-                template: "\n<RockFormField\n    v-model=\"internalValue\"\n    @change=\"onChange\"\n    formGroupClasses=\"rock-phonenumber-box\"\n    name=\"phonenumberbox\">\n    <template #default=\"{uniqueId, field, errors, disabled, inputGroupClasses}\">\n        <div class=\"control-wrapper\">\n            <div class=\"input-group phone-number-box\" :class=\"inputGroupClasses\">\n                <span class=\"input-group-addon\">\n                    <i class=\"fa fa-phone-square\"></i>\n                </span>\n                <input :id=\"uniqueId\" type=\"text\" class=\"form-control\" v-bind=\"field\" :disabled=\"disabled\" />\n            </div>\n        </div>\n    </template>\n</RockFormField>"
+                template: `
+<RockFormField
+    v-model="internalValue"
+    @change="onChange"
+    formGroupClasses="rock-phonenumber-box"
+    name="phonenumberbox">
+    <template #default="{uniqueId, field, errors, disabled, inputGroupClasses}">
+        <div class="control-wrapper">
+            <div class="input-group phone-number-box" :class="inputGroupClasses">
+                <span class="input-group-addon">
+                    <i class="fa fa-phone-square"></i>
+                </span>
+                <input :id="uniqueId" type="text" class="form-control" v-bind="field" :disabled="disabled" />
+            </div>
+        </div>
+    </template>
+</RockFormField>`
             }));
         }
     };

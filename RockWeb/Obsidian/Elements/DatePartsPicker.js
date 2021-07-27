@@ -64,7 +64,7 @@ System.register(["vue", "../Rules/Index", "../Services/DateKey", "../Services/Nu
                         default: 1900
                     }
                 },
-                data: function () {
+                data() {
                     return {
                         internalDay: "0",
                         internalMonth: "0",
@@ -73,17 +73,17 @@ System.register(["vue", "../Rules/Index", "../Services/DateKey", "../Services/Nu
                     };
                 },
                 methods: {
-                    getValue: function () {
+                    getValue() {
                         return {
                             day: Number_1.toNumber(this.internalDay),
                             month: Number_1.toNumber(this.internalMonth),
                             year: Number_1.toNumber(this.internalYear)
                         };
                     },
-                    updateDays: function () {
-                        var dayCount = 31;
-                        var year = Number_1.toNumber(this.internalYear);
-                        var month = Number_1.toNumber(this.internalMonth);
+                    updateDays() {
+                        let dayCount = 31;
+                        const year = Number_1.toNumber(this.internalYear);
+                        const month = Number_1.toNumber(this.internalMonth);
                         if (this.showYear && year > 0 && month > 0) {
                             dayCount = new Date(year, month, 0).getDate();
                         }
@@ -96,35 +96,35 @@ System.register(["vue", "../Rules/Index", "../Services/DateKey", "../Services/Nu
                         else if (month === 2) {
                             dayCount = 29;
                         }
-                        var days = [];
-                        for (var day = 1; day <= dayCount; day++) {
+                        let days = [];
+                        for (let day = 1; day <= dayCount; day++) {
                             days.push(day.toString());
                         }
                         this.days = days;
                     }
                 },
                 computed: {
-                    computedRequireYear: function () {
+                    computedRequireYear() {
                         return this.showYear && this.requireYear;
                     },
-                    internalDateKey: function () {
+                    internalDateKey() {
                         if (!this.modelValue.year && !this.computedRequireYear) {
-                            var dateKey_1 = DateKey_1.default.toNoYearDateKey(this.modelValue.month, this.modelValue.day);
-                            return dateKey_1;
+                            const dateKey = DateKey_1.default.toNoYearDateKey(this.modelValue.month, this.modelValue.day);
+                            return dateKey;
                         }
-                        var dateKey = DateKey_1.default.toDateKey(this.modelValue.year, this.modelValue.month, this.modelValue.day);
+                        const dateKey = DateKey_1.default.toDateKey(this.modelValue.year, this.modelValue.month, this.modelValue.day);
                         return dateKey;
                     },
-                    computedRules: function () {
-                        var rules = Index_1.ruleStringToArray(this.rules);
+                    computedRules() {
+                        const rules = Index_1.ruleStringToArray(this.rules);
                         if (rules.indexOf('required') !== -1 && rules.indexOf('datekey') === -1) {
                             rules.push('datekey');
                         }
                         return Index_1.ruleArrayToString(rules);
                     },
-                    years: function () {
-                        var years = [];
-                        var year = new Date().getFullYear();
+                    years() {
+                        const years = [];
+                        let year = new Date().getFullYear();
                         if (this.futureYearCount > 0 && this.allowFutureDates) {
                             year += this.futureYearCount;
                         }
@@ -138,7 +138,7 @@ System.register(["vue", "../Rules/Index", "../Services/DateKey", "../Services/Nu
                 watch: {
                     modelValue: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             this.internalDay = this.modelValue.day.toString();
                             this.internalMonth = this.modelValue.month.toString();
                             this.internalYear = this.modelValue.year.toString();
@@ -147,24 +147,61 @@ System.register(["vue", "../Rules/Index", "../Services/DateKey", "../Services/Nu
                     },
                     showYear: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             this.updateDays();
                         }
                     },
-                    internalDay: function () {
+                    internalDay() {
                         this.updateDays();
                         this.$emit('update:modelValue', this.getValue());
                     },
-                    internalMonth: function () {
+                    internalMonth() {
                         this.updateDays();
                         this.$emit('update:modelValue', this.getValue());
                     },
-                    internalYear: function () {
+                    internalYear() {
                         this.updateDays();
                         this.$emit('update:modelValue', this.getValue());
                     },
                 },
-                template: "\n<RockFormField\n    :modelValue=\"internalDateKey\"\n    formGroupClasses=\"birthday-picker\"\n    name=\"birthday\"\n    :rules=\"computedRules\">\n    <template #default=\"{uniqueId, field, errors, disabled}\">\n        <div class=\"control-wrapper\">\n            <div class=\"form-control-group\">\n                <select :id=\"uniqueId + '-month'\" class=\"form-control input-width-sm\" :disabled=\"disabled\" v-model=\"internalMonth\">\n                    <option value=\"0\"></option>\n                    <option value=\"1\">Jan</option>\n                    <option value=\"2\">Feb</option>\n                    <option value=\"3\">Mar</option>\n                    <option value=\"4\">Apr</option>\n                    <option value=\"5\">May</option>\n                    <option value=\"6\">Jun</option>\n                    <option value=\"7\">Jul</option>\n                    <option value=\"8\">Aug</option>\n                    <option value=\"9\">Sep</option>\n                    <option value=\"10\">Oct</option>\n                    <option value=\"11\">Nov</option>\n                    <option value=\"12\">Dec</option>\n                </select>\n                <span class=\"separator\">/</span>\n                <select :id=\"uniqueId + '-day'\" class=\"form-control input-width-sm\" v-model=\"internalDay\">\n                    <option value=\"0\"></option>\n                    <option v-for=\"day in days\" :key=\"day\" :value=\"day\">{{day}}</option>\n                </select>\n                <span v-if=\"showYear\" class=\"separator\">/</span>\n                <select v-if=\"showYear\" :id=\"uniqueId + '-year'\" class=\"form-control input-width-sm\" v-model=\"internalYear\">\n                    <option value=\"0\"></option>\n                    <option v-for=\"year in years\" :value=\"year\">{{year}}</option>\n                </select>\n            </div>\n        </div>\n    </template>\n</RockFormField>"
+                template: `
+<RockFormField
+    :modelValue="internalDateKey"
+    formGroupClasses="birthday-picker"
+    name="birthday"
+    :rules="computedRules">
+    <template #default="{uniqueId, field, errors, disabled}">
+        <div class="control-wrapper">
+            <div class="form-control-group">
+                <select :id="uniqueId + '-month'" class="form-control input-width-sm" :disabled="disabled" v-model="internalMonth">
+                    <option value="0"></option>
+                    <option value="1">Jan</option>
+                    <option value="2">Feb</option>
+                    <option value="3">Mar</option>
+                    <option value="4">Apr</option>
+                    <option value="5">May</option>
+                    <option value="6">Jun</option>
+                    <option value="7">Jul</option>
+                    <option value="8">Aug</option>
+                    <option value="9">Sep</option>
+                    <option value="10">Oct</option>
+                    <option value="11">Nov</option>
+                    <option value="12">Dec</option>
+                </select>
+                <span class="separator">/</span>
+                <select :id="uniqueId + '-day'" class="form-control input-width-sm" v-model="internalDay">
+                    <option value="0"></option>
+                    <option v-for="day in days" :key="day" :value="day">{{day}}</option>
+                </select>
+                <span v-if="showYear" class="separator">/</span>
+                <select v-if="showYear" :id="uniqueId + '-year'" class="form-control input-width-sm" v-model="internalYear">
+                    <option value="0"></option>
+                    <option v-for="year in years" :value="year">{{year}}</option>
+                </select>
+            </div>
+        </div>
+    </template>
+</RockFormField>`
             }));
         }
     };

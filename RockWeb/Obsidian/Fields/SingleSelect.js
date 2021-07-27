@@ -31,32 +31,32 @@ System.register(["vue", "./Index", "../Elements/DropDownList", "../Elements/Radi
                     RadioButtonList: RadioButtonList_1.default
                 },
                 props: Index_1.getFieldTypeProps(),
-                setup: function () {
+                setup() {
                     return {
                         isRequired: vue_1.inject('isRequired')
                     };
                 },
-                data: function () {
+                data() {
                     return {
                         internalValue: ''
                     };
                 },
                 computed: {
-                    safeValue: function () {
+                    safeValue() {
                         return (this.modelValue || '').trim();
                     },
-                    options: function () {
-                        var valuesConfig = this.configurationValues[ConfigurationValueKey.Values];
+                    options() {
+                        const valuesConfig = this.configurationValues[ConfigurationValueKey.Values];
                         if (valuesConfig && valuesConfig.Value) {
-                            var providedOptions = valuesConfig.Value.split(',').map(function (v) {
+                            const providedOptions = valuesConfig.Value.split(',').map(v => {
                                 if (v.indexOf('^') !== -1) {
-                                    var parts = v.split('^');
-                                    var value = parts[0];
-                                    var text = parts[1];
+                                    const parts = v.split('^');
+                                    const value = parts[0];
+                                    const text = parts[1];
                                     return {
                                         key: value,
-                                        text: text,
-                                        value: value
+                                        text,
+                                        value
                                     };
                                 }
                                 return {
@@ -76,39 +76,42 @@ System.register(["vue", "./Index", "../Elements/DropDownList", "../Elements/Radi
                         }
                         return [];
                     },
-                    ddlConfigAttributes: function () {
-                        var attributes = {};
-                        var fieldTypeConfig = this.configurationValues[ConfigurationValueKey.FieldType];
+                    ddlConfigAttributes() {
+                        const attributes = {};
+                        const fieldTypeConfig = this.configurationValues[ConfigurationValueKey.FieldType];
                         if ((fieldTypeConfig === null || fieldTypeConfig === void 0 ? void 0 : fieldTypeConfig.Value) === 'ddl_enhanced') {
                             attributes.enhanceForLongLists = true;
                         }
                         return attributes;
                     },
-                    rbConfigAttributes: function () {
-                        var attributes = {};
-                        var repeatColumnsConfig = this.configurationValues[ConfigurationValueKey.RepeatColumns];
+                    rbConfigAttributes() {
+                        const attributes = {};
+                        const repeatColumnsConfig = this.configurationValues[ConfigurationValueKey.RepeatColumns];
                         if (repeatColumnsConfig === null || repeatColumnsConfig === void 0 ? void 0 : repeatColumnsConfig.Value) {
                             attributes['repeatColumns'] = Number(repeatColumnsConfig.Value) || 0;
                         }
                         return attributes;
                     },
-                    isRadioButtons: function () {
-                        var fieldTypeConfig = this.configurationValues[ConfigurationValueKey.FieldType];
+                    isRadioButtons() {
+                        const fieldTypeConfig = this.configurationValues[ConfigurationValueKey.FieldType];
                         return (fieldTypeConfig === null || fieldTypeConfig === void 0 ? void 0 : fieldTypeConfig.Value) === 'rb';
                     }
                 },
                 watch: {
-                    internalValue: function () {
+                    internalValue() {
                         this.$emit('update:modelValue', this.internalValue);
                     },
                     modelValue: {
                         immediate: true,
-                        handler: function () {
+                        handler() {
                             this.internalValue = this.modelValue || '';
                         }
                     }
                 },
-                template: "\n<RadioButtonList v-if=\"isEditMode && isRadioButtons\" v-model=\"internalValue\" v-bind=\"rbConfigAttributes\" :options=\"options\" horizontal />\n<DropDownList v-else-if=\"isEditMode\" v-model=\"internalValue\" v-bind=\"ddlConfigAttributes\" :options=\"options\" />\n<span v-else>{{ safeValue }}</span>"
+                template: `
+<RadioButtonList v-if="isEditMode && isRadioButtons" v-model="internalValue" v-bind="rbConfigAttributes" :options="options" horizontal />
+<DropDownList v-else-if="isEditMode" v-model="internalValue" v-bind="ddlConfigAttributes" :options="options" />
+<span v-else>{{ safeValue }}</span>`
             })));
         }
     };

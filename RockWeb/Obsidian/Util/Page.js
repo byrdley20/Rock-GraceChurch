@@ -9,7 +9,7 @@ System.register([], function (exports_1, context_1) {
         setters: [],
         execute: function () {
             exports_1("default", {
-                smoothScrollToTop: smoothScrollToTop
+                smoothScrollToTop
             });
         }
     };

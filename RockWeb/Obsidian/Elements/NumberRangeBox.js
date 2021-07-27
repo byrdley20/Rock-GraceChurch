@@ -53,7 +53,15 @@ System.register(["vue", "../Rules/Index", "../Services/Number", "./RockFormField
                         validationValue: ''
                     };
                 },
-                methods: {},
+                methods: {
+                    onChange: function () {
+                        var _a, _b;
+                        this.internalValue = {
+                            lower: Number_1.asFormattedString(this.modelValue.lower, (_a = this.internalDecimalCount) !== null && _a !== void 0 ? _a : undefined),
+                            upper: Number_1.asFormattedString(this.modelValue.upper, (_b = this.internalDecimalCount) !== null && _b !== void 0 ? _b : undefined)
+                        };
+                    }
+                },
                 computed: {
                     computedValue: function () {
                         return {
@@ -86,6 +94,9 @@ System.register(["vue", "../Rules/Index", "../Services/Number", "./RockFormField
                         };
                         this.$emit('update:modelValue', emitValue);
                     },
+                    internalStep: function () {
+                        return this.decimalCount === null ? "any" : (1 / Math.pow(10, this.decimalCount)).toString();
+                    },
                     modelValue: {
                         immediate: true,
                         handler: function () {
@@ -100,7 +111,7 @@ System.register(["vue", "../Rules/Index", "../Services/Number", "./RockFormField
                         }
                     }
                 },
-                template: "\n<RockFormField\n    v-model=\"validationValue\"\n    formGroupClasses=\"number-range-editor\"\n    name=\"number-range-box\"\n    :rules=\"computedRules\">\n    <template #default=\"{uniqueId, field, errors, disabled, tabIndex}\">\n        <div class=\"control-wrapper\">\n            <div class=\"form-control-group\">\n                <input\n                    :id=\"uniqueId + '_lower'\"\n                    type=\"number\"\n                    class=\"input-width-md form-control\"\n                    :class=\"inputClasses\"\n                    v-model=\"internalValue.lower\"\n                    :disabled=\"disabled\"\n                    :tabindex=\"tabIndex\"\n                    :step=\"internalStep\" />\n                <span class=\"to\">to</span>\n                <input\n                    :id=\"uniqueId + '_upper'\"\n                    type=\"number\"\n                    class=\"input-width-md form-control\"\n                    :class=\"inputClasses\"\n                    v-model=\"internalValue.upper\"\n                    :disabled=\"disabled\"\n                    :tabindex=\"tabIndex\"\n                    :step=\"internalStep\" />\n            </div>\n        </div>\n    </template>\n</RockFormField>"
+                template: "\n<RockFormField\n    v-model=\"validationValue\"\n    formGroupClasses=\"number-range-editor\"\n    name=\"number-range-box\"\n    :rules=\"computedRules\">\n    <template #default=\"{uniqueId, field, errors, disabled, tabIndex}\">\n        <div class=\"control-wrapper\">\n            <div class=\"form-control-group\">\n                <input\n                    :id=\"uniqueId + '_lower'\"\n                    @change=\"onChange\"\n                    type=\"number\"\n                    class=\"input-width-md form-control\"\n                    :class=\"inputClasses\"\n                    v-model=\"internalValue.lower\"\n                    :disabled=\"disabled\"\n                    :tabindex=\"tabIndex\"\n                    :step=\"internalStep\" />\n                <span class=\"to\">to</span>\n                <input\n                    :id=\"uniqueId + '_upper'\"\n                    @change=\"onChange\"\n                    type=\"number\"\n                    class=\"input-width-md form-control\"\n                    :class=\"inputClasses\"\n                    v-model=\"internalValue.upper\"\n                    :disabled=\"disabled\"\n                    :tabindex=\"tabIndex\"\n                    :step=\"internalStep\" />\n            </div>\n        </div>\n    </template>\n</RockFormField>"
             }));
         }
     };

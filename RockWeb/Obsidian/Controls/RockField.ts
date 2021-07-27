@@ -29,6 +29,7 @@ import '../Fields/DateField';
 import '../Fields/DateTimeField';
 import '../Fields/DayOfWeekField';
 import '../Fields/DecimalField';
+import '../Fields/DecimalRangeField';
 import '../Fields/DefinedValueField';
 import '../Fields/EmailField';
 import '../Fields/GenderField';

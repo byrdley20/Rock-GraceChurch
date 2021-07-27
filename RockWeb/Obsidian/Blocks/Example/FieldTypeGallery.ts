@@ -227,6 +227,8 @@ export default defineComponent( {
         }),
         DecimalGallery: GetFieldTypeGalleryComponent('Decimal', '18.283', 'C757A554-3009-4214-B05D-CEA2B2EA6B8F', {
         }),
+        DecimalRangeGallery: GetFieldTypeGalleryComponent('DecimalRange', '18.283,100', '758D9648-573E-4800-B5AF-7CC29F4BE170', {
+        }),
         DefinedValueGallery: GetFieldTypeGalleryComponent('DefinedValue (WIP)', 'af28af43-8461-41ac-a2c5-85122712be96', '59D5A94C-94A0-4630-B80A-BB25697D74C7', {
             definedtype: '92',
             allowmultiple: '',
@@ -281,6 +283,7 @@ export default defineComponent( {
         <DateTimeGallery />
         <DayOfWeekGallery />
         <DecimalGallery />
+        <DecimalRangeGallery />
         <DefinedValueGallery />
         <EmailGallery />
         <GenderGallery />

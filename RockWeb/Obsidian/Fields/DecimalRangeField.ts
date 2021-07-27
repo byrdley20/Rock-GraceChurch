@@ -18,38 +18,50 @@ import { defineComponent } from 'vue';
 import { Guid } from '../Util/Guid';
 import { registerFieldType, getFieldTypeProps } from './Index';
 import { toNumberOrNull } from '../Services/Number';
-import NumberBox from '../Elements/NumberBox';
+import NumberRangeBox, { NumberRangeModelValue } from '../Elements/NumberRangeBox';
 
-const fieldTypeGuid: Guid = 'C757A554-3009-4214-B05D-CEA2B2EA6B8F';
+const fieldTypeGuid: Guid = '758D9648-573E-4800-B5AF-7CC29F4BE170';
 
 enum ConfigurationValueKey {
 }
 
 export default registerFieldType(fieldTypeGuid, defineComponent({
-    name: 'DecimalField',
+    name: 'IntegerRangeField',
+
     components: {
-        NumberBox
+        NumberRangeBox
     },
+
     props: getFieldTypeProps(),
+
     data() {
         return {
             /** The user input value as a number of null if it isn't valid. */
-            internalValue: null as number | null
+            internalValue: {} as NumberRangeModelValue
         };
     },
+
     computed: {
         /** The display value. */
         displayValue(): string {
-            return (this.modelValue || '').trim();
+            if (this.internalValue.lower === null && this.internalValue.upper === null) {
+                return "";
+            }
+            else {
+                return `${this.internalValue.lower ?? ""} to ${this.internalValue.upper ?? ""}`;
+            }
         }
     },
+
     watch: {
         /**
          * Watch for changes to internalValue and emit the new value out to
          * the consuming component.
          */
         internalValue() {
-            this.$emit('update:modelValue', this.internalValue !== null ? this.internalValue.toString() : '');
+            const value = `${this.internalValue.lower ?? ""},${this.internalValue.upper ?? ""}`;
+
+            this.$emit('update:modelValue', value !== "," ? value : "");
         },
 
         /**
@@ -59,11 +71,20 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
         modelValue: {
             immediate: true,
             handler() {
-                this.internalValue = toNumberOrNull(this.modelValue || '');
+                const values = (this.modelValue ?? "").split(",");
+                const lower = toNumberOrNull(values[0]);
+                const upper = values.length >= 2 ? toNumberOrNull(values[1]) : null;
+
+                if (lower !== this.internalValue.lower || upper !== this.internalValue.upper) {
+                    this.internalValue = {
+                        lower: lower,
+                        upper: upper
+                    };
+                }
             }
         }
     },
     template: `
-<NumberBox v-if="isEditMode" v-model="internalValue" rules="decimal" />
+<NumberRangeBox v-if="isEditMode" v-model="internalValue" />
 <span v-else>{{ displayValue }}</span>`
 }));

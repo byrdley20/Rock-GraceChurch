@@ -33,7 +33,7 @@ System.register(["vue", "./Index", "../Services/Number", "../Elements/NumberBox"
                     };
                 },
                 computed: {
-                    safeValue: function () {
+                    displayValue: function () {
                         return (this.modelValue || '').trim();
                     }
                 },
@@ -48,7 +48,7 @@ System.register(["vue", "./Index", "../Services/Number", "../Elements/NumberBox"
                         }
                     }
                 },
-                template: "\n<NumberBox v-if=\"isEditMode\" v-model=\"internalValue\" rules=\"decimal\" />\n<span v-else>{{ safeValue }}</span>"
+                template: "\n<NumberBox v-if=\"isEditMode\" v-model=\"internalValue\" rules=\"decimal\" />\n<span v-else>{{ displayValue }}</span>"
             })));
         }
     };

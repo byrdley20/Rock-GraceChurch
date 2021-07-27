@@ -75,6 +75,12 @@ export default defineComponent({
     },
 
     methods: {
+        onChange() {
+            this.internalValue = {
+                lower: asFormattedString(this.modelValue.lower, this.internalDecimalCount ?? undefined),
+                upper: asFormattedString(this.modelValue.upper, this.internalDecimalCount ?? undefined)
+            }
+        }
     },
 
     computed: {
@@ -117,6 +123,10 @@ export default defineComponent({
             this.$emit('update:modelValue', emitValue);
         },
 
+        internalStep(): string {
+            return this.decimalCount === null ? "any" : (1 / Math.pow(10, this.decimalCount)).toString();
+        },
+
         modelValue: {
             immediate: true,
             handler() {
@@ -143,6 +153,7 @@ export default defineComponent({
             <div class="form-control-group">
                 <input
                     :id="uniqueId + '_lower'"
+                    @change="onChange"
                     type="number"
                     class="input-width-md form-control"
                     :class="inputClasses"
@@ -153,6 +164,7 @@ export default defineComponent({
                 <span class="to">to</span>
                 <input
                     :id="uniqueId + '_upper'"
+                    @change="onChange"
                     type="number"
                     class="input-width-md form-control"
                     :class="inputClasses"

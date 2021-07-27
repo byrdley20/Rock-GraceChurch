@@ -28,6 +28,7 @@ import '../Fields/CurrencyField';
 import '../Fields/DateField';
 import '../Fields/DateTimeField';
 import '../Fields/DayOfWeekField';
+import '../Fields/DaysOfWeekField';
 import '../Fields/DecimalField';
 import '../Fields/DecimalRangeField';
 import '../Fields/DefinedValueField';

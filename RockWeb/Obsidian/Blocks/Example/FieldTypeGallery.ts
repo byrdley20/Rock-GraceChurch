@@ -225,6 +225,8 @@ export default defineComponent( {
         }),
         DayOfWeekGallery: GetFieldTypeGalleryComponent('DayOfWeek', '2', '7EDFA2DE-FDD3-4AC1-B356-1F5BFC231DAE', {
         }),
+        DaysOfWeekGallery: GetFieldTypeGalleryComponent('DaysOfWeek', '2,5', '08943FF9-F2A8-4DB4-A72A-31938B200C8C', {
+        }),
         DecimalGallery: GetFieldTypeGalleryComponent('Decimal', '18.283', 'C757A554-3009-4214-B05D-CEA2B2EA6B8F', {
         }),
         DecimalRangeGallery: GetFieldTypeGalleryComponent('DecimalRange', '18.283,100', '758D9648-573E-4800-B5AF-7CC29F4BE170', {
@@ -282,6 +284,7 @@ export default defineComponent( {
         <DateGallery />
         <DateTimeGallery />
         <DayOfWeekGallery />
+        <DaysOfWeekGallery />
         <DecimalGallery />
         <DecimalRangeGallery />
         <DefinedValueGallery />

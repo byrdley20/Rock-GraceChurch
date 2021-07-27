@@ -20,7 +20,7 @@ import RockButton from '../../Elements/RockButton';
 import { Guid, newGuid } from '../../Util/Guid';
 import RegistrationEntryIntro from './RegistrationEntry/Intro';
 import RegistrationEntryRegistrants from './RegistrationEntry/Registrants';
-import { RegistrantInfo, RegistrantsSameFamily, RegistrarInfo, RegistrationEntryBlockFormViewModel, RegistrationEntryBlockSuccessViewModel, RegistrationEntryBlockViewModel, RegistrationPersonFieldType } from './RegistrationEntry/RegistrationEntryBlockViewModel';
+import { RegistrantInfo, RegistrantsSameFamily, RegistrarInfo, RegistrationEntryBlockFormFieldViewModel, RegistrationEntryBlockFormViewModel, RegistrationEntryBlockSuccessViewModel, RegistrationEntryBlockViewModel, RegistrationPersonFieldType } from './RegistrationEntry/RegistrationEntryBlockViewModel';
 import RegistrationEntryRegistrationStart from './RegistrationEntry/RegistrationStart';
 import RegistrationEntryRegistrationEnd from './RegistrationEntry/RegistrationEnd';
 import RegistrationEntrySummary from './RegistrationEntry/Summary';
@@ -126,7 +126,7 @@ export function getDefaultRegistrantInfo ( currentPerson: Person | null, viewMod
 
 export function getRegistrantBasicInfo ( registrant: RegistrantInfo, registrantForms: RegistrationEntryBlockFormViewModel[] ): RegistrantBasicInfo
 {
-    const fields = registrantForms?.flatMap( f => f.fields ) || [];
+    const fields = registrantForms?.reduce((acc, f) => acc.concat(f.fields), [] as RegistrationEntryBlockFormFieldViewModel[]) || [];
 
     const firstNameGuid = fields.find( f => f.personFieldType === RegistrationPersonFieldType.FirstName )?.guid || '';
     const lastNameGuid = fields.find( f => f.personFieldType === RegistrationPersonFieldType.LastName )?.guid || '';

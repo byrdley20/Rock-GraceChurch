@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="Framework\tsconfig.json" />
+    <Content Include="webpack-eol-plugin.js" />
     <Content Include="webpack.config.js" />
     <None Include="Core\core.ts" />
     <Content Include="package.json" />

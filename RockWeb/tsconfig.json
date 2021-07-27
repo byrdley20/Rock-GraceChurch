@@ -1,21 +1,21 @@
 {
   "compilerOptions": {
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "noEmitOnError": true,
     "removeComments": true,
     "sourceMap": true,
-    "target": "ES2016",
+    "target": "ES2015",
     "module": "System",
     "moduleResolution": "Node",
     "strict": true,
     "lib": [
       "DOM",
-      "ES2016"
+      "ES2015"
     ],
     "allowUnreachableCode": false
   },
   "exclude": [
-    "Obsidian/Tests/**/*"
+    "Obsidian/**/*"
   ],
   "compileOnSave": true
 }

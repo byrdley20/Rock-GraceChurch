@@ -231,7 +231,7 @@ namespace Rock.UI {
         private options: Options;
 
         /** The identifier of the timer that is updating the watch map. */
-        private timerId: NodeJS.Timeout | null = null;
+        private timerId: number | null = null;
 
         /** The core player. */
         private player!: Plyr;
@@ -362,7 +362,7 @@ namespace Rock.UI {
                     hls.currentLevel = -1;
                 }
                 else {
-                    hls.levels.forEach((level, levelIndex) => {
+                    hls.levels.forEach((level: any, levelIndex: any) => {
                         if (level.height === newQuality) {
                             hls.currentLevel = levelIndex;
                         }
@@ -374,7 +374,7 @@ namespace Rock.UI {
             // can finish initializing the player.
             hls.on(Hls.Events.MANIFEST_PARSED, () => {
                 // Transform available levels into an array of integers (height values).
-                const availableQualities = <number[]>hls.levels.map((l) => l.height);
+                const availableQualities = <number[]>hls.levels.map((l: any) => l.height);
 
                 // Add value for "auto".
                 availableQualities.unshift(0);

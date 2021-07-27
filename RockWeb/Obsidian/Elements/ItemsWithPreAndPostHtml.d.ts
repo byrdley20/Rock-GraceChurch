@@ -1,8 +1,8 @@
 import { PropType } from 'vue';
 export declare type ItemWithPreAndPostHtml = {
-    SlotName: string;
-    PreHtml: string;
-    PostHtml: string;
+    slotName: string;
+    preHtml: string;
+    postHtml: string;
 };
 declare const _default: import("vue").DefineComponent<{
     items: {

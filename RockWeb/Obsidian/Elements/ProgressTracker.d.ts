@@ -1,8 +1,8 @@
 import { PropType } from 'vue';
 export interface ProgressTrackerItem {
-    Title: string;
-    Subtitle: string;
-    Key: string;
+    title: string;
+    subtitle: string;
+    key: string;
 }
 declare const ProgressTracker: import("vue").DefineComponent<{
     currentIndex: {

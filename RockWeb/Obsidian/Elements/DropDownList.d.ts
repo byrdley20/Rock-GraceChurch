@@ -1,6 +1,6 @@
 import { PropType } from 'vue';
 export declare type DropDownListOption = {
-    key: string;
+    key?: string;
     value: string;
     text: string;
 };

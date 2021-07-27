@@ -41,8 +41,6 @@ export default interface WorkflowActionForm extends Entity {
     personEntryAutofillCurrentPerson: boolean;
     personEntryBirthdateEntryOption: number;
     personEntryCampusIsVisible: boolean;
-    personEntryCampusStatusValueId: number | null;
-    personEntryCampusTypeValueId: number | null;
     personEntryConnectionStatusValueId: number | null;
     personEntryEmailEntryOption: number;
     personEntryFamilyAttributeGuid: Guid | null;

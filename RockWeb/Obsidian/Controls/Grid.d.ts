@@ -1,15 +1,15 @@
 import { PropType } from 'vue';
 export declare type FilterOptions = {
-    Take: number;
-    Skip: number;
+    take: number;
+    skip: number;
 };
 export declare enum SortDirection {
     Ascending = 0,
     Descending = 1
 }
 export declare type SortProperty = {
-    Property: string;
-    Direction: SortDirection;
+    property: string;
+    direction: SortDirection;
 };
 export declare type GridContext = {
     selectedRowIds: Record<string, boolean>;

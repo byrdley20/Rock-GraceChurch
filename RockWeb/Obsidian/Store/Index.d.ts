@@ -20,10 +20,10 @@ declare module '@vue/runtime-core' {
     }
 }
 export declare type ReportDebugTimingArgs = {
-    Title: string;
-    Subtitle: string;
-    StartTimeMs: number;
-    FinishTimeMs: number;
+    title: string;
+    subtitle: string;
+    startTimeMs: number;
+    finishTimeMs: number;
 };
 declare const _default: Store<RootState>;
 export default _default;

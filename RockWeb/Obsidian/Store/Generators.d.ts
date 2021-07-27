@@ -6,9 +6,9 @@ import { CommonEntity } from './CommonEntities';
 import { Guid } from '../Util/Guid';
 import Entity from '../ViewModels/Entity';
 export declare type CommonEntityOption = {
-    Guid: Guid;
-    Id: number;
-    Text: string;
+    guid: Guid;
+    id: number;
+    text: string;
 };
 export declare function createCommonEntityPicker(entityName: string, getOptionsFunc: () => CommonEntityOption[]): import("vue").DefineComponent<{
     modelValue: {

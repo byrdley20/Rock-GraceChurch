@@ -29,7 +29,6 @@ import { Guid } from '../../Util/Guid';
 export default interface Schedule extends Entity {
     id: number;
     attributes: Record<string, AttributeValue> | null;
-    autoInactivateWhenComplete: boolean;
     categoryId: number | null;
     checkInEndOffsetMinutes: number | null;
     checkInStartOffsetMinutes: number | null;

@@ -4,18 +4,26 @@ declare const _default: import("vue").DefineComponent<{
         type: PropType<number | null>;
         default: null;
     };
+    minimumValue: {
+        type: PropType<number | null>;
+    };
+    maximumValue: {
+        type: PropType<number | null>;
+    };
 }, unknown, {
-    uniqueId: string;
-    internalValue: string;
+    internalValue: number | null;
 }, {
-    internalNumberValue(): number | null;
-}, {
-    onChange(): void;
-}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:modelValue"[], "update:modelValue", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+    placeholder(): string;
+}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:modelValue"[], "update:modelValue", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     modelValue?: unknown;
+    minimumValue?: unknown;
+    maximumValue?: unknown;
 } & {
     modelValue: number | null;
-} & {}>, {
+} & {
+    minimumValue?: number | null | undefined;
+    maximumValue?: number | null | undefined;
+}>, {
     modelValue: number | null;
 }>;
 export default _default;

@@ -7,6 +7,8 @@ export declare function toTitleCase(str: string | null): string;
 export declare function pluralConditional(num: number, singular: string, plural: string): string;
 export declare function formatPhoneNumber(str: string): string;
 export declare function stripPhoneNumber(str: string): string;
+export declare function padLeft(str: string | undefined | null, length: number, padCharacter?: string): string;
+export declare function padRight(str: string | undefined | null, length: number, padCharacter?: string): string;
 declare const _default: {
     asCommaAnd: typeof asCommaAnd;
     splitCamelCase: typeof splitCamelCase;
@@ -17,5 +19,7 @@ declare const _default: {
     pluralConditional: typeof pluralConditional;
     formatPhoneNumber: typeof formatPhoneNumber;
     stripPhoneNumber: typeof stripPhoneNumber;
+    padLeft: typeof padLeft;
+    padRight: typeof padRight;
 };
 export default _default;

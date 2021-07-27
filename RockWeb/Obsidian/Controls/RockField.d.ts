@@ -1,12 +1,24 @@
 import { Component, PropType } from 'vue';
 import '../Fields/BooleanField';
 import '../Fields/ColorField';
+import '../Fields/CurrencyField';
 import '../Fields/DateField';
+import '../Fields/DateTimeField';
+import '../Fields/DayOfWeekField';
+import '../Fields/DaysOfWeekField';
+import '../Fields/DecimalField';
+import '../Fields/DecimalRangeField';
 import '../Fields/DefinedValueField';
+import '../Fields/EmailField';
 import '../Fields/GenderField';
+import '../Fields/IntegerField';
+import '../Fields/IntegerRangeField';
+import '../Fields/MemoField';
+import '../Fields/MonthDayField';
 import '../Fields/SingleSelect';
 import '../Fields/PhoneNumber';
-import '../Fields/MemoField';
+import '../Fields/RatingField';
+import '../Fields/TimeField';
 declare const _default: import("vue").DefineComponent<{
     fieldTypeGuid: {
         type: PropType<string>;

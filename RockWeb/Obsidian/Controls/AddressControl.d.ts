@@ -1,12 +1,12 @@
 import { PropType } from 'vue';
 import { DropDownListOption } from '../Elements/DropDownList';
 export interface AddressControlModel {
-    Street1: string;
-    Street2: string;
-    City: string;
-    State: string;
-    PostalCode: string;
-    Country: string;
+    street1: string;
+    street2: string;
+    city: string;
+    state: string;
+    postalCode: string;
+    country: string;
 }
 export declare function getDefaultAddressControlModel(): AddressControlModel;
 declare const _default: import("vue").DefineComponent<{

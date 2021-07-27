@@ -1,8 +1,8 @@
 import { PropType } from 'vue';
 export interface DatePartsPickerModel {
-    Year: number;
-    Month: number;
-    Day: number;
+    year: number;
+    month: number;
+    day: number;
 }
 export declare function getDefaultDatePartsPickerModel(): DatePartsPickerModel;
 declare const _default: import("vue").DefineComponent<{
@@ -18,6 +18,10 @@ declare const _default: import("vue").DefineComponent<{
         type: PropType<boolean>;
         default: boolean;
     };
+    showYear: {
+        type: PropType<boolean>;
+        default: boolean;
+    };
     allowFutureDates: {
         type: PropType<boolean>;
         default: boolean;
@@ -30,14 +34,24 @@ declare const _default: import("vue").DefineComponent<{
         type: PropType<number>;
         default: number;
     };
-}, unknown, unknown, {
+}, unknown, {
+    internalDay: string;
+    internalMonth: string;
+    internalYear: string;
+    days: string[];
+}, {
+    computedRequireYear(): boolean;
     internalDateKey(): string;
     computedRules(): string;
     years(): number[];
-}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+}, {
+    getValue(): DatePartsPickerModel;
+    updateDays(): void;
+}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     rules?: unknown;
     modelValue?: unknown;
     requireYear?: unknown;
+    showYear?: unknown;
     allowFutureDates?: unknown;
     futureYearCount?: unknown;
     startYear?: unknown;
@@ -45,12 +59,14 @@ declare const _default: import("vue").DefineComponent<{
     rules: string;
     modelValue: DatePartsPickerModel;
     requireYear: boolean;
+    showYear: boolean;
     allowFutureDates: boolean;
     futureYearCount: number;
     startYear: number;
 } & {}>, {
     rules: string;
     requireYear: boolean;
+    showYear: boolean;
     allowFutureDates: boolean;
     futureYearCount: number;
     startYear: number;

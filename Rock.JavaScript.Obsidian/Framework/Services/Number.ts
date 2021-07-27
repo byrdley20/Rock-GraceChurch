@@ -19,7 +19,7 @@
  * Ex: 10001.2 => 10,001.2
  * @param num
  */
-export function asFormattedString ( num: number | null, digits = 2 )
+export function asFormattedString ( num: number | null, digits?: number )
 {
     if ( num === null )
     {
@@ -30,7 +30,7 @@ export function asFormattedString ( num: number | null, digits = 2 )
         'en-US',
         {
             minimumFractionDigits: digits,
-            maximumFractionDigits: digits
+            maximumFractionDigits: digits ?? 9
         }
     );
 }
@@ -52,13 +52,31 @@ export function toNumber ( str: string | null )
  */
 export function toNumberOrNull ( str: string | null )
 {
-    if ( str === null )
-    {
+    if (str === null || str == "") {
         return null;
     }
 
     const replaced = str.replace( /[$,]/g, '' );
-    return Number( replaced ) || 0;
+    const num = Number(replaced);
+
+    return !isNaN(num) ? num : null;
+}
+
+/**
+ * Get a currency value from a string or number. If the number cannot be parsed, then null is returned by default.
+ * Ex: 1000.20 => $1,000.20
+ * @param value The value to be converted to a currency.
+ */
+export function toCurrencyOrNull(value: string | number | null) {
+    if (typeof value === "string") {
+        value = toNumberOrNull(value);
+    }
+
+    if (value === null) {
+        return null;
+    }
+
+    return "$" + asFormattedString(value, 2);
 }
 
 /**

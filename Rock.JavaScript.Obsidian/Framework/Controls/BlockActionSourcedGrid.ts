@@ -21,8 +21,8 @@ import { InvokeBlockActionFunc } from './RockBlock';
 
 interface BlockActionGridResponse
 {
-    TotalCount: number,
-    CurrentPageData: RowData[]
+    totalCount: number,
+    currentPageData: RowData[]
 }
 
 export default defineComponent( {
@@ -55,8 +55,8 @@ export default defineComponent( {
             isLoading: false,
             errorMessage: '',
             sortProperty: {
-                Direction: SortDirection.Ascending,
-                Property: this.rowIdKey
+                direction: SortDirection.Ascending,
+                property: this.rowIdKey
             } as SortProperty,
             currentPageData: [] as RowData[]
         };
@@ -64,7 +64,7 @@ export default defineComponent( {
     computed: {
         sortString (): string
         {
-            return `${this.sortProperty.Property} ${this.sortProperty.Direction}`;
+            return `${this.sortProperty.property} ${this.sortProperty.direction}`;
         }
     },
     methods: {
@@ -82,16 +82,16 @@ export default defineComponent( {
             {
                 const result = await this.invokeBlockAction<BlockActionGridResponse>( this.blockActionName, {
                     filterOptions: {
-                        Take: this.pageSize,
-                        Skip: (this.currentPageIndex - 1) * this.pageSize
+                        take: this.pageSize,
+                        skip: (this.currentPageIndex - 1) * this.pageSize
                     } as FilterOptions,
                     sortProperty: this.sortProperty
                 } );
 
-                if ( result.data && result.data.CurrentPageData )
+                if ( result.data && result.data.currentPageData )
                 {
-                    this.currentPageData = result.data.CurrentPageData;
-                    this.totalRowCount = result.data.TotalCount;
+                    this.currentPageData = result.data.currentPageData;
+                    this.totalRowCount = result.data.totalCount;
                 }
                 else
                 {

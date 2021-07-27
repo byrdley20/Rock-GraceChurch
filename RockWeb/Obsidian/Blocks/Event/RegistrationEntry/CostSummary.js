@@ -103,7 +103,7 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
                 computed: {
                     augmentedLineItems: function () {
                         var _this = this;
-                        return this.lineItems.map(function (li) { return (__assign(__assign({}, li), { IsFee: li.Type === RegistrationCostSummaryType.Fee, DiscountHelp: (_this.hasDiscount && li.Cost === li.DiscountedCost) ? 'This item is not eligible for the discount.' : '', AmountFormatted: Number_1.asFormattedString(li.Cost), DiscountedAmountFormatted: Number_1.asFormattedString(li.DiscountedCost) })); });
+                        return this.lineItems.map(function (li) { return (__assign(__assign({}, li), { IsFee: li.Type === RegistrationCostSummaryType.Fee, DiscountHelp: (_this.hasDiscount && li.Cost === li.DiscountedCost) ? 'This item is not eligible for the discount.' : '', AmountFormatted: Number_1.asFormattedString(li.Cost, 2), DiscountedAmountFormatted: Number_1.asFormattedString(li.DiscountedCost, 2) })); });
                     },
                     hasDiscount: function () {
                         return this.lineItems.some(function (li) { return li.DiscountedCost !== li.Cost; });
@@ -114,7 +114,7 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
                         return total;
                     },
                     totalFormatted: function () {
-                        return "$" + Number_1.asFormattedString(this.total);
+                        return "$" + Number_1.asFormattedString(this.total, 2);
                     },
                     defaultPaymentAmount: function () {
                         var total = 0;
@@ -143,7 +143,7 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
                         return total;
                     },
                     discountedTotalFormatted: function () {
-                        return "$" + Number_1.asFormattedString(this.discountedTotal);
+                        return "$" + Number_1.asFormattedString(this.discountedTotal, 2);
                     },
                     amountDueToday: function () {
                         if (this.amountPreviouslyPaid) {
@@ -154,7 +154,7 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
                         return total;
                     },
                     amountDueTodayFormatted: function () {
-                        return "$" + Number_1.asFormattedString(this.amountDueToday);
+                        return "$" + Number_1.asFormattedString(this.amountDueToday, 2);
                     },
                     showAmountDueToday: function () {
                         return this.amountDueToday !== this.discountedTotal;
@@ -164,7 +164,7 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
                         return ((_a = this.registrationEntryState.ViewModel.session) === null || _a === void 0 ? void 0 : _a.previouslyPaid) || 0;
                     },
                     amountPreviouslyPaidFormatted: function () {
-                        return "$" + Number_1.asFormattedString(this.amountPreviouslyPaid);
+                        return "$" + Number_1.asFormattedString(this.amountPreviouslyPaid, 2);
                     },
                     maxAmountCanBePaid: function () {
                         var balance = this.discountedTotal - this.amountPreviouslyPaid;
@@ -174,7 +174,7 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
                         return 0;
                     },
                     maxAmountCanBePaidFormatted: function () {
-                        return "$" + Number_1.asFormattedString(this.maxAmountCanBePaid);
+                        return "$" + Number_1.asFormattedString(this.maxAmountCanBePaid, 2);
                     },
                     amountRemaining: function () {
                         var actual = this.maxAmountCanBePaid - this.registrationEntryState.AmountToPayToday;
@@ -182,7 +182,7 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
                         return bounded;
                     },
                     amountRemainingFormatted: function () {
-                        return "$" + Number_1.asFormattedString(this.amountRemaining);
+                        return "$" + Number_1.asFormattedString(this.amountRemaining, 2);
                     },
                     amountToPayTodayRules: function () {
                         var rules = ['required'];

@@ -82,6 +82,9 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
             }));
             vee_validate_1.defineRule('gt', (function (value, _a) {
                 var compare = _a[0];
+                if (String_1.isNullOrWhitespace(value)) {
+                    return true;
+                }
                 if (isNumeric(value) && isNumeric(compare)) {
                     if (convertToNumber(value) > convertToNumber(compare)) {
                         return true;
@@ -94,6 +97,9 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
             }));
             vee_validate_1.defineRule('gte', (function (value, _a) {
                 var compare = _a[0];
+                if (String_1.isNullOrWhitespace(value)) {
+                    return true;
+                }
                 if (isNumeric(value) && isNumeric(compare)) {
                     if (convertToNumber(value) >= convertToNumber(compare)) {
                         return true;
@@ -106,6 +112,9 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
             }));
             vee_validate_1.defineRule('lt', (function (value, _a) {
                 var compare = _a[0];
+                if (String_1.isNullOrWhitespace(value)) {
+                    return true;
+                }
                 if (isNumeric(value) && isNumeric(compare)) {
                     if (convertToNumber(value) < convertToNumber(compare)) {
                         return true;
@@ -118,6 +127,9 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
             }));
             vee_validate_1.defineRule('lte', (function (value, _a) {
                 var compare = _a[0];
+                if (String_1.isNullOrWhitespace(value)) {
+                    return true;
+                }
                 if (isNumeric(value) && isNumeric(compare)) {
                     if (convertToNumber(value) <= convertToNumber(compare)) {
                         return true;
@@ -140,6 +152,33 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
                     return 'must have a day';
                 }
                 return true;
+            }));
+            vee_validate_1.defineRule("integer", (function (value, params) {
+                if (String_1.isNullOrWhitespace(value)) {
+                    return true;
+                }
+                if (/^-?[0-9]+$/.test(String(value))) {
+                    return true;
+                }
+                return "must be an integer value.";
+            }));
+            vee_validate_1.defineRule("decimal", (function (value, params) {
+                if (String_1.isNullOrWhitespace(value)) {
+                    return true;
+                }
+                if (/^-?[0-9]+(\.[0-9]+)?$/.test(String(value))) {
+                    return true;
+                }
+                return "must be a decimal value.";
+            }));
+            vee_validate_1.defineRule("ssn", (function (value, params) {
+                if (String_1.isNullOrWhitespace(value)) {
+                    return true;
+                }
+                if (/^[0-9]{3}\-[0-9]{2}\-[0-9]{4}$/.test(String(value))) {
+                    return true;
+                }
+                return "must be a valid social security number";
             }));
             convertToNumber = function (value) {
                 if (typeof value === 'number') {

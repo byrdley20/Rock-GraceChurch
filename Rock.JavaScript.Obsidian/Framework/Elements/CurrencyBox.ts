@@ -15,67 +15,65 @@
 // </copyright>
 //
 
-import { asFormattedString, toNumberOrNull } from '../Services/Number';
 import { defineComponent, PropType } from 'vue';
-import { newGuid } from '../Util/Guid';
-import RockFormField from './RockFormField';
+import NumberBox from './NumberBox';
 
 export default defineComponent({
     name: 'CurrencyBox',
     components: {
-        RockFormField
+        NumberBox
     },
     props: {
         modelValue: {
             type: Number as PropType<number | null>,
             default: null
-        }
+        },
+
+        /** The minimum allowed value to be entered. */
+        minimumValue: {
+            type: Number as PropType<number | null>
+        },
+
+        maximumValue: {
+            type: Number as PropType<number | null>
+        },
     },
     emits: [
         'update:modelValue'
     ],
     data: function () {
         return {
-            uniqueId: `rock-currencybox-${newGuid()}`,
-            internalValue: ''
+            internalValue: null as number | null
         };
     },
-    methods: {
-        onChange() {
-            this.internalValue = asFormattedString(this.modelValue);
-        }
-    },
     computed: {
-        internalNumberValue(): number | null {
-            return toNumberOrNull(this.internalValue);
+        placeholder(): string {
+            return "0.00";
         }
     },
     watch: {
-        internalNumberValue() {
-            this.$emit('update:modelValue', this.internalNumberValue);
+        internalValue() {
+            this.$emit('update:modelValue', this.internalValue);
         },
         modelValue: {
             immediate: true,
             handler() {
-                if (this.modelValue !== this.internalNumberValue) {
-                    this.internalValue = asFormattedString(this.modelValue);
+                if (this.modelValue !== this.internalValue) {
+                    this.internalValue = this.modelValue;
                 }
             }
         }
     },
     template: `
-<RockFormField
-    v-model="internalValue"
-    @change="onChange"
-    formGroupClasses="rock-currency-box"
-    name="currencybox">
-    <template #default="{uniqueId, field, errors, disabled, inputGroupClasses}">
-        <div class="control-wrapper">
-            <div class="input-group" :class="inputGroupClasses">
-                <span class="input-group-addon">$</span>
-                <input :id="uniqueId" type="text" class="form-control" v-bind="field" :disabled="disabled" />
-            </div>
-        </div>
+<NumberBox v-model="internalValue"
+    :placeholder="placeholder"
+    :minimum-value="minimumValue"
+    :maximum-value="maximumValue"
+    :decimal-count="2"
+    rules="decimal">
+    <template v-slot:prepend>
+        <span class="input-group-addon">$</span>
     </template>
-</RockFormField>`
+</NumberBox>
+`
 });

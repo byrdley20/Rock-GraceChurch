@@ -1,6 +1,6 @@
-System.register(["../../Templates/PaneledBlockTemplate", "../../Controls/DefinedTypePicker", "../../Controls/DefinedValuePicker", "../../Controls/CampusPicker", "vue", "../../Store/Index", "../../Elements/TextBox", "../../Elements/EmailBox", "../../Elements/CurrencyBox", "../../Elements/PanelWidget", "../../Elements/DatePicker", "../../Elements/BirthdayPicker", "../../Elements/NumberUpDown", "../../Controls/AddressControl", "../../Elements/Toggle", "../../Elements/ItemsWithPreAndPostHtml", "../../Elements/StaticFormControl", "../../Elements/ProgressTracker", "../../Controls/RockForm", "../../Elements/RockButton", "../../Elements/RadioButtonList", "../../Elements/DropDownList", "../../Controls/Dialog", "../../Elements/CheckBox", "../../Elements/PhoneNumberBox", "../../Elements/HelpBlock", "../../Elements/DatePartsPicker", "../../Elements/ColorPicker"], function (exports_1, context_1) {
+System.register(["../../Templates/PaneledBlockTemplate", "../../Controls/DefinedTypePicker", "../../Controls/DefinedValuePicker", "../../Controls/CampusPicker", "vue", "../../Store/Index", "../../Elements/TextBox", "../../Elements/EmailBox", "../../Elements/CurrencyBox", "../../Elements/PanelWidget", "../../Elements/DatePicker", "../../Elements/DateTimePicker", "../../Elements/BirthdayPicker", "../../Elements/NumberUpDown", "../../Controls/AddressControl", "../../Elements/Toggle", "../../Elements/ItemsWithPreAndPostHtml", "../../Elements/StaticFormControl", "../../Elements/ProgressTracker", "../../Controls/RockForm", "../../Elements/RockButton", "../../Elements/RadioButtonList", "../../Elements/DropDownList", "../../Controls/Dialog", "../../Elements/CheckBox", "../../Elements/PhoneNumberBox", "../../Elements/HelpBlock", "../../Elements/DatePartsPicker", "../../Elements/ColorPicker", "../../Elements/NumberBox", "../../Elements/NumberRangeBox", "../../Elements/GenderDropDownList", "../../Elements/SocialSecurityNumberBox", "../../Elements/TimePicker", "../../Elements/CheckBoxList", "../../Elements/Rating", "../../Services/Number"], function (exports_1, context_1) {
     "use strict";
-    var PaneledBlockTemplate_1, DefinedTypePicker_1, DefinedValuePicker_1, CampusPicker_1, vue_1, Index_1, TextBox_1, EmailBox_1, CurrencyBox_1, PanelWidget_1, DatePicker_1, BirthdayPicker_1, NumberUpDown_1, AddressControl_1, Toggle_1, ItemsWithPreAndPostHtml_1, StaticFormControl_1, ProgressTracker_1, RockForm_1, RockButton_1, RadioButtonList_1, DropDownList_1, Dialog_1, CheckBox_1, PhoneNumberBox_1, HelpBlock_1, DatePartsPicker_1, ColorPicker_1, GalleryAndResult, PhoneNumberBoxGallery, HelpBlockGallery, DropDownListGallery, RadioButtonListGallery, CheckBoxGallery, DialogGallery, FormRulesGallery, DatePickerGallery, DatePartsPickerGallery, TextBoxGallery, DefinedTypeAndValueGallery, ColorPickerGallery;
+    var PaneledBlockTemplate_1, DefinedTypePicker_1, DefinedValuePicker_1, CampusPicker_1, vue_1, Index_1, TextBox_1, EmailBox_1, CurrencyBox_1, PanelWidget_1, DatePicker_1, DateTimePicker_1, BirthdayPicker_1, NumberUpDown_1, AddressControl_1, Toggle_1, ItemsWithPreAndPostHtml_1, StaticFormControl_1, ProgressTracker_1, RockForm_1, RockButton_1, RadioButtonList_1, DropDownList_1, Dialog_1, CheckBox_1, PhoneNumberBox_1, HelpBlock_1, DatePartsPicker_1, ColorPicker_1, NumberBox_1, NumberRangeBox_1, GenderDropDownList_1, SocialSecurityNumberBox_1, TimePicker_1, CheckBoxList_1, Rating_1, Number_1, GalleryAndResult, PhoneNumberBoxGallery, HelpBlockGallery, DropDownListGallery, RadioButtonListGallery, CheckBoxGallery, DialogGallery, FormRulesGallery, CheckBoxListGallery, DatePickerGallery, DateTimePickerGallery, DatePartsPickerGallery, TextBoxGallery, DefinedTypeAndValueGallery, ColorPickerGallery, NumberBoxGallery, NumberRangeBoxGallery, GenderDropDownListGallery, SocialSecurityNumberBoxGallery, TimePickerGallery, RatingGallery;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -36,6 +36,9 @@ System.register(["../../Templates/PaneledBlockTemplate", "../../Controls/Defined
             },
             function (DatePicker_1_1) {
                 DatePicker_1 = DatePicker_1_1;
+            },
+            function (DateTimePicker_1_1) {
+                DateTimePicker_1 = DateTimePicker_1_1;
             },
             function (BirthdayPicker_1_1) {
                 BirthdayPicker_1 = BirthdayPicker_1_1;
@@ -87,6 +90,30 @@ System.register(["../../Templates/PaneledBlockTemplate", "../../Controls/Defined
             },
             function (ColorPicker_1_1) {
                 ColorPicker_1 = ColorPicker_1_1;
+            },
+            function (NumberBox_1_1) {
+                NumberBox_1 = NumberBox_1_1;
+            },
+            function (NumberRangeBox_1_1) {
+                NumberRangeBox_1 = NumberRangeBox_1_1;
+            },
+            function (GenderDropDownList_1_1) {
+                GenderDropDownList_1 = GenderDropDownList_1_1;
+            },
+            function (SocialSecurityNumberBox_1_1) {
+                SocialSecurityNumberBox_1 = SocialSecurityNumberBox_1_1;
+            },
+            function (TimePicker_1_1) {
+                TimePicker_1 = TimePicker_1_1;
+            },
+            function (CheckBoxList_1_1) {
+                CheckBoxList_1 = CheckBoxList_1_1;
+            },
+            function (Rating_1_1) {
+                Rating_1 = Rating_1_1;
+            },
+            function (Number_1_1) {
+                Number_1 = Number_1_1;
             }
         ],
         execute: function () {
@@ -218,6 +245,24 @@ System.register(["../../Templates/PaneledBlockTemplate", "../../Controls/Defined
                 },
                 template: "\n<GalleryAndResult :splitWidth=\"false\">\n    <template #header>\n        Rules\n    </template>\n    <template #gallery>\n        <TextBox label=\"Rules\" v-model=\"rules\" help=\"Try 'required', 'gte:1', 'lt:2', and others. Combine rules like this: 'required|lt:7|gt:6'\" />\n        <hr />\n        <RockForm>\n            <TextBox label=\"Text\" v-model=\"ruleTestText\" :rules=\"rules\" />\n            <CurrencyBox label=\"Currency\" v-model=\"ruleTestCurrency\" :rules=\"rules\" />\n            <RockButton btnType=\"primary\" type=\"submit\">Test</RockButton>\n        </RockForm>\n    </template>\n</GalleryAndResult>"
             });
+            CheckBoxListGallery = vue_1.defineComponent({
+                name: 'CheckBoxListGallery',
+                components: {
+                    GalleryAndResult: GalleryAndResult,
+                    CheckBoxList: CheckBoxList_1.default
+                },
+                data: function () {
+                    return {
+                        options: [
+                            { value: "red", text: "Red" },
+                            { value: "green", text: "Green" },
+                            { value: "blue", text: "Blue" }
+                        ],
+                        items: ["green"]
+                    };
+                },
+                template: "\n<GalleryAndResult>\n    <template #header>\n        CheckBoxList\n    </template>\n    <template #gallery>\n        <CheckBoxList label=\"CheckBoxList 1\" v-model=\"items\" :options=\"options\" />\n        <CheckBoxList label=\"CheckBoxList 2\" v-model=\"items\" :options=\"options\" />\n    </template>\n    <template #result>\n        Items: {{JSON.stringify(items, null, 2)}}\n    </template>\n</GalleryAndResult>"
+            });
             DatePickerGallery = vue_1.defineComponent({
                 name: 'DatePickerGallery',
                 components: {
@@ -232,24 +277,38 @@ System.register(["../../Templates/PaneledBlockTemplate", "../../Controls/Defined
                 },
                 template: "\n<GalleryAndResult>\n    <template #header>\n        DatePicker\n    </template>\n    <template #gallery>\n        <DatePicker label=\"Date 1\" v-model=\"date\" />\n        <DatePicker label=\"Date 2\" v-model=\"date\" />\n        <DatePicker label=\"Current Date 1\" v-model=\"currentDate\" displayCurrentOption isCurrentDateOffset />\n        <DatePicker label=\"Current Date 2\" v-model=\"currentDate\" displayCurrentOption isCurrentDateOffset />\n    </template>\n    <template #result>\n        Date: {{JSON.stringify(date, null, 2)}}\n        <br />\n        Current Date: {{JSON.stringify(currentDate, null, 2)}}\n    </template>\n</GalleryAndResult>"
             });
+            DateTimePickerGallery = vue_1.defineComponent({
+                name: 'DatePickerGallery',
+                components: {
+                    GalleryAndResult: GalleryAndResult,
+                    DateTimePicker: DateTimePicker_1.default
+                },
+                data: function () {
+                    return {
+                        date: null
+                    };
+                },
+                template: "\n<GalleryAndResult>\n    <template #header>\n        DateTimePicker\n    </template>\n    <template #gallery>\n        <DateTimePicker label=\"Date 1\" v-model=\"date\" />\n        <DateTimePicker label=\"Date 2\" v-model=\"date\" />\n    </template>\n    <template #result>\n        Date: {{JSON.stringify(date, null, 2)}}\n    </template>\n</GalleryAndResult>"
+            });
             DatePartsPickerGallery = vue_1.defineComponent({
                 name: 'DatePartsPickerGallery',
                 components: {
                     GalleryAndResult: GalleryAndResult,
-                    DatePicker: DatePicker_1.default,
+                    Toggle: Toggle_1.default,
                     BirthdayPicker: BirthdayPicker_1.default,
                     DatePartsPicker: DatePartsPicker_1.default
                 },
                 data: function () {
                     return {
+                        showYear: true,
                         datePartsModel: {
-                            Month: 1,
-                            Day: 1,
-                            Year: 2020
+                            month: 1,
+                            day: 1,
+                            year: 2020
                         }
                     };
                 },
-                template: "\n<GalleryAndResult>\n    <template #header>\n        DatePartsPicker\n    </template>\n    <template #gallery>\n        <DatePartsPicker label=\"DatePartsPicker 1\" v-model=\"datePartsModel\" />\n        <DatePartsPicker label=\"DatePartsPicker 2\" v-model=\"datePartsModel\" />\n    </template>\n    <template #result>\n        {{datePartsModel.Month}} / {{datePartsModel.Day}} / {{datePartsModel.Year}}\n    </template>\n</GalleryAndResult>"
+                template: "\n<GalleryAndResult>\n    <template #header>\n        DatePartsPicker\n    </template>\n    <template #gallery>\n        <Toggle label=\"Show Year\" v-model=\"showYear\" />\n        <DatePartsPicker label=\"DatePartsPicker 1\" v-model=\"datePartsModel\" :showYear=\"showYear\" />\n        <DatePartsPicker label=\"DatePartsPicker 2\" v-model=\"datePartsModel\" :showYear=\"showYear\" />\n    </template>\n    <template #result>\n        <span>{{datePartsModel.month}} / {{datePartsModel.day}}</span><span v-if=\"showYear\"> / {{datePartsModel.year}}</span>\n    </template>\n</GalleryAndResult>"
             });
             TextBoxGallery = vue_1.defineComponent({
                 name: 'TextBoxGallery',
@@ -310,6 +369,112 @@ System.register(["../../Templates/PaneledBlockTemplate", "../../Controls/Defined
                 },
                 template: "\n<GalleryAndResult>\n    <template #header>\n        ColorPicker\n    </template>\n    <template #gallery>\n        <ColorPicker label=\"Color\" v-model=\"value\" />\n    </template>\n    <template #result>\n        {{value}}\n    </template>\n</GalleryAndResult>"
             });
+            NumberBoxGallery = vue_1.defineComponent({
+                name: 'NumberBoxGallery',
+                components: {
+                    GalleryAndResult: GalleryAndResult,
+                    RockForm: RockForm_1.default,
+                    RockButton: RockButton_1.default,
+                    TextBox: TextBox_1.default,
+                    NumberBox: NumberBox_1.default
+                },
+                data: function () {
+                    return {
+                        minimumValue: '0',
+                        maximumValue: '100',
+                        value: 42,
+                    };
+                },
+                computed: {
+                    numericMinimumValue: function () {
+                        return Number_1.toNumber(this.minimumValue);
+                    },
+                    numericMaximumValue: function () {
+                        return Number_1.toNumber(this.maximumValue);
+                    }
+                },
+                template: "\n<GalleryAndResult>\n    <template #header>\n        NumberBox\n    </template>\n    <template #gallery>\n        <TextBox label=\"Minimum Value\" v-model=\"minimumValue\" />\n        <TextBox label=\"Maximum Value\" v-model=\"maximumValue\" />\n        <RockForm>\n            <NumberBox label=\"Number\" v-model=\"value\" :minimumValue=\"numericMinimumValue\" :maximumValue=\"numericMaximumValue\" />\n            <RockButton btnType=\"primary\" type=\"submit\">Test</RockButton>\n        </RockForm>\n    </template>\n    <template #result>\n        {{value}}\n    </template>\n</GalleryAndResult>"
+            });
+            NumberRangeBoxGallery = vue_1.defineComponent({
+                name: 'NumberRangeBoxGallery',
+                components: {
+                    GalleryAndResult: GalleryAndResult,
+                    RockForm: RockForm_1.default,
+                    RockButton: RockButton_1.default,
+                    TextBox: TextBox_1.default,
+                    NumberRangeBox: NumberRangeBox_1.default
+                },
+                data: function () {
+                    return {
+                        value: { lower: 0, upper: 100 },
+                    };
+                },
+                template: "\n<GalleryAndResult>\n    <template #header>\n        NumberRangeBox\n    </template>\n    <template #gallery>\n        <RockForm>\n            <NumberRangeBox label=\"Number Range\" v-model=\"value\" />\n            <RockButton btnType=\"primary\" type=\"submit\">Test</RockButton>\n        </RockForm>\n    </template>\n    <template #result>\n        {{value.lower}} to {{value.upper}}\n    </template>\n</GalleryAndResult>"
+            });
+            GenderDropDownListGallery = vue_1.defineComponent({
+                name: 'GenderDropDownListGallery',
+                components: {
+                    GalleryAndResult: GalleryAndResult,
+                    RockForm: RockForm_1.default,
+                    RockButton: RockButton_1.default,
+                    TextBox: TextBox_1.default,
+                    GenderDropDownList: GenderDropDownList_1.default
+                },
+                data: function () {
+                    return {
+                        value: '1',
+                    };
+                },
+                template: "\n<GalleryAndResult>\n    <template #header>\n        GenderDropDownList\n    </template>\n    <template #gallery>\n        <RockForm>\n            <GenderDropDownList label=\"Your Gender\" v-model=\"value\" />\n            <RockButton btnType=\"primary\" type=\"submit\">Test</RockButton>\n        </RockForm>\n    </template>\n    <template #result>\n        {{value}}\n    </template>\n</GalleryAndResult>"
+            });
+            SocialSecurityNumberBoxGallery = vue_1.defineComponent({
+                name: 'SocialSecurityNumberBoxGallery',
+                components: {
+                    GalleryAndResult: GalleryAndResult,
+                    RockForm: RockForm_1.default,
+                    RockButton: RockButton_1.default,
+                    TextBox: TextBox_1.default,
+                    SocialSecurityNumberBox: SocialSecurityNumberBox_1.default
+                },
+                data: function () {
+                    return {
+                        value: '123-45-6789',
+                    };
+                },
+                template: "\n<GalleryAndResult>\n    <template #header>\n        SocialSecurityNumberBox\n    </template>\n    <template #gallery>\n        <RockForm>\n            <SocialSecurityNumberBox label=\"SSN\" v-model=\"value\" />\n            <RockButton btnType=\"primary\" type=\"submit\">Test</RockButton>\n        </RockForm>\n    </template>\n    <template #result>\n        {{value}}\n    </template>\n</GalleryAndResult>"
+            });
+            TimePickerGallery = vue_1.defineComponent({
+                name: 'TimePickerGallery',
+                components: {
+                    GalleryAndResult: GalleryAndResult,
+                    RockForm: RockForm_1.default,
+                    RockButton: RockButton_1.default,
+                    TextBox: TextBox_1.default,
+                    TimePicker: TimePicker_1.default
+                },
+                data: function () {
+                    return {
+                        value: { hour: 14, minute: 15 },
+                    };
+                },
+                template: "\n<GalleryAndResult>\n    <template #header>\n        TimePicker\n    </template>\n    <template #gallery>\n        <RockForm>\n            <TimePicker label=\"Time\" v-model=\"value\" />\n            <RockButton btnType=\"primary\" type=\"submit\">Test</RockButton>\n        </RockForm>\n    </template>\n    <template #result>\n        {{value.hour}}:{{value.minute}}\n    </template>\n</GalleryAndResult>"
+            });
+            RatingGallery = vue_1.defineComponent({
+                name: 'RatingGallery',
+                components: {
+                    GalleryAndResult: GalleryAndResult,
+                    RockForm: RockForm_1.default,
+                    NumberBox: NumberBox_1.default,
+                    Rating: Rating_1.default
+                },
+                data: function () {
+                    return {
+                        value: 3,
+                        maximumValue: 5
+                    };
+                },
+                template: "\n<GalleryAndResult>\n    <template #header>\n        Rating\n    </template>\n    <template #gallery>\n        <NumberBox label=\"Maximum Rating\" v-model=\"maximumValue\" />\n        <RockForm>\n            <Rating label=\"Time\" v-model=\"value\" :maxRating=\"maximumValue || 5\" />\n        </RockForm>\n    </template>\n    <template #result>\n        {{value}}\n    </template>\n</GalleryAndResult>"
+            });
             exports_1("default", vue_1.defineComponent({
                 name: 'Example.ControlGallery',
                 components: {
@@ -321,6 +486,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "../../Controls/Defined
                     CurrencyBox: CurrencyBox_1.default,
                     EmailBox: EmailBox_1.default,
                     DatePickerGallery: DatePickerGallery,
+                    DateTimePickerGallery: DateTimePickerGallery,
                     DatePartsPickerGallery: DatePartsPickerGallery,
                     NumberUpDown: NumberUpDown_1.default,
                     AddressControl: AddressControl_1.default,
@@ -333,12 +499,19 @@ System.register(["../../Templates/PaneledBlockTemplate", "../../Controls/Defined
                     RadioButtonListGallery: RadioButtonListGallery,
                     DialogGallery: DialogGallery,
                     CheckBoxGallery: CheckBoxGallery,
+                    CheckBoxListGallery: CheckBoxListGallery,
                     PhoneNumberBoxGallery: PhoneNumberBoxGallery,
                     DropDownListGallery: DropDownListGallery,
                     HelpBlockGallery: HelpBlockGallery,
                     FormRulesGallery: FormRulesGallery,
                     DefinedTypeAndValueGallery: DefinedTypeAndValueGallery,
-                    ColorPickerGallery: ColorPickerGallery
+                    ColorPickerGallery: ColorPickerGallery,
+                    NumberBoxGallery: NumberBoxGallery,
+                    NumberRangeBoxGallery: NumberRangeBoxGallery,
+                    GenderDropDownListGallery: GenderDropDownListGallery,
+                    SocialSecurityNumberBoxGallery: SocialSecurityNumberBoxGallery,
+                    TimePickerGallery: TimePickerGallery,
+                    RatingGallery: RatingGallery
                 },
                 data: function () {
                     return {
@@ -349,21 +522,21 @@ System.register(["../../Templates/PaneledBlockTemplate", "../../Controls/Defined
                         address: AddressControl_1.getDefaultAddressControlModel(),
                         toggle: false,
                         prePostHtmlItems: [
-                            { PreHtml: '<div class="row"><div class="col-sm-6">', PostHtml: '</div>', SlotName: 'item1' },
-                            { PreHtml: '<div class="col-sm-6">', PostHtml: '</div></div>', SlotName: 'item2' }
+                            { preHtml: '<div class="row"><div class="col-sm-6">', postHtml: '</div>', slotName: 'item1' },
+                            { preHtml: '<div class="col-sm-6">', postHtml: '</div></div>', slotName: 'item2' }
                         ],
                         progressTrackerIndex: 0,
                         progressTrackerItems: [
-                            { Key: 'S', Title: 'Start', Subtitle: 'The beginning' },
-                            { Key: '1', Title: 'Step 1', Subtitle: 'The first step' },
-                            { Key: '2', Title: 'Step 2', Subtitle: 'The second step' },
-                            { Key: '3', Title: 'Step 3', Subtitle: 'The third step' },
-                            { Key: '4', Title: 'Step 4', Subtitle: 'The fourth step' },
-                            { Key: '5', Title: 'Step 5', Subtitle: 'The fifth step' },
-                            { Key: '6', Title: 'Step 6', Subtitle: 'The sixth step' },
-                            { Key: '7', Title: 'Step 7', Subtitle: 'The seventh step' },
-                            { Key: '8', Title: 'Step 8', Subtitle: 'The eighth step' },
-                            { Key: 'F', Title: 'Finish', Subtitle: 'The finish' }
+                            { key: 'S', title: 'Start', subtitle: 'The beginning' },
+                            { key: '1', title: 'Step 1', subtitle: 'The first step' },
+                            { key: '2', title: 'Step 2', subtitle: 'The second step' },
+                            { key: '3', title: 'Step 3', subtitle: 'The third step' },
+                            { key: '4', title: 'Step 4', subtitle: 'The fourth step' },
+                            { key: '5', title: 'Step 5', subtitle: 'The fifth step' },
+                            { key: '6', title: 'Step 6', subtitle: 'The sixth step' },
+                            { key: '7', title: 'Step 7', subtitle: 'The seventh step' },
+                            { key: '8', title: 'Step 8', subtitle: 'The eighth step' },
+                            { key: 'F', title: 'Finish', subtitle: 'The finish' }
                         ]
                     };
                 },
@@ -379,7 +552,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "../../Controls/Defined
                         return this.campus ? this.campus.id : null;
                     }
                 },
-                template: "\n<PaneledBlockTemplate>\n    <template v-slot:title>\n        <i class=\"fa fa-flask\"></i>\n        Obsidian Control Gallery\n    </template>\n    <template v-slot:default>\n        <TextBoxGallery />\n        <DatePickerGallery />\n        <GalleryAndResult>\n            <template #header>\n                CurrencyBox\n            </template>\n            <template #gallery>\n                <CurrencyBox label=\"Currency 1\" v-model=\"currency\" />\n                <CurrencyBox label=\"Currency 2\" v-model=\"currency\" />\n            </template>\n            <template #result>\n                {{currency}}\n            </template>\n        </GalleryAndResult>\n        <GalleryAndResult>\n            <template #header>\n                EmailBox\n            </template>\n            <template #gallery>\n                <EmailBox label=\"EmailBox 1\" v-model=\"email\" />\n                <EmailBox label=\"EmailBox 2\" v-model=\"email\" />\n            </template>\n            <template #result>\n                {{email}}\n            </template>\n        </GalleryAndResult>\n        <DatePartsPickerGallery />\n        <DefinedTypeAndValueGallery />\n        <GalleryAndResult>\n            <template #header>\n                CampusPicker\n            </template>\n            <template #gallery>\n                <CampusPicker v-model=\"campusGuid\" />\n                <CampusPicker v-model=\"campusGuid\" label=\"Campus 2\" />\n            </template>\n            <template #result>\n                <p>\n                    <strong>Campus Guid</strong>\n                    {{campusGuid}}\n                    <span v-if=\"campusName\">({{campusName}})</span>\n                </p>\n                <p>\n                    <strong>Campus Id</strong>\n                    {{campusId}}\n                </p>\n            </template>\n        </GalleryAndResult>\n        <GalleryAndResult>\n            <template #header>\n                NumberUpDown\n            </template>\n            <template #gallery>\n                <NumberUpDown label=\"NumberUpDown 1\" v-model=\"numberUpDown\" />\n                <NumberUpDown label=\"NumberUpDown 2\" v-model=\"numberUpDown\" />\n            </template>\n            <template #result>\n                {{numberUpDown}}\n            </template>\n        </GalleryAndResult>\n        <GalleryAndResult>\n            <template #header>\n                StaticFormControl\n            </template>\n            <template #gallery>\n                <StaticFormControl label=\"StaticFormControl 1\" v-model=\"numberUpDown\" />\n                <StaticFormControl label=\"StaticFormControl 2\" v-model=\"numberUpDown\" />\n            </template>\n            <template #result>\n                {{numberUpDown}}\n            </template>\n        </GalleryAndResult>\n        <GalleryAndResult>\n            <template #header>\n                AddressControl\n            </template>\n            <template #gallery>\n                <AddressControl v-model=\"address\" />\n                <AddressControl label=\"Address 2\" v-model=\"address\" />\n            </template>\n            <template #result>\n                <pre>{{JSON.stringify(address, null, 2)}}</pre>\n            </template>\n        </GalleryAndResult>\n        <GalleryAndResult>\n            <template #header>\n                Toggle\n            </template>\n            <template #gallery>\n                <Toggle label=\"Toggle 1\" v-model=\"toggle\" />\n                <Toggle label=\"Toggle 2\" v-model=\"toggle\" />\n            </template>\n            <template #result>\n                {{toggle}}\n            </template>\n        </GalleryAndResult>\n        <GalleryAndResult>\n            <template #header>\n                ItemsWithPreAndPostHtml\n            </template>\n            <template #gallery>\n                <TextBox label=\"Item 1 - Pre Html\" v-model=\"prePostHtmlItems[0].PreHtml\" />\n                <TextBox label=\"Item 1 - Post Html\" v-model=\"prePostHtmlItems[0].PostHtml\" />\n                <TextBox label=\"Item 2 - Pre Html\" v-model=\"prePostHtmlItems[1].PreHtml\" />\n                <TextBox label=\"Item 2 - Post Html\" v-model=\"prePostHtmlItems[1].PostHtml\" />\n            </template>\n            <template #result>\n                <ItemsWithPreAndPostHtml :items=\"prePostHtmlItems\">\n                    <template #item1>\n                        <div style=\"background-color: #fcc; padding: 5px;\">This is item 1</div>\n                    </template>\n                    <template #item2>\n                        <div style=\"background-color: #ccf; padding: 5px;\">This is item 2</div>\n                    </template>\n                </ItemsWithPreAndPostHtml>\n            </template>\n        </GalleryAndResult>\n        <GalleryAndResult :splitWidth=\"false\">\n            <template #header>\n                ProgressTracker\n            </template>\n            <template #gallery>\n                <NumberUpDown label=\"Index\" v-model=\"progressTrackerIndex\" :min=\"-100\" :max=\"100\" />\n            </template>\n            <template #result>\n                <ProgressTracker :items=\"progressTrackerItems\" :currentIndex=\"progressTrackerIndex\" />\n            </template>\n        </GalleryAndResult>\n        <FormRulesGallery />\n        <RadioButtonListGallery />\n        <DialogGallery />\n        <CheckBoxGallery />\n        <PhoneNumberBoxGallery />\n        <DropDownListGallery />\n        <HelpBlockGallery />\n        <ColorPickerGallery />\n    </template>\n</PaneledBlockTemplate>"
+                template: "\n<PaneledBlockTemplate>\n    <template v-slot:title>\n        <i class=\"fa fa-flask\"></i>\n        Obsidian Control Gallery\n    </template>\n    <template v-slot:default>\n        <TextBoxGallery />\n        <DatePickerGallery />\n        <DateTimePickerGallery />\n        <GalleryAndResult>\n            <template #header>\n                CurrencyBox\n            </template>\n            <template #gallery>\n                <CurrencyBox label=\"Currency 1\" v-model=\"currency\" />\n                <CurrencyBox label=\"Currency 2\" v-model=\"currency\" />\n            </template>\n            <template #result>\n                {{currency}}\n            </template>\n        </GalleryAndResult>\n        <GalleryAndResult>\n            <template #header>\n                EmailBox\n            </template>\n            <template #gallery>\n                <EmailBox label=\"EmailBox 1\" v-model=\"email\" />\n                <EmailBox label=\"EmailBox 2\" v-model=\"email\" />\n            </template>\n            <template #result>\n                {{email}}\n            </template>\n        </GalleryAndResult>\n        <DatePartsPickerGallery />\n        <DefinedTypeAndValueGallery />\n        <GalleryAndResult>\n            <template #header>\n                CampusPicker\n            </template>\n            <template #gallery>\n                <CampusPicker v-model=\"campusGuid\" />\n                <CampusPicker v-model=\"campusGuid\" label=\"Campus 2\" />\n            </template>\n            <template #result>\n                <p>\n                    <strong>Campus Guid</strong>\n                    {{campusGuid}}\n                    <span v-if=\"campusName\">({{campusName}})</span>\n                </p>\n                <p>\n                    <strong>Campus Id</strong>\n                    {{campusId}}\n                </p>\n            </template>\n        </GalleryAndResult>\n        <GalleryAndResult>\n            <template #header>\n                NumberUpDown\n            </template>\n            <template #gallery>\n                <NumberUpDown label=\"NumberUpDown 1\" v-model=\"numberUpDown\" />\n                <NumberUpDown label=\"NumberUpDown 2\" v-model=\"numberUpDown\" />\n            </template>\n            <template #result>\n                {{numberUpDown}}\n            </template>\n        </GalleryAndResult>\n        <GalleryAndResult>\n            <template #header>\n                StaticFormControl\n            </template>\n            <template #gallery>\n                <StaticFormControl label=\"StaticFormControl 1\" v-model=\"numberUpDown\" />\n                <StaticFormControl label=\"StaticFormControl 2\" v-model=\"numberUpDown\" />\n            </template>\n            <template #result>\n                {{numberUpDown}}\n            </template>\n        </GalleryAndResult>\n        <GalleryAndResult>\n            <template #header>\n                AddressControl\n            </template>\n            <template #gallery>\n                <AddressControl v-model=\"address\" />\n                <AddressControl label=\"Address 2\" v-model=\"address\" />\n            </template>\n            <template #result>\n                <pre>{{JSON.stringify(address, null, 2)}}</pre>\n            </template>\n        </GalleryAndResult>\n        <GalleryAndResult>\n            <template #header>\n                Toggle\n            </template>\n            <template #gallery>\n                <Toggle label=\"Toggle 1\" v-model=\"toggle\" />\n                <Toggle label=\"Toggle 2\" v-model=\"toggle\" />\n            </template>\n            <template #result>\n                {{toggle}}\n            </template>\n        </GalleryAndResult>\n        <GalleryAndResult>\n            <template #header>\n                ItemsWithPreAndPostHtml\n            </template>\n            <template #gallery>\n                <TextBox label=\"Item 1 - Pre Html\" v-model=\"prePostHtmlItems[0].preHtml\" />\n                <TextBox label=\"Item 1 - Post Html\" v-model=\"prePostHtmlItems[0].postHtml\" />\n                <TextBox label=\"Item 2 - Pre Html\" v-model=\"prePostHtmlItems[1].preHtml\" />\n                <TextBox label=\"Item 2 - Post Html\" v-model=\"prePostHtmlItems[1].postHtml\" />\n            </template>\n            <template #result>\n                <ItemsWithPreAndPostHtml :items=\"prePostHtmlItems\">\n                    <template #item1>\n                        <div style=\"background-color: #fcc; padding: 5px;\">This is item 1</div>\n                    </template>\n                    <template #item2>\n                        <div style=\"background-color: #ccf; padding: 5px;\">This is item 2</div>\n                    </template>\n                </ItemsWithPreAndPostHtml>\n            </template>\n        </GalleryAndResult>\n        <GalleryAndResult :splitWidth=\"false\">\n            <template #header>\n                ProgressTracker\n            </template>\n            <template #gallery>\n                <NumberUpDown label=\"Index\" v-model=\"progressTrackerIndex\" :min=\"-100\" :max=\"100\" />\n            </template>\n            <template #result>\n                <ProgressTracker :items=\"progressTrackerItems\" :currentIndex=\"progressTrackerIndex\" />\n            </template>\n        </GalleryAndResult>\n        <FormRulesGallery />\n        <RadioButtonListGallery />\n        <DialogGallery />\n        <CheckBoxGallery />\n        <CheckBoxListGallery />\n        <PhoneNumberBoxGallery />\n        <DropDownListGallery />\n        <HelpBlockGallery />\n        <ColorPickerGallery />\n        <NumberBoxGallery />\n        <NumberRangeBoxGallery />\n        <GenderDropDownListGallery />\n        <SocialSecurityNumberBoxGallery />\n        <TimePickerGallery />\n        <RatingGallery />\n    </template>\n</PaneledBlockTemplate>"
             }));
         }
     };

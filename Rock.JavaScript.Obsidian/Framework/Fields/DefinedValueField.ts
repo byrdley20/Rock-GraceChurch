@@ -15,7 +15,7 @@
 // </copyright>
 //
 import { defineComponent } from 'vue';
-import { Guid } from '../Util/Guid';
+import { Guid, areEqual as guidsAreEqual } from '../Util/Guid';
 import { registerFieldType, getFieldTypeProps, getConfigurationValue } from './Index';
 import DefinedValuePicker from '../Controls/DefinedValuePicker';
 import { toNumberOrNull } from '../Services/Number';
@@ -37,6 +37,7 @@ enum ConfigurationValueKey {
 
 export default registerFieldType( fieldTypeGuid, defineComponent( {
     name: 'DefinedValueField',
+    inheritAttrs: false,
     components: {
         DefinedValuePicker
     },
@@ -49,23 +50,25 @@ export default registerFieldType( fieldTypeGuid, defineComponent( {
         };
     },
     computed: {
-        selectedDefinedValue (): DefinedValue | null
+        selectedDefinedValues(): Array<DefinedValue>
         {
-            return this.definedValues.find( dv => dv.guid === this.internalValue ) || null;
+            const guids = this.internalValue.toLowerCase().split(",");
+
+            return this.definedValues.filter(dv => guids.indexOf(dv.guid.toLowerCase()) !== -1);
         },
         displayValue (): string
         {
-            if ( !this.selectedDefinedValue )
+            if (this.selectedDefinedValues.length === 0)
             {
                 return '';
             }
 
             if ( this.displayDescription )
             {
-                return this.selectedDefinedValue.description || '';
+                return this.selectedDefinedValues.map(v => v.description ?? "").join(", ");
             }
 
-            return this.selectedDefinedValue.value || '';
+            return this.selectedDefinedValues.map(v => v.value ?? "").join(", ");
         },
         displayDescription (): boolean
         {

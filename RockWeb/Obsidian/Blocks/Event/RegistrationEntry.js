@@ -358,23 +358,23 @@ System.register(["vue", "../../Elements/RockButton", "../../Util/Guid", "./Regis
                         var items = [];
                         if (this.registrationEntryState.FirstStep === this.steps.intro) {
                             items.push({
-                                Key: 'Start',
-                                Title: 'Start',
-                                Subtitle: this.viewModel.registrationTerm
+                                key: 'Start',
+                                title: 'Start',
+                                subtitle: this.viewModel.registrationTerm
                             });
                         }
                         if (this.hasPreAttributes) {
                             items.push({
-                                Key: 'Pre',
-                                Title: this.viewModel.registrationAttributeTitleStart,
-                                Subtitle: this.viewModel.registrationTerm
+                                key: 'Pre',
+                                title: this.viewModel.registrationAttributeTitleStart,
+                                subtitle: this.viewModel.registrationTerm
                             });
                         }
                         if (!this.registrationEntryState.Registrants.length) {
                             items.push({
-                                Key: 'Registrant',
-                                Title: String_1.toTitleCase(this.viewModel.registrantTerm),
-                                Subtitle: this.viewModel.registrationTerm
+                                key: 'Registrant',
+                                title: String_1.toTitleCase(this.viewModel.registrantTerm),
+                                subtitle: this.viewModel.registrationTerm
                             });
                         }
                         for (var i = 0; i < this.registrationEntryState.Registrants.length; i++) {
@@ -382,30 +382,30 @@ System.register(["vue", "../../Elements/RockButton", "../../Util/Guid", "./Regis
                             var info = getRegistrantBasicInfo(registrant, this.viewModel.registrantForms);
                             if ((info === null || info === void 0 ? void 0 : info.FirstName) && (info === null || info === void 0 ? void 0 : info.LastName)) {
                                 items.push({
-                                    Key: "Registrant-" + registrant.Guid,
-                                    Title: info.FirstName,
-                                    Subtitle: info.LastName
+                                    key: "Registrant-" + registrant.Guid,
+                                    title: info.FirstName,
+                                    subtitle: info.LastName
                                 });
                             }
                             else {
                                 items.push({
-                                    Key: "Registrant-" + registrant.Guid,
-                                    Title: String_1.toTitleCase(this.viewModel.registrantTerm),
-                                    Subtitle: String_1.toTitleCase(Number_1.toWord(i + 1))
+                                    key: "Registrant-" + registrant.Guid,
+                                    title: String_1.toTitleCase(this.viewModel.registrantTerm),
+                                    subtitle: String_1.toTitleCase(Number_1.toWord(i + 1))
                                 });
                             }
                         }
                         if (this.hasPostAttributes) {
                             items.push({
-                                Key: 'Post',
-                                Title: this.viewModel.registrationAttributeTitleEnd,
-                                Subtitle: this.viewModel.registrationTerm
+                                key: 'Post',
+                                title: this.viewModel.registrationAttributeTitleEnd,
+                                subtitle: this.viewModel.registrationTerm
                             });
                         }
                         items.push({
-                            Key: 'Finalize',
-                            Title: 'Finalize',
-                            Subtitle: this.viewModel.registrationTerm
+                            key: 'Finalize',
+                            title: 'Finalize',
+                            subtitle: this.viewModel.registrationTerm
                         });
                         return items;
                     }

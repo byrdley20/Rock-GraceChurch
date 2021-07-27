@@ -18,8 +18,8 @@ import { defineComponent, PropType } from 'vue';
 import JavaScriptAnchor from '../Elements/JavaScriptAnchor';
 
 export type FilterOptions = {
-    Take: number;
-    Skip: number;
+    take: number;
+    skip: number;
 };
 
 export enum SortDirection {
@@ -28,8 +28,8 @@ export enum SortDirection {
 }
 
 export type SortProperty = {
-    Property: string;
-    Direction: SortDirection;
+    property: string;
+    direction: SortDirection;
 };
 
 export type GridContext = {

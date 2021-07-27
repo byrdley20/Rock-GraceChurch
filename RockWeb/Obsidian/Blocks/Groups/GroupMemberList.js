@@ -91,8 +91,8 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Store/Ind
                         errorMessage: '',
                         members: [],
                         sortProperty: {
-                            Direction: Grid_1.SortDirection.Ascending,
-                            Property: ''
+                            direction: Grid_1.SortDirection.Ascending,
+                            property: ''
                         }
                     };
                 },
@@ -119,8 +119,8 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Store/Ind
                                         return [4, this.invokeBlockAction('GetGroupMemberList', {
                                                 groupId: this.groupId,
                                                 filterOptions: {
-                                                    Take: 50,
-                                                    Skip: 0
+                                                    take: 50,
+                                                    skip: 0
                                                 },
                                                 sortProperty: this.sortProperty
                                             })];

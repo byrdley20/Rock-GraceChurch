@@ -24,12 +24,24 @@ import TextField from '../Fields/TextField';
 // Import other field types so they are registered and available upon dynamic request
 import '../Fields/BooleanField';
 import '../Fields/ColorField';
+import '../Fields/CurrencyField';
 import '../Fields/DateField';
+import '../Fields/DateTimeField';
+import '../Fields/DayOfWeekField';
+import '../Fields/DaysOfWeekField';
+import '../Fields/DecimalField';
+import '../Fields/DecimalRangeField';
 import '../Fields/DefinedValueField';
+import '../Fields/EmailField';
 import '../Fields/GenderField';
+import '../Fields/IntegerField';
+import '../Fields/IntegerRangeField';
+import '../Fields/MemoField';
+import '../Fields/MonthDayField';
 import '../Fields/SingleSelect';
 import '../Fields/PhoneNumber';
-import '../Fields/MemoField';
+import '../Fields/RatingField';
+import '../Fields/TimeField';
 
 export default defineComponent( {
     name: 'RockField',
@@ -51,7 +63,7 @@ export default defineComponent( {
     computed: {
         fieldComponent (): Component | null
         {
-            const field = getFieldTypeComponent( this.fieldTypeGuid );
+            const field = getFieldTypeComponent(this.fieldTypeGuid);
 
             if ( !field )
             {

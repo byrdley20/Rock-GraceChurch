@@ -2,13 +2,12 @@ System.register([], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     function asFormattedString(num, digits) {
-        if (digits === void 0) { digits = 2; }
         if (num === null) {
             return '';
         }
         return num.toLocaleString('en-US', {
             minimumFractionDigits: digits,
-            maximumFractionDigits: digits
+            maximumFractionDigits: digits !== null && digits !== void 0 ? digits : 9
         });
     }
     exports_1("asFormattedString", asFormattedString);
@@ -17,13 +16,24 @@ System.register([], function (exports_1, context_1) {
     }
     exports_1("toNumber", toNumber);
     function toNumberOrNull(str) {
-        if (str === null) {
+        if (str === null || str == "") {
             return null;
         }
         var replaced = str.replace(/[$,]/g, '');
-        return Number(replaced) || 0;
+        var num = Number(replaced);
+        return !isNaN(num) ? num : null;
     }
     exports_1("toNumberOrNull", toNumberOrNull);
+    function toCurrencyOrNull(value) {
+        if (typeof value === "string") {
+            value = toNumberOrNull(value);
+        }
+        if (value === null) {
+            return null;
+        }
+        return "$" + asFormattedString(value, 2);
+    }
+    exports_1("toCurrencyOrNull", toCurrencyOrNull);
     function toOrdinalSuffix(num) {
         if (!num) {
             return '';

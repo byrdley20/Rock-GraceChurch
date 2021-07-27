@@ -57,7 +57,7 @@ System.register(["vue", "../../../Elements/Alert", "../../../Elements/CheckBox",
                 },
                 methods: {
                     getItemLabel: function (item) {
-                        var formattedCost = Number_1.default.asFormattedString(item.cost);
+                        var formattedCost = Number_1.default.asFormattedString(item.cost, 2);
                         if (item.countRemaining) {
                             var formattedRemaining = Number_1.default.asFormattedString(item.countRemaining, 0);
                             return item.name + " ($" + formattedCost + ") (" + formattedRemaining + " remaining)";
@@ -68,7 +68,7 @@ System.register(["vue", "../../../Elements/Alert", "../../../Elements/CheckBox",
                 computed: {
                     label: function () {
                         if (this.singleItem) {
-                            var formattedCost = Number_1.default.asFormattedString(this.singleItem.cost);
+                            var formattedCost = Number_1.default.asFormattedString(this.singleItem.cost, 2);
                             return this.fee.name + " ($" + formattedCost + ")";
                         }
                         return this.fee.name;

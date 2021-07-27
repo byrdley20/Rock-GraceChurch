@@ -17,9 +17,9 @@
 import { defineComponent, PropType } from 'vue';
 
 export type ItemWithPreAndPostHtml = {
-    SlotName: string;
-    PreHtml: string;
-    PostHtml: string;
+    slotName: string;
+    preHtml: string;
+    postHtml: string;
 };
 
 export default defineComponent({
@@ -39,7 +39,7 @@ export default defineComponent({
         augmentedItems(): Record<string, string>[] {
             return this.items.map(i => ({
                 ...i,
-                InnerSlotName: `inner-${i.SlotName}`
+                innerSlotName: `inner-${i.slotName}`
             } as Record<string, string>));
         },
         innerTemplate(): string
@@ -49,7 +49,7 @@ export default defineComponent({
                 return '<slot />';
             }
 
-            const templateParts = this.items.map(i => `${i.PreHtml}<slot name="inner-${i.SlotName}" />${i.PostHtml}`);
+            const templateParts = this.items.map(i => `${i.preHtml}<slot name="inner-${i.slotName}" />${i.postHtml}`);
             return templateParts.join('');
         },
         innerComponent(): Record<string, unknown> {
@@ -61,8 +61,8 @@ export default defineComponent({
     },
     template: `
 <component :is="innerComponent">
-    <template v-for="item in augmentedItems" :key="item.SlotName" v-slot:[item.InnerSlotName]>
-        <slot :name="item.SlotName" />
+    <template v-for="item in augmentedItems" :key="item.slotName" v-slot:[item.innerSlotName]>
+        <slot :name="item.slotName" />
     </template>
 </component>`
 });

@@ -68,15 +68,15 @@ System.register(["vuex", "./CommonEntities"], function (exports_1, context_1) {
                     },
                     reportOnLoadDebugTiming: function (state, payload) {
                         var pageStartTime = state.executionStartTime.getTime();
-                        var timestampMs = payload.StartTimeMs - pageStartTime;
-                        var durationMs = payload.FinishTimeMs - payload.StartTimeMs;
+                        var timestampMs = payload.startTimeMs - pageStartTime;
+                        var durationMs = payload.finishTimeMs - payload.startTimeMs;
                         state.debugTimings.push({
                             TimestampMs: timestampMs,
                             DurationMs: durationMs,
                             IndentLevel: 1,
                             IsTitleBold: false,
-                            SubTitle: payload.Subtitle,
-                            Title: payload.Title
+                            SubTitle: payload.subtitle,
+                            Title: payload.title
                         });
                     }
                 },

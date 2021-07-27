@@ -28,6 +28,14 @@ export default defineComponent({
             type: String as PropType<string>,
             required: true
         },
+        allowLava: {
+            type: Boolean as PropType<boolean>,
+            default: false
+        },
+        allowMultiple: {
+            type: Boolean as PropType<boolean>,
+            default: false
+        },
         rules: {
             type: String as PropType<string>,
             default: ''
@@ -45,11 +53,14 @@ export default defineComponent({
         computedRules() {
             const rules = ruleStringToArray(this.rules);
 
-            if (rules.indexOf('email') === -1) {
+            if (rules.indexOf('email') === -1 && !this.allowLava && !this.allowMultiple) {
                 rules.push('email');
             }
 
             return ruleArrayToString(rules);
+        },
+        computedType(): string {
+            return this.allowLava || this.allowMultiple ? "text" : "email";
         }
     },
     watch: {
@@ -72,7 +83,7 @@ export default defineComponent({
                 <span class="input-group-addon">
                     <i class="fa fa-envelope"></i>
                 </span>
-                <input :id="uniqueId" class="form-control" v-bind="field" :disabled="disabled" :tabindex="tabIndex" />
+                <input :id="uniqueId" class="form-control" v-bind="field" :disabled="disabled" :tabindex="tabIndex" :type="computedType" />
             </div>
         </div>
     </template>

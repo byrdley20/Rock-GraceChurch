@@ -71,6 +71,40 @@ System.register([], function (exports_1, context_1) {
         return str.replace(/\D/g, '');
     }
     exports_1("stripPhoneNumber", stripPhoneNumber);
+    function padLeft(str, length, padCharacter) {
+        if (padCharacter === void 0) { padCharacter = " "; }
+        if (padCharacter == "") {
+            padCharacter = " ";
+        }
+        else if (padCharacter.length > 1) {
+            padCharacter = padCharacter.substr(0, 1);
+        }
+        if (!str) {
+            return Array(length).join(padCharacter);
+        }
+        if (str.length >= length) {
+            return str;
+        }
+        return Array(length - str.length + 1).join(padCharacter) + str;
+    }
+    exports_1("padLeft", padLeft);
+    function padRight(str, length, padCharacter) {
+        if (padCharacter === void 0) { padCharacter = " "; }
+        if (padCharacter == "") {
+            padCharacter = " ";
+        }
+        else if (padCharacter.length > 1) {
+            padCharacter = padCharacter.substr(0, 1);
+        }
+        if (!str) {
+            return Array(length).join(padCharacter);
+        }
+        if (str.length >= length) {
+            return str;
+        }
+        return str + Array(length - str.length + 1).join(padCharacter);
+    }
+    exports_1("padRight", padRight);
     return {
         setters: [],
         execute: function () {
@@ -83,7 +117,9 @@ System.register([], function (exports_1, context_1) {
                 toTitleCase: toTitleCase,
                 pluralConditional: pluralConditional,
                 formatPhoneNumber: formatPhoneNumber,
-                stripPhoneNumber: stripPhoneNumber
+                stripPhoneNumber: stripPhoneNumber,
+                padLeft: padLeft,
+                padRight: padRight
             });
         }
     };

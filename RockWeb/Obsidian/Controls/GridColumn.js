@@ -52,15 +52,15 @@ System.register(["../Elements/JavaScriptAnchor", "vue", "./Grid"], function (exp
                     },
                     isCurrentlySorted: function () {
                         var _a;
-                        return !!this.mySortExpression && ((_a = this.sortProperty) === null || _a === void 0 ? void 0 : _a.Property) === this.mySortExpression;
+                        return !!this.mySortExpression && ((_a = this.sortProperty) === null || _a === void 0 ? void 0 : _a.property) === this.mySortExpression;
                     },
                     isCurrentlySortedDesc: function () {
                         var _a;
-                        return this.isCurrentlySorted && ((_a = this.sortProperty) === null || _a === void 0 ? void 0 : _a.Direction) === Grid_1.SortDirection.Descending;
+                        return this.isCurrentlySorted && ((_a = this.sortProperty) === null || _a === void 0 ? void 0 : _a.direction) === Grid_1.SortDirection.Descending;
                     },
                     isCurrentlySortedAsc: function () {
                         var _a;
-                        return this.isCurrentlySorted && ((_a = this.sortProperty) === null || _a === void 0 ? void 0 : _a.Direction) === Grid_1.SortDirection.Ascending;
+                        return this.isCurrentlySorted && ((_a = this.sortProperty) === null || _a === void 0 ? void 0 : _a.direction) === Grid_1.SortDirection.Ascending;
                     }
                 },
                 methods: {
@@ -68,11 +68,11 @@ System.register(["../Elements/JavaScriptAnchor", "vue", "./Grid"], function (exp
                         this.$emit('click:header', this.property);
                         if (this.mySortExpression && this.sortProperty) {
                             if (this.isCurrentlySortedAsc) {
-                                this.sortProperty.Direction = Grid_1.SortDirection.Descending;
+                                this.sortProperty.direction = Grid_1.SortDirection.Descending;
                             }
                             else {
-                                this.sortProperty.Property = this.mySortExpression;
-                                this.sortProperty.Direction = Grid_1.SortDirection.Ascending;
+                                this.sortProperty.property = this.mySortExpression;
+                                this.sortProperty.direction = Grid_1.SortDirection.Ascending;
                             }
                         }
                     },

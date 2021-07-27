@@ -54,18 +54,18 @@ System.register(["axios"], function (exports_1, context_1) {
         });
     }
     function doApiCall(method, url, params, data) {
-        var _a, _b;
+        var _a, _b, _c, _d, _e, _f, _g, _h;
         if (params === void 0) { params = undefined; }
         if (data === void 0) { data = undefined; }
         return __awaiter(this, void 0, void 0, function () {
             var result, e_1;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
+            return __generator(this, function (_j) {
+                switch (_j.label) {
                     case 0:
-                        _c.trys.push([0, 2, , 3]);
+                        _j.trys.push([0, 2, , 3]);
                         return [4, doApiCallRaw(method, url, params, data)];
                     case 1:
-                        result = _c.sent();
+                        result = _j.sent();
                         return [2, {
                                 data: result.data,
                                 isError: false,
@@ -74,14 +74,14 @@ System.register(["axios"], function (exports_1, context_1) {
                                 errorMessage: null
                             }];
                     case 2:
-                        e_1 = _c.sent();
-                        if ((_b = (_a = e_1 === null || e_1 === void 0 ? void 0 : e_1.response) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.Message) {
+                        e_1 = _j.sent();
+                        if ((_c = (_b = (_a = e_1 === null || e_1 === void 0 ? void 0 : e_1.response) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.Message) !== null && _c !== void 0 ? _c : (_e = (_d = e_1 === null || e_1 === void 0 ? void 0 : e_1.response) === null || _d === void 0 ? void 0 : _d.data) === null || _e === void 0 ? void 0 : _e.message) {
                             return [2, {
                                     data: null,
                                     isError: true,
                                     isSuccess: false,
                                     statusCode: e_1.response.status,
-                                    errorMessage: e_1.response.data.Message
+                                    errorMessage: (_h = (_g = (_f = e_1 === null || e_1 === void 0 ? void 0 : e_1.response) === null || _f === void 0 ? void 0 : _f.data) === null || _g === void 0 ? void 0 : _g.Message) !== null && _h !== void 0 ? _h : e_1.response.data.message
                                 }];
                         }
                         return [2, {

@@ -43,22 +43,22 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 }
                 return [
                     {
-                        Attribute: {
-                            Name: name + " 1",
-                            Description: "This is the description of the " + name + " without an initial value",
-                            FieldTypeGuid: fieldTypeGuid,
-                            QualifierValues: configurationValues
+                        attribute: {
+                            name: name + " 1",
+                            description: "This is the description of the " + name + " without an initial value",
+                            fieldTypeGuid: fieldTypeGuid,
+                            qualifierValues: configurationValues
                         },
-                        Value: ''
+                        value: ''
                     },
                     {
-                        Attribute: {
-                            Name: name + " 2",
-                            Description: "This is the description of the " + name + " with an initial value",
-                            FieldTypeGuid: fieldTypeGuid,
-                            QualifierValues: configurationValues
+                        attribute: {
+                            name: name + " 2",
+                            description: "This is the description of the " + name + " with an initial value",
+                            fieldTypeGuid: fieldTypeGuid,
+                            qualifierValues: configurationValues
                         },
-                        Value: initialValue
+                        value: initialValue
                     }
                 ];
             };
@@ -80,10 +80,10 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 },
                 computed: {
                     value1Json: function () {
-                        return JSON.stringify(this.attributeValues[0].Value, null, 4);
+                        return JSON.stringify(this.attributeValues[0].value, null, 4);
                     },
                     value2Json: function () {
-                        return JSON.stringify(this.attributeValues[1].Value, null, 4);
+                        return JSON.stringify(this.attributeValues[1].value, null, 4);
                     }
                 },
                 template: "\n<PanelWidget>\n    <template #header>{{title}}</template>\n    <div class=\"row\">\n        <div class=\"col-md-6\">\n            <h4>Qualifier Values</h4>\n            <slot />\n            <hr />\n            <h4>Attribute Values Container (edit)</h4>\n            <AttributeValuesContainer :attributeValues=\"attributeValues\" :isEditMode=\"true\" />\n        </div>\n        <div class=\"col-md-6\">\n            <h4>Attribute Values Container (view)</h4>\n            <AttributeValuesContainer :attributeValues=\"attributeValues\" :isEditMode=\"false\" />\n            <hr />\n            <h4>Values</h4>\n            <p>\n                <strong>Value 1</strong>\n                <pre>{{value1Json}}</pre>\n            </p>\n            <p>\n                <strong>Value 2</strong>\n                <pre>{{value2Json}}</pre>\n            </p>\n        </div>\n    </div>\n</PanelWidget>"
@@ -107,7 +107,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                             var keys = [];
                             for (var _i = 0, _a = this.attributeValues; _i < _a.length; _i++) {
                                 var attributeValue = _a[_i];
-                                for (var key in attributeValue.Attribute.QualifierValues) {
+                                for (var key in attributeValue.attribute.qualifierValues) {
                                     if (keys.indexOf(key) === -1) {
                                         keys.push(key);
                                     }
@@ -122,9 +122,9 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                             handler: function () {
                                 for (var _i = 0, _a = this.attributeValues; _i < _a.length; _i++) {
                                     var attributeValue = _a[_i];
-                                    for (var key in attributeValue.Attribute.QualifierValues) {
+                                    for (var key in attributeValue.attribute.qualifierValues) {
                                         var value = this.configValues[key] || '';
-                                        attributeValue.Attribute.QualifierValues[key].Value = value;
+                                        attributeValue.attribute.qualifierValues[key].Value = value;
                                     }
                                 }
                             }
@@ -137,11 +137,15 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 name: 'Example.FieldTypeGallery',
                 components: {
                     PaneledBlockTemplate: PaneledBlockTemplate_1.default,
-                    TextGallery: GetFieldTypeGalleryComponent('Text', 'Hello', '9C204CD0-1233-41C5-818A-C5DA439445AA', {
-                        ispassword: 'false',
-                        maxcharacters: '10',
-                        showcountdown: 'true'
+                    BooleanGallery: GetFieldTypeGalleryComponent('Boolean', 't', '1EDAFDED-DFE6-4334-B019-6EECBA89E05A', {
+                        truetext: 'This is true',
+                        falsetext: 'This is false',
+                        BooleanControlType: '2'
                     }),
+                    ColorGallery: GetFieldTypeGalleryComponent('Color', '#ee7725', 'D747E6AE-C383-4E22-8846-71518E3DD06F', {
+                        selectiontype: 'Color Picker'
+                    }),
+                    CurrencyGallery: GetFieldTypeGalleryComponent('Currency', '4.70', '3EE69CBC-35CE-4496-88CC-8327A447603F', {}),
                     DateGallery: GetFieldTypeGalleryComponent('Date', '2009-02-11', '6B6AA175-4758-453F-8D83-FCD8044B5F36', {
                         format: 'MMM yyyy',
                         displayDiff: 'true',
@@ -149,27 +153,15 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                         datePickerControlType: 'Date Parts Picker',
                         futureYearCount: '2'
                     }),
-                    SingleSelectGallery: GetFieldTypeGalleryComponent('SingleSelect', 'pizza', '7525C4CB-EE6B-41D4-9B64-A08048D5A5C0', {
-                        repeatColumns: '4',
-                        fieldtype: 'rb',
-                        values: 'pizza^Pizza,sub^Sub'
+                    DateTimeGallery: GetFieldTypeGalleryComponent('DateTime', '2009-02-11T14:23:00', 'FE95430C-322D-4B67-9C77-DFD1D4408725', {
+                        format: 'MMM dd, yyyy h:mm tt',
+                        displayDiff: 'false',
+                        displayCurrentOption: 'true',
                     }),
-                    MemoGallery: GetFieldTypeGalleryComponent('Memo', 'This is a memo', 'C28C7BF3-A552-4D77-9408-DEDCF760CED0', {
-                        numberofrows: '10',
-                        maxcharacters: '100',
-                        showcountdown: 'true',
-                        allowhtml: 'true'
-                    }),
-                    BooleanGallery: GetFieldTypeGalleryComponent('Boolean', 't', '1EDAFDED-DFE6-4334-B019-6EECBA89E05A', {
-                        truetext: 'This is true',
-                        falsetext: 'This is false',
-                        BooleanControlType: '2'
-                    }),
-                    PhoneNumberGallery: GetFieldTypeGalleryComponent('PhoneNumber', '(321) 456-7890', '6B1908EC-12A2-463A-A7BD-970CE0FAF097', {}),
-                    GenderGallery: GetFieldTypeGalleryComponent('Gender', '2', '2E28779B-4C76-4142-AE8D-49EA31DDB503', {}),
-                    ColorGallery: GetFieldTypeGalleryComponent('Color', '#ee7725', 'D747E6AE-C383-4E22-8846-71518E3DD06F', {
-                        selectiontype: 'Color Picker'
-                    }),
+                    DayOfWeekGallery: GetFieldTypeGalleryComponent('DayOfWeek', '2', '7EDFA2DE-FDD3-4AC1-B356-1F5BFC231DAE', {}),
+                    DaysOfWeekGallery: GetFieldTypeGalleryComponent('DaysOfWeek', '2,5', '08943FF9-F2A8-4DB4-A72A-31938B200C8C', {}),
+                    DecimalGallery: GetFieldTypeGalleryComponent('Decimal', '18.283', 'C757A554-3009-4214-B05D-CEA2B2EA6B8F', {}),
+                    DecimalRangeGallery: GetFieldTypeGalleryComponent('DecimalRange', '18.283,100', '758D9648-573E-4800-B5AF-7CC29F4BE170', {}),
                     DefinedValueGallery: GetFieldTypeGalleryComponent('DefinedValue (WIP)', 'af28af43-8461-41ac-a2c5-85122712be96', '59D5A94C-94A0-4630-B80A-BB25697D74C7', {
                         definedtype: '92',
                         allowmultiple: '',
@@ -178,9 +170,35 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                         includeInactive: '',
                         AllowAddingNewValues: '',
                         RepeatColumns: ''
-                    })
+                    }),
+                    EmailGallery: GetFieldTypeGalleryComponent('Email', 'ted@rocksolidchurchdemo.com', '3D045CAE-EA72-4A04-B7BE-7FD1D6214217', {}),
+                    GenderGallery: GetFieldTypeGalleryComponent('Gender', '2', '2E28779B-4C76-4142-AE8D-49EA31DDB503', {}),
+                    IntegerGallery: GetFieldTypeGalleryComponent('Integer', '20', 'A75DFC58-7A1B-4799-BF31-451B2BBE38FF', {}),
+                    IntegerRangeGallery: GetFieldTypeGalleryComponent('IntegerRange', '0,100', '9D5F21E0-DEA0-4E8E-BA42-71151F6A8ED4', {}),
+                    MemoGallery: GetFieldTypeGalleryComponent('Memo', 'This is a memo', 'C28C7BF3-A552-4D77-9408-DEDCF760CED0', {
+                        numberofrows: '10',
+                        maxcharacters: '100',
+                        showcountdown: 'true',
+                        allowhtml: 'true'
+                    }),
+                    MonthDayGallery: GetFieldTypeGalleryComponent('MonthDay', '7/4', '8BED8DD8-8167-4052-B807-A1E72C133611', {}),
+                    PhoneNumberGallery: GetFieldTypeGalleryComponent('PhoneNumber', '(321) 456-7890', '6B1908EC-12A2-463A-A7BD-970CE0FAF097', {}),
+                    RatingGallery: GetFieldTypeGalleryComponent('Rating', '3', '24BC2DD2-5745-4A97-A0F9-C1EC0E6E1862', {
+                        max: '5'
+                    }),
+                    SingleSelectGallery: GetFieldTypeGalleryComponent('SingleSelect', 'pizza', '7525C4CB-EE6B-41D4-9B64-A08048D5A5C0', {
+                        repeatColumns: '4',
+                        fieldtype: 'rb',
+                        values: 'pizza^Pizza,sub^Sub'
+                    }),
+                    TextGallery: GetFieldTypeGalleryComponent('Text', 'Hello', '9C204CD0-1233-41C5-818A-C5DA439445AA', {
+                        ispassword: 'false',
+                        maxcharacters: '10',
+                        showcountdown: 'true'
+                    }),
+                    TimeGallery: GetFieldTypeGalleryComponent('Time', '13:15:00', '2F8F5EC4-57FA-4F6C-AB15-9D6616994580', {}),
                 },
-                template: "\n<PaneledBlockTemplate>\n    <template v-slot:title>\n        <i class=\"fa fa-flask\"></i>\n        Obsidian Field Type Gallery\n    </template>\n    <template v-slot:default>\n        <TextGallery />\n        <DateGallery />\n        <SingleSelectGallery />\n        <MemoGallery />\n        <BooleanGallery />\n        <PhoneNumberGallery />\n        <GenderGallery />\n        <ColorGallery />\n        <DefinedValueGallery />\n    </template>\n</PaneledBlockTemplate>"
+                template: "\n<PaneledBlockTemplate>\n    <template v-slot:title>\n        <i class=\"fa fa-flask\"></i>\n        Obsidian Field Type Gallery\n    </template>\n    <template v-slot:default>\n        <BooleanGallery />\n        <ColorGallery />\n        <CurrencyGallery />\n        <DateGallery />\n        <DateTimeGallery />\n        <DayOfWeekGallery />\n        <DaysOfWeekGallery />\n        <DecimalGallery />\n        <DecimalRangeGallery />\n        <DefinedValueGallery />\n        <EmailGallery />\n        <GenderGallery />\n        <IntegerGallery />\n        <IntegerRangeGallery />\n        <MemoGallery />\n        <MonthDayGallery />\n        <PhoneNumberGallery />\n        <RatingGallery />\n        <SingleSelectGallery />\n        <TextGallery />\n        <TimeGallery />\n    </template>\n</PaneledBlockTemplate>"
             }));
         }
     };

@@ -80,8 +80,8 @@ export default defineComponent( {
                 ...li,
                 IsFee: li.Type === RegistrationCostSummaryType.Fee,
                 DiscountHelp: ( this.hasDiscount && li.Cost === li.DiscountedCost ) ? 'This item is not eligible for the discount.' : '',
-                AmountFormatted: asFormattedString( li.Cost ),
-                DiscountedAmountFormatted: asFormattedString( li.DiscountedCost )
+                AmountFormatted: asFormattedString( li.Cost, 2 ),
+                DiscountedAmountFormatted: asFormattedString( li.DiscountedCost, 2 )
             } as AugmentedLineItem ) );
         },
 
@@ -102,7 +102,7 @@ export default defineComponent( {
         /** The total before discounts as a formatted string */
         totalFormatted (): string
         {
-            return `$${asFormattedString( this.total )}`;
+            return `$${asFormattedString( this.total, 2 )}`;
         },
 
         /** The total cost before discounts */
@@ -151,7 +151,7 @@ export default defineComponent( {
         /** The total after discounts as a formatted string */
         discountedTotalFormatted (): string
         {
-            return `$${asFormattedString( this.discountedTotal )}`;
+            return `$${asFormattedString( this.discountedTotal, 2 )}`;
         },
 
         /** The min amount that must be paid today */
@@ -170,7 +170,7 @@ export default defineComponent( {
         /** The min amount that must be paid today as a formatted string */
         amountDueTodayFormatted (): string
         {
-            return `$${asFormattedString( this.amountDueToday )}`;
+            return `$${asFormattedString( this.amountDueToday, 2 )}`;
         },
 
         /** Should the amount that is due today be shown */
@@ -188,7 +188,7 @@ export default defineComponent( {
         /** The amount previously paid formatted as a string */
         amountPreviouslyPaidFormatted (): string
         {
-            return `$${asFormattedString( this.amountPreviouslyPaid )}`;
+            return `$${asFormattedString( this.amountPreviouslyPaid, 2 )}`;
         },
 
         /** The max amount that can be paid today */
@@ -207,7 +207,7 @@ export default defineComponent( {
         /** The max amount that can be paid today as a formatted string */
         maxAmountCanBePaidFormatted (): string
         {
-            return `$${asFormattedString( this.maxAmountCanBePaid )}`;
+            return `$${asFormattedString( this.maxAmountCanBePaid, 2 )}`;
         },
 
         /** The amount that would remain if the user paid the amount indicated in the currency box */
@@ -221,7 +221,7 @@ export default defineComponent( {
         /** The amount that would remain if the user paid the amount indicated in the currency box as a formatted string */
         amountRemainingFormatted (): string
         {
-            return `$${asFormattedString( this.amountRemaining )}`;
+            return `$${asFormattedString( this.amountRemaining, 2 )}`;
         },
 
         /** The vee-validate rules for the amount to pay today */

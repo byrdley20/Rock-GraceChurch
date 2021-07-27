@@ -23,7 +23,6 @@ import { asDateOrNull, asElapsedString, toRockDateOrNull } from '../Services/Dat
 import { asBoolean } from '../Services/Boolean';
 import { toNumber } from '../Services/Number';
 import DatePartsPicker, { getDefaultDatePartsPickerModel } from '../Elements/DatePartsPicker';
-import { toRockDate } from '../Util/RockDate';
 
 const fieldTypeGuid: Guid = '6B6AA175-4758-453F-8D83-FCD8044B5F36';
 
@@ -60,12 +59,12 @@ export default registerFieldType( fieldTypeGuid, defineComponent( {
     computed: {
         datePartsAsDate (): Date | null
         {
-            if ( !this.internalDateParts?.Day || !this.internalDateParts.Month || !this.internalDateParts.Year )
+            if ( !this.internalDateParts?.day || !this.internalDateParts.month || !this.internalDateParts.year )
             {
                 return null;
             }
 
-            return new Date( this.internalDateParts.Year, this.internalDateParts.Month - 1, this.internalDateParts.Day ) || null;
+            return new Date( this.internalDateParts.year, this.internalDateParts.month - 1, this.internalDateParts.day ) || null;
         },
 
         isDatePartsPicker (): boolean
@@ -141,15 +140,15 @@ export default registerFieldType( fieldTypeGuid, defineComponent( {
 
             if ( asDate )
             {
-                this.internalDateParts.Year = asDate.getFullYear();
-                this.internalDateParts.Month = asDate.getMonth() + 1;
-                this.internalDateParts.Day = asDate.getDate();
+                this.internalDateParts.year = asDate.getFullYear();
+                this.internalDateParts.month = asDate.getMonth() + 1;
+                this.internalDateParts.day = asDate.getDate();
             }
             else
             {
-                this.internalDateParts.Year = 0;
-                this.internalDateParts.Month = 0;
-                this.internalDateParts.Day = 0;
+                this.internalDateParts.year = 0;
+                this.internalDateParts.month = 0;
+                this.internalDateParts.day = 0;
             }
 
             await this.fetchAndSetFormattedValue();

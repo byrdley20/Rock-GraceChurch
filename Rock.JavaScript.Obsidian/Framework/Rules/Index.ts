@@ -16,7 +16,7 @@
 //
 import DateKey from '../Services/DateKey';
 import { isEmail } from '../Services/Email';
-import { isNullOrWhitespace } from '../Services/String';
+import { isEmpty, isNullOrWhitespace } from '../Services/String';
 import { defineRule } from 'vee-validate';
 import { toNumberOrNull } from '../Services/Number';
 
@@ -114,6 +114,11 @@ defineRule( 'equal', ( ( value, [ compare ] ) =>
 
 defineRule( 'gt', ( ( value, [ compare ] ) =>
 {
+    // Field is empty, should pass
+    if (isNullOrWhitespace(value)) {
+        return true;
+    }
+
     if ( isNumeric( value ) && isNumeric( compare ) )
     {
         if ( convertToNumber( value ) > convertToNumber( compare ) )
@@ -131,6 +136,11 @@ defineRule( 'gt', ( ( value, [ compare ] ) =>
 
 defineRule( 'gte', ( ( value, [ compare ] ) =>
 {
+    // Field is empty, should pass
+    if (isNullOrWhitespace(value)) {
+        return true;
+    }
+
     if ( isNumeric( value ) && isNumeric( compare ) )
     {
         if ( convertToNumber( value ) >= convertToNumber( compare ) )
@@ -148,6 +158,11 @@ defineRule( 'gte', ( ( value, [ compare ] ) =>
 
 defineRule( 'lt', ( ( value, [ compare ] ) =>
 {
+    // Field is empty, should pass
+    if (isNullOrWhitespace(value)) {
+        return true;
+    }
+
     if ( isNumeric( value ) && isNumeric( compare ) )
     {
         if ( convertToNumber( value ) < convertToNumber( compare ) )
@@ -165,6 +180,11 @@ defineRule( 'lt', ( ( value, [ compare ] ) =>
 
 defineRule( 'lte', ( ( value, [ compare ] ) =>
 {
+    // Field is empty, should pass
+    if (isNullOrWhitespace(value)) {
+        return true;
+    }
+
     if ( isNumeric( value ) && isNumeric( compare ) )
     {
         if ( convertToNumber( value ) <= convertToNumber( compare ) )
@@ -200,7 +220,46 @@ defineRule( 'datekey', ( value =>
     }
 
     return true;
-} ) as ValidationRuleFunction );
+}) as ValidationRuleFunction);
+
+defineRule("integer", ((value, params) => {
+    // Field is empty, should pass
+    if (isNullOrWhitespace(value)) {
+        return true;
+    }
+
+    if (/^-?[0-9]+$/.test(String(value))) {
+        return true;
+    }
+
+    return "must be an integer value."
+}));
+
+defineRule("decimal", ((value, params) => {
+    // Field is empty, should pass
+    if (isNullOrWhitespace(value)) {
+        return true;
+    }
+
+    if (/^-?[0-9]+(\.[0-9]+)?$/.test(String(value))) {
+        return true;
+    }
+
+    return "must be a decimal value."
+}));
+
+defineRule("ssn", ((value, params) => {
+    // Field is empty, should pass
+    if (isNullOrWhitespace(value)) {
+        return true;
+    }
+
+    if (/^[0-9]{3}\-[0-9]{2}\-[0-9]{4}$/.test(String(value))) {
+        return true;
+    }
+
+    return "must be a valid social security number";
+}));
 
 /**
  * Convert the string to a number

@@ -412,27 +412,27 @@ export default defineComponent( {
             if ( this.registrationEntryState.FirstStep === this.steps.intro )
             {
                 items.push( {
-                    Key: 'Start',
-                    Title: 'Start',
-                    Subtitle: this.viewModel.registrationTerm
+                    key: 'Start',
+                    title: 'Start',
+                    subtitle: this.viewModel.registrationTerm
                 } );
             }
 
             if ( this.hasPreAttributes )
             {
                 items.push( {
-                    Key: 'Pre',
-                    Title: this.viewModel.registrationAttributeTitleStart,
-                    Subtitle: this.viewModel.registrationTerm
+                    key: 'Pre',
+                    title: this.viewModel.registrationAttributeTitleStart,
+                    subtitle: this.viewModel.registrationTerm
                 } );
             }
 
             if ( !this.registrationEntryState.Registrants.length )
             {
                 items.push( {
-                    Key: 'Registrant',
-                    Title: toTitleCase( this.viewModel.registrantTerm ),
-                    Subtitle: this.viewModel.registrationTerm
+                    key: 'Registrant',
+                    title: toTitleCase( this.viewModel.registrantTerm ),
+                    subtitle: this.viewModel.registrationTerm
                 } );
             }
 
@@ -444,17 +444,17 @@ export default defineComponent( {
                 if ( info?.FirstName && info?.LastName )
                 {
                     items.push( {
-                        Key: `Registrant-${registrant.Guid}`,
-                        Title: info.FirstName,
-                        Subtitle: info.LastName
+                        key: `Registrant-${registrant.Guid}`,
+                        title: info.FirstName,
+                        subtitle: info.LastName
                     } );
                 }
                 else
                 {
                     items.push( {
-                        Key: `Registrant-${registrant.Guid}`,
-                        Title: toTitleCase( this.viewModel.registrantTerm ),
-                        Subtitle: toTitleCase( toWord( i + 1 ) )
+                        key: `Registrant-${registrant.Guid}`,
+                        title: toTitleCase( this.viewModel.registrantTerm ),
+                        subtitle: toTitleCase( toWord( i + 1 ) )
                     } );
                 }
             }
@@ -462,16 +462,16 @@ export default defineComponent( {
             if ( this.hasPostAttributes )
             {
                 items.push( {
-                    Key: 'Post',
-                    Title: this.viewModel.registrationAttributeTitleEnd,
-                    Subtitle: this.viewModel.registrationTerm
+                    key: 'Post',
+                    title: this.viewModel.registrationAttributeTitleEnd,
+                    subtitle: this.viewModel.registrationTerm
                 } );
             }
 
             items.push( {
-                Key: 'Finalize',
-                Title: 'Finalize',
-                Subtitle: this.viewModel.registrationTerm
+                key: 'Finalize',
+                title: 'Finalize',
+                subtitle: this.viewModel.registrationTerm
             } );
 
             return items;

@@ -132,7 +132,7 @@ export default defineComponent({
             return total;
         },
         totalAmountFormatted(): string {
-            return `$${asFormattedString(this.totalAmount)}`;
+            return `$${asFormattedString(this.totalAmount, 2)}`;
         },
         gatewayControlModel(): GatewayControlModel {
             return this.configurationValues['GatewayControl'] as GatewayControlModel;

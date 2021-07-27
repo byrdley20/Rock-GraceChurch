@@ -29,6 +29,7 @@ import DefinedType from '../../ViewModels/CodeGenerated/DefinedTypeViewModel';
 import CurrencyBox from '../../Elements/CurrencyBox';
 import PanelWidget from '../../Elements/PanelWidget';
 import DatePicker from '../../Elements/DatePicker';
+import DateTimePicker from '../../Elements/DateTimePicker';
 import { RockDateType } from '../../Util/RockDate';
 import BirthdayPicker from '../../Elements/BirthdayPicker';
 import NumberUpDown from '../../Elements/NumberUpDown';
@@ -47,6 +48,14 @@ import PhoneNumberBox from '../../Elements/PhoneNumberBox';
 import HelpBlock from '../../Elements/HelpBlock';
 import DatePartsPicker, { DatePartsPickerModel } from '../../Elements/DatePartsPicker';
 import ColorPicker from '../../Elements/ColorPicker';
+import NumberBox from '../../Elements/NumberBox';
+import NumberRangeBox from '../../Elements/NumberRangeBox';
+import GenderDropDownList from '../../Elements/GenderDropDownList';
+import SocialSecurityNumberBox from '../../Elements/SocialSecurityNumberBox';
+import TimePicker from '../../Elements/TimePicker';
+import CheckBoxList from '../../Elements/CheckBoxList';
+import Rating from '../../Elements/Rating';
+import { toNumber } from '../../Services/Number';
 
 /** An inner component that describes the template used for each of the controls
  *  within this control gallery */
@@ -328,6 +337,38 @@ const FormRulesGallery = defineComponent( {
 </GalleryAndResult>`
 } );
 
+/** Demonstrates check box list */
+const CheckBoxListGallery = defineComponent({
+    name: 'CheckBoxListGallery',
+    components: {
+        GalleryAndResult,
+        CheckBoxList
+    },
+    data() {
+        return {
+            options: [
+                { value: "red", text: "Red" },
+                { value: "green", text: "Green" },
+                { value: "blue", text: "Blue" }
+            ],
+            items: ["green"]
+        };
+    },
+    template: `
+<GalleryAndResult>
+    <template #header>
+        CheckBoxList
+    </template>
+    <template #gallery>
+        <CheckBoxList label="CheckBoxList 1" v-model="items" :options="options" />
+        <CheckBoxList label="CheckBoxList 2" v-model="items" :options="options" />
+    </template>
+    <template #result>
+        Items: {{JSON.stringify(items, null, 2)}}
+    </template>
+</GalleryAndResult>`
+});
+
 /** Demonstrates date pickers */
 const DatePickerGallery = defineComponent( {
     name: 'DatePickerGallery',
@@ -361,22 +402,50 @@ const DatePickerGallery = defineComponent( {
 </GalleryAndResult>`
 } );
 
+/** Demonstrates date time pickers */
+const DateTimePickerGallery = defineComponent({
+    name: 'DatePickerGallery',
+    components: {
+        GalleryAndResult,
+        DateTimePicker
+    },
+    data() {
+        return {
+            date: null as RockDateType | null
+        };
+    },
+    template: `
+<GalleryAndResult>
+    <template #header>
+        DateTimePicker
+    </template>
+    <template #gallery>
+        <DateTimePicker label="Date 1" v-model="date" />
+        <DateTimePicker label="Date 2" v-model="date" />
+    </template>
+    <template #result>
+        Date: {{JSON.stringify(date, null, 2)}}
+    </template>
+</GalleryAndResult>`
+});
+
 /** Demonstrates date part pickers */
 const DatePartsPickerGallery = defineComponent( {
     name: 'DatePartsPickerGallery',
     components: {
         GalleryAndResult,
-        DatePicker,
+        Toggle,
         BirthdayPicker,
         DatePartsPicker
     },
     data ()
     {
         return {
+            showYear: true,
             datePartsModel: {
-                Month: 1,
-                Day: 1,
-                Year: 2020
+                month: 1,
+                day: 1,
+                year: 2020
             } as DatePartsPickerModel
         };
     },
@@ -386,11 +455,12 @@ const DatePartsPickerGallery = defineComponent( {
         DatePartsPicker
     </template>
     <template #gallery>
-        <DatePartsPicker label="DatePartsPicker 1" v-model="datePartsModel" />
-        <DatePartsPicker label="DatePartsPicker 2" v-model="datePartsModel" />
+        <Toggle label="Show Year" v-model="showYear" />
+        <DatePartsPicker label="DatePartsPicker 1" v-model="datePartsModel" :showYear="showYear" />
+        <DatePartsPicker label="DatePartsPicker 2" v-model="datePartsModel" :showYear="showYear" />
     </template>
     <template #result>
-        {{datePartsModel.Month}} / {{datePartsModel.Day}} / {{datePartsModel.Year}}
+        <span>{{datePartsModel.month}} / {{datePartsModel.day}}</span><span v-if="showYear"> / {{datePartsModel.year}}</span>
     </template>
 </GalleryAndResult>`
 } );
@@ -512,6 +582,210 @@ const ColorPickerGallery = defineComponent({
 </GalleryAndResult>`
 });
 
+/** Demonstrates a number box */
+const NumberBoxGallery = defineComponent({
+    name: 'NumberBoxGallery',
+    components: {
+        GalleryAndResult,
+        RockForm,
+        RockButton,
+        TextBox,
+        NumberBox
+    },
+    data() {
+        return {
+            minimumValue: '0',
+            maximumValue: '100',
+            value: 42,
+        };
+    },
+    computed: {
+        numericMinimumValue(): number {
+            return toNumber(this.minimumValue);
+        },
+        numericMaximumValue(): number {
+            return toNumber(this.maximumValue);
+        }
+    },
+    template: `
+<GalleryAndResult>
+    <template #header>
+        NumberBox
+    </template>
+    <template #gallery>
+        <TextBox label="Minimum Value" v-model="minimumValue" />
+        <TextBox label="Maximum Value" v-model="maximumValue" />
+        <RockForm>
+            <NumberBox label="Number" v-model="value" :minimumValue="numericMinimumValue" :maximumValue="numericMaximumValue" />
+            <RockButton btnType="primary" type="submit">Test</RockButton>
+        </RockForm>
+    </template>
+    <template #result>
+        {{value}}
+    </template>
+</GalleryAndResult>`
+});
+
+/** Demonstrates a number box */
+const NumberRangeBoxGallery = defineComponent({
+    name: 'NumberRangeBoxGallery',
+    components: {
+        GalleryAndResult,
+        RockForm,
+        RockButton,
+        TextBox,
+        NumberRangeBox
+    },
+    data() {
+        return {
+            value: { lower: 0, upper: 100 },
+        };
+    },
+    template: `
+<GalleryAndResult>
+    <template #header>
+        NumberRangeBox
+    </template>
+    <template #gallery>
+        <RockForm>
+            <NumberRangeBox label="Number Range" v-model="value" />
+            <RockButton btnType="primary" type="submit">Test</RockButton>
+        </RockForm>
+    </template>
+    <template #result>
+        {{value.lower}} to {{value.upper}}
+    </template>
+</GalleryAndResult>`
+});
+
+/** Demonstrates a gender picker */
+const GenderDropDownListGallery = defineComponent({
+    name: 'GenderDropDownListGallery',
+    components: {
+        GalleryAndResult,
+        RockForm,
+        RockButton,
+        TextBox,
+        GenderDropDownList
+    },
+    data() {
+        return {
+            value: '1',
+        };
+    },
+    template: `
+<GalleryAndResult>
+    <template #header>
+        GenderDropDownList
+    </template>
+    <template #gallery>
+        <RockForm>
+            <GenderDropDownList label="Your Gender" v-model="value" />
+            <RockButton btnType="primary" type="submit">Test</RockButton>
+        </RockForm>
+    </template>
+    <template #result>
+        {{value}}
+    </template>
+</GalleryAndResult>`
+});
+
+/** Demonstrates a social security number box */
+const SocialSecurityNumberBoxGallery = defineComponent({
+    name: 'SocialSecurityNumberBoxGallery',
+    components: {
+        GalleryAndResult,
+        RockForm,
+        RockButton,
+        TextBox,
+        SocialSecurityNumberBox
+    },
+    data() {
+        return {
+            value: '123-45-6789',
+        };
+    },
+    template: `
+<GalleryAndResult>
+    <template #header>
+        SocialSecurityNumberBox
+    </template>
+    <template #gallery>
+        <RockForm>
+            <SocialSecurityNumberBox label="SSN" v-model="value" />
+            <RockButton btnType="primary" type="submit">Test</RockButton>
+        </RockForm>
+    </template>
+    <template #result>
+        {{value}}
+    </template>
+</GalleryAndResult>`
+});
+
+/** Demonstrates a time picker */
+const TimePickerGallery = defineComponent({
+    name: 'TimePickerGallery',
+    components: {
+        GalleryAndResult,
+        RockForm,
+        RockButton,
+        TextBox,
+        TimePicker
+    },
+    data() {
+        return {
+            value: { hour: 14, minute: 15 },
+        };
+    },
+    template: `
+<GalleryAndResult>
+    <template #header>
+        TimePicker
+    </template>
+    <template #gallery>
+        <RockForm>
+            <TimePicker label="Time" v-model="value" />
+            <RockButton btnType="primary" type="submit">Test</RockButton>
+        </RockForm>
+    </template>
+    <template #result>
+        {{value.hour}}:{{value.minute}}
+    </template>
+</GalleryAndResult>`
+});
+
+/** Demonstrates a rating picker */
+const RatingGallery = defineComponent({
+    name: 'RatingGallery',
+    components: {
+        GalleryAndResult,
+        RockForm,
+        NumberBox,
+        Rating
+    },
+    data() {
+        return {
+            value: 3,
+            maximumValue: 5
+        };
+    },
+    template: `
+<GalleryAndResult>
+    <template #header>
+        Rating
+    </template>
+    <template #gallery>
+        <NumberBox label="Maximum Rating" v-model="maximumValue" />
+        <RockForm>
+            <Rating label="Time" v-model="value" :maxRating="maximumValue || 5" />
+        </RockForm>
+    </template>
+    <template #result>
+        {{value}}
+    </template>
+</GalleryAndResult>`
+});
+
 export default defineComponent({
     name: 'Example.ControlGallery',
     components: {
@@ -523,6 +797,7 @@ export default defineComponent({
         CurrencyBox,
         EmailBox,
         DatePickerGallery,
+        DateTimePickerGallery,
         DatePartsPickerGallery,
         NumberUpDown,
         AddressControl,
@@ -535,12 +810,19 @@ export default defineComponent({
         RadioButtonListGallery,
         DialogGallery,
         CheckBoxGallery,
+        CheckBoxListGallery,
         PhoneNumberBoxGallery,
         DropDownListGallery,
         HelpBlockGallery,
         FormRulesGallery,
         DefinedTypeAndValueGallery,
-        ColorPickerGallery
+        ColorPickerGallery,
+        NumberBoxGallery,
+        NumberRangeBoxGallery,
+        GenderDropDownListGallery,
+        SocialSecurityNumberBoxGallery,
+        TimePickerGallery,
+        RatingGallery
     },
     data() {
         return {
@@ -552,21 +834,21 @@ export default defineComponent({
             address: getDefaultAddressControlModel(),
             toggle: false,
             prePostHtmlItems: [
-                { PreHtml: '<div class="row"><div class="col-sm-6">', PostHtml: '</div>', SlotName: 'item1' },
-                { PreHtml: '<div class="col-sm-6">', PostHtml: '</div></div>', SlotName: 'item2' }
+                { preHtml: '<div class="row"><div class="col-sm-6">', postHtml: '</div>', slotName: 'item1' },
+                { preHtml: '<div class="col-sm-6">', postHtml: '</div></div>', slotName: 'item2' }
             ] as ItemWithPreAndPostHtml[],
             progressTrackerIndex: 0,
             progressTrackerItems: [
-                { Key: 'S', Title: 'Start', Subtitle: 'The beginning' },
-                { Key: '1', Title: 'Step 1', Subtitle: 'The first step' },
-                { Key: '2', Title: 'Step 2', Subtitle: 'The second step' },
-                { Key: '3', Title: 'Step 3', Subtitle: 'The third step' },
-                { Key: '4', Title: 'Step 4', Subtitle: 'The fourth step' },
-                { Key: '5', Title: 'Step 5', Subtitle: 'The fifth step' },
-                { Key: '6', Title: 'Step 6', Subtitle: 'The sixth step' },
-                { Key: '7', Title: 'Step 7', Subtitle: 'The seventh step' },
-                { Key: '8', Title: 'Step 8', Subtitle: 'The eighth step' },
-                { Key: 'F', Title: 'Finish', Subtitle: 'The finish' }
+                { key: 'S', title: 'Start', subtitle: 'The beginning' },
+                { key: '1', title: 'Step 1', subtitle: 'The first step' },
+                { key: '2', title: 'Step 2', subtitle: 'The second step' },
+                { key: '3', title: 'Step 3', subtitle: 'The third step' },
+                { key: '4', title: 'Step 4', subtitle: 'The fourth step' },
+                { key: '5', title: 'Step 5', subtitle: 'The fifth step' },
+                { key: '6', title: 'Step 6', subtitle: 'The sixth step' },
+                { key: '7', title: 'Step 7', subtitle: 'The seventh step' },
+                { key: '8', title: 'Step 8', subtitle: 'The eighth step' },
+                { key: 'F', title: 'Finish', subtitle: 'The finish' }
             ] as ProgressTrackerItem[]
         };
     },
@@ -590,6 +872,7 @@ export default defineComponent({
     <template v-slot:default>
         <TextBoxGallery />
         <DatePickerGallery />
+        <DateTimePickerGallery />
         <GalleryAndResult>
             <template #header>
                 CurrencyBox
@@ -689,10 +972,10 @@ export default defineComponent({
                 ItemsWithPreAndPostHtml
             </template>
             <template #gallery>
-                <TextBox label="Item 1 - Pre Html" v-model="prePostHtmlItems[0].PreHtml" />
-                <TextBox label="Item 1 - Post Html" v-model="prePostHtmlItems[0].PostHtml" />
-                <TextBox label="Item 2 - Pre Html" v-model="prePostHtmlItems[1].PreHtml" />
-                <TextBox label="Item 2 - Post Html" v-model="prePostHtmlItems[1].PostHtml" />
+                <TextBox label="Item 1 - Pre Html" v-model="prePostHtmlItems[0].preHtml" />
+                <TextBox label="Item 1 - Post Html" v-model="prePostHtmlItems[0].postHtml" />
+                <TextBox label="Item 2 - Pre Html" v-model="prePostHtmlItems[1].preHtml" />
+                <TextBox label="Item 2 - Post Html" v-model="prePostHtmlItems[1].postHtml" />
             </template>
             <template #result>
                 <ItemsWithPreAndPostHtml :items="prePostHtmlItems">
@@ -720,10 +1003,17 @@ export default defineComponent({
         <RadioButtonListGallery />
         <DialogGallery />
         <CheckBoxGallery />
+        <CheckBoxListGallery />
         <PhoneNumberBoxGallery />
         <DropDownListGallery />
         <HelpBlockGallery />
         <ColorPickerGallery />
+        <NumberBoxGallery />
+        <NumberRangeBoxGallery />
+        <GenderDropDownListGallery />
+        <SocialSecurityNumberBoxGallery />
+        <TimePickerGallery />
+        <RatingGallery />
     </template>
 </PaneledBlockTemplate>`
 });

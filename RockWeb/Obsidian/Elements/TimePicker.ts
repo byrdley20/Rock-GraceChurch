@@ -1,0 +1,85 @@
+﻿// <copyright>
+// Copyright by the Spark Development Network
+//
+// Licensed under the Rock Community License (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.rockrms.com/license
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// </copyright>
+
+import { defineComponent, PropType } from 'vue';
+import { ruleArrayToString, ruleStringToArray } from '../Rules/Index';
+import BasicTimePicker, { BasicTimePickerModelValue as TimePickerModelValue } from './BasicTimePicker';
+import RockFormField from './RockFormField';
+
+export { BasicTimePickerModelValue as TimePickerModelValue } from './BasicTimePicker';
+
+export default defineComponent({
+    name: 'TimePicker',
+    components: {
+        RockFormField,
+        BasicTimePicker
+    },
+    props: {
+        rules: {
+            type: String as PropType<string>,
+            default: ''
+        },
+        modelValue: {
+            type: Object as PropType<TimePickerModelValue>,
+            default: {}
+        }
+    },
+
+    data() {
+        return {
+            internalValue: {} as TimePickerModelValue
+        };
+    },
+
+    methods: {
+    },
+
+    computed: {
+        computedRules(): string {
+            const rules = ruleStringToArray(this.rules);
+
+            return ruleArrayToString(rules);
+        }
+    },
+
+    watch: {
+        modelValue: {
+            immediate: true,
+            handler() {
+                this.internalValue = this.modelValue;
+            }
+        },
+
+        internalValue(): void {
+            this.$emit("update:modelValue", this.internalValue);
+        }
+    },
+
+    template: `
+<RockFormField
+    :modelValue="internalValue"
+    formGroupClasses="timepicker-input"
+    name="time-picker"
+    :rules="computedRules">
+    <template #default="{uniqueId, field, errors, disabled}">
+        <div class="control-wrapper">
+            <div class="timepicker-input">
+                <BasicTimePicker v-model="internalValue" />
+            </div>
+        </div>
+    </template>
+</RockFormField>`
+});

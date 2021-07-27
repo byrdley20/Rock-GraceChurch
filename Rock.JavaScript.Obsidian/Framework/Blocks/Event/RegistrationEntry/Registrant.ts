@@ -118,9 +118,9 @@ export default defineComponent( {
         {
             return this.currentFormFields
                 .map( f => ( {
-                    PreHtml: f.preHtml,
-                    PostHtml: f.postHtml,
-                    SlotName: f.guid
+                    preHtml: f.preHtml,
+                    postHtml: f.postHtml,
+                    slotName: f.guid
                 } ) );
         },
         currentPerson (): Person | null

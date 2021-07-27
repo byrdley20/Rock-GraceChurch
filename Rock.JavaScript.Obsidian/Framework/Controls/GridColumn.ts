@@ -59,15 +59,15 @@ export default defineComponent( {
         },
         isCurrentlySorted (): boolean
         {
-            return !!this.mySortExpression && this.sortProperty?.Property === this.mySortExpression;
+            return !!this.mySortExpression && this.sortProperty?.property === this.mySortExpression;
         },
         isCurrentlySortedDesc (): boolean
         {
-            return this.isCurrentlySorted && this.sortProperty?.Direction === SortDirection.Descending;
+            return this.isCurrentlySorted && this.sortProperty?.direction === SortDirection.Descending;
         },
         isCurrentlySortedAsc (): boolean
         {
-            return this.isCurrentlySorted && this.sortProperty?.Direction === SortDirection.Ascending;
+            return this.isCurrentlySorted && this.sortProperty?.direction === SortDirection.Ascending;
         }
     },
     methods: {
@@ -79,12 +79,12 @@ export default defineComponent( {
             {
                 if ( this.isCurrentlySortedAsc )
                 {
-                    this.sortProperty.Direction = SortDirection.Descending;
+                    this.sortProperty.direction = SortDirection.Descending;
                 }
                 else
                 {
-                    this.sortProperty.Property = this.mySortExpression;
-                    this.sortProperty.Direction = SortDirection.Ascending;
+                    this.sortProperty.property = this.mySortExpression;
+                    this.sortProperty.direction = SortDirection.Ascending;
                 }
             }
         },

@@ -30,7 +30,7 @@ export type HttpResult<T> = {
 
 /**
  * Make an API call. This is only place Axios (or AJAX library) should be referenced to allow tools like performance metrics to provide
-* better insights.
+ * better insights.
  * @param method
  * @param url
  * @param params
@@ -68,14 +68,14 @@ export async function doApiCall<T>( method: HttpMethod, url: string, params: Htt
     }
     catch ( e )
     {
-        if ( e?.response?.data?.Message )
+        if ( e?.response?.data?.Message ?? e?.response?.data?.message )
         {
             return {
                 data: null,
                 isError: true,
                 isSuccess: false,
                 statusCode: e.response.status,
-                errorMessage: e.response.data.Message
+                errorMessage: e?.response?.data?.Message ?? e.response.data.message
             } as HttpResult<T>;
         }
 

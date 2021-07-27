@@ -114,6 +114,11 @@ defineRule( 'equal', ( ( value, [ compare ] ) =>
 
 defineRule( 'gt', ( ( value, [ compare ] ) =>
 {
+    // Field is empty, should pass
+    if (isNullOrWhitespace(value)) {
+        return true;
+    }
+
     if ( isNumeric( value ) && isNumeric( compare ) )
     {
         if ( convertToNumber( value ) > convertToNumber( compare ) )
@@ -131,6 +136,11 @@ defineRule( 'gt', ( ( value, [ compare ] ) =>
 
 defineRule( 'gte', ( ( value, [ compare ] ) =>
 {
+    // Field is empty, should pass
+    if (isNullOrWhitespace(value)) {
+        return true;
+    }
+
     if ( isNumeric( value ) && isNumeric( compare ) )
     {
         if ( convertToNumber( value ) >= convertToNumber( compare ) )
@@ -148,6 +158,11 @@ defineRule( 'gte', ( ( value, [ compare ] ) =>
 
 defineRule( 'lt', ( ( value, [ compare ] ) =>
 {
+    // Field is empty, should pass
+    if (isNullOrWhitespace(value)) {
+        return true;
+    }
+
     if ( isNumeric( value ) && isNumeric( compare ) )
     {
         if ( convertToNumber( value ) < convertToNumber( compare ) )
@@ -165,6 +180,11 @@ defineRule( 'lt', ( ( value, [ compare ] ) =>
 
 defineRule( 'lte', ( ( value, [ compare ] ) =>
 {
+    // Field is empty, should pass
+    if (isNullOrWhitespace(value)) {
+        return true;
+    }
+
     if ( isNumeric( value ) && isNumeric( compare ) )
     {
         if ( convertToNumber( value ) <= convertToNumber( compare ) )
@@ -203,7 +223,8 @@ defineRule( 'datekey', ( value =>
 }) as ValidationRuleFunction);
 
 defineRule("integer", ((value, params) => {
-    if (isEmpty(value)) {
+    // Field is empty, should pass
+    if (isNullOrWhitespace(value)) {
         return true;
     }
 
@@ -215,7 +236,8 @@ defineRule("integer", ((value, params) => {
 }));
 
 defineRule("decimal", ((value, params) => {
-    if (isEmpty(value)) {
+    // Field is empty, should pass
+    if (isNullOrWhitespace(value)) {
         return true;
     }
 
@@ -227,7 +249,8 @@ defineRule("decimal", ((value, params) => {
 }));
 
 defineRule("ssn", ((value, params) => {
-    if (isEmpty(value)) {
+    // Field is empty, should pass
+    if (isNullOrWhitespace(value)) {
         return true;
     }
 

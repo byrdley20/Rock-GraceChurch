@@ -52,13 +52,14 @@ export function toNumber ( str: string | null )
  */
 export function toNumberOrNull ( str: string | null )
 {
-    if ( str === null )
-    {
+    if (str === null || str == "") {
         return null;
     }
 
     const replaced = str.replace( /[$,]/g, '' );
-    return Number( replaced ) || null;
+    const num = Number(replaced);
+
+    return !isNaN(num) ? num : null;
 }
 
 /**

@@ -172,6 +172,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                     EmailGallery: GetFieldTypeGalleryComponent('Email', 'ted@rocksolidchurchdemo.com', '3D045CAE-EA72-4A04-B7BE-7FD1D6214217', {}),
                     GenderGallery: GetFieldTypeGalleryComponent('Gender', '2', '2E28779B-4C76-4142-AE8D-49EA31DDB503', {}),
                     IntegerGallery: GetFieldTypeGalleryComponent('Integer', '20', 'A75DFC58-7A1B-4799-BF31-451B2BBE38FF', {}),
+                    IntegerRangeGallery: GetFieldTypeGalleryComponent('IntegerRange', '0,100', '9D5F21E0-DEA0-4E8E-BA42-71151F6A8ED4', {}),
                     MemoGallery: GetFieldTypeGalleryComponent('Memo', 'This is a memo', 'C28C7BF3-A552-4D77-9408-DEDCF760CED0', {
                         numberofrows: '10',
                         maxcharacters: '100',
@@ -192,7 +193,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                     }),
                     TimeGallery: GetFieldTypeGalleryComponent('Time', '13:15:00', '2F8F5EC4-57FA-4F6C-AB15-9D6616994580', {}),
                 },
-                template: "\n<PaneledBlockTemplate>\n    <template v-slot:title>\n        <i class=\"fa fa-flask\"></i>\n        Obsidian Field Type Gallery\n    </template>\n    <template v-slot:default>\n        <BooleanGallery />\n        <ColorGallery />\n        <CurrencyGallery />\n        <DateGallery />\n        <DateTimeGallery />\n        <DayOfWeekGallery />\n        <DecimalGallery />\n        <DefinedValueGallery />\n        <EmailGallery />\n        <GenderGallery />\n        <IntegerGallery />\n        <MemoGallery />\n        <MonthDayGallery />\n        <PhoneNumberGallery />\n        <SingleSelectGallery />\n        <TextGallery />\n        <TimeGallery />\n    </template>\n</PaneledBlockTemplate>"
+                template: "\n<PaneledBlockTemplate>\n    <template v-slot:title>\n        <i class=\"fa fa-flask\"></i>\n        Obsidian Field Type Gallery\n    </template>\n    <template v-slot:default>\n        <BooleanGallery />\n        <ColorGallery />\n        <CurrencyGallery />\n        <DateGallery />\n        <DateTimeGallery />\n        <DayOfWeekGallery />\n        <DecimalGallery />\n        <DefinedValueGallery />\n        <EmailGallery />\n        <GenderGallery />\n        <IntegerGallery />\n        <IntegerRangeGallery />\n        <MemoGallery />\n        <MonthDayGallery />\n        <PhoneNumberGallery />\n        <SingleSelectGallery />\n        <TextGallery />\n        <TimeGallery />\n    </template>\n</PaneledBlockTemplate>"
             }));
         }
     };

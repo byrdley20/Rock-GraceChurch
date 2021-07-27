@@ -242,6 +242,8 @@ export default defineComponent( {
         }),
         IntegerGallery: GetFieldTypeGalleryComponent('Integer', '20', 'A75DFC58-7A1B-4799-BF31-451B2BBE38FF', {
         }),
+        IntegerRangeGallery: GetFieldTypeGalleryComponent('IntegerRange', '0,100', '9D5F21E0-DEA0-4E8E-BA42-71151F6A8ED4', {
+        }),
         MemoGallery: GetFieldTypeGalleryComponent( 'Memo', 'This is a memo', 'C28C7BF3-A552-4D77-9408-DEDCF760CED0', {
             numberofrows: '10',
             maxcharacters: '100',
@@ -283,6 +285,7 @@ export default defineComponent( {
         <EmailGallery />
         <GenderGallery />
         <IntegerGallery />
+        <IntegerRangeGallery />
         <MemoGallery />
         <MonthDayGallery />
         <PhoneNumberGallery />

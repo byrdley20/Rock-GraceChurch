@@ -49,6 +49,7 @@ import HelpBlock from '../../Elements/HelpBlock';
 import DatePartsPicker, { DatePartsPickerModel } from '../../Elements/DatePartsPicker';
 import ColorPicker from '../../Elements/ColorPicker';
 import NumberBox from '../../Elements/NumberBox';
+import NumberRangeBox from '../../Elements/NumberRangeBox';
 import GenderDropDownList from '../../Elements/GenderDropDownList';
 import SocialSecurityNumberBox from '../../Elements/SocialSecurityNumberBox';
 import TimePicker from '../../Elements/TimePicker';
@@ -547,7 +548,7 @@ const ColorPickerGallery = defineComponent({
 </GalleryAndResult>`
 });
 
-/** Demonstrates a color picker */
+/** Demonstrates a number box */
 const NumberBoxGallery = defineComponent({
     name: 'NumberBoxGallery',
     components: {
@@ -591,7 +592,39 @@ const NumberBoxGallery = defineComponent({
 </GalleryAndResult>`
 });
 
-/** Demonstrates a color picker */
+/** Demonstrates a number box */
+const NumberRangeBoxGallery = defineComponent({
+    name: 'NumberRangeBoxGallery',
+    components: {
+        GalleryAndResult,
+        RockForm,
+        RockButton,
+        TextBox,
+        NumberRangeBox
+    },
+    data() {
+        return {
+            value: { lower: 0, upper: 100 },
+        };
+    },
+    template: `
+<GalleryAndResult>
+    <template #header>
+        NumberRangeBox
+    </template>
+    <template #gallery>
+        <RockForm>
+            <NumberRangeBox label="Number Range" v-model="value" />
+            <RockButton btnType="primary" type="submit">Test</RockButton>
+        </RockForm>
+    </template>
+    <template #result>
+        {{value.lower}} to {{value.upper}}
+    </template>
+</GalleryAndResult>`
+});
+
+/** Demonstrates a gender picker */
 const GenderDropDownListGallery = defineComponent({
     name: 'GenderDropDownListGallery',
     components: {
@@ -718,6 +751,7 @@ export default defineComponent({
         DefinedTypeAndValueGallery,
         ColorPickerGallery,
         NumberBoxGallery,
+        NumberRangeBoxGallery,
         GenderDropDownListGallery,
         SocialSecurityNumberBoxGallery,
         TimePickerGallery
@@ -906,6 +940,7 @@ export default defineComponent({
         <HelpBlockGallery />
         <ColorPickerGallery />
         <NumberBoxGallery />
+        <NumberRangeBoxGallery />
         <GenderDropDownListGallery />
         <SocialSecurityNumberBoxGallery />
         <TimePickerGallery />

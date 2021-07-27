@@ -33,6 +33,7 @@ import '../Fields/DefinedValueField';
 import '../Fields/EmailField';
 import '../Fields/GenderField';
 import '../Fields/IntegerField';
+import '../Fields/IntegerRangeField';
 import '../Fields/MemoField';
 import '../Fields/MonthDayField';
 import '../Fields/SingleSelect';

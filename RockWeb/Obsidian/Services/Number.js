@@ -16,11 +16,12 @@ System.register([], function (exports_1, context_1) {
     }
     exports_1("toNumber", toNumber);
     function toNumberOrNull(str) {
-        if (str === null) {
+        if (str === null || str == "") {
             return null;
         }
         var replaced = str.replace(/[$,]/g, '');
-        return Number(replaced) || null;
+        var num = Number(replaced);
+        return !isNaN(num) ? num : null;
     }
     exports_1("toNumberOrNull", toNumberOrNull);
     function toCurrencyOrNull(value) {

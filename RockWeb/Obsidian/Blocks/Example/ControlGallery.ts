@@ -53,6 +53,7 @@ import NumberRangeBox from '../../Elements/NumberRangeBox';
 import GenderDropDownList from '../../Elements/GenderDropDownList';
 import SocialSecurityNumberBox from '../../Elements/SocialSecurityNumberBox';
 import TimePicker from '../../Elements/TimePicker';
+import CheckBoxList from '../../Elements/CheckBoxList';
 import { toNumber } from '../../Services/Number';
 
 /** An inner component that describes the template used for each of the controls
@@ -334,6 +335,38 @@ const FormRulesGallery = defineComponent( {
     </template>
 </GalleryAndResult>`
 } );
+
+/** Demonstrates check box list */
+const CheckBoxListGallery = defineComponent({
+    name: 'CheckBoxListGallery',
+    components: {
+        GalleryAndResult,
+        CheckBoxList
+    },
+    data() {
+        return {
+            options: [
+                { value: "red", text: "Red" },
+                { value: "green", text: "Green" },
+                { value: "blue", text: "Blue" }
+            ],
+            items: ["green"]
+        };
+    },
+    template: `
+<GalleryAndResult>
+    <template #header>
+        CheckBoxList
+    </template>
+    <template #gallery>
+        <CheckBoxList label="CheckBoxList 1" v-model="items" :options="options" />
+        <CheckBoxList label="CheckBoxList 2" v-model="items" :options="options" />
+    </template>
+    <template #result>
+        Items: {{JSON.stringify(items, null, 2)}}
+    </template>
+</GalleryAndResult>`
+});
 
 /** Demonstrates date pickers */
 const DatePickerGallery = defineComponent( {
@@ -744,6 +777,7 @@ export default defineComponent({
         RadioButtonListGallery,
         DialogGallery,
         CheckBoxGallery,
+        CheckBoxListGallery,
         PhoneNumberBoxGallery,
         DropDownListGallery,
         HelpBlockGallery,
@@ -935,6 +969,7 @@ export default defineComponent({
         <RadioButtonListGallery />
         <DialogGallery />
         <CheckBoxGallery />
+        <CheckBoxListGallery />
         <PhoneNumberBoxGallery />
         <DropDownListGallery />
         <HelpBlockGallery />

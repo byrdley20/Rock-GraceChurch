@@ -1,4 +1,4 @@
-﻿// <copyright>
+// <copyright>
 // Copyright by the Spark Development Network
 //
 // Licensed under the Rock Community License (the "License");
@@ -15,10 +15,12 @@
 // </copyright>
 //
 
-export const FinancialFrequency = '1F645CFB-5BBD-4465-B9CA-0D2104A1479B';
+/** Color field type */
+export const Color = "D747E6AE-C383-4E22-8846-71518E3DD06F";
 
 declare const enum SystemGuidValues {
-    FinancialFrequency = '1F645CFB-5BBD-4465-B9CA-0D2104A1479B'
+    /** Color field type */
+    Color = "D747E6AE-C383-4E22-8846-71518E3DD06F"
 }
 
 export default SystemGuidValues;

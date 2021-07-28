@@ -96,7 +96,7 @@ System.register(["../../Controls/CampusPicker", "../../Controls/DefinedValuePick
                         doGatewayControlSubmit: false,
                         pageIndex: 1,
                         page1Error: '',
-                        frequencyDefinedTypeGuid: DefinedType_1.FINANCIAL_FREQUENCY,
+                        frequencyDefinedTypeGuid: DefinedType_1.FinancialFrequency,
                         args: {
                             IsGivingAsPerson: true,
                             Email: '',

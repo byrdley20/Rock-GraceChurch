@@ -14,16 +14,16 @@
 // limitations under the License.
 // </copyright>
 //
-import { getFieldTypeComponent } from '../Fields/Index';
+import { getFieldTypeComponent, registerFieldType } from '../Fields/Index';
 import { Guid } from '../Util/Guid';
-import { Component, computed, defineComponent, PropType, provide } from 'vue';
+import { Component, computed, defineComponent, defineAsyncComponent, PropType, provide } from 'vue';
+import FieldType from '../SystemGuid/FieldType';
 
 // Import and assign TextField because it is the fallback
 import TextField from '../Fields/TextField';
 
 // Import other field types so they are registered and available upon dynamic request
 import '../Fields/BooleanField';
-import '../Fields/ColorField';
 import '../Fields/CurrencyField';
 import '../Fields/DateField';
 import '../Fields/DateTimeField';
@@ -42,6 +42,8 @@ import '../Fields/SingleSelect';
 import '../Fields/PhoneNumber';
 import '../Fields/RatingField';
 import '../Fields/TimeField';
+
+registerFieldType(FieldType.Color, defineAsyncComponent(() => import('../Fields/ColorField')));
 
 export default defineComponent( {
     name: 'RockField',

@@ -33,7 +33,7 @@ enum ConfigurationValueKey {
     NamedColor = 'Named Color'
 }
 
-export default registerFieldType(fieldTypeGuid, defineComponent({
+export default defineComponent({
     name: 'ColorField',
     components: {
         DropDownList,
@@ -229,4 +229,4 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
 <DropDownList v-if="isEditMode && isNamedPicker" v-model="internalValue" :options="dropDownListOptions" />
 <ColorPicker v-else-if="isEditMode && isColorPicker" v-model="internalValue" />
 <span v-else>{{ displayValue }}</span>`
-}));
+});

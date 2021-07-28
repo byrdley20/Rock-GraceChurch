@@ -28,7 +28,7 @@ System.register(["vue", "../Elements/DropDownList", "../Elements/ColorPicker", "
                 ConfigurationValueKey["ColorPicker"] = "Color Picker";
                 ConfigurationValueKey["NamedColor"] = "Named Color";
             })(ConfigurationValueKey || (ConfigurationValueKey = {}));
-            exports_1("default", Index_1.registerFieldType(fieldTypeGuid, vue_1.defineComponent({
+            exports_1("default", vue_1.defineComponent({
                 name: 'ColorField',
                 components: {
                     DropDownList: DropDownList_1.default,
@@ -222,7 +222,7 @@ System.register(["vue", "../Elements/DropDownList", "../Elements/ColorPicker", "
 <DropDownList v-if="isEditMode && isNamedPicker" v-model="internalValue" :options="dropDownListOptions" />
 <ColorPicker v-else-if="isEditMode && isColorPicker" v-model="internalValue" />
 <span v-else>{{ displayValue }}</span>`
-            })));
+            }));
         }
     };
 });

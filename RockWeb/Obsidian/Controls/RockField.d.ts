@@ -1,6 +1,5 @@
 import { Component, PropType } from 'vue';
 import '../Fields/BooleanField';
-import '../Fields/ColorField';
 import '../Fields/CurrencyField';
 import '../Fields/DateField';
 import '../Fields/DateTimeField';

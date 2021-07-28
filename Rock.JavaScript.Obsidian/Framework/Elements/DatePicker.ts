@@ -142,7 +142,7 @@ export default defineComponent( {
     {
         const input = this.$refs[ 'input' ] as HTMLInputElement;
         const inputId = input.id;
-        const Rock = ( window[ 'Rock' ] as unknown ) as Rock;
+        const Rock = ( window[ <any>'Rock' ] as unknown ) as Rock;
 
         Rock.controls.datePicker.initialize( {
             id: inputId,

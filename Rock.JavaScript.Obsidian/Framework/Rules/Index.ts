@@ -32,7 +32,7 @@ export function ruleArrayToString ( rulesArray: string[] )
     return rulesArray.join( '|' );
 }
 
-defineRule( 'required', ( ( value, [ optionsJson ] ) =>
+defineRule( 'required', ( ( value: unknown, [ optionsJson ]: any[] ) =>
 {
     const options = optionsJson ? JSON.parse( optionsJson ) : {};
 
@@ -78,7 +78,7 @@ defineRule( 'email', ( value =>
     return true;
 } ) as ValidationRuleFunction );
 
-defineRule( 'notequal', ( ( value, [ compare ] ) =>
+defineRule( 'notequal', ( ( value: unknown, [ compare ]: any[] ) =>
 {
     if ( isNumeric( value ) && isNumeric( compare ) )
     {
@@ -95,7 +95,7 @@ defineRule( 'notequal', ( ( value, [ compare ] ) =>
     return `must not equal ${compare}`;
 } ) as ValidationRuleFunction );
 
-defineRule( 'equal', ( ( value, [ compare ] ) =>
+defineRule( 'equal', ( ( value: unknown, [ compare ]: any[] ) =>
 {
     if ( isNumeric( value ) && isNumeric( compare ) )
     {
@@ -112,7 +112,7 @@ defineRule( 'equal', ( ( value, [ compare ] ) =>
     return `must equal ${compare}`;
 } ) as ValidationRuleFunction );
 
-defineRule( 'gt', ( ( value, [ compare ] ) =>
+defineRule( 'gt', ( ( value: unknown, [ compare ]: any[] ) =>
 {
     // Field is empty, should pass
     if (isNullOrWhitespace(value)) {
@@ -126,7 +126,7 @@ defineRule( 'gt', ( ( value, [ compare ] ) =>
             return true;
         }
     }
-    else if ( value > compare )
+    else if ( <any>value > compare )
     {
         return true;
     }
@@ -134,7 +134,7 @@ defineRule( 'gt', ( ( value, [ compare ] ) =>
     return `must be greater than ${compare}`;
 } ) as ValidationRuleFunction );
 
-defineRule( 'gte', ( ( value, [ compare ] ) =>
+defineRule( 'gte', ( ( value: unknown, [ compare ]: any[] ) =>
 {
     // Field is empty, should pass
     if (isNullOrWhitespace(value)) {
@@ -148,7 +148,7 @@ defineRule( 'gte', ( ( value, [ compare ] ) =>
             return true;
         }
     }
-    else if ( value >= compare )
+    else if ( <any>value >= compare )
     {
         return true;
     }
@@ -156,7 +156,7 @@ defineRule( 'gte', ( ( value, [ compare ] ) =>
     return `must not be less than ${compare}`;
 } ) as ValidationRuleFunction );
 
-defineRule( 'lt', ( ( value, [ compare ] ) =>
+defineRule( 'lt', ( ( value: unknown, [ compare ]: any[] ) =>
 {
     // Field is empty, should pass
     if (isNullOrWhitespace(value)) {
@@ -170,7 +170,7 @@ defineRule( 'lt', ( ( value, [ compare ] ) =>
             return true;
         }
     }
-    else if ( value < compare )
+    else if ( <any>value < compare )
     {
         return true;
     }
@@ -178,7 +178,7 @@ defineRule( 'lt', ( ( value, [ compare ] ) =>
     return `must be less than ${compare}`;
 } ) as ValidationRuleFunction );
 
-defineRule( 'lte', ( ( value, [ compare ] ) =>
+defineRule( 'lte', ( ( value: unknown, [ compare ]: any[] ) =>
 {
     // Field is empty, should pass
     if (isNullOrWhitespace(value)) {
@@ -192,7 +192,7 @@ defineRule( 'lte', ( ( value, [ compare ] ) =>
             return true;
         }
     }
-    else if ( value <= compare )
+    else if ( <any>value <= compare )
     {
         return true;
     }
@@ -222,7 +222,7 @@ defineRule( 'datekey', ( value =>
     return true;
 }) as ValidationRuleFunction);
 
-defineRule("integer", ((value, params) => {
+defineRule("integer", (value: unknown) => {
     // Field is empty, should pass
     if (isNullOrWhitespace(value)) {
         return true;
@@ -233,9 +233,9 @@ defineRule("integer", ((value, params) => {
     }
 
     return "must be an integer value."
-}));
+});
 
-defineRule("decimal", ((value, params) => {
+defineRule("decimal", (value: unknown) => {
     // Field is empty, should pass
     if (isNullOrWhitespace(value)) {
         return true;
@@ -246,9 +246,9 @@ defineRule("decimal", ((value, params) => {
     }
 
     return "must be a decimal value."
-}));
+});
 
-defineRule("ssn", ((value, params) => {
+defineRule("ssn", (value: unknown) => {
     // Field is empty, should pass
     if (isNullOrWhitespace(value)) {
         return true;
@@ -259,7 +259,7 @@ defineRule("ssn", ((value, params) => {
     }
 
     return "must be a valid social security number";
-}));
+});
 
 /**
  * Convert the string to a number

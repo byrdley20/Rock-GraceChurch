@@ -3,7 +3,7 @@
     "outDir": "../dist/Framework",
     "rootDir": ".",
     "declaration": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "noEmitOnError": true,
     "removeComments": true,
     "sourceMap": true,

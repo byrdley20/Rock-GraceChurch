@@ -17,7 +17,7 @@
 import PaneledBlockTemplate from '../../Templates/PaneledBlockTemplate';
 import { defineComponent, inject } from 'vue';
 import store from '../../Store/Index';
-import Grid, { FilterOptions, SortDirection, SortProperty } from '../../Controls/Grid';
+import Grid, { FilterOptions, RowContext, SortDirection, SortProperty } from '../../Controls/Grid';
 import GridRow from '../../Controls/GridRow';
 import GridColumn from '../../Controls/GridColumn';
 import GridSelectColumn from '../../Controls/GridSelectColumn';
@@ -103,7 +103,7 @@ export default defineComponent({
                 this.isLoading = false;
             }
         },
-        onRowClick(rowContext): void {
+        onRowClick(rowContext: RowContext): void {
             const groupMemberId = rowContext.rowId;
             location.href = '/GroupMember/' + groupMemberId;
         }

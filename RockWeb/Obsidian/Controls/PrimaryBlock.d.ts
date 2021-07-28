@@ -5,7 +5,7 @@ declare const _default: import("vue").DefineComponent<{
         default: boolean;
     };
 }, unknown, unknown, {}, {
-    setAreSecondaryBlocksShown(isVisible: any): void;
+    setAreSecondaryBlocksShown(isVisible: boolean): void;
 }, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     hideSecondaryBlocks?: unknown;
 } & {

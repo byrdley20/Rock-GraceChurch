@@ -83,7 +83,7 @@ System.register(["vue", "../Util/Guid.js", "./RockFormField.js"], function (expo
                                 placeholder_text_multiple: ' ',
                                 placeholder_text_single: ' '
                             })
-                                .change(ev => {
+                                .change((ev) => {
                                 this.internalValue = ev.target.value;
                             });
                         }

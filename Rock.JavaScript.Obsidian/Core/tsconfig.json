@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "noEmitOnError": true,
     "removeComments": true,
     "sourceMap": true,
-    "target": "ES5",
+    "target": "ES2016",
     "module": "CommonJS",
     "moduleResolution": "Node",
     "strict": true,
     "lib": [
       "DOM",
-      "ES5"
+      "ES2016"
     ],
     "allowUnreachableCode": false
   }

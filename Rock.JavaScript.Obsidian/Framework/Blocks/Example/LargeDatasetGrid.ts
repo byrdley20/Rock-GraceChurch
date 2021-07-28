@@ -41,7 +41,7 @@ export default defineComponent({
         };
     },
     methods: {
-        onRowClick ( rowContext ): void
+        onRowClick ( rowContext: RowContext ): void
         {
             this.rowContextClicked = rowContext;
             this.isRowClickedDialogOpen = true;

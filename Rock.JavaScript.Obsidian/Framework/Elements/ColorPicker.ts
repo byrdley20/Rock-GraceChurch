@@ -42,7 +42,7 @@ export default defineComponent({
         };
     },
     mounted(): void {
-        const $colorPicker = (<any>window['$'])(this.$refs.colorPicker);
+        const $colorPicker = (<any>window[<any>'$'])(this.$refs.colorPicker);
 
         $colorPicker.colorpicker();
 

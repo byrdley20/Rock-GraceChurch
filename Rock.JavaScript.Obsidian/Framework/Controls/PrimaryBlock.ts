@@ -26,7 +26,7 @@ export default defineComponent({
         }
     },
     methods: {
-        setAreSecondaryBlocksShown(isVisible): void {
+        setAreSecondaryBlocksShown(isVisible: boolean): void {
             store.commit('setAreSecondaryBlocksShown', { areSecondaryBlocksShown: isVisible });
         }
     },

@@ -82,7 +82,7 @@ export default defineComponent({
         };
     },
     methods: {
-        setIsEditMode(isEditMode): void {
+        setIsEditMode(isEditMode: boolean): void {
             this.isEditMode = isEditMode;
         },
         doEdit(): void {

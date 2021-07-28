@@ -32,7 +32,7 @@ const HelpBlock = defineComponent( {
     },
     mounted ()
     {
-        const jquery = window[ '$' ];
+        const jquery = <any>window[<any>'$'];
         jquery( this.$el ).tooltip();
     },
     template: `

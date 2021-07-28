@@ -45,11 +45,12 @@ export default defineComponent({
         };
     },
     methods: {
-        onInternalSubmit(handleSubmit, $event) {
+        onInternalSubmit(handleSubmit: Function, $event: Event) {
             this.formState.submitCount++;
             return handleSubmit($event, this.emitSubmit);
         },
-        emitSubmit(payload) {
+
+        emitSubmit(payload: any) {
             this.$emit('submit', payload);
         }
     },

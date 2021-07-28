@@ -79,7 +79,7 @@ export default defineComponent( {
         /** Uses jQuery to get the chosen element */
         getChosenJqueryEl ()
         {
-            const jquery = window[ '$' ];
+            const jquery = <any>window[ <any>'$' ];
             let $chosenDropDown = jquery( this.$refs[ 'theSelect' ] );
 
             if ( !$chosenDropDown || !$chosenDropDown.length )
@@ -108,7 +108,7 @@ export default defineComponent( {
                         placeholder_text_multiple: ' ',
                         placeholder_text_single: ' '
                     } )
-                    .change( ev =>
+                    .change( (ev: any) =>
                     {
                         this.internalValue = ev.target.value;
                     } );

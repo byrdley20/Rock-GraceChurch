@@ -146,7 +146,7 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
                 }
                 return true;
             }));
-            vee_validate_1.defineRule("integer", ((value, params) => {
+            vee_validate_1.defineRule("integer", (value) => {
                 if (String_1.isNullOrWhitespace(value)) {
                     return true;
                 }
@@ -154,8 +154,8 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
                     return true;
                 }
                 return "must be an integer value.";
-            }));
-            vee_validate_1.defineRule("decimal", ((value, params) => {
+            });
+            vee_validate_1.defineRule("decimal", (value) => {
                 if (String_1.isNullOrWhitespace(value)) {
                     return true;
                 }
@@ -163,8 +163,8 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
                     return true;
                 }
                 return "must be a decimal value.";
-            }));
-            vee_validate_1.defineRule("ssn", ((value, params) => {
+            });
+            vee_validate_1.defineRule("ssn", (value) => {
                 if (String_1.isNullOrWhitespace(value)) {
                     return true;
                 }
@@ -172,7 +172,7 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
                     return true;
                 }
                 return "must be a valid social security number";
-            }));
+            });
             convertToNumber = (value) => {
                 if (typeof value === 'number') {
                     return value;

@@ -116,7 +116,7 @@ export default defineComponent({
         async doSave(): Promise<void> {
             this.isLoading = true;
 
-            const keyValueMap = {};
+            const keyValueMap: Record<string, string | null> = {};
 
             for (const a of this.attributeValues) {
                 if (a.attribute) {

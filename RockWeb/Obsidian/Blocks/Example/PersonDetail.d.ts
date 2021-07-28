@@ -35,7 +35,7 @@ declare const _default: import("vue").DefineComponent<{}, {
     currentPerson(): Person | null;
     currentPersonGuid(): Guid | null;
 }, {
-    setIsEditMode(isEditMode: any): void;
+    setIsEditMode(isEditMode: boolean): void;
     doEdit(): void;
     doCancel(): void;
     doSave(): Promise<void>;

@@ -15,6 +15,9 @@
 // </copyright>
 //
 import { generateCommonEntityModule } from './Generators';
+import { Module } from 'vuex';
+import { RootState } from './Index';
+import Entity from '../ViewModels/Entity';
 
 export type CommonEntity = {
     namespace: string;
@@ -26,7 +29,7 @@ export const commonEntities: CommonEntity[] = [
     { namespace: 'campuses', apiUrl: '/api/v2/CommonEntities/Campuses' },
     { namespace: 'definedTypes', apiUrl: '/api/v2/CommonEntities/DefinedTypes' }
 ];
-export const commonEntityModules = {};
+export const commonEntityModules: Record<string, Module<{ items: Entity[] }, RootState>> = {};
 
 // Generate a module for each config
 for (const commonEntity of commonEntities) {

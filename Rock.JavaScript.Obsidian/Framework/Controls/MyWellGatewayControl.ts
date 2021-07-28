@@ -71,7 +71,7 @@ export default defineComponent( {
         {
             const globalVarName = 'Tokenizer';
 
-            if ( !window[ globalVarName ] )
+            if ( !window[ <any>globalVarName ] )
             {
                 const script = document.createElement( 'script' );
                 script.type = 'text/javascript';
@@ -80,14 +80,14 @@ export default defineComponent( {
 
                 const sleep = () => new Promise( ( resolve ) => setTimeout( resolve, 20 ) );
 
-                while ( !window[ globalVarName ] )
+                while ( !window[ <any>globalVarName ] )
                 {
                     await sleep();
                 }
             }
 
             const settings = this.getTokenizerSettings();
-            this.tokenizer = new window[ globalVarName ]( settings ) as Tokenizer;
+            this.tokenizer = new (<any>window[ <any>globalVarName ])( settings ) as Tokenizer;
             this.tokenizer.create();
         },
         handleResponse ( response: Response | null | undefined )

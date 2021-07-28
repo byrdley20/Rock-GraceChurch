@@ -65,6 +65,7 @@
     <Folder Include="Framework\ViewModels\CodeGenerated\" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Core\vendor.ts" />
     <TypeScriptCompile Include="Framework\Blocks\Crm\AttributeValues.ts" />
     <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry.ts" />
     <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\CostSummary.ts" />

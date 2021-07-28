@@ -1,21 +1,20 @@
 import "systemjs";
-import * as Axios from "axios";
-import * as Mitt from "mitt";
-import * as Vue from "vue/dist/vue.esm-bundler.js";
-import * as VeeValidate from "vee-validate";
-import * as Vuex from "vuex";
 
-const bundleMaps = {
-    "axios": Axios,
-    "mitt": Mitt,
-    "vee-validate": VeeValidate,
-    "vue": Vue,
-    "vuex": Vuex
+/**
+ * Describes the export names from the vendor bundle.
+ */
+const vendorMaps: Record<string, string> = {
+    "axios": "Axios",
+    "mitt": "Mitt",
+    "vee-validate": "VeeValidate",
+    "vue": "Vue",
+    "vuex": "Vuex"
 };
 
+/**
+ * The options that obsidian should be initialized with.
+ */
 interface ObsidianOptions {
-    debug?: boolean;
-
     fingerprint?: string;
 }
 
@@ -26,8 +25,13 @@ interface ObsidianOptions {
  * but that could change in the future to be asynchronous loading of components.
  */
 class Obsidian {
+    /** Functions that will need to be called once Obsidian is ready. */
     private readonly callbacks: Array<Function> = [];
+
+    /** True if Obsidian has fully initialized and is ready to render. */
     private isReady: boolean = false;
+
+    /** The options Obsidian was initialized with. */
     private options!: Required<ObsidianOptions>;
 
     /**
@@ -52,7 +56,7 @@ class Obsidian {
         const defaultExtension = '.js';
         const expectedExtensions = [defaultExtension, '.ts', '.css', '.json'];
 
-        System.constructor.prototype.resolve = function (moduleId, ...args) {
+        System.constructor.prototype.resolve = function (moduleId: string, ...args: any[]) {
             const isPackage = moduleId.indexOf('/') === -1 && moduleId.indexOf('\\') === -1;
             const hasExtension = expectedExtensions.some(ext => moduleId.endsWith(ext));
 
@@ -73,13 +77,18 @@ class Obsidian {
         const expectedExtensions = [defaultExtension, '.ts', '.css', '.json'];
         const obsidian = this;
 
-        System.constructor.prototype.resolve = function (moduleId, ...args) {
+        System.constructor.prototype.resolve = function (moduleId: string, ...args: any[]) {
             let url = origResolve.call(this, moduleId, ...args);
 
             const hasExtension = expectedExtensions.some(ext => url.endsWith(ext));
 
             if (hasExtension) {
-                url += `?v=${obsidian.options.fingerprint}`;
+                if (url.indexOf("?") === -1) {
+                    url += `?${obsidian.options.fingerprint}`;
+                }
+                else {
+                    url += `&${obsidian.options.fingerprint}`;
+                }
             }
 
             return url;
@@ -93,7 +102,7 @@ class Obsidian {
         // Instruct SystemJS to accept the module name if it is a mapped one.
         var originalResolve = System.constructor.prototype.resolve;
         System.constructor.prototype.resolve = function (id: string, parentUrl?: string): string {
-            if (Object.keys(bundleMaps).indexOf(id) !== -1) {
+            if (vendorMaps[id] !== undefined) {
                 return id;
             }
 
@@ -103,21 +112,21 @@ class Obsidian {
         // Intercept a request to instantiate a new module and if it is one
         // of our mapped modules then just return it from the bundle.
         var originalInstantiate = System.constructor.prototype.instantiate;
-        System.constructor.prototype.instantiate = function (url: string, parentUrl?: string): Promise<any> {
-            if (Object.keys(bundleMaps).indexOf(url) !== -1) {
-                return new Promise(resolve => {
-                    resolve([[], function (_export) {
-                        return {
-                            execute: function () {
-                                _export(bundleMaps[url]);
-                                _export({ default: bundleMaps[url], __useDefault: true });
-                            }
-                        };
-                    }]);
-                });
+        System.constructor.prototype.instantiate = async function (url: string, parentUrl?: string): Promise<any> {
+            if (vendorMaps[url] !== undefined) {
+                const module = await System.import("/Obsidian/obsidian-vendor.js", parentUrl);
+
+                return [[], function (_export: System.ExportFn) {
+                    return {
+                        execute() {
+                            console.log(`Loaded ${url}:`, module[vendorMaps[url]]);
+                            _export(module[vendorMaps[url]]);
+                        }
+                    };
+                }];
             }
             else {
-                return originalInstantiate.call(this, url, parentUrl);
+                return await originalInstantiate.call(this, url, parentUrl);
             }
         }
     }
@@ -125,9 +134,8 @@ class Obsidian {
     /**
      * Initialize the framework.
      */
-    private init(options?: ObsidianOptions) {
+    public init(options?: ObsidianOptions) {
         this.options = {
-            debug: options?.debug ?? false,
             fingerprint: options?.fingerprint ?? ""
         };
 

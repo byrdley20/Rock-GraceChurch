@@ -119,7 +119,6 @@ class Obsidian {
                 return [[], function (_export: System.ExportFn) {
                     return {
                         execute() {
-                            console.log(`Loaded ${url}:`, module[vendorMaps[url]]);
                             _export(module[vendorMaps[url]]);
                         }
                     };

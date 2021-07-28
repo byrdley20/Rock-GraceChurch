@@ -16,7 +16,7 @@
 //
 import { CommonEntityOption, createCommonEntityPicker } from '../Store/Generators';
 import store from '../Store/Index';
-import DefinedType from '../ViewModels/CodeGenerated/DefinedTypeViewModel';
+import DefinedType from '../ViewModels/DefinedTypeViewModel';
 
 export default createCommonEntityPicker(
     'DefinedType',

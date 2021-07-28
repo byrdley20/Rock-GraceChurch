@@ -25,8 +25,8 @@ import JavaScriptAnchor from '../../Elements/JavaScriptAnchor';
 import RockForm from '../../Controls/RockForm';
 import TextBox from '../../Elements/TextBox';
 import RockButton from '../../Elements/RockButton';
-import Person from '../../ViewModels/CodeGenerated/PersonViewModel';
-import AttributeValue from '../../ViewModels/CodeGenerated/AttributeValueViewModel';
+import Person from '../../ViewModels/PersonViewModel';
+import AttributeValue from '../../ViewModels/AttributeValueViewModel';
 import AttributeValuesContainer from '../../Controls/AttributeValuesContainer';
 
 export default defineComponent({

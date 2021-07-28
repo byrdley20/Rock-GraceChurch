@@ -1,7 +1,7 @@
 import { Guid } from '../../Util/Guid';
 import { RegistrantInfo, RegistrantsSameFamily, RegistrarInfo, RegistrationEntryBlockFormViewModel, RegistrationEntryBlockSuccessViewModel, RegistrationEntryBlockViewModel, RegistrationPersonFieldType } from './RegistrationEntry/RegistrationEntryBlockViewModel';
 import { ProgressTrackerItem } from '../../Elements/ProgressTracker';
-import Person from '../../ViewModels/CodeGenerated/PersonViewModel';
+import Person from '../../ViewModels/PersonViewModel';
 export declare enum Step {
     'intro' = "intro",
     'registrationStartForm' = "registrationStartForm",

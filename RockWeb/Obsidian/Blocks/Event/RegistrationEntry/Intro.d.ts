@@ -1,5 +1,5 @@
 import { pluralConditional } from '../../../Services/String';
-import Person from '../../../ViewModels/CodeGenerated/PersonViewModel';
+import Person from '../../../ViewModels/PersonViewModel';
 import { RegistrationEntryState } from '../RegistrationEntry';
 import { RegistrationEntryBlockViewModel } from './RegistrationEntryBlockViewModel';
 declare const _default: import("vue").DefineComponent<{}, {}, {

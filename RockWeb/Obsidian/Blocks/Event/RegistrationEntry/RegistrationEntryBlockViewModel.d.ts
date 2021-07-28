@@ -1,6 +1,6 @@
 import { GatewayControlModel } from '../../../Controls/GatewayControl';
 import { Guid } from '../../../Util/Guid';
-import Attribute from '../../../ViewModels/CodeGenerated/AttributeViewModel';
+import Attribute from '../../../ViewModels/AttributeViewModel';
 import { RegistrationEntryBlockSession } from './RegistrationEntryBlockArgs';
 export declare enum RegistrationPersonFieldType {
     FirstName = 0,

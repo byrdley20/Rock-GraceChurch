@@ -15,7 +15,7 @@
 // </copyright>
 //
 import { Guid } from "../Util/Guid";
-import AttributeValue from "./CodeGenerated/AttributeValueViewModel";
+import AttributeValue from "./AttributeValueViewModel";
 
 export default interface Entity {
     id: number;

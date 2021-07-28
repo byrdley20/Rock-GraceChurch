@@ -16,7 +16,7 @@
 //
 import { isNullOrWhitespace } from '../Services/String';
 import { defineComponent, PropType } from 'vue';
-import AttributeValue from '../ViewModels/CodeGenerated/AttributeValueViewModel';
+import AttributeValue from '../ViewModels/AttributeValueViewModel';
 import RockField from './RockField';
 
 export default defineComponent({

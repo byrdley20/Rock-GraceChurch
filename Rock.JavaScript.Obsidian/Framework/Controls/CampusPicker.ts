@@ -16,7 +16,7 @@
 //
 import { CommonEntityOption, createCommonEntityPicker } from '../Store/Generators';
 import store from '../Store/Index';
-import Campus from '../ViewModels/CodeGenerated/CampusViewModel';
+import Campus from '../ViewModels/CampusViewModel';
 
 export default createCommonEntityPicker(
     'Campus',

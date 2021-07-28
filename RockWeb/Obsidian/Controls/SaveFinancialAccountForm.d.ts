@@ -1,5 +1,5 @@
 import { PropType } from "vue";
-import Person from "../ViewModels/CodeGenerated/PersonViewModel";
+import Person from "../ViewModels/PersonViewModel";
 import { BlockHttp } from "./RockBlock";
 declare const SaveFinancialAccountForm: import("vue").DefineComponent<{
     gatewayGuid: {

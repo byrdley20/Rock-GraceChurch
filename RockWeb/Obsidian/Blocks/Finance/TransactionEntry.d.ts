@@ -1,9 +1,9 @@
 import { Guid } from '../../Util/Guid';
 import { InvokeBlockActionFunc } from '../../Controls/RockBlock';
 import { ConfigurationValues } from '../../Index';
-import Person from '../../ViewModels/CodeGenerated/PersonViewModel';
-import FinancialAccount from '../../ViewModels/CodeGenerated/FinancialAccountViewModel';
-import Campus from '../../ViewModels/CodeGenerated/CampusViewModel';
+import Person from '../../ViewModels/PersonViewModel';
+import FinancialAccount from '../../ViewModels/FinancialAccountViewModel';
+import Campus from '../../ViewModels/CampusViewModel';
 import { RockDateType } from '../../Util/RockDate';
 import { GatewayControlModel } from '../../Controls/GatewayControl';
 export declare type ProcessTransactionArgs = {

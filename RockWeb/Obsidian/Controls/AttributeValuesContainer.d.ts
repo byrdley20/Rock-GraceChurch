@@ -1,5 +1,5 @@
 import { PropType } from 'vue';
-import AttributeValue from '../ViewModels/CodeGenerated/AttributeValueViewModel';
+import AttributeValue from '../ViewModels/AttributeValueViewModel';
 declare const _default: import("vue").DefineComponent<{
     isEditMode: {
         type: PropType<boolean>;

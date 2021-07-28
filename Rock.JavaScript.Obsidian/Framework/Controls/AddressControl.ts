@@ -20,7 +20,7 @@ import RockLabel from '../Elements/RockLabel';
 import TextBox from '../Elements/TextBox';
 import { ruleStringToArray } from '../Rules/Index';
 import { newGuid } from '../Util/Guid';
-import Location from '../ViewModels/CodeGenerated/LocationViewModel';
+import Location from '../ViewModels/LocationViewModel';
 
 export interface AddressControlModel {
     street1: string;

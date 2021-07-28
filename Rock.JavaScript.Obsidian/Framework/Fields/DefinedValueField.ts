@@ -19,8 +19,8 @@ import { Guid, areEqual as guidsAreEqual } from '../Util/Guid';
 import { registerFieldType, getFieldTypeProps, getConfigurationValue } from './Index';
 import DefinedValuePicker from '../Controls/DefinedValuePicker';
 import { toNumberOrNull } from '../Services/Number';
-import DefinedType from '../ViewModels/CodeGenerated/DefinedTypeViewModel';
-import DefinedValue from '../ViewModels/CodeGenerated/DefinedValueViewModel';
+import DefinedType from '../ViewModels/DefinedTypeViewModel';
+import DefinedValue from '../ViewModels/DefinedValueViewModel';
 import { asBoolean } from '../Services/Boolean';
 
 const fieldTypeGuid: Guid = '59D5A94C-94A0-4630-B80A-BB25697D74C7';

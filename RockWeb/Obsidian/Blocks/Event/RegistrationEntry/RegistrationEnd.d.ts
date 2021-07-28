@@ -1,4 +1,4 @@
-import AttributeValue from '../../../ViewModels/CodeGenerated/AttributeValueViewModel';
+import AttributeValue from '../../../ViewModels/AttributeValueViewModel';
 import { RegistrationEntryState } from '../RegistrationEntry';
 declare const _default: import("vue").DefineComponent<{}, {
     registrationEntryState: RegistrationEntryState;

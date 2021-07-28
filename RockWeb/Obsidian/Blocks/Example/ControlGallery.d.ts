@@ -1,4 +1,4 @@
-import Campus from '../../ViewModels/CodeGenerated/CampusViewModel';
+import Campus from '../../ViewModels/CampusViewModel';
 import { ItemWithPreAndPostHtml } from '../../Elements/ItemsWithPreAndPostHtml';
 import { ProgressTrackerItem } from '../../Elements/ProgressTracker';
 declare const _default: import("vue").DefineComponent<{}, {}, {

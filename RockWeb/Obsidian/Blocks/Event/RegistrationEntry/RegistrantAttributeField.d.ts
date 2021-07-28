@@ -1,5 +1,5 @@
 import { PropType } from 'vue';
-import Attribute from '../../../ViewModels/CodeGenerated/AttributeViewModel';
+import Attribute from '../../../ViewModels/AttributeViewModel';
 import { RegistrationEntryBlockFormFieldRuleViewModel, RegistrationEntryBlockFormFieldViewModel } from './RegistrationEntryBlockViewModel';
 declare const _default: import("vue").DefineComponent<{
     field: {

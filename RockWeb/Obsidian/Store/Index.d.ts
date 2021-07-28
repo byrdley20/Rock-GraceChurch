@@ -1,7 +1,7 @@
 import { DebugTimingViewModel } from '../Controls/PageDebugTimings';
 import { Guid } from '../Util/Guid';
 import { Store } from 'vuex';
-import Person from '../ViewModels/CodeGenerated/PersonViewModel';
+import Person from '../ViewModels/PersonViewModel';
 import Entity from '../ViewModels/Entity';
 export interface RootState {
     areSecondaryBlocksShown: boolean;

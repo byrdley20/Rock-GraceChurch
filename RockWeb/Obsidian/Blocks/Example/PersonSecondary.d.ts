@@ -1,4 +1,4 @@
-import Person from '../../ViewModels/CodeGenerated/PersonViewModel';
+import Person from '../../ViewModels/PersonViewModel';
 declare const _default: import("vue").DefineComponent<{}, {}, {
     messageToPublish: string;
     receivedMessage: string;

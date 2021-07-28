@@ -23,7 +23,7 @@ import RadioButtonList from '../../../Elements/RadioButtonList';
 import StaticFormControl from '../../../Elements/StaticFormControl';
 import TextBox from '../../../Elements/TextBox';
 import { Guid } from '../../../Util/Guid';
-import Person from '../../../ViewModels/CodeGenerated/PersonViewModel';
+import Person from '../../../ViewModels/PersonViewModel';
 import { getRegistrantBasicInfo, RegistrantBasicInfo, RegistrationEntryState } from '../RegistrationEntry';
 import { RegistrationEntryBlockArgs } from './RegistrationEntryBlockArgs';
 import { RegistrantInfo, RegistrantsSameFamily, RegistrarInfo, RegistrarOption, RegistrationEntryBlockViewModel } from './RegistrationEntryBlockViewModel';

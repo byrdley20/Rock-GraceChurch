@@ -21,7 +21,7 @@ import CheckBox from "../Elements/CheckBox";
 import RockButton from "../Elements/RockButton";
 import TextBox from "../Elements/TextBox";
 import { Guid } from "../Util/Guid";
-import Person from "../ViewModels/CodeGenerated/PersonViewModel";
+import Person from "../ViewModels/PersonViewModel";
 import { BlockHttp } from "./RockBlock";
 import RockForm from "./RockForm";
 

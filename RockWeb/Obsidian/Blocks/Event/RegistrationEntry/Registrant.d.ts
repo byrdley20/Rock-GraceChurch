@@ -1,6 +1,6 @@
 import { PropType } from 'vue';
 import { DropDownListOption } from '../../../Elements/DropDownList';
-import Person from '../../../ViewModels/CodeGenerated/PersonViewModel';
+import Person from '../../../ViewModels/PersonViewModel';
 import { RegistrationEntryState } from '../RegistrationEntry';
 import { RegistrantInfo, RegistrationEntryBlockFamilyMemberViewModel, RegistrationEntryBlockFormFieldViewModel, RegistrationEntryBlockFormViewModel, RegistrationEntryBlockViewModel, RegistrationFieldSource } from './RegistrationEntryBlockViewModel';
 import { ItemWithPreAndPostHtml } from '../../../Elements/ItemsWithPreAndPostHtml';

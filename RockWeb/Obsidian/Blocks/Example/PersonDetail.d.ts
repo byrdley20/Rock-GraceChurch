@@ -1,7 +1,7 @@
 import { Guid } from '../../Util/Guid';
 import { InvokeBlockActionFunc } from '../../Controls/RockBlock';
-import Campus from '../../ViewModels/CodeGenerated/CampusViewModel';
-import Person from '../../ViewModels/CodeGenerated/PersonViewModel';
+import Campus from '../../ViewModels/CampusViewModel';
+import Person from '../../ViewModels/PersonViewModel';
 declare type PersonViewModel = {
     Id: number;
     Guid: Guid;

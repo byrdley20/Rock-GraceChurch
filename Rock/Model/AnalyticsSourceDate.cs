@@ -25,7 +25,7 @@ using System.Runtime.Serialization;
 using EntityFramework.Utilities;
 
 using Rock.Data;
-using Rock.ViewModel;
+using Rock.Utility;
 
 namespace Rock.Model
 {
@@ -36,7 +36,7 @@ namespace Rock.Model
     [Table( "AnalyticsSourceDate" )]
     [DataContract]
     [HideFromReporting]
-    [ViewModelExclude]
+    [CodeGenExclude( CodeGenFeature.ViewModelFile )]
     public class AnalyticsSourceDate
     {
         #region Entity Properties

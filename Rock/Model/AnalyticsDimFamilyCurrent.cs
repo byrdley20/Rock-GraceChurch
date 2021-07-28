@@ -18,7 +18,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 using Rock.Data;
-using Rock.ViewModel;
+using Rock.Utility;
 
 namespace Rock.Model
 {
@@ -29,7 +29,7 @@ namespace Rock.Model
     [RockDomain( "Reporting" )]
     [Table( "AnalyticsDimFamilyCurrent" )]
     [DataContract]
-    [ViewModelExclude]
+    [CodeGenExclude( CodeGenFeature.ViewModelFile )]
     public class AnalyticsDimFamilyCurrent : AnalyticsDimFamilyBase<AnalyticsDimFamilyCurrent>
     {
         // intentionally blank. See AnalyticsDimFamilyBase, etc for the fields

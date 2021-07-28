@@ -18,6 +18,7 @@ using System.Xml;
 
 using Rock;
 using Rock.ViewModel;
+using Rock.Utility;
 
 namespace Rock.CodeGeneration
 {
@@ -579,7 +580,7 @@ GO
 
             var isObsolete = type.GetCustomAttribute<ObsoleteAttribute>() != null;
             var isModel = type.BaseType.GetGenericTypeDefinition() == typeof( Rock.Data.Model<> );
-            var hasViewModel = !isObsolete && isModel && type.GetCustomAttribute<ViewModelExcludeAttribute>() == null;
+            var hasViewModel = !isObsolete && isModel && !(type.GetCustomAttribute<CodeGenExcludeAttribute>()?.ExcludedFeatures ?? CodeGenFeature.None).HasFlag( CodeGenFeature.ViewModelFile );
             var properties = GetEntityProperties( type, false, true, true );
             var viewModelProperties = GetViewModelProperties( type );
 
@@ -809,7 +810,7 @@ using Rock.Web.Cache;
         {
             var isModel = type.BaseType.GetGenericTypeDefinition() == typeof( Rock.Data.Model<> );
 
-            if ( !isModel || type.GetCustomAttribute<ViewModelExcludeAttribute>() != null )
+            if ( !isModel || ( type.GetCustomAttribute<CodeGenExcludeAttribute>()?.ExcludedFeatures ?? CodeGenFeature.None ).HasFlag( CodeGenFeature.ViewModelFile ) )
             {
                 return;
             }
@@ -856,7 +857,7 @@ namespace Rock.ViewModel
         /// <param name="type"></param>
         private void WriteViewModelTypeScriptFile( string rootFolder, Type type, List<Type> viewModelTypes )
         {
-            if ( type.GetCustomAttribute<ViewModelExcludeAttribute>() != null )
+            if ( ( type.GetCustomAttribute<CodeGenExcludeAttribute>()?.ExcludedFeatures ?? CodeGenFeature.None ).HasFlag( CodeGenFeature.ViewModelFile ) )
             {
                 return;
             }
@@ -956,7 +957,7 @@ namespace Rock.ViewModel
                 new Dictionary<string, PropertyInfo>();
 
             var properties = viewModelTypeProperties
-                .Where( p => p.Value.GetCustomAttribute<ViewModelExcludeAttribute>() == null )
+                .Where( p => !( p.Value.GetCustomAttribute<CodeGenExcludeAttribute>()?.ExcludedFeatures ?? CodeGenFeature.None ).HasFlag( CodeGenFeature.ViewModelFile ) )
                 .Select( p =>
                 {
                     var obsolete = p.Value.GetCustomAttribute<ObsoleteAttribute>();

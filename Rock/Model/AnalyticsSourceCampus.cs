@@ -19,7 +19,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 using Rock.Data;
-using Rock.ViewModel;
+using Rock.Utility;
 
 namespace Rock.Model
 {
@@ -31,7 +31,7 @@ namespace Rock.Model
     [Table( "AnalyticsSourceCampus" )]
     [DataContract]
     [HideFromReporting]
-    [ViewModelExclude]
+    [CodeGenExclude( CodeGenFeature.ViewModelFile )]
     public class AnalyticsSourceCampus : AnalyticsSourceCampusBase<AnalyticsSourceCampus>
     {
         // intentionally blank

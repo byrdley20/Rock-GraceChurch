@@ -16,14 +16,27 @@
 //
 using System;
 
-namespace Rock.ViewModel
+namespace Rock.Utility
 {
     /// <summary>
-    /// Exclude the property from the generated view model
+    /// The code generation features supported by the Rock Code Generation tool.
     /// </summary>
-    /// <seealso cref="System.Attribute" />
-    [AttributeUsage( AttributeTargets.Property | AttributeTargets.Class, AllowMultiple = false, Inherited = true )]
-    public class ViewModelExcludeAttribute : System.Attribute
+    [Flags]
+    internal enum CodeGenFeature
     {
+        /// <summary>
+        /// No features of the code generation tool.
+        /// </summary>
+        None = 0,
+
+        /// <summary>
+        /// The view model file used by clients.
+        /// </summary>
+        ViewModelFile = 0x0001,
+
+        /// <summary>
+        /// All features of the code generation tool.
+        /// </summary>
+        All = 0x7FFFFFFF
     }
 }

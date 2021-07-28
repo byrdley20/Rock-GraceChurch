@@ -793,6 +793,7 @@
     <Compile Include="Tasks\UpdateUserLastActivity.cs" />
     <Compile Include="Store\StoreApiResult.cs" />
     <Compile Include="UniversalSearch\IndexModels\EventItemIndex.cs" />
+    <Compile Include="Utility\CodeGenFeature.cs" />
     <Compile Include="Utility\ExtensionMethods\EntityContextStateExtensions.cs" />
     <Compile Include="Utility\ExtensionMethods\LavaLibraryExtensions.cs" />
     <Compile Include="Utility\ExtensionMethods\MediaPlayerOptionsExtensions.cs" />
@@ -1019,7 +1020,7 @@
     <Compile Include="Utility\TimeIntervalSetting.cs" />
     <Compile Include="ViewModel\DefaultViewModelHelperAttribute.cs" />
     <Compile Include="ViewModel\IViewModelHelper.cs" />
-    <Compile Include="ViewModel\ViewModelExcludeAttribute.cs" />
+    <Compile Include="Utility\CodeGenExcludeAttribute.cs" />
     <Compile Include="ViewModel\ViewModelHelper.cs" />
     <Compile Include="WebFarm\IntervalAction.cs" />
     <Compile Include="WebFarm\MessageBusConsumer.cs" />

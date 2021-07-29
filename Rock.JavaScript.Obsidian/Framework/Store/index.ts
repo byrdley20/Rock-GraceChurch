@@ -70,10 +70,10 @@ export default createStore<RootState>({
             return (type: string) => (state.contextEntities[type] || null);
         },
         personContext(state, getters): Person | null {
-            return getters.contextEntity('Person');
+            return getters.contextEntity('person');
         },
         groupContext(state, getters): Group | null {
-            return getters.contextEntity('Group');
+            return getters.contextEntity('group');
         },
         pageParameter(state): (key: string) => unknown {
             return (key: string) => (state.pageParameters[key]);

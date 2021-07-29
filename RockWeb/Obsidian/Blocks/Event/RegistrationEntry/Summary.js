@@ -86,10 +86,10 @@ System.register(["vue", "../../../Controls/GatewayControl", "../../../Controls/R
                         return this.viewModel.gatewayControl;
                     },
                     viewModel() {
-                        return this.registrationEntryState.ViewModel;
+                        return this.registrationEntryState.viewModel;
                     },
                     registrantInfos() {
-                        return this.registrationEntryState.Registrants.map(r => RegistrationEntry_1.getRegistrantBasicInfo(r, this.viewModel.registrantForms));
+                        return this.registrationEntryState.registrants.map(r => RegistrationEntry_1.getRegistrantBasicInfo(r, this.viewModel.registrantForms));
                     },
                     registrantTerm() {
                         return this.registrantInfos.length === 1 ? this.viewModel.registrantTerm : this.viewModel.pluralRegistrantTerm;
@@ -98,7 +98,7 @@ System.register(["vue", "../../../Controls/GatewayControl", "../../../Controls/R
                         return this.viewModel.instanceName;
                     },
                     finishButtonText() {
-                        return (this.viewModel.isRedirectGateway && this.registrationEntryState.AmountToPayToday) ? 'Pay' : 'Finish';
+                        return (this.viewModel.isRedirectGateway && this.registrationEntryState.amountToPayToday) ? 'Pay' : 'Finish';
                     }
                 },
                 methods: {
@@ -108,7 +108,7 @@ System.register(["vue", "../../../Controls/GatewayControl", "../../../Controls/R
                     onNext() {
                         return __awaiter(this, void 0, void 0, function* () {
                             this.loading = true;
-                            if (this.registrationEntryState.AmountToPayToday) {
+                            if (this.registrationEntryState.amountToPayToday) {
                                 if (this.viewModel.isRedirectGateway) {
                                     const redirectUrl = yield this.getPaymentRedirect();
                                     if (redirectUrl) {
@@ -135,7 +135,7 @@ System.register(["vue", "../../../Controls/GatewayControl", "../../../Controls/R
                     },
                     onGatewayControlSuccess(token) {
                         return __awaiter(this, void 0, void 0, function* () {
-                            this.registrationEntryState.GatewayToken = token;
+                            this.registrationEntryState.gatewayToken = token;
                             const success = yield this.submit();
                             this.loading = false;
                             if (success) {
@@ -145,7 +145,7 @@ System.register(["vue", "../../../Controls/GatewayControl", "../../../Controls/R
                     },
                     onGatewayControlReset() {
                         return __awaiter(this, void 0, void 0, function* () {
-                            this.registrationEntryState.GatewayToken = '';
+                            this.registrationEntryState.gatewayToken = '';
                             this.doGatewayControlSubmit = false;
                         });
                     },
@@ -168,7 +168,7 @@ System.register(["vue", "../../../Controls/GatewayControl", "../../../Controls/R
                                 this.submitErrorMessage = result.errorMessage || 'Unknown error';
                             }
                             else {
-                                this.registrationEntryState.SuccessViewModel = result.data;
+                                this.registrationEntryState.successViewModel = result.data;
                             }
                             return result.isSuccess;
                         });
@@ -197,7 +197,7 @@ System.register(["vue", "../../../Controls/GatewayControl", "../../../Controls/R
             <CostSummary />
         </div>
 
-        <div v-if="gatewayControlModel && registrationEntryState.AmountToPayToday" class="well">
+        <div v-if="gatewayControlModel && registrationEntryState.amountToPayToday" class="well">
             <h4>Payment Method</h4>
             <Alert v-if="gatewayErrorMessage" alertType="danger">{{gatewayErrorMessage}}</Alert>
             <RockValidation :errors="gatewayValidationFields" />
@@ -215,8 +215,8 @@ System.register(["vue", "../../../Controls/GatewayControl", "../../../Controls/R
         <div v-if="!viewModel.cost" class="margin-b-md">
             <p>The following {{registrantTerm}} will be registered for {{instanceName}}:</p>
             <ul>
-                <li v-for="r in registrantInfos" :key="r.Guid">
-                    <strong>{{r.FirstName}} {{r.LastName}}</strong>
+                <li v-for="r in registrantInfos" :key="r.guid">
+                    <strong>{{r.firstName}} {{r.lastName}}</strong>
                 </li>
             </ul>
         </div>

@@ -1,4 +1,4 @@
-System.register(["../../Controls/CampusPicker", "../../Controls/DefinedValuePicker", "../../Elements/CurrencyBox", "vue", "../../SystemGuid/DefinedType", "../../Elements/DatePicker", "../../Elements/RockButton", "../../Util/Guid", "../../Elements/Alert", "../../Services/Number", "../../Elements/Toggle", "../../Store/Index", "../../Elements/TextBox", "../../Services/String", "../../Util/RockDate", "../../Controls/GatewayControl", "../../Controls/RockValidation"], function (exports_1, context_1) {
+System.register(["../../Controls/CampusPicker", "../../Controls/DefinedValuePicker", "../../Elements/CurrencyBox", "vue", "../../Elements/DatePicker", "../../Elements/RockButton", "../../Util/Guid", "../../Elements/Alert", "../../Services/Number", "../../Elements/Toggle", "../../Store/Index", "../../Elements/TextBox", "../../Services/String", "../../Util/RockDate", "../../Controls/GatewayControl", "../../Controls/RockValidation"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,7 +9,7 @@ System.register(["../../Controls/CampusPicker", "../../Controls/DefinedValuePick
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var CampusPicker_1, DefinedValuePicker_1, CurrencyBox_1, vue_1, DefinedType_1, DatePicker_1, RockButton_1, Guid_1, Alert_1, Number_1, Toggle_1, Index_1, TextBox_1, String_1, RockDate_1, GatewayControl_1, RockValidation_1;
+    var CampusPicker_1, DefinedValuePicker_1, CurrencyBox_1, vue_1, DatePicker_1, RockButton_1, Guid_1, Alert_1, Number_1, Toggle_1, Index_1, TextBox_1, String_1, RockDate_1, GatewayControl_1, RockValidation_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -24,9 +24,6 @@ System.register(["../../Controls/CampusPicker", "../../Controls/DefinedValuePick
             },
             function (vue_1_1) {
                 vue_1 = vue_1_1;
-            },
-            function (DefinedType_1_1) {
-                DefinedType_1 = DefinedType_1_1;
             },
             function (DatePicker_1_1) {
                 DatePicker_1 = DatePicker_1_1;
@@ -96,39 +93,39 @@ System.register(["../../Controls/CampusPicker", "../../Controls/DefinedValuePick
                         doGatewayControlSubmit: false,
                         pageIndex: 1,
                         page1Error: '',
-                        frequencyDefinedTypeGuid: DefinedType_1.FinancialFrequency,
+                        frequencyDefinedTypeGuid: "1F645CFB-5BBD-4465-B9CA-0D2104A1479B",
                         args: {
-                            IsGivingAsPerson: true,
-                            Email: '',
-                            PhoneNumber: '',
-                            PhoneCountryCode: '',
-                            AccountAmounts: {},
-                            Street1: '',
-                            Street2: '',
-                            City: '',
-                            State: '',
-                            PostalCode: '',
-                            Country: '',
-                            FirstName: '',
-                            LastName: '',
-                            BusinessName: '',
-                            FinancialPersonSavedAccountGuid: null,
-                            Comment: '',
-                            TransactionEntityId: null,
-                            ReferenceNumber: '',
-                            CampusGuid: '',
-                            BusinessGuid: null,
-                            FrequencyValueGuid: '',
-                            GiftDate: RockDate_1.default.newDate(),
-                            IsGiveAnonymously: false
+                            isGivingAsPerson: true,
+                            email: '',
+                            phoneNumber: '',
+                            phoneCountryCode: '',
+                            accountAmounts: {},
+                            street1: '',
+                            street2: '',
+                            city: '',
+                            state: '',
+                            postalCode: '',
+                            country: '',
+                            firstName: '',
+                            lastName: '',
+                            businessName: '',
+                            financialPersonSavedAccountGuid: null,
+                            comment: '',
+                            transactionEntityId: null,
+                            referenceNumber: '',
+                            campusGuid: '',
+                            businessGuid: null,
+                            frequencyValueGuid: '',
+                            giftDate: RockDate_1.default.newDate(),
+                            isGiveAnonymously: false
                         }
                     };
                 },
                 computed: {
                     totalAmount() {
                         let total = 0;
-                        for (const accountGuid in this.args.AccountAmounts) {
-                            total += this.args.AccountAmounts[accountGuid];
+                        for (const accountGuid in this.args.accountAmounts) {
+                            total += this.args.accountAmounts[accountGuid];
                         }
                         return total;
                     },
@@ -136,20 +133,20 @@ System.register(["../../Controls/CampusPicker", "../../Controls/DefinedValuePick
                         return `$${Number_1.asFormattedString(this.totalAmount, 2)}`;
                     },
                     gatewayControlModel() {
-                        return this.configurationValues['GatewayControl'];
+                        return this.configurationValues['gatewayControl'];
                     },
                     currentPerson() {
                         return Index_1.default.state.currentPerson;
                     },
                     accounts() {
-                        return this.configurationValues['FinancialAccounts'] || [];
+                        return this.configurationValues['financialAccounts'] || [];
                     },
                     campus() {
-                        return Index_1.default.getters['campuses/getByGuid'](this.args.CampusGuid) || null;
+                        return Index_1.default.getters['campuses/getByGuid'](this.args.campusGuid) || null;
                     },
                     accountAndCampusString() {
                         const accountNames = [];
-                        for (const accountGuid in this.args.AccountAmounts) {
+                        for (const accountGuid in this.args.accountAmounts) {
                             const account = this.accounts.find(a => Guid_1.areEqual(accountGuid, a.guid));
                             if (!account || !account.publicName) {
                                 continue;
@@ -183,7 +180,7 @@ System.register(["../../Controls/CampusPicker", "../../Controls/DefinedValuePick
                     },
                     onGatewayControlSuccess(token) {
                         this.loading = false;
-                        this.args.ReferenceNumber = token;
+                        this.args.referenceNumber = token;
                         this.pageIndex = 3;
                     },
                     onGatewayControlError(message) {
@@ -222,9 +219,9 @@ System.register(["../../Controls/CampusPicker", "../../Controls/DefinedValuePick
                             if (!this.currentPerson) {
                                 return;
                             }
-                            this.args.FirstName = this.args.FirstName || this.currentPerson.firstName || '';
-                            this.args.LastName = this.args.LastName || this.currentPerson.lastName || '';
-                            this.args.Email = this.args.Email || this.currentPerson.email || '';
+                            this.args.firstName = this.args.firstName || this.currentPerson.firstName || '';
+                            this.args.lastName = this.args.lastName || this.currentPerson.lastName || '';
+                            this.args.email = this.args.email || this.currentPerson.email || '';
                         }
                     }
                 },
@@ -233,7 +230,7 @@ System.register(["../../Controls/CampusPicker", "../../Controls/DefinedValuePick
     <Alert v-if="criticalError" danger>
         {{criticalError}}
     </Alert>
-    <template v-else-if="!gatewayControlModel || !gatewayControlModel.FileUrl">
+    <template v-else-if="!gatewayControlModel || !gatewayControlModel.fileUrl">
         <h4>Welcome to Rock's On-line Giving Experience</h4>
         <p>
             There is currently no gateway configured.
@@ -242,11 +239,11 @@ System.register(["../../Controls/CampusPicker", "../../Controls/DefinedValuePick
     <template v-else-if="pageIndex === 1">
         <h2>Your Generosity Changes Lives (Vue)</h2>
         <template v-for="account in accounts">
-            <CurrencyBox :label="account.PublicName" v-model="args.AccountAmounts[account.Guid]" />
+            <CurrencyBox :label="account.publicName" v-model="args.accountAmounts[account.guid]" />
         </template>
-        <CampusPicker v-model="args.CampusGuid" :showBlankItem="false" />
-        <DefinedValuePicker :definedTypeGuid="frequencyDefinedTypeGuid" v-model="args.FrequencyValueGuid" label="Frequency" :showBlankItem="false" />
-        <DatePicker label="Process Gift On" v-model="args.GiftDate" />
+        <CampusPicker v-model="args.campusGuid" :showBlankItem="false" />
+        <DefinedValuePicker :definedTypeGuid="frequencyDefinedTypeGuid" v-model="args.frequencyValueGuid" label="Frequency" :showBlankItem="false" />
+        <DatePicker label="Process Gift On" v-model="args.giftDate" />
         <Alert alertType="validation" v-if="page1Error">{{page1Error}}</Alert>
         <RockButton btnType="primary" @click="onPageOneSubmit">Give Now</RockButton>
     </template>
@@ -277,18 +274,18 @@ System.register(["../../Controls/CampusPicker", "../../Controls/DefinedValuePick
         </div>
     </template>
     <template v-else-if="pageIndex === 3">
-        <Toggle v-model="args.IsGivingAsPerson">
+        <Toggle v-model="args.isGivingAsPerson">
             <template #on>Individual</template>
             <template #off>Business</template>
         </Toggle>
-        <template v-if="args.IsGivingAsPerson && currentPerson">
+        <template v-if="args.isGivingAsPerson && currentPerson">
             <div class="form-control-static">
                 {{currentPerson.FullName}}
             </div>
         </template>
-        <template v-else-if="args.IsGivingAsPerson">
-            <TextBox v-model="args.FirstName" placeholder="First Name" class="margin-b-sm" />
-            <TextBox v-model="args.LastName" placeholder="Last Name" class="margin-b-sm" />
+        <template v-else-if="args.isGivingAsPerson">
+            <TextBox v-model="args.firstName" placeholder="First Name" class="margin-b-sm" />
+            <TextBox v-model="args.lastName" placeholder="Last Name" class="margin-b-sm" />
         </template>
         <div class="navigation actions margin-t-md">
             <RockButton :isLoading="loading" @click="goBack">Back</RockButton>

@@ -25,10 +25,10 @@ import { RegistrationEntryState } from '../RegistrationEntry';
 import {  RegistrationEntryBlockViewModel } from './RegistrationEntryBlockViewModel';
 
 type CheckDiscountCodeResult = {
-    DiscountCode: string;
-    UsagesRemaining: number | null;
-    DiscountAmount: number;
-    DiscountPercentage: number;
+    discountCode: string;
+    usagesRemaining: number | null;
+    discountAmount: number;
+    discountPercentage: number;
 };
 
 export default defineComponent( {
@@ -62,8 +62,8 @@ export default defineComponent( {
         /** The success message displayed once a discount code has been applied */
         discountCodeSuccessMessage (): string
         {
-            const discountAmount = this.registrationEntryState.DiscountAmount;
-            const discountPercent = this.registrationEntryState.DiscountPercentage;
+            const discountAmount = this.registrationEntryState.discountAmount;
+            const discountPercent = this.registrationEntryState.discountPercentage;
 
             if ( !discountPercent && !discountAmount )
             {
@@ -86,7 +86,7 @@ export default defineComponent( {
         /** This is the data sent from the C# code behind when the block initialized. */
         viewModel (): RegistrationEntryBlockViewModel
         {
-            return this.registrationEntryState.ViewModel;
+            return this.registrationEntryState.viewModel;
         }
     },
     methods: {
@@ -109,9 +109,9 @@ export default defineComponent( {
                 else
                 {
                     this.discountCodeWarningMessage = '';
-                    this.registrationEntryState.DiscountAmount = result.data.DiscountAmount;
-                    this.registrationEntryState.DiscountPercentage = result.data.DiscountPercentage;
-                    this.registrationEntryState.DiscountCode = result.data.DiscountCode;
+                    this.registrationEntryState.discountAmount = result.data.discountAmount;
+                    this.registrationEntryState.discountPercentage = result.data.discountPercentage;
+                    this.registrationEntryState.discountCode = result.data.discountCode;
                 }
             }
             finally
@@ -125,7 +125,7 @@ export default defineComponent( {
             immediate: true,
             handler ()
             {
-                this.discountCodeInput = this.registrationEntryState.DiscountCode;
+                this.discountCodeInput = this.registrationEntryState.discountCode;
             }
         }
     },

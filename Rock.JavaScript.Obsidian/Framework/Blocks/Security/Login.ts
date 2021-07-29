@@ -22,13 +22,13 @@ import { InvokeBlockActionFunc } from '../../Controls/RockBlock';
 import Alert from '../../Elements/Alert';
 
 type AuthCookie = {
-    Expires: string;
-    Name: string;
-    Value: string;
+    expires: string;
+    name: string;
+    value: string;
 };
 
 type LoginResponse = {
-    AuthCookie: AuthCookie | null;
+    authCookie: AuthCookie | null;
 };
 
 export default defineComponent( {
@@ -60,9 +60,9 @@ export default defineComponent( {
         {
             let expires = '';
 
-            if ( cookie.Expires )
+            if ( cookie.expires )
             {
-                const date = new Date( cookie.Expires );
+                const date = new Date( cookie.expires );
 
                 if ( date < new Date() )
                 {
@@ -78,7 +78,7 @@ export default defineComponent( {
                 expires = '';
             }
 
-            document.cookie = `${cookie.Name}=${cookie.Value}${expires}; path=/`;
+            document.cookie = `${cookie.name}=${cookie.value}${expires}; path=/`;
         },
         redirectAfterLogin (): void
         {
@@ -136,9 +136,9 @@ export default defineComponent( {
                     rememberMe: this.rememberMe
                 } );
 
-                if ( result && !result.isError && result.data && result.data.AuthCookie )
+                if ( result && !result.isError && result.data && result.data.authCookie )
                 {
-                    this.setCookie( result.data.AuthCookie );
+                    this.setCookie( result.data.authCookie );
                     this.redirectAfterLogin();
                     return;
                 }

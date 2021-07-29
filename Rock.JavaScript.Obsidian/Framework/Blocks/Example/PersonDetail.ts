@@ -35,19 +35,6 @@ import RockDate, { RockDateType, toRockDate } from '../../Util/RockDate';
 import DatePicker from '../../Elements/DatePicker';
 import AddressControl, { getDefaultAddressControlModel } from '../../Controls/AddressControl';
 
-declare type PersonViewModel = {
-    Id: number;
-    Guid: Guid;
-    FirstName: string;
-    NickName: string;
-    LastName: string;
-    Email: string;
-    PrimaryCampusId: number | null;
-    BirthDay: number | null;
-    BirthMonth: number | null;
-    BirthYear: number | null;
-};
-
 export default defineComponent({
     name: 'Example.PersonDetail',
     components: {
@@ -70,8 +57,8 @@ export default defineComponent({
     },
     data() {
         return {
-            person: null as PersonViewModel | null,
-            personForEditing: null as PersonViewModel | null,
+            person: null as Person | null,
+            personForEditing: null as Person | null,
             isEditMode: false,
             messageToPublish: '',
             receivedMessage: '',
@@ -87,6 +74,7 @@ export default defineComponent({
         },
         doEdit(): void {
             this.personForEditing = this.person ? { ...this.person } : null;
+            console.log(this.personForEditing);
             this.campusGuid = this.campus?.guid || '';
             this.birthdate = this.birthdateOrNull ? toRockDate(this.birthdateOrNull) : null;
             this.setIsEditMode(true);
@@ -98,10 +86,10 @@ export default defineComponent({
             if (this.personForEditing) {
                 this.person = {
                     ...this.personForEditing,
-                    BirthDay: RockDate.getDay(this.birthdate),
-                    BirthMonth: RockDate.getMonth(this.birthdate),
-                    BirthYear: RockDate.getYear(this.birthdate),
-                    PrimaryCampusId: store.getters['campuses/getByGuid'](this.campusGuid)?.Id || null
+                    birthDay: RockDate.getDay(this.birthdate),
+                    birthMonth: RockDate.getMonth(this.birthdate),
+                    birthYear: RockDate.getYear(this.birthdate),
+                    primaryCampusId: store.getters['campuses/getByGuid'](this.campusGuid)?.Id || null
                 };
                 this.isLoading = true;
 
@@ -124,11 +112,11 @@ export default defineComponent({
     },
     computed: {
         birthdateOrNull(): Date | null {
-            if (!this.person?.BirthDay || !this.person.BirthMonth || !this.person.BirthYear) {
+            if (!this.person?.birthDay || !this.person.birthMonth || !this.person.birthYear) {
                 return null;
             }
 
-            return new Date(`${this.person.BirthYear}-${this.person.BirthMonth}-${this.person.BirthDay}`);
+            return new Date(`${this.person.birthYear}-${this.person.birthMonth}-${this.person.birthDay}`);
         },
         birthdateFormatted(): string {
             if (!this.birthdateOrNull) {
@@ -139,7 +127,7 @@ export default defineComponent({
         },
         campus(): Campus | null {
             if (this.person) {
-                return store.getters['campuses/getById'](this.person.PrimaryCampusId) || null;
+                return store.getters['campuses/getById'](this.person.primaryCampusId) || null;
             }
 
             return null;
@@ -149,7 +137,7 @@ export default defineComponent({
         },
         blockTitle(): string {
             return this.person ?
-                `: ${this.person.NickName || this.person.FirstName} ${this.person.LastName}` :
+                `: ${this.person.nickName || this.person.firstName} ${this.person.lastName}` :
                 '';
         },
         currentPerson(): Person | null {
@@ -169,14 +157,14 @@ export default defineComponent({
                     return;
                 }
 
-                if (this.person && this.person.Guid === this.currentPersonGuid) {
+                if (this.person && this.person.guid === this.currentPersonGuid) {
                     // Already loaded
                     return;
                 }
 
                 // Sync the person with the guid
                 this.isLoading = true;
-                this.person = (await this.invokeBlockAction<PersonViewModel>('GetPersonViewModel')).data;
+                this.person = (await this.invokeBlockAction<Person>('GetPersonViewModel')).data;
                 this.isLoading = false;
             }
         }
@@ -199,12 +187,12 @@ export default defineComponent({
                 <RockForm v-else-if="isEditMode" @submit="doSave">
                     <div class="row">
                         <div class="col-sm-6">
-                            <TextBox label="First Name" v-model="personForEditing.FirstName" rules="required" />
-                            <TextBox label="Nick Name" v-model="personForEditing.NickName" />
-                            <TextBox label="Last Name" v-model="personForEditing.LastName" rules="required" />
+                            <TextBox label="First Name" v-model="personForEditing.firstName" rules="required" />
+                            <TextBox label="Nick Name" v-model="personForEditing.nickName" />
+                            <TextBox label="Last Name" v-model="personForEditing.lastName" rules="required" />
                         </div>
                         <div class="col-sm-6">
-                            <EmailBox v-model="personForEditing.Email" />
+                            <EmailBox label="Email" v-model="personForEditing.email" />
                             <CampusPicker v-model="campusGuid" />
                             <DatePicker label="Birthdate" v-model="birthdate" rules="required" />
                         </div>
@@ -222,11 +210,11 @@ export default defineComponent({
                         <div class="col-sm-6">
                             <dl>
                                 <dt>First Name</dt>
-                                <dd>{{person.FirstName}}</dd>
+                                <dd>{{person.firstName}}</dd>
                                 <dt>Last Name</dt>
-                                <dd>{{person.LastName}}</dd>
+                                <dd>{{person.lastName}}</dd>
                                 <dt>Email</dt>
-                                <dd>{{person.Email}}</dd>
+                                <dd>{{person.email}}</dd>
                                 <dt>Campus</dt>
                                 <dd>{{campusName || 'None'}}</dd>
                                 <dt>Birthdate</dt>

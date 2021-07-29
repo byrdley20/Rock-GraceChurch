@@ -11,29 +11,29 @@ export declare enum Step {
     'success' = "success"
 }
 export declare type RegistrantBasicInfo = {
-    FirstName: string;
-    LastName: string;
-    Email: string;
-    Guid: Guid;
+    firstName: string;
+    lastName: string;
+    email: string;
+    guid: Guid;
 };
 export declare type RegistrationEntryState = {
-    Steps: Record<Step, Step>;
-    ViewModel: RegistrationEntryBlockViewModel;
-    CurrentStep: string;
-    FirstStep: string;
-    CurrentRegistrantIndex: number;
-    CurrentRegistrantFormIndex: number;
-    Registrants: RegistrantInfo[];
-    RegistrationFieldValues: Record<Guid, unknown>;
-    Registrar: RegistrarInfo;
-    GatewayToken: string;
-    DiscountCode: string;
-    DiscountAmount: number;
-    DiscountPercentage: number;
-    SuccessViewModel: RegistrationEntryBlockSuccessViewModel | null;
-    AmountToPayToday: number;
-    SessionExpirationDate: Date | null;
-    RegistrationSessionGuid: Guid;
+    steps: Record<Step, Step>;
+    viewModel: RegistrationEntryBlockViewModel;
+    currentStep: string;
+    firstStep: string;
+    currentRegistrantIndex: number;
+    currentRegistrantFormIndex: number;
+    registrants: RegistrantInfo[];
+    registrationFieldValues: Record<Guid, unknown>;
+    registrar: RegistrarInfo;
+    gatewayToken: string;
+    discountCode: string;
+    discountAmount: number;
+    discountPercentage: number;
+    successViewModel: RegistrationEntryBlockSuccessViewModel | null;
+    amountToPayToday: number;
+    sessionExpirationDate: Date | null;
+    registrationSessionGuid: Guid;
 };
 export declare function getForcedFamilyGuid(currentPerson: Person | null, viewModel: RegistrationEntryBlockViewModel): string | null;
 export declare function getDefaultRegistrantInfo(currentPerson: Person | null, viewModel: RegistrationEntryBlockViewModel, familyGuid: Guid | null): RegistrantInfo;
@@ -42,7 +42,7 @@ declare const _default: import("vue").DefineComponent<{}, {
     viewModel: RegistrationEntryBlockViewModel;
     steps: Record<Step, Step>;
     registrationEntryState: {
-        Steps: {
+        steps: {
             intro: Step;
             registrationStartForm: Step;
             perRegistrantForms: Step;
@@ -50,7 +50,7 @@ declare const _default: import("vue").DefineComponent<{}, {
             reviewAndPayment: Step;
             success: Step;
         };
-        ViewModel: {
+        viewModel: {
             timeoutMinutes: number | null;
             registrantsSameFamily: RegistrantsSameFamily;
             maxRegistrants: number;
@@ -288,28 +288,28 @@ declare const _default: import("vue").DefineComponent<{}, {
                 registrationGuid: string | null;
                 registrationSessionGuid: string | null;
                 registrants: {
-                    IsOnWaitList: boolean;
-                    FamilyGuid: string;
-                    PersonGuid: string;
-                    FieldValues: {
+                    isOnWaitList: boolean;
+                    familyGuid: string;
+                    personGuid: string;
+                    fieldValues: {
                         [x: string]: unknown;
                     };
-                    FeeItemQuantities: {
+                    feeItemQuantities: {
                         [x: string]: number;
                     };
-                    OwnFamilyGuid: string;
-                    Guid: string;
+                    ownFamilyGuid: string;
+                    guid: string;
                 }[];
                 fieldValues: {
                     [x: string]: unknown;
                 };
                 registrar: {
-                    NickName: string;
-                    LastName: string;
-                    Email: string;
-                    UpdateEmail: boolean;
-                    FamilyGuid: string | null;
-                    OwnFamilyGuid: string;
+                    nickName: string;
+                    lastName: string;
+                    email: string;
+                    updateEmail: boolean;
+                    familyGuid: string | null;
+                    ownFamilyGuid: string;
                 };
                 gatewayToken: string;
                 discountCode: string;
@@ -329,46 +329,46 @@ declare const _default: import("vue").DefineComponent<{}, {
             startAtBeginning: boolean;
             gatewayGuid: string | null;
         };
-        CurrentStep: string;
-        FirstStep: string;
-        CurrentRegistrantIndex: number;
-        CurrentRegistrantFormIndex: number;
-        Registrants: {
-            IsOnWaitList: boolean;
-            FamilyGuid: string;
-            PersonGuid: string;
-            FieldValues: {
+        currentStep: string;
+        firstStep: string;
+        currentRegistrantIndex: number;
+        currentRegistrantFormIndex: number;
+        registrants: {
+            isOnWaitList: boolean;
+            familyGuid: string;
+            personGuid: string;
+            fieldValues: {
                 [x: string]: unknown;
             };
-            FeeItemQuantities: {
+            feeItemQuantities: {
                 [x: string]: number;
             };
-            OwnFamilyGuid: string;
-            Guid: string;
+            ownFamilyGuid: string;
+            guid: string;
         }[];
-        RegistrationFieldValues: {
+        registrationFieldValues: {
             [x: string]: unknown;
         };
-        Registrar: {
-            NickName: string;
-            LastName: string;
-            Email: string;
-            UpdateEmail: boolean;
-            FamilyGuid: string | null;
-            OwnFamilyGuid: string;
+        registrar: {
+            nickName: string;
+            lastName: string;
+            email: string;
+            updateEmail: boolean;
+            familyGuid: string | null;
+            ownFamilyGuid: string;
         };
-        GatewayToken: string;
-        DiscountCode: string;
-        DiscountAmount: number;
-        DiscountPercentage: number;
-        SuccessViewModel: {
+        gatewayToken: string;
+        discountCode: string;
+        discountAmount: number;
+        discountPercentage: number;
+        successViewModel: {
             titleHtml: string;
             messageHtml: string;
             transactionCode: string;
             gatewayPersonIdentifier: string;
         } | null;
-        AmountToPayToday: number;
-        SessionExpirationDate: ({
+        amountToPayToday: number;
+        sessionExpirationDate: ({
             toString: () => string;
             toDateString: () => string;
             toTimeString: () => string;
@@ -435,7 +435,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                 (hint: string): string | number;
             };
         }) | null;
-        RegistrationSessionGuid: string;
+        registrationSessionGuid: string;
     };
     notFound: import("vue").Ref<boolean>;
     persistSession: (force: boolean) => Promise<void>;

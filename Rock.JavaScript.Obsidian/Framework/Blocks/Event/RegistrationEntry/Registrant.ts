@@ -66,25 +66,25 @@ export default defineComponent( {
     {
         return {
             fieldSources: {
-                PersonField: RegistrationFieldSource.PersonField,
-                PersonAttribute: RegistrationFieldSource.PersonAttribute,
-                GroupMemberAttribute: RegistrationFieldSource.GroupMemberAttribute,
-                RegistrantAttribute: RegistrationFieldSource.RegistrantAttribute
+                personField: RegistrationFieldSource.PersonField,
+                personAttribute: RegistrationFieldSource.PersonAttribute,
+                groupMemberAttribute: RegistrationFieldSource.GroupMemberAttribute,
+                registrantAttribute: RegistrationFieldSource.RegistrantAttribute
             }
         };
     },
     computed: {
         showPrevious (): boolean
         {
-            return this.registrationEntryState.FirstStep !== this.registrationEntryState.Steps.perRegistrantForms;
+            return this.registrationEntryState.firstStep !== this.registrationEntryState.steps.perRegistrantForms;
         },
         viewModel (): RegistrationEntryBlockViewModel
         {
-            return this.registrationEntryState.ViewModel;
+            return this.registrationEntryState.viewModel;
         },
         currentFormIndex (): number
         {
-            return this.registrationEntryState.CurrentRegistrantFormIndex;
+            return this.registrationEntryState.currentRegistrantFormIndex;
         },
         currentForm (): RegistrationEntryBlockFormViewModel | null
         {
@@ -145,20 +145,20 @@ export default defineComponent( {
             }
 
             // Add previous registrants as options
-            for ( let i = 0; i < this.registrationEntryState.CurrentRegistrantIndex; i++ )
+            for ( let i = 0; i < this.registrationEntryState.currentRegistrantIndex; i++ )
             {
-                const registrant = this.registrationEntryState.Registrants[ i ];
+                const registrant = this.registrationEntryState.registrants[ i ];
                 const info = getRegistrantBasicInfo( registrant, this.viewModel.registrantForms );
 
-                if ( !usedFamilyGuids[ registrant.FamilyGuid ] && info?.FirstName && info?.LastName )
+                if ( !usedFamilyGuids[ registrant.familyGuid ] && info?.firstName && info?.lastName )
                 {
                     options.push( {
-                        key: registrant.FamilyGuid,
-                        text: `${info.FirstName} ${info.LastName}`,
-                        value: registrant.FamilyGuid
+                        key: registrant.familyGuid,
+                        text: `${info.firstName} ${info.lastName}`,
+                        value: registrant.familyGuid
                     } );
 
-                    usedFamilyGuids[ registrant.FamilyGuid ] = true;
+                    usedFamilyGuids[ registrant.familyGuid ] = true;
                 }
             }
 
@@ -173,9 +173,9 @@ export default defineComponent( {
             }
 
             options.push( {
-                key: this.currentRegistrant.OwnFamilyGuid,
+                key: this.currentRegistrant.ownFamilyGuid,
                 text: 'None of the above',
-                value: this.currentRegistrant.OwnFamilyGuid
+                value: this.currentRegistrant.ownFamilyGuid
             } );
 
             return options;
@@ -184,16 +184,16 @@ export default defineComponent( {
         /** The people that can be picked from because they are members of the same family. */
         familyMemberOptions (): DropDownListOption[]
         {
-            const selectedFamily = this.currentRegistrant.FamilyGuid;
+            const selectedFamily = this.currentRegistrant.familyGuid;
 
             if ( !selectedFamily )
             {
                 return [];
             }
 
-            const usedFamilyMemberGuids = this.registrationEntryState.Registrants
-                .filter( r => r.PersonGuid && r.PersonGuid !== this.currentRegistrant.PersonGuid )
-                .map( r => r.PersonGuid );
+            const usedFamilyMemberGuids = this.registrationEntryState.registrants
+                .filter( r => r.personGuid && r.personGuid !== this.currentRegistrant.personGuid )
+                .map( r => r.personGuid );
 
             return this.viewModel.familyMembers
                 .filter( fm =>
@@ -211,11 +211,11 @@ export default defineComponent( {
         },
         firstName (): string
         {
-            return getRegistrantBasicInfo( this.currentRegistrant, this.viewModel.registrantForms ).FirstName;
+            return getRegistrantBasicInfo( this.currentRegistrant, this.viewModel.registrantForms ).firstName;
         },
         familyMember (): RegistrationEntryBlockFamilyMemberViewModel | null
         {
-            const personGuid = this.currentRegistrant.PersonGuid;
+            const personGuid = this.currentRegistrant.personGuid;
 
             if ( !personGuid )
             {
@@ -234,7 +234,7 @@ export default defineComponent( {
                 return;
             }
 
-            this.registrationEntryState.CurrentRegistrantFormIndex--;
+            this.registrationEntryState.currentRegistrantFormIndex--;
         },
         onNext ()
         {
@@ -246,7 +246,7 @@ export default defineComponent( {
                 return;
             }
 
-            this.registrationEntryState.CurrentRegistrantFormIndex++;
+            this.registrationEntryState.currentRegistrantFormIndex++;
         },
 
         /** Copy the values that are to have current values used */
@@ -269,15 +269,15 @@ export default defineComponent( {
 
                         if ( !familyMemberValue )
                         {
-                            delete this.currentRegistrant.FieldValues[ field.guid ];
+                            delete this.currentRegistrant.fieldValues[ field.guid ];
                         }
                         else if ( typeof familyMemberValue === 'object' )
                         {
-                            this.currentRegistrant.FieldValues[ field.guid ] = { ...familyMemberValue };
+                            this.currentRegistrant.fieldValues[ field.guid ] = { ...familyMemberValue };
                         }
                         else
                         {
-                            this.currentRegistrant.FieldValues[ field.guid ] = familyMemberValue;
+                            this.currentRegistrant.fieldValues[ field.guid ] = familyMemberValue;
                         }
                     }
                 }
@@ -288,7 +288,7 @@ export default defineComponent( {
         'currentRegistrant.FamilyGuid' ()
         {
             // Clear the person guid if the family changes
-            this.currentRegistrant.PersonGuid = '';
+            this.currentRegistrant.personGuid = '';
         },
         familyMember: {
             handler ()
@@ -300,7 +300,7 @@ export default defineComponent( {
                     {
                         for ( const field of form.fields )
                         {
-                            delete this.currentRegistrant.FieldValues[ field.guid ];
+                            delete this.currentRegistrant.fieldValues[ field.guid ];
                         }
                     }
                 }
@@ -321,27 +321,27 @@ export default defineComponent( {
     <RockForm @submit="onNext">
         <template v-if="currentFormIndex === 0">
             <div v-if="familyOptions.length > 1" class="well js-registration-same-family">
-                <RadioButtonList :label="(firstName || uppercaseRegistrantTerm) + ' is in the same immediate family as'" rules='required:{"allowEmptyString": true}' v-model="currentRegistrant.FamilyGuid" :options="familyOptions" validationTitle="Family" />
+                <RadioButtonList :label="(firstName || uppercaseRegistrantTerm) + ' is in the same immediate family as'" rules='required:{"allowEmptyString": true}' v-model="currentRegistrant.familyGuid" :options="familyOptions" validationTitle="Family" />
             </div>
             <div v-if="familyMemberOptions.length" class="row">
                 <div class="col-md-6">
-                    <DropDownList v-model="currentRegistrant.PersonGuid" :options="familyMemberOptions" label="Family Member to Register" />
+                    <DropDownList v-model="currentRegistrant.personGuid" :options="familyMemberOptions" label="Family Member to Register" />
                 </div>
             </div>
         </template>
 
         <ItemsWithPreAndPostHtml :items="prePostHtmlItems">
             <template v-for="field in currentFormFields" :key="field.guid" v-slot:[field.guid]>
-                <RegistrantPersonField v-if="field.fieldSource === fieldSources.PersonField" :field="field" :fieldValues="currentRegistrant.FieldValues" :isKnownFamilyMember="!!currentRegistrant.PersonGuid" />
-                <RegistrantAttributeField v-else-if="field.fieldSource === fieldSources.RegistrantAttribute || field.fieldSource === fieldSources.PersonAttribute" :field="field" :fieldValues="currentRegistrant.FieldValues" />
+                <RegistrantPersonField v-if="field.fieldSource === fieldSources.personField" :field="field" :fieldValues="currentRegistrant.fieldValues" :isKnownFamilyMember="!!currentRegistrant.personGuid" />
+                <RegistrantAttributeField v-else-if="field.fieldSource === fieldSources.registrantAttribute || field.fieldSource === fieldSources.personAttribute" :field="field" :fieldValues="currentRegistrant.fieldValues" />
                 <Alert alertType="danger" v-else>Could not resolve field source {{field.fieldSource}}</Alert>
             </template>
         </ItemsWithPreAndPostHtml>
 
         <div v-if="!isWaitList && isLastForm && viewModel.fees.length" class="well registration-additional-options">
             <h4>{{pluralFeeTerm}}</h4>
-            <template v-for="fee in viewModel.fees" :key="fee.Guid">
-                <FeeField :fee="fee" v-model="currentRegistrant.FeeItemQuantities" />
+            <template v-for="fee in viewModel.fees" :key="fee.guid">
+                <FeeField :fee="fee" v-model="currentRegistrant.feeItemQuantities" />
             </template>
         </div>
 

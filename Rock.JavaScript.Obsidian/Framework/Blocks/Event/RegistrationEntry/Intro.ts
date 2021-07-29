@@ -38,7 +38,7 @@ export default defineComponent( {
 
         return {
             /** The number of registrants that this registrar is going to input */
-            numberOfRegistrants: registrationEntryState.Registrants.length,
+            numberOfRegistrants: registrationEntryState.registrants.length,
 
             /** The shared state among all the components that make up this block */
             registrationEntryState,
@@ -57,7 +57,7 @@ export default defineComponent( {
         /** The view model sent by the C# code behind. This is just a convenient shortcut to the shared object. */
         viewModel (): RegistrationEntryBlockViewModel
         {
-            return this.registrationEntryState.ViewModel;
+            return this.registrationEntryState.viewModel;
         },
 
         /** The number of these registrants that will be placed on a waitlist because of capacity rules */
@@ -132,9 +132,9 @@ export default defineComponent( {
             // If the person is authenticated and the setting is to put registrants in the same family, then we force that family guid
             const forcedFamilyGuid = getForcedFamilyGuid( this.currentPerson, this.viewModel );
 
-            const usedFamilyMemberGuids = this.registrationEntryState.Registrants
-                .filter( r => r.PersonGuid )
-                .map( r => r.PersonGuid );
+            const usedFamilyMemberGuids = this.registrationEntryState.registrants
+                .filter( r => r.personGuid )
+                .map( r => r.personGuid );
 
             const availableFamilyMembers = this.viewModel.familyMembers
                 .filter( fm =>
@@ -142,28 +142,28 @@ export default defineComponent( {
                     !usedFamilyMemberGuids.includes( fm.guid ) );
 
             // Resize the registrant array to match the selected number
-            while ( this.numberOfRegistrants > this.registrationEntryState.Registrants.length )
+            while ( this.numberOfRegistrants > this.registrationEntryState.registrants.length )
             {
                 const registrant = getDefaultRegistrantInfo( this.currentPerson, this.viewModel, forcedFamilyGuid );
-                this.registrationEntryState.Registrants.push( registrant );
+                this.registrationEntryState.registrants.push( registrant );
             }
 
-            this.registrationEntryState.Registrants.length = this.numberOfRegistrants;
+            this.registrationEntryState.registrants.length = this.numberOfRegistrants;
 
             // Set people beyond the capacity to be on the waitlist
             const firstWaitListIndex = this.numberOfRegistrants - this.numberToAddToWaitlist;
 
             for ( let i = firstWaitListIndex; i < this.numberOfRegistrants; i++ )
             {
-                this.registrationEntryState.Registrants[ i ].IsOnWaitList = true;
+                this.registrationEntryState.registrants[ i ].isOnWaitList = true;
             }
 
             // If there are family members, set the first registrant to be the first (feature parity with the original block)
-            if ( availableFamilyMembers.length && this.registrationEntryState.Registrants.length )
+            if ( availableFamilyMembers.length && this.registrationEntryState.registrants.length )
             {
                 const familyMember = availableFamilyMembers[ 0 ];
-                const registrant = this.registrationEntryState.Registrants[ 0 ];
-                registrant.PersonGuid = familyMember.guid;
+                const registrant = this.registrationEntryState.registrants[ 0 ];
+                registrant.personGuid = familyMember.guid;
             }
 
             this.$emit( 'next' );

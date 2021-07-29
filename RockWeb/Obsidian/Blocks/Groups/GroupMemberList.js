@@ -71,7 +71,8 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Store/Ind
                 },
                 computed: {
                     groupId() {
-                        return (Index_1.default.getters.groupContext || {}).Id || 0;
+                        const g = Index_1.default.getters.groupContext;
+                        return (Index_1.default.getters.groupContext || {}).id || 0;
                     },
                 },
                 methods: {
@@ -91,8 +92,8 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Store/Ind
                                     },
                                     sortProperty: this.sortProperty
                                 });
-                                if (result.data && result.data.GroupMembers) {
-                                    this.members = result.data.GroupMembers;
+                                if (result.data && result.data.groupMembers) {
+                                    this.members = result.data.groupMembers;
                                 }
                                 else {
                                     this.members = [];
@@ -146,22 +147,22 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Store/Ind
             {{errorMessage}}
         </Alert>
         <div class="grid grid-panel">
-            <Grid :gridData="members" rowIdKey="GroupMemberId" #default="rowContext" v-model:sortProperty="sortProperty" rowItemText="Group Member">
+            <Grid :gridData="members" rowIdKey="groupMemberId" #default="rowContext" v-model:sortProperty="sortProperty" rowItemText="Group Member">
                 <GridRow :rowContext="rowContext" @click:body="onRowClick">
                     <GridSelectColumn />
-                    <GridColumn title="Name" property="FullName" sortExpression="Person.LastName,Person.NickName">
+                    <GridColumn title="Name" property="fullName" sortExpression="person.lastName,person.nickName">
                         <div
                             class="photo-icon photo-round photo-round-xs pull-left margin-r-sm"
                             :style="{
-                                backgroundImage: 'url(' + rowContext.rowData.PhotoUrl + ')',
+                                backgroundImage: 'url(' + rowContext.rowData.photoUrl + ')',
                                 backgroundSize: 'cover',
                                 backgroundRepeat: 'no-repeat'
                             }"></div>
-                        {{rowContext.rowData.FullName}}
+                        {{rowContext.rowData.fullName}}
                     </GridColumn>
-                    <GridColumn title="Role" property="RoleName" sortExpression="GroupRole.Name" />
-                    <GridColumn title="Member Status" property="StatusName" sortExpression="GroupMemberStatus" />
-                    <GridProfileLinkColumn property="PersonId" />
+                    <GridColumn title="Role" property="roleName" sortExpression="groupRole.name" />
+                    <GridColumn title="Member Status" property="statusName" sortExpression="groupMemberStatus" />
+                    <GridProfileLinkColumn property="personId" />
                 </GridRow>
             </Grid>
         </div>

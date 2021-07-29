@@ -37,7 +37,7 @@ System.register(["vue", "../../../Controls/AttributeValuesContainer", "../../../
                 },
                 computed: {
                     showPrevious() {
-                        return this.registrationEntryState.FirstStep === this.registrationEntryState.Steps.intro;
+                        return this.registrationEntryState.firstStep === this.registrationEntryState.steps.intro;
                     }
                 },
                 methods: {
@@ -52,8 +52,8 @@ System.register(["vue", "../../../Controls/AttributeValuesContainer", "../../../
                     viewModel: {
                         immediate: true,
                         handler() {
-                            this.attributeValues = this.registrationEntryState.ViewModel.registrationAttributesStart.map(a => {
-                                const currentValue = this.registrationEntryState.RegistrationFieldValues[a.guid] || '';
+                            this.attributeValues = this.registrationEntryState.viewModel.registrationAttributesStart.map(a => {
+                                const currentValue = this.registrationEntryState.registrationFieldValues[a.guid] || '';
                                 return {
                                     attribute: a,
                                     attributeId: a.id,
@@ -69,7 +69,7 @@ System.register(["vue", "../../../Controls/AttributeValuesContainer", "../../../
                             for (const attributeValue of this.attributeValues) {
                                 const attribute = attributeValue.attribute;
                                 if (attribute) {
-                                    this.registrationEntryState.RegistrationFieldValues[attribute.guid] = attributeValue.value;
+                                    this.registrationEntryState.registrationFieldValues[attribute.guid] = attributeValue.value;
                                 }
                             }
                         }

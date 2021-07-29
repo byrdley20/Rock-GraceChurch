@@ -37,7 +37,7 @@ System.register(["vue", "../../../Elements/Alert", "../../../Elements/NumberUpDo
                 data() {
                     const registrationEntryState = vue_1.inject('registrationEntryState');
                     return {
-                        numberOfRegistrants: registrationEntryState.Registrants.length,
+                        numberOfRegistrants: registrationEntryState.registrants.length,
                         registrationEntryState,
                         showRemainingCapacity: false
                     };
@@ -47,7 +47,7 @@ System.register(["vue", "../../../Elements/Alert", "../../../Elements/NumberUpDo
                         return this.$store.state.currentPerson;
                     },
                     viewModel() {
-                        return this.registrationEntryState.ViewModel;
+                        return this.registrationEntryState.viewModel;
                     },
                     numberToAddToWaitlist() {
                         if (this.viewModel.spotsRemaining === null || !this.viewModel.waitListEnabled) {
@@ -92,25 +92,25 @@ System.register(["vue", "../../../Elements/Alert", "../../../Elements/NumberUpDo
                     pluralConditional: String_1.pluralConditional,
                     onNext() {
                         const forcedFamilyGuid = RegistrationEntry_1.getForcedFamilyGuid(this.currentPerson, this.viewModel);
-                        const usedFamilyMemberGuids = this.registrationEntryState.Registrants
-                            .filter(r => r.PersonGuid)
-                            .map(r => r.PersonGuid);
+                        const usedFamilyMemberGuids = this.registrationEntryState.registrants
+                            .filter(r => r.personGuid)
+                            .map(r => r.personGuid);
                         const availableFamilyMembers = this.viewModel.familyMembers
                             .filter(fm => Guid_1.areEqual(fm.familyGuid, forcedFamilyGuid) &&
                             !usedFamilyMemberGuids.includes(fm.guid));
-                        while (this.numberOfRegistrants > this.registrationEntryState.Registrants.length) {
+                        while (this.numberOfRegistrants > this.registrationEntryState.registrants.length) {
                             const registrant = RegistrationEntry_1.getDefaultRegistrantInfo(this.currentPerson, this.viewModel, forcedFamilyGuid);
-                            this.registrationEntryState.Registrants.push(registrant);
+                            this.registrationEntryState.registrants.push(registrant);
                         }
-                        this.registrationEntryState.Registrants.length = this.numberOfRegistrants;
+                        this.registrationEntryState.registrants.length = this.numberOfRegistrants;
                         const firstWaitListIndex = this.numberOfRegistrants - this.numberToAddToWaitlist;
                         for (let i = firstWaitListIndex; i < this.numberOfRegistrants; i++) {
-                            this.registrationEntryState.Registrants[i].IsOnWaitList = true;
+                            this.registrationEntryState.registrants[i].isOnWaitList = true;
                         }
-                        if (availableFamilyMembers.length && this.registrationEntryState.Registrants.length) {
+                        if (availableFamilyMembers.length && this.registrationEntryState.registrants.length) {
                             const familyMember = availableFamilyMembers[0];
-                            const registrant = this.registrationEntryState.Registrants[0];
-                            registrant.PersonGuid = familyMember.guid;
+                            const registrant = this.registrationEntryState.registrants[0];
+                            registrant.personGuid = familyMember.guid;
                         }
                         this.$emit('next');
                     },

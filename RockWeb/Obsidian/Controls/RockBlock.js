@@ -73,7 +73,7 @@ System.register(["../Util/Http", "vue", "../Store/Index", "../Elements/Alert"], 
                         return yield httpCall('POST', url, params, data);
                     });
                     const invokeBlockAction = (actionName, data = undefined) => __awaiter(this, void 0, void 0, function* () {
-                        return yield post(`/api/blocks/action/${props.config.blockGuid}/${actionName}`, undefined, Object.assign({ __context: {
+                        return yield post(`/api/v2/BlockActions/${props.config.blockGuid}/${actionName}`, undefined, Object.assign({ __context: {
                                 pageParameters: Index_1.default.state.pageParameters
                             } }, data));
                     });

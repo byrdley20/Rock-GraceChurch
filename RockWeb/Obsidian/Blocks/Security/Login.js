@@ -55,8 +55,8 @@ System.register(["../../Elements/TextBox", "../../Elements/CheckBox", "../../Ele
                 methods: {
                     setCookie(cookie) {
                         let expires = '';
-                        if (cookie.Expires) {
-                            const date = new Date(cookie.Expires);
+                        if (cookie.expires) {
+                            const date = new Date(cookie.expires);
                             if (date < new Date()) {
                                 expires = '';
                             }
@@ -67,7 +67,7 @@ System.register(["../../Elements/TextBox", "../../Elements/CheckBox", "../../Ele
                         else {
                             expires = '';
                         }
-                        document.cookie = `${cookie.Name}=${cookie.Value}${expires}; path=/`;
+                        document.cookie = `${cookie.name}=${cookie.value}${expires}; path=/`;
                     },
                     redirectAfterLogin() {
                         const urlParams = new URLSearchParams(window.location.search);
@@ -109,8 +109,8 @@ System.register(["../../Elements/TextBox", "../../Elements/CheckBox", "../../Ele
                                     password: this.password,
                                     rememberMe: this.rememberMe
                                 });
-                                if (result && !result.isError && result.data && result.data.AuthCookie) {
-                                    this.setCookie(result.data.AuthCookie);
+                                if (result && !result.isError && result.data && result.data.authCookie) {
+                                    this.setCookie(result.data.authCookie);
                                     this.redirectAfterLogin();
                                     return;
                                 }

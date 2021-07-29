@@ -8,18 +8,18 @@ declare enum RegistrationCostSummaryType {
     Total = 3
 }
 interface LineItem {
-    Type: RegistrationCostSummaryType;
-    Description: string;
-    Cost: number;
-    DiscountedCost: number;
-    MinPayment: number;
-    DefaultPayment: number | null;
+    type: RegistrationCostSummaryType;
+    description: string;
+    cost: number;
+    discountedCost: number;
+    minPayment: number;
+    defaultPayment: number | null;
 }
 interface AugmentedLineItem extends LineItem {
-    IsFee: boolean;
-    DiscountHelp: string;
-    DiscountedAmountFormatted: string;
-    AmountFormatted: string;
+    isFee: boolean;
+    discountHelp: string;
+    discountedAmountFormatted: string;
+    amountFormatted: string;
 }
 declare const _default: import("vue").DefineComponent<{}, {
     getRegistrationEntryBlockArgs: () => RegistrationEntryBlockArgs;

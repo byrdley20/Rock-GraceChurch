@@ -51,7 +51,7 @@ System.register(["vue", "../../Controls/RockBlock", "../../Elements/Alert", "../
                                 paramFromClient: 'This is a value sent to the server from the client.'
                             });
                             if (response.data) {
-                                this.blockActionMessage = response.data.Message;
+                                this.blockActionMessage = response.data.message;
                             }
                             else {
                                 this.blockActionMessage = response.errorMessage || 'An error occurred';
@@ -60,7 +60,7 @@ System.register(["vue", "../../Controls/RockBlock", "../../Elements/Alert", "../
                     }
                 },
                 created() {
-                    this.configMessage = this.configurationValues.Message;
+                    this.configMessage = this.configurationValues.message;
                 },
                 mounted() {
                 },

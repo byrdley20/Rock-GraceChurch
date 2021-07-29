@@ -57,19 +57,19 @@ export default defineComponent( {
         /** Does this registration instance have a waitlist? */
         hasWaitlist (): boolean
         {
-            return this.registrationEntryState.ViewModel.waitListEnabled;
+            return this.registrationEntryState.viewModel.waitListEnabled;
         },
 
         /** The number of registrants being registered */
         allRegistrantCount (): number
         {
-            return this.registrationEntryState.Registrants.length;
+            return this.registrationEntryState.registrants.length;
         },
 
         /** The number of registrants pushed to the waitlist */
         waitlistRegistrantCount (): number
         {
-            return this.registrationEntryState.Registrants.filter( r => r.IsOnWaitList ).length;
+            return this.registrationEntryState.registrants.filter( r => r.isOnWaitList ).length;
         },
 
         /** The number of registrants pushed to the waitlist as a word (eg "one") */
@@ -81,7 +81,7 @@ export default defineComponent( {
         /** The number of registrants not on a waitlist */
         nonWaitlistRegistrantCount (): number
         {
-            return this.registrationEntryState.Registrants.filter( r => !r.IsOnWaitList ).length;
+            return this.registrationEntryState.registrants.filter( r => !r.isOnWaitList ).length;
         },
 
         /** The number of registrants not on a waitlist as a word (eg "one") */
@@ -121,13 +121,13 @@ export default defineComponent( {
             try
             {
                 const response = await this.invokeBlockAction<SessionRenewalResult>( 'TryToRenewSession', {
-                    registrationSessionGuid: this.registrationEntryState.RegistrationSessionGuid
+                    registrationSessionGuid: this.registrationEntryState.registrationSessionGuid
                 } );
 
                 if ( response.data )
                 {
                     const asDate = new Date( response.data.expirationDateTime );
-                    this.registrationEntryState.SessionExpirationDate = asDate;
+                    this.registrationEntryState.sessionExpirationDate = asDate;
                     this.spotsSecured = response.data.spotsSecured;
 
                     // If there is a deficiency, then update the state to reflect the reduced spots available
@@ -140,12 +140,12 @@ export default defineComponent( {
                         return;
                     }
 
-                    this.registrationEntryState.ViewModel.spotsRemaining = this.spotsSecured;
+                    this.registrationEntryState.viewModel.spotsRemaining = this.spotsSecured;
 
                     if ( !this.hasWaitlist )
                     {
                         // Reduce the registrants down to fit the spots available
-                        this.registrationEntryState.Registrants.length = this.spotsSecured;
+                        this.registrationEntryState.registrants.length = this.spotsSecured;
                         return;
                     }
 
@@ -157,14 +157,14 @@ export default defineComponent( {
                             break;
                         }
 
-                        const registrant = this.registrationEntryState.Registrants[ i ];
+                        const registrant = this.registrationEntryState.registrants[ i ];
 
-                        if ( registrant.IsOnWaitList )
+                        if ( registrant.isOnWaitList )
                         {
                             continue;
                         }
 
-                        registrant.IsOnWaitList = true;
+                        registrant.isOnWaitList = true;
                         deficiency--;
                     }
                 }

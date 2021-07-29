@@ -64,14 +64,14 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
                 },
                 computed: {
                     augmentedLineItems() {
-                        return this.lineItems.map(li => (Object.assign(Object.assign({}, li), { IsFee: li.Type === RegistrationCostSummaryType.Fee, DiscountHelp: (this.hasDiscount && li.Cost === li.DiscountedCost) ? 'This item is not eligible for the discount.' : '', AmountFormatted: Number_1.asFormattedString(li.Cost, 2), DiscountedAmountFormatted: Number_1.asFormattedString(li.DiscountedCost, 2) })));
+                        return this.lineItems.map(li => (Object.assign(Object.assign({}, li), { isFee: li.type === RegistrationCostSummaryType.Fee, discountHelp: (this.hasDiscount && li.cost === li.discountedCost) ? 'This item is not eligible for the discount.' : '', amountFormatted: Number_1.asFormattedString(li.cost, 2), discountedAmountFormatted: Number_1.asFormattedString(li.discountedCost, 2) })));
                     },
                     hasDiscount() {
-                        return this.lineItems.some(li => li.DiscountedCost !== li.Cost);
+                        return this.lineItems.some(li => li.discountedCost !== li.cost);
                     },
                     total() {
                         let total = 0;
-                        this.lineItems.forEach(li => total += li.Cost);
+                        this.lineItems.forEach(li => total += li.cost);
                         return total;
                     },
                     totalFormatted() {
@@ -81,9 +81,9 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
                         let total = 0;
                         let hasDefault = false;
                         this.lineItems.forEach(li => {
-                            if (li.DefaultPayment) {
+                            if (li.defaultPayment) {
                                 hasDefault = true;
-                                total += li.DefaultPayment;
+                                total += li.defaultPayment;
                             }
                         });
                         total = hasDefault ? total : this.maxAmountCanBePaid;
@@ -100,7 +100,7 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
                     },
                     discountedTotal() {
                         let total = 0;
-                        this.lineItems.forEach(li => total += li.DiscountedCost);
+                        this.lineItems.forEach(li => total += li.discountedCost);
                         return total;
                     },
                     discountedTotalFormatted() {
@@ -111,7 +111,7 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
                             return 0;
                         }
                         let total = 0;
-                        this.lineItems.forEach(li => total += li.MinPayment);
+                        this.lineItems.forEach(li => total += li.minPayment);
                         return total;
                     },
                     amountDueTodayFormatted() {
@@ -122,7 +122,7 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
                     },
                     amountPreviouslyPaid() {
                         var _a;
-                        return ((_a = this.registrationEntryState.ViewModel.session) === null || _a === void 0 ? void 0 : _a.previouslyPaid) || 0;
+                        return ((_a = this.registrationEntryState.viewModel.session) === null || _a === void 0 ? void 0 : _a.previouslyPaid) || 0;
                     },
                     amountPreviouslyPaidFormatted() {
                         return `$${Number_1.asFormattedString(this.amountPreviouslyPaid, 2)}`;
@@ -138,7 +138,7 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
                         return `$${Number_1.asFormattedString(this.maxAmountCanBePaid, 2)}`;
                     },
                     amountRemaining() {
-                        const actual = this.maxAmountCanBePaid - this.registrationEntryState.AmountToPayToday;
+                        const actual = this.maxAmountCanBePaid - this.registrationEntryState.amountToPayToday;
                         const bounded = actual < 0 ? 0 : actual > this.maxAmountCanBePaid ? this.maxAmountCanBePaid : actual;
                         return bounded;
                     },
@@ -185,7 +185,7 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
                     defaultPaymentAmount: {
                         immediate: true,
                         handler() {
-                            this.registrationEntryState.AmountToPayToday = this.defaultPaymentAmount;
+                            this.registrationEntryState.amountToPayToday = this.defaultPaymentAmount;
                         }
                     },
                     'registrationEntryState.DiscountCode'() {
@@ -208,18 +208,18 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
                 <strong>Amount</strong>
             </div>
         </div>
-        <div v-for="lineItem in augmentedLineItems" class="row" :class="lineItem.IsFee ? 'fee-row-fee' : 'fee-row-cost'">
+        <div v-for="lineItem in augmentedLineItems" class="row" :class="lineItem.isFee ? 'fee-row-fee' : 'fee-row-cost'">
             <div class="col-sm-6 fee-caption">
-                {{lineItem.Description}}
+                {{lineItem.description}}
             </div>
             <div v-if="hasDiscount" class="col-sm-3 fee-value">
-                <HelpBlock v-if="lineItem.DiscountHelp" :text="lineItem.DiscountHelp" />
+                <HelpBlock v-if="lineItem.discountHelp" :text="lineItem.discountHelp" />
                 <span class="visible-xs-inline">Discounted Amount:</span>
-                $ {{lineItem.DiscountedAmountFormatted}}
+                $ {{lineItem.discountedAmountFormatted}}
             </div>
             <div class="col-sm-3 fee-value">
                 <span class="visible-xs-inline">Amount:</span>
-                $ {{lineItem.AmountFormatted}}
+                $ {{lineItem.amountFormatted}}
             </div>
         </div>
         <div class="row fee-row-total">
@@ -263,7 +263,7 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
                         </div>
                     </div>
                 </div>
-                <CurrencyBox label="Amount To Pay Today" :rules="amountToPayTodayRules" v-model="registrationEntryState.AmountToPayToday" class="form-right" inputGroupClasses="input-width-md amount-to-pay" />
+                <CurrencyBox label="Amount To Pay Today" :rules="amountToPayTodayRules" v-model="registrationEntryState.amountToPayToday" class="form-right" inputGroupClasses="input-width-md amount-to-pay" />
                 <div class="form-group static-control">
                     <label class="control-label">Amount Remaining</label>
                     <div class="control-wrapper">

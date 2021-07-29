@@ -17,10 +17,10 @@ declare const _default: import("vue").DefineComponent<{
     registrationEntryState: RegistrationEntryState;
 }, {
     fieldSources: {
-        PersonField: RegistrationFieldSource;
-        PersonAttribute: RegistrationFieldSource;
-        GroupMemberAttribute: RegistrationFieldSource;
-        RegistrantAttribute: RegistrationFieldSource;
+        personField: RegistrationFieldSource;
+        personAttribute: RegistrationFieldSource;
+        groupMemberAttribute: RegistrationFieldSource;
+        registrantAttribute: RegistrationFieldSource;
     };
 }, {
     showPrevious(): boolean;

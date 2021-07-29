@@ -64,12 +64,11 @@ export default defineComponent({
     },
     computed: {
         fieldComponent(): Component | null {
-            console.log(`start load component ${this.fieldTypeGuid}`, new Date().getTime());
             const field = getFieldTypeComponent(this.fieldTypeGuid);
 
             if (!field) {
                 // Fallback to text field
-                return TextField.component;
+                return TextField;
             }
 
             return field;

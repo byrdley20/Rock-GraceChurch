@@ -61,19 +61,19 @@ System.register(["vue", "../../../Controls/Dialog", "../../../Elements/LoadingIn
                 },
                 computed: {
                     hasWaitlist() {
-                        return this.registrationEntryState.ViewModel.waitListEnabled;
+                        return this.registrationEntryState.viewModel.waitListEnabled;
                     },
                     allRegistrantCount() {
-                        return this.registrationEntryState.Registrants.length;
+                        return this.registrationEntryState.registrants.length;
                     },
                     waitlistRegistrantCount() {
-                        return this.registrationEntryState.Registrants.filter(r => r.IsOnWaitList).length;
+                        return this.registrationEntryState.registrants.filter(r => r.isOnWaitList).length;
                     },
                     waitlistRegistrantCountWord() {
                         return Number_1.toWord(this.waitlistRegistrantCount);
                     },
                     nonWaitlistRegistrantCount() {
-                        return this.registrationEntryState.Registrants.filter(r => !r.IsOnWaitList).length;
+                        return this.registrationEntryState.registrants.filter(r => !r.isOnWaitList).length;
                     },
                     nonWaitlistRegistrantCountWord() {
                         return Number_1.toWord(this.nonWaitlistRegistrantCount);
@@ -98,11 +98,11 @@ System.register(["vue", "../../../Controls/Dialog", "../../../Elements/LoadingIn
                             this.isLoading = true;
                             try {
                                 const response = yield this.invokeBlockAction('TryToRenewSession', {
-                                    registrationSessionGuid: this.registrationEntryState.RegistrationSessionGuid
+                                    registrationSessionGuid: this.registrationEntryState.registrationSessionGuid
                                 });
                                 if (response.data) {
                                     const asDate = new Date(response.data.expirationDateTime);
-                                    this.registrationEntryState.SessionExpirationDate = asDate;
+                                    this.registrationEntryState.sessionExpirationDate = asDate;
                                     this.spotsSecured = response.data.spotsSecured;
                                     let deficiency = this.nonWaitlistRegistrantCount - this.spotsSecured;
                                     if (!deficiency) {
@@ -110,20 +110,20 @@ System.register(["vue", "../../../Controls/Dialog", "../../../Elements/LoadingIn
                                         this.close();
                                         return;
                                     }
-                                    this.registrationEntryState.ViewModel.spotsRemaining = this.spotsSecured;
+                                    this.registrationEntryState.viewModel.spotsRemaining = this.spotsSecured;
                                     if (!this.hasWaitlist) {
-                                        this.registrationEntryState.Registrants.length = this.spotsSecured;
+                                        this.registrationEntryState.registrants.length = this.spotsSecured;
                                         return;
                                     }
                                     for (let i = this.allRegistrantCount - 1; i >= 0; i--) {
                                         if (!deficiency) {
                                             break;
                                         }
-                                        const registrant = this.registrationEntryState.Registrants[i];
-                                        if (registrant.IsOnWaitList) {
+                                        const registrant = this.registrationEntryState.registrants[i];
+                                        if (registrant.isOnWaitList) {
                                             continue;
                                         }
-                                        registrant.IsOnWaitList = true;
+                                        registrant.isOnWaitList = true;
                                         deficiency--;
                                     }
                                 }

@@ -1,12 +1,12 @@
 import { RowContext, SortProperty } from '../../Controls/Grid';
 import { InvokeBlockActionFunc } from '../../Controls/RockBlock';
 declare type GroupMemberViewModel = {
-    FullName: string;
-    GroupMemberId: number;
-    PersonId: number;
-    PhotoUrl: string;
-    RoleName: string;
-    StatusName: string;
+    fullName: string;
+    groupMemberId: number;
+    personId: number;
+    photoUrl: string;
+    roleName: string;
+    statusName: string;
 };
 declare const _default: import("vue").DefineComponent<{}, {
     invokeBlockAction: InvokeBlockActionFunc;

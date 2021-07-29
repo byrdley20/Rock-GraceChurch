@@ -67,19 +67,19 @@ export default defineComponent( {
         /** The person entering the registration information. This object is part of the registration state. */
         registrar (): RegistrarInfo
         {
-            return this.registrationEntryState.Registrar;
+            return this.registrationEntryState.registrar;
         },
 
         /** The first registrant entered into the registration. */
         firstRegistrant (): RegistrantInfo
         {
-            return this.registrationEntryState.Registrants[ 0 ];
+            return this.registrationEntryState.registrants[ 0 ];
         },
 
         /** This is the data sent from the C# code behind when the block initialized. */
         viewModel (): RegistrationEntryBlockViewModel
         {
-            return this.registrationEntryState.ViewModel;
+            return this.registrationEntryState.viewModel;
         },
 
         /** Should the checkbox allowing the registrar to choose to update their email address be shown? */
@@ -91,7 +91,7 @@ export default defineComponent( {
         /** Info about the registrants made available by .FirstName instead of by field guid */
         registrantInfos (): RegistrantBasicInfo[]
         {
-            return this.registrationEntryState.Registrants.map( r => getRegistrantBasicInfo( r, this.viewModel.registrantForms ) );
+            return this.registrationEntryState.registrants.map( r => getRegistrantBasicInfo( r, this.viewModel.registrantForms ) );
         },
 
         /** The registrant term - plural if there are more than 1 */
@@ -119,20 +119,20 @@ export default defineComponent( {
             }
 
             // Add previous registrants as options
-            for ( let i = 0; i < this.registrationEntryState.Registrants.length; i++ )
+            for ( let i = 0; i < this.registrationEntryState.registrants.length; i++ )
             {
-                const registrant = this.registrationEntryState.Registrants[ i ];
+                const registrant = this.registrationEntryState.registrants[ i ];
                 const info = getRegistrantBasicInfo( registrant, this.viewModel.registrantForms );
 
-                if ( !usedFamilyGuids[ registrant.FamilyGuid ] && info?.FirstName && info?.LastName )
+                if ( !usedFamilyGuids[ registrant.familyGuid ] && info?.firstName && info?.lastName )
                 {
                     options.push( {
-                        key: registrant.FamilyGuid,
-                        text: `${info.FirstName} ${info.LastName}`,
-                        value: registrant.FamilyGuid
+                        key: registrant.familyGuid,
+                        text: `${info.firstName} ${info.lastName}`,
+                        value: registrant.familyGuid
                     } );
 
-                    usedFamilyGuids[ registrant.FamilyGuid ] = true;
+                    usedFamilyGuids[ registrant.familyGuid ] = true;
                 }
             }
 
@@ -147,9 +147,9 @@ export default defineComponent( {
             }
 
             options.push( {
-                key: this.registrar.OwnFamilyGuid,
+                key: this.registrar.ownFamilyGuid,
                 text: 'None of the above',
-                value: this.registrar.OwnFamilyGuid
+                value: this.registrar.ownFamilyGuid
             } );
 
             return options;
@@ -165,10 +165,10 @@ export default defineComponent( {
             if ( this.currentPerson &&
                 ( this.viewModel.registrarOption === RegistrarOption.UseLoggedInPerson || this.viewModel.registrarOption === RegistrarOption.PromptForRegistrar ) )
             {
-                this.registrar.NickName = this.currentPerson.nickName || this.currentPerson.firstName || '';
-                this.registrar.LastName = this.currentPerson.lastName || '';
-                this.registrar.Email = this.currentPerson.email || '';
-                this.registrar.FamilyGuid = this.currentPerson.primaryFamilyGuid;
+                this.registrar.nickName = this.currentPerson.nickName || this.currentPerson.firstName || '';
+                this.registrar.lastName = this.currentPerson.lastName || '';
+                this.registrar.email = this.currentPerson.email || '';
+                this.registrar.familyGuid = this.currentPerson.primaryFamilyGuid;
                 return;
             }
 
@@ -181,12 +181,12 @@ export default defineComponent( {
             if ( this.viewModel.registrarOption === RegistrarOption.PrefillFirstRegistrant || this.viewModel.registrarOption === RegistrarOption.UseFirstRegistrant )
             {
                 const firstRegistrantInfo = getRegistrantBasicInfo( this.firstRegistrant, this.viewModel.registrantForms );
-                this.registrar.NickName = firstRegistrantInfo.FirstName;
-                this.registrar.LastName = firstRegistrantInfo.LastName;
-                this.registrar.Email = firstRegistrantInfo.Email;
-                this.registrar.FamilyGuid = this.firstRegistrant.FamilyGuid;
+                this.registrar.nickName = firstRegistrantInfo.firstName;
+                this.registrar.lastName = firstRegistrantInfo.lastName;
+                this.registrar.email = firstRegistrantInfo.email;
+                this.registrar.familyGuid = this.firstRegistrant.familyGuid;
 
-                const hasAllInfo = ( !!this.registrar.NickName ) && ( !!this.registrar.LastName ) && ( !!this.registrar.Email );
+                const hasAllInfo = ( !!this.registrar.nickName ) && ( !!this.registrar.lastName ) && ( !!this.registrar.email );
 
                 if ( hasAllInfo && this.viewModel.registrarOption === RegistrarOption.UseFirstRegistrant )
                 {
@@ -212,28 +212,28 @@ export default defineComponent( {
     <template v-if="useLoggedInPersonForRegistrar">
         <div class="row">
             <div class="col-md-6">
-                <StaticFormControl label="First Name" v-model="registrar.NickName" />
-                <StaticFormControl label="Email" v-model="registrar.Email" />
+                <StaticFormControl label="First Name" v-model="registrar.nickName" />
+                <StaticFormControl label="Email" v-model="registrar.email" />
             </div>
             <div class="col-md-6">
-                <StaticFormControl label="Last Name" v-model="registrar.LastName" />
+                <StaticFormControl label="Last Name" v-model="registrar.lastName" />
             </div>
         </div>
     </template>
     <template v-else>
         <div class="row">
             <div class="col-md-6">
-                <TextBox label="First Name" rules="required" v-model="registrar.NickName" tabIndex="1" />
-                <EmailBox label="Send Confirmation Emails To" rules="required" v-model="registrar.Email" tabIndex="3" />
-                <CheckBox v-if="doShowUpdateEmailOption" label="Should Your Account Be Updated To Use This Email Address?" v-model="registrar.UpdateEmail" />
+                <TextBox label="First Name" rules="required" v-model="registrar.nickName" tabIndex="1" />
+                <EmailBox label="Send Confirmation Emails To" rules="required" v-model="registrar.email" tabIndex="3" />
+                <CheckBox v-if="doShowUpdateEmailOption" label="Should Your Account Be Updated To Use This Email Address?" v-model="registrar.updateEmail" />
             </div>
             <div class="col-md-6">
-                <TextBox label="Last Name" rules="required" v-model="registrar.LastName" tabIndex="2" />
+                <TextBox label="Last Name" rules="required" v-model="registrar.lastName" tabIndex="2" />
                 <RadioButtonList
                     v-if="familyOptions.length"
-                    :label="(registrar.NickName || 'Person') + ' is in the same immediate family as'"
+                    :label="(registrar.nickName || 'Person') + ' is in the same immediate family as'"
                     rules='required:{"allowEmptyString": true}'
-                    v-model="registrar.FamilyGuid"
+                    v-model="registrar.familyGuid"
                     :options="familyOptions"
                     validationTitle="Family" />
             </div>

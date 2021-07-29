@@ -44,28 +44,28 @@ System.register(["vue", "./Registrant", "../../../Elements/Alert"], function (ex
                 methods: {
                     onPrevious() {
                         return __awaiter(this, void 0, void 0, function* () {
-                            if (this.registrationEntryState.CurrentRegistrantIndex <= 0) {
+                            if (this.registrationEntryState.currentRegistrantIndex <= 0) {
                                 this.$emit('previous');
                                 return;
                             }
-                            const lastFormIndex = this.registrationEntryState.ViewModel.registrantForms.length - 1;
-                            this.registrationEntryState.CurrentRegistrantIndex--;
-                            this.registrationEntryState.CurrentRegistrantFormIndex = lastFormIndex;
+                            const lastFormIndex = this.registrationEntryState.viewModel.registrantForms.length - 1;
+                            this.registrationEntryState.currentRegistrantIndex--;
+                            this.registrationEntryState.currentRegistrantFormIndex = lastFormIndex;
                             yield this.persistSession();
                         });
                     },
                     onNext() {
                         return __awaiter(this, void 0, void 0, function* () {
-                            const lastIndex = this.registrationEntryState.Registrants.length - 1;
-                            if (this.registrationEntryState.CurrentRegistrantIndex >= lastIndex) {
+                            const lastIndex = this.registrationEntryState.registrants.length - 1;
+                            if (this.registrationEntryState.currentRegistrantIndex >= lastIndex) {
                                 this.$emit('next');
                                 return;
                             }
-                            if (this.registrationEntryState.CurrentRegistrantIndex === 0) {
+                            if (this.registrationEntryState.currentRegistrantIndex === 0) {
                                 this.copyCommonValuesFromFirstRegistrant();
                             }
-                            this.registrationEntryState.CurrentRegistrantIndex++;
-                            this.registrationEntryState.CurrentRegistrantFormIndex = 0;
+                            this.registrationEntryState.currentRegistrantIndex++;
+                            this.registrationEntryState.currentRegistrantFormIndex = 0;
                             yield this.persistSession();
                         });
                     },
@@ -77,17 +77,17 @@ System.register(["vue", "./Registrant", "../../../Elements/Alert"], function (ex
                         const firstRegistrant = this.registrants[0];
                         for (let i = 1; i < this.registrants.length; i++) {
                             const currentRegistrant = this.registrants[i];
-                            for (const form of this.registrationEntryState.ViewModel.registrantForms) {
+                            for (const form of this.registrationEntryState.viewModel.registrantForms) {
                                 for (const field of form.fields) {
                                     if (!field.isSharedValue) {
                                         continue;
                                     }
-                                    const valueToShare = firstRegistrant.FieldValues[field.guid];
+                                    const valueToShare = firstRegistrant.fieldValues[field.guid];
                                     if (valueToShare && typeof valueToShare === 'object') {
-                                        currentRegistrant.FieldValues[field.guid] = Object.assign({}, valueToShare);
+                                        currentRegistrant.fieldValues[field.guid] = Object.assign({}, valueToShare);
                                     }
                                     else {
-                                        currentRegistrant.FieldValues[field.guid] = valueToShare;
+                                        currentRegistrant.fieldValues[field.guid] = valueToShare;
                                     }
                                 }
                             }
@@ -96,20 +96,20 @@ System.register(["vue", "./Registrant", "../../../Elements/Alert"], function (ex
                 },
                 computed: {
                     hasWaitlist() {
-                        return this.registrationEntryState.Registrants.some(r => r.IsOnWaitList);
+                        return this.registrationEntryState.registrants.some(r => r.isOnWaitList);
                     },
                     isOnWaitlist() {
-                        const currentRegistrant = this.registrationEntryState.Registrants[this.registrationEntryState.CurrentRegistrantIndex];
-                        return currentRegistrant.IsOnWaitList;
+                        const currentRegistrant = this.registrationEntryState.registrants[this.registrationEntryState.currentRegistrantIndex];
+                        return currentRegistrant.isOnWaitList;
                     },
                     registrantTerm() {
-                        return (this.registrationEntryState.ViewModel.registrantTerm || 'registrant').toLowerCase();
+                        return (this.registrationEntryState.viewModel.registrantTerm || 'registrant').toLowerCase();
                     },
                     registrants() {
-                        return this.registrationEntryState.Registrants;
+                        return this.registrationEntryState.registrants;
                     },
                     currentRegistrantIndex() {
-                        return this.registrationEntryState.CurrentRegistrantIndex;
+                        return this.registrationEntryState.currentRegistrantIndex;
                     }
                 },
                 template: `
@@ -120,7 +120,7 @@ System.register(["vue", "./Registrant", "../../../Elements/Alert"], function (ex
     <Alert v-else-if="isOnWaitlist" alertType="warning">
         This {{registrantTerm}} will be on the waiting list.
     </Alert>
-    <template v-for="(r, i) in registrants" :key="r.Guid">
+    <template v-for="(r, i) in registrants" :key="r.guid">
         <Registrant v-show="currentRegistrantIndex === i" :currentRegistrant="r" :isWaitList="isOnWaitlist" @next="onNext" @previous="onPrevious" />
     </template>
 </div>`

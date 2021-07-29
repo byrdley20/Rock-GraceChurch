@@ -34,20 +34,20 @@ enum RegistrationCostSummaryType
 };
 
 interface LineItem {
-    Type: RegistrationCostSummaryType,
-    Description: string,
-    Cost: number,
-    DiscountedCost: number,
-    MinPayment: number,
-    DefaultPayment: number | null
+    type: RegistrationCostSummaryType,
+    description: string,
+    cost: number,
+    discountedCost: number,
+    minPayment: number,
+    defaultPayment: number | null
 };
 
 interface AugmentedLineItem extends LineItem
 {
-    IsFee: boolean,
-    DiscountHelp: string,
-    DiscountedAmountFormatted: string,
-    AmountFormatted: string
+    isFee: boolean,
+    discountHelp: string,
+    discountedAmountFormatted: string,
+    amountFormatted: string
 };
 
 export default defineComponent( {
@@ -78,24 +78,24 @@ export default defineComponent( {
         {
             return this.lineItems.map( li => ( {
                 ...li,
-                IsFee: li.Type === RegistrationCostSummaryType.Fee,
-                DiscountHelp: ( this.hasDiscount && li.Cost === li.DiscountedCost ) ? 'This item is not eligible for the discount.' : '',
-                AmountFormatted: asFormattedString( li.Cost, 2 ),
-                DiscountedAmountFormatted: asFormattedString( li.DiscountedCost, 2 )
+                isFee: li.type === RegistrationCostSummaryType.Fee,
+                discountHelp: ( this.hasDiscount && li.cost === li.discountedCost ) ? 'This item is not eligible for the discount.' : '',
+                amountFormatted: asFormattedString( li.cost, 2 ),
+                discountedAmountFormatted: asFormattedString( li.discountedCost, 2 )
             } as AugmentedLineItem ) );
         },
 
         /** Should the discount column in the fee table be shown? */
         hasDiscount (): boolean
         {
-            return this.lineItems.some( li => li.DiscountedCost !== li.Cost );
+            return this.lineItems.some( li => li.discountedCost !== li.cost );
         },
 
         /** The total cost before discounts */
         total (): number
         {
             let total = 0;
-            this.lineItems.forEach( li => total += li.Cost );
+            this.lineItems.forEach( li => total += li.cost );
             return total;
         },
 
@@ -113,10 +113,10 @@ export default defineComponent( {
 
             this.lineItems.forEach( li =>
             {
-                if ( li.DefaultPayment )
+                if ( li.defaultPayment )
                 {
                     hasDefault = true
-                    total += li.DefaultPayment
+                    total += li.defaultPayment
                 }
             } );
 
@@ -144,7 +144,7 @@ export default defineComponent( {
         discountedTotal (): number
         {
             let total = 0;
-            this.lineItems.forEach( li => total += li.DiscountedCost );
+            this.lineItems.forEach( li => total += li.discountedCost );
             return total;
         },
 
@@ -163,7 +163,7 @@ export default defineComponent( {
             }
 
             let total = 0;
-            this.lineItems.forEach( li => total += li.MinPayment );
+            this.lineItems.forEach( li => total += li.minPayment );
             return total;
         },
 
@@ -182,7 +182,7 @@ export default defineComponent( {
         /** The amount previously paid */
         amountPreviouslyPaid (): number
         {
-            return this.registrationEntryState.ViewModel.session?.previouslyPaid || 0;
+            return this.registrationEntryState.viewModel.session?.previouslyPaid || 0;
         },
 
         /** The amount previously paid formatted as a string */
@@ -213,7 +213,7 @@ export default defineComponent( {
         /** The amount that would remain if the user paid the amount indicated in the currency box */
         amountRemaining (): number
         {
-            const actual = this.maxAmountCanBePaid - this.registrationEntryState.AmountToPayToday;
+            const actual = this.maxAmountCanBePaid - this.registrationEntryState.amountToPayToday;
             const bounded = actual < 0 ? 0 : actual > this.maxAmountCanBePaid ? this.maxAmountCanBePaid : actual;
             return bounded;
         },
@@ -274,7 +274,7 @@ export default defineComponent( {
             immediate: true,
             handler ()
             {
-                this.registrationEntryState.AmountToPayToday = this.defaultPaymentAmount;
+                this.registrationEntryState.amountToPayToday = this.defaultPaymentAmount;
             }
         },
 
@@ -297,18 +297,18 @@ export default defineComponent( {
                 <strong>Amount</strong>
             </div>
         </div>
-        <div v-for="lineItem in augmentedLineItems" class="row" :class="lineItem.IsFee ? 'fee-row-fee' : 'fee-row-cost'">
+        <div v-for="lineItem in augmentedLineItems" class="row" :class="lineItem.isFee ? 'fee-row-fee' : 'fee-row-cost'">
             <div class="col-sm-6 fee-caption">
-                {{lineItem.Description}}
+                {{lineItem.description}}
             </div>
             <div v-if="hasDiscount" class="col-sm-3 fee-value">
-                <HelpBlock v-if="lineItem.DiscountHelp" :text="lineItem.DiscountHelp" />
+                <HelpBlock v-if="lineItem.discountHelp" :text="lineItem.discountHelp" />
                 <span class="visible-xs-inline">Discounted Amount:</span>
-                $ {{lineItem.DiscountedAmountFormatted}}
+                $ {{lineItem.discountedAmountFormatted}}
             </div>
             <div class="col-sm-3 fee-value">
                 <span class="visible-xs-inline">Amount:</span>
-                $ {{lineItem.AmountFormatted}}
+                $ {{lineItem.amountFormatted}}
             </div>
         </div>
         <div class="row fee-row-total">
@@ -352,7 +352,7 @@ export default defineComponent( {
                         </div>
                     </div>
                 </div>
-                <CurrencyBox label="Amount To Pay Today" :rules="amountToPayTodayRules" v-model="registrationEntryState.AmountToPayToday" class="form-right" inputGroupClasses="input-width-md amount-to-pay" />
+                <CurrencyBox label="Amount To Pay Today" :rules="amountToPayTodayRules" v-model="registrationEntryState.amountToPayToday" class="form-right" inputGroupClasses="input-width-md amount-to-pay" />
                 <div class="form-group static-control">
                     <label class="control-label">Amount Remaining</label>
                     <div class="control-wrapper">

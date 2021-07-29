@@ -18,7 +18,7 @@ import CampusPicker from '../../Controls/CampusPicker';
 import DefinedValuePicker from '../../Controls/DefinedValuePicker';
 import CurrencyBox from '../../Elements/CurrencyBox';
 import { defineComponent, inject } from 'vue';
-import { FinancialFrequency } from '../../SystemGuid/DefinedType';
+import DefinedTypeGuids from '../../SystemGuid/DefinedType';
 import DatePicker from '../../Elements/DatePicker';
 import RockButton from '../../Elements/RockButton';
 import { areEqual, Guid, newGuid } from '../../Util/Guid';
@@ -38,29 +38,29 @@ import GatewayControl, { GatewayControlModel } from '../../Controls/GatewayContr
 import RockValidation from '../../Controls/RockValidation';
 
 export type ProcessTransactionArgs = {
-    IsGivingAsPerson: boolean;
-    Email: string;
-    PhoneNumber: string;
-    PhoneCountryCode: string;
-    AccountAmounts: Record<Guid, number>;
-    Street1: string;
-    Street2: string;
-    City: string;
-    State: string;
-    PostalCode: string;
-    Country: string;
-    FirstName: string;
-    LastName: string;
-    BusinessName: string;
-    FinancialPersonSavedAccountGuid: Guid | null;
-    Comment: string;
-    TransactionEntityId: number | null;
-    ReferenceNumber: string;
-    CampusGuid: Guid | null;
-    BusinessGuid: Guid | null;
-    FrequencyValueGuid: Guid;
-    GiftDate: RockDateType;
-    IsGiveAnonymously: boolean;
+    isGivingAsPerson: boolean;
+    email: string;
+    phoneNumber: string;
+    phoneCountryCode: string;
+    accountAmounts: Record<Guid, number>;
+    street1: string;
+    street2: string;
+    city: string;
+    state: string;
+    postalCode: string;
+    country: string;
+    firstName: string;
+    lastName: string;
+    businessName: string;
+    financialPersonSavedAccountGuid: Guid | null;
+    comment: string;
+    transactionEntityId: number | null;
+    referenceNumber: string;
+    campusGuid: Guid | null;
+    businessGuid: Guid | null;
+    frequencyValueGuid: Guid;
+    giftDate: RockDateType;
+    isGiveAnonymously: boolean;
 };
 
 export default defineComponent({
@@ -93,31 +93,31 @@ export default defineComponent({
             doGatewayControlSubmit: false,
             pageIndex: 1,
             page1Error: '',
-            frequencyDefinedTypeGuid: FinancialFrequency,
+            frequencyDefinedTypeGuid: DefinedTypeGuids.FinancialFrequency,
             args: {
-                IsGivingAsPerson: true,
-                Email: '',
-                PhoneNumber: '',
-                PhoneCountryCode: '',
-                AccountAmounts: {},
-                Street1: '',
-                Street2: '',
-                City: '',
-                State: '',
-                PostalCode: '',
-                Country: '',
-                FirstName: '',
-                LastName: '',
-                BusinessName: '',
-                FinancialPersonSavedAccountGuid: null,
-                Comment: '',
-                TransactionEntityId: null,
-                ReferenceNumber: '',
-                CampusGuid: '',
-                BusinessGuid: null,
-                FrequencyValueGuid: '',
-                GiftDate: RockDate.newDate(),
-                IsGiveAnonymously: false
+                isGivingAsPerson: true,
+                email: '',
+                phoneNumber: '',
+                phoneCountryCode: '',
+                accountAmounts: {},
+                street1: '',
+                street2: '',
+                city: '',
+                state: '',
+                postalCode: '',
+                country: '',
+                firstName: '',
+                lastName: '',
+                businessName: '',
+                financialPersonSavedAccountGuid: null,
+                comment: '',
+                transactionEntityId: null,
+                referenceNumber: '',
+                campusGuid: '',
+                businessGuid: null,
+                frequencyValueGuid: '',
+                giftDate: RockDate.newDate(),
+                isGiveAnonymously: false
             } as ProcessTransactionArgs
         };
     },
@@ -125,8 +125,8 @@ export default defineComponent({
         totalAmount(): number {
             let total = 0;
 
-            for (const accountGuid in this.args.AccountAmounts) {
-                total += this.args.AccountAmounts[accountGuid];
+            for (const accountGuid in this.args.accountAmounts) {
+                total += this.args.accountAmounts[accountGuid];
             }
 
             return total;
@@ -135,21 +135,21 @@ export default defineComponent({
             return `$${asFormattedString(this.totalAmount, 2)}`;
         },
         gatewayControlModel(): GatewayControlModel {
-            return this.configurationValues['GatewayControl'] as GatewayControlModel;
+            return this.configurationValues['gatewayControl'] as GatewayControlModel;
         },
         currentPerson(): Person | null {
             return store.state.currentPerson;
         },
         accounts(): FinancialAccount[] {
-            return this.configurationValues['FinancialAccounts'] as FinancialAccount[] || [];
+            return this.configurationValues['financialAccounts'] as FinancialAccount[] || [];
         },
         campus(): Campus | null {
-            return store.getters['campuses/getByGuid'](this.args.CampusGuid) || null;
+            return store.getters['campuses/getByGuid'](this.args.campusGuid) || null;
         },
         accountAndCampusString(): string {
             const accountNames = [] as string[];
 
-            for (const accountGuid in this.args.AccountAmounts) {
+            for (const accountGuid in this.args.accountAmounts) {
                 const account = this.accounts.find(a => areEqual(accountGuid, a.guid));
 
                 if (!account || !account.publicName) {
@@ -197,7 +197,7 @@ export default defineComponent({
          */
         onGatewayControlSuccess(token: string) {
             this.loading = false;
-            this.args.ReferenceNumber = token;
+            this.args.referenceNumber = token;
             this.pageIndex = 3;
         },
 
@@ -246,9 +246,9 @@ export default defineComponent({
                     return;
                 }
 
-                this.args.FirstName = this.args.FirstName || this.currentPerson.firstName || '';
-                this.args.LastName = this.args.LastName || this.currentPerson.lastName || '';
-                this.args.Email = this.args.Email || this.currentPerson.email || '';
+                this.args.firstName = this.args.firstName || this.currentPerson.firstName || '';
+                this.args.lastName = this.args.lastName || this.currentPerson.lastName || '';
+                this.args.email = this.args.email || this.currentPerson.email || '';
             }
         }
     },
@@ -257,7 +257,7 @@ export default defineComponent({
     <Alert v-if="criticalError" danger>
         {{criticalError}}
     </Alert>
-    <template v-else-if="!gatewayControlModel || !gatewayControlModel.FileUrl">
+    <template v-else-if="!gatewayControlModel || !gatewayControlModel.fileUrl">
         <h4>Welcome to Rock's On-line Giving Experience</h4>
         <p>
             There is currently no gateway configured.
@@ -266,11 +266,11 @@ export default defineComponent({
     <template v-else-if="pageIndex === 1">
         <h2>Your Generosity Changes Lives (Vue)</h2>
         <template v-for="account in accounts">
-            <CurrencyBox :label="account.PublicName" v-model="args.AccountAmounts[account.Guid]" />
+            <CurrencyBox :label="account.publicName" v-model="args.accountAmounts[account.guid]" />
         </template>
-        <CampusPicker v-model="args.CampusGuid" :showBlankItem="false" />
-        <DefinedValuePicker :definedTypeGuid="frequencyDefinedTypeGuid" v-model="args.FrequencyValueGuid" label="Frequency" :showBlankItem="false" />
-        <DatePicker label="Process Gift On" v-model="args.GiftDate" />
+        <CampusPicker v-model="args.campusGuid" :showBlankItem="false" />
+        <DefinedValuePicker :definedTypeGuid="frequencyDefinedTypeGuid" v-model="args.frequencyValueGuid" label="Frequency" :showBlankItem="false" />
+        <DatePicker label="Process Gift On" v-model="args.giftDate" />
         <Alert alertType="validation" v-if="page1Error">{{page1Error}}</Alert>
         <RockButton btnType="primary" @click="onPageOneSubmit">Give Now</RockButton>
     </template>
@@ -301,18 +301,18 @@ export default defineComponent({
         </div>
     </template>
     <template v-else-if="pageIndex === 3">
-        <Toggle v-model="args.IsGivingAsPerson">
+        <Toggle v-model="args.isGivingAsPerson">
             <template #on>Individual</template>
             <template #off>Business</template>
         </Toggle>
-        <template v-if="args.IsGivingAsPerson && currentPerson">
+        <template v-if="args.isGivingAsPerson && currentPerson">
             <div class="form-control-static">
                 {{currentPerson.FullName}}
             </div>
         </template>
-        <template v-else-if="args.IsGivingAsPerson">
-            <TextBox v-model="args.FirstName" placeholder="First Name" class="margin-b-sm" />
-            <TextBox v-model="args.LastName" placeholder="Last Name" class="margin-b-sm" />
+        <template v-else-if="args.isGivingAsPerson">
+            <TextBox v-model="args.firstName" placeholder="First Name" class="margin-b-sm" />
+            <TextBox v-model="args.lastName" placeholder="Last Name" class="margin-b-sm" />
         </template>
         <div class="navigation actions margin-t-md">
             <RockButton :isLoading="loading" @click="goBack">Back</RockButton>

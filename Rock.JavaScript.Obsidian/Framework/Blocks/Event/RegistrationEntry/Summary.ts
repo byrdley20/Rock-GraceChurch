@@ -82,13 +82,13 @@ export default defineComponent( {
         /** This is the data sent from the C# code behind when the block initialized. */
         viewModel (): RegistrationEntryBlockViewModel
         {
-            return this.registrationEntryState.ViewModel;
+            return this.registrationEntryState.viewModel;
         },
 
         /** Info about the registrants made available by .FirstName instead of by field guid */
         registrantInfos (): RegistrantBasicInfo[]
         {
-            return this.registrationEntryState.Registrants.map( r => getRegistrantBasicInfo( r, this.viewModel.registrantForms ) );
+            return this.registrationEntryState.registrants.map( r => getRegistrantBasicInfo( r, this.viewModel.registrantForms ) );
         },
 
         /** The registrant term - plural if there are more than 1 */
@@ -106,7 +106,7 @@ export default defineComponent( {
         /** The text to be displayed on the "Finish" button */
         finishButtonText (): string
         {
-            return ( this.viewModel.isRedirectGateway && this.registrationEntryState.AmountToPayToday ) ? 'Pay' : 'Finish';
+            return ( this.viewModel.isRedirectGateway && this.registrationEntryState.amountToPayToday ) ? 'Pay' : 'Finish';
         }
     },
     methods: {
@@ -122,7 +122,7 @@ export default defineComponent( {
             this.loading = true;
 
             // If there is a cost, then the gateway will need to be used to pay
-            if ( this.registrationEntryState.AmountToPayToday )
+            if ( this.registrationEntryState.amountToPayToday )
             {
                 // If this is a redirect gateway, then persist and redirect now
                 if ( this.viewModel.isRedirectGateway )
@@ -165,7 +165,7 @@ export default defineComponent( {
          */
         async onGatewayControlSuccess ( token: string )
         {
-            this.registrationEntryState.GatewayToken = token;
+            this.registrationEntryState.gatewayToken = token;
             const success = await this.submit();
             this.loading = false;
 
@@ -178,7 +178,7 @@ export default defineComponent( {
         /** The gateway was requested by the user to reset. The token should be cleared */
         async onGatewayControlReset ()
         {
-            this.registrationEntryState.GatewayToken = '';
+            this.registrationEntryState.gatewayToken = '';
             this.doGatewayControlSubmit = false;
         },
 
@@ -217,7 +217,7 @@ export default defineComponent( {
             }
             else
             {
-                this.registrationEntryState.SuccessViewModel = result.data;
+                this.registrationEntryState.successViewModel = result.data;
             }
 
             return result.isSuccess;
@@ -250,7 +250,7 @@ export default defineComponent( {
             <CostSummary />
         </div>
 
-        <div v-if="gatewayControlModel && registrationEntryState.AmountToPayToday" class="well">
+        <div v-if="gatewayControlModel && registrationEntryState.amountToPayToday" class="well">
             <h4>Payment Method</h4>
             <Alert v-if="gatewayErrorMessage" alertType="danger">{{gatewayErrorMessage}}</Alert>
             <RockValidation :errors="gatewayValidationFields" />
@@ -268,8 +268,8 @@ export default defineComponent( {
         <div v-if="!viewModel.cost" class="margin-b-md">
             <p>The following {{registrantTerm}} will be registered for {{instanceName}}:</p>
             <ul>
-                <li v-for="r in registrantInfos" :key="r.Guid">
-                    <strong>{{r.FirstName}} {{r.LastName}}</strong>
+                <li v-for="r in registrantInfos" :key="r.guid">
+                    <strong>{{r.firstName}} {{r.lastName}}</strong>
                 </li>
             </ul>
         </div>

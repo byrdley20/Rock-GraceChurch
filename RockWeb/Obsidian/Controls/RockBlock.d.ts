@@ -10,9 +10,7 @@ export declare type BlockHttp = {
     post: BlockHttpPost;
 };
 export declare function standardBlockSetup(): {
-    configurationValues: {
-        Message: string;
-    };
+    configurationValues: Record<string, any>;
     invokeBlockAction: InvokeBlockActionFunc;
 };
 declare const _default: import("vue").DefineComponent<{

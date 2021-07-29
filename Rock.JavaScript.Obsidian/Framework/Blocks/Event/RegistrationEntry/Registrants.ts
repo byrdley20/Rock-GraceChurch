@@ -44,37 +44,37 @@ export default defineComponent( {
         /** The event that handles when the user clicks to move to the previous registrant */
         async onPrevious()
         {
-            if ( this.registrationEntryState.CurrentRegistrantIndex <= 0 )
+            if ( this.registrationEntryState.currentRegistrantIndex <= 0 )
             {
                 this.$emit( 'previous' );
                 return;
             }
 
-            const lastFormIndex = this.registrationEntryState.ViewModel.registrantForms.length - 1;
-            this.registrationEntryState.CurrentRegistrantIndex--;
-            this.registrationEntryState.CurrentRegistrantFormIndex = lastFormIndex;
+            const lastFormIndex = this.registrationEntryState.viewModel.registrantForms.length - 1;
+            this.registrationEntryState.currentRegistrantIndex--;
+            this.registrationEntryState.currentRegistrantFormIndex = lastFormIndex;
             await this.persistSession();
         },
 
         /** The event that handles when the user clicks to move to the next registrant */
         async onNext()
         {
-            const lastIndex = this.registrationEntryState.Registrants.length - 1;
+            const lastIndex = this.registrationEntryState.registrants.length - 1;
 
-            if ( this.registrationEntryState.CurrentRegistrantIndex >= lastIndex )
+            if ( this.registrationEntryState.currentRegistrantIndex >= lastIndex )
             {
                 this.$emit( 'next' );
                 return;
             }
 
             // If the first registrant was just completed, then copy the common/shared values to other registrants
-            if ( this.registrationEntryState.CurrentRegistrantIndex === 0 )
+            if ( this.registrationEntryState.currentRegistrantIndex === 0 )
             {
                 this.copyCommonValuesFromFirstRegistrant();
             }
 
-            this.registrationEntryState.CurrentRegistrantIndex++;
-            this.registrationEntryState.CurrentRegistrantFormIndex = 0;
+            this.registrationEntryState.currentRegistrantIndex++;
+            this.registrationEntryState.currentRegistrantFormIndex = 0;
             await this.persistSession();
         },
 
@@ -94,7 +94,7 @@ export default defineComponent( {
             {
                 const currentRegistrant = this.registrants[ i ];
 
-                for ( const form of this.registrationEntryState.ViewModel.registrantForms )
+                for ( const form of this.registrationEntryState.viewModel.registrantForms )
                 {
                     for ( const field of form.fields )
                     {
@@ -103,15 +103,15 @@ export default defineComponent( {
                             continue;
                         }
 
-                        const valueToShare = firstRegistrant.FieldValues[ field.guid ];
+                        const valueToShare = firstRegistrant.fieldValues[ field.guid ];
 
                         if ( valueToShare && typeof valueToShare === 'object' )
                         {
-                            currentRegistrant.FieldValues[ field.guid ] = { ...valueToShare };
+                            currentRegistrant.fieldValues[ field.guid ] = { ...valueToShare };
                         }
                         else
                         {
-                            currentRegistrant.FieldValues[ field.guid ] = valueToShare;
+                            currentRegistrant.fieldValues[ field.guid ] = valueToShare;
                         }
                     }
                 }
@@ -122,29 +122,29 @@ export default defineComponent( {
         /** Will some of the registrants have to be added to a waitlist */
         hasWaitlist(): boolean
         {
-            return this.registrationEntryState.Registrants.some( r => r.IsOnWaitList );
+            return this.registrationEntryState.registrants.some( r => r.isOnWaitList );
         },
 
         /** Will this registrant be added to the waitlist? */
         isOnWaitlist(): boolean
         {
-            const currentRegistrant = this.registrationEntryState.Registrants[ this.registrationEntryState.CurrentRegistrantIndex ];
-            return currentRegistrant.IsOnWaitList;
+            const currentRegistrant = this.registrationEntryState.registrants[ this.registrationEntryState.currentRegistrantIndex ];
+            return currentRegistrant.isOnWaitList;
         },
 
         /** What are the registrants called? */
         registrantTerm(): string
         {
-            return ( this.registrationEntryState.ViewModel.registrantTerm || 'registrant' ).toLowerCase();
+            return ( this.registrationEntryState.viewModel.registrantTerm || 'registrant' ).toLowerCase();
         },
 
         registrants(): RegistrantInfo[]
         {
-            return this.registrationEntryState.Registrants;
+            return this.registrationEntryState.registrants;
         },
         currentRegistrantIndex(): number
         {
-            return this.registrationEntryState.CurrentRegistrantIndex;
+            return this.registrationEntryState.currentRegistrantIndex;
         }
     },
     template: `
@@ -155,7 +155,7 @@ export default defineComponent( {
     <Alert v-else-if="isOnWaitlist" alertType="warning">
         This {{registrantTerm}} will be on the waiting list.
     </Alert>
-    <template v-for="(r, i) in registrants" :key="r.Guid">
+    <template v-for="(r, i) in registrants" :key="r.guid">
         <Registrant v-show="currentRegistrantIndex === i" :currentRegistrant="r" :isWaitList="isOnWaitlist" @next="onNext" @previous="onPrevious" />
     </template>
 </div>`

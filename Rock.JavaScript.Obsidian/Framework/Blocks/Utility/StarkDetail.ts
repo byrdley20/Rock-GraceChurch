@@ -53,13 +53,13 @@ const StarkDetailOptions = defineComponent( {
         /** Fetch a message from the C# block action named "GetMessage". */
         async loadBlockActionMessage()
         {
-            const response = await this.invokeBlockAction<{ Message: string; }>( 'GetMessage', {
+            const response = await this.invokeBlockAction<{ message: string; }>( 'GetMessage', {
                 paramFromClient: 'This is a value sent to the server from the client.'
             } );
 
             if ( response.data )
             {
-                this.blockActionMessage = response.data.Message;
+                this.blockActionMessage = response.data.message;
             }
             else
             {
@@ -73,7 +73,7 @@ const StarkDetailOptions = defineComponent( {
     created()
     {
         // Set the local state "configMessage" to the value sent by C#'s GetObsidianConfigurationValues
-        this.configMessage = this.configurationValues.Message;
+        this.configMessage = <string>this.configurationValues.message;
     },
 
     /** This method is another lifecycle hook called when the component is mounted (put in the DOM) */

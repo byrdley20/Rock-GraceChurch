@@ -1,8 +1,8 @@
 import { InvokeBlockActionFunc } from '../../Controls/RockBlock';
 declare type AuthCookie = {
-    Expires: string;
-    Name: string;
-    Value: string;
+    expires: string;
+    name: string;
+    value: string;
 };
 declare const _default: import("vue").DefineComponent<{}, {
     invokeBlockAction: InvokeBlockActionFunc;

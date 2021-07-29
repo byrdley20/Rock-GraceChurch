@@ -1,7 +1,5 @@
 declare const StarkDetailOptions: import("vue").DefineComponent<{}, {
-    configurationValues: {
-        Message: string;
-    };
+    configurationValues: Record<string, any>;
     invokeBlockAction: import("../../Controls/RockBlock").InvokeBlockActionFunc;
 }, {
     configMessage: string;

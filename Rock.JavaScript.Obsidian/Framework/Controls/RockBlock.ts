@@ -16,7 +16,7 @@
 //
 import { doApiCall, HttpBodyData, HttpMethod, HttpResult, HttpUrlParams } from '../Util/Http';
 import { Component, defineComponent, inject, PropType, provide, reactive } from 'vue';
-import { BlockConfig } from '../Index';
+import { BlockConfig, ConfigurationValues } from '../Index';
 import store, { ReportDebugTimingArgs } from '../Store/Index';
 import { Guid } from '../Util/Guid';
 import Alert from '../Elements/Alert';
@@ -39,7 +39,7 @@ type LogItem = {
 export function standardBlockSetup()
 {
     return {
-        configurationValues: inject( 'configurationValues' ) as { Message: string; },
+        configurationValues: inject( 'configurationValues' ) as ConfigurationValues,
         invokeBlockAction: inject( 'invokeBlockAction' ) as InvokeBlockActionFunc
     };
 }
@@ -94,7 +94,7 @@ export default defineComponent( {
 
         const invokeBlockAction: InvokeBlockActionFunc = async <T>( actionName: string, data: HttpBodyData = undefined ) =>
         {
-            return await post<T>( `/api/blocks/action/${props.config.blockGuid}/${actionName}`, undefined, {
+            return await post<T>( `/api/v2/BlockActions/${props.config.blockGuid}/${actionName}`, undefined, {
                 __context: {
                     pageParameters: store.state.pageParameters
                 },

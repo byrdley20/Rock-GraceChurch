@@ -142,21 +142,21 @@ export interface RegistrationEntryBlockFormFieldRuleViewModel {
     comparedToValue: string;
 }
 export declare type RegistrantInfo = {
-    IsOnWaitList: boolean;
-    FamilyGuid: Guid;
-    PersonGuid: Guid;
-    FieldValues: Record<Guid, unknown>;
-    FeeItemQuantities: Record<Guid, number>;
-    OwnFamilyGuid: Guid;
-    Guid: Guid;
+    isOnWaitList: boolean;
+    familyGuid: Guid;
+    personGuid: Guid;
+    fieldValues: Record<Guid, unknown>;
+    feeItemQuantities: Record<Guid, number>;
+    ownFamilyGuid: Guid;
+    guid: Guid;
 };
 export declare type RegistrarInfo = {
-    NickName: string;
-    LastName: string;
-    Email: string;
-    UpdateEmail: boolean;
-    FamilyGuid: Guid | null;
-    OwnFamilyGuid: Guid;
+    nickName: string;
+    lastName: string;
+    email: string;
+    updateEmail: boolean;
+    familyGuid: Guid | null;
+    ownFamilyGuid: Guid;
 };
 export declare type RegistrationEntryBlockSuccessViewModel = {
     titleHtml: string;

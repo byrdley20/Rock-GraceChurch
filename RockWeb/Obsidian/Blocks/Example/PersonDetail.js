@@ -103,6 +103,7 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                     doEdit() {
                         var _a;
                         this.personForEditing = this.person ? Object.assign({}, this.person) : null;
+                        console.log(this.personForEditing);
                         this.campusGuid = ((_a = this.campus) === null || _a === void 0 ? void 0 : _a.guid) || '';
                         this.birthdate = this.birthdateOrNull ? RockDate_1.toRockDate(this.birthdateOrNull) : null;
                         this.setIsEditMode(true);
@@ -114,7 +115,7 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                         var _a;
                         return __awaiter(this, void 0, void 0, function* () {
                             if (this.personForEditing) {
-                                this.person = Object.assign(Object.assign({}, this.personForEditing), { BirthDay: RockDate_1.default.getDay(this.birthdate), BirthMonth: RockDate_1.default.getMonth(this.birthdate), BirthYear: RockDate_1.default.getYear(this.birthdate), PrimaryCampusId: ((_a = Index_1.default.getters['campuses/getByGuid'](this.campusGuid)) === null || _a === void 0 ? void 0 : _a.Id) || null });
+                                this.person = Object.assign(Object.assign({}, this.personForEditing), { birthDay: RockDate_1.default.getDay(this.birthdate), birthMonth: RockDate_1.default.getMonth(this.birthdate), birthYear: RockDate_1.default.getYear(this.birthdate), primaryCampusId: ((_a = Index_1.default.getters['campuses/getByGuid'](this.campusGuid)) === null || _a === void 0 ? void 0 : _a.Id) || null });
                                 this.isLoading = true;
                                 yield this.invokeBlockAction('EditPerson', {
                                     personArgs: this.person
@@ -135,10 +136,10 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                 computed: {
                     birthdateOrNull() {
                         var _a;
-                        if (!((_a = this.person) === null || _a === void 0 ? void 0 : _a.BirthDay) || !this.person.BirthMonth || !this.person.BirthYear) {
+                        if (!((_a = this.person) === null || _a === void 0 ? void 0 : _a.birthDay) || !this.person.birthMonth || !this.person.birthYear) {
                             return null;
                         }
-                        return new Date(`${this.person.BirthYear}-${this.person.BirthMonth}-${this.person.BirthDay}`);
+                        return new Date(`${this.person.birthYear}-${this.person.birthMonth}-${this.person.birthDay}`);
                     },
                     birthdateFormatted() {
                         if (!this.birthdateOrNull) {
@@ -148,7 +149,7 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                     },
                     campus() {
                         if (this.person) {
-                            return Index_1.default.getters['campuses/getById'](this.person.PrimaryCampusId) || null;
+                            return Index_1.default.getters['campuses/getById'](this.person.primaryCampusId) || null;
                         }
                         return null;
                     },
@@ -158,7 +159,7 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                     },
                     blockTitle() {
                         return this.person ?
-                            `: ${this.person.NickName || this.person.FirstName} ${this.person.LastName}` :
+                            `: ${this.person.nickName || this.person.firstName} ${this.person.lastName}` :
                             '';
                     },
                     currentPerson() {
@@ -177,7 +178,7 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                                     this.person = null;
                                     return;
                                 }
-                                if (this.person && this.person.Guid === this.currentPersonGuid) {
+                                if (this.person && this.person.guid === this.currentPersonGuid) {
                                     return;
                                 }
                                 this.isLoading = true;
@@ -205,12 +206,12 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                 <RockForm v-else-if="isEditMode" @submit="doSave">
                     <div class="row">
                         <div class="col-sm-6">
-                            <TextBox label="First Name" v-model="personForEditing.FirstName" rules="required" />
-                            <TextBox label="Nick Name" v-model="personForEditing.NickName" />
-                            <TextBox label="Last Name" v-model="personForEditing.LastName" rules="required" />
+                            <TextBox label="First Name" v-model="personForEditing.firstName" rules="required" />
+                            <TextBox label="Nick Name" v-model="personForEditing.nickName" />
+                            <TextBox label="Last Name" v-model="personForEditing.lastName" rules="required" />
                         </div>
                         <div class="col-sm-6">
-                            <EmailBox v-model="personForEditing.Email" />
+                            <EmailBox label="Email" v-model="personForEditing.email" />
                             <CampusPicker v-model="campusGuid" />
                             <DatePicker label="Birthdate" v-model="birthdate" rules="required" />
                         </div>
@@ -228,11 +229,11 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                         <div class="col-sm-6">
                             <dl>
                                 <dt>First Name</dt>
-                                <dd>{{person.FirstName}}</dd>
+                                <dd>{{person.firstName}}</dd>
                                 <dt>Last Name</dt>
-                                <dd>{{person.LastName}}</dd>
+                                <dd>{{person.lastName}}</dd>
                                 <dt>Email</dt>
-                                <dd>{{person.Email}}</dd>
+                                <dd>{{person.email}}</dd>
                                 <dt>Campus</dt>
                                 <dd>{{campusName || 'None'}}</dd>
                                 <dt>Birthdate</dt>

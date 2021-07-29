@@ -52,8 +52,8 @@ System.register(["vue", "../../../Elements/Alert", "../../../Elements/RockButton
                 },
                 computed: {
                     discountCodeSuccessMessage() {
-                        const discountAmount = this.registrationEntryState.DiscountAmount;
-                        const discountPercent = this.registrationEntryState.DiscountPercentage;
+                        const discountAmount = this.registrationEntryState.discountAmount;
+                        const discountPercent = this.registrationEntryState.discountPercentage;
                         if (!discountPercent && !discountAmount) {
                             return '';
                         }
@@ -66,7 +66,7 @@ System.register(["vue", "../../../Elements/Alert", "../../../Elements/RockButton
                         return this.viewModel.hasDiscountsAvailable;
                     },
                     viewModel() {
-                        return this.registrationEntryState.ViewModel;
+                        return this.registrationEntryState.viewModel;
                     }
                 },
                 methods: {
@@ -82,9 +82,9 @@ System.register(["vue", "../../../Elements/Alert", "../../../Elements/RockButton
                                 }
                                 else {
                                     this.discountCodeWarningMessage = '';
-                                    this.registrationEntryState.DiscountAmount = result.data.DiscountAmount;
-                                    this.registrationEntryState.DiscountPercentage = result.data.DiscountPercentage;
-                                    this.registrationEntryState.DiscountCode = result.data.DiscountCode;
+                                    this.registrationEntryState.discountAmount = result.data.discountAmount;
+                                    this.registrationEntryState.discountPercentage = result.data.discountPercentage;
+                                    this.registrationEntryState.discountCode = result.data.discountCode;
                                 }
                             }
                             finally {
@@ -97,7 +97,7 @@ System.register(["vue", "../../../Elements/Alert", "../../../Elements/RockButton
                     'registrationEntryState.DiscountCode': {
                         immediate: true,
                         handler() {
-                            this.discountCodeInput = this.registrationEntryState.DiscountCode;
+                            this.discountCodeInput = this.registrationEntryState.discountCode;
                         }
                     }
                 },

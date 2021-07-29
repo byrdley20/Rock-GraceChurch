@@ -2,23 +2,11 @@ import { Guid } from '../../Util/Guid';
 import { InvokeBlockActionFunc } from '../../Controls/RockBlock';
 import Campus from '../../ViewModels/CampusViewModel';
 import Person from '../../ViewModels/PersonViewModel';
-declare type PersonViewModel = {
-    Id: number;
-    Guid: Guid;
-    FirstName: string;
-    NickName: string;
-    LastName: string;
-    Email: string;
-    PrimaryCampusId: number | null;
-    BirthDay: number | null;
-    BirthMonth: number | null;
-    BirthYear: number | null;
-};
 declare const _default: import("vue").DefineComponent<{}, {
     invokeBlockAction: InvokeBlockActionFunc;
 }, {
-    person: PersonViewModel | null;
-    personForEditing: PersonViewModel | null;
+    person: Person | null;
+    personForEditing: Person | null;
     isEditMode: boolean;
     messageToPublish: string;
     receivedMessage: string;

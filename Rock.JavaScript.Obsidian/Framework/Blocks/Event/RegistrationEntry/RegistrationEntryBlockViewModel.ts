@@ -188,28 +188,28 @@ export interface RegistrationEntryBlockFormFieldRuleViewModel
 }
 
 export type RegistrantInfo = {
-    IsOnWaitList: boolean;
+    isOnWaitList: boolean;
 
     /** The family guid that this person is to be a part of */
-    FamilyGuid: Guid;
+    familyGuid: Guid;
 
     /** If the person were an existing person, this is his/her guid */
-    PersonGuid: Guid;
-    FieldValues: Record<Guid, unknown>;
-    FeeItemQuantities: Record<Guid, number>;
+    personGuid: Guid;
+    fieldValues: Record<Guid, unknown>;
+    feeItemQuantities: Record<Guid, number>;
 
     /** If the person were in their own family, this would be that family's guid */
-    OwnFamilyGuid: Guid;
-    Guid: Guid;
+    ownFamilyGuid: Guid;
+    guid: Guid;
 };
 
 export type RegistrarInfo = {
-    NickName: string;
-    LastName: string;
-    Email: string;
-    UpdateEmail: boolean;
-    FamilyGuid: Guid | null;
-    OwnFamilyGuid: Guid
+    nickName: string;
+    lastName: string;
+    email: string;
+    updateEmail: boolean;
+    familyGuid: Guid | null;
+    ownFamilyGuid: Guid
 };
 
 export type RegistrationEntryBlockSuccessViewModel = {

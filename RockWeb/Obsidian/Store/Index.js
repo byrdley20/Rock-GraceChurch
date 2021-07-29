@@ -32,10 +32,10 @@ System.register(["vuex", "./CommonEntities"], function (exports_1, context_1) {
                         return (type) => (state.contextEntities[type] || null);
                     },
                     personContext(state, getters) {
-                        return getters.contextEntity('Person');
+                        return getters.contextEntity('person');
                     },
                     groupContext(state, getters) {
-                        return getters.contextEntity('Group');
+                        return getters.contextEntity('group');
                     },
                     pageParameter(state) {
                         return (key) => (state.pageParameters[key]);

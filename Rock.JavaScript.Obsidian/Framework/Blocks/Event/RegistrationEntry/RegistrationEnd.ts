@@ -56,9 +56,9 @@ export default defineComponent( {
             immediate: true,
             handler()
             {
-                this.attributeValues = this.registrationEntryState.ViewModel.registrationAttributesEnd.map( a =>
+                this.attributeValues = this.registrationEntryState.viewModel.registrationAttributesEnd.map( a =>
                 {
-                    const currentValue = this.registrationEntryState.RegistrationFieldValues[ a.guid ] || '';
+                    const currentValue = this.registrationEntryState.registrationFieldValues[ a.guid ] || '';
 
                     return {
                         attribute: a,
@@ -79,7 +79,7 @@ export default defineComponent( {
 
                     if ( attribute )
                     {
-                        this.registrationEntryState.RegistrationFieldValues[ attribute.guid ] = attributeValue.value;
+                        this.registrationEntryState.registrationFieldValues[ attribute.guid ] = attributeValue.value;
                     }
                 }
             }

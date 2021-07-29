@@ -24,24 +24,24 @@ System.register(["vue", "../../../Controls/SaveFinancialAccountForm"], function 
                 },
                 computed: {
                     registrationTerm() {
-                        return this.registrationEntryState.ViewModel.registrationTerm.toLowerCase();
+                        return this.registrationEntryState.viewModel.registrationTerm.toLowerCase();
                     },
                     messageHtml() {
                         var _a;
-                        return ((_a = this.registrationEntryState.SuccessViewModel) === null || _a === void 0 ? void 0 : _a.messageHtml) || `You have successfully completed this ${this.registrationTerm}`;
+                        return ((_a = this.registrationEntryState.successViewModel) === null || _a === void 0 ? void 0 : _a.messageHtml) || `You have successfully completed this ${this.registrationTerm}`;
                     },
                     gatewayGuid() {
-                        return this.registrationEntryState.ViewModel.gatewayGuid;
+                        return this.registrationEntryState.viewModel.gatewayGuid;
                     },
                     transactionCode() {
                         var _a;
-                        return this.registrationEntryState.ViewModel.isRedirectGateway ?
+                        return this.registrationEntryState.viewModel.isRedirectGateway ?
                             '' :
-                            ((_a = this.registrationEntryState.SuccessViewModel) === null || _a === void 0 ? void 0 : _a.transactionCode) || '';
+                            ((_a = this.registrationEntryState.successViewModel) === null || _a === void 0 ? void 0 : _a.transactionCode) || '';
                     },
                     gatewayPersonIdentifier() {
                         var _a;
-                        return ((_a = this.registrationEntryState.SuccessViewModel) === null || _a === void 0 ? void 0 : _a.gatewayPersonIdentifier) || '';
+                        return ((_a = this.registrationEntryState.successViewModel) === null || _a === void 0 ? void 0 : _a.gatewayPersonIdentifier) || '';
                     }
                 },
                 template: `

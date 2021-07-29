@@ -60,10 +60,10 @@ export default defineComponent({
             return this.person?.guid || null;
         },
         categoryGuids(): Guid[] {
-            return (this.configurationValues.CategoryGuids as Guid[] | null) || [];
+            return (this.configurationValues.categoryGuids as Guid[] | null) || [];
         },
         useAbbreviatedNames(): boolean {
-            return this.configurationValues.UseAbbreviatedNames as boolean;
+            return this.configurationValues.useAbbreviatedNames as boolean;
         },
         attributeValues(): AttributeValue[] {
             const attributes = this.person?.attributes || {};
@@ -73,11 +73,11 @@ export default defineComponent({
                 const attributeValue = attributes[key];
                 const attribute = attributeValue.attribute;
 
-                if (this.categoryGuids && !attribute) {
+                if (this.categoryGuids.length > 0 && !attribute) {
                     continue;
                 }
 
-                if (this.categoryGuids && !attribute?.categoryGuids.some(g1 => this.categoryGuids.some(g2 => areEqual(g1, g2)))) {
+                if (this.categoryGuids.length > 0 && !attribute?.categoryGuids.some(g1 => this.categoryGuids.some(g2 => areEqual(g1, g2)))) {
                     continue;
                 }
 

@@ -12,7 +12,7 @@ System.register(["../Util/Guid"], function (exports_1, context_1) {
             return '';
         }
         const configObject = configurationValues[objectKey];
-        return (configObject === null || configObject === void 0 ? void 0 : configObject.Value) || '';
+        return (configObject === null || configObject === void 0 ? void 0 : configObject.value) || '';
     }
     exports_1("getConfigurationValue", getConfigurationValue);
     function getFieldTypeProps() {

@@ -63,7 +63,7 @@ System.register(["vue", "./Index", "../Controls/DefinedValuePicker", "../Service
                         return Boolean_1.asBoolean(displayDescription);
                     },
                     configAttributes() {
-                        const attributes = {};
+                        const attributes = Object.assign({}, this.$attrs);
                         const definedType = Index_1.getConfigurationValue(ConfigurationValueKey.DefinedType, this.configurationValues);
                         if (definedType) {
                             const definedTypeId = Number_1.toNumberOrNull(definedType);
@@ -99,7 +99,9 @@ System.register(["vue", "./Index", "../Controls/DefinedValuePicker", "../Service
                     }
                 },
                 template: `
-<DefinedValuePicker :show="isEditMode" v-model="internalValue" v-bind="configAttributes" @receivedDefinedValues="receivedDefinedValues" />
+<div v-show="isEditMode">
+    <DefinedValuePicker v-model="internalValue" v-bind="configAttributes" @receivedDefinedValues="receivedDefinedValues" />
+</div>
 <span v-if="!isEditMode">{{ displayValue }}</span>`
             })));
         }

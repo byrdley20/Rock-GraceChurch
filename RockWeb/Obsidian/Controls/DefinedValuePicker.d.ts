@@ -7,10 +7,6 @@ declare const _default: import("vue").DefineComponent<{
         type: PropType<string>;
         required: true;
     };
-    label: {
-        type: PropType<string>;
-        default: string;
-    };
     definedTypeGuid: {
         type: PropType<string>;
         default: string;
@@ -19,14 +15,9 @@ declare const _default: import("vue").DefineComponent<{
         type: PropType<boolean>;
         default: boolean;
     };
-    show: {
-        type: PropType<boolean>;
-        default: boolean;
-    };
 }, {
     http: BlockHttp;
 }, {
-    isInitialLoadDone: boolean;
     internalValue: string;
     definedValues: DefinedValue[];
     isLoading: boolean;
@@ -35,19 +26,13 @@ declare const _default: import("vue").DefineComponent<{
     options(): DropDownListOption[];
 }, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:modelValue" | "update:model" | "receivedDefinedValues")[], "update:modelValue" | "update:model" | "receivedDefinedValues", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     modelValue?: unknown;
-    label?: unknown;
     definedTypeGuid?: unknown;
     displayDescriptions?: unknown;
-    show?: unknown;
 } & {
-    label: string;
-    show: boolean;
     modelValue: string;
     definedTypeGuid: string;
     displayDescriptions: boolean;
 } & {}>, {
-    label: string;
-    show: boolean;
     definedTypeGuid: string;
     displayDescriptions: boolean;
 }>;

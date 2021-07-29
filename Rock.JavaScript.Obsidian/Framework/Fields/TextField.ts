@@ -50,9 +50,9 @@ export default defineComponent( {
             const attributes: Record<string, number | boolean> = {};
 
             const maxCharsConfig = this.configurationValues[ ConfigurationValueKey.MaxCharacters ];
-            if ( maxCharsConfig && maxCharsConfig.Value )
+            if ( maxCharsConfig && maxCharsConfig.value )
             {
-                const maxCharsValue = Number( maxCharsConfig.Value );
+                const maxCharsValue = Number( maxCharsConfig.value );
 
                 if ( maxCharsValue )
                 {
@@ -61,9 +61,9 @@ export default defineComponent( {
             }
 
             const showCountDownConfig = this.configurationValues[ ConfigurationValueKey.ShowCountDown ];
-            if ( showCountDownConfig && showCountDownConfig.Value )
+            if ( showCountDownConfig && showCountDownConfig.value )
             {
-                const showCountDownValue = asBooleanOrNull( showCountDownConfig.Value ) || false;
+                const showCountDownValue = asBooleanOrNull( showCountDownConfig.value ) || false;
 
                 if ( showCountDownValue )
                 {
@@ -76,7 +76,7 @@ export default defineComponent( {
         isPassword (): boolean
         {
             const isPasswordConfig = this.configurationValues[ ConfigurationValueKey.IsPassword ];
-            return asBooleanOrNull( isPasswordConfig?.Value ) || false;
+            return asBooleanOrNull( isPasswordConfig?.value ) || false;
         },
         passwordDisplay (): string
         {

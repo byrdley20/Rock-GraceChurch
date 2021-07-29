@@ -29,10 +29,6 @@ export default defineComponent( {
             type: String as PropType<string>,
             required: true
         },
-        label: {
-            type: String as PropType<string>,
-            default: 'Defined Value'
-        },
         definedTypeGuid: {
             type: String as PropType<string>,
             default: ''
@@ -40,10 +36,6 @@ export default defineComponent( {
         displayDescriptions: {
             type: Boolean as PropType<boolean>,
             default: false
-        },
-        show: {
-            type: Boolean as PropType<boolean>,
-            default: true
         }
     },
     setup ()
@@ -60,7 +52,6 @@ export default defineComponent( {
     data ()
     {
         return {
-            isInitialLoadDone: false,
             internalValue: this.modelValue,
             definedValues: [] as DefinedValue[],
             isLoading: false
@@ -106,8 +97,6 @@ export default defineComponent( {
 
                     this.isLoading = false;
                 }
-
-                this.isInitialLoadDone = true;
             }
         },
         internalValue ()
@@ -119,5 +108,5 @@ export default defineComponent( {
         }
     },
     template: `
-<DropDownList v-if="isInitialLoadDone && show" v-model="internalValue" :disabled="!isEnabled" :label="label" :options="options" />`
+<DropDownList v-model="internalValue" :disabled="!isEnabled" :options="options" />`
 } );

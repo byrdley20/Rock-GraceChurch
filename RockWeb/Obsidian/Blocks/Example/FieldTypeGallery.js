@@ -25,9 +25,9 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 const configurationValues = {};
                 for (const key in configValues) {
                     configurationValues[key] = {
-                        Name: '',
-                        Description: '',
-                        Value: configValues[key]
+                        name: '',
+                        description: '',
+                        value: configValues[key]
                     };
                 }
                 return [
@@ -137,7 +137,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                                 for (const attributeValue of this.attributeValues) {
                                     for (const key in attributeValue.attribute.qualifierValues) {
                                         const value = this.configValues[key] || '';
-                                        attributeValue.attribute.qualifierValues[key].Value = value;
+                                        attributeValue.attribute.qualifierValues[key].value = value;
                                     }
                                 }
                             }

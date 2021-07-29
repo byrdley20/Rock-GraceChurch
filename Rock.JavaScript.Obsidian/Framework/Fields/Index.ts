@@ -21,9 +21,9 @@ const fieldTypeComponentPaths: Record<Guid, Component> = {};
 
 export interface ConfigurationValue
 {
-    Name: string;
-    Description: string;
-    Value: string;
+    name: string;
+    description: string;
+    value: string;
 }
 
 export type ConfigurationValues = Record<string, ConfigurationValue>;
@@ -42,7 +42,7 @@ export function getConfigurationValue ( key: string | null, configurationValues:
         return '';
     }
 
-    const objectKey = Object.keys( configurationValues ).find( k => k.toLowerCase().trim() === key );
+    const objectKey = Object.keys(configurationValues).find(k => k.toLowerCase().trim() === key);
 
     if ( !objectKey )
     {
@@ -50,7 +50,7 @@ export function getConfigurationValue ( key: string | null, configurationValues:
     }
 
     const configObject = configurationValues[ objectKey ];
-    return configObject?.Value || '';
+    return configObject?.value || '';
 }
 
 export type FieldTypeModule = {

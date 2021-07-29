@@ -47,7 +47,7 @@ System.register(["vue", "./Index", "../Services/Number", "../Elements/Rating"], 
                     },
                     maxRating() {
                         const maxRatingConfig = this.configurationValues[ConfigurationValueKey.MaxRating];
-                        return Number_1.toNumberOrNull(maxRatingConfig === null || maxRatingConfig === void 0 ? void 0 : maxRatingConfig.Value) || 5;
+                        return Number_1.toNumberOrNull(maxRatingConfig === null || maxRatingConfig === void 0 ? void 0 : maxRatingConfig.value) || 5;
                     },
                 },
                 watch: {

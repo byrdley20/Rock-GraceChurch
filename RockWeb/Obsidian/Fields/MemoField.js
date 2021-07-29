@@ -42,7 +42,7 @@ System.register(["vue", "./Index", "../Elements/TextBox", "../Services/Boolean",
                 computed: {
                     allowHtml() {
                         const config = this.configurationValues[ConfigurationValueKey.AllowHtml];
-                        return Boolean_1.asBoolean(config === null || config === void 0 ? void 0 : config.Value);
+                        return Boolean_1.asBoolean(config === null || config === void 0 ? void 0 : config.value);
                     },
                     safeValue() {
                         return (this.modelValue || '').trim();
@@ -50,22 +50,22 @@ System.register(["vue", "./Index", "../Elements/TextBox", "../Services/Boolean",
                     configAttributes() {
                         const attributes = {};
                         const maxCharsConfig = this.configurationValues[ConfigurationValueKey.MaxCharacters];
-                        if (maxCharsConfig && maxCharsConfig.Value) {
-                            const maxCharsValue = Number(maxCharsConfig.Value);
+                        if (maxCharsConfig && maxCharsConfig.value) {
+                            const maxCharsValue = Number(maxCharsConfig.value);
                             if (maxCharsValue) {
                                 attributes.maxLength = maxCharsValue;
                             }
                         }
                         const showCountDownConfig = this.configurationValues[ConfigurationValueKey.ShowCountDown];
-                        if (showCountDownConfig && showCountDownConfig.Value) {
-                            const showCountDownValue = Boolean_1.asBooleanOrNull(showCountDownConfig.Value) || false;
+                        if (showCountDownConfig && showCountDownConfig.value) {
+                            const showCountDownValue = Boolean_1.asBooleanOrNull(showCountDownConfig.value) || false;
                             if (showCountDownValue) {
                                 attributes.showCountDown = showCountDownValue;
                             }
                         }
                         const rowsConfig = this.configurationValues[ConfigurationValueKey.NumberOfRows];
-                        if (rowsConfig === null || rowsConfig === void 0 ? void 0 : rowsConfig.Value) {
-                            const rows = Number_1.toNumber(rowsConfig.Value) || 3;
+                        if (rowsConfig === null || rowsConfig === void 0 ? void 0 : rowsConfig.value) {
+                            const rows = Number_1.toNumber(rowsConfig.value) || 3;
                             if (rows > 0) {
                                 attributes.rows = rows;
                             }

@@ -62,7 +62,7 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
         maxRating(): number {
             const maxRatingConfig = this.configurationValues[ConfigurationValueKey.MaxRating];
 
-            return toNumberOrNull(maxRatingConfig?.Value) || 5;
+            return toNumberOrNull(maxRatingConfig?.value) || 5;
         },
 
     },

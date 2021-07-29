@@ -70,7 +70,7 @@ export default registerFieldType( fieldTypeGuid, defineComponent( {
         isDatePartsPicker (): boolean
         {
             const config = this.configurationValues[ ConfigurationValueKey.DatePickerControlType ];
-            return config?.Value?.toLowerCase() === 'date parts picker';
+            return config?.value?.toLowerCase() === 'date parts picker';
         },
 
         isCurrentDateValue (): boolean
@@ -85,7 +85,7 @@ export default registerFieldType( fieldTypeGuid, defineComponent( {
         dateFormatTemplate (): string
         {
             const formatConfig = this.configurationValues[ ConfigurationValueKey.Format ];
-            return formatConfig?.Value || 'MM/dd/yyyy'
+            return formatConfig?.value || 'MM/dd/yyyy'
         },
         elapsedString (): string
         {
@@ -97,7 +97,7 @@ export default registerFieldType( fieldTypeGuid, defineComponent( {
             }
 
             const formatConfig = this.configurationValues[ ConfigurationValueKey.DisplayDiff ];
-            const displayDiff = asBoolean( formatConfig?.Value );
+            const displayDiff = asBoolean( formatConfig?.value );
 
             if ( !displayDiff )
             {
@@ -111,17 +111,17 @@ export default registerFieldType( fieldTypeGuid, defineComponent( {
             const attributes: Record<string, number | boolean> = {};
 
             const displayCurrentConfig = this.configurationValues[ ConfigurationValueKey.DisplayCurrentOption ];
-            if ( displayCurrentConfig?.Value )
+            if ( displayCurrentConfig?.value )
             {
-                const displayCurrent = asBoolean( displayCurrentConfig.Value );
+                const displayCurrent = asBoolean( displayCurrentConfig.value );
                 attributes.displayCurrentOption = displayCurrent;
                 attributes.isCurrentDateOffset = displayCurrent;
             }
 
             const futureYearConfig = this.configurationValues[ ConfigurationValueKey.FutureYearCount ];
-            if ( futureYearConfig?.Value )
+            if ( futureYearConfig?.value )
             {
-                const futureYears = toNumber( futureYearConfig.Value );
+                const futureYears = toNumber( futureYearConfig.value );
 
                 if ( futureYears > 0 )
                 {

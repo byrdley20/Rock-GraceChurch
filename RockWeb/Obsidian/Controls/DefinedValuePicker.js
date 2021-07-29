@@ -31,10 +31,6 @@ System.register(["vue", "../Elements/DropDownList"], function (exports_1, contex
                         type: String,
                         required: true
                     },
-                    label: {
-                        type: String,
-                        default: 'Defined Value'
-                    },
                     definedTypeGuid: {
                         type: String,
                         default: ''
@@ -42,10 +38,6 @@ System.register(["vue", "../Elements/DropDownList"], function (exports_1, contex
                     displayDescriptions: {
                         type: Boolean,
                         default: false
-                    },
-                    show: {
-                        type: Boolean,
-                        default: true
                     }
                 },
                 setup() {
@@ -60,7 +52,6 @@ System.register(["vue", "../Elements/DropDownList"], function (exports_1, contex
                 ],
                 data() {
                     return {
-                        isInitialLoadDone: false,
                         internalValue: this.modelValue,
                         definedValues: [],
                         isLoading: false
@@ -98,7 +89,6 @@ System.register(["vue", "../Elements/DropDownList"], function (exports_1, contex
                                     }
                                     this.isLoading = false;
                                 }
-                                this.isInitialLoadDone = true;
                             });
                         }
                     },
@@ -109,7 +99,7 @@ System.register(["vue", "../Elements/DropDownList"], function (exports_1, contex
                     }
                 },
                 template: `
-<DropDownList v-if="isInitialLoadDone && show" v-model="internalValue" :disabled="!isEnabled" :label="label" :options="options" />`
+<DropDownList v-model="internalValue" :disabled="!isEnabled" :options="options" />`
             }));
         }
     };

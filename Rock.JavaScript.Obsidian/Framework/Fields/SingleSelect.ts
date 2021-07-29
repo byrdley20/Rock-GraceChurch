@@ -57,9 +57,9 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
         options (): DropDownListOption[]
         {
             const valuesConfig = this.configurationValues[ ConfigurationValueKey.Values ];
-            if ( valuesConfig && valuesConfig.Value )
+            if ( valuesConfig && valuesConfig.value )
             {
-                const providedOptions = valuesConfig.Value.split( ',' ).map( v =>
+                const providedOptions = valuesConfig.value.split( ',' ).map( v =>
                 {
                     if ( v.indexOf( '^' ) !== -1 )
                     {
@@ -101,7 +101,7 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
             const attributes: Record<string, number | boolean> = {};
             const fieldTypeConfig = this.configurationValues[ ConfigurationValueKey.FieldType ];
 
-            if ( fieldTypeConfig?.Value === 'ddl_enhanced' )
+            if ( fieldTypeConfig?.value === 'ddl_enhanced' )
             {
                 attributes.enhanceForLongLists = true;
             }
@@ -115,9 +115,9 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
             const attributes: Record<string, number | boolean> = {};
             const repeatColumnsConfig = this.configurationValues[ ConfigurationValueKey.RepeatColumns ];
 
-            if ( repeatColumnsConfig?.Value )
+            if ( repeatColumnsConfig?.value )
             {
-                attributes[ 'repeatColumns' ] = Number( repeatColumnsConfig.Value ) || 0;
+                attributes[ 'repeatColumns' ] = Number( repeatColumnsConfig.value ) || 0;
             }
 
             return attributes;
@@ -127,7 +127,7 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
         isRadioButtons (): boolean
         {
             const fieldTypeConfig = this.configurationValues[ ConfigurationValueKey.FieldType ];
-            return fieldTypeConfig?.Value === 'rb';
+            return fieldTypeConfig?.value === 'rb';
         }
     },
     watch: {

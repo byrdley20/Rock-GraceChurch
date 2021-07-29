@@ -48,9 +48,9 @@ const GetAttributeValueData = ( name: string, initialValue: string, fieldTypeGui
     for ( const key in configValues )
     {
         configurationValues[ key ] = {
-            Name: '',
-            Description: '',
-            Value: configValues[ key ]
+            name: '',
+            description: '',
+            value: configValues[ key ]
         };
     }
 
@@ -184,7 +184,7 @@ const GetFieldTypeGalleryComponent = ( name: string, initialValue: string, field
                         for ( const key in attributeValue.attribute.qualifierValues )
                         {
                             const value = this.configValues[ key ] || '';
-                            attributeValue.attribute.qualifierValues[ key ].Value = value;
+                            attributeValue.attribute.qualifierValues[ key ].value = value;
                         }
                     }
                 }

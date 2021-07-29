@@ -74,7 +74,7 @@ System.register(["vue", "./Index", "../Elements/DatePicker", "../Services/Date",
                     isDatePartsPicker() {
                         var _a;
                         const config = this.configurationValues[ConfigurationValueKey.DatePickerControlType];
-                        return ((_a = config === null || config === void 0 ? void 0 : config.Value) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'date parts picker';
+                        return ((_a = config === null || config === void 0 ? void 0 : config.value) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'date parts picker';
                     },
                     isCurrentDateValue() {
                         return this.internalValue.indexOf('CURRENT') === 0;
@@ -84,7 +84,7 @@ System.register(["vue", "./Index", "../Elements/DatePicker", "../Services/Date",
                     },
                     dateFormatTemplate() {
                         const formatConfig = this.configurationValues[ConfigurationValueKey.Format];
-                        return (formatConfig === null || formatConfig === void 0 ? void 0 : formatConfig.Value) || 'MM/dd/yyyy';
+                        return (formatConfig === null || formatConfig === void 0 ? void 0 : formatConfig.value) || 'MM/dd/yyyy';
                     },
                     elapsedString() {
                         const dateValue = this.isDatePartsPicker ? this.datePartsAsDate : this.asDate;
@@ -92,7 +92,7 @@ System.register(["vue", "./Index", "../Elements/DatePicker", "../Services/Date",
                             return '';
                         }
                         const formatConfig = this.configurationValues[ConfigurationValueKey.DisplayDiff];
-                        const displayDiff = Boolean_1.asBoolean(formatConfig === null || formatConfig === void 0 ? void 0 : formatConfig.Value);
+                        const displayDiff = Boolean_1.asBoolean(formatConfig === null || formatConfig === void 0 ? void 0 : formatConfig.value);
                         if (!displayDiff) {
                             return '';
                         }
@@ -101,14 +101,14 @@ System.register(["vue", "./Index", "../Elements/DatePicker", "../Services/Date",
                     configAttributes() {
                         const attributes = {};
                         const displayCurrentConfig = this.configurationValues[ConfigurationValueKey.DisplayCurrentOption];
-                        if (displayCurrentConfig === null || displayCurrentConfig === void 0 ? void 0 : displayCurrentConfig.Value) {
-                            const displayCurrent = Boolean_1.asBoolean(displayCurrentConfig.Value);
+                        if (displayCurrentConfig === null || displayCurrentConfig === void 0 ? void 0 : displayCurrentConfig.value) {
+                            const displayCurrent = Boolean_1.asBoolean(displayCurrentConfig.value);
                             attributes.displayCurrentOption = displayCurrent;
                             attributes.isCurrentDateOffset = displayCurrent;
                         }
                         const futureYearConfig = this.configurationValues[ConfigurationValueKey.FutureYearCount];
-                        if (futureYearConfig === null || futureYearConfig === void 0 ? void 0 : futureYearConfig.Value) {
-                            const futureYears = Number_1.toNumber(futureYearConfig.Value);
+                        if (futureYearConfig === null || futureYearConfig === void 0 ? void 0 : futureYearConfig.value) {
+                            const futureYears = Number_1.toNumber(futureYearConfig.value);
                             if (futureYears > 0) {
                                 attributes.futureYearCount = futureYears;
                             }

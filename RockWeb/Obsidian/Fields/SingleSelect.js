@@ -47,8 +47,8 @@ System.register(["vue", "./Index", "../Elements/DropDownList", "../Elements/Radi
                     },
                     options() {
                         const valuesConfig = this.configurationValues[ConfigurationValueKey.Values];
-                        if (valuesConfig && valuesConfig.Value) {
-                            const providedOptions = valuesConfig.Value.split(',').map(v => {
+                        if (valuesConfig && valuesConfig.value) {
+                            const providedOptions = valuesConfig.value.split(',').map(v => {
                                 if (v.indexOf('^') !== -1) {
                                     const parts = v.split('^');
                                     const value = parts[0];
@@ -79,7 +79,7 @@ System.register(["vue", "./Index", "../Elements/DropDownList", "../Elements/Radi
                     ddlConfigAttributes() {
                         const attributes = {};
                         const fieldTypeConfig = this.configurationValues[ConfigurationValueKey.FieldType];
-                        if ((fieldTypeConfig === null || fieldTypeConfig === void 0 ? void 0 : fieldTypeConfig.Value) === 'ddl_enhanced') {
+                        if ((fieldTypeConfig === null || fieldTypeConfig === void 0 ? void 0 : fieldTypeConfig.value) === 'ddl_enhanced') {
                             attributes.enhanceForLongLists = true;
                         }
                         return attributes;
@@ -87,14 +87,14 @@ System.register(["vue", "./Index", "../Elements/DropDownList", "../Elements/Radi
                     rbConfigAttributes() {
                         const attributes = {};
                         const repeatColumnsConfig = this.configurationValues[ConfigurationValueKey.RepeatColumns];
-                        if (repeatColumnsConfig === null || repeatColumnsConfig === void 0 ? void 0 : repeatColumnsConfig.Value) {
-                            attributes['repeatColumns'] = Number(repeatColumnsConfig.Value) || 0;
+                        if (repeatColumnsConfig === null || repeatColumnsConfig === void 0 ? void 0 : repeatColumnsConfig.value) {
+                            attributes['repeatColumns'] = Number(repeatColumnsConfig.value) || 0;
                         }
                         return attributes;
                     },
                     isRadioButtons() {
                         const fieldTypeConfig = this.configurationValues[ConfigurationValueKey.FieldType];
-                        return (fieldTypeConfig === null || fieldTypeConfig === void 0 ? void 0 : fieldTypeConfig.Value) === 'rb';
+                        return (fieldTypeConfig === null || fieldTypeConfig === void 0 ? void 0 : fieldTypeConfig.value) === 'rb';
                     }
                 },
                 watch: {

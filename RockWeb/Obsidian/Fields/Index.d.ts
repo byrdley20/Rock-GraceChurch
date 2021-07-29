@@ -1,9 +1,9 @@
 import { Component, PropType } from 'vue';
 import { Guid } from '../Util/Guid';
 export interface ConfigurationValue {
-    Name: string;
-    Description: string;
-    Value: string;
+    name: string;
+    description: string;
+    value: string;
 }
 export declare type ConfigurationValues = Record<string, ConfigurationValue>;
 export declare function getConfigurationValue(key: string | null, configurationValues: ConfigurationValues | null): string;

@@ -115,7 +115,7 @@ System.register(["vue", "./Index", "../Elements/DateTimePicker", "../Services/Nu
                     },
                     dateFormatTemplate() {
                         const formatConfig = this.configurationValues[ConfigurationValueKey.DateTimeFormat];
-                        return (formatConfig === null || formatConfig === void 0 ? void 0 : formatConfig.Value) || 'MM/dd/yyyy';
+                        return (formatConfig === null || formatConfig === void 0 ? void 0 : formatConfig.value) || 'MM/dd/yyyy';
                     },
                     elapsedString() {
                         const dateValue = this.asDate;
@@ -123,7 +123,7 @@ System.register(["vue", "./Index", "../Elements/DateTimePicker", "../Services/Nu
                             return '';
                         }
                         const formatConfig = this.configurationValues[ConfigurationValueKey.DisplayAsElapsedTime];
-                        const displayDiff = Boolean_1.asBoolean(formatConfig === null || formatConfig === void 0 ? void 0 : formatConfig.Value);
+                        const displayDiff = Boolean_1.asBoolean(formatConfig === null || formatConfig === void 0 ? void 0 : formatConfig.value);
                         if (!displayDiff) {
                             return '';
                         }
@@ -132,8 +132,8 @@ System.register(["vue", "./Index", "../Elements/DateTimePicker", "../Services/Nu
                     configAttributes() {
                         const attributes = {};
                         const displayCurrentConfig = this.configurationValues[ConfigurationValueKey.DisplayCurrentOption];
-                        if (displayCurrentConfig === null || displayCurrentConfig === void 0 ? void 0 : displayCurrentConfig.Value) {
-                            const displayCurrent = Boolean_1.asBoolean(displayCurrentConfig.Value);
+                        if (displayCurrentConfig === null || displayCurrentConfig === void 0 ? void 0 : displayCurrentConfig.value) {
+                            const displayCurrent = Boolean_1.asBoolean(displayCurrentConfig.value);
                             attributes.displayCurrentOption = displayCurrent;
                             attributes.isCurrentDateOffset = displayCurrent;
                         }

@@ -77,10 +77,10 @@ System.register(["vue", "../../Templates/PaneledBlockTemplate", "../../Controls/
                         return ((_a = this.person) === null || _a === void 0 ? void 0 : _a.guid) || null;
                     },
                     categoryGuids() {
-                        return this.configurationValues.CategoryGuids || [];
+                        return this.configurationValues.categoryGuids || [];
                     },
                     useAbbreviatedNames() {
-                        return this.configurationValues.UseAbbreviatedNames;
+                        return this.configurationValues.useAbbreviatedNames;
                     },
                     attributeValues() {
                         var _a;
@@ -89,10 +89,10 @@ System.register(["vue", "../../Templates/PaneledBlockTemplate", "../../Controls/
                         for (const key in attributes) {
                             const attributeValue = attributes[key];
                             const attribute = attributeValue.attribute;
-                            if (this.categoryGuids && !attribute) {
+                            if (this.categoryGuids.length > 0 && !attribute) {
                                 continue;
                             }
-                            if (this.categoryGuids && !(attribute === null || attribute === void 0 ? void 0 : attribute.categoryGuids.some(g1 => this.categoryGuids.some(g2 => Guid_1.areEqual(g1, g2))))) {
+                            if (this.categoryGuids.length > 0 && !(attribute === null || attribute === void 0 ? void 0 : attribute.categoryGuids.some(g1 => this.categoryGuids.some(g2 => Guid_1.areEqual(g1, g2))))) {
                                 continue;
                             }
                             attributeValues.push(attributeValue);

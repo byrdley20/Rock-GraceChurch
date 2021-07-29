@@ -42,15 +42,15 @@ System.register(["vue", "./Index", "../Elements/TextBox", "../Services/Boolean"]
                     configAttributes() {
                         const attributes = {};
                         const maxCharsConfig = this.configurationValues[ConfigurationValueKey.MaxCharacters];
-                        if (maxCharsConfig && maxCharsConfig.Value) {
-                            const maxCharsValue = Number(maxCharsConfig.Value);
+                        if (maxCharsConfig && maxCharsConfig.value) {
+                            const maxCharsValue = Number(maxCharsConfig.value);
                             if (maxCharsValue) {
                                 attributes.maxLength = maxCharsValue;
                             }
                         }
                         const showCountDownConfig = this.configurationValues[ConfigurationValueKey.ShowCountDown];
-                        if (showCountDownConfig && showCountDownConfig.Value) {
-                            const showCountDownValue = Boolean_1.asBooleanOrNull(showCountDownConfig.Value) || false;
+                        if (showCountDownConfig && showCountDownConfig.value) {
+                            const showCountDownValue = Boolean_1.asBooleanOrNull(showCountDownConfig.value) || false;
                             if (showCountDownValue) {
                                 attributes.showCountDown = showCountDownValue;
                             }
@@ -59,7 +59,7 @@ System.register(["vue", "./Index", "../Elements/TextBox", "../Services/Boolean"]
                     },
                     isPassword() {
                         const isPasswordConfig = this.configurationValues[ConfigurationValueKey.IsPassword];
-                        return Boolean_1.asBooleanOrNull(isPasswordConfig === null || isPasswordConfig === void 0 ? void 0 : isPasswordConfig.Value) || false;
+                        return Boolean_1.asBooleanOrNull(isPasswordConfig === null || isPasswordConfig === void 0 ? void 0 : isPasswordConfig.value) || false;
                     },
                     passwordDisplay() {
                         return this.safeValue ? '********' : '';

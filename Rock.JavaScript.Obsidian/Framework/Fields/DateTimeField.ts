@@ -113,7 +113,7 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
 
         dateFormatTemplate(): string {
             const formatConfig = this.configurationValues[ConfigurationValueKey.DateTimeFormat];
-            return formatConfig?.Value || 'MM/dd/yyyy'
+            return formatConfig?.value || 'MM/dd/yyyy'
         },
 
         elapsedString(): string {
@@ -124,7 +124,7 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
             }
 
             const formatConfig = this.configurationValues[ConfigurationValueKey.DisplayAsElapsedTime];
-            const displayDiff = asBoolean(formatConfig?.Value);
+            const displayDiff = asBoolean(formatConfig?.value);
 
             if (!displayDiff) {
                 return '';
@@ -137,8 +137,8 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
             const attributes: Record<string, number | boolean> = {};
 
             const displayCurrentConfig = this.configurationValues[ConfigurationValueKey.DisplayCurrentOption];
-            if (displayCurrentConfig?.Value) {
-                const displayCurrent = asBoolean(displayCurrentConfig.Value);
+            if (displayCurrentConfig?.value) {
+                const displayCurrent = asBoolean(displayCurrentConfig.value);
                 attributes.displayCurrentOption = displayCurrent;
                 attributes.isCurrentDateOffset = displayCurrent;
             }

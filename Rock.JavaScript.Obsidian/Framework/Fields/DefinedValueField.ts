@@ -77,7 +77,9 @@ export default registerFieldType( fieldTypeGuid, defineComponent( {
         },
         configAttributes (): Record<string, unknown>
         {
-            const attributes: Record<string, unknown> = {};
+            // Append this.$attrs because we have multiple root elements, Vue will
+            // not automatically inherit our attributes down.
+            const attributes: Record<string, unknown> = { ...this.$attrs };
 
             const definedType = getConfigurationValue( ConfigurationValueKey.DefinedType, this.configurationValues );
             if ( definedType )
@@ -125,6 +127,8 @@ export default registerFieldType( fieldTypeGuid, defineComponent( {
         }
     },
     template: `
-<DefinedValuePicker :show="isEditMode" v-model="internalValue" v-bind="configAttributes" @receivedDefinedValues="receivedDefinedValues" />
+<div v-show="isEditMode">
+    <DefinedValuePicker v-model="internalValue" v-bind="configAttributes" @receivedDefinedValues="receivedDefinedValues" />
+</div>
 <span v-if="!isEditMode">{{ displayValue }}</span>`
 } ) );

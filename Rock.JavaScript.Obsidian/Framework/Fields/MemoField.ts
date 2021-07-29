@@ -46,7 +46,7 @@ export default registerFieldType( fieldTypeGuid, defineComponent( {
         allowHtml (): boolean
         {
             const config = this.configurationValues[ ConfigurationValueKey.AllowHtml ];
-            return asBoolean( config?.Value );
+            return asBoolean( config?.value );
         },
         safeValue (): string
         {
@@ -57,9 +57,9 @@ export default registerFieldType( fieldTypeGuid, defineComponent( {
             const attributes: Record<string, number | boolean> = {};
 
             const maxCharsConfig = this.configurationValues[ ConfigurationValueKey.MaxCharacters ];
-            if ( maxCharsConfig && maxCharsConfig.Value )
+            if ( maxCharsConfig && maxCharsConfig.value )
             {
-                const maxCharsValue = Number( maxCharsConfig.Value );
+                const maxCharsValue = Number( maxCharsConfig.value );
 
                 if ( maxCharsValue )
                 {
@@ -68,9 +68,9 @@ export default registerFieldType( fieldTypeGuid, defineComponent( {
             }
 
             const showCountDownConfig = this.configurationValues[ ConfigurationValueKey.ShowCountDown ];
-            if ( showCountDownConfig && showCountDownConfig.Value )
+            if ( showCountDownConfig && showCountDownConfig.value )
             {
-                const showCountDownValue = asBooleanOrNull( showCountDownConfig.Value ) || false;
+                const showCountDownValue = asBooleanOrNull( showCountDownConfig.value ) || false;
 
                 if ( showCountDownValue )
                 {
@@ -79,9 +79,9 @@ export default registerFieldType( fieldTypeGuid, defineComponent( {
             }
 
             const rowsConfig = this.configurationValues[ ConfigurationValueKey.NumberOfRows ];
-            if ( rowsConfig?.Value )
+            if ( rowsConfig?.value )
             {
-                const rows = toNumber( rowsConfig.Value ) || 3;
+                const rows = toNumber( rowsConfig.value ) || 3;
 
                 if ( rows > 0 )
                 {

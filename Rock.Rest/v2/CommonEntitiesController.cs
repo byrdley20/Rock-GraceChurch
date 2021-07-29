@@ -18,17 +18,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+
 using Rock.Rest.Filters;
 using Rock.Web.Cache;
 
-namespace Rock.Rest.Controls
+namespace Rock.Rest.v2
 {
     /// <summary>
     /// Common Entity Controller.
     /// This controller is NOT SECURED by default. DO NOT send sensitive data in responses.
     /// Common Entities are those that are frequently used on pages and should be shared among blocks.
     /// </summary>
-    public class CommonEntitiesController : ControlsControllerBase
+    public class CommonEntitiesController : ApiControllerBase
     {
         /// <summary>
         /// Gets the list of campuses.

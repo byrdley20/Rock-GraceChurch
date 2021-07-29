@@ -15,9 +15,7 @@
 // </copyright>
 //
 
-using System.Web.Http;
-
-namespace Rock.Rest.Controls
+namespace Rock.Rest.v2.Controls
 {
     /// <summary>
     /// Endpoints used by Rock UI Controls

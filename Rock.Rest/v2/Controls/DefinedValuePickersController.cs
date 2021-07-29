@@ -20,10 +20,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+
 using Rock.Rest.Filters;
 using Rock.Web.Cache;
 
-namespace Rock.Rest.Controls
+namespace Rock.Rest.v2.Controls
 {
     /// <summary>
     /// Controller used by Defined Value Pickers in the Rock UI

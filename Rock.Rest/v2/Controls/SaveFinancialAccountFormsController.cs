@@ -17,13 +17,14 @@
 
 using System;
 using System.Web.Http;
+
 using Rock.Communication;
 using Rock.Data;
 using Rock.Model;
 using Rock.Rest.Filters;
 using Rock.Web.Cache;
 
-namespace Rock.Rest.Controls
+namespace Rock.Rest.v2.Controls
 {
     /// <summary>
     /// Save Financial Account Form

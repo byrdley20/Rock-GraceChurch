@@ -150,7 +150,14 @@ System.register(["vue", "../../Elements/RockButton", "../../Util/Guid", "./Regis
                     const notFound = vue_1.ref(false);
                     const viewModel = vue_1.inject('configurationValues');
                     const invokeBlockAction = vue_1.inject('invokeBlockAction');
-                    if (!(viewModel === null || viewModel === void 0 ? void 0 : viewModel.registrationAttributesStart)) {
+                    if (viewModel === null) {
+                        notFound.value = true;
+                        return {
+                            viewModel,
+                            notFound
+                        };
+                    }
+                    if (!viewModel.registrationAttributesStart) {
                         notFound.value = true;
                     }
                     const hasPreAttributes = ((_a = viewModel.registrationAttributesStart) === null || _a === void 0 ? void 0 : _a.length) > 0;
@@ -237,54 +244,61 @@ System.register(["vue", "../../Elements/RockButton", "../../Util/Guid", "./Regis
                         return this.$store.state.currentPerson;
                     },
                     isSessionExpired() {
-                        return this.secondsBeforeExpiration === 0 && this.currentStep !== this.steps.success;
-                    },
-                    viewModel() {
-                        return this.registrationEntryState.viewModel;
+                        return this.secondsBeforeExpiration === 0 && this.currentStep !== Step.success;
                     },
                     mustLogin() {
-                        return !this.$store.state.currentPerson && (this.viewModel.isUnauthorized || this.viewModel.loginRequiredToRegister);
+                        return !this.$store.state.currentPerson && this.viewModel != null && (this.viewModel.isUnauthorized || this.viewModel.loginRequiredToRegister);
                     },
                     isUnauthorized() {
-                        return this.viewModel.isUnauthorized;
+                        var _a, _b;
+                        return (_b = (_a = this.viewModel) === null || _a === void 0 ? void 0 : _a.isUnauthorized) !== null && _b !== void 0 ? _b : false;
                     },
                     currentStep() {
-                        return this.registrationEntryState.currentStep;
+                        var _a, _b;
+                        return (_b = (_a = this.registrationEntryState) === null || _a === void 0 ? void 0 : _a.currentStep) !== null && _b !== void 0 ? _b : "";
                     },
                     registrants() {
-                        return this.registrationEntryState.registrants;
+                        var _a, _b;
+                        return (_b = (_a = this.registrationEntryState) === null || _a === void 0 ? void 0 : _a.registrants) !== null && _b !== void 0 ? _b : [];
                     },
                     hasPreAttributes() {
-                        return this.viewModel.registrationAttributesStart.length > 0;
+                        var _a, _b, _c;
+                        return ((_c = (_b = (_a = this.viewModel) === null || _a === void 0 ? void 0 : _a.registrationAttributesStart) === null || _b === void 0 ? void 0 : _b.length) !== null && _c !== void 0 ? _c : 0) > 0;
                     },
                     hasPostAttributes() {
-                        return this.viewModel.registrationAttributesEnd.length > 0;
+                        var _a, _b, _c;
+                        return ((_c = (_b = (_a = this.viewModel) === null || _a === void 0 ? void 0 : _a.registrationAttributesEnd) === null || _b === void 0 ? void 0 : _b.length) !== null && _c !== void 0 ? _c : 0) > 0;
                     },
                     progressTrackerIndex() {
-                        if (this.currentStep === this.steps.intro) {
+                        var _a;
+                        if (this.currentStep === Step.intro || this.registrationEntryState == null) {
                             return 0;
                         }
-                        const stepsBeforePre = this.registrationEntryState.firstStep === this.steps.intro ? 1 : 0;
-                        if (this.currentStep === this.steps.registrationStartForm) {
+                        const stepsBeforePre = ((_a = this.registrationEntryState) === null || _a === void 0 ? void 0 : _a.firstStep) === Step.intro ? 1 : 0;
+                        if (this.currentStep === Step.registrationStartForm) {
                             return stepsBeforePre;
                         }
                         const stepsBeforeRegistrants = stepsBeforePre + (this.hasPreAttributes ? 1 : 0);
-                        if (this.currentStep === this.steps.perRegistrantForms) {
+                        if (this.currentStep === Step.perRegistrantForms) {
                             return this.registrationEntryState.currentRegistrantIndex + stepsBeforeRegistrants;
                         }
                         const stepsToCompleteRegistrants = this.registrationEntryState.registrants.length + stepsBeforeRegistrants;
-                        if (this.currentStep === this.steps.registrationEndForm) {
+                        if (this.currentStep === Step.registrationEndForm) {
                             return stepsToCompleteRegistrants;
                         }
-                        if (this.currentStep === this.steps.reviewAndPayment) {
+                        if (this.currentStep === Step.reviewAndPayment) {
                             return stepsToCompleteRegistrants + (this.hasPostAttributes ? 1 : 0);
                         }
                         return 0;
                     },
                     uppercaseRegistrantTerm() {
-                        return String_1.default.toTitleCase(this.viewModel.registrantTerm);
+                        var _a, _b;
+                        return String_1.default.toTitleCase((_b = (_a = this.viewModel) === null || _a === void 0 ? void 0 : _a.registrantTerm) !== null && _b !== void 0 ? _b : "");
                     },
                     currentRegistrantTitle() {
+                        if (this.registrationEntryState == null) {
+                            return "";
+                        }
                         const ordinal = Number_1.default.toOrdinal(this.registrationEntryState.currentRegistrantIndex + 1);
                         let title = String_1.default.toTitleCase(this.registrants.length <= 1 ?
                             this.uppercaseRegistrantTerm :
@@ -295,27 +309,30 @@ System.register(["vue", "../../Elements/RockButton", "../../Util/Guid", "./Regis
                         return title;
                     },
                     stepTitleHtml() {
-                        var _a;
-                        if (this.currentStep === this.steps.registrationStartForm) {
-                            return this.viewModel.registrationAttributeTitleStart;
+                        var _a, _b, _c, _d, _e, _f;
+                        if (this.currentStep === Step.registrationStartForm) {
+                            return (_b = (_a = this.viewModel) === null || _a === void 0 ? void 0 : _a.registrationAttributeTitleStart) !== null && _b !== void 0 ? _b : "";
                         }
-                        if (this.currentStep === this.steps.perRegistrantForms) {
+                        if (this.currentStep === Step.perRegistrantForms) {
                             return this.currentRegistrantTitle;
                         }
-                        if (this.currentStep === this.steps.registrationEndForm) {
-                            return this.viewModel.registrationAttributeTitleEnd;
+                        if (this.currentStep === Step.registrationEndForm) {
+                            return (_d = (_c = this.viewModel) === null || _c === void 0 ? void 0 : _c.registrationAttributeTitleEnd) !== null && _d !== void 0 ? _d : "";
                         }
-                        if (this.currentStep === this.steps.reviewAndPayment) {
+                        if (this.currentStep === Step.reviewAndPayment) {
                             return 'Review Registration';
                         }
-                        if (this.currentStep === this.steps.success) {
-                            return ((_a = this.registrationEntryState.successViewModel) === null || _a === void 0 ? void 0 : _a.titleHtml) || 'Congratulations';
+                        if (this.currentStep === Step.success) {
+                            return ((_f = (_e = this.registrationEntryState) === null || _e === void 0 ? void 0 : _e.successViewModel) === null || _f === void 0 ? void 0 : _f.titleHtml) || 'Congratulations';
                         }
                         return '';
                     },
                     progressTrackerItems() {
                         const items = [];
-                        if (this.registrationEntryState.firstStep === this.steps.intro) {
+                        if (this.registrationEntryState == null) {
+                            return items;
+                        }
+                        if (this.registrationEntryState.firstStep === Step.intro) {
                             items.push({
                                 key: 'Start',
                                 title: 'Start',
@@ -376,64 +393,82 @@ System.register(["vue", "../../Elements/RockButton", "../../Util/Guid", "./Regis
                     },
                     onIntroNext() {
                         return __awaiter(this, void 0, void 0, function* () {
-                            yield this.persistSession(false);
-                            this.registrationEntryState.currentStep = this.hasPreAttributes ? this.steps.registrationStartForm : this.steps.perRegistrantForms;
-                            Page_1.default.smoothScrollToTop();
+                            if (this.persistSession && this.registrationEntryState) {
+                                yield this.persistSession(false);
+                                this.registrationEntryState.currentStep = this.hasPreAttributes ? Step.registrationStartForm : Step.perRegistrantForms;
+                                Page_1.default.smoothScrollToTop();
+                            }
                         });
                     },
                     onRegistrationStartPrevious() {
                         return __awaiter(this, void 0, void 0, function* () {
-                            yield this.persistSession(false);
-                            this.registrationEntryState.currentStep = this.steps.intro;
-                            Page_1.default.smoothScrollToTop();
+                            if (this.persistSession && this.registrationEntryState) {
+                                yield this.persistSession(false);
+                                this.registrationEntryState.currentStep = Step.intro;
+                                Page_1.default.smoothScrollToTop();
+                            }
                         });
                     },
                     onRegistrationStartNext() {
                         return __awaiter(this, void 0, void 0, function* () {
-                            yield this.persistSession(false);
-                            this.registrationEntryState.currentStep = this.steps.perRegistrantForms;
-                            Page_1.default.smoothScrollToTop();
+                            if (this.persistSession && this.registrationEntryState) {
+                                yield this.persistSession(false);
+                                this.registrationEntryState.currentStep = Step.perRegistrantForms;
+                                Page_1.default.smoothScrollToTop();
+                            }
                         });
                     },
                     onRegistrantPrevious() {
                         return __awaiter(this, void 0, void 0, function* () {
-                            yield this.persistSession(false);
-                            this.registrationEntryState.currentStep = this.hasPreAttributes ? this.steps.registrationStartForm : this.steps.intro;
-                            Page_1.default.smoothScrollToTop();
+                            if (this.persistSession && this.registrationEntryState) {
+                                yield this.persistSession(false);
+                                this.registrationEntryState.currentStep = this.hasPreAttributes ? Step.registrationStartForm : Step.intro;
+                                Page_1.default.smoothScrollToTop();
+                            }
                         });
                     },
                     onRegistrantNext() {
                         return __awaiter(this, void 0, void 0, function* () {
-                            yield this.persistSession(false);
-                            this.registrationEntryState.currentStep = this.hasPostAttributes ? this.steps.registrationEndForm : this.steps.reviewAndPayment;
-                            Page_1.default.smoothScrollToTop();
+                            if (this.persistSession && this.registrationEntryState) {
+                                yield this.persistSession(false);
+                                this.registrationEntryState.currentStep = this.hasPostAttributes ? Step.registrationEndForm : Step.reviewAndPayment;
+                                Page_1.default.smoothScrollToTop();
+                            }
                         });
                     },
                     onRegistrationEndPrevious() {
                         return __awaiter(this, void 0, void 0, function* () {
-                            yield this.persistSession(false);
-                            this.registrationEntryState.currentStep = this.steps.perRegistrantForms;
-                            Page_1.default.smoothScrollToTop();
+                            if (this.persistSession && this.registrationEntryState) {
+                                yield this.persistSession(false);
+                                this.registrationEntryState.currentStep = Step.perRegistrantForms;
+                                Page_1.default.smoothScrollToTop();
+                            }
                         });
                     },
                     onRegistrationEndNext() {
                         return __awaiter(this, void 0, void 0, function* () {
-                            yield this.persistSession(false);
-                            this.registrationEntryState.currentStep = this.steps.reviewAndPayment;
-                            Page_1.default.smoothScrollToTop();
+                            if (this.persistSession && this.registrationEntryState) {
+                                yield this.persistSession(false);
+                                this.registrationEntryState.currentStep = Step.reviewAndPayment;
+                                Page_1.default.smoothScrollToTop();
+                            }
                         });
                     },
                     onSummaryPrevious() {
                         return __awaiter(this, void 0, void 0, function* () {
-                            yield this.persistSession(false);
-                            this.registrationEntryState.currentStep = this.hasPostAttributes ? this.steps.registrationEndForm : this.steps.perRegistrantForms;
-                            Page_1.default.smoothScrollToTop();
+                            if (this.persistSession && this.registrationEntryState) {
+                                yield this.persistSession(false);
+                                this.registrationEntryState.currentStep = this.hasPostAttributes ? Step.registrationEndForm : Step.perRegistrantForms;
+                                Page_1.default.smoothScrollToTop();
+                            }
                         });
                     },
                     onSummaryNext() {
                         return __awaiter(this, void 0, void 0, function* () {
-                            this.registrationEntryState.currentStep = this.steps.success;
-                            Page_1.default.smoothScrollToTop();
+                            if (this.persistSession && this.registrationEntryState) {
+                                this.registrationEntryState.currentStep = Step.success;
+                                Page_1.default.smoothScrollToTop();
+                            }
                         });
                     }
                 },
@@ -441,10 +476,12 @@ System.register(["vue", "../../Elements/RockButton", "../../Util/Guid", "./Regis
                     currentPerson: {
                         immediate: true,
                         handler() {
-                            const forcedFamilyGuid = getForcedFamilyGuid(this.currentPerson, this.viewModel);
-                            if (forcedFamilyGuid) {
-                                for (const registrant of this.registrationEntryState.registrants) {
-                                    registrant.familyGuid = forcedFamilyGuid;
+                            if (this.viewModel != null && this.registrationEntryState != null) {
+                                const forcedFamilyGuid = getForcedFamilyGuid(this.currentPerson, this.viewModel);
+                                if (forcedFamilyGuid) {
+                                    for (const registrant of this.registrationEntryState.registrants) {
+                                        registrant.familyGuid = forcedFamilyGuid;
+                                    }
                                 }
                             }
                         }
@@ -452,7 +489,8 @@ System.register(["vue", "../../Elements/RockButton", "../../Util/Guid", "./Regis
                     'registrationEntryState.SessionExpirationDate': {
                         immediate: true,
                         handler() {
-                            if (!this.registrationEntryState.sessionExpirationDate) {
+                            var _a;
+                            if (!((_a = this.registrationEntryState) === null || _a === void 0 ? void 0 : _a.sessionExpirationDate)) {
                                 this.secondsBeforeExpiration = -1;
                                 return;
                             }
@@ -464,7 +502,8 @@ System.register(["vue", "../../Elements/RockButton", "../../Util/Guid", "./Regis
                     }
                 },
                 mounted() {
-                    if (this.viewModel.loginRequiredToRegister && !this.$store.state.currentPerson) {
+                    var _a;
+                    if (((_a = this.viewModel) === null || _a === void 0 ? void 0 : _a.loginRequiredToRegister) && !this.$store.state.currentPerson) {
                         this.$store.dispatch('redirectToLogin');
                     }
                 },

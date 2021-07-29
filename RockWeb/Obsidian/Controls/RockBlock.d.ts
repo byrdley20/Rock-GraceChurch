@@ -1,6 +1,6 @@
 import { HttpBodyData, HttpResult, HttpUrlParams } from '../Util/Http';
 import { Component, PropType } from 'vue';
-import { BlockConfig } from '../Index';
+import { BlockConfig, ConfigurationValues } from '../Index';
 import { Guid } from '../Util/Guid';
 export declare type InvokeBlockActionFunc = <T>(actionName: string, data?: HttpBodyData) => Promise<HttpResult<T>>;
 export declare type BlockHttpGet = <T>(url: string, params?: HttpUrlParams) => Promise<HttpResult<T>>;
@@ -10,7 +10,7 @@ export declare type BlockHttp = {
     post: BlockHttpPost;
 };
 export declare function standardBlockSetup(): {
-    configurationValues: Record<string, any>;
+    configurationValues: ConfigurationValues;
     invokeBlockAction: InvokeBlockActionFunc;
 };
 declare const _default: import("vue").DefineComponent<{

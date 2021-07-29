@@ -73,10 +73,9 @@ System.register(["../Fields/Index", "vue", "../Fields/TextField", "../Fields/Boo
                 },
                 computed: {
                     fieldComponent() {
-                        console.log(`start load component ${this.fieldTypeGuid}`, new Date().getTime());
                         const field = Index_1.getFieldTypeComponent(this.fieldTypeGuid);
                         if (!field) {
-                            return TextField_1.default.component;
+                            return TextField_1.default;
                         }
                         return field;
                     }

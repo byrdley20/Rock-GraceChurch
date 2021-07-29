@@ -39,6 +39,12 @@ export declare function getForcedFamilyGuid(currentPerson: Person | null, viewMo
 export declare function getDefaultRegistrantInfo(currentPerson: Person | null, viewModel: RegistrationEntryBlockViewModel, familyGuid: Guid | null): RegistrantInfo;
 export declare function getRegistrantBasicInfo(registrant: RegistrantInfo, registrantForms: RegistrationEntryBlockFormViewModel[]): RegistrantBasicInfo;
 declare const _default: import("vue").DefineComponent<{}, {
+    viewModel: null;
+    notFound: import("vue").Ref<boolean>;
+    steps?: undefined;
+    registrationEntryState?: undefined;
+    persistSession?: undefined;
+} | {
     viewModel: RegistrationEntryBlockViewModel;
     steps: Record<Step, Step>;
     registrationEntryState: {
@@ -445,7 +451,6 @@ declare const _default: import("vue").DefineComponent<{}, {
 }, {
     currentPerson(): Person | null;
     isSessionExpired(): boolean;
-    viewModel(): RegistrationEntryBlockViewModel;
     mustLogin(): boolean;
     isUnauthorized(): boolean;
     currentStep(): string;

@@ -43,9 +43,10 @@ import '../Fields/PhoneNumber';
 import '../Fields/RatingField';
 import '../Fields/TimeField';
 
+registerFieldType(FieldType.Text, TextField);
 registerFieldType(FieldType.Color, defineAsyncComponent(() => import('../Fields/ColorField')));
 
-export default defineComponent( {
+export default defineComponent({
     name: 'RockField',
     props: {
         fieldTypeGuid: {
@@ -57,18 +58,16 @@ export default defineComponent( {
             default: ''
         }
     },
-    setup ( props )
-    {
-        const isRequired = computed( () => props.rules.includes( 'required' ) );
-        provide( 'isRequired', isRequired );
+    setup(props) {
+        const isRequired = computed(() => props.rules.includes('required'));
+        provide('isRequired', isRequired);
     },
     computed: {
-        fieldComponent (): Component | null
-        {
+        fieldComponent(): Component | null {
+            console.log(`start load component ${this.fieldTypeGuid}`, new Date().getTime());
             const field = getFieldTypeComponent(this.fieldTypeGuid);
 
-            if ( !field )
-            {
+            if (!field) {
                 // Fallback to text field
                 return TextField.component;
             }
@@ -78,4 +77,4 @@ export default defineComponent( {
     },
     template: `
 <component :is="fieldComponent" :rules="rules" />`
-} );
+});

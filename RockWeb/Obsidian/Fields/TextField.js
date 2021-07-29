@@ -24,7 +24,7 @@ System.register(["vue", "./Index", "../Elements/TextBox", "../Services/Boolean"]
                 ConfigurationValueKey["MaxCharacters"] = "maxcharacters";
                 ConfigurationValueKey["ShowCountDown"] = "showcountdown";
             })(ConfigurationValueKey || (ConfigurationValueKey = {}));
-            exports_1("default", Index_1.registerFieldType(fieldTypeGuid, vue_1.defineComponent({
+            exports_1("default", vue_1.defineComponent({
                 name: 'TextField',
                 components: {
                     TextBox: TextBox_1.default
@@ -80,7 +80,7 @@ System.register(["vue", "./Index", "../Elements/TextBox", "../Services/Boolean"]
 <TextBox v-if="isEditMode" v-model="internalValue" v-bind="configAttributes" :type="isPassword ? 'password' : ''" />
 <span v-else-if="isPassword">{{passwordDisplay}}</span>
 <span v-else>{{ safeValue }}</span>`
-            })));
+            }));
         }
     };
 });

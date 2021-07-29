@@ -28,7 +28,7 @@ enum ConfigurationValueKey {
     ShowCountDown = 'showcountdown'
 }
 
-export default registerFieldType( fieldTypeGuid, defineComponent( {
+export default defineComponent( {
     name: 'TextField',
     components: {
         TextBox
@@ -100,4 +100,4 @@ export default registerFieldType( fieldTypeGuid, defineComponent( {
 <TextBox v-if="isEditMode" v-model="internalValue" v-bind="configAttributes" :type="isPassword ? 'password' : ''" />
 <span v-else-if="isPassword">{{passwordDisplay}}</span>
 <span v-else>{{ safeValue }}</span>`
-} ) );
+} );

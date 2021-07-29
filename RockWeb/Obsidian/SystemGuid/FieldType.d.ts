@@ -20,7 +20,9 @@ export const Color = "D747E6AE-C383-4E22-8846-71518E3DD06F";
 
 declare const enum SystemGuidValues {
     /** Color field type */
-    Color = "D747E6AE-C383-4E22-8846-71518E3DD06F"
+    Color = "D747E6AE-C383-4E22-8846-71518E3DD06F",
+
+    Text = "9C204CD0-1233-41C5-818A-C5DA439445AA",
 }
 
 export default SystemGuidValues;

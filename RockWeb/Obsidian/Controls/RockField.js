@@ -53,6 +53,7 @@ System.register(["../Fields/Index", "vue", "../Fields/TextField", "../Fields/Boo
             }
         ],
         execute: function () {
+            Index_1.registerFieldType("9C204CD0-1233-41C5-818A-C5DA439445AA", TextField_1.default);
             Index_1.registerFieldType("D747E6AE-C383-4E22-8846-71518E3DD06F", vue_1.defineAsyncComponent(() => context_1.import('../Fields/ColorField')));
             exports_1("default", vue_1.defineComponent({
                 name: 'RockField',
@@ -72,6 +73,7 @@ System.register(["../Fields/Index", "vue", "../Fields/TextField", "../Fields/Boo
                 },
                 computed: {
                     fieldComponent() {
+                        console.log(`start load component ${this.fieldTypeGuid}`, new Date().getTime());
                         const field = Index_1.getFieldTypeComponent(this.fieldTypeGuid);
                         if (!field) {
                             return TextField_1.default.component;

@@ -18,7 +18,7 @@ import CampusPicker from '../../Controls/CampusPicker';
 import DefinedValuePicker from '../../Controls/DefinedValuePicker';
 import CurrencyBox from '../../Elements/CurrencyBox';
 import { defineComponent, inject } from 'vue';
-import DefinedTypeGuids from '../../SystemGuid/DefinedType';
+import { DefinedType } from '@Obsidian/SystemGuids';
 import DatePicker from '../../Elements/DatePicker';
 import RockButton from '../../Elements/RockButton';
 import { areEqual, Guid, newGuid } from '../../Util/Guid';
@@ -91,7 +91,7 @@ export default defineComponent({
             doGatewayControlSubmit: false,
             pageIndex: 1,
             page1Error: '',
-            frequencyDefinedTypeGuid: DefinedTypeGuids.FinancialFrequency,
+            frequencyDefinedTypeGuid: DefinedType.FinancialFrequency,
             args: {
                 isGivingAsPerson: true,
                 email: '',

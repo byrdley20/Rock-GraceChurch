@@ -19,7 +19,8 @@
       "ES2020.Symbol.WellKnown" /* Fixes compile issue in Vue declaration files, not actually in use. */
     ],
     "paths": {
-      "@Obsidian/ViewModels": ["ViewModels/index"]
+      "@Obsidian/ViewModels": [ "ViewModels/index" ],
+      "@Obsidian/SystemGuids": [ "SystemGuids/index" ]
     }
   },
   "exclude": [

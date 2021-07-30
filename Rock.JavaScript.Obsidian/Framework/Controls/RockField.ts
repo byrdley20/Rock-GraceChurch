@@ -17,7 +17,7 @@
 import { getFieldTypeComponent, registerFieldType } from '../Fields/Index';
 import { Guid } from '../Util/Guid';
 import { Component, computed, defineComponent, defineAsyncComponent, PropType, provide } from 'vue';
-import FieldType from '../SystemGuid/FieldType';
+import { FieldType } from '@Obsidian/SystemGuids';
 
 // Import and assign TextField because it is the fallback
 import TextField from '../Fields/TextField';

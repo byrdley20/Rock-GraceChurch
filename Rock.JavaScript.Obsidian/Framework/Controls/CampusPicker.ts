@@ -16,7 +16,7 @@
 //
 import { CommonEntityOption, createCommonEntityPicker } from '../Store/Generators';
 import store from '../Store/Index';
-import Campus from '../ViewModels/CampusViewModel';
+import { Campus } from '@Obsidian/ViewModels';
 
 export default createCommonEntityPicker(
     'Campus',

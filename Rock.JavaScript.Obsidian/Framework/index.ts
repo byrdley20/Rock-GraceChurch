@@ -19,8 +19,7 @@ import RockBlock from './Controls/RockBlock';
 import store from './Store/Index';
 import { Guid } from './Util/Guid';
 import './Rules/Index';
-import Person from './ViewModels/PersonViewModel';
-import Entity from './ViewModels/Entity';
+import { Person, Entity } from '@Obsidian/ViewModels';
 import PageDebugTimings, { DebugTimingViewModel } from './Controls/PageDebugTimings';
 import Alert from './Elements/Alert';
 

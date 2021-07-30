@@ -44,7 +44,7 @@ namespace Rock.ViewModel
         /// <value>
         /// The attributes.
         /// </value>
-        [TypeScriptType( "Record<string, AttributeValue> | null", "import AttributeValue from './AttributeValueViewModel';" )]
+        [TypeScriptType( "Record<string, AttributeValue> | null", "import AttributeValue from './CodeGenerated/AttributeValue';" )]
         public Dictionary<string, AttributeValueViewModel> Attributes { get; set; }
     }
 }

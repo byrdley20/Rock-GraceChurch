@@ -1,7 +1,7 @@
 import { PropType } from 'vue';
 import { DropDownListOption } from '../Elements/DropDownList';
 import { BlockHttp } from './RockBlock';
-import DefinedValue from '../ViewModels/DefinedValueViewModel';
+import { DefinedValue } from '@Obsidian/ViewModels';
 declare const _default: import("vue").DefineComponent<{
     modelValue: {
         type: PropType<string>;

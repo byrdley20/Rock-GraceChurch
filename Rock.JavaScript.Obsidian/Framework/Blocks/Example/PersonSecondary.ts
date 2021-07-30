@@ -21,7 +21,7 @@ import RockButton from '../../Elements/RockButton';
 import TextBox from '../../Elements/TextBox';
 import { defineComponent } from 'vue';
 import store from '../../Store/Index';
-import Person from '../../ViewModels/PersonViewModel';
+import { Person } from '@Obsidian/ViewModels';
 
 export default defineComponent({
     name: 'Example.PersonSecondary',

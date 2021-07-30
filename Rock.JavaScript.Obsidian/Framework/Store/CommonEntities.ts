@@ -17,7 +17,7 @@
 import { generateCommonEntityModule } from './Generators';
 import { Module } from 'vuex';
 import { RootState } from './Index';
-import Entity from '../ViewModels/Entity';
+import { Entity } from '@Obsidian/ViewModels';
 
 export type CommonEntity = {
     namespace: string;

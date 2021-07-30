@@ -6,18 +6,21 @@
     "noImplicitAny": true,
     "noEmitOnError": true,
     "removeComments": true,
+    "allowUnreachableCode": false,
     "sourceMap": true,
     "target": "ES2016",
     "module": "System",
     "moduleResolution": "Node",
-    "baseUrl": "../",
+    "baseUrl": ".",
     "strict": true,
     "lib": [
       "DOM",
       "ES2016",
       "ES2020.Symbol.WellKnown" /* Fixes compile issue in Vue declaration files, not actually in use. */
     ],
-    "allowUnreachableCode": false
+    "paths": {
+      "@Obsidian/ViewModels": ["ViewModels/index"]
+    }
   },
   "exclude": [
     "./Tests/**/*"

@@ -1,4 +1,4 @@
-import Campus from '../../ViewModels/CampusViewModel';
+import { Campus } from '@Obsidian/ViewModels';
 import { ItemWithPreAndPostHtml } from '../../Elements/ItemsWithPreAndPostHtml';
 import { ProgressTrackerItem } from '../../Elements/ProgressTracker';
 declare const _default: import("vue").DefineComponent<{}, {}, {

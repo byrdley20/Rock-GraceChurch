@@ -1,8 +1,7 @@
 import { App } from 'vue';
 import { Guid } from './Util/Guid';
 import './Rules/Index';
-import Person from './ViewModels/PersonViewModel';
-import Entity from './ViewModels/Entity';
+import { Person, Entity } from '@Obsidian/ViewModels';
 import { DebugTimingViewModel } from './Controls/PageDebugTimings';
 export declare type ConfigurationValues = Record<string, unknown>;
 export declare type BlockConfig = {

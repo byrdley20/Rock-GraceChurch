@@ -1,4 +1,4 @@
-import AttributeValue from '../../../ViewModels/AttributeValueViewModel';
+import { AttributeValue } from '@Obsidian/ViewModels';
 import { RegistrationEntryState } from '../RegistrationEntry';
 declare const _default: import("vue").DefineComponent<{}, {
     registrationEntryState: RegistrationEntryState;

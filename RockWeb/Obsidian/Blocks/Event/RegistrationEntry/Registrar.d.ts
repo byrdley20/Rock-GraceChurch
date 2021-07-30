@@ -1,5 +1,5 @@
 import { DropDownListOption } from '../../../Elements/DropDownList';
-import Person from '../../../ViewModels/PersonViewModel';
+import { Person } from '@Obsidian/ViewModels';
 import { RegistrantBasicInfo, RegistrationEntryState } from '../RegistrationEntry';
 import { RegistrationEntryBlockArgs } from './RegistrationEntryBlockArgs';
 import { RegistrantInfo, RegistrarInfo, RegistrationEntryBlockViewModel } from './RegistrationEntryBlockViewModel';

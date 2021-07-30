@@ -1,4 +1,4 @@
-import Person from '../../ViewModels/PersonViewModel';
+import { Person } from '@Obsidian/ViewModels';
 declare const _default: import("vue").DefineComponent<{}, {}, {
     messageToPublish: string;
     receivedMessage: string;

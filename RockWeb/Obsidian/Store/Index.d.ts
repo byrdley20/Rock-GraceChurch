@@ -1,8 +1,7 @@
 import { DebugTimingViewModel } from '../Controls/PageDebugTimings';
 import { Guid } from '../Util/Guid';
 import { Store } from 'vuex';
-import Person from '../ViewModels/PersonViewModel';
-import Entity from '../ViewModels/Entity';
+import { Person, Entity } from '@Obsidian/ViewModels';
 export interface RootState {
     areSecondaryBlocksShown: boolean;
     currentPerson: Person | null;

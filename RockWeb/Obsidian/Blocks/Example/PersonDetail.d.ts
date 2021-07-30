@@ -1,7 +1,6 @@
 import { Guid } from '../../Util/Guid';
 import { InvokeBlockActionFunc } from '../../Controls/RockBlock';
-import Campus from '../../ViewModels/CampusViewModel';
-import Person from '../../ViewModels/PersonViewModel';
+import { Campus, Person } from '@Obsidian/ViewModels';
 declare const _default: import("vue").DefineComponent<{}, {
     invokeBlockAction: InvokeBlockActionFunc;
 }, {

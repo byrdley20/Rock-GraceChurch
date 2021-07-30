@@ -19,7 +19,7 @@ import { defineComponent, PropType } from 'vue';
 import RockField from '../../../Controls/RockField';
 import Alert from '../../../Elements/Alert';
 import { Guid } from '../../../Util/Guid';
-import Attribute from '../../../ViewModels/AttributeViewModel';
+import { Attribute } from '@Obsidian/ViewModels';
 import { ComparisonType, FilterExpressionType, RegistrationEntryBlockFormFieldRuleViewModel, RegistrationEntryBlockFormFieldViewModel } from './RegistrationEntryBlockViewModel';
 
 export default defineComponent( {

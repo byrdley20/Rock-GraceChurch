@@ -1,5 +1,5 @@
 import { pluralConditional } from '../../../Services/String';
-import Person from '../../../ViewModels/PersonViewModel';
+import { Person } from '@Obsidian/ViewModels';
 import { RegistrationEntryState } from '../RegistrationEntry';
 import { RegistrationEntryBlockViewModel } from './RegistrationEntryBlockViewModel';
 declare const _default: import("vue").DefineComponent<{}, {}, {

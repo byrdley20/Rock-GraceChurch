@@ -18,7 +18,7 @@
 import { defineComponent, inject, PropType } from 'vue';
 import DropDownList, { DropDownListOption } from '../../../Elements/DropDownList';
 import RadioButtonList from '../../../Elements/RadioButtonList';
-import Person from '../../../ViewModels/PersonViewModel';
+import { Person } from '@Obsidian/ViewModels';
 import { getRegistrantBasicInfo, RegistrationEntryState } from '../RegistrationEntry';
 import StringFilter from '../../../Services/String';
 import RockButton from '../../../Elements/RockButton';

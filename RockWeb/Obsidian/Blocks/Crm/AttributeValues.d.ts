@@ -1,8 +1,7 @@
 import { InvokeBlockActionFunc } from '../../Controls/RockBlock';
 import { ConfigurationValues } from '../../Index';
 import { Guid } from '../../Util/Guid';
-import Person from '../../ViewModels/PersonViewModel';
-import AttributeValue from '../../ViewModels/AttributeValueViewModel';
+import { Person, AttributeValue } from '@Obsidian/ViewModels';
 declare const _default: import("vue").DefineComponent<{}, {
     invokeBlockAction: InvokeBlockActionFunc;
     configurationValues: ConfigurationValues;

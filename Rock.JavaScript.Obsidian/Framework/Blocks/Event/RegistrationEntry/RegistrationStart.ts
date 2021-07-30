@@ -19,7 +19,7 @@ import { defineComponent, inject } from 'vue';
 import AttributeValuesContainer from '../../../Controls/AttributeValuesContainer';
 import RockForm from '../../../Controls/RockForm';
 import RockButton from '../../../Elements/RockButton';
-import AttributeValue from '../../../ViewModels/AttributeValueViewModel';
+import { AttributeValue } from '@Obsidian/ViewModels';
 import { RegistrationEntryState } from '../RegistrationEntry';
 
 export default defineComponent( {

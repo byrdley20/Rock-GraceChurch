@@ -23,7 +23,7 @@ import http from '../Util/Http';
 import { CommonEntity } from './CommonEntities';
 import { splitCamelCase } from '../Services/String';
 import { Guid } from '../Util/Guid';
-import Entity from '../ViewModels/Entity';
+import { Entity } from '@Obsidian/ViewModels';
 
 export type CommonEntityOption = {
     guid: Guid;

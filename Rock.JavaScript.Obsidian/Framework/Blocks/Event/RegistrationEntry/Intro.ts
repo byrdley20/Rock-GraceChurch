@@ -21,7 +21,7 @@ import NumberUpDown from '../../../Elements/NumberUpDown';
 import RockButton from '../../../Elements/RockButton';
 import { toTitleCase, pluralConditional } from '../../../Services/String';
 import { areEqual } from '../../../Util/Guid';
-import Person from '../../../ViewModels/PersonViewModel';
+import { Person } from '@Obsidian/ViewModels';
 import { getDefaultRegistrantInfo, getForcedFamilyGuid, RegistrationEntryState } from '../RegistrationEntry';
 import { RegistrationEntryBlockViewModel } from './RegistrationEntryBlockViewModel';
 

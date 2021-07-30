@@ -18,9 +18,7 @@ import { DebugTimingViewModel } from '../Controls/PageDebugTimings';
 import { PageConfig } from '../Index';
 import { Guid } from '../Util/Guid';
 import { createStore, Store } from 'vuex';
-import Group from '../ViewModels/GroupViewModel';
-import Person from '../ViewModels/PersonViewModel';
-import Entity from '../ViewModels/Entity';
+import { Person, Group, Entity } from '@Obsidian/ViewModels';
 import { commonEntities, commonEntityModules } from './CommonEntities';
 
 export interface RootState {

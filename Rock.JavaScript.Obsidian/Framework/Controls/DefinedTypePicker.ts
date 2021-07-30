@@ -16,7 +16,7 @@
 //
 import { CommonEntityOption, createCommonEntityPicker } from '../Store/Generators';
 import store from '../Store/Index';
-import DefinedType from '../ViewModels/DefinedTypeViewModel';
+import { DefinedType } from '@Obsidian/ViewModels';
 
 export default createCommonEntityPicker(
     'DefinedType',

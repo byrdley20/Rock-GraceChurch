@@ -1,5 +1,5 @@
 import { PropType } from 'vue';
-import AttributeValue from '../ViewModels/AttributeValueViewModel';
+import { AttributeValue } from '@Obsidian/ViewModels';
 declare const _default: import("vue").DefineComponent<{
     isEditMode: {
         type: PropType<boolean>;

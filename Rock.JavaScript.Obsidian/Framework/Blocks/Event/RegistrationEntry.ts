@@ -35,7 +35,7 @@ import Page from '../../Util/Page';
 import { RegistrationEntryBlockArgs } from './RegistrationEntry/RegistrationEntryBlockArgs';
 import { InvokeBlockActionFunc } from '../../Controls/RockBlock';
 import JavaScriptAnchor from '../../Elements/JavaScriptAnchor';
-import Person from '../../ViewModels/PersonViewModel';
+import { Person } from '@Obsidian/ViewModels';
 import SessionRenewal from './RegistrationEntry/SessionRenewal';
 
 export enum Step

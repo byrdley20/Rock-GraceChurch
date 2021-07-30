@@ -1,7 +1,7 @@
 import { Guid } from '../../Util/Guid';
 import { RegistrantInfo, RegistrantsSameFamily, RegistrarInfo, RegistrationEntryBlockFormViewModel, RegistrationEntryBlockSuccessViewModel, RegistrationEntryBlockViewModel, RegistrationPersonFieldType } from './RegistrationEntry/RegistrationEntryBlockViewModel';
 import { ProgressTrackerItem } from '../../Elements/ProgressTracker';
-import Person from '../../ViewModels/PersonViewModel';
+import { Person } from '@Obsidian/ViewModels';
 export declare enum Step {
     'intro' = "intro",
     'registrationStartForm' = "registrationStartForm",
@@ -75,26 +75,8 @@ declare const _default: import("vue").DefineComponent<{}, {
                     isRequired: boolean;
                     isSharedValue: boolean;
                     attribute: {
-                        id: number;
                         abbreviatedName: string | null;
                         allowSearch: boolean;
-                        attributes: {
-                            [x: string]: {
-                                id: number;
-                                attribute: any | null;
-                                attributeId: number;
-                                attributes: any | null;
-                                entityId: number | null;
-                                isSystem: boolean;
-                                value: string | null;
-                                valueAsNumeric: number | null;
-                                createdDateTime: string | null;
-                                modifiedDateTime: string | null;
-                                createdByPersonAliasId: number | null;
-                                modifiedByPersonAliasId: number | null;
-                                guid: string;
-                            };
-                        } | null;
                         categoryGuids: string[];
                         defaultValue: string | null;
                         description: string | null;
@@ -127,7 +109,25 @@ declare const _default: import("vue").DefineComponent<{}, {
                         modifiedDateTime: string | null;
                         createdByPersonAliasId: number | null;
                         modifiedByPersonAliasId: number | null;
+                        id: number;
                         guid: string;
+                        attributes: {
+                            [x: string]: {
+                                attribute: any | null;
+                                attributeId: number;
+                                entityId: number | null;
+                                isSystem: boolean;
+                                value: string | null;
+                                valueAsNumeric: number | null;
+                                createdDateTime: string | null;
+                                modifiedDateTime: string | null;
+                                createdByPersonAliasId: number | null;
+                                modifiedByPersonAliasId: number | null;
+                                id: number;
+                                guid: string;
+                                attributes: any | null;
+                            };
+                        } | null;
                     };
                     visibilityRuleType: import("./RegistrationEntry/RegistrationEntryBlockViewModel").FilterExpressionType;
                     visibilityRules: {
@@ -163,26 +163,8 @@ declare const _default: import("vue").DefineComponent<{}, {
                 };
             }[];
             registrationAttributesStart: {
-                id: number;
                 abbreviatedName: string | null;
                 allowSearch: boolean;
-                attributes: {
-                    [x: string]: {
-                        id: number;
-                        attribute: any | null;
-                        attributeId: number;
-                        attributes: any | null;
-                        entityId: number | null;
-                        isSystem: boolean;
-                        value: string | null;
-                        valueAsNumeric: number | null;
-                        createdDateTime: string | null;
-                        modifiedDateTime: string | null;
-                        createdByPersonAliasId: number | null;
-                        modifiedByPersonAliasId: number | null;
-                        guid: string;
-                    };
-                } | null;
                 categoryGuids: string[];
                 defaultValue: string | null;
                 description: string | null;
@@ -215,29 +197,29 @@ declare const _default: import("vue").DefineComponent<{}, {
                 modifiedDateTime: string | null;
                 createdByPersonAliasId: number | null;
                 modifiedByPersonAliasId: number | null;
+                id: number;
                 guid: string;
+                attributes: {
+                    [x: string]: {
+                        attribute: any | null;
+                        attributeId: number;
+                        entityId: number | null;
+                        isSystem: boolean;
+                        value: string | null;
+                        valueAsNumeric: number | null;
+                        createdDateTime: string | null;
+                        modifiedDateTime: string | null;
+                        createdByPersonAliasId: number | null;
+                        modifiedByPersonAliasId: number | null;
+                        id: number;
+                        guid: string;
+                        attributes: any | null;
+                    };
+                } | null;
             }[];
             registrationAttributesEnd: {
-                id: number;
                 abbreviatedName: string | null;
                 allowSearch: boolean;
-                attributes: {
-                    [x: string]: {
-                        id: number;
-                        attribute: any | null;
-                        attributeId: number;
-                        attributes: any | null;
-                        entityId: number | null;
-                        isSystem: boolean;
-                        value: string | null;
-                        valueAsNumeric: number | null;
-                        createdDateTime: string | null;
-                        modifiedDateTime: string | null;
-                        createdByPersonAliasId: number | null;
-                        modifiedByPersonAliasId: number | null;
-                        guid: string;
-                    };
-                } | null;
                 categoryGuids: string[];
                 defaultValue: string | null;
                 description: string | null;
@@ -270,7 +252,25 @@ declare const _default: import("vue").DefineComponent<{}, {
                 modifiedDateTime: string | null;
                 createdByPersonAliasId: number | null;
                 modifiedByPersonAliasId: number | null;
+                id: number;
                 guid: string;
+                attributes: {
+                    [x: string]: {
+                        attribute: any | null;
+                        attributeId: number;
+                        entityId: number | null;
+                        isSystem: boolean;
+                        value: string | null;
+                        valueAsNumeric: number | null;
+                        createdDateTime: string | null;
+                        modifiedDateTime: string | null;
+                        createdByPersonAliasId: number | null;
+                        modifiedByPersonAliasId: number | null;
+                        id: number;
+                        guid: string;
+                        attributes: any | null;
+                    };
+                } | null;
             }[];
             forceEmailUpdate: boolean;
             registrarOption: import("./RegistrationEntry/RegistrationEntryBlockViewModel").RegistrarOption;

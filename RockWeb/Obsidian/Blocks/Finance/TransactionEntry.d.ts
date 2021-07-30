@@ -2,9 +2,7 @@ import DefinedTypeGuids from '../../SystemGuid/DefinedType';
 import { Guid } from '../../Util/Guid';
 import { InvokeBlockActionFunc } from '../../Controls/RockBlock';
 import { ConfigurationValues } from '../../Index';
-import Person from '../../ViewModels/PersonViewModel';
-import FinancialAccount from '../../ViewModels/FinancialAccountViewModel';
-import Campus from '../../ViewModels/CampusViewModel';
+import { Campus, FinancialAccount, Person } from '@Obsidian/ViewModels';
 import { RockDateType } from '../../Util/RockDate';
 import { GatewayControlModel } from '../../Controls/GatewayControl';
 export declare type ProcessTransactionArgs = {

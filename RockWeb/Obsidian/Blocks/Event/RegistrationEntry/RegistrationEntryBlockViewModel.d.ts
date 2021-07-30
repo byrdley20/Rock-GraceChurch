@@ -1,6 +1,6 @@
 import { GatewayControlModel } from '../../../Controls/GatewayControl';
 import { Guid } from '../../../Util/Guid';
-import Attribute from '../../../ViewModels/AttributeViewModel';
+import { Attribute } from '@Obsidian/ViewModels';
 import { RegistrationEntryBlockSession } from './RegistrationEntryBlockArgs';
 export declare enum RegistrationPersonFieldType {
     FirstName = 0,

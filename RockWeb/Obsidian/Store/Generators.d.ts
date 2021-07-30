@@ -4,7 +4,7 @@ import { Module } from 'vuex';
 import { RootState } from './Index';
 import { CommonEntity } from './CommonEntities';
 import { Guid } from '../Util/Guid';
-import Entity from '../ViewModels/Entity';
+import { Entity } from '@Obsidian/ViewModels';
 export declare type CommonEntityOption = {
     guid: Guid;
     id: number;

@@ -25,8 +25,7 @@ import JavaScriptAnchor from '../../Elements/JavaScriptAnchor';
 import RockForm from '../../Controls/RockForm';
 import TextBox from '../../Elements/TextBox';
 import RockButton from '../../Elements/RockButton';
-import Person from '../../ViewModels/PersonViewModel';
-import AttributeValue from '../../ViewModels/AttributeValueViewModel';
+import { Person, AttributeValue } from '@Obsidian/ViewModels';
 import AttributeValuesContainer from '../../Controls/AttributeValuesContainer';
 
 export default defineComponent({

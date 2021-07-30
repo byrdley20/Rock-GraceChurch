@@ -599,6 +599,7 @@ th[align="right"] {
         padding-right: 12px;
         text-align: right;
         font-size: @font-size-base;
+        line-height: @line-height-base;
       }
 
       .form-control-static {
@@ -658,7 +659,8 @@ th[align="right"] {
   }
 
   .panel-body {
-      .grid.grid-panel {
+    .panel-fullwidth,
+    .grid.grid-panel {
       margin: 0 -@panel-body-padding;
       // TODO: WAS NEEDED FOR BORDER RADIUS TRIM
       // overflow: hidden;

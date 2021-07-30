@@ -27,9 +27,9 @@ declare const _default: import("vue").DefineComponent<{
         type: PropType<string>;
         default: string;
     };
-}, void, unknown, {
-    fieldComponent(): Component | null;
-}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+}, {
+    fieldComponent: import("vue").ComputedRef<Component<any, any, any, import("vue").ComputedOptions, import("vue").MethodOptions>>;
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     fieldTypeGuid?: unknown;
     rules?: unknown;
 } & {

@@ -60,11 +60,9 @@ export default defineComponent({
     },
     setup(props) {
         const isRequired = computed(() => props.rules.includes('required'));
-        provide('isRequired', isRequired);
-    },
-    computed: {
-        fieldComponent(): Component | null {
-            const field = getFieldTypeComponent(this.fieldTypeGuid);
+
+        const fieldComponent = computed(() => {
+            const field = getFieldTypeComponent(props.fieldTypeGuid);
 
             if (!field) {
                 // Fallback to text field
@@ -72,7 +70,13 @@ export default defineComponent({
             }
 
             return field;
-        }
+        });
+
+        provide('isRequired', isRequired);
+
+        return {
+            fieldComponent
+        };
     },
     template: `
 <component :is="fieldComponent" :rules="rules" />`

@@ -1,4 +1,4 @@
-import DefinedTypeGuids from '../../SystemGuid/DefinedType';
+import { DefinedType } from '@Obsidian/SystemGuids';
 import { Guid } from '../../Util/Guid';
 import { InvokeBlockActionFunc } from '../../Controls/RockBlock';
 import { ConfigurationValues } from '../../Index';
@@ -42,7 +42,7 @@ declare const _default: import("vue").DefineComponent<{}, {
     doGatewayControlSubmit: boolean;
     pageIndex: number;
     page1Error: string;
-    frequencyDefinedTypeGuid: DefinedTypeGuids;
+    frequencyDefinedTypeGuid: DefinedType;
     args: ProcessTransactionArgs;
 }, {
     totalAmount(): number;

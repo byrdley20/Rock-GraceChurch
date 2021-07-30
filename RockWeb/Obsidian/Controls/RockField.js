@@ -69,16 +69,17 @@ System.register(["../Fields/Index", "vue", "../Fields/TextField", "../Fields/Boo
                 },
                 setup(props) {
                     const isRequired = vue_1.computed(() => props.rules.includes('required'));
-                    vue_1.provide('isRequired', isRequired);
-                },
-                computed: {
-                    fieldComponent() {
-                        const field = Index_1.getFieldTypeComponent(this.fieldTypeGuid);
+                    const fieldComponent = vue_1.computed(() => {
+                        const field = Index_1.getFieldTypeComponent(props.fieldTypeGuid);
                         if (!field) {
                             return TextField_1.default;
                         }
                         return field;
-                    }
+                    });
+                    vue_1.provide('isRequired', isRequired);
+                    return {
+                        fieldComponent
+                    };
                 },
                 template: `
 <component :is="fieldComponent" :rules="rules" />`

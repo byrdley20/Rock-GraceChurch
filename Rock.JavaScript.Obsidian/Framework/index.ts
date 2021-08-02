@@ -36,15 +36,15 @@ export type PageConfig = {
     executionStartTime: Date;
     pageId: number;
     pageGuid: Guid;
-    pageParameters: Record<string, unknown>,
-    currentPerson: Person | null,
-    contextEntities: Record<string, Entity>,
-    loginUrlWithReturnUrl: string
+    pageParameters: Record<string, unknown>;
+    currentPerson: Person | null;
+    contextEntities: Record<string, Entity>;
+    loginUrlWithReturnUrl: string;
 };
 
 type DebugTimingConfig = {
     elementId: string;
-    debugTimingViewModels: DebugTimingViewModel[]
+    debugTimingViewModels: DebugTimingViewModel[];
 };
 
 /**
@@ -122,7 +122,7 @@ export async function initializePage ( pageConfig: PageConfig )
  */
 export function initializePageTimings ( config: DebugTimingConfig )
 {
-    const rootElement = document.getElementById( config.elementId );
+    const rootElement = document.getElementById(config.elementId);
 
     if ( !rootElement )
     {

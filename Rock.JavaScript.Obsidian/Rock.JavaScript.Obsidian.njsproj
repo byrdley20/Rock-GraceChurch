@@ -179,7 +179,7 @@
     <TypeScriptCompile Include="Framework\Fields\SingleSelect.ts" />
     <TypeScriptCompile Include="Framework\Fields\TextField.ts" />
     <TypeScriptCompile Include="Framework\Fields\TimeField.ts" />
-    <TypeScriptCompile Include="Framework\index.ts" />
+    <TypeScriptCompile Include="Framework\Index.ts" />
     <TypeScriptCompile Include="Framework\Rules\Index.ts" />
     <TypeScriptCompile Include="Framework\Services\Boolean.ts" />
     <TypeScriptCompile Include="Framework\Services\Date.ts" />
@@ -188,8 +188,8 @@
     <TypeScriptCompile Include="Framework\Services\Number.ts" />
     <TypeScriptCompile Include="Framework\Services\String.ts" />
     <TypeScriptCompile Include="Framework\Store\CommonEntities.ts" />
-    <TypeScriptCompile Include="Framework\Store\generators.ts" />
-    <TypeScriptCompile Include="Framework\Store\index.ts" />
+    <TypeScriptCompile Include="Framework\Store\Generators.ts" />
+    <TypeScriptCompile Include="Framework\Store\Index.ts" />
     <TypeScriptCompile Include="Framework\SystemGuids\CodeGenerated\AchievementType.d.ts" />
     <TypeScriptCompile Include="Framework\SystemGuids\CodeGenerated\AssessmentType.d.ts" />
     <TypeScriptCompile Include="Framework\SystemGuids\CodeGenerated\Attribute.d.ts" />
@@ -231,10 +231,10 @@
     <TypeScriptCompile Include="Framework\Templates\PaneledBlockTemplate.ts" />
     <TypeScriptCompile Include="Framework\Tests\Elements\RockFormField.spec.ts" />
     <TypeScriptCompile Include="Framework\Tests\Elements\TextBox.spec.ts" />
-    <TypeScriptCompile Include="Framework\Util\bus.ts" />
-    <TypeScriptCompile Include="Framework\Util\cache.ts" />
-    <TypeScriptCompile Include="Framework\Util\guid.ts" />
-    <TypeScriptCompile Include="Framework\Util\http.ts" />
+    <TypeScriptCompile Include="Framework\Util\Bus.ts" />
+    <TypeScriptCompile Include="Framework\Util\Cache.ts" />
+    <TypeScriptCompile Include="Framework\Util\Guid.ts" />
+    <TypeScriptCompile Include="Framework\Util\Http.ts" />
     <TypeScriptCompile Include="Framework\Util\Page.ts" />
     <TypeScriptCompile Include="Framework\Util\RockDate.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\AchievementAttempt.d.ts" />

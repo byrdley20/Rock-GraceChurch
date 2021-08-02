@@ -2,7 +2,8 @@
   "compilerOptions": {
     "outDir": "../dist/Framework",
     "rootDir": ".",
-    "declaration": true,
+    "declaration": false,
+    "incremental": true,
     "noImplicitAny": true,
     "noEmitOnError": true,
     "removeComments": true,

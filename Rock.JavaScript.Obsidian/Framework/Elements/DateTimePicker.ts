@@ -15,21 +15,27 @@
 // </copyright>
 //
 import { defineComponent, PropType } from 'vue';
-import { toNumber } from '../Services/Number';
+import { toNumber } from '@Obsidian/Services/Number';
 import  { RockDateType } from '../Util/RockDate';
 import RockFormField from './RockFormField';
 import TextBox from './TextBox';
 import BasicTimePicker from './BasicTimePicker';
 import { TimePickerModelValue } from './TimePicker';
-import { padLeft } from '../Services/String';
+import { padLeft } from '@Obsidian/Services/String';
 
 type Rock = {
     controls: {
         datePicker: {
             initialize: (args: Record<string, unknown>) => void;
-        }
-    }
+        };
+    };
 };
+
+declare global {
+    interface Window {
+        Rock: Rock;
+    }
+}
 
 export default defineComponent({
     name: 'DateTimePicker',
@@ -113,14 +119,14 @@ export default defineComponent({
     watch: {
         isCurrentDateOffset: {
             immediate: true,
-            handler() {
+            handler(): void {
                 if (!this.isCurrentDateOffset) {
                     this.currentDiff = '0';
                 }
             }
         },
 
-        valueToEmit() {
+        valueToEmit(): void {
             if (!this.skipEmit) {
                 this.$emit('update:modelValue', this.valueToEmit);
             }
@@ -128,7 +134,7 @@ export default defineComponent({
 
         modelValue: {
             immediate: true,
-            handler() {
+            handler(): void {
                 if (!this.modelValue) {
                     this.internalDateValue = null;
                     this.internalTimeValue = {};
@@ -173,7 +179,7 @@ export default defineComponent({
     mounted() {
         const input = this.$refs['input'] as HTMLInputElement;
         const inputId = input.id;
-        const Rock = (window[<any>'Rock'] as unknown) as Rock;
+        const Rock = window.Rock;
 
         Rock.controls.datePicker.initialize({
             id: inputId,

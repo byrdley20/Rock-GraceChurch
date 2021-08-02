@@ -1,4 +1,4 @@
-System.register(["vue", "./Index", "../Elements/TimePicker", "../Services/Number", "../Services/String"], function (exports_1, context_1) {
+System.register(["vue", "./Index", "../Elements/TimePicker", "@Obsidian/Services/Number", "@Obsidian/Services/String"], function (exports_1, context_1) {
     "use strict";
     var vue_1, Index_1, TimePicker_1, Number_1, String_1, fieldTypeGuid, ConfigurationValueKey;
     var __moduleName = context_1 && context_1.id;
@@ -66,7 +66,7 @@ System.register(["vue", "./Index", "../Elements/TimePicker", "../Services/Number
                         immediate: true,
                         handler() {
                             var _a;
-                            var values = /^(\d+):(\d+)/.exec((_a = this.modelValue) !== null && _a !== void 0 ? _a : "");
+                            const values = /^(\d+):(\d+)/.exec((_a = this.modelValue) !== null && _a !== void 0 ? _a : "");
                             if (values !== null) {
                                 this.internalTimeValue = {
                                     hour: Number_1.toNumber(values[1]),

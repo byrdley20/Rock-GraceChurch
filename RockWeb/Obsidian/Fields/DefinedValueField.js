@@ -1,4 +1,4 @@
-System.register(["vue", "./Index", "../Controls/DefinedValuePicker", "../Services/Number", "../Services/Boolean"], function (exports_1, context_1) {
+System.register(["vue", "./Index", "../Controls/DefinedValuePicker", "@Obsidian/Services/Number", "@Obsidian/Services/Boolean"], function (exports_1, context_1) {
     "use strict";
     var vue_1, Index_1, DefinedValuePicker_1, Number_1, Boolean_1, fieldTypeGuid, ConfigurationValueKey;
     var __moduleName = context_1 && context_1.id;

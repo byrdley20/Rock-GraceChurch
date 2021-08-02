@@ -17,7 +17,7 @@
 import { defineComponent } from 'vue';
 import { Guid } from '../Util/Guid';
 import { registerFieldType, getFieldTypeProps } from './Index';
-import { toNumber } from '../Services/Number';
+import { toNumber } from '@Obsidian/Services/Number';
 import DatePartsPicker, { DatePartsPickerModel } from '../Elements/DatePartsPicker';
 
 const fieldTypeGuid: Guid = '8BED8DD8-8167-4052-B807-A1E72C133611';
@@ -65,7 +65,7 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
          * Watch for changes to internalValue and emit the new value out to
          * the consuming component.
          */
-        internalValue() {
+        internalValue(): void {
             const value = this.internalValue.month !== 0 && this.internalValue.day !== 0
                 ? `${this.internalValue.month}/${this.internalValue.day}`
                 : "";
@@ -79,7 +79,7 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
          */
         modelValue: {
             immediate: true,
-            handler() {
+            handler(): void {
                 const components = (this.modelValue || "").split("/");
 
                 if (components.length == 2) {

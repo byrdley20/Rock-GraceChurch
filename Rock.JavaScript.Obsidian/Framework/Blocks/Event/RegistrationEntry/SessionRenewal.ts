@@ -20,8 +20,8 @@ import Dialog from '../../../Controls/Dialog';
 import { InvokeBlockActionFunc } from '../../../Controls/RockBlock';
 import LoadingIndicator from '../../../Elements/LoadingIndicator';
 import RockButton from '../../../Elements/RockButton';
-import { toWord } from '../../../Services/Number';
-import { pluralConditional } from '../../../Services/String';
+import { toWord } from '@Obsidian/Services/Number';
+import { pluralConditional } from '@Obsidian/Services/String';
 import { RegistrationEntryState } from '../RegistrationEntry';
 import { SessionRenewalResult } from './RegistrationEntryBlockViewModel';
 
@@ -94,73 +94,62 @@ export default defineComponent( {
         pluralConditional,
 
         /** Restart the registration by reloading the page */
-        restart ()
-        {
+        restart(): void {
             this.isLoading = true;
             location.reload();
         },
 
         /** Close the modal and continue on */
-        close ()
-        {
+        close(): void {
             this.isModalVisible = false;
 
-            this.$nextTick( () =>
-            {
+            this.$nextTick(() => {
                 this.spotsSecured = null;
                 this.isLoading = false;
-            } );
+            });
         },
 
         /** Attempt to renew the session and get more time */
-        async requestRenewal ()
-        {
+        async requestRenewal(): Promise<void> {
             this.spotsSecured = 0;
             this.isLoading = true;
 
-            try
-            {
-                const response = await this.invokeBlockAction<SessionRenewalResult>( 'TryToRenewSession', {
+            try {
+                const response = await this.invokeBlockAction<SessionRenewalResult>('TryToRenewSession', {
                     registrationSessionGuid: this.registrationEntryState.registrationSessionGuid
-                } );
+                });
 
-                if ( response.data )
-                {
-                    const asDate = new Date( response.data.expirationDateTime );
+                if (response.data) {
+                    const asDate = new Date(response.data.expirationDateTime);
                     this.registrationEntryState.sessionExpirationDate = asDate;
                     this.spotsSecured = response.data.spotsSecured;
 
                     // If there is a deficiency, then update the state to reflect the reduced spots available
                     let deficiency = this.nonWaitlistRegistrantCount - this.spotsSecured;
 
-                    if ( !deficiency )
-                    {
-                        this.$emit( 'success' );
+                    if (!deficiency) {
+                        this.$emit('success');
                         this.close();
                         return;
                     }
 
                     this.registrationEntryState.viewModel.spotsRemaining = this.spotsSecured;
 
-                    if ( !this.hasWaitlist )
-                    {
+                    if (!this.hasWaitlist) {
                         // Reduce the registrants down to fit the spots available
                         this.registrationEntryState.registrants.length = this.spotsSecured;
                         return;
                     }
 
                     // Work backward through the registrants until the deficiency is removed
-                    for ( let i = this.allRegistrantCount - 1; i >= 0; i-- )
-                    {
-                        if ( !deficiency )
-                        {
+                    for (let i = this.allRegistrantCount - 1; i >= 0; i--) {
+                        if (!deficiency) {
                             break;
                         }
 
-                        const registrant = this.registrationEntryState.registrants[ i ];
+                        const registrant = this.registrationEntryState.registrants[i];
 
-                        if ( registrant.isOnWaitList )
-                        {
+                        if (registrant.isOnWaitList) {
                             continue;
                         }
 
@@ -169,17 +158,14 @@ export default defineComponent( {
                     }
                 }
             }
-            finally
-            {
+            finally {
                 this.isLoading = false;
             }
         }
     },
     watch: {
-        isSessionExpired ()
-        {
-            if ( this.isSessionExpired )
-            {
+        isSessionExpired(): void {
+            if (this.isSessionExpired) {
                 this.spotsSecured = null;
                 this.isModalVisible = true;
             }

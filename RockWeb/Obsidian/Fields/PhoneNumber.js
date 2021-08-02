@@ -1,4 +1,4 @@
-System.register(["vue", "./Index", "../Services/String", "../Elements/PhoneNumberBox"], function (exports_1, context_1) {
+System.register(["vue", "./Index", "@Obsidian/Services/String", "../Elements/PhoneNumberBox"], function (exports_1, context_1) {
     "use strict";
     var vue_1, Index_1, String_1, PhoneNumberBox_1, fieldTypeGuid;
     var __moduleName = context_1 && context_1.id;

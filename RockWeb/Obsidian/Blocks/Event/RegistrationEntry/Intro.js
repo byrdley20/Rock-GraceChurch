@@ -1,4 +1,4 @@
-System.register(["vue", "../../../Elements/Alert", "../../../Elements/NumberUpDown", "../../../Elements/RockButton", "../../../Services/String", "../../../Util/Guid", "../RegistrationEntry"], function (exports_1, context_1) {
+System.register(["vue", "../../../Elements/Alert", "../../../Elements/NumberUpDown", "../../../Elements/RockButton", "@Obsidian/Services/String", "../../../Util/Guid", "../RegistrationEntry"], function (exports_1, context_1) {
     "use strict";
     var vue_1, Alert_1, NumberUpDown_1, RockButton_1, String_1, Guid_1, RegistrationEntry_1;
     var __moduleName = context_1 && context_1.id;

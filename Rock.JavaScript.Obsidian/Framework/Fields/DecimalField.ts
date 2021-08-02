@@ -17,7 +17,7 @@
 import { defineComponent } from 'vue';
 import { Guid } from '../Util/Guid';
 import { registerFieldType, getFieldTypeProps } from './Index';
-import { toNumberOrNull } from '../Services/Number';
+import { toNumberOrNull } from '@Obsidian/Services/Number';
 import NumberBox from '../Elements/NumberBox';
 
 const fieldTypeGuid: Guid = 'C757A554-3009-4214-B05D-CEA2B2EA6B8F';
@@ -48,7 +48,7 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
          * Watch for changes to internalValue and emit the new value out to
          * the consuming component.
          */
-        internalValue() {
+        internalValue(): void {
             this.$emit('update:modelValue', this.internalValue !== null ? this.internalValue.toString() : '');
         },
 
@@ -58,7 +58,7 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
          */
         modelValue: {
             immediate: true,
-            handler() {
+            handler(): void {
                 this.internalValue = toNumberOrNull(this.modelValue || '');
             }
         }

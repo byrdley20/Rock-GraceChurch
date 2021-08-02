@@ -20,7 +20,7 @@ import { InvokeBlockActionFunc } from '../../../Controls/RockBlock';
 import Alert from '../../../Elements/Alert';
 import RockButton from '../../../Elements/RockButton';
 import TextBox from '../../../Elements/TextBox';
-import { asFormattedString } from '../../../Services/Number';
+import { asFormattedString } from '@Obsidian/Services/Number';
 import { RegistrationEntryState } from '../RegistrationEntry';
 import {  RegistrationEntryBlockViewModel } from './RegistrationEntryBlockViewModel';
 
@@ -92,7 +92,7 @@ export default defineComponent( {
     methods: {
         /** Send a user input discount code to the server so the server can check and send back
          *  the discount amount. */
-        async tryDiscountCode ()
+        async tryDiscountCode (): Promise<void>
         {
             this.loading = true;
 
@@ -123,8 +123,7 @@ export default defineComponent( {
     watch: {
         'registrationEntryState.DiscountCode': {
             immediate: true,
-            handler ()
-            {
+            handler(): void {
                 this.discountCodeInput = this.registrationEntryState.discountCode;
             }
         }

@@ -21,7 +21,7 @@ import { InvokeBlockActionFunc } from '../../../Controls/RockBlock';
 import CurrencyBox from '../../../Elements/CurrencyBox';
 import HelpBlock from '../../../Elements/HelpBlock';
 import { ruleArrayToString } from '../../../Rules/Index';
-import { asFormattedString } from '../../../Services/Number';
+import { asFormattedString } from '@Obsidian/Services/Number';
 import { RegistrationEntryState } from '../RegistrationEntry';
 import { RegistrationEntryBlockArgs } from './RegistrationEntryBlockArgs';
 
@@ -31,24 +31,24 @@ enum RegistrationCostSummaryType
     Fee = 1,
     Discount = 2,
     Total = 3
-};
+}
 
 interface LineItem {
-    type: RegistrationCostSummaryType,
-    description: string,
-    cost: number,
-    discountedCost: number,
-    minPayment: number,
-    defaultPayment: number | null
-};
+    type: RegistrationCostSummaryType;
+    description: string;
+    cost: number;
+    discountedCost: number;
+    minPayment: number;
+    defaultPayment: number | null;
+}
 
 interface AugmentedLineItem extends LineItem
 {
-    isFee: boolean,
-    discountHelp: string,
-    discountedAmountFormatted: string,
-    amountFormatted: string
-};
+    isFee: boolean;
+    discountHelp: string;
+    discountedAmountFormatted: string;
+    amountFormatted: string;
+}
 
 export default defineComponent( {
     name: 'Event.RegistrationEntry.CostSummary',
@@ -115,8 +115,8 @@ export default defineComponent( {
             {
                 if ( li.defaultPayment )
                 {
-                    hasDefault = true
-                    total += li.defaultPayment
+                    hasDefault = true;
+                    total += li.defaultPayment;
                 }
             } );
 
@@ -227,7 +227,7 @@ export default defineComponent( {
         /** The vee-validate rules for the amount to pay today */
         amountToPayTodayRules (): string
         {
-            var rules: string[] = [ 'required' ];
+            const rules: string[] = [ 'required' ];
             let min = this.amountDueToday;
             const max = this.maxAmountCanBePaid;
 
@@ -243,24 +243,20 @@ export default defineComponent( {
     },
     methods: {
         /** Retrieve the line item costs from the server */
-        async fetchData ()
-        {
+        async fetchData(): Promise<void> {
             this.isLoading = true;
             this.lineItems = [];
 
-            try
-            {
-                const response = await this.invokeBlockAction<LineItem[]>( 'CalculateCost', {
+            try {
+                const response = await this.invokeBlockAction<LineItem[]>('CalculateCost', {
                     args: this.getRegistrationEntryBlockArgs()
-                } );
+                });
 
-                if ( response.data )
-                {
+                if (response.data) {
                     this.lineItems = response.data;
                 }
             }
-            finally
-            {
+            finally {
                 this.isLoading = false;
             }
         }
@@ -272,14 +268,12 @@ export default defineComponent( {
     watch: {
         defaultPaymentAmount: {
             immediate: true,
-            handler ()
-            {
+            handler(): void {
                 this.registrationEntryState.amountToPayToday = this.defaultPaymentAmount;
             }
         },
 
-        async 'registrationEntryState.DiscountCode' ()
-        {
+        async 'registrationEntryState.DiscountCode'(): Promise<void> {
             await this.fetchData();
         }
     },

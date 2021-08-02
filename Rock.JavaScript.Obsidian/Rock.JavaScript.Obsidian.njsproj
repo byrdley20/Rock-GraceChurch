@@ -30,6 +30,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="Core\.eslintrc.js" />
     <Content Include="Framework\.eslintrc.js" />
     <Content Include="Framework\tsconfig.json" />
     <Content Include="webpack-eol-plugin.js" />

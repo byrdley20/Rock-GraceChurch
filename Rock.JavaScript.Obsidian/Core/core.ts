@@ -1,6 +1,23 @@
 import "systemjs";
 
 /**
+ * A map for a package name to it's URL path.
+ */
+declare type PackageMap = {
+    /** The name of the package that will be used during imports. */
+    package: string;
+
+    /** The alias to be used instead of the requested import name. */
+    alias: string;
+
+    /**
+     * True if this is a wild card package. That is, if a '*' character was
+     * found that will be used for substitution.
+     */
+    wildcard: boolean;
+}
+
+/**
  * Describes the export names from the vendor bundle.
  */
 const vendorMaps: Record<string, string> = {
@@ -9,6 +26,13 @@ const vendorMaps: Record<string, string> = {
     "vee-validate": "VeeValidate",
     "vue": "Vue",
     "vuex": "Vuex"
+};
+
+/**
+ * Describes the alias maps for package paths.
+ */
+const packageMaps: Record<string, string> = {
+    "@Obsidian/Services/*": "/Obsidian/Services/*"
 };
 
 /**
@@ -34,6 +58,22 @@ class Obsidian {
     /** The options Obsidian was initialized with. */
     private options!: Required<ObsidianOptions>;
 
+    /** The package maps that have been parsed. */
+    private packageMaps: PackageMap[];
+
+    /** Creates a new instance of the Obsidian core framework. */
+    constructor() {
+        this.packageMaps = [];
+
+        for (const packageId in packageMaps) {
+            this.packageMaps.push({
+                package: packageId.replace("*", ""),
+                alias: packageMaps[packageId],
+                wildcard: packageId.indexOf("*") !== -1
+            });
+        }
+    }
+
     /**
      * Registers a callback to be called when the Obsidian framework is ready.
      * 
@@ -51,13 +91,13 @@ class Obsidian {
     /**
      * Configures SystemJS to append the default extension.
      */
-    private configureDefaultExtension() {
+    private configureDefaultExtension(): void {
         const origResolve = System.constructor.prototype.resolve;
-        const defaultExtension = '.js';
-        const expectedExtensions = [defaultExtension, '.ts', '.css', '.json'];
+        const defaultExtension = ".js";
+        const expectedExtensions = [defaultExtension, ".ts", ".css", ".json"];
 
-        System.constructor.prototype.resolve = function (moduleId: string, ...args: any[]) {
-            const isPackage = moduleId.indexOf('/') === -1 && moduleId.indexOf('\\') === -1;
+        System.constructor.prototype.resolve = function (moduleId: string, ...args: unknown[]): string {
+            const isPackage = moduleId.indexOf("/") === -1 && moduleId.indexOf("\\") === -1;
             const hasExtension = expectedExtensions.some(ext => moduleId.endsWith(ext));
 
             return origResolve.call(
@@ -71,23 +111,23 @@ class Obsidian {
     /**
      * Configures SystemJS to append the default extension.
      */
-    private configureThumbprint() {
+    private configureThumbprint(): void {
         const origResolve = System.constructor.prototype.resolve;
-        const defaultExtension = '.js';
-        const expectedExtensions = [defaultExtension, '.ts', '.css', '.json'];
-        const obsidian = this;
+        const defaultExtension = ".js";
+        const expectedExtensions = [defaultExtension, ".ts", ".css", ".json"];
+        const options = this.options;
 
-        System.constructor.prototype.resolve = function (moduleId: string, ...args: any[]) {
-            let url = origResolve.call(this, moduleId, ...args);
+        System.constructor.prototype.resolve = function (moduleId: string, ...args: unknown[]): string {
+            let url = origResolve.call(this, moduleId, ...args) as string;
 
             const hasExtension = expectedExtensions.some(ext => url.endsWith(ext));
 
             if (hasExtension) {
                 if (url.indexOf("?") === -1) {
-                    url += `?${obsidian.options.fingerprint}`;
+                    url += `?${options.fingerprint}`;
                 }
                 else {
-                    url += `&${obsidian.options.fingerprint}`;
+                    url += `&${options.fingerprint}`;
                 }
             }
 
@@ -98,27 +138,27 @@ class Obsidian {
     /**
      * Configures any modules that are bundled in this script file.
      */
-    private configureBundledMaps() {
+    private configureBundledMaps(): void {
         // Instruct SystemJS to accept the module name if it is a mapped one.
-        var originalResolve = System.constructor.prototype.resolve;
+        const originalResolve = System.constructor.prototype.resolve;
         System.constructor.prototype.resolve = function (id: string, parentUrl?: string): string {
             if (vendorMaps[id] !== undefined) {
                 return id;
             }
 
             return originalResolve(id, parentUrl);
-        }
+        };
 
         // Intercept a request to instantiate a new module and if it is one
         // of our mapped modules then just return it from the bundle.
-        var originalInstantiate = System.constructor.prototype.instantiate;
-        System.constructor.prototype.instantiate = async function (url: string, parentUrl?: string): Promise<any> {
+        const originalInstantiate = System.constructor.prototype.instantiate;
+        System.constructor.prototype.instantiate = async function (url: string, parentUrl?: string): Promise<unknown> {
             if (vendorMaps[url] !== undefined) {
                 const module = await System.import("/Obsidian/obsidian-vendor.js", parentUrl);
 
-                return [[], function (_export: System.ExportFn) {
+                return [[], function (_export: System.ExportFn): System.Declare {
                     return {
-                        execute() {
+                        execute(): void {
                             _export(module[vendorMaps[url]]);
                         }
                     };
@@ -127,13 +167,38 @@ class Obsidian {
             else {
                 return await originalInstantiate.call(this, url, parentUrl);
             }
-        }
+        };
+    }
+
+    /**
+     * Configures any modules that are aliased to specific locations.
+     */
+    private configurePackageMaps(): void {
+        const originalResolve = System.constructor.prototype.resolve;
+        const parsedPackageMaps = this.packageMaps;
+
+        // Instruct SystemJS to accept the package alias if it is a package.
+        System.constructor.prototype.resolve = function (id: string, parentUrl?: string): string {
+            const maps = parsedPackageMaps.filter((pkg) => id.startsWith(pkg.package));
+
+            if (maps.length === 0) {
+                return originalResolve(id, parentUrl);
+            }
+
+            if (maps[0].wildcard) {
+                const packageSuffix = id.substr(maps[0].package.length);
+                return originalResolve(maps[0].alias.replace("*", packageSuffix));
+            }
+            else {
+                return originalResolve(maps[0].alias);
+            }
+        };
     }
 
     /**
      * Initialize the framework.
      */
-    public init(options?: ObsidianOptions) {
+    public init(options?: ObsidianOptions): void {
         this.options = {
             fingerprint: options?.fingerprint ?? ""
         };
@@ -145,6 +210,7 @@ class Obsidian {
         }
 
         this.configureBundledMaps();
+        this.configurePackageMaps();
 
         this.isReady = true;
 

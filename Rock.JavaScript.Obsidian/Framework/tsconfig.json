@@ -21,7 +21,8 @@
     ],
     "paths": {
       "@Obsidian/ViewModels": [ "ViewModels/index" ],
-      "@Obsidian/SystemGuids": [ "SystemGuids/index" ]
+      "@Obsidian/SystemGuids": [ "SystemGuids/index" ],
+      "@Obsidian/Services/*": [ "Services/*" ]
     }
   },
   "exclude": [

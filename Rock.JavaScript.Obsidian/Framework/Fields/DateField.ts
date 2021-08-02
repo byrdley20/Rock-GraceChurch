@@ -19,9 +19,9 @@ import { Guid } from '../Util/Guid';
 import { getFieldTypeProps, registerFieldType } from './Index';
 import DatePicker from '../Elements/DatePicker';
 import { BlockHttp, BlockHttpGet } from '../Controls/RockBlock';
-import { asDateOrNull, asElapsedString, toRockDateOrNull } from '../Services/Date';
-import { asBoolean } from '../Services/Boolean';
-import { toNumber } from '../Services/Number';
+import { asDateOrNull, asElapsedString, toRockDateOrNull } from '@Obsidian/Services/Date';
+import { asBoolean } from '@Obsidian/Services/Boolean';
+import { toNumber } from '@Obsidian/Services/Number';
 import DatePartsPicker, { getDefaultDatePartsPickerModel } from '../Elements/DatePartsPicker';
 
 const fieldTypeGuid: Guid = '6B6AA175-4758-453F-8D83-FCD8044B5F36';
@@ -133,19 +133,16 @@ export default registerFieldType( fieldTypeGuid, defineComponent( {
         }
     },
     methods: {
-        async syncModelValue ()
-        {
+        async syncModelValue(): Promise<void> {
             this.internalValue = this.modelValue || '';
-            const asDate = asDateOrNull( this.modelValue );
+            const asDate = asDateOrNull(this.modelValue);
 
-            if ( asDate )
-            {
+            if (asDate) {
                 this.internalDateParts.year = asDate.getFullYear();
                 this.internalDateParts.month = asDate.getMonth() + 1;
                 this.internalDateParts.day = asDate.getDate();
             }
-            else
-            {
+            else {
                 this.internalDateParts.year = 0;
                 this.internalDateParts.month = 0;
                 this.internalDateParts.day = 0;
@@ -154,79 +151,62 @@ export default registerFieldType( fieldTypeGuid, defineComponent( {
             await this.fetchAndSetFormattedValue();
         },
 
-        async fetchAndSetFormattedValue ()
-        {
-            if ( this.isCurrentDateValue )
-            {
-                const parts = this.internalValue.split( ':' );
-                const diff = parts.length === 2 ? toNumber( parts[ 1 ] ) : 0;
+        async fetchAndSetFormattedValue(): Promise<void> {
+            if (this.isCurrentDateValue) {
+                const parts = this.internalValue.split(':');
+                const diff = parts.length === 2 ? toNumber(parts[1]) : 0;
 
-                if ( diff === 1 )
-                {
+                if (diff === 1) {
                     this.formattedString = 'Current Date plus 1 day';
                 }
-                else if ( diff > 0 )
-                {
+                else if (diff > 0) {
                     this.formattedString = `Current Date plus ${diff} days`;
                 }
-                else if ( diff === -1 )
-                {
+                else if (diff === -1) {
                     this.formattedString = 'Current Date minus 1 day';
                 }
-                else if ( diff < 0 )
-                {
-                    this.formattedString = `Current Date minus ${Math.abs( diff )} days`;
+                else if (diff < 0) {
+                    this.formattedString = `Current Date minus ${Math.abs(diff)} days`;
                 }
-                else
-                {
+                else {
                     this.formattedString = 'Current Date';
                 }
             }
-            else if ( this.isDatePartsPicker && this.datePartsAsDate )
-            {
-                this.formattedString = await this.getFormattedDateString( this.datePartsAsDate, this.dateFormatTemplate );
+            else if (this.isDatePartsPicker && this.datePartsAsDate) {
+                this.formattedString = await this.getFormattedDateString(this.datePartsAsDate, this.dateFormatTemplate);
             }
-            else if ( !this.isDatePartsPicker && this.asDate )
-            {
-                this.formattedString = await this.getFormattedDateString( this.asDate, this.dateFormatTemplate );
+            else if (!this.isDatePartsPicker && this.asDate) {
+                this.formattedString = await this.getFormattedDateString(this.asDate, this.dateFormatTemplate);
             }
-            else
-            {
+            else {
                 this.formattedString = '';
             }
         },
 
-        async getFormattedDateString ( value: Date | string, format: string )
-        {
+        async getFormattedDateString(value: Date | string, format: string): Promise<string> {
             const get = this.http.get as BlockHttpGet;
-            const result = await get<string>( 'api/Utility/FormatDate', { value, format } );
+            const result = await get<string>('api/Utility/FormatDate', { value, format });
             return result.data || `${value}`;
         }
     },
     watch: {
-        datePartsAsDate ()
-        {
-            if ( this.isDatePartsPicker )
-            {
-                this.$emit( 'update:modelValue', toRockDateOrNull( this.datePartsAsDate ) || '' );
+        datePartsAsDate(): void {
+            if (this.isDatePartsPicker) {
+                this.$emit('update:modelValue', toRockDateOrNull(this.datePartsAsDate) || '');
             }
         },
-        internalValue ()
-        {
-            if ( !this.isDatePartsPicker )
-            {
-                this.$emit( 'update:modelValue', this.internalValue || '' );
+        internalValue(): void {
+            if (!this.isDatePartsPicker) {
+                this.$emit('update:modelValue', this.internalValue || '');
             }
         },
         modelValue: {
             immediate: true,
-            async handler ()
-            {
+            async handler(): Promise<void> {
                 await this.syncModelValue();
             }
         },
-        async dateFormatTemplate ()
-        {
+        async dateFormatTemplate(): Promise<void> {
             await this.fetchAndSetFormattedValue();
         }
     },

@@ -1,7 +1,25 @@
-System.register(["../Services/DateKey", "../Services/Email", "../Services/String", "vee-validate", "../Services/Number"], function (exports_1, context_1) {
+System.register(["@Obsidian/Services/DateKey", "@Obsidian/Services/Email", "@Obsidian/Services/String", "vee-validate", "@Obsidian/Services/Number"], function (exports_1, context_1) {
     "use strict";
-    var DateKey_1, Email_1, String_1, vee_validate_1, Number_1, convertToNumber, isNumeric;
+    var DateKey_1, Email_1, String_1, vee_validate_1, Number_1;
     var __moduleName = context_1 && context_1.id;
+    function convertToNumber(value) {
+        if (typeof value === 'number') {
+            return value;
+        }
+        if (typeof value === 'string') {
+            return Number_1.toNumberOrNull(value) || 0;
+        }
+        return 0;
+    }
+    function isNumeric(value) {
+        if (typeof value === 'number') {
+            return true;
+        }
+        if (typeof value === 'string') {
+            return Number_1.toNumberOrNull(value) !== null;
+        }
+        return false;
+    }
     function ruleStringToArray(rulesString) {
         return rulesString.split('|');
     }
@@ -30,7 +48,7 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
         ],
         execute: function () {
             vee_validate_1.defineRule('required', ((value, [optionsJson]) => {
-                const options = optionsJson ? JSON.parse(optionsJson) : {};
+                const options = typeof optionsJson === 'string' ? JSON.parse(optionsJson) : {};
                 if (typeof value === 'string') {
                     const allowEmptyString = !!(options.allowEmptyString);
                     if (!allowEmptyString && String_1.isNullOrWhitespace(value)) {
@@ -86,9 +104,6 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
                         return true;
                     }
                 }
-                else if (value > compare) {
-                    return true;
-                }
                 return `must be greater than ${compare}`;
             }));
             vee_validate_1.defineRule('gte', ((value, [compare]) => {
@@ -99,9 +114,6 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
                     if (convertToNumber(value) >= convertToNumber(compare)) {
                         return true;
                     }
-                }
-                else if (value >= compare) {
-                    return true;
                 }
                 return `must not be less than ${compare}`;
             }));
@@ -114,9 +126,6 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
                         return true;
                     }
                 }
-                else if (value < compare) {
-                    return true;
-                }
                 return `must be less than ${compare}`;
             }));
             vee_validate_1.defineRule('lte', ((value, [compare]) => {
@@ -127,9 +136,6 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
                     if (convertToNumber(value) <= convertToNumber(compare)) {
                         return true;
                     }
-                }
-                else if (value <= compare) {
-                    return true;
                 }
                 return `must not be more than ${compare}`;
             }));
@@ -168,29 +174,11 @@ System.register(["../Services/DateKey", "../Services/Email", "../Services/String
                 if (String_1.isNullOrWhitespace(value)) {
                     return true;
                 }
-                if (/^[0-9]{3}\-[0-9]{2}\-[0-9]{4}$/.test(String(value))) {
+                if (/^[0-9]{3}-[0-9]{2}-[0-9]{4}$/.test(String(value))) {
                     return true;
                 }
                 return "must be a valid social security number";
             });
-            convertToNumber = (value) => {
-                if (typeof value === 'number') {
-                    return value;
-                }
-                if (typeof value === 'string') {
-                    return Number_1.toNumberOrNull(value) || 0;
-                }
-                return 0;
-            };
-            isNumeric = (value) => {
-                if (typeof value === 'number') {
-                    return true;
-                }
-                if (typeof value === 'string') {
-                    return Number_1.toNumberOrNull(value) !== null;
-                }
-                return false;
-            };
         }
     };
 });

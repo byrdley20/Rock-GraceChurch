@@ -1,4 +1,4 @@
-System.register(["vue", "./Index", "../Services/Number", "../Elements/NumberRangeBox"], function (exports_1, context_1) {
+System.register(["vue", "./Index", "@Obsidian/Services/Number", "../Elements/NumberRangeBox"], function (exports_1, context_1) {
     "use strict";
     var vue_1, Index_1, Number_1, NumberRangeBox_1, fieldTypeGuid, ConfigurationValueKey;
     var __moduleName = context_1 && context_1.id;

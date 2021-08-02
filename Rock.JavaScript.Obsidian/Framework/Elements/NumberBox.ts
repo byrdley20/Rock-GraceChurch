@@ -16,7 +16,7 @@
 //
 import { defineComponent, PropType } from 'vue';
 import { ruleArrayToString, ruleStringToArray } from '../Rules/Index';
-import { asFormattedString, toNumberOrNull } from '../Services/Number';
+import { asFormattedString, toNumberOrNull } from '@Obsidian/Services/Number';
 import RockFormField from './RockFormField';
 
 export default defineComponent({
@@ -63,7 +63,7 @@ export default defineComponent({
         };
     },
     methods: {
-        onChange() {
+        onChange(): void {
             this.internalValue = asFormattedString(this.modelValue, this.internalDecimalCount ?? undefined);
         }
     },
@@ -77,7 +77,7 @@ export default defineComponent({
         internalStep(): string {
             return this.internalDecimalCount === null ? "any" : (1 / Math.pow(10, this.internalDecimalCount)).toString();
         },
-        computedRules() {
+        computedRules(): string {
             const rules = ruleStringToArray(this.rules);
 
             if (this.maximumValue !== null && this.maximumValue !== undefined) {
@@ -96,12 +96,12 @@ export default defineComponent({
         }
     },
     watch: {
-        internalNumberValue() {
+        internalNumberValue(): void {
             this.$emit('update:modelValue', this.internalNumberValue);
         },
         modelValue: {
             immediate: true,
-            handler() {
+            handler(): void {
                 if (this.modelValue !== this.internalNumberValue) {
                     this.internalValue = asFormattedString(this.modelValue, this.internalDecimalCount ?? undefined);
                 }

@@ -29,7 +29,7 @@ import Loading from '../../Controls/Loading';
 import PrimaryBlock from '../../Controls/PrimaryBlock';
 import { InvokeBlockActionFunc } from '../../Controls/RockBlock';
 import { Campus, Person } from '@Obsidian/ViewModels';
-import { asDateString } from '../../Services/Date';
+import { asDateString } from '@Obsidian/Services/Date';
 import RockDate, { RockDateType, toRockDate } from '../../Util/RockDate';
 import DatePicker from '../../Elements/DatePicker';
 import AddressControl, { getDefaultAddressControlModel } from '../../Controls/AddressControl';
@@ -149,7 +149,7 @@ export default defineComponent({
     watch: {
         currentPersonGuid: {
             immediate: true,
-            async handler() {
+            async handler(): Promise<void> {
                 if (!this.currentPersonGuid) {
                     // Set the person empty to match the guid
                     this.person = null;

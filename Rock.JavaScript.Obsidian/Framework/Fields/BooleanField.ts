@@ -17,7 +17,7 @@
 import { defineComponent } from 'vue';
 import { Guid } from '../Util/Guid';
 import { getConfigurationValue, getFieldTypeProps, registerFieldType } from './Index';
-import { asYesNoOrNull, asTrueFalseOrNull, asBoolean, asBooleanOrNull } from '../Services/Boolean';
+import { asYesNoOrNull, asTrueFalseOrNull, asBoolean, asBooleanOrNull } from '@Obsidian/Services/Boolean';
 import DropDownList, { DropDownListOption } from '../Elements/DropDownList';
 import Toggle from '../Elements/Toggle';
 import CheckBox from '../Elements/CheckBox';
@@ -135,21 +135,18 @@ export default registerFieldType( fieldTypeGuid, defineComponent( {
         }
     },
     watch: {
-        internalValue ()
-        {
-            this.$emit( 'update:modelValue', this.internalValue );
+        internalValue(): void {
+            this.$emit('update:modelValue', this.internalValue);
         },
-        internalBooleanValue ()
-        {
-            const valueToEmit = asTrueFalseOrNull( this.internalBooleanValue ) || '';
-            this.$emit( 'update:modelValue', valueToEmit );
+        internalBooleanValue(): void {
+            const valueToEmit = asTrueFalseOrNull(this.internalBooleanValue) || '';
+            this.$emit('update:modelValue', valueToEmit);
         },
         modelValue: {
             immediate: true,
-            handler ()
-            {
-                this.internalValue = asTrueFalseOrNull( this.modelValue ) || '';
-                this.internalBooleanValue = asBoolean( this.modelValue );
+            handler(): void {
+                this.internalValue = asTrueFalseOrNull(this.modelValue) || '';
+                this.internalBooleanValue = asBoolean(this.modelValue);
             }
         }
     },

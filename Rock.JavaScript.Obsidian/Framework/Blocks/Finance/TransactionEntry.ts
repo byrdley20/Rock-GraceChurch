@@ -23,14 +23,14 @@ import DatePicker from '../../Elements/DatePicker';
 import RockButton from '../../Elements/RockButton';
 import { areEqual, Guid, newGuid } from '../../Util/Guid';
 import Alert from '../../Elements/Alert';
-import { asFormattedString } from '../../Services/Number';
+import { asFormattedString } from '@Obsidian/Services/Number';
 import { InvokeBlockActionFunc } from '../../Controls/RockBlock';
 import { ConfigurationValues } from '../../Index';
 import Toggle from '../../Elements/Toggle';
 import { Campus, FinancialAccount, Person } from '@Obsidian/ViewModels';
 import store from '../../Store/Index';
 import TextBox from '../../Elements/TextBox';
-import { asCommaAnd } from '../../Services/String';
+import { asCommaAnd } from '@Obsidian/Services/String';
 import RockDate, { RockDateType } from '../../Util/RockDate';
 import GatewayControl, { GatewayControlModel } from '../../Controls/GatewayControl';
 import RockValidation from '../../Controls/RockValidation';
@@ -165,11 +165,11 @@ export default defineComponent({
         }
     },
     methods: {
-        goBack() {
+        goBack(): void {
             this.pageIndex--;
             this.doGatewayControlSubmit = false;
         },
-        onPageOneSubmit() {
+        onPageOneSubmit(): void {
             if (this.totalAmount <= 0) {
                 this.page1Error = 'Please specify an amount';
                 return;
@@ -182,7 +182,7 @@ export default defineComponent({
         /** This is the handler for submitting the page with the gateway control on it. This method tells
          *  the gateway control to tokenize the input. Once tokenization is complete, then gateway success,
          *  error, or validation handlers will be invoked. */
-        onPageTwoSubmit() {
+        onPageTwoSubmit(): void {
             this.loading = true;
             this.gatewayErrorMessage = '';
             this.gatewayValidationFields = {};
@@ -193,7 +193,7 @@ export default defineComponent({
          * The gateway indicated success and returned a token
          * @param token
          */
-        onGatewayControlSuccess(token: string) {
+        onGatewayControlSuccess(token: string): void {
             this.loading = false;
             this.args.referenceNumber = token;
             this.pageIndex = 3;
@@ -203,7 +203,7 @@ export default defineComponent({
          * The gateway indicated an error
          * @param message
          */
-        onGatewayControlError(message: string) {
+        onGatewayControlError(message: string): void {
             this.doGatewayControlSubmit = false;
             this.loading = false;
             this.gatewayErrorMessage = message;
@@ -213,12 +213,12 @@ export default defineComponent({
          * The gateway wants the user to fix some fields
          * @param invalidFields
          */
-        onGatewayControlValidation(invalidFields: Record<string, string>) {
+        onGatewayControlValidation(invalidFields: Record<string, string>): void {
             this.doGatewayControlSubmit = false;
             this.loading = false;
             this.gatewayValidationFields = invalidFields;
         },
-        async onPageThreeSubmit() {
+        async onPageThreeSubmit(): Promise<void> {
             this.loading = true;
 
             try {
@@ -239,7 +239,7 @@ export default defineComponent({
     watch: {
         currentPerson: {
             immediate: true,
-            handler() {
+            handler(): void {
                 if (!this.currentPerson) {
                     return;
                 }

@@ -18,8 +18,8 @@ import { defineComponent } from 'vue';
 import { Guid } from '../Util/Guid';
 import {  getFieldTypeProps, registerFieldType } from './Index';
 import TimePicker, { TimePickerModelValue } from '../Elements/TimePicker';
-import { toNumber } from '../Services/Number';
-import { padLeft } from '../Services/String';
+import { toNumber } from '@Obsidian/Services/Number';
+import { padLeft } from '@Obsidian/Services/String';
 
 const fieldTypeGuid: Guid = '2F8F5EC4-57FA-4F6C-AB15-9D6616994580';
 
@@ -59,11 +59,11 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
     },
 
     watch: {
-        internalValue() {
+        internalValue(): void {
             this.$emit('update:modelValue', this.internalValue);
         },
 
-        internalTimeValue() {
+        internalTimeValue(): void {
             if (this.internalTimeValue.hour === undefined || this.internalTimeValue.minute === undefined) {
                 this.internalValue = "";
             }
@@ -74,8 +74,8 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
 
         modelValue: {
             immediate: true,
-            handler() {
-                var values = /^(\d+):(\d+)/.exec(this.modelValue ?? "");
+            handler(): void {
+                const values = /^(\d+):(\d+)/.exec(this.modelValue ?? "");
 
                 if (values !== null) {
                     this.internalTimeValue = {

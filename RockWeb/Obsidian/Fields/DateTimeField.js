@@ -1,4 +1,4 @@
-System.register(["vue", "./Index", "../Elements/DateTimePicker", "../Services/Number", "../Services/Date", "../Services/Boolean"], function (exports_1, context_1) {
+System.register(["vue", "./Index", "../Elements/DateTimePicker", "@Obsidian/Services/Number", "@Obsidian/Services/Date", "@Obsidian/Services/Boolean"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -39,7 +39,6 @@ System.register(["vue", "./Index", "../Elements/DateTimePicker", "../Services/Nu
                 ConfigurationValueKey["DisplayAsElapsedTime"] = "displayDiff";
                 ConfigurationValueKey["DisplayCurrentOption"] = "displayCurrentOption";
             })(ConfigurationValueKey || (ConfigurationValueKey = {}));
-            ;
             exports_1("default", Index_1.registerFieldType(fieldTypeGuid, vue_1.defineComponent({
                 name: 'DateTimeField',
                 components: {

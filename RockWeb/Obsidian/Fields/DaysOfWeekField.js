@@ -1,4 +1,4 @@
-System.register(["vue", "./Index", "../Elements/CheckBoxList", "../Services/Number"], function (exports_1, context_1) {
+System.register(["vue", "./Index", "../Elements/CheckBoxList", "@Obsidian/Services/Number"], function (exports_1, context_1) {
     "use strict";
     var vue_1, Index_1, CheckBoxList_1, Number_1, fieldTypeGuid, DayOfWeek, ConfigurationValueKey;
     var __moduleName = context_1 && context_1.id;

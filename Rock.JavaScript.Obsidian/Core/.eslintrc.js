@@ -17,8 +17,9 @@ module.exports = {
         sourceType: 'module'
     },
     rules: {
+        'no-undef': 'off',
         'no-tabs': 'warn',
-        quotes: ['warn', 'single', { 'avoidEscape': true, 'allowTemplateLiterals': true }],
+        quotes: ['warn', 'double', { 'avoidEscape': true, 'allowTemplateLiterals': true }],
         semi: ['warn', 'always'],
         '@typescript-eslint/no-inferrable-types': 'off'
     }

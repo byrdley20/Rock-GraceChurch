@@ -1,4 +1,4 @@
-System.register(["vue", "../../../Controls/Loading", "../../../Elements/CurrencyBox", "../../../Elements/HelpBlock", "../../../Rules/Index", "../../../Services/Number"], function (exports_1, context_1) {
+System.register(["vue", "../../../Controls/Loading", "../../../Elements/CurrencyBox", "../../../Elements/HelpBlock", "../../../Rules/Index", "@Obsidian/Services/Number"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -39,9 +39,6 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
                 RegistrationCostSummaryType[RegistrationCostSummaryType["Discount"] = 2] = "Discount";
                 RegistrationCostSummaryType[RegistrationCostSummaryType["Total"] = 3] = "Total";
             })(RegistrationCostSummaryType || (RegistrationCostSummaryType = {}));
-            ;
-            ;
-            ;
             exports_1("default", vue_1.defineComponent({
                 name: 'Event.RegistrationEntry.CostSummary',
                 components: {
@@ -146,7 +143,7 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
                         return `$${Number_1.asFormattedString(this.amountRemaining, 2)}`;
                     },
                     amountToPayTodayRules() {
-                        var rules = ['required'];
+                        const rules = ['required'];
                         let min = this.amountDueToday;
                         const max = this.maxAmountCanBePaid;
                         if (min > max) {

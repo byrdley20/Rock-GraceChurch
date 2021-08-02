@@ -18,7 +18,7 @@ import { defineComponent } from 'vue';
 import { Guid } from '../Util/Guid';
 import { registerFieldType, getFieldTypeProps } from './Index';
 import CheckBoxList, { CheckBoxListOption } from '../Elements/CheckBoxList';
-import { toNumber } from '../Services/Number';
+import { toNumber } from '@Obsidian/Services/Number';
 
 const fieldTypeGuid: Guid = '08943FF9-F2A8-4DB4-A72A-31938B200C8C';
 
@@ -88,7 +88,7 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
          * Watch for changes to internalValue and emit the new value out to
          * the consuming component.
          */
-        internalValue() {
+        internalValue(): void {
             this.$emit('update:modelValue', this.internalValue.sort((a, b) => toNumber(a) - toNumber(b)).join(","));
         },
 
@@ -98,7 +98,7 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
          */
         modelValue: {
             immediate: true,
-            handler() {
+            handler(): void {
                 const value = this.modelValue ?? "";
 
                 this.internalValue = value !== "" ? value.split(",") : [];

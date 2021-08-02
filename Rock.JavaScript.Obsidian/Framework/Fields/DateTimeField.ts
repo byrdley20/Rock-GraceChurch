@@ -18,10 +18,10 @@ import { defineComponent, inject } from 'vue';
 import { Guid } from '../Util/Guid';
 import { getFieldTypeProps, registerFieldType } from './Index';
 import DateTimePicker from '../Elements/DateTimePicker';
-import { toNumber } from '../Services/Number';
+import { toNumber } from '@Obsidian/Services/Number';
 import { BlockHttp } from '../Controls/RockBlock';
-import { asElapsedString } from '../Services/Date';
-import { asBoolean } from '../Services/Boolean';
+import { asElapsedString } from '@Obsidian/Services/Date';
+import { asBoolean } from '@Obsidian/Services/Boolean';
 
 const fieldTypeGuid: Guid = 'FE95430C-322D-4B67-9C77-DFD1D4408725';
 
@@ -29,7 +29,7 @@ enum ConfigurationValueKey {
     DateTimeFormat = "format",
     DisplayAsElapsedTime = "displayDiff",
     DisplayCurrentOption = "displayCurrentOption"
-};
+}
 
 export default registerFieldType(fieldTypeGuid, defineComponent({
     name: 'DateTimeField',
@@ -54,13 +54,13 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
     },
 
     methods: {
-        async syncModelValue() {
+        async syncModelValue(): Promise<void> {
             this.internalValue = this.modelValue ?? '';
 
             await this.fetchAndSetFormattedValue();
         },
 
-        async fetchAndSetFormattedValue() {
+        async fetchAndSetFormattedValue(): Promise<void> {
             if (this.isCurrentDateValue) {
                 const parts = this.internalValue.split(':');
                 const diff = parts.length === 2 ? toNumber(parts[1]) : 0;
@@ -89,7 +89,7 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
             }
         },
 
-        async getFormattedDateString(value: Date | string, format: string) {
+        async getFormattedDateString(value: Date | string, format: string): Promise<string> {
             const get = this.http.get;
             const result = await get<string>('/api/Utility/FormatDate', { value, format });
             return result.data || `${value}`;
@@ -148,7 +148,7 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
     },
 
     watch: {
-        internalValue() {
+        internalValue(): void {
             if (this.internalValue !== this.modelValue) {
                 const d1 = Date.parse(this.internalValue);
                 const d2 = Date.parse(this.modelValue ?? '');
@@ -161,12 +161,12 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
 
         modelValue: {
             immediate: true,
-            async handler() {
+            async handler(): Promise<void> {
                 await this.syncModelValue();
             }
         },
 
-        async dateFormatTemplate() {
+        async dateFormatTemplate(): Promise<void> {
             await this.fetchAndSetFormattedValue();
         }
     },

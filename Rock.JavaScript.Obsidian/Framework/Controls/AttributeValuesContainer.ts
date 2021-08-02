@@ -14,7 +14,7 @@
 // limitations under the License.
 // </copyright>
 //
-import { isNullOrWhitespace } from '../Services/String';
+import { isNullOrWhitespace } from '@Obsidian/Services/String';
 import { defineComponent, PropType } from 'vue';
 import { AttributeValue } from '@Obsidian/ViewModels';
 import RockField from './RockField';
@@ -43,7 +43,7 @@ export default defineComponent({
         }
     },
     methods: {
-        getAttributeLabel(attributeValue: AttributeValue) {
+        getAttributeLabel(attributeValue: AttributeValue): string {
             if (this.showAbbreviatedName && attributeValue.attribute?.abbreviatedName) {
                 return attributeValue.attribute.abbreviatedName;
             }

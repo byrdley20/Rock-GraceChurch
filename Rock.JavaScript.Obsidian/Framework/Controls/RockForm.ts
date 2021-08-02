@@ -19,7 +19,7 @@ import { Form } from 'vee-validate';
 import RockValidation from './RockValidation';
 
 export type FormState = {
-    submitCount: number
+    submitCount: number;
 };
 
 export default defineComponent({

@@ -17,7 +17,7 @@
 import { defineComponent } from 'vue';
 import { Guid } from '../Util/Guid';
 import { registerFieldType, getFieldTypeProps } from './Index';
-import { toNumber, toNumberOrNull } from '../Services/Number';
+import { toNumber, toNumberOrNull } from '@Obsidian/Services/Number';
 import NumberRangeBox, { NumberRangeModelValue } from '../Elements/NumberRangeBox';
 
 const fieldTypeGuid: Guid = '9D5F21E0-DEA0-4E8E-BA42-71151F6A8ED4';
@@ -58,7 +58,7 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
          * Watch for changes to internalValue and emit the new value out to
          * the consuming component.
          */
-        internalValue() {
+        internalValue(): void {
             const value = `${this.internalValue.lower ?? ""},${this.internalValue.upper ?? ""}`;
 
             this.$emit('update:modelValue', value !== "," ? value : "");
@@ -70,7 +70,7 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
          */
         modelValue: {
             immediate: true,
-            handler() {
+            handler(): void {
                 const values = (this.modelValue ?? "").split(",");
                 const lower = toNumberOrNull(values[0]);
                 const upper = values.length >= 2 ? toNumberOrNull(values[1]) : null;

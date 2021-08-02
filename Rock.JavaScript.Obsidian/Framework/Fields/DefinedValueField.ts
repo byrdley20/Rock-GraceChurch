@@ -18,9 +18,9 @@ import { defineComponent } from 'vue';
 import { Guid, areEqual as guidsAreEqual } from '../Util/Guid';
 import { registerFieldType, getFieldTypeProps, getConfigurationValue } from './Index';
 import DefinedValuePicker from '../Controls/DefinedValuePicker';
-import { toNumberOrNull } from '../Services/Number';
+import { toNumberOrNull } from '@Obsidian/Services/Number';
 import { DefinedValue, DefinedType } from '@Obsidian/ViewModels';
-import { asBoolean } from '../Services/Boolean';
+import { asBoolean } from '@Obsidian/Services/Boolean';
 
 const fieldTypeGuid: Guid = '59D5A94C-94A0-4630-B80A-BB25697D74C7';
 
@@ -34,93 +34,79 @@ enum ConfigurationValueKey {
     RepeatColumns = 'RepeatColumns'
 }
 
-export default registerFieldType( fieldTypeGuid, defineComponent( {
+export default registerFieldType(fieldTypeGuid, defineComponent({
     name: 'DefinedValueField',
     inheritAttrs: false,
     components: {
         DefinedValuePicker
     },
     props: getFieldTypeProps(),
-    data ()
-    {
+    data() {
         return {
             definedValues: [] as DefinedValue[],
             internalValue: ''
         };
     },
     computed: {
-        selectedDefinedValues(): Array<DefinedValue>
-        {
+        selectedDefinedValues(): Array<DefinedValue> {
             const guids = this.internalValue.toLowerCase().split(",");
 
             return this.definedValues.filter(dv => guids.indexOf(dv.guid.toLowerCase()) !== -1);
         },
-        displayValue (): string
-        {
-            if (this.selectedDefinedValues.length === 0)
-            {
+        displayValue(): string {
+            if (this.selectedDefinedValues.length === 0) {
                 return '';
             }
 
-            if ( this.displayDescription )
-            {
+            if (this.displayDescription) {
                 return this.selectedDefinedValues.map(v => v.description ?? "").join(", ");
             }
 
             return this.selectedDefinedValues.map(v => v.value ?? "").join(", ");
         },
-        displayDescription (): boolean
-        {
-            const displayDescription = getConfigurationValue( ConfigurationValueKey.DisplayDescription, this.configurationValues );
-            return asBoolean( displayDescription );
+        displayDescription(): boolean {
+            const displayDescription = getConfigurationValue(ConfigurationValueKey.DisplayDescription, this.configurationValues);
+            return asBoolean(displayDescription);
         },
-        configAttributes (): Record<string, unknown>
-        {
+        configAttributes(): Record<string, unknown> {
             // Append this.$attrs because we have multiple root elements, Vue will
             // not automatically inherit our attributes down.
             const attributes: Record<string, unknown> = { ...this.$attrs };
 
-            const definedType = getConfigurationValue( ConfigurationValueKey.DefinedType, this.configurationValues );
-            if ( definedType )
-            {
-                const definedTypeId = toNumberOrNull( definedType );
+            const definedType = getConfigurationValue(ConfigurationValueKey.DefinedType, this.configurationValues);
+            if (definedType) {
+                const definedTypeId = toNumberOrNull(definedType);
 
-                if ( definedTypeId )
-                {
-                    const definedType = this.$store.getters[ 'definedTypes/getById' ]( definedTypeId ) as DefinedType | null;
+                if (definedTypeId) {
+                    const definedType = this.$store.getters['definedTypes/getById'](definedTypeId) as DefinedType | null;
                     attributes.definedTypeGuid = definedType?.guid || '';
                 }
             }
 
-            if ( this.displayDescription )
-            {
+            if (this.displayDescription) {
                 attributes.displayDescriptions = true;
             }
 
-            const enhancedConfig = getConfigurationValue( ConfigurationValueKey.EnhancedSelection, this.configurationValues );
-            if ( enhancedConfig )
-            {
-                attributes.enhanceForLongLists = asBoolean( enhancedConfig );
+            const enhancedConfig = getConfigurationValue(ConfigurationValueKey.EnhancedSelection, this.configurationValues);
+            if (enhancedConfig) {
+                attributes.enhanceForLongLists = asBoolean(enhancedConfig);
             }
 
             return attributes;
         }
     },
     methods: {
-        receivedDefinedValues ( definedValues: DefinedValue[] )
-        {
+        receivedDefinedValues(definedValues: DefinedValue[]): void {
             this.definedValues = definedValues;
         }
     },
     watch: {
-        internalValue ()
-        {
-            this.$emit( 'update:modelValue', this.internalValue );
+        internalValue(): void {
+            this.$emit('update:modelValue', this.internalValue);
         },
         modelValue: {
             immediate: true,
-            handler ()
-            {
+            handler(): void {
                 this.internalValue = this.modelValue || '';
             }
         }
@@ -130,4 +116,4 @@ export default registerFieldType( fieldTypeGuid, defineComponent( {
     <DefinedValuePicker v-model="internalValue" v-bind="configAttributes" @receivedDefinedValues="receivedDefinedValues" />
 </div>
 <span v-if="!isEditMode">{{ displayValue }}</span>`
-} ) );
+}));

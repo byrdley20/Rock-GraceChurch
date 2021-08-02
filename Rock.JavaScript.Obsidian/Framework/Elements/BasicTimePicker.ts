@@ -15,8 +15,8 @@
 // </copyright>
 
 import { defineComponent, PropType } from 'vue';
-import { toNumber } from '../Services/Number';
-import { padLeft } from '../Services/String';
+import { toNumber } from '@Obsidian/Services/Number';
+import { padLeft } from '@Obsidian/Services/String';
 
 /** The value expected by the TimePicker. */
 export interface BasicTimePickerModelValue {
@@ -64,7 +64,7 @@ export default defineComponent({
             }
 
             if (/^[0-9:]$/.test(e.key) === false) {
-                e.preventDefault()
+                e.preventDefault();
                 return false;
             }
 
@@ -72,9 +72,9 @@ export default defineComponent({
         },
 
         keyUp(e: KeyboardEvent): boolean {
-            const area = <HTMLInputElement>this.$refs.area;
-            const group = <HTMLInputElement>this.$refs.group;
-            const serial = <HTMLInputElement>this.$refs.serial;
+            const area = this.$refs.area as HTMLInputElement;
+            const group = this.$refs.group as HTMLInputElement;
+            const serial = this.$refs.serial as HTMLInputElement;
 
             // Only move to next field if a number was pressed.
             if (/^[0-9]$/.test(e.key) === false) {
@@ -133,7 +133,7 @@ export default defineComponent({
     watch: {
         modelValue: {
             immediate: true,
-            handler() {
+            handler(): void {
                 ///^(\d{1,2})(?:\:(\d{2})(?: ?([aApP])[mM]?)?)?$/
 
                 if (this.modelValue.hour) {
@@ -163,7 +163,7 @@ export default defineComponent({
                 }
 
                 if (this.internalHour === null || this.internalMinute === null) {
-                    return "";
+                    return;
                 }
 
                 this.internalValue = `${this.internalHour}:${padLeft(this.internalMinute.toString(), 2, "0")}`;

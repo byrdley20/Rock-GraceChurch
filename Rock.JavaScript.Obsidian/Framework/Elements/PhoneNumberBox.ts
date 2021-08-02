@@ -18,9 +18,9 @@
 import { defineComponent, PropType } from 'vue';
 import { newGuid } from '../Util/Guid';
 import RockFormField from './RockFormField';
-import { formatPhoneNumber, stripPhoneNumber } from '../Services/String';
+import { formatPhoneNumber, stripPhoneNumber } from '@Obsidian/Services/String';
 
-export default defineComponent( {
+export default defineComponent({
     name: 'PhoneNumberBox',
     components: {
         RockFormField
@@ -34,45 +34,38 @@ export default defineComponent( {
     emits: [
         'update:modelValue'
     ],
-    data: function ()
-    {
+    data: function () {
         return {
             uniqueId: `rock-phonenumberbox-${newGuid()}`,
             internalValue: ''
         };
     },
     methods: {
-        onChange ()
-        {
+        onChange(): void {
             this.internalValue = this.formattedValue;
         }
     },
     computed: {
-        strippedValue (): string
-        {
-            return stripPhoneNumber( this.internalValue );
+        strippedValue(): string {
+            return stripPhoneNumber(this.internalValue);
         },
-        formattedValue (): string
-        {
-            return formatPhoneNumber( this.internalValue );
+        formattedValue(): string {
+            return formatPhoneNumber(this.internalValue);
         }
     },
     watch: {
-        formattedValue ()
-        {
+        formattedValue(): void {
             // The value that should be stored for phone number attribute values is the formatted version.
             // This seems backwards, but actually keeps parity with the web forms functionality.
-            this.$emit( 'update:modelValue', this.formattedValue );
+            this.$emit('update:modelValue', this.formattedValue);
         },
         modelValue: {
             immediate: true,
-            handler ()
-            {
-                const stripped = stripPhoneNumber( this.modelValue );
+            handler(): void {
+                const stripped = stripPhoneNumber(this.modelValue);
 
-                if ( stripped !== this.strippedValue )
-                {
-                    this.internalValue = formatPhoneNumber( stripped );
+                if (stripped !== this.strippedValue) {
+                    this.internalValue = formatPhoneNumber(stripped);
                 }
             }
         }
@@ -94,4 +87,4 @@ export default defineComponent( {
         </div>
     </template>
 </RockFormField>`
-} );
+});

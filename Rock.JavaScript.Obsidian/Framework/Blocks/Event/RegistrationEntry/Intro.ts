@@ -19,7 +19,7 @@ import { defineComponent, inject } from 'vue';
 import Alert from '../../../Elements/Alert';
 import NumberUpDown from '../../../Elements/NumberUpDown';
 import RockButton from '../../../Elements/RockButton';
-import { toTitleCase, pluralConditional } from '../../../Services/String';
+import { toTitleCase, pluralConditional } from '@Obsidian/Services/String';
 import { areEqual } from '../../../Util/Guid';
 import { Person } from '@Obsidian/ViewModels';
 import { getDefaultRegistrantInfo, getForcedFamilyGuid, RegistrationEntryState } from '../RegistrationEntry';
@@ -127,25 +127,23 @@ export default defineComponent( {
     },
     methods: {
         pluralConditional,
-        onNext ()
-        {
+        onNext(): void {
             // If the person is authenticated and the setting is to put registrants in the same family, then we force that family guid
-            const forcedFamilyGuid = getForcedFamilyGuid( this.currentPerson, this.viewModel );
+            const forcedFamilyGuid = getForcedFamilyGuid(this.currentPerson, this.viewModel);
 
             const usedFamilyMemberGuids = this.registrationEntryState.registrants
-                .filter( r => r.personGuid )
-                .map( r => r.personGuid );
+                .filter(r => r.personGuid)
+                .map(r => r.personGuid);
 
             const availableFamilyMembers = this.viewModel.familyMembers
-                .filter( fm =>
-                    areEqual( fm.familyGuid, forcedFamilyGuid ) &&
-                    !usedFamilyMemberGuids.includes( fm.guid ) );
+                .filter(fm =>
+                    areEqual(fm.familyGuid, forcedFamilyGuid) &&
+                    !usedFamilyMemberGuids.includes(fm.guid));
 
             // Resize the registrant array to match the selected number
-            while ( this.numberOfRegistrants > this.registrationEntryState.registrants.length )
-            {
-                const registrant = getDefaultRegistrantInfo( this.currentPerson, this.viewModel, forcedFamilyGuid );
-                this.registrationEntryState.registrants.push( registrant );
+            while (this.numberOfRegistrants > this.registrationEntryState.registrants.length) {
+                const registrant = getDefaultRegistrantInfo(this.currentPerson, this.viewModel, forcedFamilyGuid);
+                this.registrationEntryState.registrants.push(registrant);
             }
 
             this.registrationEntryState.registrants.length = this.numberOfRegistrants;
@@ -153,33 +151,29 @@ export default defineComponent( {
             // Set people beyond the capacity to be on the waitlist
             const firstWaitListIndex = this.numberOfRegistrants - this.numberToAddToWaitlist;
 
-            for ( let i = firstWaitListIndex; i < this.numberOfRegistrants; i++ )
-            {
-                this.registrationEntryState.registrants[ i ].isOnWaitList = true;
+            for (let i = firstWaitListIndex; i < this.numberOfRegistrants; i++) {
+                this.registrationEntryState.registrants[i].isOnWaitList = true;
             }
 
             // If there are family members, set the first registrant to be the first (feature parity with the original block)
-            if ( availableFamilyMembers.length && this.registrationEntryState.registrants.length )
-            {
-                const familyMember = availableFamilyMembers[ 0 ];
-                const registrant = this.registrationEntryState.registrants[ 0 ];
+            if (availableFamilyMembers.length && this.registrationEntryState.registrants.length) {
+                const familyMember = availableFamilyMembers[0];
+                const registrant = this.registrationEntryState.registrants[0];
                 registrant.personGuid = familyMember.guid;
             }
 
-            this.$emit( 'next' );
+            this.$emit('next');
         },
     },
     watch: {
-        numberOfRegistrants()
-        {
-            if ( !this.viewModel.waitListEnabled && this.viewModel.spotsRemaining !== null && this.viewModel.spotsRemaining < this.numberOfRegistrants )
-            {
+        numberOfRegistrants(): void {
+            if (!this.viewModel.waitListEnabled && this.viewModel.spotsRemaining !== null && this.viewModel.spotsRemaining < this.numberOfRegistrants) {
                 this.showRemainingCapacity = true;
                 const spotsRemaining = this.viewModel.spotsRemaining;
 
                 // Do this on the next tick to allow the events to finish. Otherwise the component tree doesn't have time
                 // to respond to this, since the watch was triggered by the numberOfRegistrants change
-                this.$nextTick( () => this.numberOfRegistrants = spotsRemaining );
+                this.$nextTick(() => this.numberOfRegistrants = spotsRemaining);
             }
         }
     },

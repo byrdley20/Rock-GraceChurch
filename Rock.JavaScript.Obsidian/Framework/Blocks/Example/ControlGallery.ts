@@ -53,7 +53,7 @@ import SocialSecurityNumberBox from '../../Elements/SocialSecurityNumberBox';
 import TimePicker from '../../Elements/TimePicker';
 import CheckBoxList from '../../Elements/CheckBoxList';
 import Rating from '../../Elements/Rating';
-import { toNumber } from '../../Services/Number';
+import { toNumber } from '@Obsidian/Services/Number';
 
 /** An inner component that describes the template used for each of the controls
  *  within this control gallery */
@@ -522,8 +522,7 @@ const DefinedTypeAndValueGallery = defineComponent( {
         }
     },
     methods: {
-        onDefinedValueChange ( definedValue: DefinedValue | null )
-        {
+        onDefinedValueChange(definedValue: DefinedValue | null): void {
             this.definedValue = definedValue;
         }
     },

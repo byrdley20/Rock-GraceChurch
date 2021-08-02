@@ -26,8 +26,8 @@ import RegistrationEntryRegistrationEnd from './RegistrationEntry/RegistrationEn
 import RegistrationEntrySummary from './RegistrationEntry/Summary';
 import Registrants from './RegistrationEntry/Registrants';
 import ProgressTracker, { ProgressTrackerItem } from '../../Elements/ProgressTracker';
-import NumberFilter, { toWord } from '../../Services/Number';
-import StringFilter, { isNullOrWhitespace, toTitleCase } from '../../Services/String';
+import NumberFilter, { toWord } from '@Obsidian/Services/Number';
+import StringFilter, { isNullOrWhitespace, toTitleCase } from '@Obsidian/Services/String';
 import Alert from '../../Elements/Alert';
 import CountdownTimer from '../../Elements/CountdownTimer';
 import RegistrationEntrySuccess from './RegistrationEntry/Success';
@@ -84,7 +84,7 @@ const unknownSingleFamilyGuid = newGuid();
  * @param currentPerson
  * @param viewModel
  */
-export function getForcedFamilyGuid ( currentPerson: Person | null, viewModel: RegistrationEntryBlockViewModel )
+export function getForcedFamilyGuid ( currentPerson: Person | null, viewModel: RegistrationEntryBlockViewModel ): string | null
 {
     return ( currentPerson && viewModel.registrantsSameFamily === RegistrantsSameFamily.Yes ) ?
         ( currentPerson.primaryFamilyGuid || unknownSingleFamilyGuid ) :
@@ -97,7 +97,7 @@ export function getForcedFamilyGuid ( currentPerson: Person | null, viewModel: R
  * @param viewModel
  * @param familyGuid
  */
-export function getDefaultRegistrantInfo ( currentPerson: Person | null, viewModel: RegistrationEntryBlockViewModel, familyGuid: Guid | null )
+export function getDefaultRegistrantInfo ( currentPerson: Person | null, viewModel: RegistrationEntryBlockViewModel, familyGuid: Guid | null ): RegistrantInfo
 {
     const forcedFamilyGuid = getForcedFamilyGuid( currentPerson, viewModel );
     const ownFamilyGuid = newGuid();
@@ -301,10 +301,6 @@ export default defineComponent( {
             return this.secondsBeforeExpiration === 0 && this.currentStep !== Step.success;
         },
 
-        //viewModel (): RegistrationEntryBlockViewModel
-        //{
-        //    return this.viewModel;
-        //},
         mustLogin (): boolean
         {
             return !this.$store.state.currentPerson && this.viewModel != null && ( this.viewModel.isUnauthorized || this.viewModel.loginRequiredToRegister );
@@ -496,78 +492,68 @@ export default defineComponent( {
     },
     methods: {
         /** The user requested an extension in time and it was granted */
-        onSessionRenewalSuccess ()
-        {
+        onSessionRenewalSuccess(): void {
             this.hasSessionRenewalSuccess = true;
-            setTimeout( () => this.hasSessionRenewalSuccess = false, 5000 );
+            setTimeout(() => this.hasSessionRenewalSuccess = false, 5000);
         },
 
-        async onIntroNext ()
-        {
+        async onIntroNext(): Promise<void> {
             if (this.persistSession && this.registrationEntryState) {
                 await this.persistSession(false);
                 this.registrationEntryState.currentStep = this.hasPreAttributes ? Step.registrationStartForm : Step.perRegistrantForms;
                 Page.smoothScrollToTop();
             }
         },
-        async onRegistrationStartPrevious ()
-        {
+        async onRegistrationStartPrevious(): Promise<void> {
             if (this.persistSession && this.registrationEntryState) {
                 await this.persistSession(false);
                 this.registrationEntryState.currentStep = Step.intro;
                 Page.smoothScrollToTop();
             }
         },
-        async onRegistrationStartNext ()
-        {
+        async onRegistrationStartNext(): Promise<void> {
             if (this.persistSession && this.registrationEntryState) {
                 await this.persistSession(false);
                 this.registrationEntryState.currentStep = Step.perRegistrantForms;
                 Page.smoothScrollToTop();
             }
         },
-        async onRegistrantPrevious ()
-        {
+        async onRegistrantPrevious(): Promise<void> {
             if (this.persistSession && this.registrationEntryState) {
                 await this.persistSession(false);
                 this.registrationEntryState.currentStep = this.hasPreAttributes ? Step.registrationStartForm : Step.intro;
                 Page.smoothScrollToTop();
             }
         },
-        async onRegistrantNext ()
-        {
+        async onRegistrantNext(): Promise<void> {
             if (this.persistSession && this.registrationEntryState) {
                 await this.persistSession(false);
                 this.registrationEntryState.currentStep = this.hasPostAttributes ? Step.registrationEndForm : Step.reviewAndPayment;
                 Page.smoothScrollToTop();
             }
         },
-        async onRegistrationEndPrevious ()
-        {
+        async onRegistrationEndPrevious(): Promise<void> {
             if (this.persistSession && this.registrationEntryState) {
                 await this.persistSession(false);
                 this.registrationEntryState.currentStep = Step.perRegistrantForms;
                 Page.smoothScrollToTop();
             }
         },
-        async onRegistrationEndNext ()
-        {
+        async onRegistrationEndNext(): Promise<void> {
             if (this.persistSession && this.registrationEntryState) {
                 await this.persistSession(false);
                 this.registrationEntryState.currentStep = Step.reviewAndPayment;
                 Page.smoothScrollToTop();
             }
         },
-        async onSummaryPrevious ()
-        {
+        async onSummaryPrevious(): Promise<void> {
             if (this.persistSession && this.registrationEntryState) {
                 await this.persistSession(false);
                 this.registrationEntryState.currentStep = this.hasPostAttributes ? Step.registrationEndForm : Step.perRegistrantForms;
                 Page.smoothScrollToTop();
             }
         },
-        async onSummaryNext ()
-        {
+        async onSummaryNext(): Promise<void> {
             if (this.persistSession && this.registrationEntryState) {
                 this.registrationEntryState.currentStep = Step.success;
                 Page.smoothScrollToTop();

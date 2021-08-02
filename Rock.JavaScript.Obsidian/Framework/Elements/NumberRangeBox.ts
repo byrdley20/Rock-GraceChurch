@@ -16,7 +16,7 @@
 //
 import { defineComponent, PropType } from 'vue';
 import { ruleArrayToString, ruleStringToArray } from '../Rules/Index';
-import { asFormattedString, toNumberOrNull } from '../Services/Number';
+import { asFormattedString, toNumberOrNull } from '@Obsidian/Services/Number';
 import RockFormField from './RockFormField';
 
 /**
@@ -24,10 +24,10 @@ import RockFormField from './RockFormField';
  */
 export interface NumberRangeModelValue {
     /** The lower number of the range. */
-    lower: number | null,
+    lower: number | null;
 
     /** The upper number of the range. */
-    upper: number | null
+    upper: number | null;
 }
 
 export default defineComponent({
@@ -75,11 +75,11 @@ export default defineComponent({
     },
 
     methods: {
-        onChange() {
+        onChange(): void {
             this.internalValue = {
                 lower: asFormattedString(this.modelValue.lower, this.internalDecimalCount ?? undefined),
                 upper: asFormattedString(this.modelValue.upper, this.internalDecimalCount ?? undefined)
-            }
+            };
         }
     },
 
@@ -99,7 +99,7 @@ export default defineComponent({
             return this.internalDecimalCount === null ? "any" : (1 / Math.pow(10, this.internalDecimalCount)).toString();
         },
 
-        computedRules() {
+        computedRules(): string {
             const rules = ruleStringToArray(this.rules);
 
             return ruleArrayToString(rules);
@@ -107,11 +107,11 @@ export default defineComponent({
     },
 
     watch: {
-        computedValue() {
+        computedValue(): void {
             this.$emit('update:modelValue', this.computedValue);
         },
 
-        internalValue() {
+        internalValue(): void {
             const value = `${this.internalValue.lower ?? ""},${this.internalValue.upper ?? ""}`;
             this.validationValue = value;
 
@@ -129,7 +129,7 @@ export default defineComponent({
 
         modelValue: {
             immediate: true,
-            handler() {
+            handler(): void {
                 const lower = this.modelValue.lower !== null ? this.modelValue.lower.toString() : "";
                 const upper = this.modelValue.upper !== null ? this.modelValue.upper.toString() : "";
 

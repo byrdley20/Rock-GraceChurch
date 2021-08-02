@@ -17,7 +17,7 @@
 import { defineComponent } from 'vue';
 import { Guid } from '../Util/Guid';
 import { registerFieldType, getFieldTypeProps } from './Index';
-import { formatPhoneNumber } from '../Services/String';
+import { formatPhoneNumber } from '@Obsidian/Services/String';
 import PhoneNumberBox from '../Elements/PhoneNumberBox';
 
 const fieldTypeGuid: Guid = '6B1908EC-12A2-463A-A7BD-970CE0FAF097';
@@ -34,9 +34,8 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
         };
     },
     computed: {
-        safeValue (): string
-        {
-            return formatPhoneNumber( this.modelValue || '' );
+        safeValue(): string {
+            return formatPhoneNumber(this.modelValue || '');
         },
         configAttributes(): Record<string, number | boolean> {
             const attributes: Record<string, number | boolean> = {};
@@ -44,13 +43,12 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
         }
     },
     watch: {
-        internalValue() {
+        internalValue(): void {
             this.$emit('update:modelValue', this.internalValue);
         },
         modelValue: {
             immediate: true,
-            handler ()
-            {
+            handler(): void {
                 this.internalValue = this.modelValue || '';
             }
         }

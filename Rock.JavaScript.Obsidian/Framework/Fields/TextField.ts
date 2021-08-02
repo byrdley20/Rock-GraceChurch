@@ -18,7 +18,7 @@ import { defineComponent } from 'vue';
 import { Guid } from '../Util/Guid';
 import { registerFieldType, getFieldTypeProps } from './Index';
 import TextBox from '../Elements/TextBox';
-import { asBooleanOrNull } from '../Services/Boolean';
+import { asBooleanOrNull } from '@Obsidian/Services/Boolean';
 
 const fieldTypeGuid: Guid = '9C204CD0-1233-41C5-818A-C5DA439445AA';
 
@@ -28,70 +28,59 @@ enum ConfigurationValueKey {
     ShowCountDown = 'showcountdown'
 }
 
-export default defineComponent( {
+export default defineComponent({
     name: 'TextField',
     components: {
         TextBox
     },
     props: getFieldTypeProps(),
-    data ()
-    {
+    data() {
         return {
             internalValue: ''
         };
     },
     computed: {
-        safeValue (): string
-        {
-            return ( this.modelValue || '' ).trim();
+        safeValue(): string {
+            return (this.modelValue || '').trim();
         },
-        configAttributes (): Record<string, number | boolean>
-        {
+        configAttributes(): Record<string, number | boolean> {
             const attributes: Record<string, number | boolean> = {};
 
-            const maxCharsConfig = this.configurationValues[ ConfigurationValueKey.MaxCharacters ];
-            if ( maxCharsConfig && maxCharsConfig.value )
-            {
-                const maxCharsValue = Number( maxCharsConfig.value );
+            const maxCharsConfig = this.configurationValues[ConfigurationValueKey.MaxCharacters];
+            if (maxCharsConfig && maxCharsConfig.value) {
+                const maxCharsValue = Number(maxCharsConfig.value);
 
-                if ( maxCharsValue )
-                {
+                if (maxCharsValue) {
                     attributes.maxLength = maxCharsValue;
                 }
             }
 
-            const showCountDownConfig = this.configurationValues[ ConfigurationValueKey.ShowCountDown ];
-            if ( showCountDownConfig && showCountDownConfig.value )
-            {
-                const showCountDownValue = asBooleanOrNull( showCountDownConfig.value ) || false;
+            const showCountDownConfig = this.configurationValues[ConfigurationValueKey.ShowCountDown];
+            if (showCountDownConfig && showCountDownConfig.value) {
+                const showCountDownValue = asBooleanOrNull(showCountDownConfig.value) || false;
 
-                if ( showCountDownValue )
-                {
+                if (showCountDownValue) {
                     attributes.showCountDown = showCountDownValue;
                 }
             }
 
             return attributes;
         },
-        isPassword (): boolean
-        {
-            const isPasswordConfig = this.configurationValues[ ConfigurationValueKey.IsPassword ];
-            return asBooleanOrNull( isPasswordConfig?.value ) || false;
+        isPassword(): boolean {
+            const isPasswordConfig = this.configurationValues[ConfigurationValueKey.IsPassword];
+            return asBooleanOrNull(isPasswordConfig?.value) || false;
         },
-        passwordDisplay (): string
-        {
+        passwordDisplay(): string {
             return this.safeValue ? '********' : '';
         }
     },
     watch: {
-        internalValue ()
-        {
-            this.$emit( 'update:modelValue', this.internalValue );
+        internalValue(): void {
+            this.$emit('update:modelValue', this.internalValue);
         },
         modelValue: {
             immediate: true,
-            handler ()
-            {
+            handler(): void {
                 this.internalValue = this.modelValue || '';
             }
         }
@@ -100,4 +89,4 @@ export default defineComponent( {
 <TextBox v-if="isEditMode" v-model="internalValue" v-bind="configAttributes" :type="isPassword ? 'password' : ''" />
 <span v-else-if="isPassword">{{passwordDisplay}}</span>
 <span v-else>{{ safeValue }}</span>`
-} );
+});

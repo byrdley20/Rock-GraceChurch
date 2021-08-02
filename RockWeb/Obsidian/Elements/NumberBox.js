@@ -1,4 +1,4 @@
-System.register(["vue", "../Rules/Index", "../Services/Number", "./RockFormField"], function (exports_1, context_1) {
+System.register(["vue", "../Rules/Index", "@Obsidian/Services/Number", "./RockFormField"], function (exports_1, context_1) {
     "use strict";
     var vue_1, Index_1, Number_1, RockFormField_1;
     var __moduleName = context_1 && context_1.id;

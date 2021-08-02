@@ -1,4 +1,4 @@
-System.register(["vue", "../Services/Number", "../Services/String"], function (exports_1, context_1) {
+System.register(["vue", "@Obsidian/Services/Number", "@Obsidian/Services/String"], function (exports_1, context_1) {
     "use strict";
     var vue_1, Number_1, String_1;
     var __moduleName = context_1 && context_1.id;
@@ -122,7 +122,7 @@ System.register(["vue", "../Services/Number", "../Services/String"], function (e
                                 this.internalMinute = null;
                             }
                             if (this.internalHour === null || this.internalMinute === null) {
-                                return "";
+                                return;
                             }
                             this.internalValue = `${this.internalHour}:${String_1.padLeft(this.internalMinute.toString(), 2, "0")}`;
                         }

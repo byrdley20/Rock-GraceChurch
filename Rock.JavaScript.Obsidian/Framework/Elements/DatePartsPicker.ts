@@ -16,22 +16,22 @@
 
 import { defineComponent, PropType } from 'vue';
 import { ruleArrayToString, ruleStringToArray } from '../Rules/Index';
-import DateKey from '../Services/DateKey';
-import { toNumber } from '../Services/Number';
+import DateKey from '@Obsidian/Services/DateKey';
+import { toNumber } from '@Obsidian/Services/Number';
 import RockFormField from './RockFormField';
 
 export interface DatePartsPickerModel {
-    year: number,
+    year: number;
     month: number;
     day: number;
 }
 
-export function getDefaultDatePartsPickerModel() {
+export function getDefaultDatePartsPickerModel(): DatePartsPickerModel {
     return {
         year: 0,
         month: 0,
         day: 0
-    } as DatePartsPickerModel;
+    };
 }
 
 export default defineComponent({
@@ -106,7 +106,7 @@ export default defineComponent({
                 dayCount = 29;
             }
 
-            let days: Array<string> = [];
+            const days: Array<string> = [];
             for (let day = 1; day <= dayCount; day++) {
                 days.push(day.toString());
             }
@@ -164,7 +164,7 @@ export default defineComponent({
     watch: {
         modelValue: {
             immediate: true,
-            handler() {
+            handler(): void {
                 this.internalDay = this.modelValue.day.toString();
                 this.internalMonth = this.modelValue.month.toString();
                 this.internalYear = this.modelValue.year.toString();
@@ -174,22 +174,22 @@ export default defineComponent({
 
         showYear: {
             immediate: true,
-            handler() {
+            handler(): void {
                 this.updateDays();
             }
         },
 
-        internalDay() {
+        internalDay(): void {
             this.updateDays();
             this.$emit('update:modelValue', this.getValue());
         },
 
-        internalMonth() {
+        internalMonth(): void {
             this.updateDays();
             this.$emit('update:modelValue', this.getValue());
         },
 
-        internalYear() {
+        internalYear(): void {
             this.updateDays();
             this.$emit('update:modelValue', this.getValue());
         },

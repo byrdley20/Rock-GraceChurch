@@ -18,8 +18,8 @@ import { defineComponent } from 'vue';
 import { Guid } from '../Util/Guid';
 import { registerFieldType, getFieldTypeProps } from './Index';
 import TextBox from '../Elements/TextBox';
-import { asBoolean, asBooleanOrNull } from '../Services/Boolean';
-import { toNumber } from '../Services/Number';
+import { asBoolean, asBooleanOrNull } from '@Obsidian/Services/Boolean';
+import { toNumber } from '@Obsidian/Services/Number';
 
 const fieldTypeGuid: Guid = 'C28C7BF3-A552-4D77-9408-DEDCF760CED0';
 
@@ -30,61 +30,51 @@ enum ConfigurationValueKey {
     ShowCountDown = 'showcountdown'
 }
 
-export default registerFieldType( fieldTypeGuid, defineComponent( {
+export default registerFieldType(fieldTypeGuid, defineComponent({
     name: 'MemoField',
     components: {
         TextBox
     },
     props: getFieldTypeProps(),
-    data ()
-    {
+    data() {
         return {
             internalValue: ''
         };
     },
     computed: {
-        allowHtml (): boolean
-        {
-            const config = this.configurationValues[ ConfigurationValueKey.AllowHtml ];
-            return asBoolean( config?.value );
+        allowHtml(): boolean {
+            const config = this.configurationValues[ConfigurationValueKey.AllowHtml];
+            return asBoolean(config?.value);
         },
-        safeValue (): string
-        {
-            return ( this.modelValue || '' ).trim();
+        safeValue(): string {
+            return (this.modelValue || '').trim();
         },
-        configAttributes (): Record<string, number | boolean>
-        {
+        configAttributes(): Record<string, number | boolean> {
             const attributes: Record<string, number | boolean> = {};
 
-            const maxCharsConfig = this.configurationValues[ ConfigurationValueKey.MaxCharacters ];
-            if ( maxCharsConfig && maxCharsConfig.value )
-            {
-                const maxCharsValue = Number( maxCharsConfig.value );
+            const maxCharsConfig = this.configurationValues[ConfigurationValueKey.MaxCharacters];
+            if (maxCharsConfig && maxCharsConfig.value) {
+                const maxCharsValue = Number(maxCharsConfig.value);
 
-                if ( maxCharsValue )
-                {
+                if (maxCharsValue) {
                     attributes.maxLength = maxCharsValue;
                 }
             }
 
-            const showCountDownConfig = this.configurationValues[ ConfigurationValueKey.ShowCountDown ];
-            if ( showCountDownConfig && showCountDownConfig.value )
-            {
-                const showCountDownValue = asBooleanOrNull( showCountDownConfig.value ) || false;
+            const showCountDownConfig = this.configurationValues[ConfigurationValueKey.ShowCountDown];
+            if (showCountDownConfig && showCountDownConfig.value) {
+                const showCountDownValue = asBooleanOrNull(showCountDownConfig.value) || false;
 
-                if ( showCountDownValue )
-                {
+                if (showCountDownValue) {
                     attributes.showCountDown = showCountDownValue;
                 }
             }
 
-            const rowsConfig = this.configurationValues[ ConfigurationValueKey.NumberOfRows ];
-            if ( rowsConfig?.value )
-            {
-                const rows = toNumber( rowsConfig.value ) || 3;
+            const rowsConfig = this.configurationValues[ConfigurationValueKey.NumberOfRows];
+            if (rowsConfig?.value) {
+                const rows = toNumber(rowsConfig.value) || 3;
 
-                if ( rows > 0 )
-                {
+                if (rows > 0) {
                     attributes.rows = rows;
                 }
             }
@@ -93,14 +83,12 @@ export default registerFieldType( fieldTypeGuid, defineComponent( {
         }
     },
     watch: {
-        internalValue ()
-        {
-            this.$emit( 'update:modelValue', this.internalValue );
+        internalValue(): void {
+            this.$emit('update:modelValue', this.internalValue);
         },
         modelValue: {
             immediate: true,
-            handler ()
-            {
+            handler(): void {
                 this.internalValue = this.modelValue || '';
             }
         }
@@ -111,4 +99,4 @@ export default registerFieldType( fieldTypeGuid, defineComponent( {
     <div v-html="modelValue"></div>
 </div>
 <span v-else>{{ safeValue }}</span>`
-} ) );
+}));

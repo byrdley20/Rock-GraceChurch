@@ -20,7 +20,7 @@ import DropDownList, { DropDownListOption } from '../../../Elements/DropDownList
 import RadioButtonList from '../../../Elements/RadioButtonList';
 import { Person } from '@Obsidian/ViewModels';
 import { getRegistrantBasicInfo, RegistrationEntryState } from '../RegistrationEntry';
-import StringFilter from '../../../Services/String';
+import StringFilter from '@Obsidian/Services/String';
 import RockButton from '../../../Elements/RockButton';
 import RegistrantPersonField from './RegistrantPersonField';
 import RegistrantAttributeField from './RegistrantAttributeField';
@@ -226,23 +226,19 @@ export default defineComponent( {
         }
     },
     methods: {
-        onPrevious ()
-        {
-            if ( this.currentFormIndex <= 0 )
-            {
-                this.$emit( 'previous' );
+        onPrevious(): void {
+            if (this.currentFormIndex <= 0) {
+                this.$emit('previous');
                 return;
             }
 
             this.registrationEntryState.currentRegistrantFormIndex--;
         },
-        onNext ()
-        {
+        onNext(): void {
             const lastFormIndex = this.formsToShow.length - 1;
 
-            if ( this.currentFormIndex >= lastFormIndex )
-            {
-                this.$emit( 'next' );
+            if (this.currentFormIndex >= lastFormIndex) {
+                this.$emit('next');
                 return;
             }
 
@@ -250,34 +246,26 @@ export default defineComponent( {
         },
 
         /** Copy the values that are to have current values used */
-        copyValuesFromFamilyMember ()
-        {
-            if ( !this.familyMember )
-            {
+        copyValuesFromFamilyMember(): void {
+            if (!this.familyMember) {
                 // Nothing to copy
                 return;
             }
 
             // If the family member selection is made then set all form fields where use existing value is enabled
-            for ( const form of this.viewModel.registrantForms )
-            {
-                for ( const field of form.fields )
-                {
-                    if ( field.guid in this.familyMember.fieldValues )
-                    {
-                        const familyMemberValue = this.familyMember.fieldValues[ field.guid ];
+            for (const form of this.viewModel.registrantForms) {
+                for (const field of form.fields) {
+                    if (field.guid in this.familyMember.fieldValues) {
+                        const familyMemberValue = this.familyMember.fieldValues[field.guid];
 
-                        if ( !familyMemberValue )
-                        {
-                            delete this.currentRegistrant.fieldValues[ field.guid ];
+                        if (!familyMemberValue) {
+                            delete this.currentRegistrant.fieldValues[field.guid];
                         }
-                        else if ( typeof familyMemberValue === 'object' )
-                        {
-                            this.currentRegistrant.fieldValues[ field.guid ] = { ...familyMemberValue };
+                        else if (typeof familyMemberValue === 'object') {
+                            this.currentRegistrant.fieldValues[field.guid] = { ...familyMemberValue };
                         }
-                        else
-                        {
-                            this.currentRegistrant.fieldValues[ field.guid ] = familyMemberValue;
+                        else {
+                            this.currentRegistrant.fieldValues[field.guid] = familyMemberValue;
                         }
                     }
                 }
@@ -285,27 +273,21 @@ export default defineComponent( {
         }
     },
     watch: {
-        'currentRegistrant.FamilyGuid' ()
-        {
+        'currentRegistrant.FamilyGuid'(): void {
             // Clear the person guid if the family changes
             this.currentRegistrant.personGuid = '';
         },
         familyMember: {
-            handler ()
-            {
-                if ( !this.familyMember )
-                {
+            handler(): void {
+                if (!this.familyMember) {
                     // If the family member selection is cleared then clear all form fields
-                    for ( const form of this.viewModel.registrantForms )
-                    {
-                        for ( const field of form.fields )
-                        {
-                            delete this.currentRegistrant.fieldValues[ field.guid ];
+                    for (const form of this.viewModel.registrantForms) {
+                        for (const field of form.fields) {
+                            delete this.currentRegistrant.fieldValues[field.guid];
                         }
                     }
                 }
-                else
-                {
+                else {
                     // If the family member selection is made then set all form fields where use existing value is enabled
                     this.copyValuesFromFamilyMember();
                 }

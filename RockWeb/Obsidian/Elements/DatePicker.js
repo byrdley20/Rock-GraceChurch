@@ -1,4 +1,4 @@
-System.register(["vue", "../Services/Number", "../Util/RockDate", "./RockFormField", "./TextBox"], function (exports_1, context_1) {
+System.register(["vue", "@Obsidian/Services/Number", "../Util/RockDate", "./RockFormField", "./TextBox"], function (exports_1, context_1) {
     "use strict";
     var vue_1, Number_1, RockDate_1, RockFormField_1, TextBox_1;
     var __moduleName = context_1 && context_1.id;
@@ -113,7 +113,7 @@ System.register(["vue", "../Services/Number", "../Util/RockDate", "./RockFormFie
                 mounted() {
                     const input = this.$refs['input'];
                     const inputId = input.id;
-                    const Rock = window['Rock'];
+                    const Rock = window.Rock;
                     Rock.controls.datePicker.initialize({
                         id: inputId,
                         startView: 0,

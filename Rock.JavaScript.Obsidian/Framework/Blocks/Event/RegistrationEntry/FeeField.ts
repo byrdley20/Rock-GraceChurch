@@ -21,7 +21,7 @@ import CheckBox from '../../../Elements/CheckBox';
 import DropDownList, { DropDownListOption } from '../../../Elements/DropDownList';
 import NumberUpDown from '../../../Elements/NumberUpDown';
 import NumberUpDownGroup, { NumberUpDownGroupOption } from '../../../Elements/NumberUpDownGroup';
-import Number from '../../../Services/Number';
+import Number from '@Obsidian/Services/Number';
 import GuidHelper, { Guid } from '../../../Util/Guid';
 import { RegistrationEntryBlockFeeViewModel, RegistrationEntryBlockFeeItemViewModel } from './RegistrationEntryBlockViewModel';
 
@@ -52,7 +52,7 @@ export default defineComponent( {
         };
     },
     methods: {
-        getItemLabel( item: RegistrationEntryBlockFeeItemViewModel )
+        getItemLabel( item: RegistrationEntryBlockFeeItemViewModel ): string
         {
             const formattedCost = Number.asFormattedString( item.cost, 2 );
 
@@ -131,62 +131,50 @@ export default defineComponent( {
         modelValue: {
             immediate: true,
             deep: true,
-            handler()
-            {
+            handler(): void {
                 // Set the drop down selecton
-                if ( this.isDropDown )
-                {
+                if (this.isDropDown) {
                     this.dropDownValue = '';
 
-                    for ( const item of this.fee.items )
-                    {
-                        if ( !this.dropDownValue && this.modelValue[ item.guid ] )
-                        {
+                    for (const item of this.fee.items) {
+                        if (!this.dropDownValue && this.modelValue[item.guid]) {
                             // Pick the first option that has a qty
-                            this.modelValue[ item.guid ] = 1;
+                            this.modelValue[item.guid] = 1;
                             this.dropDownValue = item.guid;
                         }
-                        else if ( this.modelValue[ item.guid ] )
-                        {
+                        else if (this.modelValue[item.guid]) {
                             // Any other quantities need to be zeroed since only one can be picked
-                            this.modelValue[ item.guid ] = 0;
+                            this.modelValue[item.guid] = 0;
                         }
                     }
                 }
 
                 // Set the checkbox selection
-                if ( this.isCheckbox && this.singleItem )
-                {
-                    this.checkboxValue = !!this.modelValue[ this.singleItem.guid ];
-                    this.modelValue[ this.singleItem.guid ] = this.checkboxValue ? 1 : 0;
+                if (this.isCheckbox && this.singleItem) {
+                    this.checkboxValue = !!this.modelValue[this.singleItem.guid];
+                    this.modelValue[this.singleItem.guid] = this.checkboxValue ? 1 : 0;
                 }
             }
         },
         fee: {
             immediate: true,
-            handler()
-            {
-                for ( const item of this.fee.items )
-                {
-                    this.modelValue[ item.guid ] = this.modelValue[ item.guid ] || 0;
+            handler(): void {
+                for (const item of this.fee.items) {
+                    this.modelValue[item.guid] = this.modelValue[item.guid] || 0;
                 }
             }
         },
-        dropDownValue()
-        {
+        dropDownValue(): void {
             // Drop down implies a quantity of 1. Zero out all items except for the one selected.
-            for ( const item of this.fee.items )
-            {
-                const isSelected = GuidHelper.areEqual( this.dropDownValue, item.guid );
-                this.modelValue[ item.guid ] = isSelected ? 1 : 0;
+            for (const item of this.fee.items) {
+                const isSelected = GuidHelper.areEqual(this.dropDownValue, item.guid);
+                this.modelValue[item.guid] = isSelected ? 1 : 0;
             }
         },
-        checkboxValue()
-        {
-            if ( this.singleItem )
-            {
+        checkboxValue(): void {
+            if (this.singleItem) {
                 // Drop down implies a quantity of 1.
-                this.modelValue[ this.singleItem.guid ] = this.checkboxValue ? 1 : 0;
+                this.modelValue[this.singleItem.guid] = this.checkboxValue ? 1 : 0;
             }
         }
     },

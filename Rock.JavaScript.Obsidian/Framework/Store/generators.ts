@@ -21,7 +21,7 @@ import { RootState } from './Index';
 import cache from '../Util/Cache';
 import http from '../Util/Http';
 import { CommonEntity } from './CommonEntities';
-import { splitCamelCase } from '../Services/String';
+import { splitCamelCase } from '@Obsidian/Services/String';
 import { Guid } from '../Util/Guid';
 import { Entity } from '@Obsidian/ViewModels';
 
@@ -74,13 +74,13 @@ export function createCommonEntityPicker(entityName: string, getOptionsFunc: () 
         watch: {
             modelValue: {
                 immediate: true,
-                handler() {
+                handler(): void {
                     this.selectedGuid = this.modelValue;
                 }
             },
             selectedGuid: {
                 immediate: true,
-                handler() {
+                handler(): void {
                     this.$emit('update:modelValue', this.selectedGuid);
                 }
             }
@@ -102,27 +102,27 @@ export function generateCommonEntityModule<TEntity extends Entity>(commonEntity:
             items: []
         },
         mutations: {
-            setItems(state, { items }: { items: TEntity[] }) {
+            setItems(state, { items }: { items: TEntity[] }): void {
                 state.items = items;
             }
         },
         getters: {
-            all(state) {
+            all(state): TEntity[] {
                 return state.items;
             },
             getByGuid(state) {
-                return (guid: Guid) => {
+                return (guid: Guid): TEntity | null => {
                     return state.items.find(i => i.guid === guid) || null;
                 };
             },
             getById(state) {
-                return (id: number) => {
+                return (id: number): TEntity | null => {
                     return state.items.find(i => i.id === id) || null;
                 };
             }
         },
         actions: {
-            async initialize(context) {
+            async initialize(context): Promise<void> {
                 const cacheKey = `common-entity-${commonEntity.namespace}`;
                 let items = cache.get<TEntity[]>(cacheKey) || [];
 

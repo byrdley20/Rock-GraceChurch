@@ -14,7 +14,7 @@
 // limitations under the License.
 // </copyright>
 //
-import { asFormattedString } from '../Services/Number';
+import { asFormattedString } from '@Obsidian/Services/Number';
 import { defineComponent, PropType } from 'vue';
 import store from '../Store/Index';
 
@@ -61,7 +61,7 @@ const PageDebugTimingRow = defineComponent({
             return `Started at ${timestampString} ms / Duration ${durationString} ms`;
         },
         getPercentFromMs(): (ms: number) => number {
-            return (ms: number) => {
+            return (ms: number): number => {
                 if (!this.totalMs) {
                     return 0;
                 }

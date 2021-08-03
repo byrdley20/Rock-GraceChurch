@@ -10,4 +10,4 @@ export {
     Vue,
     VeeValidate,
     Vuex
-}
+};

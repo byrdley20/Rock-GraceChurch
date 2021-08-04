@@ -261,7 +261,7 @@ export default defineComponent( {
 
             const response = await invokeBlockAction<{ expirationDateTime: string }>( 'PersistSession', {
                 args: getRegistrationEntryBlockArgs()
-            } );
+            });
 
             if ( response.data )
             {
@@ -576,7 +576,7 @@ export default defineComponent( {
                 }
             }
         },
-        'registrationEntryState.SessionExpirationDate': {
+        'registrationEntryState.sessionExpirationDate': {
             immediate: true,
             handler ()
             {

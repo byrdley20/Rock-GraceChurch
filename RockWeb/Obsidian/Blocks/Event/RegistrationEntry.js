@@ -486,7 +486,7 @@ System.register(["vue", "../../Elements/RockButton", "../../Util/Guid", "./Regis
                             }
                         }
                     },
-                    'registrationEntryState.SessionExpirationDate': {
+                    'registrationEntryState.sessionExpirationDate': {
                         immediate: true,
                         handler() {
                             var _a;

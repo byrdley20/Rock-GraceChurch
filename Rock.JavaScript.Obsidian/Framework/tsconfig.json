@@ -5,6 +5,7 @@
     "declaration": false,
     "incremental": true,
     "noImplicitAny": true,
+    "noImplicitOverride": true,
     "noEmitOnError": true,
     "removeComments": true,
     "allowUnreachableCode": false,

@@ -1,5 +1,5 @@
 module.exports = {
-    root: false,
+    root: true,
     parser: '@typescript-eslint/parser',
     plugins: [
         '@typescript-eslint',
@@ -20,6 +20,9 @@ module.exports = {
         'no-tabs': 'warn',
         quotes: ['warn', 'single', { 'avoidEscape': true, 'allowTemplateLiterals': true }],
         semi: ['warn', 'always'],
+        '@typescript-eslint/no-unused-vars': ["warn", {
+            "argsIgnorePattern": "^_"
+        }],
         '@typescript-eslint/no-inferrable-types': 'off'
     }
 };

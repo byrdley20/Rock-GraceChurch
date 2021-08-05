@@ -17,7 +17,7 @@
 import { defineComponent, PropType } from 'vue';
 import { ruleArrayToString, ruleStringToArray } from '../Rules/Index';
 import DateKey from '@Obsidian/Services/DateKey';
-import { toNumber } from '@Obsidian/Services/Number';
+import { toNumber, toNumberOrNull } from '@Obsidian/Services/Number';
 import RockFormField from './RockFormField';
 
 export interface DatePartsPickerModel {
@@ -141,9 +141,9 @@ export default defineComponent({
 
             return ruleArrayToString( rules );
         },
-        years (): number[]
+        years (): string[]
         {
-            const years: number[] = [];
+            const years: string[] = [];
             let year = new Date().getFullYear();
 
             if (this.futureYearCount > 0 && this.allowFutureDates)
@@ -153,7 +153,7 @@ export default defineComponent({
 
             while ( year >= 1900 )
             {
-                years.push( year );
+                years.push( year.toString() );
                 year--;
             }
 
@@ -180,18 +180,33 @@ export default defineComponent({
         },
 
         internalDay(): void {
-            this.updateDays();
             this.$emit('update:modelValue', this.getValue());
         },
 
         internalMonth(): void {
+            const day = toNumberOrNull(this.internalDay);
+
             this.updateDays();
-            this.$emit('update:modelValue', this.getValue());
+
+            if (day != null && day >= this.days.length + 1) {
+                this.internalDay = this.days.length.toString();
+            }
+            else {
+                this.$emit('update:modelValue', this.getValue());
+            }
         },
 
         internalYear(): void {
+            const day = toNumberOrNull(this.internalDay);
+
             this.updateDays();
-            this.$emit('update:modelValue', this.getValue());
+
+            if (day != null && day >= this.days.length + 1) {
+                this.internalDay = this.days.length.toString();
+            }
+            else {
+                this.$emit('update:modelValue', this.getValue());
+            }
         },
     },
 

@@ -129,7 +129,7 @@ System.register(["vue", "../Rules/Index", "@Obsidian/Services/DateKey", "@Obsidi
                             year += this.futureYearCount;
                         }
                         while (year >= 1900) {
-                            years.push(year);
+                            years.push(year.toString());
                             year--;
                         }
                         return years;
@@ -152,16 +152,27 @@ System.register(["vue", "../Rules/Index", "@Obsidian/Services/DateKey", "@Obsidi
                         }
                     },
                     internalDay() {
-                        this.updateDays();
                         this.$emit('update:modelValue', this.getValue());
                     },
                     internalMonth() {
+                        const day = Number_1.toNumberOrNull(this.internalDay);
                         this.updateDays();
-                        this.$emit('update:modelValue', this.getValue());
+                        if (day != null && day >= this.days.length + 1) {
+                            this.internalDay = this.days.length.toString();
+                        }
+                        else {
+                            this.$emit('update:modelValue', this.getValue());
+                        }
                     },
                     internalYear() {
+                        const day = Number_1.toNumberOrNull(this.internalDay);
                         this.updateDays();
-                        this.$emit('update:modelValue', this.getValue());
+                        if (day != null && day >= this.days.length + 1) {
+                            this.internalDay = this.days.length.toString();
+                        }
+                        else {
+                            this.$emit('update:modelValue', this.getValue());
+                        }
                     },
                 },
                 template: `

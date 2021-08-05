@@ -213,8 +213,74 @@ export function padRight(str: string | undefined | null, length: number, padChar
     return str + Array(length - str.length + 1).join(padCharacter);
 }
 
+export interface TruncateOptions {
+    ellipsis?: boolean;
+}
+
+/**
+ * Ensure a string does not go over the character limit. Truncation happens
+ * on word boundaries.
+ * 
+ * @param str The string to be truncated.
+ * @param limit The maximum length of the resulting string.
+ * @param options Additional options that control how truncation will happen.
+ *
+ * @returns The truncated string.
+ */
+export function truncate(str: string, limit: number, options?: TruncateOptions): string {
+    // Early out if the string is already under the limit.
+    if (str.length <= limit) {
+        return str;
+    }
+
+    // All the whitespace characters that we can split on.
+    const trimmable = '\u0009\u000A\u000B\u000C\u000D\u0020\u00A0\u1680\u180E\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u2028\u2029\u3000\uFEFF';
+    const reg = new RegExp(`(?=[${trimmable}])`);
+    const words = str.split(reg);
+    let count = 0;
+
+    // If we are appending ellipsis, then shorten the limit size.
+    if (options && options.ellipsis === true) {
+        limit -= 3;
+    }
+
+    // Get a list of words that will fit within our length requirements.
+    const visibleWords = words.filter(function (word) {
+        count += word.length;
+        return count <= limit;
+    });
+
+    return `${visibleWords.join('')}...`;
+}
+
+/** The regular expression that contains the characters to be escaped. */
+const escapeHtmlRegExp = /["'&<>]/g;
+
+/** The character map of the characters to be replaced and the strings to replace them with. */
+const escapeHtmlMap: Record<string, string> = {
+    '"': '&quot;',
+    '&': '&amp;',
+    '\'': '&#39;',
+    '<': '&lt;',
+    '>': '&gt;'
+};
+
+/**
+ * Escapes a string so it can be used in HTML. This turns things like the <
+ * character into the &lt; sequence so it will still render as "<".
+ * 
+ * @param str The string to be escaped.
+ * @returns A string that has all HTML entities escaped.
+ */
+export function escapeHtml(str: string): string {
+    return str.replace(escapeHtmlRegExp, (ch) => {
+        return escapeHtmlMap[ch];
+    });
+}
+
 export default {
     asCommaAnd,
+    escapeHtml,
     splitCamelCase,
     isNullOrWhitespace,
     isWhitespace,
@@ -224,5 +290,6 @@ export default {
     formatPhoneNumber,
     stripPhoneNumber,
     padLeft,
-    padRight
+    padRight,
+    truncate
 };

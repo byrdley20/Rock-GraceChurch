@@ -22,6 +22,7 @@ import './Rules/Index';
 import { Person, Entity } from '@Obsidian/ViewModels';
 import PageDebugTimings, { DebugTimingViewModel } from './Controls/PageDebugTimings';
 import Alert from './Elements/Alert';
+import { ActionType } from './Store/Index';
 
 export type ConfigurationValues = Record<string, unknown>;
 
@@ -111,16 +112,16 @@ export async function initializeBlock ( config: BlockConfig ): Promise<App>
 * page parameters and context entities.
 * @param {object} pageData
 */
-export async function initializePage ( pageConfig: PageConfig )
+export async function initializePage ( pageConfig: PageConfig ): Promise<void>
 {
-    await store.dispatch( 'initialize', { pageConfig } );
+    await store.dispatch( ActionType.Initialize, { pageConfig } );
 }
 
 /**
  * Shows the Obsidian debug timings
  * @param debugTimingConfig
  */
-export function initializePageTimings ( config: DebugTimingConfig )
+export function initializePageTimings ( config: DebugTimingConfig ): void
 {
     const rootElement = document.getElementById(config.elementId);
 

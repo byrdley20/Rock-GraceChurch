@@ -127,7 +127,7 @@ System.register(["../Util/Http", "vue", "../Store/Index", "../Elements/Alert"], 
                         subtitle = `(${subtitle})`;
                     }
                     if (nameParts.length) {
-                        Index_1.default.commit('reportOnLoadDebugTiming', {
+                        Index_1.default.commit("addPageDebugTiming", {
                             title: nameParts[1] || '<Unnamed>',
                             subtitle: subtitle,
                             startTimeMs: this.startTimeMs,

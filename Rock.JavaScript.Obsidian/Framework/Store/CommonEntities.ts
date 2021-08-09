@@ -16,7 +16,7 @@
 //
 import { generateCommonEntityModule } from './Generators';
 import { Module } from 'vuex';
-import { RootState } from './Index';
+import { State } from './State';
 import { Entity } from '@Obsidian/ViewModels';
 
 export type CommonEntity = {
@@ -29,7 +29,7 @@ export const commonEntities: CommonEntity[] = [
     { namespace: 'campuses', apiUrl: '/api/v2/CommonEntities/Campuses' },
     { namespace: 'definedTypes', apiUrl: '/api/v2/CommonEntities/DefinedTypes' }
 ];
-export const commonEntityModules: Record<string, Module<{ items: Entity[] }, RootState>> = {};
+export const commonEntityModules: Record<string, Module<{ items: Entity[] }, State>> = {};
 
 // Generate a module for each config
 for (const commonEntity of commonEntities) {

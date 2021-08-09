@@ -187,9 +187,13 @@
     <TypeScriptCompile Include="Framework\Services\Email.ts" />
     <TypeScriptCompile Include="Framework\Services\Number.ts" />
     <TypeScriptCompile Include="Framework\Services\String.ts" />
+    <TypeScriptCompile Include="Framework\Store\Actions.ts" />
     <TypeScriptCompile Include="Framework\Store\CommonEntities.ts" />
     <TypeScriptCompile Include="Framework\Store\Generators.ts" />
+    <TypeScriptCompile Include="Framework\Store\Getters.ts" />
     <TypeScriptCompile Include="Framework\Store\Index.ts" />
+    <TypeScriptCompile Include="Framework\Store\Mutations.ts" />
+    <TypeScriptCompile Include="Framework\Store\State.ts" />
     <TypeScriptCompile Include="Framework\SystemGuids\CodeGenerated\AchievementType.d.ts" />
     <TypeScriptCompile Include="Framework\SystemGuids\CodeGenerated\AssessmentType.d.ts" />
     <TypeScriptCompile Include="Framework\SystemGuids\CodeGenerated\Attribute.d.ts" />

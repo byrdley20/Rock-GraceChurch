@@ -54,6 +54,7 @@ import TimePicker from '../../Elements/TimePicker';
 import CheckBoxList from '../../Elements/CheckBoxList';
 import Rating from '../../Elements/Rating';
 import { toNumber } from '@Obsidian/Services/Number';
+import { Guid } from 'Util/Guid';
 
 /** An inner component that describes the template used for each of the controls
  *  within this control gallery */
@@ -513,7 +514,7 @@ const DefinedTypeAndValueGallery = defineComponent( {
     computed: {
         definedTypeName (): string
         {
-            const definedType = store.getters[ 'definedTypes/getByGuid' ]( this.definedTypeGuid ) as DefinedType;
+            const definedType = (<(guid: Guid) => DefinedType | null>store.getters['definedTypes/getByGuid'])(this.definedTypeGuid) as DefinedType;
             return definedType?.name || '';
         },
         definedValueName (): string
@@ -851,7 +852,7 @@ export default defineComponent({
     },
     computed: {
         campus(): Campus | null {
-            return store.getters['campuses/getByGuid'](this.campusGuid) || null;
+            return (<(guid: Guid) => Campus | null>store.getters['campuses/getByGuid'])(this.campusGuid) || null;
         },
         campusName(): string {
             return this.campus?.name || '';

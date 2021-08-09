@@ -78,7 +78,7 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
                 const definedTypeId = toNumberOrNull(definedType);
 
                 if (definedTypeId) {
-                    const definedType = this.$store.getters['definedTypes/getById'](definedTypeId) as DefinedType | null;
+                    const definedType = (<(id: number) => DefinedType | null>this.$store.getters['definedTypes/getById'])(definedTypeId);
                     attributes.definedTypeGuid = definedType?.guid || '';
                 }
             }

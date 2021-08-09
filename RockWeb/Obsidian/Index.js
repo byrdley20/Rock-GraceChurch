@@ -1,4 +1,4 @@
-System.register(["vue", "./Controls/RockBlock", "./Store/Index", "./Rules/Index", "./Controls/PageDebugTimings", "./Elements/Alert"], function (exports_1, context_1) {
+System.register(["vue", "./Controls/RockBlock", "./Store/Index", "./Rules/Index", "./Controls/PageDebugTimings", "./Elements/Alert", "./Store/Actions"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,7 +9,7 @@ System.register(["vue", "./Controls/RockBlock", "./Store/Index", "./Rules/Index"
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var vue_1, RockBlock_1, Index_1, PageDebugTimings_1, Alert_1;
+    var vue_1, RockBlock_1, Index_1, PageDebugTimings_1, Alert_1, Actions_1;
     var __moduleName = context_1 && context_1.id;
     function initializeBlock(config) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -58,7 +58,7 @@ System.register(["vue", "./Controls/RockBlock", "./Store/Index", "./Rules/Index"
     exports_1("initializeBlock", initializeBlock);
     function initializePage(pageConfig) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield Index_1.default.dispatch('initialize', { pageConfig });
+            yield Index_1.default.dispatch(Actions_1.ActionType.Initialize, { pageConfig });
         });
     }
     exports_1("initializePage", initializePage);
@@ -102,6 +102,9 @@ System.register(["vue", "./Controls/RockBlock", "./Store/Index", "./Rules/Index"
             },
             function (Alert_1_1) {
                 Alert_1 = Alert_1_1;
+            },
+            function (Actions_1_1) {
+                Actions_1 = Actions_1_1;
             }
         ],
         execute: function () {

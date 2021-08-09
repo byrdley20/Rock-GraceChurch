@@ -14,10 +14,10 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
+import { Component, defineComponent, PropType } from 'vue';
 import DropDownList, { DropDownListOption } from '../Elements/DropDownList';
 import { Module } from 'vuex';
-import { RootState } from './Index';
+import { State } from './State';
 import cache from '../Util/Cache';
 import http from '../Util/Http';
 import { CommonEntity } from './CommonEntities';
@@ -37,7 +37,7 @@ export type CommonEntityOption = {
 * @param {any} getOptionsFunc A function called with the store as a parameter that should return the
 * options object list for the drop down list.
 */
-export function createCommonEntityPicker(entityName: string, getOptionsFunc: () => CommonEntityOption[]) {
+export function createCommonEntityPicker(entityName: string, getOptionsFunc: () => CommonEntityOption[]): Component {
     const entityNameForDisplay = splitCamelCase(entityName);
 
     return defineComponent({
@@ -95,7 +95,7 @@ export function createCommonEntityPicker(entityName: string, getOptionsFunc: () 
 * Provide the namespace (ex: campuses) that will serve as the Vuex namespace.
 * Also provide the apiUrl (ex: api/campuses) that allows the module to hydrate its items when needed.
 */
-export function generateCommonEntityModule<TEntity extends Entity>(commonEntity: CommonEntity): Module<{ items: TEntity[] }, RootState> {
+export function generateCommonEntityModule<TEntity extends Entity>(commonEntity: CommonEntity): Module<{ items: TEntity[] }, State> {
     return {
         namespaced: true as const,
         state: {

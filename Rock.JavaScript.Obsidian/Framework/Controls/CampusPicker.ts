@@ -20,7 +20,7 @@ import { Campus } from '@Obsidian/ViewModels';
 
 export default createCommonEntityPicker(
     'Campus',
-    () => store.getters['campuses/all'].map((c: Campus) => ({
+    () => (<Campus[]>store.getters['campuses/all']).map((c: Campus) => ({
         guid: c.guid,
         id: c.id,
         text: c.name

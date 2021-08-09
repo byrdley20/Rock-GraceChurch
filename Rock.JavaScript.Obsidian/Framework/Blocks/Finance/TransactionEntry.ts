@@ -142,7 +142,11 @@ export default defineComponent({
             return this.configurationValues['financialAccounts'] as FinancialAccount[] || [];
         },
         campus(): Campus | null {
-            return store.getters['campuses/getByGuid'](this.args.campusGuid) || null;
+            if (this.args.campusGuid === null) {
+                return null;
+            }
+
+            return (<(guid: Guid) => Campus | null>store.getters['campuses/getByGuid'])(this.args.campusGuid) || null;
         },
         accountAndCampusString(): string {
             const accountNames = [] as string[];

@@ -71,7 +71,6 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Store/Ind
                 },
                 computed: {
                     groupId() {
-                        const g = Index_1.default.getters.groupContext;
                         return (Index_1.default.getters.groupContext || {}).id || 0;
                     },
                 },

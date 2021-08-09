@@ -14,115 +14,64 @@
 // limitations under the License.
 // </copyright>
 //
-import { DebugTimingViewModel } from '../Controls/PageDebugTimings';
-import { PageConfig } from '../Index';
-import { Guid } from '../Util/Guid';
-import { createStore, Store } from 'vuex';
-import { Person, Group, Entity } from '@Obsidian/ViewModels';
-import { commonEntities, commonEntityModules } from './CommonEntities';
+import { createStore, Store as VuexStore } from 'vuex';
+import { commonEntityModules } from './CommonEntities';
+import { State, state } from './State';
+import { mutations } from './Mutations';
+import { actions } from './Actions';
+import { Getters, getters } from './Getters';
 
-export interface RootState {
-    areSecondaryBlocksShown: boolean;
-    currentPerson: Person | null;
-    pageParameters: Record<string, unknown>;
-    contextEntities: Record<string, Entity>;
-    pageId: number;
-    pageGuid: Guid;
-    executionStartTime: Date;
-    debugTimings: DebugTimingViewModel[],
-    loginUrlWithReturnUrl: string
-}
+export { MutationType, PageDebugTiming } from './Mutations';
+export { ActionType } from './Actions';
+
 
 declare module '@vue/runtime-core' {
     // provide typings for `this.$store`
     interface ComponentCustomProperties {
-        $store: Store<RootState>
+        $store: Store
     }
 }
 
-export type ReportDebugTimingArgs = {
-    title: string;
-    subtitle: string;
-    startTimeMs: number;
-    finishTimeMs: number;
-};
 
 // Declare the Vuex store
-export default createStore<RootState>({
-    state: {
-        areSecondaryBlocksShown: true,
-        currentPerson: null,
-        pageParameters: {},
-        contextEntities: {},
-        pageId: 0,
-        pageGuid: '' as Guid,
-        executionStartTime: new Date(),
-        debugTimings: [],
-        loginUrlWithReturnUrl: ''
-    },
-    getters: {
-        isAuthenticated(state) {
-            return !!state.currentPerson;
-        },
-        contextEntity(state): (type: string) => Entity | null {
-            return (type: string) => (state.contextEntities[type] || null);
-        },
-        personContext(state, getters): Person | null {
-            return getters.contextEntity('person');
-        },
-        groupContext(state, getters): Group | null {
-            return getters.contextEntity('group');
-        },
-        pageParameter(state): (key: string) => unknown {
-            return (key: string) => (state.pageParameters[key]);
-        }
-    },
-    mutations: {
-        setAreSecondaryBlocksShown(state, { areSecondaryBlocksShown }) {
-            state.areSecondaryBlocksShown = areSecondaryBlocksShown;
-        },
-        setPageInitializationData(state, pageConfig: PageConfig) {
-            state.currentPerson = pageConfig.currentPerson || null;
-            state.pageParameters = pageConfig.pageParameters || {};
-            state.contextEntities = pageConfig.contextEntities || {};
-            state.pageId = pageConfig.pageId || 0;
-            state.pageGuid = pageConfig.pageGuid || '';
-            state.executionStartTime = pageConfig.executionStartTime;
-            state.loginUrlWithReturnUrl = pageConfig.loginUrlWithReturnUrl;
-        },
-        reportOnLoadDebugTiming(state, payload: ReportDebugTimingArgs) {
-            const pageStartTime = state.executionStartTime.getTime();
-            const timestampMs = payload.startTimeMs - pageStartTime;
-            const durationMs = payload.finishTimeMs - payload.startTimeMs;
-
-            state.debugTimings.push({
-                TimestampMs: timestampMs,
-                DurationMs: durationMs,
-                IndentLevel: 1,
-                IsTitleBold: false,
-                SubTitle: payload.subtitle,
-                Title: payload.title
-            });
-        }
-    },
-    actions: {
-        initialize(context, { pageConfig }: { pageConfig: PageConfig }) {
-            context.commit('setPageInitializationData', pageConfig);
-
-            // Initialize each common entity module
-            for (const commonEntity of commonEntities) {
-                context.dispatch(`${commonEntity.namespace}/initialize`);
-            }
-        },
-        redirectToLogin ( context )
-        {
-            if ( context.state.loginUrlWithReturnUrl )
-            {
-                window.location.href = context.state.loginUrlWithReturnUrl;
-            }
-        }
-    },
+export const store: Store = createStore<State>({
+    state,
+    getters,
+    mutations,
+    actions,
     modules: {
         ...commonEntityModules
     }
 });
+
+export default store;
+
+export function useStore(): Store {
+    return store as Store;
+}
+
+export type Store = Omit<
+    VuexStore<State>,
+    'getters' // | 'commit' | 'dispatch'
+> & {
+    getters: {
+        [K in keyof Getters]: ReturnType<Getters[K]>
+    } & {
+        [index: string]: unknown
+    }
+}
+// The following sets hard typescript bindings for what keys can be passed
+// to commit and dispatch. For now leave out until we decide if this is safe.
+//> & {
+//    commit<K extends keyof Mutations, P extends Parameters<Mutations[K]>[1]>(
+//        key: K,
+//        payload: P,
+//        options?: CommitOptions
+//    ): ReturnType<Mutations[K]>
+//} & {
+//    dispatch<K extends keyof Actions>(
+//        key: K,
+//        payload?: Parameters<Actions[K]>[1],
+//        options?: DispatchOptions
+//    ): ReturnType<Actions[K]>
+//}

@@ -112,10 +112,9 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                         this.setIsEditMode(false);
                     },
                     doSave() {
-                        var _a;
                         return __awaiter(this, void 0, void 0, function* () {
                             if (this.personForEditing) {
-                                this.person = Object.assign(Object.assign({}, this.personForEditing), { birthDay: RockDate_1.default.getDay(this.birthdate), birthMonth: RockDate_1.default.getMonth(this.birthdate), birthYear: RockDate_1.default.getYear(this.birthdate), primaryCampusId: ((_a = Index_1.default.getters['campuses/getByGuid'](this.campusGuid)) === null || _a === void 0 ? void 0 : _a.Id) || null });
+                                this.person = Object.assign(Object.assign({}, this.personForEditing), { birthDay: RockDate_1.default.getDay(this.birthdate), birthMonth: RockDate_1.default.getMonth(this.birthdate), birthYear: RockDate_1.default.getYear(this.birthdate), primaryCampusId: null });
                                 this.isLoading = true;
                                 yield this.invokeBlockAction('EditPerson', {
                                     personArgs: this.person
@@ -148,7 +147,8 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                         return Date_1.asDateString(this.birthdateOrNull);
                     },
                     campus() {
-                        if (this.person) {
+                        var _a;
+                        if (((_a = this.person) === null || _a === void 0 ? void 0 : _a.primaryCampusId) != null) {
                             return Index_1.default.getters['campuses/getById'](this.person.primaryCampusId) || null;
                         }
                         return null;

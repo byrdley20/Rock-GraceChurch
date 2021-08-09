@@ -20,7 +20,7 @@ import { DefinedType } from '@Obsidian/ViewModels';
 
 export default createCommonEntityPicker(
     'DefinedType',
-    () => store.getters['definedTypes/all'].map((dt: DefinedType) => ({
+    () => (<DefinedType[]>store.getters['definedTypes/all']).map((dt: DefinedType) => ({
         guid: dt.guid,
         id: dt.id,
         text: dt.name

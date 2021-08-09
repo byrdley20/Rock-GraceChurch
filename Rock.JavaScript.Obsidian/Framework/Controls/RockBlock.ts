@@ -17,7 +17,7 @@
 import { doApiCall, HttpBodyData, HttpMethod, HttpResult, HttpUrlParams } from '../Util/Http';
 import { Component, defineComponent, inject, PropType, provide, reactive } from 'vue';
 import { BlockConfig, ConfigurationValues } from '../Index';
-import store, { ReportDebugTimingArgs } from '../Store/Index';
+import store, { MutationType, PageDebugTiming } from '../Store/Index';
 import { Guid } from '../Util/Guid';
 import Alert from '../Elements/Alert';
 
@@ -168,12 +168,12 @@ export default defineComponent( {
 
         if ( nameParts.length )
         {
-            store.commit( 'reportOnLoadDebugTiming', {
+            store.commit( MutationType.AddPageDebugTiming, {
                 title: nameParts[ 1 ] || '<Unnamed>',
                 subtitle: subtitle,
                 startTimeMs: this.startTimeMs,
                 finishTimeMs: this.finishTimeMs
-            } as ReportDebugTimingArgs );
+            } as PageDebugTiming );
         }
     },
     template: `

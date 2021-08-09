@@ -67,7 +67,6 @@ export default defineComponent({
     },
     computed: {
         groupId(): number {
-            const g = store.getters.groupContext;
             return (store.getters.groupContext || {}).id || 0;
         },
     },

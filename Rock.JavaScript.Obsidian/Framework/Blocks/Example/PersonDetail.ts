@@ -88,7 +88,7 @@ export default defineComponent({
                     birthDay: RockDate.getDay(this.birthdate),
                     birthMonth: RockDate.getMonth(this.birthdate),
                     birthYear: RockDate.getYear(this.birthdate),
-                    primaryCampusId: store.getters['campuses/getByGuid'](this.campusGuid)?.Id || null
+                    primaryCampusId: null
                 };
                 this.isLoading = true;
 
@@ -125,8 +125,8 @@ export default defineComponent({
             return asDateString(this.birthdateOrNull);
         },
         campus(): Campus | null {
-            if (this.person) {
-                return store.getters['campuses/getById'](this.person.primaryCampusId) || null;
+            if (this.person?.primaryCampusId != null) {
+                return (<(id: number) => Campus | null>store.getters['campuses/getById'])(this.person.primaryCampusId) || null;
             }
 
             return null;

@@ -142,6 +142,9 @@ System.register(["../../Controls/CampusPicker", "../../Controls/DefinedValuePick
                         return this.configurationValues['financialAccounts'] || [];
                     },
                     campus() {
+                        if (this.args.campusGuid === null) {
+                            return null;
+                        }
                         return Index_1.default.getters['campuses/getByGuid'](this.args.campusGuid) || null;
                     },
                     accountAndCampusString() {

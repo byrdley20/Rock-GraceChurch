@@ -22,7 +22,7 @@ System.register(["vue", "../Store/Index"], function (exports_1, context_1) {
                 },
                 methods: {
                     setAreSecondaryBlocksShown(isVisible) {
-                        Index_1.default.commit('setAreSecondaryBlocksShown', { areSecondaryBlocksShown: isVisible });
+                        Index_1.default.commit("setAreSecondaryBlocksShown", { areSecondaryBlocksShown: isVisible });
                     }
                 },
                 watch: {

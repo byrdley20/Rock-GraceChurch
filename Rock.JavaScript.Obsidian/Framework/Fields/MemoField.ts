@@ -16,7 +16,7 @@
 //
 import { defineComponent } from 'vue';
 import { Guid } from '../Util/Guid';
-import { registerFieldType, getFieldTypeProps } from './Index';
+import { legacyRegisterFieldType, getFieldEditorProps } from './Index';
 import TextBox from '../Elements/TextBox';
 import { asBoolean, asBooleanOrNull } from '@Obsidian/Services/Boolean';
 import { toNumber } from '@Obsidian/Services/Number';
@@ -30,12 +30,12 @@ enum ConfigurationValueKey {
     ShowCountDown = 'showcountdown'
 }
 
-export default registerFieldType(fieldTypeGuid, defineComponent({
+export default legacyRegisterFieldType(fieldTypeGuid, defineComponent({
     name: 'MemoField',
     components: {
         TextBox
     },
-    props: getFieldTypeProps(),
+    props: getFieldEditorProps(),
     data() {
         return {
             internalValue: ''
@@ -44,7 +44,7 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
     computed: {
         allowHtml(): boolean {
             const config = this.configurationValues[ConfigurationValueKey.AllowHtml];
-            return asBoolean(config?.value);
+            return asBoolean(config);
         },
         safeValue(): string {
             return (this.modelValue || '').trim();
@@ -53,30 +53,24 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
             const attributes: Record<string, number | boolean> = {};
 
             const maxCharsConfig = this.configurationValues[ConfigurationValueKey.MaxCharacters];
-            if (maxCharsConfig && maxCharsConfig.value) {
-                const maxCharsValue = Number(maxCharsConfig.value);
+            const maxCharsValue = toNumber(maxCharsConfig);
 
-                if (maxCharsValue) {
-                    attributes.maxLength = maxCharsValue;
-                }
+            if (maxCharsValue) {
+                attributes.maxLength = maxCharsValue;
             }
 
             const showCountDownConfig = this.configurationValues[ConfigurationValueKey.ShowCountDown];
-            if (showCountDownConfig && showCountDownConfig.value) {
-                const showCountDownValue = asBooleanOrNull(showCountDownConfig.value) || false;
+            const showCountDownValue = asBooleanOrNull(showCountDownConfig) || false;
 
-                if (showCountDownValue) {
-                    attributes.showCountDown = showCountDownValue;
-                }
+            if (showCountDownValue) {
+                attributes.showCountDown = showCountDownValue;
             }
 
             const rowsConfig = this.configurationValues[ConfigurationValueKey.NumberOfRows];
-            if (rowsConfig?.value) {
-                const rows = toNumber(rowsConfig.value) || 3;
+            const rows = toNumber(rowsConfig || null) || 3;
 
-                if (rows > 0) {
-                    attributes.rows = rows;
-                }
+            if (rows > 0) {
+                attributes.rows = rows;
             }
 
             return attributes;

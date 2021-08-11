@@ -14,56 +14,25 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { Guid } from '../Util/Guid';
-import { registerFieldType, getFieldTypeProps } from './Index';
-import { toNumberOrNull, toCurrencyOrNull } from '@Obsidian/Services/Number';
-import CurrencyBox from '../Elements/CurrencyBox';
+import { Component, defineAsyncComponent } from 'vue';
+import { FieldTypeBase } from './FieldType';
+import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
+import { toCurrencyOrNull } from '@Obsidian/Services/Number';
 
-const fieldTypeGuid: Guid = '3EE69CBC-35CE-4496-88CC-8327A447603F';
+// The components can be quite large, so load only as needed.
+const editComponent = defineAsyncComponent(async () => {
+    return (await import('./CurrencyFieldComponents')).EditComponent;
+});
 
-enum ConfigurationValueKey {
+/**
+ * The field type handler for the Currency field.
+ */
+export class CurrencyFieldType extends FieldTypeBase {
+    public override updateTextValue(value: ClientEditableAttributeValue): void {
+        value.textValue = toCurrencyOrNull(value.value) ?? '';
+    }
+
+    public override getEditComponent(_value: ClientAttributeValue): Component {
+        return editComponent;
+    }
 }
-
-export default registerFieldType(fieldTypeGuid, defineComponent({
-    name: 'CurrencyField',
-    components: {
-        CurrencyBox
-    },
-    props: getFieldTypeProps(),
-    data() {
-        return {
-            /** The user input value as a number of null if it isn't valid. */
-            internalValue: null as number | null
-        };
-    },
-    computed: {
-        /** The display safe value. */
-        safeValue(): string {
-            return toCurrencyOrNull((this.modelValue || '').trim()) ?? "";
-        }
-    },
-    watch: {
-        /**
-         * Watch for changes to internalValue and emit the new value out to
-         * the consuming component.
-         */
-        internalValue(): void {
-            this.$emit('update:modelValue', this.internalValue !== null ? this.internalValue.toString() : '');
-        },
-
-        /**
-         * Watch for changes to modelValue which indicate the component
-         * using us has given us a new value to work with.
-         */
-        modelValue: {
-            immediate: true,
-            handler(): void {
-                this.internalValue = toNumberOrNull(this.modelValue || '');
-            }
-        }
-    },
-    template: `
-<CurrencyBox v-if="isEditMode" v-model="internalValue" />
-<span v-else>{{ safeValue }}</span>`
-}));

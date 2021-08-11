@@ -51,7 +51,7 @@ System.register(["@Obsidian/Services/DateKey", "@Obsidian/Services/Email", "@Obs
                 const options = typeof optionsJson === 'string' ? JSON.parse(optionsJson) : {};
                 if (typeof value === 'string') {
                     const allowEmptyString = !!(options.allowEmptyString);
-                    if (!allowEmptyString && String_1.isNullOrWhitespace(value)) {
+                    if (!allowEmptyString && String_1.isNullOrWhiteSpace(value)) {
                         return 'is required';
                     }
                     return true;
@@ -65,7 +65,7 @@ System.register(["@Obsidian/Services/DateKey", "@Obsidian/Services/Email", "@Obs
                 return true;
             }));
             vee_validate_1.defineRule('email', (value => {
-                if (String_1.isNullOrWhitespace(value)) {
+                if (String_1.isNullOrWhiteSpace(value)) {
                     return true;
                 }
                 if (!Email_1.isEmail(value)) {
@@ -96,7 +96,7 @@ System.register(["@Obsidian/Services/DateKey", "@Obsidian/Services/Email", "@Obs
                 return `must equal ${compare}`;
             }));
             vee_validate_1.defineRule('gt', ((value, [compare]) => {
-                if (String_1.isNullOrWhitespace(value)) {
+                if (String_1.isNullOrWhiteSpace(value)) {
                     return true;
                 }
                 if (isNumeric(value) && isNumeric(compare)) {
@@ -107,7 +107,7 @@ System.register(["@Obsidian/Services/DateKey", "@Obsidian/Services/Email", "@Obs
                 return `must be greater than ${compare}`;
             }));
             vee_validate_1.defineRule('gte', ((value, [compare]) => {
-                if (String_1.isNullOrWhitespace(value)) {
+                if (String_1.isNullOrWhiteSpace(value)) {
                     return true;
                 }
                 if (isNumeric(value) && isNumeric(compare)) {
@@ -118,7 +118,7 @@ System.register(["@Obsidian/Services/DateKey", "@Obsidian/Services/Email", "@Obs
                 return `must not be less than ${compare}`;
             }));
             vee_validate_1.defineRule('lt', ((value, [compare]) => {
-                if (String_1.isNullOrWhitespace(value)) {
+                if (String_1.isNullOrWhiteSpace(value)) {
                     return true;
                 }
                 if (isNumeric(value) && isNumeric(compare)) {
@@ -129,7 +129,7 @@ System.register(["@Obsidian/Services/DateKey", "@Obsidian/Services/Email", "@Obs
                 return `must be less than ${compare}`;
             }));
             vee_validate_1.defineRule('lte', ((value, [compare]) => {
-                if (String_1.isNullOrWhitespace(value)) {
+                if (String_1.isNullOrWhiteSpace(value)) {
                     return true;
                 }
                 if (isNumeric(value) && isNumeric(compare)) {
@@ -153,7 +153,7 @@ System.register(["@Obsidian/Services/DateKey", "@Obsidian/Services/Email", "@Obs
                 return true;
             }));
             vee_validate_1.defineRule("integer", (value) => {
-                if (String_1.isNullOrWhitespace(value)) {
+                if (String_1.isNullOrWhiteSpace(value)) {
                     return true;
                 }
                 if (/^-?[0-9]+$/.test(String(value))) {
@@ -162,7 +162,7 @@ System.register(["@Obsidian/Services/DateKey", "@Obsidian/Services/Email", "@Obs
                 return "must be an integer value.";
             });
             vee_validate_1.defineRule("decimal", (value) => {
-                if (String_1.isNullOrWhitespace(value)) {
+                if (String_1.isNullOrWhiteSpace(value)) {
                     return true;
                 }
                 if (/^-?[0-9]+(\.[0-9]+)?$/.test(String(value))) {
@@ -171,7 +171,7 @@ System.register(["@Obsidian/Services/DateKey", "@Obsidian/Services/Email", "@Obs
                 return "must be a decimal value.";
             });
             vee_validate_1.defineRule("ssn", (value) => {
-                if (String_1.isNullOrWhitespace(value)) {
+                if (String_1.isNullOrWhiteSpace(value)) {
                     return true;
                 }
                 if (/^[0-9]{3}-[0-9]{2}-[0-9]{4}$/.test(String(value))) {

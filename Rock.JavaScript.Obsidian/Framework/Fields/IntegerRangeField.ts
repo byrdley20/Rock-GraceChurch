@@ -14,77 +14,48 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { Guid } from '../Util/Guid';
-import { registerFieldType, getFieldTypeProps } from './Index';
-import { toNumber, toNumberOrNull } from '@Obsidian/Services/Number';
-import NumberRangeBox, { NumberRangeModelValue } from '../Elements/NumberRangeBox';
+import { Component, defineAsyncComponent } from 'vue';
+import { FieldTypeBase } from './FieldType';
+import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
+import { toNumberOrNull } from '@Obsidian/Services/Number';
 
-const fieldTypeGuid: Guid = '9D5F21E0-DEA0-4E8E-BA42-71151F6A8ED4';
 
-enum ConfigurationValueKey {
+// The edit component can be quite large, so load it only as needed.
+const editComponent = defineAsyncComponent(async () => {
+    return (await import('./IntegerRangeFieldComponents')).EditComponent;
+});
+
+/**
+ * The field type handler for the Integer Range field.
+ */
+export class IntegerRangeFieldType extends FieldTypeBase {
+    public override updateTextValue(value: ClientEditableAttributeValue): void {
+        if (value.value === null || value.value === undefined || value.value === '' || value.value === ',') {
+            value.textValue = '';
+            return;
+        }
+
+        const numbers = value.value.split(',').map(v => toNumberOrNull(v));
+
+        // If there are not two components then it's not valid, or if both
+        // components are not numbers then it's not valid.
+        if (numbers.length !== 2 || (numbers[0] === null && numbers[1] === null)) {
+            value.textValue = '';
+            return;
+        }
+
+        if (numbers[0] === null) {
+            value.textValue = `through ${numbers[1]}`;
+        }
+        else if (numbers[1] === null) {
+            value.textValue = `from ${numbers[0]}`;
+        }
+        else {
+            value.textValue = `${numbers[0]} to ${numbers[1]}`;
+        }
+    }
+
+    public override getEditComponent(_value: ClientAttributeValue): Component {
+        return editComponent;
+    }
 }
-
-export default registerFieldType(fieldTypeGuid, defineComponent({
-    name: 'IntegerRangeField',
-
-    components: {
-        NumberRangeBox
-    },
-
-    props: getFieldTypeProps(),
-
-    data() {
-        return {
-            /** The user input value as a number of null if it isn't valid. */
-            internalValue: {} as NumberRangeModelValue
-        };
-    },
-
-    computed: {
-        /** The display value. */
-        displayValue(): string {
-            if (this.internalValue.lower === null && this.internalValue.upper === null) {
-                return "";
-            }
-            else {
-                return `${this.internalValue.lower ?? ""} to ${this.internalValue.upper ?? ""}`;
-            }
-        }
-    },
-
-    watch: {
-        /**
-         * Watch for changes to internalValue and emit the new value out to
-         * the consuming component.
-         */
-        internalValue(): void {
-            const value = `${this.internalValue.lower ?? ""},${this.internalValue.upper ?? ""}`;
-
-            this.$emit('update:modelValue', value !== "," ? value : "");
-        },
-
-        /**
-         * Watch for changes to modelValue which indicate the component
-         * using us has given us a new value to work with.
-         */
-        modelValue: {
-            immediate: true,
-            handler(): void {
-                const values = (this.modelValue ?? "").split(",");
-                const lower = toNumberOrNull(values[0]);
-                const upper = values.length >= 2 ? toNumberOrNull(values[1]) : null;
-
-                if (lower !== this.internalValue.lower || upper !== this.internalValue.upper) {
-                    this.internalValue = {
-                        lower: lower,
-                        upper: upper
-                    };
-                }
-            }
-        }
-    },
-    template: `
-<NumberRangeBox v-if="isEditMode" v-model="internalValue" :decimal-count="0" />
-<span v-else>{{ displayValue }}</span>`
-}));

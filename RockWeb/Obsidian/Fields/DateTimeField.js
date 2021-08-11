@@ -39,12 +39,12 @@ System.register(["vue", "./Index", "../Elements/DateTimePicker", "@Obsidian/Serv
                 ConfigurationValueKey["DisplayAsElapsedTime"] = "displayDiff";
                 ConfigurationValueKey["DisplayCurrentOption"] = "displayCurrentOption";
             })(ConfigurationValueKey || (ConfigurationValueKey = {}));
-            exports_1("default", Index_1.registerFieldType(fieldTypeGuid, vue_1.defineComponent({
+            exports_1("default", Index_1.legacyRegisterFieldType(fieldTypeGuid, vue_1.defineComponent({
                 name: 'DateTimeField',
                 components: {
                     DateTimePicker: DateTimePicker_1.default
                 },
-                props: Index_1.getFieldTypeProps(),
+                props: Index_1.getFieldEditorProps(),
                 setup() {
                     return {
                         http: vue_1.inject('http')
@@ -114,7 +114,7 @@ System.register(["vue", "./Index", "../Elements/DateTimePicker", "@Obsidian/Serv
                     },
                     dateFormatTemplate() {
                         const formatConfig = this.configurationValues[ConfigurationValueKey.DateTimeFormat];
-                        return (formatConfig === null || formatConfig === void 0 ? void 0 : formatConfig.value) || 'MM/dd/yyyy';
+                        return formatConfig || 'MM/dd/yyyy';
                     },
                     elapsedString() {
                         const dateValue = this.asDate;
@@ -122,7 +122,7 @@ System.register(["vue", "./Index", "../Elements/DateTimePicker", "@Obsidian/Serv
                             return '';
                         }
                         const formatConfig = this.configurationValues[ConfigurationValueKey.DisplayAsElapsedTime];
-                        const displayDiff = Boolean_1.asBoolean(formatConfig === null || formatConfig === void 0 ? void 0 : formatConfig.value);
+                        const displayDiff = Boolean_1.asBoolean(formatConfig);
                         if (!displayDiff) {
                             return '';
                         }
@@ -131,11 +131,9 @@ System.register(["vue", "./Index", "../Elements/DateTimePicker", "@Obsidian/Serv
                     configAttributes() {
                         const attributes = {};
                         const displayCurrentConfig = this.configurationValues[ConfigurationValueKey.DisplayCurrentOption];
-                        if (displayCurrentConfig === null || displayCurrentConfig === void 0 ? void 0 : displayCurrentConfig.value) {
-                            const displayCurrent = Boolean_1.asBoolean(displayCurrentConfig.value);
-                            attributes.displayCurrentOption = displayCurrent;
-                            attributes.isCurrentDateOffset = displayCurrent;
-                        }
+                        const displayCurrent = Boolean_1.asBoolean(displayCurrentConfig);
+                        attributes.displayCurrentOption = displayCurrent;
+                        attributes.isCurrentDateOffset = displayCurrent;
                         return attributes;
                     }
                 },

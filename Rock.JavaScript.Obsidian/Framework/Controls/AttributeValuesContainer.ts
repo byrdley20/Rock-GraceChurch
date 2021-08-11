@@ -14,9 +14,9 @@
 // limitations under the License.
 // </copyright>
 //
-import { isNullOrWhitespace } from '@Obsidian/Services/String';
-import { defineComponent, PropType } from 'vue';
-import { AttributeValue } from '@Obsidian/ViewModels';
+import { isNullOrWhiteSpace } from '@Obsidian/Services/String';
+import { Component, defineComponent, PropType } from 'vue';
+import { ClientAttributeValue } from '@Obsidian/ViewModels';
 import RockField from './RockField';
 
 export default defineComponent({
@@ -30,7 +30,7 @@ export default defineComponent({
             default: false
         },
         attributeValues: {
-            type: Array as PropType<AttributeValue[]>,
+            type: Array as PropType<ClientAttributeValue[]>,
             required: true
         },
         showEmptyValues: {
@@ -42,50 +42,18 @@ export default defineComponent({
             default: false
         }
     },
-    methods: {
-        getAttributeLabel(attributeValue: AttributeValue): string {
-            if (this.showAbbreviatedName && attributeValue.attribute?.abbreviatedName) {
-                return attributeValue.attribute.abbreviatedName;
-            }
-
-            return attributeValue.attribute?.name || '';
-        }
-    },
     computed: {
-        validAttributeValues(): AttributeValue[] {
-            return this.attributeValues.filter(av => av.attribute);
-        },
-        valuesToShow(): AttributeValue[] {
-            if (this.showEmptyValues) {
-                return this.validAttributeValues;
-            }
-
-            return this.validAttributeValues.filter(av => !isNullOrWhitespace(av.value));
+        validAttributeValues(): ClientAttributeValue[] {
+            return this.attributeValues;
         }
     },
     template: `
-<div v-if="!isEditMode" v-for="a in valuesToShow" class="form-group static-control">
-    <template v-if="a.value">
-        <label class="control-label">
-            {{ getAttributeLabel(a) }}
-        </label>
-        <div class="control-wrapper">
-            <div class="form-control-static">
-                <RockField :fieldTypeGuid="a.attribute.fieldTypeGuid" v-model="a.value" :configurationValues="a.attribute.qualifierValues" />
-            </div>
-        </div>
-    </template>
-</div>
-<template v-else>
-    <template v-for="a in validAttributeValues">
-        <RockField
-            isEditMode
-            :fieldTypeGuid="a.attribute.fieldTypeGuid"
-            v-model="a.value"
-            :label="getAttributeLabel(a)"
-            :help="a.attribute.description"
-            :rules="a.attribute.isRequired ? 'required' : ''"
-            :configurationValues="a.attribute.qualifierValues"  />
-    </template>
-</template>`
+<template v-for="a in validAttributeValues">
+    <RockField
+        :isEditMode="isEditMode"
+        :attributeValue="a"
+        :showEmptyValue="showEmptyValues"
+        :showAbbreviatedName="showAbbreviatedName" />
+</template>
+`
 });

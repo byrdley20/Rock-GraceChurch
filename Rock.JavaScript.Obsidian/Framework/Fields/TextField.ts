@@ -14,79 +14,9 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { Guid } from '../Util/Guid';
-import { registerFieldType, getFieldTypeProps } from './Index';
-import TextBox from '../Elements/TextBox';
-import { asBooleanOrNull } from '@Obsidian/Services/Boolean';
 
-const fieldTypeGuid: Guid = '9C204CD0-1233-41C5-818A-C5DA439445AA';
+import { FieldTypeBase } from './FieldType';
 
-enum ConfigurationValueKey {
-    IsPassword = 'ispassword',
-    MaxCharacters = 'maxcharacters',
-    ShowCountDown = 'showcountdown'
+export class TextFieldType extends FieldTypeBase {
 }
 
-export default defineComponent({
-    name: 'TextField',
-    components: {
-        TextBox
-    },
-    props: getFieldTypeProps(),
-    data() {
-        return {
-            internalValue: ''
-        };
-    },
-    computed: {
-        safeValue(): string {
-            return (this.modelValue || '').trim();
-        },
-        configAttributes(): Record<string, number | boolean> {
-            const attributes: Record<string, number | boolean> = {};
-
-            const maxCharsConfig = this.configurationValues[ConfigurationValueKey.MaxCharacters];
-            if (maxCharsConfig && maxCharsConfig.value) {
-                const maxCharsValue = Number(maxCharsConfig.value);
-
-                if (maxCharsValue) {
-                    attributes.maxLength = maxCharsValue;
-                }
-            }
-
-            const showCountDownConfig = this.configurationValues[ConfigurationValueKey.ShowCountDown];
-            if (showCountDownConfig && showCountDownConfig.value) {
-                const showCountDownValue = asBooleanOrNull(showCountDownConfig.value) || false;
-
-                if (showCountDownValue) {
-                    attributes.showCountDown = showCountDownValue;
-                }
-            }
-
-            return attributes;
-        },
-        isPassword(): boolean {
-            const isPasswordConfig = this.configurationValues[ConfigurationValueKey.IsPassword];
-            return asBooleanOrNull(isPasswordConfig?.value) || false;
-        },
-        passwordDisplay(): string {
-            return this.safeValue ? '********' : '';
-        }
-    },
-    watch: {
-        internalValue(): void {
-            this.$emit('update:modelValue', this.internalValue);
-        },
-        modelValue: {
-            immediate: true,
-            handler(): void {
-                this.internalValue = this.modelValue || '';
-            }
-        }
-    },
-    template: `
-<TextBox v-if="isEditMode" v-model="internalValue" v-bind="configAttributes" :type="isPassword ? 'password' : ''" />
-<span v-else-if="isPassword">{{passwordDisplay}}</span>
-<span v-else>{{ safeValue }}</span>`
-});

@@ -21,7 +21,8 @@ module.exports = {
         quotes: ['warn', 'single', { 'avoidEscape': true, 'allowTemplateLiterals': true }],
         semi: ['warn', 'always'],
         '@typescript-eslint/no-unused-vars': ["warn", {
-            "argsIgnorePattern": "^_"
+            "argsIgnorePattern": "^_",
+            "varsIgnorePattern": "^_"
         }],
         '@typescript-eslint/no-inferrable-types': 'off'
     }

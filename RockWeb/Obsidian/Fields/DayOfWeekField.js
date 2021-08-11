@@ -1,82 +1,72 @@
-System.register(["vue", "./Index", "../Elements/DropDownList"], function (exports_1, context_1) {
+System.register(["vue", "./FieldType", "@Obsidian/Services/Number"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, Index_1, DropDownList_1, fieldTypeGuid, DayOfWeek, ConfigurationValueKey;
+    var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+    };
+    var vue_1, FieldType_1, Number_1, editComponent, DayOfWeekFieldType;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (Index_1_1) {
-                Index_1 = Index_1_1;
+            function (FieldType_1_1) {
+                FieldType_1 = FieldType_1_1;
             },
-            function (DropDownList_1_1) {
-                DropDownList_1 = DropDownList_1_1;
+            function (Number_1_1) {
+                Number_1 = Number_1_1;
             }
         ],
         execute: function () {
-            fieldTypeGuid = '7EDFA2DE-FDD3-4AC1-B356-1F5BFC231DAE';
-            (function (DayOfWeek) {
-                DayOfWeek[DayOfWeek["Sunday"] = 0] = "Sunday";
-                DayOfWeek[DayOfWeek["Monday"] = 1] = "Monday";
-                DayOfWeek[DayOfWeek["Tuesday"] = 2] = "Tuesday";
-                DayOfWeek[DayOfWeek["Wednesday"] = 3] = "Wednesday";
-                DayOfWeek[DayOfWeek["Thursday"] = 4] = "Thursday";
-                DayOfWeek[DayOfWeek["Friday"] = 5] = "Friday";
-                DayOfWeek[DayOfWeek["Saturday"] = 6] = "Saturday";
-            })(DayOfWeek || (DayOfWeek = {}));
-            (function (ConfigurationValueKey) {
-            })(ConfigurationValueKey || (ConfigurationValueKey = {}));
-            exports_1("default", Index_1.registerFieldType(fieldTypeGuid, vue_1.defineComponent({
-                name: 'DayOfWeekField',
-                components: {
-                    DropDownList: DropDownList_1.default
-                },
-                props: Index_1.getFieldTypeProps(),
-                data() {
-                    return {
-                        internalValue: ''
-                    };
-                },
-                methods: {
-                    options() {
-                        return [
-                            { text: 'Sunday', value: DayOfWeek.Sunday.toString() },
-                            { text: 'Monday', value: DayOfWeek.Monday.toString() },
-                            { text: 'Tuesday', value: DayOfWeek.Tuesday.toString() },
-                            { text: 'Wednesday', value: DayOfWeek.Wednesday.toString() },
-                            { text: 'Thursday', value: DayOfWeek.Thursday.toString() },
-                            { text: 'Friday', value: DayOfWeek.Friday.toString() },
-                            { text: 'Saturday', value: DayOfWeek.Saturday.toString() }
-                        ];
-                    },
-                },
-                computed: {
-                    displayValue() {
-                        var _a;
-                        const value = (_a = this.modelValue) !== null && _a !== void 0 ? _a : "";
-                        if (value === "") {
-                            return "";
-                        }
-                        const matchedOptions = this.options().filter(v => v.value === value);
-                        return matchedOptions.length === 0 ? "" : matchedOptions[0].text;
+            editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
+                return (yield context_1.import('./DayOfWeekFieldComponents')).EditComponent;
+            }));
+            DayOfWeekFieldType = class DayOfWeekFieldType extends FieldType_1.FieldTypeBase {
+                updateTextValue(value) {
+                    const dayValue = Number_1.toNumberOrNull(value.value);
+                    if (dayValue === null) {
+                        value.textValue = '';
                     }
-                },
-                watch: {
-                    internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
-                    },
-                    modelValue: {
-                        immediate: true,
-                        handler() {
-                            this.internalValue = this.modelValue || '';
+                    else {
+                        switch (dayValue) {
+                            case 0:
+                                value.textValue = 'Sunday';
+                                break;
+                            case 1:
+                                value.textValue = 'Monday';
+                                break;
+                            case 2:
+                                value.textValue = 'Tuesday';
+                                break;
+                            case 3:
+                                value.textValue = 'Wednesday';
+                                break;
+                            case 4:
+                                value.textValue = 'Thursday';
+                                break;
+                            case 5:
+                                value.textValue = 'Friday';
+                                break;
+                            case 6:
+                                value.textValue = 'Saturday';
+                                break;
+                            default:
+                                value.textValue = '';
+                                break;
                         }
                     }
-                },
-                template: `
-<DropDownList v-if="isEditMode" v-model="internalValue" :options="options()" />
-<span v-else>{{ displayValue }}</span>`
-            })));
+                }
+                getEditComponent(_value) {
+                    return editComponent;
+                }
+            };
+            exports_1("DayOfWeekFieldType", DayOfWeekFieldType);
         }
     };
 });

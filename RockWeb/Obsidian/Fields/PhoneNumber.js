@@ -19,12 +19,12 @@ System.register(["vue", "./Index", "@Obsidian/Services/String", "../Elements/Pho
         ],
         execute: function () {
             fieldTypeGuid = '6B1908EC-12A2-463A-A7BD-970CE0FAF097';
-            exports_1("default", Index_1.registerFieldType(fieldTypeGuid, vue_1.defineComponent({
+            exports_1("default", Index_1.legacyRegisterFieldType(fieldTypeGuid, vue_1.defineComponent({
                 name: 'PhoneNumber',
                 components: {
                     PhoneNumberBox: PhoneNumberBox_1.default
                 },
-                props: Index_1.getFieldTypeProps(),
+                props: Index_1.getFieldEditorProps(),
                 data() {
                     return {
                         internalValue: ''

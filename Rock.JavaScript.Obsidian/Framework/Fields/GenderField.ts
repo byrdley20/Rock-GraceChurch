@@ -14,59 +14,38 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { Guid } from '../Util/Guid';
-import { getFieldTypeProps, registerFieldType } from './Index';
-import DropDownList, { DropDownListOption } from '../Elements/DropDownList';
+import { Component, defineAsyncComponent } from 'vue';
+import { FieldTypeBase } from './FieldType';
+import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
+import { toNumberOrNull } from '@Obsidian/Services/Number';
 
-const fieldTypeGuid: Guid = '2E28779B-4C76-4142-AE8D-49EA31DDB503';
+// The edit component can be quite large, so load it only as needed.
+const editComponent = defineAsyncComponent(async () => {
+    return (await import('./GenderFieldComponents')).EditComponent;
+});
 
-export default registerFieldType(fieldTypeGuid, defineComponent({
-    name: 'GenderField',
-    components: {
-        DropDownList
-    },
-    props: getFieldTypeProps(),
-    data() {
-        return {
-            internalValue: ''
-        };
-    },
-    computed: {
-        displayValue(): string {
-            if (this.internalValue === '0') {
-                return 'Unknown';
-            }
-            else if (this.internalValue === '1') {
-                return 'Male';
-            }
-            else if (this.internalValue === '2') {
-                return 'Female';
-            }
-            else {
-                return '';
-            }
-        },
-        dropDownListOptions(): DropDownListOption[] {
-            return [
-                { key: '0', text: 'Unknown', value: '0' },
-                { key: '1', text: 'Male', value: '1' },
-                { key: '2', text: 'Female', value: '2' }
-            ] as DropDownListOption[];
+/**
+ * The field type handler for the Gender field.
+ */
+export class GenderFieldType extends FieldTypeBase {
+    public override updateTextValue(value: ClientEditableAttributeValue): void {
+        const numberValue = toNumberOrNull(value.value);
+
+        if (numberValue === 0) {
+            value.textValue = 'Unknown';
         }
-    },
-    watch: {
-        internalValue() {
-            this.$emit('update:modelValue', this.internalValue);
-        },
-        modelValue: {
-            immediate: true,
-            handler() {
-                this.internalValue = this.modelValue || '';
-            }
+        else if (numberValue === 1) {
+            value.textValue = 'Male';
         }
-    },
-    template: `
-<DropDownList v-if="isEditMode" v-model="internalValue" :options="dropDownListOptions" />
-<span v-else>{{ displayValue }}</span>`
-}));
+        else if (numberValue === 2) {
+            value.textValue = 'Female';
+        }
+        else {
+            value.textValue = '';
+        }
+    }
+
+    public override getEditComponent(_value: ClientAttributeValue): Component {
+        return editComponent;
+    }
+}

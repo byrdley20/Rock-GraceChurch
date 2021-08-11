@@ -150,7 +150,6 @@ namespace Rock.Rest.v2
                 }
 
                 var requestContext = new Net.RockRequestContext( controller.Request );
-                requestContext.AddContextEntitiesForPage( blockCache.Page );
 
                 //
                 // Set the basic block parameters.
@@ -202,6 +201,8 @@ namespace Rock.Rest.v2
                 {
                     actionParameters.AddOrReplace( q.Key, JToken.FromObject( q.Value.ToString() ) );
                 }
+
+                requestContext.AddContextEntitiesForPage( blockCache.Page );
 
                 return InvokeAction( controller, rockBlock, actionName, actionParameters, parameters );
             }

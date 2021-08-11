@@ -14,98 +14,68 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { Guid } from '../Util/Guid';
-import { registerFieldType, getFieldTypeProps } from './Index';
-import CheckBoxList, { CheckBoxListOption } from '../Elements/CheckBoxList';
-import { toNumber } from '@Obsidian/Services/Number';
+import { Component, defineAsyncComponent } from 'vue';
+import { FieldTypeBase } from './FieldType';
+import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
+import { toNumberOrNull } from '@Obsidian/Services/Number';
+import { DayOfWeek } from './DayOfWeekField';
 
-const fieldTypeGuid: Guid = '08943FF9-F2A8-4DB4-A72A-31938B200C8C';
 
-enum DayOfWeek {
-    Sunday = 0,
-    Monday = 1,
-    Tuesday = 2,
-    Wednesday = 3,
-    Thursday = 4,
-    Friday = 5,
-    Saturday = 6
-}
+// The edit component can be quite large, so load it only as needed.
+const editComponent = defineAsyncComponent(async () => {
+    return (await import('./DaysOfWeekFieldComponents')).EditComponent;
+});
 
-enum ConfigurationValueKey {
-}
-
-export default registerFieldType(fieldTypeGuid, defineComponent({
-    name: 'DaysOfWeekField',
-    components: {
-        CheckBoxList
-    },
-    props: getFieldTypeProps(),
-
-    data() {
-        return {
-            /** The currently selected values. */
-            internalValue: [] as Array<string>,
-        };
-    },
-
-    methods: {
-        /**
-         * Builds a list of the drop down options that are used to display
-         * in the drop down list.
-         */
-        options(): Array<CheckBoxListOption> {
-            return [
-                { text: 'Sunday', value: DayOfWeek.Sunday.toString() },
-                { text: 'Monday', value: DayOfWeek.Monday.toString() },
-                { text: 'Tuesday', value: DayOfWeek.Tuesday.toString() },
-                { text: 'Wednesday', value: DayOfWeek.Wednesday.toString() },
-                { text: 'Thursday', value: DayOfWeek.Thursday.toString() },
-                { text: 'Friday', value: DayOfWeek.Friday.toString() },
-                { text: 'Saturday', value: DayOfWeek.Saturday.toString() }
-            ];
-        },
-    },
-
-    computed: {
-        /**
-         * The display safe value.
-         * */
-        displayValue(): string {
-            if (this.internalValue.length === 0) {
-                return "";
-            }
-
-            return this.options()
-                .filter(v => this.internalValue.indexOf(v.value) !== -1)
-                .map(v => v.text)
-                .join(", ");
+/**
+ * The field type handler for the DaysOfWeek field.
+ */
+export class DaysOfWeekFieldType extends FieldTypeBase {
+    public override updateTextValue(value: ClientEditableAttributeValue): void {
+        if (value.value === null || value.value === undefined || value.value === '') {
+            value.textValue = '';
+            return;
         }
-    },
 
-    watch: {
-        /**
-         * Watch for changes to internalValue and emit the new value out to
-         * the consuming component.
-         */
-        internalValue(): void {
-            this.$emit('update:modelValue', this.internalValue.sort((a, b) => toNumber(a) - toNumber(b)).join(","));
-        },
+        value.textValue = value.value.split(',')
+            .map(v => {
+                const dayValue = toNumberOrNull(v);
 
-        /**
-         * Watch for changes to modelValue which indicate the component
-         * using us has given us a new value to work with.
-         */
-        modelValue: {
-            immediate: true,
-            handler(): void {
-                const value = this.modelValue ?? "";
+                if (dayValue === null) {
+                    return '';
+                }
+                else {
+                    switch (dayValue) {
+                        case DayOfWeek.Sunday:
+                            return 'Sunday';
 
-                this.internalValue = value !== "" ? value.split(",") : [];
-            }
-        }
-    },
-    template: `
-<CheckBoxList v-if="isEditMode" v-model="internalValue" :options="options()" />
-<span v-else>{{ displayValue }}</span>`
-}));
+                        case DayOfWeek.Monday:
+                            return 'Monday';
+
+                        case DayOfWeek.Tuesday:
+                            return 'Tuesday';
+
+                        case DayOfWeek.Wednesday:
+                            return 'Wednesday';
+
+                        case DayOfWeek.Thursday:
+                            return 'Thursday';
+
+                        case DayOfWeek.Friday:
+                            return 'Friday';
+
+                        case DayOfWeek.Saturday:
+                            return 'Saturday';
+
+                        default:
+                            return '';
+                    }
+                }
+            })
+            .filter(v => v != '')
+            .join(', ');
+    }
+
+    public override getEditComponent(_value: ClientAttributeValue): Component {
+        return editComponent;
+    }
+}

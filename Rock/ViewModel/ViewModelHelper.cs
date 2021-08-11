@@ -21,6 +21,7 @@ using System.Linq;
 using System.Reflection;
 
 using Rock.Attribute;
+using Rock.Field;
 using Rock.Model;
 using Rock.Security;
 using Rock.Web.Cache;
@@ -36,6 +37,14 @@ namespace Rock.ViewModel
         /// The cached default helpers for converting models into view models.
         /// </summary>
         internal static ConcurrentDictionary<Type, Type> _defaultHelperTypes = new ConcurrentDictionary<Type, Type>();
+
+        /// <summary>
+        /// The field types associated with their unique identifiers. Because we
+        /// expect to do these lookups so often, this provides a slight speed
+        /// improvement over the cache. It also handles mapping unknown field
+        /// types to the default field type.
+        /// </summary>
+        internal static ConcurrentDictionary<Guid, IFieldType> _fieldTypes = new ConcurrentDictionary<Guid, IFieldType>();
 
         /// <summary>
         /// Gets the view model.
@@ -102,6 +111,91 @@ namespace Rock.ViewModel
 
             return typeof( ViewModelHelper<,> ).MakeGenericType( type, viewModelType );
         }
+
+        /// <summary>
+        /// Converts an Attribute Value to a view model that can be sent to the client.
+        /// </summary>
+        /// <param name="attributeValue">The attribute value.</param>
+        /// <returns>A <see cref="ClientAttributeValueViewModel"/> instance.</returns>
+        public static ClientAttributeValueViewModel ToClientAttributeValue( AttributeValueCache attributeValue )
+        {
+            var attribute = AttributeCache.Get( attributeValue.AttributeId );
+
+            var fieldType = _fieldTypes.GetOrAdd( attribute.FieldType.Guid, GetFieldType );
+
+            return new ClientAttributeValueViewModel
+            {
+                FieldTypeGuid = attribute.FieldType.Guid,
+                AttributeGuid = attribute.Guid,
+                Name = attributeValue.AttributeName,
+                Categories = attribute.Categories.Select( c => new ClientAttributeValueCategoryViewModel
+                {
+                    Guid = c.Guid,
+                    Name = c.Name,
+                    Order = c.Order
+                } ).ToList(),
+                Order = attribute.Order,
+                TextValue = fieldType.GetTextValue( attributeValue.Value, attribute.QualifierValues ),
+                Value = fieldType.GetClientValue( attributeValue.Value, attribute.QualifierValues )
+            };
+        }
+
+        /// <summary>
+        /// Converts an Attribute Value to a view model that can be sent to the client.
+        /// </summary>
+        /// <param name="attributeValue">The attribute value.</param>
+        /// <returns>A <see cref="ClientEditableAttributeValueViewModel"/> instance.</returns>
+        public static ClientEditableAttributeValueViewModel ToClientEditableAttributeValue( AttributeValueCache attributeValue )
+        {
+            var attribute = AttributeCache.Get( attributeValue.AttributeId );
+
+            var fieldType = _fieldTypes.GetOrAdd( attribute.FieldType.Guid, GetFieldType );
+
+            return new ClientEditableAttributeValueViewModel
+            {
+                FieldTypeGuid = attribute.FieldType.Guid,
+                AttributeGuid = attribute.Guid,
+                Name = attributeValue.AttributeName,
+                Categories = attribute.Categories.Select( c => new ClientAttributeValueCategoryViewModel
+                {
+                    Guid = c.Guid,
+                    Name = c.Name,
+                    Order = c.Order
+                } ).ToList(),
+                Order = attribute.Order,
+                TextValue = fieldType.GetTextValue( attributeValue.Value, attribute.QualifierValues ),
+                Value = fieldType.GetClientValue( attributeValue.Value, attribute.QualifierValues ),
+                Key = attribute.Key,
+                IsRequired = attribute.IsRequired,
+                Description = attribute.Description,
+                ConfigurationValues = fieldType.GetClientConfigurationValues( attribute.QualifierValues )
+            };
+        }
+
+        /// <summary>
+        /// Converts a client provided value into one that can be stored in
+        /// the database.
+        /// </summary>
+        /// <param name="clientValue">The value provided by the client.</param>
+        /// <param name="attribute">The attribute being set.</param>
+        /// <returns>A string value.</returns>
+        public static string ToDatabaseAttributeValue( string clientValue, AttributeCache attribute )
+        {
+            var fieldType = _fieldTypes.GetOrAdd( attribute.FieldType.Guid, GetFieldType );
+
+            return fieldType.GetValueFromClient( clientValue, attribute.QualifierValues );
+        }
+
+        /// <summary>
+        /// Gets the <see cref="IFieldType"/> that handles the specified
+        /// unique identifier.
+        /// </summary>
+        /// <param name="guid">The unique identifier.</param>
+        /// <returns>A <see cref="IFieldType"/> instance.</returns>
+        private static IFieldType GetFieldType( Guid guid )
+        {
+            return FieldTypeCache.Get( guid )?.Field ?? new Field.Types.TextFieldType();
+        }
     }
 
     /// <summary>
@@ -166,7 +260,7 @@ namespace Rock.ViewModel
                         var attribute = AttributeCache.Get( av.Value.AttributeId );
                         return attribute?.IsAuthorized( Authorization.VIEW, currentPerson ) ?? false;
                     } )
-                    .ToDictionary( kvp => kvp.Key, kvp => kvp.Value.ToViewModel() );
+                    .ToDictionary( kvp => kvp.Key, kvp => ViewModelHelper.ToClientAttributeValue( kvp.Value ) );
             }
         }
 

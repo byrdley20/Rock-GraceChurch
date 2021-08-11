@@ -1,57 +1,42 @@
-System.register(["vue", "./Index", "@Obsidian/Services/Number", "../Elements/NumberBox"], function (exports_1, context_1) {
+System.register(["vue", "./FieldType", "@Obsidian/Services/Number"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, Index_1, Number_1, NumberBox_1, fieldTypeGuid, ConfigurationValueKey;
+    var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+    };
+    var vue_1, FieldType_1, Number_1, editComponent, DecimalFieldType;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (Index_1_1) {
-                Index_1 = Index_1_1;
+            function (FieldType_1_1) {
+                FieldType_1 = FieldType_1_1;
             },
             function (Number_1_1) {
                 Number_1 = Number_1_1;
-            },
-            function (NumberBox_1_1) {
-                NumberBox_1 = NumberBox_1_1;
             }
         ],
         execute: function () {
-            fieldTypeGuid = 'C757A554-3009-4214-B05D-CEA2B2EA6B8F';
-            (function (ConfigurationValueKey) {
-            })(ConfigurationValueKey || (ConfigurationValueKey = {}));
-            exports_1("default", Index_1.registerFieldType(fieldTypeGuid, vue_1.defineComponent({
-                name: 'DecimalField',
-                components: {
-                    NumberBox: NumberBox_1.default
-                },
-                props: Index_1.getFieldTypeProps(),
-                data() {
-                    return {
-                        internalValue: null
-                    };
-                },
-                computed: {
-                    displayValue() {
-                        return (this.modelValue || '').trim();
-                    }
-                },
-                watch: {
-                    internalValue() {
-                        this.$emit('update:modelValue', this.internalValue !== null ? this.internalValue.toString() : '');
-                    },
-                    modelValue: {
-                        immediate: true,
-                        handler() {
-                            this.internalValue = Number_1.toNumberOrNull(this.modelValue || '');
-                        }
-                    }
-                },
-                template: `
-<NumberBox v-if="isEditMode" v-model="internalValue" rules="decimal" />
-<span v-else>{{ displayValue }}</span>`
-            })));
+            editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
+                return (yield context_1.import('./DecimalFieldComponents')).EditComponent;
+            }));
+            DecimalFieldType = class DecimalFieldType extends FieldType_1.FieldTypeBase {
+                updateTextValue(value) {
+                    var _a, _b;
+                    value.textValue = (_b = (_a = Number_1.toNumberOrNull(value.value)) === null || _a === void 0 ? void 0 : _a.toString()) !== null && _b !== void 0 ? _b : '';
+                }
+                getEditComponent(_value) {
+                    return editComponent;
+                }
+            };
+            exports_1("DecimalFieldType", DecimalFieldType);
         }
     };
 });

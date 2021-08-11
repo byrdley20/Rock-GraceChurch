@@ -9,17 +9,17 @@ System.register([], function (exports_1, context_1) {
         return false;
     }
     exports_1("isEmpty", isEmpty);
-    function isWhitespace(val) {
+    function isWhiteSpace(val) {
         if (typeof val === 'string') {
             return val.trim().length === 0;
         }
         return false;
     }
-    exports_1("isWhitespace", isWhitespace);
-    function isNullOrWhitespace(val) {
-        return isWhitespace(val) || val === undefined || val === null;
+    exports_1("isWhiteSpace", isWhiteSpace);
+    function isNullOrWhiteSpace(val) {
+        return isWhiteSpace(val) || val === undefined || val === null;
     }
-    exports_1("isNullOrWhitespace", isNullOrWhitespace);
+    exports_1("isNullOrWhiteSpace", isNullOrWhiteSpace);
     function splitCamelCase(val) {
         if (typeof val === 'string') {
             return val.replace(/([a-z])([A-Z])/g, '$1 $2');
@@ -143,8 +143,8 @@ System.register([], function (exports_1, context_1) {
                 asCommaAnd,
                 escapeHtml,
                 splitCamelCase,
-                isNullOrWhitespace,
-                isWhitespace,
+                isNullOrWhiteSpace,
+                isWhiteSpace,
                 isEmpty,
                 toTitleCase,
                 pluralConditional,

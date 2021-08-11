@@ -16,6 +16,10 @@ System.register([], function (exports_1, context_1) {
         return a.toLowerCase();
     }
     exports_1("normalize", normalize);
+    function isValidGuid(guid) {
+        return /^[0-9A-Fa-f]{8}-(?:[0-9A-Fa-f]{4}-){3}[0-9A-Fa-f]{12}$/.test(guid);
+    }
+    exports_1("isValidGuid", isValidGuid);
     function areEqual(a, b) {
         return normalize(a) === normalize(b);
     }

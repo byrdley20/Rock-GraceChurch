@@ -21,7 +21,7 @@ import { Mutations, MutationType } from './Mutations';
 import { State } from './State';
 import { PageConfig } from '../Index';
 
-export enum ActionType {
+export const enum ActionType {
     Initialize = 'initialize',
 
     RedirectToLogin = 'redirectToLogin'

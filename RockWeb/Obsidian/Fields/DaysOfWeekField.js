@@ -1,87 +1,73 @@
-System.register(["vue", "./Index", "../Elements/CheckBoxList", "@Obsidian/Services/Number"], function (exports_1, context_1) {
+System.register(["vue", "./FieldType", "@Obsidian/Services/Number"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, Index_1, CheckBoxList_1, Number_1, fieldTypeGuid, DayOfWeek, ConfigurationValueKey;
+    var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+    };
+    var vue_1, FieldType_1, Number_1, editComponent, DaysOfWeekFieldType;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (Index_1_1) {
-                Index_1 = Index_1_1;
-            },
-            function (CheckBoxList_1_1) {
-                CheckBoxList_1 = CheckBoxList_1_1;
+            function (FieldType_1_1) {
+                FieldType_1 = FieldType_1_1;
             },
             function (Number_1_1) {
                 Number_1 = Number_1_1;
             }
         ],
         execute: function () {
-            fieldTypeGuid = '08943FF9-F2A8-4DB4-A72A-31938B200C8C';
-            (function (DayOfWeek) {
-                DayOfWeek[DayOfWeek["Sunday"] = 0] = "Sunday";
-                DayOfWeek[DayOfWeek["Monday"] = 1] = "Monday";
-                DayOfWeek[DayOfWeek["Tuesday"] = 2] = "Tuesday";
-                DayOfWeek[DayOfWeek["Wednesday"] = 3] = "Wednesday";
-                DayOfWeek[DayOfWeek["Thursday"] = 4] = "Thursday";
-                DayOfWeek[DayOfWeek["Friday"] = 5] = "Friday";
-                DayOfWeek[DayOfWeek["Saturday"] = 6] = "Saturday";
-            })(DayOfWeek || (DayOfWeek = {}));
-            (function (ConfigurationValueKey) {
-            })(ConfigurationValueKey || (ConfigurationValueKey = {}));
-            exports_1("default", Index_1.registerFieldType(fieldTypeGuid, vue_1.defineComponent({
-                name: 'DaysOfWeekField',
-                components: {
-                    CheckBoxList: CheckBoxList_1.default
-                },
-                props: Index_1.getFieldTypeProps(),
-                data() {
-                    return {
-                        internalValue: [],
-                    };
-                },
-                methods: {
-                    options() {
-                        return [
-                            { text: 'Sunday', value: DayOfWeek.Sunday.toString() },
-                            { text: 'Monday', value: DayOfWeek.Monday.toString() },
-                            { text: 'Tuesday', value: DayOfWeek.Tuesday.toString() },
-                            { text: 'Wednesday', value: DayOfWeek.Wednesday.toString() },
-                            { text: 'Thursday', value: DayOfWeek.Thursday.toString() },
-                            { text: 'Friday', value: DayOfWeek.Friday.toString() },
-                            { text: 'Saturday', value: DayOfWeek.Saturday.toString() }
-                        ];
-                    },
-                },
-                computed: {
-                    displayValue() {
-                        if (this.internalValue.length === 0) {
-                            return "";
-                        }
-                        return this.options()
-                            .filter(v => this.internalValue.indexOf(v.value) !== -1)
-                            .map(v => v.text)
-                            .join(", ");
+            editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
+                return (yield context_1.import('./DaysOfWeekFieldComponents')).EditComponent;
+            }));
+            DaysOfWeekFieldType = class DaysOfWeekFieldType extends FieldType_1.FieldTypeBase {
+                updateTextValue(value) {
+                    if (value.value === null || value.value === undefined || value.value === '') {
+                        value.textValue = '';
+                        return;
                     }
-                },
-                watch: {
-                    internalValue() {
-                        this.$emit('update:modelValue', this.internalValue.sort((a, b) => Number_1.toNumber(a) - Number_1.toNumber(b)).join(","));
-                    },
-                    modelValue: {
-                        immediate: true,
-                        handler() {
-                            var _a;
-                            const value = (_a = this.modelValue) !== null && _a !== void 0 ? _a : "";
-                            this.internalValue = value !== "" ? value.split(",") : [];
+                    value.textValue = value.value.split(',')
+                        .map(v => {
+                        const dayValue = Number_1.toNumberOrNull(v);
+                        if (dayValue === null) {
+                            return '';
                         }
-                    }
-                },
-                template: `
-<CheckBoxList v-if="isEditMode" v-model="internalValue" :options="options()" />
-<span v-else>{{ displayValue }}</span>`
-            })));
+                        else {
+                            switch (dayValue) {
+                                case 0:
+                                    return 'Sunday';
+                                case 1:
+                                    return 'Monday';
+                                case 2:
+                                    return 'Tuesday';
+                                case 3:
+                                    return 'Wednesday';
+                                case 4:
+                                    return 'Thursday';
+                                case 5:
+                                    return 'Friday';
+                                case 6:
+                                    return 'Saturday';
+                                default:
+                                    return '';
+                            }
+                        }
+                    })
+                        .filter(v => v != '')
+                        .join(', ');
+                }
+                getEditComponent(_value) {
+                    return editComponent;
+                }
+            };
+            exports_1("DaysOfWeekFieldType", DaysOfWeekFieldType);
         }
     };
 });

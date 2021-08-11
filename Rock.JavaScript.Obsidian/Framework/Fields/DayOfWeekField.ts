@@ -14,14 +14,12 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { Guid } from '../Util/Guid';
-import { registerFieldType, getFieldTypeProps } from './Index';
-import DropDownList, { DropDownListOption } from '../Elements/DropDownList';
+import { Component, defineAsyncComponent } from 'vue';
+import { FieldTypeBase } from './FieldType';
+import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
+import { toNumberOrNull } from '@Obsidian/Services/Number';
 
-const fieldTypeGuid: Guid = '7EDFA2DE-FDD3-4AC1-B356-1F5BFC231DAE';
-
-enum DayOfWeek {
+export const enum DayOfWeek {
     Sunday = 0,
     Monday = 1,
     Tuesday = 2,
@@ -31,78 +29,60 @@ enum DayOfWeek {
     Saturday = 6
 }
 
-enum ConfigurationValueKey {
+
+// The edit component can be quite large, so load it only as needed.
+const editComponent = defineAsyncComponent(async () => {
+    return (await import('./DayOfWeekFieldComponents')).EditComponent;
+});
+
+/**
+ * The field type handler for the DayOfWeek field.
+ */
+export class DayOfWeekFieldType extends FieldTypeBase {
+    public override updateTextValue(value: ClientEditableAttributeValue): void {
+        const dayValue = toNumberOrNull(value.value);
+
+        if (dayValue === null) {
+            value.textValue = '';
+        }
+        else {
+            switch (dayValue) {
+                case DayOfWeek.Sunday:
+                    value.textValue = 'Sunday';
+                    break;
+
+                case DayOfWeek.Monday:
+                    value.textValue = 'Monday';
+                    break;
+
+                case DayOfWeek.Tuesday:
+                    value.textValue = 'Tuesday';
+                    break;
+
+                case DayOfWeek.Wednesday:
+                    value.textValue = 'Wednesday';
+                    break;
+
+                case DayOfWeek.Thursday:
+                    value.textValue = 'Thursday';
+                    break;
+
+                case DayOfWeek.Friday:
+                    value.textValue = 'Friday';
+                    break;
+
+                case DayOfWeek.Saturday:
+                    value.textValue = 'Saturday';
+                    break;
+
+                default:
+                    value.textValue = '';
+                    break;
+            }
+        }
+    }
+
+    public override getEditComponent(_value: ClientAttributeValue): Component {
+        return editComponent;
+    }
 }
-
-export default registerFieldType(fieldTypeGuid, defineComponent({
-    name: 'DayOfWeekField',
-    components: {
-        DropDownList
-    },
-    props: getFieldTypeProps(),
-
-    data() {
-        return {
-            /** The currently selected value. */
-            internalValue: ''
-        };
-    },
-
-    methods: {
-        /**
-         * Builds a list of the drop down options that are used to display
-         * in the drop down list.
-         */
-        options(): Array<DropDownListOption> {
-            return [
-                { text: 'Sunday', value: DayOfWeek.Sunday.toString() },
-                { text: 'Monday', value: DayOfWeek.Monday.toString() },
-                { text: 'Tuesday', value: DayOfWeek.Tuesday.toString() },
-                { text: 'Wednesday', value: DayOfWeek.Wednesday.toString() },
-                { text: 'Thursday', value: DayOfWeek.Thursday.toString() },
-                { text: 'Friday', value: DayOfWeek.Friday.toString() },
-                { text: 'Saturday', value: DayOfWeek.Saturday.toString() }
-            ];
-        },
-    },
-
-    computed: {
-        /**
-         * The display safe value.
-         * */
-        displayValue(): string {
-            const value = this.modelValue ?? "";
-
-            if (value === "") {
-                return "";
-            }
-
-            const matchedOptions = this.options().filter(v => v.value === value);
-
-            return matchedOptions.length === 0 ? "" : matchedOptions[0].text;
-        }
-    },
-    watch: {
-        /**
-         * Watch for changes to internalValue and emit the new value out to
-         * the consuming component.
-         */
-        internalValue() {
-            this.$emit('update:modelValue', this.internalValue);
-        },
-
-        /**
-         * Watch for changes to modelValue which indicate the component
-         * using us has given us a new value to work with.
-         */
-        modelValue: {
-            immediate: true,
-            handler() {
-                this.internalValue = this.modelValue || '';
-            }
-        }
-    },
-    template: `
-<DropDownList v-if="isEditMode" v-model="internalValue" :options="options()" />
-<span v-else>{{ displayValue }}</span>`
-}));

@@ -16,7 +16,7 @@ System.register([], function (exports_1, context_1) {
     }
     exports_1("toNumber", toNumber);
     function toNumberOrNull(str) {
-        if (str === null || str == "") {
+        if (str === null || str === undefined || str == "") {
             return null;
         }
         const replaced = str.replace(/[$,]/g, '');
@@ -28,7 +28,7 @@ System.register([], function (exports_1, context_1) {
         if (typeof value === "string") {
             value = toNumberOrNull(value);
         }
-        if (value === null) {
+        if (value === null || value === undefined) {
             return null;
         }
         return "$" + asFormattedString(value, 2);
@@ -72,6 +72,9 @@ System.register([], function (exports_1, context_1) {
     }
     exports_1("toOrdinal", toOrdinal);
     function toWord(num) {
+        if (num === null || num === undefined) {
+            return '';
+        }
         switch (num) {
             case 1: return 'one';
             case 2: return 'two';

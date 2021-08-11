@@ -14,145 +14,56 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { Guid } from '../Util/Guid';
-import { getConfigurationValue, getFieldTypeProps, registerFieldType } from './Index';
-import { asYesNoOrNull, asTrueFalseOrNull, asBoolean, asBooleanOrNull } from '@Obsidian/Services/Boolean';
-import DropDownList, { DropDownListOption } from '../Elements/DropDownList';
-import Toggle from '../Elements/Toggle';
-import CheckBox from '../Elements/CheckBox';
+import { Component, defineAsyncComponent } from 'vue';
+import { FieldTypeBase } from './FieldType';
+import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
+import { asBooleanOrNull } from '@Obsidian/Services/Boolean';
 
-const fieldTypeGuid: Guid = '1EDAFDED-DFE6-4334-B019-6EECBA89E05A';
-
-enum BooleanControlType {
-    DropDown,
-    Checkbox,
-    Toggle
-}
-
-enum ConfigurationValueKey {
+export const enum ConfigurationValueKey {
     BooleanControlType = 'BooleanControlType',
     FalseText = 'falsetext',
     TrueText = 'truetext'
 }
 
-export default registerFieldType( fieldTypeGuid, defineComponent( {
-    name: 'BooleanField',
-    components: {
-        DropDownList,
-        Toggle,
-        CheckBox
-    },
-    props: getFieldTypeProps(),
-    data ()
-    {
-        return {
-            internalBooleanValue: false,
-            internalValue: ''
-        };
-    },
-    computed: {
-        booleanControlType (): BooleanControlType
-        {
-            const controlType = getConfigurationValue( ConfigurationValueKey.BooleanControlType, this.configurationValues );
 
-            switch ( controlType )
-            {
-                case '1':
-                    return BooleanControlType.Checkbox;
-                case '2':
-                    return BooleanControlType.Toggle;
-                default:
-                    return BooleanControlType.DropDown;
-            }
-        },
-        trueText (): string
-        {
-            let trueText = asYesNoOrNull( true );
-            const trueConfig = getConfigurationValue( ConfigurationValueKey.TrueText, this.configurationValues );
+// The edit component can be quite large, so load it only as needed.
+const editComponent = defineAsyncComponent(async () => {
+    return (await import('./BooleanFieldComponents')).EditComponent;
+});
 
-            if ( trueConfig )
-            {
-                trueText = trueConfig;
-            }
+/**
+ * The field type handler for the Boolean field.
+ */
+export class BooleanFieldType extends FieldTypeBase {
+    public override getCondensedTextValue(value: ClientAttributeValue): string {
+        const boolValue = asBooleanOrNull(value.value);
 
-            return trueText || 'Yes';
-        },
-        falseText (): string
-        {
-            let falseText = asYesNoOrNull( false );
-            const falseConfig = getConfigurationValue( ConfigurationValueKey.FalseText, this.configurationValues );
-
-            if ( falseConfig )
-            {
-                falseText = falseConfig;
-            }
-
-            return falseText || 'No';
-        },
-        isToggle (): boolean
-        {
-            return this.booleanControlType === BooleanControlType.Toggle;
-        },
-        isCheckBox (): boolean
-        {
-            return this.booleanControlType === BooleanControlType.Checkbox;
-        },
-        valueAsBooleanOrNull (): boolean | null
-        {
-            return asBooleanOrNull( this.modelValue );
-        },
-        displayValue (): string
-        {
-            if ( this.valueAsBooleanOrNull === null )
-            {
-                return '';
-            }
-
-            if ( this.valueAsBooleanOrNull )
-            {
-                return this.trueText;
-            }
-
-            return this.falseText;
-        },
-        toggleOptions (): Record<string, unknown>
-        {
-            return {
-                trueText: this.trueText,
-                falseText: this.falseText
-            };
-        },
-        dropDownListOptions (): DropDownListOption[]
-        {
-            const trueVal = asTrueFalseOrNull( true );
-            const falseVal = asTrueFalseOrNull( false );
-
-            return [
-                { key: falseVal, text: this.falseText, value: falseVal },
-                { key: trueVal, text: this.trueText, value: trueVal }
-            ] as DropDownListOption[];
+        if (boolValue === null) {
+            return '';
         }
-    },
-    watch: {
-        internalValue(): void {
-            this.$emit('update:modelValue', this.internalValue);
-        },
-        internalBooleanValue(): void {
-            const valueToEmit = asTrueFalseOrNull(this.internalBooleanValue) || '';
-            this.$emit('update:modelValue', valueToEmit);
-        },
-        modelValue: {
-            immediate: true,
-            handler(): void {
-                this.internalValue = asTrueFalseOrNull(this.modelValue) || '';
-                this.internalBooleanValue = asBoolean(this.modelValue);
-            }
+        else if (boolValue === true) {
+            return 'Y';
         }
-    },
-    template: `
-<Toggle v-if="isEditMode && isToggle" v-model="internalBooleanValue" v-bind="toggleOptions" />
-<CheckBox v-else-if="isEditMode && isCheckBox" v-model="internalBooleanValue" :inline="false" />
-<DropDownList v-else-if="isEditMode" v-model="internalValue" :options="dropDownListOptions" />
-<span v-else>{{ displayValue }}</span>`
-} ) );
+        else {
+            return 'N';
+        }
+    }
+
+    public override updateTextValue(value: ClientEditableAttributeValue): void {
+        const boolValue = asBooleanOrNull(value.value);
+
+        if (boolValue === null) {
+            value.textValue = '';
+        }
+        else if (boolValue === true) {
+            value.textValue = value.configurationValues?.[ConfigurationValueKey.TrueText] || 'Yes';
+        }
+        else {
+            value.textValue = value.configurationValues?.[ConfigurationValueKey.FalseText] || 'No';
+        }
+    }
+
+    public override getEditComponent(_value: ClientAttributeValue): Component {
+        return editComponent;
+    }
+}

@@ -1,137 +1,63 @@
-System.register(["vue", "./Index", "@Obsidian/Services/Boolean", "../Elements/DropDownList", "../Elements/Toggle", "../Elements/CheckBox"], function (exports_1, context_1) {
+System.register(["vue", "./FieldType", "@Obsidian/Services/Boolean"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, Index_1, Boolean_1, DropDownList_1, Toggle_1, CheckBox_1, fieldTypeGuid, BooleanControlType, ConfigurationValueKey;
+    var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+    };
+    var vue_1, FieldType_1, Boolean_1, editComponent, BooleanFieldType;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (Index_1_1) {
-                Index_1 = Index_1_1;
+            function (FieldType_1_1) {
+                FieldType_1 = FieldType_1_1;
             },
             function (Boolean_1_1) {
                 Boolean_1 = Boolean_1_1;
-            },
-            function (DropDownList_1_1) {
-                DropDownList_1 = DropDownList_1_1;
-            },
-            function (Toggle_1_1) {
-                Toggle_1 = Toggle_1_1;
-            },
-            function (CheckBox_1_1) {
-                CheckBox_1 = CheckBox_1_1;
             }
         ],
         execute: function () {
-            fieldTypeGuid = '1EDAFDED-DFE6-4334-B019-6EECBA89E05A';
-            (function (BooleanControlType) {
-                BooleanControlType[BooleanControlType["DropDown"] = 0] = "DropDown";
-                BooleanControlType[BooleanControlType["Checkbox"] = 1] = "Checkbox";
-                BooleanControlType[BooleanControlType["Toggle"] = 2] = "Toggle";
-            })(BooleanControlType || (BooleanControlType = {}));
-            (function (ConfigurationValueKey) {
-                ConfigurationValueKey["BooleanControlType"] = "BooleanControlType";
-                ConfigurationValueKey["FalseText"] = "falsetext";
-                ConfigurationValueKey["TrueText"] = "truetext";
-            })(ConfigurationValueKey || (ConfigurationValueKey = {}));
-            exports_1("default", Index_1.registerFieldType(fieldTypeGuid, vue_1.defineComponent({
-                name: 'BooleanField',
-                components: {
-                    DropDownList: DropDownList_1.default,
-                    Toggle: Toggle_1.default,
-                    CheckBox: CheckBox_1.default
-                },
-                props: Index_1.getFieldTypeProps(),
-                data() {
-                    return {
-                        internalBooleanValue: false,
-                        internalValue: ''
-                    };
-                },
-                computed: {
-                    booleanControlType() {
-                        const controlType = Index_1.getConfigurationValue(ConfigurationValueKey.BooleanControlType, this.configurationValues);
-                        switch (controlType) {
-                            case '1':
-                                return BooleanControlType.Checkbox;
-                            case '2':
-                                return BooleanControlType.Toggle;
-                            default:
-                                return BooleanControlType.DropDown;
-                        }
-                    },
-                    trueText() {
-                        let trueText = Boolean_1.asYesNoOrNull(true);
-                        const trueConfig = Index_1.getConfigurationValue(ConfigurationValueKey.TrueText, this.configurationValues);
-                        if (trueConfig) {
-                            trueText = trueConfig;
-                        }
-                        return trueText || 'Yes';
-                    },
-                    falseText() {
-                        let falseText = Boolean_1.asYesNoOrNull(false);
-                        const falseConfig = Index_1.getConfigurationValue(ConfigurationValueKey.FalseText, this.configurationValues);
-                        if (falseConfig) {
-                            falseText = falseConfig;
-                        }
-                        return falseText || 'No';
-                    },
-                    isToggle() {
-                        return this.booleanControlType === BooleanControlType.Toggle;
-                    },
-                    isCheckBox() {
-                        return this.booleanControlType === BooleanControlType.Checkbox;
-                    },
-                    valueAsBooleanOrNull() {
-                        return Boolean_1.asBooleanOrNull(this.modelValue);
-                    },
-                    displayValue() {
-                        if (this.valueAsBooleanOrNull === null) {
-                            return '';
-                        }
-                        if (this.valueAsBooleanOrNull) {
-                            return this.trueText;
-                        }
-                        return this.falseText;
-                    },
-                    toggleOptions() {
-                        return {
-                            trueText: this.trueText,
-                            falseText: this.falseText
-                        };
-                    },
-                    dropDownListOptions() {
-                        const trueVal = Boolean_1.asTrueFalseOrNull(true);
-                        const falseVal = Boolean_1.asTrueFalseOrNull(false);
-                        return [
-                            { key: falseVal, text: this.falseText, value: falseVal },
-                            { key: trueVal, text: this.trueText, value: trueVal }
-                        ];
+            editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
+                return (yield context_1.import('./BooleanFieldComponents')).EditComponent;
+            }));
+            BooleanFieldType = class BooleanFieldType extends FieldType_1.FieldTypeBase {
+                getCondensedTextValue(value) {
+                    const boolValue = Boolean_1.asBooleanOrNull(value.value);
+                    if (boolValue === null) {
+                        return '';
                     }
-                },
-                watch: {
-                    internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
-                    },
-                    internalBooleanValue() {
-                        const valueToEmit = Boolean_1.asTrueFalseOrNull(this.internalBooleanValue) || '';
-                        this.$emit('update:modelValue', valueToEmit);
-                    },
-                    modelValue: {
-                        immediate: true,
-                        handler() {
-                            this.internalValue = Boolean_1.asTrueFalseOrNull(this.modelValue) || '';
-                            this.internalBooleanValue = Boolean_1.asBoolean(this.modelValue);
-                        }
+                    else if (boolValue === true) {
+                        return 'Y';
                     }
-                },
-                template: `
-<Toggle v-if="isEditMode && isToggle" v-model="internalBooleanValue" v-bind="toggleOptions" />
-<CheckBox v-else-if="isEditMode && isCheckBox" v-model="internalBooleanValue" :inline="false" />
-<DropDownList v-else-if="isEditMode" v-model="internalValue" :options="dropDownListOptions" />
-<span v-else>{{ displayValue }}</span>`
-            })));
+                    else {
+                        return 'N';
+                    }
+                }
+                updateTextValue(value) {
+                    var _a, _b;
+                    const boolValue = Boolean_1.asBooleanOrNull(value.value);
+                    if (boolValue === null) {
+                        value.textValue = '';
+                    }
+                    else if (boolValue === true) {
+                        value.textValue = ((_a = value.configurationValues) === null || _a === void 0 ? void 0 : _a["truetext"]) || 'Yes';
+                    }
+                    else {
+                        value.textValue = ((_b = value.configurationValues) === null || _b === void 0 ? void 0 : _b["falsetext"]) || 'No';
+                    }
+                }
+                getEditComponent(_value) {
+                    return editComponent;
+                }
+            };
+            exports_1("BooleanFieldType", BooleanFieldType);
         }
     };
 });

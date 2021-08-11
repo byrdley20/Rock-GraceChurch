@@ -1,7 +1,10 @@
-System.register(["../Fields/Index", "vue", "../Fields/TextField", "../Fields/BooleanField", "../Fields/CurrencyField", "../Fields/DateField", "../Fields/DateTimeField", "../Fields/DayOfWeekField", "../Fields/DaysOfWeekField", "../Fields/DecimalField", "../Fields/DecimalRangeField", "../Fields/DefinedValueField", "../Fields/EmailField", "../Fields/GenderField", "../Fields/IntegerField", "../Fields/IntegerRangeField", "../Fields/MemoField", "../Fields/MonthDayField", "../Fields/SingleSelect", "../Fields/PhoneNumber", "../Fields/RatingField", "../Fields/TimeField"], function (exports_1, context_1) {
+System.register(["../Fields/Index", "vue", "../Fields/TextField"], function (exports_1, context_1) {
     "use strict";
-    var Index_1, vue_1, TextField_1;
+    var Index_1, vue_1, TextField_1, textField;
     var __moduleName = context_1 && context_1.id;
+    function instanceOfEditable(value) {
+        return value.key !== undefined;
+    }
     return {
         setters: [
             function (Index_1_1) {
@@ -12,77 +15,94 @@ System.register(["../Fields/Index", "vue", "../Fields/TextField", "../Fields/Boo
             },
             function (TextField_1_1) {
                 TextField_1 = TextField_1_1;
-            },
-            function (_1) {
-            },
-            function (_2) {
-            },
-            function (_3) {
-            },
-            function (_4) {
-            },
-            function (_5) {
-            },
-            function (_6) {
-            },
-            function (_7) {
-            },
-            function (_8) {
-            },
-            function (_9) {
-            },
-            function (_10) {
-            },
-            function (_11) {
-            },
-            function (_12) {
-            },
-            function (_13) {
-            },
-            function (_14) {
-            },
-            function (_15) {
-            },
-            function (_16) {
-            },
-            function (_17) {
-            },
-            function (_18) {
-            },
-            function (_19) {
             }
         ],
         execute: function () {
-            Index_1.registerFieldType("9C204CD0-1233-41C5-818A-C5DA439445AA", TextField_1.default);
-            Index_1.registerFieldType("D747E6AE-C383-4E22-8846-71518E3DD06F", vue_1.defineAsyncComponent(() => context_1.import('../Fields/ColorField')));
+            textField = new TextField_1.TextFieldType();
             exports_1("default", vue_1.defineComponent({
                 name: 'RockField',
                 props: {
-                    fieldTypeGuid: {
-                        type: String,
+                    attributeValue: {
+                        type: Object,
                         required: true
                     },
-                    rules: {
-                        type: String,
-                        default: ''
+                    showEmptyValue: {
+                        type: Boolean,
+                        default: false
+                    },
+                    isEditMode: {
+                        type: Boolean,
+                        default: false
                     }
                 },
                 setup(props) {
-                    const isRequired = vue_1.computed(() => props.rules.includes('required'));
-                    const fieldComponent = vue_1.computed(() => {
-                        const field = Index_1.getFieldTypeComponent(props.fieldTypeGuid);
-                        if (!field) {
-                            return TextField_1.default;
+                    const field = vue_1.computed(() => {
+                        const fieldType = Index_1.getFieldType(props.attributeValue.fieldTypeGuid);
+                        return fieldType !== null && fieldType !== void 0 ? fieldType : textField;
+                    });
+                    const showValue = vue_1.computed(() => props.showEmptyValue || field.value.getTextValue(props.attributeValue) !== '');
+                    const isRequired = vue_1.computed(() => instanceOfEditable(props.attributeValue) && props.attributeValue.isRequired);
+                    const rules = vue_1.computed(() => isRequired.value ? 'required' : '');
+                    const isEditMode = vue_1.computed(() => props.isEditMode && instanceOfEditable(props.attributeValue));
+                    const label = vue_1.computed(() => props.attributeValue.name);
+                    const helpText = vue_1.computed(() => instanceOfEditable(props.attributeValue) ? props.attributeValue.description : '');
+                    const valueComponent = vue_1.computed(() => {
+                        const _ignored = props.attributeValue.value;
+                        const _ignored2 = props.attributeValue.textValue;
+                        return field.value.getFormattedComponent(props.attributeValue);
+                    });
+                    const editComponent = vue_1.computed(() => field.value.getEditComponent(props.attributeValue));
+                    const value = vue_1.computed({
+                        get: () => props.attributeValue.value || '',
+                        set(newValue) {
+                            props.attributeValue.value = newValue;
+                            if (instanceOfEditable(props.attributeValue)) {
+                                field.value.updateTextValue(props.attributeValue);
+                            }
                         }
-                        return field;
+                    });
+                    const configurationValues = vue_1.computed(() => {
+                        if (instanceOfEditable(props.attributeValue)) {
+                            return props.attributeValue.configurationValues;
+                        }
+                        else {
+                            return {};
+                        }
                     });
                     vue_1.provide('isRequired', isRequired);
                     return {
-                        fieldComponent
+                        label,
+                        showValue,
+                        valueComponent,
+                        rules,
+                        isEditMode,
+                        editComponent,
+                        value,
+                        helpText,
+                        configurationValues
                     };
                 },
                 template: `
-<component :is="fieldComponent" :rules="rules" />`
+<div v-if="!isEditMode" class="form-group static-control">
+    <template v-if="showValue">
+        <label class="control-label">
+            {{ label }}
+        </label>
+        <div class="control-wrapper">
+            <div class="form-control-static">
+                <component :is="valueComponent" />
+            </div>
+        </div>
+    </template>
+</div>
+<template v-else>
+    <component :is="editComponent"
+        v-model="value"
+        :label="label"
+        :help="helpText"
+        :configurationValues="configurationValues"
+        :rules="rules" />
+</template>`
             }));
         }
     };

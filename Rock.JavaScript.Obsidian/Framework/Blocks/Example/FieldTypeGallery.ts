@@ -16,24 +16,12 @@
 //
 
 import PaneledBlockTemplate from '../../Templates/PaneledBlockTemplate';
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType, reactive } from 'vue';
 import PanelWidget from '../../Elements/PanelWidget';
 import AttributeValuesContainer from '../../Controls/AttributeValuesContainer';
 import { Guid } from '../../Util/Guid';
-import { ConfigurationValues } from '../../Fields/Index';
 import TextBox from '../../Elements/TextBox';
-
-/** A subset interface of the AttributeValue view model to simplify this block */
-interface AttributeValueData
-{
-    attribute: {
-        name: string,
-        description: string,
-        fieldTypeGuid: Guid,
-        qualifierValues: ConfigurationValues
-    },
-    value: string
-}
+import ClientEditableAttributeValue from 'ViewModels/ClientEditableAttributeValue';
 
 /**
  * Convert a simpler set of parameters into AttributeValueData
@@ -41,38 +29,36 @@ interface AttributeValueData
  * @param fieldTypeGuid
  * @param configValues
  */
-const GetAttributeValueData = ( name: string, initialValue: string, fieldTypeGuid: Guid, configValues: Record<string, string> ): Array<AttributeValueData> =>
+const GetAttributeValueData = ( name: string, initialValue: string, fieldTypeGuid: Guid, configValues: Record<string, string> ): Array<ClientEditableAttributeValue> =>
 {
-    const configurationValues: ConfigurationValues = {};
+    const configurationValues = configValues;
 
-    for ( const key in configValues )
-    {
-        configurationValues[ key ] = {
-            name: '',
-            description: '',
-            value: configValues[ key ]
-        };
-    }
-
-    return [
-        {
-            attribute: {
-                name: `${name} 1`,
-                description: `This is the description of the ${name} without an initial value`,
-                fieldTypeGuid: fieldTypeGuid,
-                qualifierValues: configurationValues
-            },
-            value: ''
-        },
-        {
-            attribute: {
-                name: `${name} 2`,
-                description: `This is the description of the ${name} with an initial value`,
-                fieldTypeGuid: fieldTypeGuid,
-                qualifierValues: configurationValues
-            },
-            value: initialValue
-        }
+    return [reactive({
+            fieldTypeGuid: fieldTypeGuid,
+            name: `${name} 1`,
+            key: name,
+            description: `This is the description of the ${name} without an initial value`,
+            configurationValues,
+            isRequired: false,
+            textValue: '',
+            value: '',
+            attributeGuid: '',
+            order: 0,
+            categories: []
+        }),
+        reactive({
+            fieldTypeGuid: fieldTypeGuid,
+            name: `${name} 2`,
+            key: name,
+            description: `This is the description of the ${name} with an initial value`,
+            configurationValues,
+            isRequired: false,
+            textValue: initialValue,
+            value: initialValue,
+            attributeGuid: '',
+            order: 0,
+            categories: []
+        })
     ];
 };
 
@@ -90,18 +76,16 @@ const GalleryAndResult = defineComponent( {
             required: true
         },
         attributeValues: {
-            type: Array as PropType<AttributeValueData[]>,
+            type: Array as PropType<ClientEditableAttributeValue[]>,
             required: true
         }
     },
     computed: {
-        value1Json (): string
-        {
-            return JSON.stringify( this.attributeValues[ 0 ].value, null, 4 );
+        value1Json(): string {
+            return this.attributeValues[0].value ?? '';
         },
-        value2Json (): string
-        {
-            return JSON.stringify( this.attributeValues[ 1 ].value, null, 4 );
+        value2Json(): string {
+            return this.attributeValues[1].value ?? '';
         }
     },
     template: `
@@ -156,17 +140,13 @@ const GetFieldTypeGalleryComponent = ( name: string, initialValue: string, field
             };
         },
         computed: {
-            configKeys (): string[]
-            {
+            configKeys(): string[] {
                 const keys: string[] = [];
 
-                for ( const attributeValue of this.attributeValues )
-                {
-                    for ( const key in attributeValue.attribute.qualifierValues )
-                    {
-                        if ( keys.indexOf( key ) === -1 )
-                        {
-                            keys.push( key );
+                for (const attributeValue of this.attributeValues) {
+                    for (const key in attributeValue.configurationValues) {
+                        if (keys.indexOf(key) === -1) {
+                            keys.push(key);
                         }
                     }
                 }
@@ -177,14 +157,11 @@ const GetFieldTypeGalleryComponent = ( name: string, initialValue: string, field
         watch: {
             configValues: {
                 deep: true,
-                handler ()
-                {
-                    for ( const attributeValue of this.attributeValues )
-                    {
-                        for ( const key in attributeValue.attribute.qualifierValues )
-                        {
-                            const value = this.configValues[ key ] || '';
-                            attributeValue.attribute.qualifierValues[ key ].value = value;
+                handler() {
+                    for (const attributeValue of this.attributeValues) {
+                        for (const key in attributeValue.configurationValues) {
+                            const value = this.configValues[key] || '';
+                            attributeValue.configurationValues[key] = value;
                         }
                     }
                 }
@@ -258,7 +235,7 @@ export default defineComponent( {
         }),
         PhoneNumberGallery: GetFieldTypeGalleryComponent( 'PhoneNumber', '(321) 456-7890', '6B1908EC-12A2-463A-A7BD-970CE0FAF097', {
         } ),
-        RatingGallery: GetFieldTypeGalleryComponent('Rating', '3', '24BC2DD2-5745-4A97-A0F9-C1EC0E6E1862', {
+        RatingGallery: GetFieldTypeGalleryComponent('Rating', '{"value":3,"maxValue":5}', '24BC2DD2-5745-4A97-A0F9-C1EC0E6E1862', {
             max: '5'
         }),
         SingleSelectGallery: GetFieldTypeGalleryComponent('SingleSelect', 'pizza', '7525C4CB-EE6B-41D4-9B64-A08048D5A5C0', {

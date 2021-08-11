@@ -14,80 +14,66 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { Guid } from '../Util/Guid';
-import { registerFieldType, getFieldTypeProps } from './Index';
-import { toNumber, toNumberOrNull } from '@Obsidian/Services/Number';
-import Rating from '../Elements/Rating';
+import { Component, defineAsyncComponent } from 'vue';
+import { FieldTypeBase } from './FieldType';
+import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
 
-const fieldTypeGuid: Guid = '24BC2DD2-5745-4A97-A0F9-C1EC0E6E1862';
-
-enum ConfigurationValueKey {
-    MaxRating = "max"
+export const enum ConfigurationValueKey {
+    MaxRating = 'max'
 }
 
-export default registerFieldType(fieldTypeGuid, defineComponent({
-    name: 'RatingField',
+export interface RatingValue {
+    value?: number;
 
-    components: {
-        Rating
-    },
+    maxValue?: number;
+}
 
-    props: getFieldTypeProps(),
 
-    data() {
-        return {
-            /** The current rating value. */
-            internalValue: 0
-        };
-    },
+// The edit component can be quite large, so load it only as needed.
+const editComponent = defineAsyncComponent(async () => {
+    return (await import('./RatingFieldComponents')).EditComponent;
+});
 
-    computed: {
-        /** The display value. */
-        displayValue(): string {
-            const value = toNumber(this.modelValue || '');
-            let html = "";
+/**
+ * The field type handler for the Rating field.
+ */
+export class RatingFieldType extends FieldTypeBase {
+    public override getHtmlValue(value: ClientAttributeValue): string {
+        let ratingValue: RatingValue | null;
 
-            for (let i = 0; i < value && i < this.maxRating; i++) {
-                html += `<i class="fa fa-rating-selected"></i>`
-            }
-
-            for (let i = value; i < this.maxRating; i++) {
-                html += `<i class="fa fa-rating-unselected"></i>`
-            }
-
-            return html;
-        },
-
-        maxRating(): number {
-            const maxRatingConfig = this.configurationValues[ConfigurationValueKey.MaxRating];
-
-            return toNumberOrNull(maxRatingConfig?.value) || 5;
-        },
-
-    },
-
-    watch: {
-        /**
-         * Watch for changes to internalValue and emit the new value out to
-         * the consuming component.
-         */
-        internalValue(): void {
-            this.$emit('update:modelValue', this.internalValue !== 0 ? this.internalValue.toString() : '');
-        },
-
-        /**
-         * Watch for changes to modelValue which indicate the component
-         * using us has given us a new value to work with.
-         */
-        modelValue: {
-            immediate: true,
-            handler(): void {
-                this.internalValue = toNumber(this.modelValue || '');
-            }
+        try {
+            ratingValue = JSON.parse(value.value ?? '') as RatingValue;
         }
-    },
-    template: `
-<Rating v-if="isEditMode" v-model="internalValue" :maxRating="maxRating" />
-<span v-else v-html="displayValue"></span>`
-}));
+        catch {
+            ratingValue = null;
+        }
+
+        const rating = ratingValue?.value ?? 0;
+        const maxRating = ratingValue?.maxValue ?? 5;
+        let html = '';
+
+        for (let i = 0; i < rating && i < maxRating; i++) {
+            html += `<i class="fa fa-rating-selected"></i>`;
+        }
+
+        for (let i = rating; i < maxRating; i++) {
+            html += `<i class="fa fa-rating-unselected"></i>`;
+        }
+
+        return html;
+    }
+
+    public override updateTextValue(value: ClientEditableAttributeValue): void {
+        try {
+            const ratingValue = JSON.parse(value.value ?? '') as RatingValue;
+            value.textValue = ratingValue?.value?.toString() ?? '';
+        }
+        catch {
+            value.textValue = '';
+        }
+    }
+
+    public override getEditComponent(_value: ClientAttributeValue): Component {
+        return editComponent;
+    }
+}

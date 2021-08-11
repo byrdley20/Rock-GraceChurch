@@ -27,7 +27,7 @@ import RegistrationEntrySummary from './RegistrationEntry/Summary';
 import Registrants from './RegistrationEntry/Registrants';
 import ProgressTracker, { ProgressTrackerItem } from '../../Elements/ProgressTracker';
 import NumberFilter, { toWord } from '@Obsidian/Services/Number';
-import StringFilter, { isNullOrWhitespace, toTitleCase } from '@Obsidian/Services/String';
+import StringFilter, { isNullOrWhiteSpace, toTitleCase } from '@Obsidian/Services/String';
 import Alert from '../../Elements/Alert';
 import CountdownTimer from '../../Elements/CountdownTimer';
 import RegistrationEntrySuccess from './RegistrationEntry/Success';
@@ -199,7 +199,7 @@ export default defineComponent( {
             // This is an existing registration, start at the summary
             currentStep = steps.reviewAndPayment;
         }
-        else if ( viewModel.maxRegistrants === 1 && isNullOrWhitespace( viewModel.instructionsHtml ) )
+        else if ( viewModel.maxRegistrants === 1 && isNullOrWhiteSpace( viewModel.instructionsHtml ) )
         {
             // There is no need to show the number of registrants selector or instructions. Start at the second page.
             currentStep = hasPreAttributes ? steps.registrationStartForm : steps.perRegistrantForms;

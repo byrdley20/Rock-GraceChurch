@@ -1,4 +1,4 @@
-System.register(["vue", "../../Templates/PaneledBlockTemplate", "../../Controls/Loading", "../../Store/Index", "../../Util/Guid", "../../Elements/JavaScriptAnchor", "../../Controls/RockForm", "../../Elements/TextBox", "../../Elements/RockButton", "../../Controls/AttributeValuesContainer"], function (exports_1, context_1) {
+System.register(["vue", "../../Templates/PaneledBlockTemplate", "../../Controls/Loading", "../../Store/Index", "../../Util/Block", "../../Elements/JavaScriptAnchor", "../../Controls/RockForm", "../../Elements/TextBox", "../../Elements/RockButton", "../../Controls/AttributeValuesContainer"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,8 +9,23 @@ System.register(["vue", "../../Templates/PaneledBlockTemplate", "../../Controls/
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var vue_1, PaneledBlockTemplate_1, Loading_1, Index_1, Guid_1, JavaScriptAnchor_1, RockForm_1, TextBox_1, RockButton_1, AttributeValuesContainer_1;
+    var vue_1, PaneledBlockTemplate_1, Loading_1, Index_1, Block_1, JavaScriptAnchor_1, RockForm_1, TextBox_1, RockButton_1, AttributeValuesContainer_1;
     var __moduleName = context_1 && context_1.id;
+    function sortedAttributeValues(attributeValues) {
+        const sortedValues = [...attributeValues];
+        sortedValues.sort((a, b) => {
+            if (a.order === b.order) {
+                if (a.name > b.name) {
+                    return 1;
+                }
+                if (a.name < b.name) {
+                    return -1;
+                }
+            }
+            return a.order - b.order;
+        });
+        return sortedValues;
+    }
     return {
         setters: [
             function (vue_1_1) {
@@ -25,8 +40,8 @@ System.register(["vue", "../../Templates/PaneledBlockTemplate", "../../Controls/
             function (Index_1_1) {
                 Index_1 = Index_1_1;
             },
-            function (Guid_1_1) {
-                Guid_1 = Guid_1_1;
+            function (Block_1_1) {
+                Block_1 = Block_1_1;
             },
             function (JavaScriptAnchor_1_1) {
                 JavaScriptAnchor_1 = JavaScriptAnchor_1_1;
@@ -57,95 +72,55 @@ System.register(["vue", "../../Templates/PaneledBlockTemplate", "../../Controls/
                     AttributeValuesContainer: AttributeValuesContainer_1.default
                 },
                 setup() {
-                    return {
-                        invokeBlockAction: vue_1.inject('invokeBlockAction'),
-                        configurationValues: vue_1.inject('configurationValues')
-                    };
-                },
-                data() {
-                    return {
-                        isLoading: false,
-                        isEditMode: false
-                    };
-                },
-                computed: {
-                    person() {
-                        return (Index_1.default.getters.personContext || null);
-                    },
-                    personGuid() {
+                    const configurationValues = Block_1.useConfigurationValues();
+                    const invokeBlockAction = Block_1.useInvokeBlockAction();
+                    const attributeValues = vue_1.ref(sortedAttributeValues(configurationValues.attributes));
+                    const personGuid = vue_1.computed(() => { var _a; return ((_a = Index_1.default.getters.personContext) === null || _a === void 0 ? void 0 : _a.guid) || null; });
+                    const isLoading = vue_1.ref(false);
+                    const isEditMode = vue_1.ref(false);
+                    const goToViewMode = () => isEditMode.value = false;
+                    const goToEditMode = () => __awaiter(this, void 0, void 0, function* () {
                         var _a;
-                        return ((_a = this.person) === null || _a === void 0 ? void 0 : _a.guid) || null;
-                    },
-                    categoryGuids() {
-                        return this.configurationValues.categoryGuids || [];
-                    },
-                    useAbbreviatedNames() {
-                        return this.configurationValues.useAbbreviatedNames;
-                    },
-                    attributeValues() {
-                        var _a;
-                        const attributes = ((_a = this.person) === null || _a === void 0 ? void 0 : _a.attributes) || {};
-                        const attributeValues = [];
-                        for (const key in attributes) {
-                            const attributeValue = attributes[key];
-                            const attribute = attributeValue.attribute;
-                            if (this.categoryGuids.length > 0 && !attribute) {
-                                continue;
-                            }
-                            if (this.categoryGuids.length > 0 && !(attribute === null || attribute === void 0 ? void 0 : attribute.categoryGuids.some(g1 => this.categoryGuids.some(g2 => Guid_1.areEqual(g1, g2))))) {
-                                continue;
-                            }
-                            attributeValues.push(attributeValue);
+                        const result = yield invokeBlockAction('GetAttributeValuesForEdit');
+                        if (result.isSuccess) {
+                            attributeValues.value = sortedAttributeValues((_a = result.data) !== null && _a !== void 0 ? _a : []);
+                            isEditMode.value = true;
                         }
-                        attributeValues.sort((a, b) => {
-                            var _a, _b, _c, _d;
-                            const aOrder = ((_a = a.attribute) === null || _a === void 0 ? void 0 : _a.order) || 0;
-                            const bOrder = ((_b = b.attribute) === null || _b === void 0 ? void 0 : _b.order) || 0;
-                            if (aOrder === bOrder) {
-                                const aName = ((_c = a.attribute) === null || _c === void 0 ? void 0 : _c.name) || '';
-                                const bName = ((_d = b.attribute) === null || _d === void 0 ? void 0 : _d.name) || '';
-                                if (aName > bName) {
-                                    return 1;
-                                }
-                                if (aName < bName) {
-                                    return -1;
-                                }
-                            }
-                            return aOrder - bOrder;
+                    });
+                    const doSave = () => __awaiter(this, void 0, void 0, function* () {
+                        var _b;
+                        isLoading.value = true;
+                        const keyValueMap = {};
+                        for (const a of attributeValues.value) {
+                            keyValueMap[a.key] = a.value || '';
+                        }
+                        const result = yield invokeBlockAction('SaveAttributeValues', {
+                            personGuid: personGuid.value,
+                            keyValueMap
                         });
-                        return attributeValues;
-                    }
-                },
-                methods: {
-                    goToViewMode() {
-                        this.isEditMode = false;
-                    },
-                    goToEditMode() {
-                        this.isEditMode = true;
-                    },
-                    doSave() {
-                        return __awaiter(this, void 0, void 0, function* () {
-                            this.isLoading = true;
-                            const keyValueMap = {};
-                            for (const a of this.attributeValues) {
-                                if (a.attribute) {
-                                    keyValueMap[a.attribute.key] = a.value;
-                                }
-                            }
-                            yield this.invokeBlockAction('SaveAttributeValues', {
-                                personGuid: this.personGuid,
-                                keyValueMap
-                            });
-                            this.goToViewMode();
-                            this.isLoading = false;
-                        });
-                    }
+                        if (result.isSuccess) {
+                            attributeValues.value = sortedAttributeValues((_b = result.data) !== null && _b !== void 0 ? _b : []);
+                        }
+                        goToViewMode();
+                        isLoading.value = false;
+                    });
+                    return {
+                        blockTitle: vue_1.computed(() => configurationValues.blockTitle),
+                        blockIconCssClass: vue_1.computed(() => configurationValues.blockIconCssClass),
+                        isLoading,
+                        isEditMode,
+                        goToViewMode,
+                        goToEditMode,
+                        doSave,
+                        useAbbreviatedNames: configurationValues.useAbbreviatedNames,
+                        attributeValues
+                    };
                 },
                 template: `
 <PaneledBlockTemplate class="panel-persondetails">
     <template v-slot:title>
-        <i :class="configurationValues.BlockIconCssClass"></i>
-        {{ configurationValues.BlockTitle }}
+        <i :class="blockIconCssClass"></i>
+        {{ blockTitle }}
     </template>
     <template v-slot:titleAside>
         <div class="actions rollover-item pull-right">

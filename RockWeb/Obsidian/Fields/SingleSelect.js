@@ -1,6 +1,6 @@
-System.register(["vue", "./Index", "../Elements/DropDownList", "../Elements/RadioButtonList"], function (exports_1, context_1) {
+System.register(["vue", "./Index", "../Elements/DropDownList", "../Elements/RadioButtonList", "@Obsidian/Services/Number"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, Index_1, DropDownList_1, RadioButtonList_1, fieldTypeGuid, ConfigurationValueKey;
+    var vue_1, Index_1, DropDownList_1, RadioButtonList_1, Number_1, fieldTypeGuid, ConfigurationValueKey;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -15,6 +15,9 @@ System.register(["vue", "./Index", "../Elements/DropDownList", "../Elements/Radi
             },
             function (RadioButtonList_1_1) {
                 RadioButtonList_1 = RadioButtonList_1_1;
+            },
+            function (Number_1_1) {
+                Number_1 = Number_1_1;
             }
         ],
         execute: function () {
@@ -24,13 +27,13 @@ System.register(["vue", "./Index", "../Elements/DropDownList", "../Elements/Radi
                 ConfigurationValueKey["FieldType"] = "fieldtype";
                 ConfigurationValueKey["RepeatColumns"] = "repeatColumns";
             })(ConfigurationValueKey || (ConfigurationValueKey = {}));
-            exports_1("default", Index_1.registerFieldType(fieldTypeGuid, vue_1.defineComponent({
+            exports_1("default", Index_1.legacyRegisterFieldType(fieldTypeGuid, vue_1.defineComponent({
                 name: 'SingleSelectField',
                 components: {
                     DropDownList: DropDownList_1.default,
                     RadioButtonList: RadioButtonList_1.default
                 },
-                props: Index_1.getFieldTypeProps(),
+                props: Index_1.getFieldEditorProps(),
                 setup() {
                     return {
                         isRequired: vue_1.inject('isRequired')
@@ -47,8 +50,8 @@ System.register(["vue", "./Index", "../Elements/DropDownList", "../Elements/Radi
                     },
                     options() {
                         const valuesConfig = this.configurationValues[ConfigurationValueKey.Values];
-                        if (valuesConfig && valuesConfig.value) {
-                            const providedOptions = valuesConfig.value.split(',').map(v => {
+                        if (valuesConfig) {
+                            const providedOptions = valuesConfig.split(',').map(v => {
                                 if (v.indexOf('^') !== -1) {
                                     const parts = v.split('^');
                                     const value = parts[0];
@@ -79,7 +82,7 @@ System.register(["vue", "./Index", "../Elements/DropDownList", "../Elements/Radi
                     ddlConfigAttributes() {
                         const attributes = {};
                         const fieldTypeConfig = this.configurationValues[ConfigurationValueKey.FieldType];
-                        if ((fieldTypeConfig === null || fieldTypeConfig === void 0 ? void 0 : fieldTypeConfig.value) === 'ddl_enhanced') {
+                        if (fieldTypeConfig === 'ddl_enhanced') {
                             attributes.enhanceForLongLists = true;
                         }
                         return attributes;
@@ -87,14 +90,14 @@ System.register(["vue", "./Index", "../Elements/DropDownList", "../Elements/Radi
                     rbConfigAttributes() {
                         const attributes = {};
                         const repeatColumnsConfig = this.configurationValues[ConfigurationValueKey.RepeatColumns];
-                        if (repeatColumnsConfig === null || repeatColumnsConfig === void 0 ? void 0 : repeatColumnsConfig.value) {
-                            attributes['repeatColumns'] = Number(repeatColumnsConfig.value) || 0;
+                        if (repeatColumnsConfig) {
+                            attributes['repeatColumns'] = Number_1.toNumberOrNull(repeatColumnsConfig) || 0;
                         }
                         return attributes;
                     },
                     isRadioButtons() {
                         const fieldTypeConfig = this.configurationValues[ConfigurationValueKey.FieldType];
-                        return (fieldTypeConfig === null || fieldTypeConfig === void 0 ? void 0 : fieldTypeConfig.value) === 'rb';
+                        return fieldTypeConfig === 'rb';
                     }
                 },
                 watch: {

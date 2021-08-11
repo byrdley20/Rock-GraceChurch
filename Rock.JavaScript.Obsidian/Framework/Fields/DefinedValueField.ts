@@ -16,7 +16,7 @@
 //
 import { defineComponent } from 'vue';
 import { Guid, areEqual as guidsAreEqual } from '../Util/Guid';
-import { registerFieldType, getFieldTypeProps, getConfigurationValue } from './Index';
+import { legacyRegisterFieldType, getFieldEditorProps } from './Index';
 import DefinedValuePicker from '../Controls/DefinedValuePicker';
 import { toNumberOrNull } from '@Obsidian/Services/Number';
 import { DefinedValue, DefinedType } from '@Obsidian/ViewModels';
@@ -34,13 +34,13 @@ enum ConfigurationValueKey {
     RepeatColumns = 'RepeatColumns'
 }
 
-export default registerFieldType(fieldTypeGuid, defineComponent({
+export default legacyRegisterFieldType(fieldTypeGuid, defineComponent({
     name: 'DefinedValueField',
     inheritAttrs: false,
     components: {
         DefinedValuePicker
     },
-    props: getFieldTypeProps(),
+    props: getFieldEditorProps(),
     data() {
         return {
             definedValues: [] as DefinedValue[],
@@ -65,7 +65,7 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
             return this.selectedDefinedValues.map(v => v.value ?? "").join(", ");
         },
         displayDescription(): boolean {
-            const displayDescription = getConfigurationValue(ConfigurationValueKey.DisplayDescription, this.configurationValues);
+            const displayDescription = this.configurationValues[ConfigurationValueKey.DisplayDescription];
             return asBoolean(displayDescription);
         },
         configAttributes(): Record<string, unknown> {
@@ -73,7 +73,7 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
             // not automatically inherit our attributes down.
             const attributes: Record<string, unknown> = { ...this.$attrs };
 
-            const definedType = getConfigurationValue(ConfigurationValueKey.DefinedType, this.configurationValues);
+            const definedType = this.configurationValues[ConfigurationValueKey.DefinedType];
             if (definedType) {
                 const definedTypeId = toNumberOrNull(definedType);
 
@@ -87,7 +87,7 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
                 attributes.displayDescriptions = true;
             }
 
-            const enhancedConfig = getConfigurationValue(ConfigurationValueKey.EnhancedSelection, this.configurationValues);
+            const enhancedConfig = this.configurationValues[ConfigurationValueKey.EnhancedSelection];
             if (enhancedConfig) {
                 attributes.enhanceForLongLists = asBoolean(enhancedConfig);
             }

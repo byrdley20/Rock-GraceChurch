@@ -15,97 +15,142 @@
 // </copyright>
 //
 import { Component, PropType } from 'vue';
-import { Guid, normalize } from '../Util/Guid';
+import { Guid, normalize, isValidGuid } from '../Util/Guid';
+import { FieldType } from './FieldType';
+import { FieldType as FieldTypeGuids } from '@Obsidian/SystemGuids';
 
-const fieldTypeComponentPaths: Record<Guid, Component> = {};
+const fieldTypeTable: Record<Guid, FieldType> = {};
 
-export interface ConfigurationValue
-{
-    name: string;
-    description: string;
-    value: string;
-}
-
-export type ConfigurationValues = Record<string, ConfigurationValue>;
+export type ConfigurationValues = Record<string, string>;
 
 /**
- * Gets the configuration value's value using the case insensitive key.
- * @param key
- * @param configurationValues
+ * The basic properties that all field editor components must support.
  */
-export function getConfigurationValue ( key: string | null, configurationValues: ConfigurationValues | null ): string
-{
-    key = ( key || '' ).toLowerCase().trim();
+type FieldEditorBaseProps = {
+    modelValue: {
+        type: PropType<string>,
+        required: boolean
+    };
 
-    if ( !configurationValues || !key )
-    {
-        return '';
-    }
-
-    const objectKey = Object.keys(configurationValues).find(k => k.toLowerCase().trim() === key);
-
-    if ( !objectKey )
-    {
-        return '';
-    }
-
-    const configObject = configurationValues[ objectKey ];
-    return configObject?.value || '';
+    configurationValues: {
+        type: PropType<ConfigurationValues>;
+        default: () => ConfigurationValues;
+    };
 }
 
-export type FieldTypeModule = {
-    fieldTypeGuid: Guid;
-    component: Component;
-};
-
-export function getFieldTypeProps ()
-{
+/**
+ * Get the standard properties that all field editor components must support.
+ */
+export function getFieldEditorProps(): FieldEditorBaseProps {
     return {
         modelValue: {
             type: String as PropType<string>,
             required: true
         },
-        isEditMode: {
-            type: Boolean as PropType<boolean>,
-            default: false
-        },
         configurationValues: {
             type: Object as PropType<ConfigurationValues>,
-            default: () => ( {} )
+            default: () => ({})
         }
     };
 }
 
-export function registerFieldType ( fieldTypeGuid: Guid, component: Component )
-{
-    const normalizedGuid = normalize( fieldTypeGuid )!;
-
-    const dataToExport: FieldTypeModule = {
-        fieldTypeGuid: normalizedGuid,
-        component: component
-    };
-
-    if ( fieldTypeComponentPaths[ normalizedGuid ] )
-    {
-        console.error( `Field type "${fieldTypeGuid}" is already registered` );
-    }
-    else
-    {
-        fieldTypeComponentPaths[ normalizedGuid ] = component;
-    }
-
-    return dataToExport;
+export function legacyRegisterFieldType(fieldTypeGuid: Guid, component: Component) {
+    return {};
 }
 
-export function getFieldTypeComponent ( fieldTypeGuid: Guid ): Component | null
-{
-    const field = fieldTypeComponentPaths[ normalize( fieldTypeGuid )! ];
+/**
+ * Register a new field type in the system. This must be called for all field
+ * types a plugin registers.
+ * 
+ * @param fieldTypeGuid The unique identifier of the field type.
+ * @param fieldType The class instance that will handle the field type.
+ */
+export function registerFieldType(fieldTypeGuid: Guid, fieldType: FieldType): void {
+    const normalizedGuid = normalize(fieldTypeGuid);
 
-    if ( field )
-    {
-        return field;
+    if (!isValidGuid(fieldTypeGuid) || normalizedGuid === null) {
+        throw 'Invalid guid specified when registering field type.';
     }
 
-    console.error( `Field type "${fieldTypeGuid}" was not found` );
+    if (fieldTypeTable[normalizedGuid] !== undefined) {
+        throw 'Invalid attempt to replace existing field type.';
+    }
+
+    fieldTypeTable[normalizedGuid] = fieldType;
+}
+
+/**
+ * Get the field type handler for a given unique identifier.
+ *
+ * @param fieldTypeGuid The unique identifier of the field type.
+ * @returns The field type instance or null if not found.
+ */
+export function getFieldType(fieldTypeGuid: Guid): FieldType | null {
+    const normalizedGuid = normalize(fieldTypeGuid);
+
+    if (normalizedGuid !== null) {
+        const field = fieldTypeTable[normalizedGuid];
+
+        if (field) {
+            return field;
+        }
+    }
+
+    console.error(`Field type "${fieldTypeGuid}" was not found`);
     return null;
 }
+
+/*
+ * Define the standard field types in Rock.
+ */
+
+import { BooleanFieldType } from './BooleanField';
+registerFieldType(FieldTypeGuids.Boolean, new BooleanFieldType());
+
+import { ColorFieldType } from './ColorField';
+registerFieldType(FieldTypeGuids.Color, new ColorFieldType());
+
+import { CurrencyFieldType } from './CurrencyField';
+registerFieldType(FieldTypeGuids.Currency, new CurrencyFieldType());
+
+import { DateFieldType } from './DateField';
+registerFieldType(FieldTypeGuids.Date, new DateFieldType());
+
+import { DayOfWeekFieldType } from './DayOfWeekField';
+registerFieldType(FieldTypeGuids.DayOfWeek, new DayOfWeekFieldType());
+
+import { DaysOfWeekFieldType } from './DaysOfWeekField';
+registerFieldType(FieldTypeGuids.DaysOfWeek, new DaysOfWeekFieldType());
+
+import { DecimalFieldType } from './DecimalField';
+registerFieldType(FieldTypeGuids.Decimal, new DecimalFieldType());
+
+import { DecimalRangeFieldType } from './DecimalRangeField';
+registerFieldType(FieldTypeGuids.DecimalRange, new DecimalRangeFieldType());
+
+import { EmailFieldType } from './EmailField';
+registerFieldType(FieldTypeGuids.Email, new EmailFieldType());
+
+import { GenderFieldType } from './GenderField';
+registerFieldType(FieldTypeGuids.Gender, new GenderFieldType());
+
+import { IntegerFieldType } from './IntegerField';
+registerFieldType(FieldTypeGuids.Integer, new IntegerFieldType());
+
+import { IntegerRangeFieldType } from './IntegerRangeField';
+registerFieldType(FieldTypeGuids.IntegerRange, new IntegerRangeFieldType());
+
+import { MonthDayFieldType } from './MonthDayField';
+registerFieldType(FieldTypeGuids.MonthDay, new MonthDayFieldType());
+
+import { PhoneNumberFieldType } from './PhoneNumberField';
+registerFieldType(FieldTypeGuids.PhoneNumber, new PhoneNumberFieldType());
+
+import { RatingFieldType } from './RatingField';
+registerFieldType(FieldTypeGuids.Rating, new RatingFieldType());
+
+import { TextFieldType } from './TextField';
+registerFieldType(FieldTypeGuids.Text, new TextFieldType());
+
+import { TimeFieldType } from './TimeField';
+registerFieldType(FieldTypeGuids.Time, new TimeFieldType());

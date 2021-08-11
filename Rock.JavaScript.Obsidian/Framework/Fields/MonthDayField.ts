@@ -14,92 +14,42 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { Guid } from '../Util/Guid';
-import { registerFieldType, getFieldTypeProps } from './Index';
+import { Component, defineAsyncComponent } from 'vue';
+import { FieldTypeBase } from './FieldType';
+import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
 import { toNumber } from '@Obsidian/Services/Number';
-import DatePartsPicker, { DatePartsPickerModel } from '../Elements/DatePartsPicker';
 
-const fieldTypeGuid: Guid = '8BED8DD8-8167-4052-B807-A1E72C133611';
+// The edit component can be quite large, so load it only as needed.
+const editComponent = defineAsyncComponent(async () => {
+    return (await import('./MonthDayFieldComponents')).EditComponent;
+});
 
-enum ConfigurationValueKey {
+/**
+ * The field type handler for the MonthDay field.
+ */
+export class MonthDayFieldType extends FieldTypeBase {
+    public override updateTextValue(value: ClientEditableAttributeValue): void {
+        const components = (value.value || '').split('/');
+
+        if (components.length !== 2) {
+            value.textValue = '';
+            return;
+        }
+
+        const month = toNumber(components[0]);
+        const day = toNumber(components[1]);
+
+        if (month >= 1 && day >= 1 && month <= 12 && day <= 31) {
+            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+            value.textValue = `${months[month-1]} ${day}`;
+        }
+        else {
+            value.textValue = '';
+        }
+    }
+
+    public override getEditComponent(_value: ClientAttributeValue): Component {
+        return editComponent;
+    }
 }
-
-export default registerFieldType(fieldTypeGuid, defineComponent({
-    name: 'MonthDayField',
-    components: {
-        DatePartsPicker
-    },
-    props: getFieldTypeProps(),
-    data() {
-        return {
-            /** The user input value. */
-            internalValue: {
-                year: 0,
-                month: 0,
-                day: 0
-            } as DatePartsPickerModel
-        };
-    },
-    computed: {
-        /** The display safe value. */
-        displayValue(): string {
-            const components = (this.modelValue || "").split("/");
-
-            if (components.length == 2) {
-                const month = toNumber(components[0]);
-                const day = toNumber(components[1]);
-
-                if (month !== 0 && day !== 0 && month <= 12) {
-                    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-                    return `${months[month]} ${day}`;
-                }
-            }
-
-            return "";
-        }
-    },
-    watch: {
-        /**
-         * Watch for changes to internalValue and emit the new value out to
-         * the consuming component.
-         */
-        internalValue(): void {
-            const value = this.internalValue.month !== 0 && this.internalValue.day !== 0
-                ? `${this.internalValue.month}/${this.internalValue.day}`
-                : "";
-
-            this.$emit('update:modelValue', value);
-        },
-
-        /**
-         * Watch for changes to modelValue which indicate the component
-         * using us has given us a new value to work with.
-         */
-        modelValue: {
-            immediate: true,
-            handler(): void {
-                const components = (this.modelValue || "").split("/");
-
-                if (components.length == 2) {
-                    this.internalValue = {
-                        year: 0,
-                        month: toNumber(components[0]),
-                        day: toNumber(components[1])
-                    };
-                }
-                else {
-                    this.internalValue = {
-                        year: 0,
-                        month: 0,
-                        day: 0
-                    };
-                }
-            }
-        }
-    },
-    template: `
-<DatePartsPicker v-show="isEditMode" v-model="internalValue" :showYear="false" />
-<span v-else>{{ displayValue }}</span>`
-}));

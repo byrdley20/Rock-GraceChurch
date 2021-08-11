@@ -14,20 +14,15 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, inject } from 'vue';
-import { Guid } from '../Util/Guid';
-import { getFieldTypeProps, registerFieldType } from './Index';
-import DatePicker from '../Elements/DatePicker';
-import { BlockHttp, BlockHttpGet } from '../Controls/RockBlock';
-import { asDateOrNull, asElapsedString, toRockDateOrNull } from '@Obsidian/Services/Date';
+import { Component, defineAsyncComponent, nextTick } from 'vue';
+import { FieldTypeBase } from './FieldType';
+import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
 import { asBoolean } from '@Obsidian/Services/Boolean';
 import { toNumber } from '@Obsidian/Services/Number';
-import DatePartsPicker, { getDefaultDatePartsPickerModel } from '../Elements/DatePartsPicker';
+import { get as httpGet } from '../Util/Http';
+import { asDateOrNull, asElapsedString } from '@Obsidian/Services/Date';
 
-const fieldTypeGuid: Guid = '6B6AA175-4758-453F-8D83-FCD8044B5F36';
-
-enum ConfigurationValueKey
-{
+export const enum ConfigurationValueKey {
     Format = 'format',
     DisplayDiff = 'displayDiff',
     DisplayCurrentOption = 'displayCurrentOption',
@@ -35,188 +30,74 @@ enum ConfigurationValueKey
     FutureYearCount = 'futureYearCount'
 }
 
-export default registerFieldType( fieldTypeGuid, defineComponent( {
-    name: 'DateField',
-    components: {
-        DatePicker,
-        DatePartsPicker
-    },
-    props: getFieldTypeProps(),
-    data ()
-    {
-        return {
-            internalValue: '',
-            internalDateParts: getDefaultDatePartsPickerModel(),
-            formattedString: ''
-        };
-    },
-    setup ()
-    {
-        return {
-            http: inject( 'http' ) as BlockHttp
-        };
-    },
-    computed: {
-        datePartsAsDate (): Date | null
-        {
-            if ( !this.internalDateParts?.day || !this.internalDateParts.month || !this.internalDateParts.year )
-            {
-                return null;
+
+// The edit component can be quite large, so load it only as needed.
+const editComponent = defineAsyncComponent(async () => {
+    return (await import('./DateFieldComponents')).EditComponent;
+});
+
+/**
+ * The field type handler for the Date field.
+ */
+export class DateFieldType extends FieldTypeBase {
+    public override updateTextValue(value: ClientEditableAttributeValue): void {
+        // TODO: Replace this with custom date formatting logic.
+        this.updateTextValueAsync(value);
+    }
+
+    public override getEditComponent(_value: ClientAttributeValue): Component {
+        return editComponent;
+    }
+
+    private async updateTextValueAsync(value: ClientEditableAttributeValue): Promise<void> {
+        if (this.isCurrentDateValue(value)) {
+            const parts = (value.value ?? '').split(':');
+            const diff = parts.length === 2 ? toNumber(parts[1]) : 0;
+
+            if (diff === 1) {
+                value.textValue = 'Current Date plus 1 day';
             }
-
-            return new Date( this.internalDateParts.year, this.internalDateParts.month - 1, this.internalDateParts.day ) || null;
-        },
-
-        isDatePartsPicker (): boolean
-        {
-            const config = this.configurationValues[ ConfigurationValueKey.DatePickerControlType ];
-            return config?.value?.toLowerCase() === 'date parts picker';
-        },
-
-        isCurrentDateValue (): boolean
-        {
-            return this.internalValue.indexOf( 'CURRENT' ) === 0;
-        },
-
-        asDate (): Date | null
-        {
-            return asDateOrNull( this.internalValue );
-        },
-        dateFormatTemplate (): string
-        {
-            const formatConfig = this.configurationValues[ ConfigurationValueKey.Format ];
-            return formatConfig?.value || 'MM/dd/yyyy'
-        },
-        elapsedString (): string
-        {
-            const dateValue = this.isDatePartsPicker ? this.datePartsAsDate : this.asDate;
-
-            if ( this.isCurrentDateValue || !dateValue )
-            {
-                return '';
+            else if (diff > 0) {
+                value.textValue = `Current Date plus ${diff} days`;
             }
-
-            const formatConfig = this.configurationValues[ ConfigurationValueKey.DisplayDiff ];
-            const displayDiff = asBoolean( formatConfig?.value );
-
-            if ( !displayDiff )
-            {
-                return '';
+            else if (diff === -1) {
+                value.textValue = 'Current Date minus 1 day';
             }
-
-            return asElapsedString( dateValue );
-        },
-        configAttributes (): Record<string, number | boolean>
-        {
-            const attributes: Record<string, number | boolean> = {};
-
-            const displayCurrentConfig = this.configurationValues[ ConfigurationValueKey.DisplayCurrentOption ];
-            if ( displayCurrentConfig?.value )
-            {
-                const displayCurrent = asBoolean( displayCurrentConfig.value );
-                attributes.displayCurrentOption = displayCurrent;
-                attributes.isCurrentDateOffset = displayCurrent;
-            }
-
-            const futureYearConfig = this.configurationValues[ ConfigurationValueKey.FutureYearCount ];
-            if ( futureYearConfig?.value )
-            {
-                const futureYears = toNumber( futureYearConfig.value );
-
-                if ( futureYears > 0 )
-                {
-                    attributes.futureYearCount = futureYears;
-                }
-            }
-
-            return attributes;
-        }
-    },
-    methods: {
-        async syncModelValue(): Promise<void> {
-            this.internalValue = this.modelValue || '';
-            const asDate = asDateOrNull(this.modelValue);
-
-            if (asDate) {
-                this.internalDateParts.year = asDate.getFullYear();
-                this.internalDateParts.month = asDate.getMonth() + 1;
-                this.internalDateParts.day = asDate.getDate();
+            else if (diff < 0) {
+                value.textValue = `Current Date minus ${Math.abs(diff)} days`;
             }
             else {
-                this.internalDateParts.year = 0;
-                this.internalDateParts.month = 0;
-                this.internalDateParts.day = 0;
+                value.textValue = 'Current Date';
             }
+        }
+        else {
+            const dateValue = asDateOrNull(value.value);
+            const dateFormatTemplate = value.configurationValues?.[ConfigurationValueKey.Format] || 'MM/dd/yyy';
 
-            await this.fetchAndSetFormattedValue();
-        },
+            if (dateValue !== null) {
+                let textValue = await this.getFormattedDateString(dateValue, dateFormatTemplate);
 
-        async fetchAndSetFormattedValue(): Promise<void> {
-            if (this.isCurrentDateValue) {
-                const parts = this.internalValue.split(':');
-                const diff = parts.length === 2 ? toNumber(parts[1]) : 0;
+                const displayDiff = asBoolean(value.configurationValues?.[ConfigurationValueKey.DisplayDiff]);
 
-                if (diff === 1) {
-                    this.formattedString = 'Current Date plus 1 day';
+                if (displayDiff === true) {
+                    textValue = `${textValue} ${asElapsedString(dateValue)}`;
                 }
-                else if (diff > 0) {
-                    this.formattedString = `Current Date plus ${diff} days`;
-                }
-                else if (diff === -1) {
-                    this.formattedString = 'Current Date minus 1 day';
-                }
-                else if (diff < 0) {
-                    this.formattedString = `Current Date minus ${Math.abs(diff)} days`;
-                }
-                else {
-                    this.formattedString = 'Current Date';
-                }
-            }
-            else if (this.isDatePartsPicker && this.datePartsAsDate) {
-                this.formattedString = await this.getFormattedDateString(this.datePartsAsDate, this.dateFormatTemplate);
-            }
-            else if (!this.isDatePartsPicker && this.asDate) {
-                this.formattedString = await this.getFormattedDateString(this.asDate, this.dateFormatTemplate);
+
+                value.textValue = textValue;
             }
             else {
-                this.formattedString = '';
+                value.textValue = '';
             }
-        },
+        }
+    }
 
-        async getFormattedDateString(value: Date | string, format: string): Promise<string> {
-            const get = this.http.get as BlockHttpGet;
-            const result = await get<string>('api/Utility/FormatDate', { value, format });
-            return result.data || `${value}`;
-        }
-    },
-    watch: {
-        datePartsAsDate(): void {
-            if (this.isDatePartsPicker) {
-                this.$emit('update:modelValue', toRockDateOrNull(this.datePartsAsDate) || '');
-            }
-        },
-        internalValue(): void {
-            if (!this.isDatePartsPicker) {
-                this.$emit('update:modelValue', this.internalValue || '');
-            }
-        },
-        modelValue: {
-            immediate: true,
-            async handler(): Promise<void> {
-                await this.syncModelValue();
-            }
-        },
-        async dateFormatTemplate(): Promise<void> {
-            await this.fetchAndSetFormattedValue();
-        }
-    },
-    template: `
-<DatePartsPicker v-if="isEditMode && isDatePartsPicker" v-model="internalDateParts" v-bind="configAttributes" />
-<DatePicker v-else-if="isEditMode" v-model="internalValue" v-bind="configAttributes" />
-<span v-else>
-    {{ formattedString }}
-    <template v-if="elapsedString">
-        ({{ elapsedString }})
-    </template>
-</span>`
-} ) );
+    private async getFormattedDateString(value: Date | string, format: string): Promise<string> {
+        const result = await httpGet<string>('/api/Utility/FormatDate', { value, format });
+
+        return result.data || `${value}`;
+    }
+
+    private isCurrentDateValue(value: ClientAttributeValue): boolean {
+        return value.value?.indexOf('CURRENT') === 0;
+    }
+}

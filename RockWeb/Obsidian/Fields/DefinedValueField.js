@@ -31,13 +31,13 @@ System.register(["vue", "./Index", "../Controls/DefinedValuePicker", "@Obsidian/
                 ConfigurationValueKey["AllowAddingNewValues"] = "AllowAddingNewValues";
                 ConfigurationValueKey["RepeatColumns"] = "RepeatColumns";
             })(ConfigurationValueKey || (ConfigurationValueKey = {}));
-            exports_1("default", Index_1.registerFieldType(fieldTypeGuid, vue_1.defineComponent({
+            exports_1("default", Index_1.legacyRegisterFieldType(fieldTypeGuid, vue_1.defineComponent({
                 name: 'DefinedValueField',
                 inheritAttrs: false,
                 components: {
                     DefinedValuePicker: DefinedValuePicker_1.default
                 },
-                props: Index_1.getFieldTypeProps(),
+                props: Index_1.getFieldEditorProps(),
                 data() {
                     return {
                         definedValues: [],
@@ -59,12 +59,12 @@ System.register(["vue", "./Index", "../Controls/DefinedValuePicker", "@Obsidian/
                         return this.selectedDefinedValues.map(v => { var _a; return (_a = v.value) !== null && _a !== void 0 ? _a : ""; }).join(", ");
                     },
                     displayDescription() {
-                        const displayDescription = Index_1.getConfigurationValue(ConfigurationValueKey.DisplayDescription, this.configurationValues);
+                        const displayDescription = this.configurationValues[ConfigurationValueKey.DisplayDescription];
                         return Boolean_1.asBoolean(displayDescription);
                     },
                     configAttributes() {
                         const attributes = Object.assign({}, this.$attrs);
-                        const definedType = Index_1.getConfigurationValue(ConfigurationValueKey.DefinedType, this.configurationValues);
+                        const definedType = this.configurationValues[ConfigurationValueKey.DefinedType];
                         if (definedType) {
                             const definedTypeId = Number_1.toNumberOrNull(definedType);
                             if (definedTypeId) {
@@ -75,7 +75,7 @@ System.register(["vue", "./Index", "../Controls/DefinedValuePicker", "@Obsidian/
                         if (this.displayDescription) {
                             attributes.displayDescriptions = true;
                         }
-                        const enhancedConfig = Index_1.getConfigurationValue(ConfigurationValueKey.EnhancedSelection, this.configurationValues);
+                        const enhancedConfig = this.configurationValues[ConfigurationValueKey.EnhancedSelection];
                         if (enhancedConfig) {
                             attributes.enhanceForLongLists = Boolean_1.asBoolean(enhancedConfig);
                         }

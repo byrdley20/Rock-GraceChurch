@@ -1,17 +1,23 @@
-System.register(["vue", "./Index", "../Elements/TimePicker", "@Obsidian/Services/Number", "@Obsidian/Services/String"], function (exports_1, context_1) {
+System.register(["vue", "./FieldType", "@Obsidian/Services/Number", "@Obsidian/Services/String"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, Index_1, TimePicker_1, Number_1, String_1, fieldTypeGuid, ConfigurationValueKey;
+    var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+    };
+    var vue_1, FieldType_1, Number_1, String_1, editComponent, TimeFieldType;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (Index_1_1) {
-                Index_1 = Index_1_1;
-            },
-            function (TimePicker_1_1) {
-                TimePicker_1 = TimePicker_1_1;
+            function (FieldType_1_1) {
+                FieldType_1 = FieldType_1_1;
             },
             function (Number_1_1) {
                 Number_1 = Number_1_1;
@@ -21,68 +27,30 @@ System.register(["vue", "./Index", "../Elements/TimePicker", "@Obsidian/Services
             }
         ],
         execute: function () {
-            fieldTypeGuid = '2F8F5EC4-57FA-4F6C-AB15-9D6616994580';
-            (function (ConfigurationValueKey) {
-            })(ConfigurationValueKey || (ConfigurationValueKey = {}));
-            exports_1("default", Index_1.registerFieldType(fieldTypeGuid, vue_1.defineComponent({
-                name: 'TimeField',
-                components: {
-                    TimePicker: TimePicker_1.default
-                },
-                props: Index_1.getFieldTypeProps(),
-                data() {
-                    return {
-                        internalTimeValue: {},
-                        internalValue: ''
-                    };
-                },
-                computed: {
-                    displayValue() {
-                        if (this.internalTimeValue.hour === undefined || this.internalTimeValue.minute === undefined) {
-                            return "";
-                        }
-                        let hour = this.internalTimeValue.hour;
-                        const minute = this.internalTimeValue.minute;
-                        const meridiem = hour >= 12 ? "PM" : "AM";
-                        if (hour > 12) {
-                            hour -= 12;
-                        }
-                        return `${hour}:${String_1.padLeft(minute.toString(), 2, "0")} ${meridiem}`;
-                    },
-                },
-                watch: {
-                    internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
-                    },
-                    internalTimeValue() {
-                        if (this.internalTimeValue.hour === undefined || this.internalTimeValue.minute === undefined) {
-                            this.internalValue = "";
-                        }
-                        else {
-                            this.internalValue = `${this.internalTimeValue.hour}:${String_1.padLeft(this.internalTimeValue.minute.toString(), 2, "0")}:00`;
-                        }
-                    },
-                    modelValue: {
-                        immediate: true,
-                        handler() {
-                            var _a;
-                            const values = /^(\d+):(\d+)/.exec((_a = this.modelValue) !== null && _a !== void 0 ? _a : "");
-                            if (values !== null) {
-                                this.internalTimeValue = {
-                                    hour: Number_1.toNumber(values[1]),
-                                    minute: Number_1.toNumber(values[2])
-                                };
-                            }
-                            else {
-                                this.internalTimeValue = {};
-                            }
-                        }
+            editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
+                return (yield context_1.import('./TimeFieldComponents')).EditComponent;
+            }));
+            TimeFieldType = class TimeFieldType extends FieldType_1.FieldTypeBase {
+                updateTextValue(value) {
+                    var _a;
+                    const values = /^(\d+):(\d+)/.exec((_a = value.value) !== null && _a !== void 0 ? _a : '');
+                    if (values === null || values.length < 3) {
+                        value.textValue = '';
+                        return;
                     }
-                },
-                template: `
-<TimePicker v-if="isEditMode" v-model="internalTimeValue" />
-<span v-else>{{ displayValue }}</span>`
-            })));
+                    let hour = Number_1.toNumber(values[1]);
+                    const minute = Number_1.toNumber(values[2]);
+                    const meridiem = hour >= 12 ? 'PM' : 'AM';
+                    if (hour > 12) {
+                        hour -= 12;
+                    }
+                    value.textValue = `${hour}:${String_1.padLeft(minute.toString(), 2, '0')} ${meridiem}`;
+                }
+                getEditComponent(_value) {
+                    return editComponent;
+                }
+            };
+            exports_1("TimeFieldType", TimeFieldType);
         }
     };
 });

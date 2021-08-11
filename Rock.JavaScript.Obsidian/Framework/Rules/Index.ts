@@ -16,7 +16,7 @@
 //
 import DateKey from '@Obsidian/Services/DateKey';
 import { isEmail } from '@Obsidian/Services/Email';
-import { isNullOrWhitespace } from '@Obsidian/Services/String';
+import { isNullOrWhiteSpace } from '@Obsidian/Services/String';
 import { defineRule } from 'vee-validate';
 import { toNumberOrNull } from '@Obsidian/Services/Number';
 
@@ -75,7 +75,7 @@ defineRule( 'required', ( ( value: unknown, [ optionsJson ]: unknown[] ) =>
     {
         const allowEmptyString = !!( options.allowEmptyString );
 
-        if ( !allowEmptyString && isNullOrWhitespace( value ) )
+        if ( !allowEmptyString && isNullOrWhiteSpace( value ) )
         {
             return 'is required';
         }
@@ -99,7 +99,7 @@ defineRule( 'required', ( ( value: unknown, [ optionsJson ]: unknown[] ) =>
 defineRule( 'email', ( value =>
 {
     // Field is empty, should pass
-    if ( isNullOrWhitespace( value ) )
+    if ( isNullOrWhiteSpace( value ) )
     {
         return true;
     }
@@ -150,7 +150,7 @@ defineRule( 'equal', ( ( value: unknown, [ compare ]: unknown[] ) =>
 defineRule( 'gt', ( ( value: unknown, [ compare ]: unknown[] ) =>
 {
     // Field is empty, should pass
-    if (isNullOrWhitespace(value)) {
+    if (isNullOrWhiteSpace(value)) {
         return true;
     }
 
@@ -168,7 +168,7 @@ defineRule( 'gt', ( ( value: unknown, [ compare ]: unknown[] ) =>
 defineRule( 'gte', ( ( value: unknown, [ compare ]: unknown[] ) =>
 {
     // Field is empty, should pass
-    if (isNullOrWhitespace(value)) {
+    if (isNullOrWhiteSpace(value)) {
         return true;
     }
 
@@ -186,7 +186,7 @@ defineRule( 'gte', ( ( value: unknown, [ compare ]: unknown[] ) =>
 defineRule( 'lt', ( ( value: unknown, [ compare ]: unknown[] ) =>
 {
     // Field is empty, should pass
-    if (isNullOrWhitespace(value)) {
+    if (isNullOrWhiteSpace(value)) {
         return true;
     }
 
@@ -204,7 +204,7 @@ defineRule( 'lt', ( ( value: unknown, [ compare ]: unknown[] ) =>
 defineRule( 'lte', ( ( value: unknown, [ compare ]: unknown[] ) =>
 {
     // Field is empty, should pass
-    if (isNullOrWhitespace(value)) {
+    if (isNullOrWhiteSpace(value)) {
         return true;
     }
 
@@ -243,7 +243,7 @@ defineRule( 'datekey', ( value =>
 
 defineRule("integer", (value: unknown) => {
     // Field is empty, should pass
-    if (isNullOrWhitespace(value)) {
+    if (isNullOrWhiteSpace(value)) {
         return true;
     }
 
@@ -256,7 +256,7 @@ defineRule("integer", (value: unknown) => {
 
 defineRule("decimal", (value: unknown) => {
     // Field is empty, should pass
-    if (isNullOrWhitespace(value)) {
+    if (isNullOrWhiteSpace(value)) {
         return true;
     }
 
@@ -269,7 +269,7 @@ defineRule("decimal", (value: unknown) => {
 
 defineRule("ssn", (value: unknown) => {
     // Field is empty, should pass
-    if (isNullOrWhitespace(value)) {
+    if (isNullOrWhiteSpace(value)) {
         return true;
     }
 

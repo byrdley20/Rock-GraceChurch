@@ -14,44 +14,20 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { Guid } from '../Util/Guid';
-import { registerFieldType, getFieldTypeProps } from './Index';
-import EmailBox from '../Elements/EmailBox';
+import { Component, defineAsyncComponent } from 'vue';
+import { FieldTypeBase } from './FieldType';
+import { ClientAttributeValue } from '@Obsidian/ViewModels';
 
-const fieldTypeGuid: Guid = '3D045CAE-EA72-4A04-B7BE-7FD1D6214217';
+// The edit component can be quite large, so load it only as needed.
+const editComponent = defineAsyncComponent(async () => {
+    return (await import('./EmailFieldComponents')).EditComponent;
+});
 
-enum ConfigurationValueKey {
+/**
+ * The field type handler for the Email field.
+ */
+export class EmailFieldType extends FieldTypeBase {
+    public override getEditComponent(_value: ClientAttributeValue): Component {
+        return editComponent;
+    }
 }
-
-export default registerFieldType(fieldTypeGuid, defineComponent({
-    name: 'EmailField',
-    components: {
-        EmailBox
-    },
-    props: getFieldTypeProps(),
-    data() {
-        return {
-            internalValue: ''
-        };
-    },
-    computed: {
-        safeValue(): string {
-            return (this.modelValue || '').trim();
-        },
-    },
-    watch: {
-        internalValue() {
-            this.$emit('update:modelValue', this.internalValue);
-        },
-        modelValue: {
-            immediate: true,
-            handler() {
-                this.internalValue = this.modelValue || '';
-            }
-        }
-    },
-    template: `
-<EmailBox v-if="isEditMode" v-model="internalValue" />
-<span v-else>{{ safeValue }}</span>`
-}));

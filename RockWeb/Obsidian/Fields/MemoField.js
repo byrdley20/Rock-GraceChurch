@@ -28,12 +28,12 @@ System.register(["vue", "./Index", "../Elements/TextBox", "@Obsidian/Services/Bo
                 ConfigurationValueKey["MaxCharacters"] = "maxcharacters";
                 ConfigurationValueKey["ShowCountDown"] = "showcountdown";
             })(ConfigurationValueKey || (ConfigurationValueKey = {}));
-            exports_1("default", Index_1.registerFieldType(fieldTypeGuid, vue_1.defineComponent({
+            exports_1("default", Index_1.legacyRegisterFieldType(fieldTypeGuid, vue_1.defineComponent({
                 name: 'MemoField',
                 components: {
                     TextBox: TextBox_1.default
                 },
-                props: Index_1.getFieldTypeProps(),
+                props: Index_1.getFieldEditorProps(),
                 data() {
                     return {
                         internalValue: ''
@@ -42,7 +42,7 @@ System.register(["vue", "./Index", "../Elements/TextBox", "@Obsidian/Services/Bo
                 computed: {
                     allowHtml() {
                         const config = this.configurationValues[ConfigurationValueKey.AllowHtml];
-                        return Boolean_1.asBoolean(config === null || config === void 0 ? void 0 : config.value);
+                        return Boolean_1.asBoolean(config);
                     },
                     safeValue() {
                         return (this.modelValue || '').trim();
@@ -50,25 +50,19 @@ System.register(["vue", "./Index", "../Elements/TextBox", "@Obsidian/Services/Bo
                     configAttributes() {
                         const attributes = {};
                         const maxCharsConfig = this.configurationValues[ConfigurationValueKey.MaxCharacters];
-                        if (maxCharsConfig && maxCharsConfig.value) {
-                            const maxCharsValue = Number(maxCharsConfig.value);
-                            if (maxCharsValue) {
-                                attributes.maxLength = maxCharsValue;
-                            }
+                        const maxCharsValue = Number_1.toNumber(maxCharsConfig);
+                        if (maxCharsValue) {
+                            attributes.maxLength = maxCharsValue;
                         }
                         const showCountDownConfig = this.configurationValues[ConfigurationValueKey.ShowCountDown];
-                        if (showCountDownConfig && showCountDownConfig.value) {
-                            const showCountDownValue = Boolean_1.asBooleanOrNull(showCountDownConfig.value) || false;
-                            if (showCountDownValue) {
-                                attributes.showCountDown = showCountDownValue;
-                            }
+                        const showCountDownValue = Boolean_1.asBooleanOrNull(showCountDownConfig) || false;
+                        if (showCountDownValue) {
+                            attributes.showCountDown = showCountDownValue;
                         }
                         const rowsConfig = this.configurationValues[ConfigurationValueKey.NumberOfRows];
-                        if (rowsConfig === null || rowsConfig === void 0 ? void 0 : rowsConfig.value) {
-                            const rows = Number_1.toNumber(rowsConfig.value) || 3;
-                            if (rows > 0) {
-                                attributes.rows = rows;
-                            }
+                        const rows = Number_1.toNumber(rowsConfig || null) || 3;
+                        if (rows > 0) {
+                            attributes.rows = rows;
                         }
                         return attributes;
                     }

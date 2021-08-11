@@ -22,9 +22,6 @@ System.register(["vuex", "./CommonEntities", "./State", "./Mutations", "./Action
             },
             function (Actions_1_1) {
                 Actions_1 = Actions_1_1;
-                exports_1({
-                    "ActionType": Actions_1_1["ActionType"]
-                });
             },
             function (Getters_1_1) {
                 Getters_1 = Getters_1_1;

@@ -1,70 +1,53 @@
-System.register(["vue", "./Index", "../Elements/DropDownList"], function (exports_1, context_1) {
+System.register(["vue", "./FieldType", "@Obsidian/Services/Number"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, Index_1, DropDownList_1, fieldTypeGuid;
+    var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+    };
+    var vue_1, FieldType_1, Number_1, editComponent, GenderFieldType;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (Index_1_1) {
-                Index_1 = Index_1_1;
+            function (FieldType_1_1) {
+                FieldType_1 = FieldType_1_1;
             },
-            function (DropDownList_1_1) {
-                DropDownList_1 = DropDownList_1_1;
+            function (Number_1_1) {
+                Number_1 = Number_1_1;
             }
         ],
         execute: function () {
-            fieldTypeGuid = '2E28779B-4C76-4142-AE8D-49EA31DDB503';
-            exports_1("default", Index_1.registerFieldType(fieldTypeGuid, vue_1.defineComponent({
-                name: 'GenderField',
-                components: {
-                    DropDownList: DropDownList_1.default
-                },
-                props: Index_1.getFieldTypeProps(),
-                data() {
-                    return {
-                        internalValue: ''
-                    };
-                },
-                computed: {
-                    displayValue() {
-                        if (this.internalValue === '0') {
-                            return 'Unknown';
-                        }
-                        else if (this.internalValue === '1') {
-                            return 'Male';
-                        }
-                        else if (this.internalValue === '2') {
-                            return 'Female';
-                        }
-                        else {
-                            return '';
-                        }
-                    },
-                    dropDownListOptions() {
-                        return [
-                            { key: '0', text: 'Unknown', value: '0' },
-                            { key: '1', text: 'Male', value: '1' },
-                            { key: '2', text: 'Female', value: '2' }
-                        ];
+            editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
+                return (yield context_1.import('./GenderFieldComponents')).EditComponent;
+            }));
+            GenderFieldType = class GenderFieldType extends FieldType_1.FieldTypeBase {
+                updateTextValue(value) {
+                    const numberValue = Number_1.toNumberOrNull(value.value);
+                    if (numberValue === 0) {
+                        value.textValue = 'Unknown';
                     }
-                },
-                watch: {
-                    internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
-                    },
-                    modelValue: {
-                        immediate: true,
-                        handler() {
-                            this.internalValue = this.modelValue || '';
-                        }
+                    else if (numberValue === 1) {
+                        value.textValue = 'Male';
                     }
-                },
-                template: `
-<DropDownList v-if="isEditMode" v-model="internalValue" :options="dropDownListOptions" />
-<span v-else>{{ displayValue }}</span>`
-            })));
+                    else if (numberValue === 2) {
+                        value.textValue = 'Female';
+                    }
+                    else {
+                        value.textValue = '';
+                    }
+                }
+                getEditComponent(_value) {
+                    return editComponent;
+                }
+            };
+            exports_1("GenderFieldType", GenderFieldType);
         }
     };
 });

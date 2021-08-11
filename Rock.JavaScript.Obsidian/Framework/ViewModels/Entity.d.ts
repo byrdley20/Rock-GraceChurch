@@ -15,10 +15,10 @@
 // </copyright>
 //
 import { Guid } from "../Util/Guid";
-import AttributeValue from "./CodeGenerated/AttributeValue";
+import ClientAttributeValue from "./ClientAttributeValue";
 
 export default interface Entity {
     id: number;
     guid: Guid;
-    attributes: Record<string, AttributeValue> | null
+    attributes: Record<string, ClientAttributeValue> | null;
 }

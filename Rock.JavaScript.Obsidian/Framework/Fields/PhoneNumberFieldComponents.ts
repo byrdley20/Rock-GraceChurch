@@ -1,4 +1,4 @@
-﻿// <copyright>
+// <copyright>
 // Copyright by the Spark Development Network
 //
 // Licensed under the Rock Community License (the "License");
@@ -15,33 +15,31 @@
 // </copyright>
 //
 import { defineComponent } from 'vue';
-import { Guid } from '../Util/Guid';
-import { registerFieldType, getFieldTypeProps } from './Index';
-import { formatPhoneNumber } from '@Obsidian/Services/String';
+import { getFieldEditorProps } from './Index';
 import PhoneNumberBox from '../Elements/PhoneNumberBox';
 
-const fieldTypeGuid: Guid = '6B1908EC-12A2-463A-A7BD-970CE0FAF097';
-
-export default registerFieldType(fieldTypeGuid, defineComponent({
+export const EditComponent = defineComponent({
     name: 'PhoneNumber',
+
     components: {
         PhoneNumberBox
     },
-    props: getFieldTypeProps(),
+
+    props: getFieldEditorProps(),
+
     data() {
         return {
             internalValue: ''
         };
     },
+
     computed: {
-        safeValue(): string {
-            return formatPhoneNumber(this.modelValue || '');
-        },
         configAttributes(): Record<string, number | boolean> {
             const attributes: Record<string, number | boolean> = {};
             return attributes;
         }
     },
+
     watch: {
         internalValue(): void {
             this.$emit('update:modelValue', this.internalValue);
@@ -53,7 +51,8 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
             }
         }
     },
+
     template: `
-<PhoneNumberBox v-if="isEditMode" v-model="internalValue" v-bind="configAttributes" />
-<span v-else>{{ safeValue }}</span>`
-}));
+<PhoneNumberBox v-model="internalValue" v-bind="configAttributes" />
+`
+});

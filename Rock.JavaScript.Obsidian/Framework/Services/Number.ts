@@ -40,7 +40,7 @@ export function asFormattedString ( num: number | null, digits?: number )
  * Ex: $1,000.20 => 1000.2
  * @param str
  */
-export function toNumber ( str: string | null )
+export function toNumber ( str?: string | null )
 {
     return toNumberOrNull( str ) || 0;
 }
@@ -50,9 +50,9 @@ export function toNumber ( str: string | null )
  * Ex: $1,000.20 => 1000.2
  * @param str
  */
-export function toNumberOrNull ( str: string | null )
+export function toNumberOrNull ( str?: string | null )
 {
-    if (str === null || str == "") {
+    if (str === null || str === undefined || str == "") {
         return null;
     }
 
@@ -67,12 +67,12 @@ export function toNumberOrNull ( str: string | null )
  * Ex: 1000.20 => $1,000.20
  * @param value The value to be converted to a currency.
  */
-export function toCurrencyOrNull(value: string | number | null) {
+export function toCurrencyOrNull(value?: string | number | null) {
     if (typeof value === "string") {
         value = toNumberOrNull(value);
     }
 
-    if (value === null) {
+    if (value === null || value === undefined) {
         return null;
     }
 
@@ -84,7 +84,7 @@ export function toCurrencyOrNull(value: string | number | null) {
  * Ex: 1 => 1st
  * @param num
  */
-export function toOrdinalSuffix ( num: number | null )
+export function toOrdinalSuffix ( num?: number | null )
 {
     if ( !num )
     {
@@ -114,7 +114,7 @@ export function toOrdinalSuffix ( num: number | null )
  * Ex: 1 => first
  * @param num
  */
-export function toOrdinal ( num: number | null )
+export function toOrdinal ( num?: number | null )
 {
     if ( !num )
     {
@@ -142,8 +142,12 @@ export function toOrdinal ( num: number | null )
  * Ex: 1 => one
  * @param num
  */
-export function toWord ( num: number | null )
+export function toWord ( num?: number | null )
 {
+    if (num === null || num === undefined) {
+        return '';
+    }
+
     switch ( num )
     {
         case 1: return 'one';

@@ -14,19 +14,52 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, inject } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import PaneledBlockTemplate from '../../Templates/PaneledBlockTemplate';
 import Loading from '../../Controls/Loading';
-import { InvokeBlockActionFunc } from '../../Controls/RockBlock';
-import { ConfigurationValues } from '../../Index';
 import store from '../../Store/Index';
-import { areEqual, Guid } from '../../Util/Guid';
+import { Guid } from '../../Util/Guid';
+import { useConfigurationValues, useInvokeBlockAction } from '../../Util/Block';
 import JavaScriptAnchor from '../../Elements/JavaScriptAnchor';
 import RockForm from '../../Controls/RockForm';
 import TextBox from '../../Elements/TextBox';
 import RockButton from '../../Elements/RockButton';
-import { Person, AttributeValue } from '@Obsidian/ViewModels';
+import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
 import AttributeValuesContainer from '../../Controls/AttributeValuesContainer';
+
+interface ConfigurationValues {
+    blockIconCssClass: string;
+
+    blockTitle: string;
+
+    showCategoryNamesAsSeparators: boolean;
+
+    useAbbreviatedNames: boolean;
+
+    categoryGuids: Guid[];
+
+    attributes: ClientAttributeValue[];
+}
+
+function sortedAttributeValues(attributeValues: ClientAttributeValue[]): ClientAttributeValue[] {
+    const sortedValues = [...attributeValues];
+
+    sortedValues.sort((a, b) => {
+        if (a.order === b.order) {
+            if (a.name > b.name) {
+                return 1;
+            }
+
+            if (a.name < b.name) {
+                return -1;
+            }
+        }
+
+        return a.order - b.order;
+    });
+
+    return sortedValues;
+}
 
 export default defineComponent({
     name: 'Crm.AttributeValues',
@@ -40,103 +73,62 @@ export default defineComponent({
         AttributeValuesContainer
     },
     setup() {
-        return {
-            invokeBlockAction: inject('invokeBlockAction') as InvokeBlockActionFunc,
-            configurationValues: inject('configurationValues') as ConfigurationValues
-        };
-    },
-    data() {
-        return {
-            isLoading: false,
-            isEditMode: false
-        };
-    },
-    computed: {
-        person(): Person | null {
-            return (store.getters.personContext || null) as Person | null;
-        },
-        personGuid(): Guid | null {
-            return this.person?.guid || null;
-        },
-        categoryGuids(): Guid[] {
-            return (this.configurationValues.categoryGuids as Guid[] | null) || [];
-        },
-        useAbbreviatedNames(): boolean {
-            return this.configurationValues.useAbbreviatedNames as boolean;
-        },
-        attributeValues(): AttributeValue[] {
-            const attributes = this.person?.attributes || {};
-            const attributeValues: AttributeValue[] = [];
+        const configurationValues = useConfigurationValues<ConfigurationValues>();
+        const invokeBlockAction = useInvokeBlockAction();
+        const attributeValues = ref(sortedAttributeValues(configurationValues.attributes));
+        const personGuid = computed(() => store.getters.personContext?.guid || null);
+        const isLoading = ref(false);
+        const isEditMode = ref(false);
 
-            for (const key in attributes) {
-                const attributeValue = attributes[key];
-                const attribute = attributeValue.attribute;
+        const goToViewMode = () => isEditMode.value = false;
 
-                if (this.categoryGuids.length > 0 && !attribute) {
-                    continue;
-                }
-
-                if (this.categoryGuids.length > 0 && !attribute?.categoryGuids.some(g1 => this.categoryGuids.some(g2 => areEqual(g1, g2)))) {
-                    continue;
-                }
-
-                attributeValues.push(attributeValue);
+        const goToEditMode = async (): Promise<void> => {
+            const result = await invokeBlockAction<ClientEditableAttributeValue[]>('GetAttributeValuesForEdit');
+            if (result.isSuccess) {
+                attributeValues.value = sortedAttributeValues(result.data ?? []);
+                isEditMode.value = true;
             }
+        };
 
-            attributeValues.sort((a, b) => {
-                const aOrder = a.attribute?.order || 0;
-                const bOrder = b.attribute?.order || 0;
-
-                if (aOrder === bOrder) {
-                    const aName = a.attribute?.name || '';
-                    const bName = b.attribute?.name || '';
-
-                    if (aName > bName) {
-                        return 1;
-                    }
-
-                    if (aName < bName) {
-                        return -1;
-                    }
-                }
-
-                return aOrder - bOrder;
-            });
-            return attributeValues;
-        }
-    },
-    methods: {
-        goToViewMode() {
-            this.isEditMode = false;
-        },
-        goToEditMode() {
-            this.isEditMode = true;
-        },
-        async doSave(): Promise<void> {
-            this.isLoading = true;
+        const doSave = async (): Promise<void> => {
+            isLoading.value = true;
 
             const keyValueMap: Record<string, string | null> = {};
 
-            for (const a of this.attributeValues) {
-                if (a.attribute) {
-                    keyValueMap[a.attribute.key] = a.value;
-                }
+            for (const a of attributeValues.value) {
+                keyValueMap[(a as ClientEditableAttributeValue).key] = a.value || '';
             }
 
-            await this.invokeBlockAction('SaveAttributeValues', {
-                personGuid: this.personGuid,
+            const result = await invokeBlockAction<ClientAttributeValue[]>('SaveAttributeValues', {
+                personGuid: personGuid.value,
                 keyValueMap
             });
 
-            this.goToViewMode();
-            this.isLoading = false;
-        }
+            if (result.isSuccess) {
+                attributeValues.value = sortedAttributeValues(result.data ?? []);
+            }
+
+            goToViewMode();
+            isLoading.value = false;
+        };
+
+        return {
+            blockTitle: computed(() => configurationValues.blockTitle),
+            blockIconCssClass: computed(() => configurationValues.blockIconCssClass),
+            isLoading,
+            isEditMode,
+            goToViewMode,
+            goToEditMode,
+            doSave,
+            useAbbreviatedNames: configurationValues.useAbbreviatedNames,
+            attributeValues
+        };
     },
     template: `
 <PaneledBlockTemplate class="panel-persondetails">
     <template v-slot:title>
-        <i :class="configurationValues.BlockIconCssClass"></i>
-        {{ configurationValues.BlockTitle }}
+        <i :class="blockIconCssClass"></i>
+        {{ blockTitle }}
     </template>
     <template v-slot:titleAside>
         <div class="actions rollover-item pull-right">

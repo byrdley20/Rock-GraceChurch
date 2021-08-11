@@ -32,7 +32,7 @@ export function isEmpty( val: unknown )
  * Is the value an empty string?
  * @param val
  */
-export function isWhitespace( val: unknown )
+export function isWhiteSpace( val: unknown )
 {
     if ( typeof val === 'string' )
     {
@@ -46,9 +46,9 @@ export function isWhitespace( val: unknown )
  * Is the value null, undefined or whitespace?
  * @param val
  */
-export function isNullOrWhitespace( val: unknown )
+export function isNullOrWhiteSpace( val: unknown )
 {
-    return isWhitespace( val ) || val === undefined || val === null;
+    return isWhiteSpace( val ) || val === undefined || val === null;
 }
 
 /**
@@ -282,8 +282,8 @@ export default {
     asCommaAnd,
     escapeHtml,
     splitCamelCase,
-    isNullOrWhitespace,
-    isWhitespace,
+    isNullOrWhiteSpace,
+    isWhiteSpace,
     isEmpty,
     toTitleCase,
     pluralConditional,

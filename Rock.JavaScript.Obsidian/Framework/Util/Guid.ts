@@ -44,6 +44,17 @@ export function normalize ( a: Guid | null )
 }
 
 /**
+ * Checks if the given string is a valid Guid. To be considered valid it must
+ * be a bare guid with hyphens. Bare means not enclosed in '{' and '}'.
+ * 
+ * @param guid The Guid to be checked.
+ * @returns True if the guid is valid, otherwise false.
+ */
+export function isValidGuid(guid: Guid | string): boolean {
+    return /^[0-9A-Fa-f]{8}-(?:[0-9A-Fa-f]{4}-){3}[0-9A-Fa-f]{12}$/.test(guid);
+}
+
+/**
  * Are the guids equal?
  * @param a
  * @param b

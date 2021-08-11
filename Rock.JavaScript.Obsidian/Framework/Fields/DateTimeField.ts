@@ -16,7 +16,7 @@
 //
 import { defineComponent, inject } from 'vue';
 import { Guid } from '../Util/Guid';
-import { getFieldTypeProps, registerFieldType } from './Index';
+import { getFieldEditorProps, legacyRegisterFieldType } from './Index';
 import DateTimePicker from '../Elements/DateTimePicker';
 import { toNumber } from '@Obsidian/Services/Number';
 import { BlockHttp } from '../Controls/RockBlock';
@@ -31,14 +31,14 @@ enum ConfigurationValueKey {
     DisplayCurrentOption = "displayCurrentOption"
 }
 
-export default registerFieldType(fieldTypeGuid, defineComponent({
+export default legacyRegisterFieldType(fieldTypeGuid, defineComponent({
     name: 'DateTimeField',
 
     components: {
         DateTimePicker
     },
 
-    props: getFieldTypeProps(),
+    props: getFieldEditorProps(),
 
     setup() {
         return {
@@ -113,7 +113,7 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
 
         dateFormatTemplate(): string {
             const formatConfig = this.configurationValues[ConfigurationValueKey.DateTimeFormat];
-            return formatConfig?.value || 'MM/dd/yyyy'
+            return formatConfig || 'MM/dd/yyyy';
         },
 
         elapsedString(): string {
@@ -124,7 +124,7 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
             }
 
             const formatConfig = this.configurationValues[ConfigurationValueKey.DisplayAsElapsedTime];
-            const displayDiff = asBoolean(formatConfig?.value);
+            const displayDiff = asBoolean(formatConfig);
 
             if (!displayDiff) {
                 return '';
@@ -137,11 +137,9 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
             const attributes: Record<string, number | boolean> = {};
 
             const displayCurrentConfig = this.configurationValues[ConfigurationValueKey.DisplayCurrentOption];
-            if (displayCurrentConfig?.value) {
-                const displayCurrent = asBoolean(displayCurrentConfig.value);
-                attributes.displayCurrentOption = displayCurrent;
-                attributes.isCurrentDateOffset = displayCurrent;
-            }
+            const displayCurrent = asBoolean(displayCurrentConfig);
+            attributes.displayCurrentOption = displayCurrent;
+            attributes.isCurrentDateOffset = displayCurrent;
 
             return attributes;
         }

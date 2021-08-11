@@ -16,9 +16,10 @@
 //
 import { defineComponent, inject } from 'vue';
 import { Guid } from '../Util/Guid';
-import { registerFieldType, getFieldTypeProps } from './Index';
+import { legacyRegisterFieldType, getFieldEditorProps } from './Index';
 import DropDownList, { DropDownListOption } from '../Elements/DropDownList';
 import RadioButtonList from '../Elements/RadioButtonList';
+import { toNumberOrNull } from '@Obsidian/Services/Number';
 
 const fieldTypeGuid: Guid = '7525C4CB-EE6B-41D4-9B64-A08048D5A5C0';
 
@@ -29,18 +30,18 @@ enum ConfigurationValueKey
     RepeatColumns = 'repeatColumns'
 }
 
-export default registerFieldType(fieldTypeGuid, defineComponent({
+export default legacyRegisterFieldType(fieldTypeGuid, defineComponent({
     name: 'SingleSelectField',
     components: {
         DropDownList,
         RadioButtonList
     },
-    props: getFieldTypeProps(),
+    props: getFieldEditorProps(),
     setup ()
     {
         return {
-            isRequired: inject ( 'isRequired' ) as boolean
-        }
+            isRequired: inject('isRequired') as boolean
+        };
     },
     data() {
         return {
@@ -54,18 +55,14 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
         },
 
         /** The options to choose from in the drop down list */
-        options (): DropDownListOption[]
-        {
-            const valuesConfig = this.configurationValues[ ConfigurationValueKey.Values ];
-            if ( valuesConfig && valuesConfig.value )
-            {
-                const providedOptions = valuesConfig.value.split( ',' ).map( v =>
-                {
-                    if ( v.indexOf( '^' ) !== -1 )
-                    {
-                        const parts = v.split( '^' );
-                        const value = parts[ 0 ];
-                        const text = parts[ 1 ];
+        options(): DropDownListOption[] {
+            const valuesConfig = this.configurationValues[ConfigurationValueKey.Values];
+            if (valuesConfig) {
+                const providedOptions = valuesConfig.split(',').map(v => {
+                    if (v.indexOf('^') !== -1) {
+                        const parts = v.split('^');
+                        const value = parts[0];
+                        const text = parts[1];
 
                         return {
                             key: value,
@@ -79,15 +76,14 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
                         text: v,
                         value: v
                     } as DropDownListOption;
-                } );
+                });
 
-                if ( this.isRadioButtons && !this.isRequired )
-                {
-                    providedOptions.unshift( {
+                if (this.isRadioButtons && !this.isRequired) {
+                    providedOptions.unshift({
                         key: 'None',
                         text: 'None',
                         value: ''
-                    } );
+                    });
                 }
 
                 return providedOptions;
@@ -99,10 +95,9 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
         /** Any additional attributes that will be assigned to the drop down list control */
         ddlConfigAttributes(): Record<string, number | boolean> {
             const attributes: Record<string, number | boolean> = {};
-            const fieldTypeConfig = this.configurationValues[ ConfigurationValueKey.FieldType ];
+            const fieldTypeConfig = this.configurationValues[ConfigurationValueKey.FieldType];
 
-            if ( fieldTypeConfig?.value === 'ddl_enhanced' )
-            {
+            if (fieldTypeConfig === 'ddl_enhanced') {
                 attributes.enhanceForLongLists = true;
             }
 
@@ -110,24 +105,21 @@ export default registerFieldType(fieldTypeGuid, defineComponent({
         },
 
         /** Any additional attributes that will be assigned to the radio button control */
-        rbConfigAttributes (): Record<string, number | boolean>
-        {
+        rbConfigAttributes(): Record<string, number | boolean> {
             const attributes: Record<string, number | boolean> = {};
-            const repeatColumnsConfig = this.configurationValues[ ConfigurationValueKey.RepeatColumns ];
+            const repeatColumnsConfig = this.configurationValues[ConfigurationValueKey.RepeatColumns];
 
-            if ( repeatColumnsConfig?.value )
-            {
-                attributes[ 'repeatColumns' ] = Number( repeatColumnsConfig.value ) || 0;
+            if (repeatColumnsConfig) {
+                attributes['repeatColumns'] = toNumberOrNull(repeatColumnsConfig) || 0;
             }
 
             return attributes;
         },
 
         /** Is the control going to be radio buttons? */
-        isRadioButtons (): boolean
-        {
-            const fieldTypeConfig = this.configurationValues[ ConfigurationValueKey.FieldType ];
-            return fieldTypeConfig?.value === 'rb';
+        isRadioButtons(): boolean {
+            const fieldTypeConfig = this.configurationValues[ConfigurationValueKey.FieldType];
+            return fieldTypeConfig === 'rb';
         }
     },
     watch: {

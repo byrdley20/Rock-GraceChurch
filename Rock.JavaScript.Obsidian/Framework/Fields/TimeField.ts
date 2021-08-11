@@ -14,82 +14,41 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { Guid } from '../Util/Guid';
-import {  getFieldTypeProps, registerFieldType } from './Index';
-import TimePicker, { TimePickerModelValue } from '../Elements/TimePicker';
+import { Component, defineAsyncComponent } from 'vue';
+import { FieldTypeBase } from './FieldType';
+import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
 import { toNumber } from '@Obsidian/Services/Number';
 import { padLeft } from '@Obsidian/Services/String';
 
-const fieldTypeGuid: Guid = '2F8F5EC4-57FA-4F6C-AB15-9D6616994580';
+// The edit component can be quite large, so load it only as needed.
+const editComponent = defineAsyncComponent(async () => {
+    return (await import('./TimeFieldComponents')).EditComponent;
+});
 
-enum ConfigurationValueKey {
-}
+/**
+ * The field type handler for the Time field.
+ */
+export class TimeFieldType extends FieldTypeBase {
+    public override updateTextValue(value: ClientEditableAttributeValue): void {
+        const values = /^(\d+):(\d+)/.exec(value.value ?? '');
 
-export default registerFieldType(fieldTypeGuid, defineComponent({
-    name: 'TimeField',
-    components: {
-        TimePicker
-    },
-    props: getFieldTypeProps(),
-
-    data() {
-        return {
-            internalTimeValue: {} as TimePickerModelValue,
-            internalValue: ''
-        };
-    },
-
-    computed: {
-        displayValue(): string {
-            if (this.internalTimeValue.hour === undefined || this.internalTimeValue.minute === undefined) {
-                return "";
-            }
-
-            let hour = this.internalTimeValue.hour;
-            const minute = this.internalTimeValue.minute;
-            const meridiem = hour >= 12 ? "PM" : "AM";
-
-            if (hour > 12) {
-                hour -= 12;
-            }
-
-            return `${hour}:${padLeft(minute.toString(), 2, "0")} ${meridiem}`;
-        },
-    },
-
-    watch: {
-        internalValue(): void {
-            this.$emit('update:modelValue', this.internalValue);
-        },
-
-        internalTimeValue(): void {
-            if (this.internalTimeValue.hour === undefined || this.internalTimeValue.minute === undefined) {
-                this.internalValue = "";
-            }
-            else {
-                this.internalValue = `${this.internalTimeValue.hour}:${padLeft(this.internalTimeValue.minute.toString(), 2, "0")}:00`;
-            }
-        },
-
-        modelValue: {
-            immediate: true,
-            handler(): void {
-                const values = /^(\d+):(\d+)/.exec(this.modelValue ?? "");
-
-                if (values !== null) {
-                    this.internalTimeValue = {
-                        hour: toNumber(values[1]),
-                        minute: toNumber(values[2])
-                    };
-                }
-                else {
-                    this.internalTimeValue = {};
-                }
-            }
+        if (values === null || values.length < 3) {
+            value.textValue = '';
+            return;
         }
-    },
-    template: `
-<TimePicker v-if="isEditMode" v-model="internalTimeValue" />
-<span v-else>{{ displayValue }}</span>`
-}));
+
+        let hour = toNumber(values[1]);
+        const minute = toNumber(values[2]);
+        const meridiem = hour >= 12 ? 'PM' : 'AM';
+
+        if (hour > 12) {
+            hour -= 12;
+        }
+
+        value.textValue = `${hour}:${padLeft(minute.toString(), 2, '0')} ${meridiem}`;
+    }
+
+    public override getEditComponent(_value: ClientAttributeValue): Component {
+        return editComponent;
+    }
+}

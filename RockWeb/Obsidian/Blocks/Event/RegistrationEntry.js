@@ -168,7 +168,7 @@ System.register(["vue", "../../Elements/RockButton", "../../Util/Guid", "./Regis
                     else if (viewModel.session && !viewModel.startAtBeginning) {
                         currentStep = steps.reviewAndPayment;
                     }
-                    else if (viewModel.maxRegistrants === 1 && String_1.isNullOrWhitespace(viewModel.instructionsHtml)) {
+                    else if (viewModel.maxRegistrants === 1 && String_1.isNullOrWhiteSpace(viewModel.instructionsHtml)) {
                         currentStep = hasPreAttributes ? steps.registrationStartForm : steps.perRegistrantForms;
                     }
                     const registrationEntryState = vue_1.reactive({

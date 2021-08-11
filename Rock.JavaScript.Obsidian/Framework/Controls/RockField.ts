@@ -14,70 +14,135 @@
 // limitations under the License.
 // </copyright>
 //
-import { getFieldTypeComponent, registerFieldType } from '../Fields/Index';
-import { Guid } from '../Util/Guid';
-import { Component, computed, defineComponent, defineAsyncComponent, PropType, provide } from 'vue';
-import { FieldType } from '@Obsidian/SystemGuids';
+import { getFieldType } from '../Fields/Index';
+import { computed, defineComponent, PropType, provide } from 'vue';
+import { TextFieldType } from '../Fields/TextField';
 
-// Import and assign TextField because it is the fallback
-import TextField from '../Fields/TextField';
+//import '../Fields/DateTimeField';
+//import '../Fields/DefinedValueField';
+//import '../Fields/MemoField';
+//import '../Fields/SingleSelect';
+import ClientAttributeValue from 'ViewModels/ClientAttributeValue';
+import ClientEditableAttributeValue from 'ViewModels/ClientEditableAttributeValue';
 
-// Import other field types so they are registered and available upon dynamic request
-import '../Fields/BooleanField';
-import '../Fields/CurrencyField';
-import '../Fields/DateField';
-import '../Fields/DateTimeField';
-import '../Fields/DayOfWeekField';
-import '../Fields/DaysOfWeekField';
-import '../Fields/DecimalField';
-import '../Fields/DecimalRangeField';
-import '../Fields/DefinedValueField';
-import '../Fields/EmailField';
-import '../Fields/GenderField';
-import '../Fields/IntegerField';
-import '../Fields/IntegerRangeField';
-import '../Fields/MemoField';
-import '../Fields/MonthDayField';
-import '../Fields/SingleSelect';
-import '../Fields/PhoneNumber';
-import '../Fields/RatingField';
-import '../Fields/TimeField';
+const textField = new TextFieldType();
 
-registerFieldType(FieldType.Text, TextField);
-registerFieldType(FieldType.Color, defineAsyncComponent(() => import('../Fields/ColorField')));
+function instanceOfEditable(value: ClientAttributeValue): value is ClientEditableAttributeValue {
+    return (<ClientEditableAttributeValue>value).key !== undefined;
+}
 
 export default defineComponent({
     name: 'RockField',
     props: {
-        fieldTypeGuid: {
-            type: String as PropType<Guid>,
+        attributeValue: {
+            type: Object as PropType<ClientAttributeValue | ClientEditableAttributeValue>,
             required: true
         },
-        rules: {
-            type: String as PropType<string>,
-            default: ''
+        showEmptyValue: {
+            type: Boolean as PropType<boolean>,
+            default: false
+        },
+        isEditMode: {
+            type: Boolean as PropType<boolean>,
+            default: false
         }
     },
     setup(props) {
-        const isRequired = computed(() => props.rules.includes('required'));
+        const field = computed(() => {
+            const fieldType = getFieldType(props.attributeValue.fieldTypeGuid);
 
-        const fieldComponent = computed(() => {
-            const field = getFieldTypeComponent(props.fieldTypeGuid);
+            return fieldType ?? textField;
+        });
 
-            if (!field) {
-                // Fallback to text field
-                return TextField;
+        /** True if the read-only value should be displayed. */
+        const showValue = computed(() => props.showEmptyValue || field.value.getTextValue(props.attributeValue) !== '');
+
+        /** True if this field is required and must be filled in. */
+        const isRequired = computed(() => instanceOfEditable(props.attributeValue) && props.attributeValue.isRequired);
+
+        /** Indicates to the editor component if this field is required or not. */
+        const rules = computed(() => isRequired.value ? 'required' : '');
+
+        /** True if we are currently in edit mode. */
+        const isEditMode = computed(() => props.isEditMode && instanceOfEditable(props.attributeValue));
+
+        /** The label to display above the value or editor. */
+        const label = computed(() => props.attributeValue.name);
+
+        /** The help text to display in the help bubble when in edit mode. */
+        const helpText = computed(() => instanceOfEditable(props.attributeValue) ? props.attributeValue.description : '');
+
+        /** The read-only component to use to display the value. */
+        const valueComponent = computed(() => {
+            // This is here to cause the component to update reactively if
+            // the value changes.
+            const _ignored = props.attributeValue.value;
+
+            // TODO: Remove me, this is a temporary hack for DateField needing
+            // to make an async call.
+            const _ignored2 = props.attributeValue.textValue;
+
+            return field.value.getFormattedComponent(props.attributeValue);
+        });
+
+        /** The edit component to use to display the value. */
+        const editComponent = computed(() => field.value.getEditComponent(props.attributeValue));
+
+        /** The value to display or edit. */
+        const value = computed({
+            get: () => props.attributeValue.value || '',
+            set(newValue) {
+                props.attributeValue.value = newValue;
+
+                if (instanceOfEditable(props.attributeValue)) {
+                    field.value.updateTextValue(props.attributeValue);
+                }
             }
+        });
 
-            return field;
+        /** The configuration values for the editor component. */
+        const configurationValues = computed(() => {
+            if (instanceOfEditable(props.attributeValue)) {
+                return props.attributeValue.configurationValues;
+            }
+            else {
+                return {};
+            }
         });
 
         provide('isRequired', isRequired);
 
         return {
-            fieldComponent
+            label,
+            showValue,
+            valueComponent,
+            rules,
+            isEditMode,
+            editComponent,
+            value,
+            helpText,
+            configurationValues
         };
     },
     template: `
-<component :is="fieldComponent" :rules="rules" />`
+<div v-if="!isEditMode" class="form-group static-control">
+    <template v-if="showValue">
+        <label class="control-label">
+            {{ label }}
+        </label>
+        <div class="control-wrapper">
+            <div class="form-control-static">
+                <component :is="valueComponent" />
+            </div>
+        </div>
+    </template>
+</div>
+<template v-else>
+    <component :is="editComponent"
+        v-model="value"
+        :label="label"
+        :help="helpText"
+        :configurationValues="configurationValues"
+        :rules="rules" />
+</template>`
 });

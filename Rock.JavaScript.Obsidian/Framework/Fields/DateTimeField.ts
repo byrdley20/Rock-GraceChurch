@@ -14,166 +14,88 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, inject } from 'vue';
-import { Guid } from '../Util/Guid';
-import { getFieldEditorProps, legacyRegisterFieldType } from './Index';
-import DateTimePicker from '../Elements/DateTimePicker';
-import { toNumber } from '@Obsidian/Services/Number';
-import { BlockHttp } from '../Controls/RockBlock';
-import { asElapsedString } from '@Obsidian/Services/Date';
+import { Component, defineAsyncComponent } from 'vue';
+import { FieldTypeBase } from './FieldType';
+import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
 import { asBoolean } from '@Obsidian/Services/Boolean';
+import { toNumber } from '@Obsidian/Services/Number';
+import { get as httpGet } from '../Util/Http';
+import { asDateOrNull, asElapsedString } from '@Obsidian/Services/Date';
 
-const fieldTypeGuid: Guid = 'FE95430C-322D-4B67-9C77-DFD1D4408725';
-
-enum ConfigurationValueKey {
-    DateTimeFormat = "format",
+export const enum ConfigurationValueKey {
+    Format = "format",
     DisplayAsElapsedTime = "displayDiff",
     DisplayCurrentOption = "displayCurrentOption"
 }
 
-export default legacyRegisterFieldType(fieldTypeGuid, defineComponent({
-    name: 'DateTimeField',
 
-    components: {
-        DateTimePicker
-    },
+// The edit component can be quite large, so load it only as needed.
+const editComponent = defineAsyncComponent(async () => {
+    return (await import('./DateTimeFieldComponents')).EditComponent;
+});
 
-    props: getFieldEditorProps(),
+/**
+ * The field type handler for the Date Time field.
+ */
+export class DateTimeFieldType extends FieldTypeBase {
+    public override updateTextValue(value: ClientEditableAttributeValue): void {
+        // TODO: Replace this with custom date formatting logic.
+        this.updateTextValueAsync(value);
+    }
 
-    setup() {
-        return {
-            http: inject('http') as BlockHttp
-        };
-    },
+    public override getEditComponent(_value: ClientAttributeValue): Component {
+        return editComponent;
+    }
 
-    data() {
-        return {
-            internalValue: '',
-            formattedString: ''
-        };
-    },
+    private async updateTextValueAsync(value: ClientEditableAttributeValue): Promise<void> {
+        if (this.isCurrentDateValue(value)) {
+            const parts = (value.value ?? '').split(':');
+            const diff = parts.length === 2 ? toNumber(parts[1]) : 0;
 
-    methods: {
-        async syncModelValue(): Promise<void> {
-            this.internalValue = this.modelValue ?? '';
-
-            await this.fetchAndSetFormattedValue();
-        },
-
-        async fetchAndSetFormattedValue(): Promise<void> {
-            if (this.isCurrentDateValue) {
-                const parts = this.internalValue.split(':');
-                const diff = parts.length === 2 ? toNumber(parts[1]) : 0;
-
-                if (diff === 1) {
-                    this.formattedString = 'Current Date plus 1 minute';
-                }
-                else if (diff > 0) {
-                    this.formattedString = `Current Date plus ${diff} minutes`;
-                }
-                else if (diff === -1) {
-                    this.formattedString = 'Current Date minus 1 minute';
-                }
-                else if (diff < 0) {
-                    this.formattedString = `Current Date minus ${Math.abs(diff)} minutes`;
-                }
-                else {
-                    this.formattedString = 'Current Date';
-                }
+            if (diff === 1) {
+                value.textValue = 'Current Date plus 1 day';
             }
-            else if (this.asDate) {
-                this.formattedString = await this.getFormattedDateString(this.asDate, this.dateFormatTemplate);
+            else if (diff > 0) {
+                value.textValue = `Current Date plus ${diff} days`;
+            }
+            else if (diff === -1) {
+                value.textValue = 'Current Date minus 1 day';
+            }
+            else if (diff < 0) {
+                value.textValue = `Current Date minus ${Math.abs(diff)} days`;
             }
             else {
-                this.formattedString = '';
+                value.textValue = 'Current Date';
             }
-        },
-
-        async getFormattedDateString(value: Date | string, format: string): Promise<string> {
-            const get = this.http.get;
-            const result = await get<string>('/api/Utility/FormatDate', { value, format });
-            return result.data || `${value}`;
-        },
-    },
-
-    computed: {
-        isCurrentDateValue(): boolean {
-            return this.internalValue.indexOf('CURRENT') === 0;
-        },
-
-        asDate(): Date | null {
-            const ms = Date.parse(this.internalValue);
-
-            if (isNaN(ms)) {
-                return null;
-            }
-
-            return new Date(ms);
-        },
-
-        dateFormatTemplate(): string {
-            const formatConfig = this.configurationValues[ConfigurationValueKey.DateTimeFormat];
-            return formatConfig || 'MM/dd/yyyy';
-        },
-
-        elapsedString(): string {
-            const dateValue = this.asDate;
-
-            if (this.isCurrentDateValue || !dateValue) {
-                return '';
-            }
-
-            const formatConfig = this.configurationValues[ConfigurationValueKey.DisplayAsElapsedTime];
-            const displayDiff = asBoolean(formatConfig);
-
-            if (!displayDiff) {
-                return '';
-            }
-
-            return asElapsedString(dateValue);
-        },
-
-        configAttributes(): Record<string, number | boolean> {
-            const attributes: Record<string, number | boolean> = {};
-
-            const displayCurrentConfig = this.configurationValues[ConfigurationValueKey.DisplayCurrentOption];
-            const displayCurrent = asBoolean(displayCurrentConfig);
-            attributes.displayCurrentOption = displayCurrent;
-            attributes.isCurrentDateOffset = displayCurrent;
-
-            return attributes;
         }
-    },
+        else {
+            const dateValue = asDateOrNull(value.value);
+            const dateFormatTemplate = value.configurationValues?.[ConfigurationValueKey.Format] || 'MM/dd/yyy';
 
-    watch: {
-        internalValue(): void {
-            if (this.internalValue !== this.modelValue) {
-                const d1 = Date.parse(this.internalValue);
-                const d2 = Date.parse(this.modelValue ?? '');
+            if (dateValue !== null) {
+                let textValue = await this.getFormattedDateString(dateValue, dateFormatTemplate);
 
-                if (isNaN(d1) || isNaN(d2) || d1 !== d2) {
-                    this.$emit('update:modelValue', this.internalValue);
+                const displayDiff = asBoolean(value.configurationValues?.[ConfigurationValueKey.DisplayAsElapsedTime]);
+
+                if (displayDiff === true) {
+                    textValue = `${textValue} ${asElapsedString(dateValue)}`;
                 }
-            }
-        },
 
-        modelValue: {
-            immediate: true,
-            async handler(): Promise<void> {
-                await this.syncModelValue();
+                value.textValue = textValue;
             }
-        },
-
-        async dateFormatTemplate(): Promise<void> {
-            await this.fetchAndSetFormattedValue();
+            else {
+                value.textValue = '';
+            }
         }
-    },
-    template: `
-<DateTimePicker v-if="isEditMode" v-model="internalValue" v-bind="configAttributes" />
-<span v-else>
-    {{ formattedString }}
-    <template v-if="elapsedString">
-        ({{ elapsedString }})
-    </template>
-</span>`
-}));
+    }
+
+    private async getFormattedDateString(value: Date | string, format: string): Promise<string> {
+        const result = await httpGet<string>('/api/Utility/FormatDate', { value, format });
+
+        return result.data || `${value}`;
+    }
+
+    private isCurrentDateValue(value: ClientAttributeValue): boolean {
+        return value.value?.indexOf('CURRENT') === 0;
+    }
+}

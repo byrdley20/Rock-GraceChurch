@@ -18,7 +18,6 @@ import { getFieldType } from '../Fields/Index';
 import { computed, defineComponent, PropType, provide } from 'vue';
 import { TextFieldType } from '../Fields/TextField';
 
-//import '../Fields/DateTimeField';
 //import '../Fields/DefinedValueField';
 //import '../Fields/MemoField';
 import ClientAttributeValue from 'ViewModels/ClientAttributeValue';

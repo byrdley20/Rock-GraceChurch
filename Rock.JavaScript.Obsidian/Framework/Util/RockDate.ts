@@ -22,6 +22,7 @@ export type RockDateType = string;
  * @param val
  */
 export function stripTimezone(val: Date) {
+    // TODO: THIS IS BAD! It really screws up conversions. Find an eradicate all references.
     const asUtc = new Date(val.getTime() + val.getTimezoneOffset() * 60000);
     return asUtc;
 }

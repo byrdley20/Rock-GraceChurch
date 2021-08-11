@@ -14,7 +14,7 @@ System.register(["../Util/RockDate"], function (exports_1, context_1) {
             if (isNaN(ms)) {
                 return null;
             }
-            return RockDate_1.default.stripTimezone(new Date(ms));
+            return new Date(ms);
         }
         return null;
     }

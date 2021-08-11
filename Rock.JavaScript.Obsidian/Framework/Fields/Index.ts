@@ -116,6 +116,9 @@ registerFieldType(FieldTypeGuids.Currency, new CurrencyFieldType());
 import { DateFieldType } from './DateField';
 registerFieldType(FieldTypeGuids.Date, new DateFieldType());
 
+import { DateTimeFieldType } from './DateTimeField';
+registerFieldType(FieldTypeGuids.DateTime, new DateTimeFieldType());
+
 import { DayOfWeekFieldType } from './DayOfWeekField';
 registerFieldType(FieldTypeGuids.DayOfWeek, new DayOfWeekFieldType());
 

@@ -37,7 +37,7 @@ export function asDateOrNull(val: unknown) {
             return null;
         }
 
-        return RockDate.stripTimezone(new Date(ms));
+        return new Date(ms);
     }
 
     return null;

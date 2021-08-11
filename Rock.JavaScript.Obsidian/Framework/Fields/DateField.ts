@@ -14,7 +14,7 @@
 // limitations under the License.
 // </copyright>
 //
-import { Component, defineAsyncComponent, nextTick } from 'vue';
+import { Component, defineAsyncComponent } from 'vue';
 import { FieldTypeBase } from './FieldType';
 import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
 import { asBoolean } from '@Obsidian/Services/Boolean';

@@ -166,6 +166,7 @@
     <TypeScriptCompile Include="Framework\Fields\DateField.ts" />
     <TypeScriptCompile Include="Framework\Fields\DateFieldComponents.ts" />
     <TypeScriptCompile Include="Framework\Fields\DateTimeField.ts" />
+    <TypeScriptCompile Include="Framework\Fields\DateTimeFieldComponents.ts" />
     <TypeScriptCompile Include="Framework\Fields\DayOfWeekField.ts" />
     <TypeScriptCompile Include="Framework\Fields\DayOfWeekFieldComponents.ts" />
     <TypeScriptCompile Include="Framework\Fields\DaysOfWeekField.ts" />

@@ -4763,7 +4763,7 @@ namespace Rock.Lava
 
             if ( expiryMinutes.HasValue )
             {
-                cookie.Expires = RockDateTime.Now.AddMinutes( expiryMinutes.Value );
+                cookie.Expires = Rock.Utility.Settings.RockInstanceConfig.SystemDateTime.AddMinutes( expiryMinutes.Value );
             }
 
             response.Cookies.Set( cookie );
@@ -5374,6 +5374,26 @@ namespace Rock.Lava
             System.Runtime.CompilerServices.RuntimeHelpers.EnsureSufficientExecutionStack();
 
             return template.Render( Hash.FromDictionary( mergeFields ) );
+        }
+
+        /// <summary>
+        /// Deletes the user preference.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="typeName">The type name.</param>
+        /// <param name="typeOrder">The type order.</param>
+        /// <returns></returns>
+        public static void AddQuickReturn( string input, string typeName, int typeOrder = 0 )
+        {
+            RockPage page = HttpContext.Current.Handler as RockPage;
+
+            if ( input.IsNotNullOrWhiteSpace() )
+            {
+                RockPage.AddScriptToHead( page, string.Format( @"$( document ).ready(function () {{ Rock.personalLinks.addQuickReturn( '{0}', {1}, '{2}' ) }});",
+                typeName,
+                typeOrder,
+                input.ToString().EscapeQuotes() ), true );
+            }
         }
 
         #endregion Misc Filters

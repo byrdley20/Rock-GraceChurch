@@ -123,6 +123,20 @@ namespace Rock.Lava.Fluid
              * 3. Return a FluidValue as quickly as possible, to avoid executing subsequent value converters in the collection.
              */
 
+            // TODO: Fluid executes value converters prior to internal converters.
+            // Performance test this implementation with short-circuiting for basic types.
+            templateOptions.ValueConverters.Add( ( value ) =>
+            {
+                // If the value is an Enum, render the value name.
+                if ( value is Enum e )
+                {
+                    return e.ToString();
+                }
+
+                // This converter cannot process the value.
+                return null;
+            } );
+
             // Substitute the default Fluid DateTimeValue with an implementation that renders in the General DateTime format
             // rather than in UTC format.
             templateOptions.ValueConverters.Add( ( value ) =>
@@ -512,6 +526,8 @@ namespace Rock.Lava.Fluid
             }
         }
 
+        private static LavaToLiquidTemplateConverter _lavaToLiquidConverter = new LavaToLiquidTemplateConverter();
+
         /// <summary>
         /// Pre-parses a Lava template to ensure it is using Liquid-compliant syntax, and creates a new template object.
         /// </summary>
@@ -522,7 +538,7 @@ namespace Rock.Lava.Fluid
         {
             FluidTemplate template;
 
-            liquidTemplate = ConvertToLiquid( lavaTemplate );
+            liquidTemplate = _lavaToLiquidConverter.RemoveLavaComments( lavaTemplate );
 
             string error;
             IFluidTemplate fluidTemplate;
@@ -583,7 +599,14 @@ namespace Rock.Lava.Fluid
             // Therefore, we register the tag as a factory that can produce the requested element on demand.
             FluidLavaTagStatement.RegisterFactory( name, factoryMethod );
 
-            _parser.RegisterLavaTag( name );
+            if ( name.EndsWith( "_" ) )
+            {
+                _parser.RegisterLavaTag( name, LavaTagFormatSpecifier.LavaShortcode );
+            }
+            else
+            {
+                _parser.RegisterLavaTag( name, LavaTagFormatSpecifier.LiquidTag );
+            }
         }
 
         /// <summary>
@@ -606,7 +629,14 @@ namespace Rock.Lava.Fluid
             // To implement this behaviour, register the tag as a factory that can create the requested element on demand.
             FluidLavaBlockStatement.RegisterFactory( name, factoryMethod );
 
-            _parser.RegisterLavaBlock( name );
+            if ( name.EndsWith( "_" ) )
+            {
+                _parser.RegisterLavaBlock( name, LavaTagFormatSpecifier.LavaShortcode );
+            }
+            else
+            {
+                _parser.RegisterLavaBlock( name, LavaTagFormatSpecifier.LiquidTag );
+            }
         }
 
         protected override ILavaTemplate OnParseTemplate( string lavaTemplate )

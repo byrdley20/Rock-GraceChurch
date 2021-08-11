@@ -14,83 +14,28 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { Guid } from '../Util/Guid';
-import { legacyRegisterFieldType, getFieldEditorProps } from './Index';
-import TextBox from '../Elements/TextBox';
-import { asBoolean, asBooleanOrNull } from '@Obsidian/Services/Boolean';
-import { toNumber } from '@Obsidian/Services/Number';
+import { Component, defineAsyncComponent } from 'vue';
+import { FieldTypeBase } from './FieldType';
+import { ClientAttributeValue } from '@Obsidian/ViewModels';
 
-const fieldTypeGuid: Guid = 'C28C7BF3-A552-4D77-9408-DEDCF760CED0';
-
-enum ConfigurationValueKey {
+export const enum ConfigurationValueKey {
     NumberOfRows = 'numberofrows',
     AllowHtml = 'allowhtml',
     MaxCharacters = 'maxcharacters',
     ShowCountDown = 'showcountdown'
 }
 
-export default legacyRegisterFieldType(fieldTypeGuid, defineComponent({
-    name: 'MemoField',
-    components: {
-        TextBox
-    },
-    props: getFieldEditorProps(),
-    data() {
-        return {
-            internalValue: ''
-        };
-    },
-    computed: {
-        allowHtml(): boolean {
-            const config = this.configurationValues[ConfigurationValueKey.AllowHtml];
-            return asBoolean(config);
-        },
-        safeValue(): string {
-            return (this.modelValue || '').trim();
-        },
-        configAttributes(): Record<string, number | boolean> {
-            const attributes: Record<string, number | boolean> = {};
 
-            const maxCharsConfig = this.configurationValues[ConfigurationValueKey.MaxCharacters];
-            const maxCharsValue = toNumber(maxCharsConfig);
+// The edit component can be quite large, so load it only as needed.
+const editComponent = defineAsyncComponent(async () => {
+    return (await import('./MemoFieldComponents')).EditComponent;
+});
 
-            if (maxCharsValue) {
-                attributes.maxLength = maxCharsValue;
-            }
-
-            const showCountDownConfig = this.configurationValues[ConfigurationValueKey.ShowCountDown];
-            const showCountDownValue = asBooleanOrNull(showCountDownConfig) || false;
-
-            if (showCountDownValue) {
-                attributes.showCountDown = showCountDownValue;
-            }
-
-            const rowsConfig = this.configurationValues[ConfigurationValueKey.NumberOfRows];
-            const rows = toNumber(rowsConfig || null) || 3;
-
-            if (rows > 0) {
-                attributes.rows = rows;
-            }
-
-            return attributes;
-        }
-    },
-    watch: {
-        internalValue(): void {
-            this.$emit('update:modelValue', this.internalValue);
-        },
-        modelValue: {
-            immediate: true,
-            handler(): void {
-                this.internalValue = this.modelValue || '';
-            }
-        }
-    },
-    template: `
-<TextBox v-if="isEditMode" v-model="internalValue" v-bind="configAttributes" textMode="MultiLine" />
-<div v-else-if="allowHtml">
-    <div v-html="modelValue"></div>
-</div>
-<span v-else>{{ safeValue }}</span>`
-}));
+/**
+ * The field type handler for the Memo field.
+ */
+export class MemoFieldType extends FieldTypeBase {
+    public override getEditComponent(_value: ClientAttributeValue): Component {
+        return editComponent;
+    }
+}

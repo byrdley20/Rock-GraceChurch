@@ -187,6 +187,7 @@
     <TypeScriptCompile Include="Framework\Fields\IntegerRangeField.ts" />
     <TypeScriptCompile Include="Framework\Fields\IntegerRangeFieldComponents.ts" />
     <TypeScriptCompile Include="Framework\Fields\MemoField.ts" />
+    <TypeScriptCompile Include="Framework\Fields\MemoFieldComponents.ts" />
     <TypeScriptCompile Include="Framework\Fields\MonthDayField.ts" />
     <TypeScriptCompile Include="Framework\Fields\MonthDayFieldComponents.ts" />
     <TypeScriptCompile Include="Framework\Fields\PhoneNumberField.ts" />

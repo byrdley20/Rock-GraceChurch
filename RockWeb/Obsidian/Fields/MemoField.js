@@ -1,90 +1,35 @@
-System.register(["vue", "./Index", "../Elements/TextBox", "@Obsidian/Services/Boolean", "@Obsidian/Services/Number"], function (exports_1, context_1) {
+System.register(["vue", "./FieldType"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, Index_1, TextBox_1, Boolean_1, Number_1, fieldTypeGuid, ConfigurationValueKey;
+    var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+    };
+    var vue_1, FieldType_1, editComponent, MemoFieldType;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (Index_1_1) {
-                Index_1 = Index_1_1;
-            },
-            function (TextBox_1_1) {
-                TextBox_1 = TextBox_1_1;
-            },
-            function (Boolean_1_1) {
-                Boolean_1 = Boolean_1_1;
-            },
-            function (Number_1_1) {
-                Number_1 = Number_1_1;
+            function (FieldType_1_1) {
+                FieldType_1 = FieldType_1_1;
             }
         ],
         execute: function () {
-            fieldTypeGuid = 'C28C7BF3-A552-4D77-9408-DEDCF760CED0';
-            (function (ConfigurationValueKey) {
-                ConfigurationValueKey["NumberOfRows"] = "numberofrows";
-                ConfigurationValueKey["AllowHtml"] = "allowhtml";
-                ConfigurationValueKey["MaxCharacters"] = "maxcharacters";
-                ConfigurationValueKey["ShowCountDown"] = "showcountdown";
-            })(ConfigurationValueKey || (ConfigurationValueKey = {}));
-            exports_1("default", Index_1.legacyRegisterFieldType(fieldTypeGuid, vue_1.defineComponent({
-                name: 'MemoField',
-                components: {
-                    TextBox: TextBox_1.default
-                },
-                props: Index_1.getFieldEditorProps(),
-                data() {
-                    return {
-                        internalValue: ''
-                    };
-                },
-                computed: {
-                    allowHtml() {
-                        const config = this.configurationValues[ConfigurationValueKey.AllowHtml];
-                        return Boolean_1.asBoolean(config);
-                    },
-                    safeValue() {
-                        return (this.modelValue || '').trim();
-                    },
-                    configAttributes() {
-                        const attributes = {};
-                        const maxCharsConfig = this.configurationValues[ConfigurationValueKey.MaxCharacters];
-                        const maxCharsValue = Number_1.toNumber(maxCharsConfig);
-                        if (maxCharsValue) {
-                            attributes.maxLength = maxCharsValue;
-                        }
-                        const showCountDownConfig = this.configurationValues[ConfigurationValueKey.ShowCountDown];
-                        const showCountDownValue = Boolean_1.asBooleanOrNull(showCountDownConfig) || false;
-                        if (showCountDownValue) {
-                            attributes.showCountDown = showCountDownValue;
-                        }
-                        const rowsConfig = this.configurationValues[ConfigurationValueKey.NumberOfRows];
-                        const rows = Number_1.toNumber(rowsConfig || null) || 3;
-                        if (rows > 0) {
-                            attributes.rows = rows;
-                        }
-                        return attributes;
-                    }
-                },
-                watch: {
-                    internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
-                    },
-                    modelValue: {
-                        immediate: true,
-                        handler() {
-                            this.internalValue = this.modelValue || '';
-                        }
-                    }
-                },
-                template: `
-<TextBox v-if="isEditMode" v-model="internalValue" v-bind="configAttributes" textMode="MultiLine" />
-<div v-else-if="allowHtml">
-    <div v-html="modelValue"></div>
-</div>
-<span v-else>{{ safeValue }}</span>`
-            })));
+            editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
+                return (yield context_1.import('./MemoFieldComponents')).EditComponent;
+            }));
+            MemoFieldType = class MemoFieldType extends FieldType_1.FieldTypeBase {
+                getEditComponent(_value) {
+                    return editComponent;
+                }
+            };
+            exports_1("MemoFieldType", MemoFieldType);
         }
     };
 });

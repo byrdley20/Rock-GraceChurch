@@ -143,6 +143,9 @@ registerFieldType(FieldTypeGuids.Integer, new IntegerFieldType());
 import { IntegerRangeFieldType } from './IntegerRangeField';
 registerFieldType(FieldTypeGuids.IntegerRange, new IntegerRangeFieldType());
 
+import { MemoFieldType } from './MemoField';
+registerFieldType(FieldTypeGuids.Memo, new MemoFieldType());
+
 import { MonthDayFieldType } from './MonthDayField';
 registerFieldType(FieldTypeGuids.MonthDay, new MonthDayFieldType());
 

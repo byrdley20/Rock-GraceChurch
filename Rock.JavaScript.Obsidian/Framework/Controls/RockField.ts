@@ -19,7 +19,6 @@ import { computed, defineComponent, PropType, provide } from 'vue';
 import { TextFieldType } from '../Fields/TextField';
 
 //import '../Fields/DefinedValueField';
-//import '../Fields/MemoField';
 import ClientAttributeValue from 'ViewModels/ClientAttributeValue';
 import ClientEditableAttributeValue from 'ViewModels/ClientEditableAttributeValue';
 

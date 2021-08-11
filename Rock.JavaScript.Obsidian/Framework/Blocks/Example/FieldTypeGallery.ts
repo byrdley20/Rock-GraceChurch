@@ -241,7 +241,7 @@ export default defineComponent( {
         SingleSelectGallery: GetFieldTypeGalleryComponent('SingleSelect', 'pizza', '7525C4CB-EE6B-41D4-9B64-A08048D5A5C0', {
             repeatColumns: '4',
             fieldtype: 'rb',
-            values: 'pizza^Pizza,sub^Sub'
+            values: '[{"value": "pizza", "text": "Pizza"}, {"value": "sub", "text": "Sub"}]'
         }),
         TextGallery: GetFieldTypeGalleryComponent('Text', 'Hello', '9C204CD0-1233-41C5-818A-C5DA439445AA', {
             ispassword: 'false',

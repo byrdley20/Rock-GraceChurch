@@ -60,7 +60,8 @@ System.register(["vue", "./RockFormField"], function (exports_1, context_1) {
                 },
                 methods: {
                     getOptionUniqueId(uniqueId, option) {
-                        return `${uniqueId}-${option.key}`;
+                        const key = option.value.replace(' ', '-');
+                        return `${uniqueId}-${key}`;
                     }
                 },
                 watch: {

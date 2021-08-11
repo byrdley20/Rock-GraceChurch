@@ -192,7 +192,8 @@
     <TypeScriptCompile Include="Framework\Fields\PhoneNumberFieldComponents.ts" />
     <TypeScriptCompile Include="Framework\Fields\RatingField.ts" />
     <TypeScriptCompile Include="Framework\Fields\RatingFieldComponents.ts" />
-    <TypeScriptCompile Include="Framework\Fields\SingleSelect.ts" />
+    <TypeScriptCompile Include="Framework\Fields\SingleSelectField.ts" />
+    <TypeScriptCompile Include="Framework\Fields\SingleSelectFieldComponents.ts" />
     <TypeScriptCompile Include="Framework\Fields\TextField.ts" />
     <TypeScriptCompile Include="Framework\Fields\TextFieldComponents.ts" />
     <TypeScriptCompile Include="Framework\Fields\TimeField.ts" />

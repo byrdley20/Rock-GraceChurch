@@ -75,7 +75,9 @@ export default defineComponent({
     },
     methods: {
         getOptionUniqueId(uniqueId: Guid, option: DropDownListOption): string {
-            return `${uniqueId}-${option.key}`;
+            const key = option.value.replace(' ', '-');
+
+            return `${uniqueId}-${key}`;
         }
     },
     watch: {

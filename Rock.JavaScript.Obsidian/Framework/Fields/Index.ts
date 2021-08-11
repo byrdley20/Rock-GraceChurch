@@ -149,6 +149,9 @@ registerFieldType(FieldTypeGuids.PhoneNumber, new PhoneNumberFieldType());
 import { RatingFieldType } from './RatingField';
 registerFieldType(FieldTypeGuids.Rating, new RatingFieldType());
 
+import { SingleSelectFieldType } from './SingleSelectField';
+registerFieldType(FieldTypeGuids.SingleSelect, new SingleSelectFieldType());
+
 import { TextFieldType } from './TextField';
 registerFieldType(FieldTypeGuids.Text, new TextFieldType());
 

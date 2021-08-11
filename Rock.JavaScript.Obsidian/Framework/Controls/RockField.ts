@@ -21,7 +21,6 @@ import { TextFieldType } from '../Fields/TextField';
 //import '../Fields/DateTimeField';
 //import '../Fields/DefinedValueField';
 //import '../Fields/MemoField';
-//import '../Fields/SingleSelect';
 import ClientAttributeValue from 'ViewModels/ClientAttributeValue';
 import ClientEditableAttributeValue from 'ViewModels/ClientEditableAttributeValue';
 

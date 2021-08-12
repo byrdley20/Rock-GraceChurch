@@ -24,6 +24,7 @@ namespace Rock.ViewModel.Blocks
     /// <summary>
     /// RegistrationEntryBlockViewModel
     /// </summary>
+    /// <seealso cref="Rock.ViewModel.IViewModel" />
     public sealed class RegistrationEntryBlockViewModel : IViewModel
     {
         /// <summary>
@@ -306,6 +307,36 @@ namespace Rock.ViewModel.Blocks
         /// The gateway unique identifier.
         /// </value>
         public Guid? GatewayGuid { get; set; }
+
+        /// <summary>
+        /// Gets or sets the campuses available for the user to select.
+        /// </summary>
+        /// <value>
+        /// The campuses available for the user to select.
+        /// </value>
+        public List<CampusOptionViewModel> Campuses { get; set; }
+    }
+
+    /// <summary>
+    /// Identifies a single option that will be shown in the campus picker.
+    /// </summary>
+    public class CampusOptionViewModel
+    {
+        /// <summary>
+        /// Gets or sets the value.
+        /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
+        public string Value { get; set; }
+
+        /// <summary>
+        /// Gets or sets the text.
+        /// </summary>
+        /// <value>
+        /// The text.
+        /// </value>
+        public string Text { get; set; }
     }
 
     /// <summary>

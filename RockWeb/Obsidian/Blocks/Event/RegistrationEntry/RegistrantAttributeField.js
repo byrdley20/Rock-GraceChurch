@@ -71,7 +71,6 @@ System.register(["vue", "../../../Controls/RockField", "../../../Elements/Alert"
                         }
                         return true;
                     });
-                    console.log('attr', props.field.attribute, props.fieldValues[props.field.guid]);
                     const attribute = vue_1.reactive(Object.assign(Object.assign({}, props.field.attribute), { value: (_c = (_a = props.fieldValues[props.field.guid]) !== null && _a !== void 0 ? _a : (_b = props.field.attribute) === null || _b === void 0 ? void 0 : _b.value) !== null && _c !== void 0 ? _c : '' }));
                     vue_1.watch(() => attribute.value, (value) => {
                         props.fieldValues[props.field.guid] = value;

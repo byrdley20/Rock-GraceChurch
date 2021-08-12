@@ -1,6 +1,6 @@
-System.register(["vue", "../../../Controls/AddressControl", "../../../Controls/ComponentFromUrl", "../../../Elements/Alert", "../../../Elements/DatePartsPicker", "./RegistrationEntryBlockViewModel"], function (exports_1, context_1) {
+System.register(["vue", "../../../Controls/AddressControl", "../../../Elements/TextBox", "../../../Elements/EmailBox", "../../../Elements/DropDownList", "../../../Elements/GenderDropDownList", "../../../Elements/BirthdayPicker", "../../../Controls/ComponentFromUrl", "../../../Elements/Alert", "../../../Elements/DatePartsPicker", "./RegistrationEntryBlockViewModel"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, AddressControl_1, ComponentFromUrl_1, Alert_1, DatePartsPicker_1, RegistrationEntryBlockViewModel_1;
+    var vue_1, AddressControl_1, TextBox_1, EmailBox_1, DropDownList_1, GenderDropDownList_1, BirthdayPicker_1, ComponentFromUrl_1, Alert_1, DatePartsPicker_1, RegistrationEntryBlockViewModel_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -9,6 +9,21 @@ System.register(["vue", "../../../Controls/AddressControl", "../../../Controls/C
             },
             function (AddressControl_1_1) {
                 AddressControl_1 = AddressControl_1_1;
+            },
+            function (TextBox_1_1) {
+                TextBox_1 = TextBox_1_1;
+            },
+            function (EmailBox_1_1) {
+                EmailBox_1 = EmailBox_1_1;
+            },
+            function (DropDownList_1_1) {
+                DropDownList_1 = DropDownList_1_1;
+            },
+            function (GenderDropDownList_1_1) {
+                GenderDropDownList_1 = GenderDropDownList_1_1;
+            },
+            function (BirthdayPicker_1_1) {
+                BirthdayPicker_1 = BirthdayPicker_1_1;
             },
             function (ComponentFromUrl_1_1) {
                 ComponentFromUrl_1 = ComponentFromUrl_1_1;
@@ -44,93 +59,85 @@ System.register(["vue", "../../../Controls/AddressControl", "../../../Controls/C
                         required: true
                     }
                 },
-                computed: {
-                    componentUrl() {
-                        let componentPath = '';
-                        switch (this.field.personFieldType) {
+                setup(props) {
+                    const registrationEntryState = vue_1.inject('registrationEntryState');
+                    const component = vue_1.computed(() => {
+                        switch (props.field.personFieldType) {
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.FirstName:
-                                componentPath = 'Elements/TextBox';
-                                break;
+                                return TextBox_1.default;
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.LastName:
-                                componentPath = 'Elements/TextBox';
-                                break;
+                                return TextBox_1.default;
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.MiddleName:
-                                componentPath = 'Elements/TextBox';
-                                break;
+                                return TextBox_1.default;
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.Campus:
-                                componentPath = 'Controls/CampusPicker';
-                                break;
+                                return DropDownList_1.default;
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.Email:
-                                componentPath = 'Elements/EmailBox';
-                                break;
+                                return EmailBox_1.default;
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.Gender:
-                                componentPath = 'Elements/GenderDropDownList';
-                                break;
+                                return GenderDropDownList_1.default;
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.Birthdate:
-                                componentPath = 'Elements/BirthdayPicker';
-                                break;
+                                return BirthdayPicker_1.default;
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.Address:
-                                componentPath = 'Controls/AddressControl';
-                                break;
+                                return AddressControl_1.default;
                         }
-                        return componentPath ? `../${componentPath}` : '';
-                    },
-                    fieldControlComponentProps() {
-                        const props = {
-                            rules: this.field.isRequired ? 'required' : ''
+                        return null;
+                    });
+                    const fieldControlComponentProps = vue_1.computed(() => {
+                        const componentProps = {
+                            rules: props.field.isRequired ? 'required' : ''
                         };
-                        switch (this.field.personFieldType) {
+                        switch (props.field.personFieldType) {
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.FirstName:
-                                props.label = 'First Name';
-                                props.disabled = this.isKnownFamilyMember;
+                                componentProps.label = 'First Name';
+                                componentProps.disabled = props.isKnownFamilyMember;
                                 break;
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.LastName:
-                                props.label = 'Last Name';
-                                props.disabled = this.isKnownFamilyMember;
+                                componentProps.label = 'Last Name';
+                                componentProps.disabled = props.isKnownFamilyMember;
                                 break;
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.MiddleName:
-                                props.label = 'Middle Name';
+                                componentProps.label = 'Middle Name';
                                 break;
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.Campus:
-                                props.label = 'Campus';
+                                componentProps.label = 'Campus';
+                                componentProps.options = [...registrationEntryState.viewModel.campuses];
                                 break;
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.Email:
-                                props.label = 'Email';
+                                componentProps.label = 'Email';
                                 break;
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.Gender:
                                 break;
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.Birthdate:
-                                props.label = 'Birthday';
+                                componentProps.label = 'Birthday';
                                 break;
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.Address:
                                 break;
                         }
-                        return props;
-                    }
-                },
-                watch: {
-                    fieldValues: {
-                        immediate: true,
-                        deep: true,
-                        handler() {
-                            if (this.field.guid in this.fieldValues) {
-                                return;
-                            }
-                            let defaultValue = '';
-                            switch (this.field.personFieldType) {
-                                case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.Birthdate:
-                                    defaultValue = DatePartsPicker_1.getDefaultDatePartsPickerModel();
-                                    break;
-                                case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.Address:
-                                    defaultValue = AddressControl_1.getDefaultAddressControlModel();
-                                    break;
-                            }
-                            this.fieldValues[this.field.guid] = defaultValue;
+                        return componentProps;
+                    });
+                    if (!(props.field.guid in props.fieldValues)) {
+                        let defaultValue = '';
+                        switch (props.field.personFieldType) {
+                            case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.Birthdate:
+                                defaultValue = DatePartsPicker_1.getDefaultDatePartsPickerModel();
+                                break;
+                            case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.Address:
+                                defaultValue = AddressControl_1.getDefaultAddressControlModel();
+                                break;
                         }
-                    },
+                        props.fieldValues[props.field.guid] = defaultValue;
+                    }
+                    return {
+                        component,
+                        fieldControlComponentProps,
+                        fieldValues: props.fieldValues,
+                        fieldType: props.field.personFieldType
+                    };
                 },
                 template: `
-<ComponentFromUrl v-if="componentUrl" :url="componentUrl" v-bind="fieldControlComponentProps" v-model="fieldValues[field.guid]" />`
+<component v-if="component" :is="component" v-bind="fieldControlComponentProps" v-model="fieldValues[field.guid]" />
+<Alert v-else alertType="danger">Could not load the control for person field {{ fieldType }}.</Alert>
+`
             }));
         }
     };

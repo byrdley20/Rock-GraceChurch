@@ -15,15 +15,21 @@
 // </copyright>
 //
 
-import { defineComponent, PropType } from 'vue';
-import { getDefaultAddressControlModel } from '../../../Controls/AddressControl';
+import { computed, defineComponent, inject, PropType } from 'vue';
+import AddressControl, { getDefaultAddressControlModel } from '../../../Controls/AddressControl';
+import TextBox from '../../../Elements/TextBox';
+import EmailBox from '../../../Elements/EmailBox';
+import DropDownList, { DropDownListOption } from '../../../Elements/DropDownList';
+import GenderDropDownList from '../../../Elements/GenderDropDownList';
+import BirthdayPicker from '../../../Elements/BirthdayPicker';
 import ComponentFromUrl from '../../../Controls/ComponentFromUrl';
 import Alert from '../../../Elements/Alert';
 import { getDefaultDatePartsPickerModel } from '../../../Elements/DatePartsPicker';
 import { Guid } from '../../../Util/Guid';
 import { RegistrationEntryBlockFormFieldViewModel, RegistrationPersonFieldType } from './RegistrationEntryBlockViewModel';
+import { RegistrationEntryState } from '../RegistrationEntry';
 
-export default defineComponent( {
+export default defineComponent({
     name: 'Event.RegistrationEntry.RegistrantPersonField',
     components: {
         Alert,
@@ -43,107 +49,111 @@ export default defineComponent( {
             required: true
         }
     },
-    computed: {
-        componentUrl(): string
-        {
-            let componentPath = '';
 
-            switch ( this.field.personFieldType )
-            {
+    setup(props) {
+        const registrationEntryState = inject('registrationEntryState') as RegistrationEntryState;
+
+        const component = computed(() => {
+            switch (props.field.personFieldType) {
                 case RegistrationPersonFieldType.FirstName:
-                    componentPath = 'Elements/TextBox';
-                    break;
+                    return TextBox;
+
                 case RegistrationPersonFieldType.LastName:
-                    componentPath = 'Elements/TextBox';
-                    break;
+                    return TextBox;
+
                 case RegistrationPersonFieldType.MiddleName:
-                    componentPath = 'Elements/TextBox';
-                    break;
+                    return TextBox;
+
                 case RegistrationPersonFieldType.Campus:
-                    componentPath = 'Controls/CampusPicker';
-                    break;
+                    return DropDownList;
+
                 case RegistrationPersonFieldType.Email:
-                    componentPath = 'Elements/EmailBox';
-                    break;
+                    return EmailBox;
+
                 case RegistrationPersonFieldType.Gender:
-                    componentPath = 'Elements/GenderDropDownList';
-                    break;
+                    return GenderDropDownList;
+
                 case RegistrationPersonFieldType.Birthdate:
-                    componentPath = 'Elements/BirthdayPicker';
-                    break;
+                    return BirthdayPicker;
+
                 case RegistrationPersonFieldType.Address:
-                    componentPath = 'Controls/AddressControl';
-                    break;
+                    return AddressControl;
             }
 
-            return componentPath ? `../${componentPath}` : '';
-        },
-        fieldControlComponentProps()
-        {
-            const props: Record<string, unknown> = {
-                rules: this.field.isRequired ? 'required' : ''
+            return null;
+        });
+
+        const fieldControlComponentProps = computed(() => {
+            const componentProps: Record<string, unknown> = {
+                rules: props.field.isRequired ? 'required' : ''
             };
 
-            switch ( this.field.personFieldType )
-            {
+            switch (props.field.personFieldType) {
                 case RegistrationPersonFieldType.FirstName:
-                    props.label = 'First Name';
-                    props.disabled = this.isKnownFamilyMember;
+                    componentProps.label = 'First Name';
+                    componentProps.disabled = props.isKnownFamilyMember;
                     break;
+
                 case RegistrationPersonFieldType.LastName:
-                    props.label = 'Last Name';
-                    props.disabled = this.isKnownFamilyMember;
+                    componentProps.label = 'Last Name';
+                    componentProps.disabled = props.isKnownFamilyMember;
                     break;
+
                 case RegistrationPersonFieldType.MiddleName:
-                    props.label = 'Middle Name';
+                    componentProps.label = 'Middle Name';
                     break;
+
                 case RegistrationPersonFieldType.Campus:
-                    props.label = 'Campus';
+                    componentProps.label = 'Campus';
+                    componentProps.options = [...registrationEntryState.viewModel.campuses];
+
                     break;
+
                 case RegistrationPersonFieldType.Email:
-                    props.label = 'Email';
+                    componentProps.label = 'Email';
                     break;
+
                 case RegistrationPersonFieldType.Gender:
                     break;
+
                 case RegistrationPersonFieldType.Birthdate:
-                    props.label = 'Birthday';
+                    componentProps.label = 'Birthday';
                     break;
+
                 case RegistrationPersonFieldType.Address:
                     break;
             }
 
-            return props;
-        }
-    },
-    watch: {
-        fieldValues: {
-            immediate: true,
-            deep: true,
-            handler()
-            {
-                // Set the default value if needed
-                if ( this.field.guid in this.fieldValues )
-                {
-                    return;
-                }
+            return componentProps;
+        });
 
-                let defaultValue: unknown = '';
+        // Set the default value if needed
+        if (!(props.field.guid in props.fieldValues)) {
+            let defaultValue: unknown = '';
 
-                switch ( this.field.personFieldType )
-                {
-                    case RegistrationPersonFieldType.Birthdate:
-                        defaultValue = getDefaultDatePartsPickerModel();
-                        break;
+            switch (props.field.personFieldType) {
+                case RegistrationPersonFieldType.Birthdate:
+                    defaultValue = getDefaultDatePartsPickerModel();
+                    break;
 
-                    case RegistrationPersonFieldType.Address:
-                        defaultValue = getDefaultAddressControlModel();
-                        break;
-                }
-
-                this.fieldValues[ this.field.guid ] = defaultValue;
+                case RegistrationPersonFieldType.Address:
+                    defaultValue = getDefaultAddressControlModel();
+                    break;
             }
-        },
+
+            props.fieldValues[props.field.guid] = defaultValue;
+        }
+
+        return {
+            component,
+            fieldControlComponentProps,
+            fieldValues: props.fieldValues,
+            fieldType: props.field.personFieldType
+        };
     },
+
     template: `
-<ComponentFromUrl v-if="componentUrl" :url="componentUrl" v-bind="fieldControlComponentProps" v-model="fieldValues[field.guid]" />`
-} );
+<component v-if="component" :is="component" v-bind="fieldControlComponentProps" v-model="fieldValues[field.guid]" />
+<Alert v-else alertType="danger">Could not load the control for person field {{ fieldType }}.</Alert>
+`
+});

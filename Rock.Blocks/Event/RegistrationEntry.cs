@@ -1971,7 +1971,15 @@ namespace Rock.Blocks.Event
                 TimeoutMinutes = timeoutMinutes,
                 AllowRegistrationUpdates = allowRegistrationUpdates,
                 StartAtBeginning = startAtBeginning,
-                GatewayGuid = financialGateway?.Guid
+                GatewayGuid = financialGateway?.Guid,
+                Campuses = CampusCache.All()
+                    .Where( c => c.IsActive ?? false )
+                    .Select( c => new CampusOptionViewModel
+                    {
+                        Value = c.Guid.ToString(),
+                        Text = c.Name
+                    } )
+                    .ToList()
             };
 
             return viewModel;

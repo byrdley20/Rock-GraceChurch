@@ -37,6 +37,7 @@ import { InvokeBlockActionFunc } from '../../Controls/RockBlock';
 import JavaScriptAnchor from '../../Elements/JavaScriptAnchor';
 import { Person } from '@Obsidian/ViewModels';
 import SessionRenewal from './RegistrationEntry/SessionRenewal';
+import { DropDownListOption } from 'Elements/DropDownList';
 
 export enum Step
 {

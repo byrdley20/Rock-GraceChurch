@@ -18,12 +18,11 @@
 import PaneledBlockTemplate from '../../Templates/PaneledBlockTemplate';
 import DefinedTypePicker from '../../Controls/DefinedTypePicker';
 import DefinedValuePicker from '../../Controls/DefinedValuePicker';
-import CampusPicker from '../../Controls/CampusPicker';
 import { defineComponent, PropType } from 'vue';
 import store from '../../Store/Index';
 import TextBox from '../../Elements/TextBox';
 import EmailBox from '../../Elements/EmailBox';
-import { Campus, DefinedValue, DefinedType } from '@Obsidian/ViewModels';
+import { DefinedValue, DefinedType } from '@Obsidian/ViewModels';
 import CurrencyBox from '../../Elements/CurrencyBox';
 import PanelWidget from '../../Elements/PanelWidget';
 import DatePicker from '../../Elements/DatePicker';
@@ -788,7 +787,6 @@ export default defineComponent({
     name: 'Example.ControlGallery',
     components: {
         PaneledBlockTemplate,
-        CampusPicker,
         GalleryAndResult,
         TextBox,
         TextBoxGallery,
@@ -825,7 +823,6 @@ export default defineComponent({
     data() {
         return {
             
-            campusGuid: '',
             currency: 1.234,
             email: 'joe@joes.co',
             numberUpDown: 1,
@@ -850,17 +847,10 @@ export default defineComponent({
             ] as ProgressTrackerItem[]
         };
     },
+
     computed: {
-        campus(): Campus | null {
-            return (<(guid: Guid) => Campus | null>store.getters['campuses/getByGuid'])(this.campusGuid) || null;
-        },
-        campusName(): string {
-            return this.campus?.name || '';
-        },
-        campusId(): number | null {
-            return this.campus ? this.campus.id : null;
-        }
     },
+
     template: `
 <PaneledBlockTemplate>
     <template v-slot:title>
@@ -895,28 +885,11 @@ export default defineComponent({
                 {{email}}
             </template>
         </GalleryAndResult>
+
         <DatePartsPickerGallery />
+
         <DefinedTypeAndValueGallery />
-        <GalleryAndResult>
-            <template #header>
-                CampusPicker
-            </template>
-            <template #gallery>
-                <CampusPicker v-model="campusGuid" />
-                <CampusPicker v-model="campusGuid" label="Campus 2" />
-            </template>
-            <template #result>
-                <p>
-                    <strong>Campus Guid</strong>
-                    {{campusGuid}}
-                    <span v-if="campusName">({{campusName}})</span>
-                </p>
-                <p>
-                    <strong>Campus Id</strong>
-                    {{campusId}}
-                </p>
-            </template>
-        </GalleryAndResult>
+
         <GalleryAndResult>
             <template #header>
                 NumberUpDown

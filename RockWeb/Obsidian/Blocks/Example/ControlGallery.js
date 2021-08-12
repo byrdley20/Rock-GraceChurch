@@ -1,6 +1,6 @@
-System.register(["../../Templates/PaneledBlockTemplate", "../../Controls/DefinedTypePicker", "../../Controls/DefinedValuePicker", "../../Controls/CampusPicker", "vue", "../../Store/Index", "../../Elements/TextBox", "../../Elements/EmailBox", "../../Elements/CurrencyBox", "../../Elements/PanelWidget", "../../Elements/DatePicker", "../../Elements/DateTimePicker", "../../Elements/BirthdayPicker", "../../Elements/NumberUpDown", "../../Controls/AddressControl", "../../Elements/Toggle", "../../Elements/ItemsWithPreAndPostHtml", "../../Elements/StaticFormControl", "../../Elements/ProgressTracker", "../../Controls/RockForm", "../../Elements/RockButton", "../../Elements/RadioButtonList", "../../Elements/DropDownList", "../../Controls/Dialog", "../../Elements/CheckBox", "../../Elements/PhoneNumberBox", "../../Elements/HelpBlock", "../../Elements/DatePartsPicker", "../../Elements/ColorPicker", "../../Elements/NumberBox", "../../Elements/NumberRangeBox", "../../Elements/GenderDropDownList", "../../Elements/SocialSecurityNumberBox", "../../Elements/TimePicker", "../../Elements/CheckBoxList", "../../Elements/Rating", "@Obsidian/Services/Number"], function (exports_1, context_1) {
+System.register(["../../Templates/PaneledBlockTemplate", "../../Controls/DefinedTypePicker", "../../Controls/DefinedValuePicker", "vue", "../../Store/Index", "../../Elements/TextBox", "../../Elements/EmailBox", "../../Elements/CurrencyBox", "../../Elements/PanelWidget", "../../Elements/DatePicker", "../../Elements/DateTimePicker", "../../Elements/BirthdayPicker", "../../Elements/NumberUpDown", "../../Controls/AddressControl", "../../Elements/Toggle", "../../Elements/ItemsWithPreAndPostHtml", "../../Elements/StaticFormControl", "../../Elements/ProgressTracker", "../../Controls/RockForm", "../../Elements/RockButton", "../../Elements/RadioButtonList", "../../Elements/DropDownList", "../../Controls/Dialog", "../../Elements/CheckBox", "../../Elements/PhoneNumberBox", "../../Elements/HelpBlock", "../../Elements/DatePartsPicker", "../../Elements/ColorPicker", "../../Elements/NumberBox", "../../Elements/NumberRangeBox", "../../Elements/GenderDropDownList", "../../Elements/SocialSecurityNumberBox", "../../Elements/TimePicker", "../../Elements/CheckBoxList", "../../Elements/Rating", "@Obsidian/Services/Number"], function (exports_1, context_1) {
     "use strict";
-    var PaneledBlockTemplate_1, DefinedTypePicker_1, DefinedValuePicker_1, CampusPicker_1, vue_1, Index_1, TextBox_1, EmailBox_1, CurrencyBox_1, PanelWidget_1, DatePicker_1, DateTimePicker_1, BirthdayPicker_1, NumberUpDown_1, AddressControl_1, Toggle_1, ItemsWithPreAndPostHtml_1, StaticFormControl_1, ProgressTracker_1, RockForm_1, RockButton_1, RadioButtonList_1, DropDownList_1, Dialog_1, CheckBox_1, PhoneNumberBox_1, HelpBlock_1, DatePartsPicker_1, ColorPicker_1, NumberBox_1, NumberRangeBox_1, GenderDropDownList_1, SocialSecurityNumberBox_1, TimePicker_1, CheckBoxList_1, Rating_1, Number_1, GalleryAndResult, PhoneNumberBoxGallery, HelpBlockGallery, DropDownListGallery, RadioButtonListGallery, CheckBoxGallery, DialogGallery, FormRulesGallery, CheckBoxListGallery, DatePickerGallery, DateTimePickerGallery, DatePartsPickerGallery, TextBoxGallery, DefinedTypeAndValueGallery, ColorPickerGallery, NumberBoxGallery, NumberRangeBoxGallery, GenderDropDownListGallery, SocialSecurityNumberBoxGallery, TimePickerGallery, RatingGallery;
+    var PaneledBlockTemplate_1, DefinedTypePicker_1, DefinedValuePicker_1, vue_1, Index_1, TextBox_1, EmailBox_1, CurrencyBox_1, PanelWidget_1, DatePicker_1, DateTimePicker_1, BirthdayPicker_1, NumberUpDown_1, AddressControl_1, Toggle_1, ItemsWithPreAndPostHtml_1, StaticFormControl_1, ProgressTracker_1, RockForm_1, RockButton_1, RadioButtonList_1, DropDownList_1, Dialog_1, CheckBox_1, PhoneNumberBox_1, HelpBlock_1, DatePartsPicker_1, ColorPicker_1, NumberBox_1, NumberRangeBox_1, GenderDropDownList_1, SocialSecurityNumberBox_1, TimePicker_1, CheckBoxList_1, Rating_1, Number_1, GalleryAndResult, PhoneNumberBoxGallery, HelpBlockGallery, DropDownListGallery, RadioButtonListGallery, CheckBoxGallery, DialogGallery, FormRulesGallery, CheckBoxListGallery, DatePickerGallery, DateTimePickerGallery, DatePartsPickerGallery, TextBoxGallery, DefinedTypeAndValueGallery, ColorPickerGallery, NumberBoxGallery, NumberRangeBoxGallery, GenderDropDownListGallery, SocialSecurityNumberBoxGallery, TimePickerGallery, RatingGallery;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -12,9 +12,6 @@ System.register(["../../Templates/PaneledBlockTemplate", "../../Controls/Defined
             },
             function (DefinedValuePicker_1_1) {
                 DefinedValuePicker_1 = DefinedValuePicker_1_1;
-            },
-            function (CampusPicker_1_1) {
-                CampusPicker_1 = CampusPicker_1_1;
             },
             function (vue_1_1) {
                 vue_1 = vue_1_1;
@@ -795,7 +792,6 @@ System.register(["../../Templates/PaneledBlockTemplate", "../../Controls/Defined
                 name: 'Example.ControlGallery',
                 components: {
                     PaneledBlockTemplate: PaneledBlockTemplate_1.default,
-                    CampusPicker: CampusPicker_1.default,
                     GalleryAndResult,
                     TextBox: TextBox_1.default,
                     TextBoxGallery,
@@ -831,7 +827,6 @@ System.register(["../../Templates/PaneledBlockTemplate", "../../Controls/Defined
                 },
                 data() {
                     return {
-                        campusGuid: '',
                         currency: 1.234,
                         email: 'joe@joes.co',
                         numberUpDown: 1,
@@ -856,18 +851,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "../../Controls/Defined
                         ]
                     };
                 },
-                computed: {
-                    campus() {
-                        return Index_1.default.getters['campuses/getByGuid'](this.campusGuid) || null;
-                    },
-                    campusName() {
-                        var _a;
-                        return ((_a = this.campus) === null || _a === void 0 ? void 0 : _a.name) || '';
-                    },
-                    campusId() {
-                        return this.campus ? this.campus.id : null;
-                    }
-                },
+                computed: {},
                 template: `
 <PaneledBlockTemplate>
     <template v-slot:title>
@@ -902,28 +886,11 @@ System.register(["../../Templates/PaneledBlockTemplate", "../../Controls/Defined
                 {{email}}
             </template>
         </GalleryAndResult>
+
         <DatePartsPickerGallery />
+
         <DefinedTypeAndValueGallery />
-        <GalleryAndResult>
-            <template #header>
-                CampusPicker
-            </template>
-            <template #gallery>
-                <CampusPicker v-model="campusGuid" />
-                <CampusPicker v-model="campusGuid" label="Campus 2" />
-            </template>
-            <template #result>
-                <p>
-                    <strong>Campus Guid</strong>
-                    {{campusGuid}}
-                    <span v-if="campusName">({{campusName}})</span>
-                </p>
-                <p>
-                    <strong>Campus Id</strong>
-                    {{campusId}}
-                </p>
-            </template>
-        </GalleryAndResult>
+
         <GalleryAndResult>
             <template #header>
                 NumberUpDown

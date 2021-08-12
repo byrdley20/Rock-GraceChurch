@@ -18,7 +18,8 @@
 import { GatewayControlModel } from '../../../Controls/GatewayControl';
 import { Guid } from '../../../Util/Guid';
 import { ClientEditableAttributeValue } from '@Obsidian/ViewModels';
-import { RegistrationEntryBlockArgs, RegistrationEntryBlockSession } from './RegistrationEntryBlockArgs';
+import { RegistrationEntryBlockSession } from './RegistrationEntryBlockArgs';
+import { DropDownListOption } from '../../../Elements/DropDownList';
 
 export enum RegistrationPersonFieldType
 {
@@ -116,22 +117,24 @@ export interface RegistrationEntryBlockViewModel
     forceEmailUpdate: boolean;
     registrarOption: RegistrarOption;
     cost: number;
-    gatewayControl: GatewayControlModel,
-    isRedirectGateway: boolean,
-    spotsRemaining: number | null,
-    waitListEnabled: boolean,
-    instanceName: string,
-    amountDueToday: number | null,
-    initialAmountToPay: number | null,
-    session: RegistrationEntryBlockSession | null,
-    isUnauthorized: boolean,
-    hasDiscountsAvailable: boolean,
-    redirectGatewayUrl: string,
-    loginRequiredToRegister: boolean,
-    successViewModel: RegistrationEntryBlockSuccessViewModel | null,
-    allowRegistrationUpdates: boolean,
-    startAtBeginning: boolean,
-    gatewayGuid: Guid | null
+    gatewayControl: GatewayControlModel;
+    isRedirectGateway: boolean;
+    spotsRemaining: number | null;
+    waitListEnabled: boolean;
+    instanceName: string;
+    amountDueToday: number | null;
+    initialAmountToPay: number | null;
+    session: RegistrationEntryBlockSession | null;
+    isUnauthorized: boolean;
+    hasDiscountsAvailable: boolean;
+    redirectGatewayUrl: string;
+    loginRequiredToRegister: boolean;
+    successViewModel: RegistrationEntryBlockSuccessViewModel | null;
+    allowRegistrationUpdates: boolean;
+    startAtBeginning: boolean;
+    gatewayGuid: Guid | null;
+
+    campuses: DropDownListOption[];
 }
 
 export interface RegistrationEntryBlockFamilyMemberViewModel

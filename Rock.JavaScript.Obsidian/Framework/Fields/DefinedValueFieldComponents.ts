@@ -16,10 +16,9 @@
 //
 import { defineComponent, inject } from 'vue';
 import { getFieldEditorProps } from './Index';
-import DropDownList from '../Elements/DropDownList';
+import DropDownList, { DropDownListOption } from '../Elements/DropDownList';
 import { asBoolean } from '@Obsidian/Services/Boolean';
 import { ClientValue, ConfigurationValueKey, ValueItem } from './DefinedValueField';
-import { DropDownListOption } from 'Elements/DropDownList';
 
 export const EditComponent = defineComponent({
     name: 'DefinedValueField',

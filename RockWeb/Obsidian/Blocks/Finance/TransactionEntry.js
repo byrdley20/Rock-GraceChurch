@@ -1,4 +1,4 @@
-System.register(["../../Controls/CampusPicker", "../../Controls/DefinedValuePicker", "../../Elements/CurrencyBox", "vue", "../../Elements/DatePicker", "../../Elements/RockButton", "../../Util/Guid", "../../Elements/Alert", "@Obsidian/Services/Number", "../../Elements/Toggle", "../../Store/Index", "../../Elements/TextBox", "@Obsidian/Services/String", "../../Util/RockDate", "../../Controls/GatewayControl", "../../Controls/RockValidation"], function (exports_1, context_1) {
+System.register(["../../Elements/DropDownList", "../../Controls/DefinedValuePicker", "../../Elements/CurrencyBox", "vue", "../../Elements/DatePicker", "../../Elements/RockButton", "../../Util/Guid", "../../Elements/Alert", "@Obsidian/Services/Number", "../../Elements/Toggle", "../../Store/Index", "../../Elements/TextBox", "@Obsidian/Services/String", "../../Util/RockDate", "../../Controls/GatewayControl", "../../Controls/RockValidation"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,12 +9,12 @@ System.register(["../../Controls/CampusPicker", "../../Controls/DefinedValuePick
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var CampusPicker_1, DefinedValuePicker_1, CurrencyBox_1, vue_1, DatePicker_1, RockButton_1, Guid_1, Alert_1, Number_1, Toggle_1, Index_1, TextBox_1, String_1, RockDate_1, GatewayControl_1, RockValidation_1;
+    var DropDownList_1, DefinedValuePicker_1, CurrencyBox_1, vue_1, DatePicker_1, RockButton_1, Guid_1, Alert_1, Number_1, Toggle_1, Index_1, TextBox_1, String_1, RockDate_1, GatewayControl_1, RockValidation_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
-            function (CampusPicker_1_1) {
-                CampusPicker_1 = CampusPicker_1_1;
+            function (DropDownList_1_1) {
+                DropDownList_1 = DropDownList_1_1;
             },
             function (DefinedValuePicker_1_1) {
                 DefinedValuePicker_1 = DefinedValuePicker_1_1;
@@ -67,7 +67,7 @@ System.register(["../../Controls/CampusPicker", "../../Controls/DefinedValuePick
                 name: 'Finance.TransactionEntry',
                 components: {
                     CurrencyBox: CurrencyBox_1.default,
-                    CampusPicker: CampusPicker_1.default,
+                    DropDownList: DropDownList_1.default,
                     DefinedValuePicker: DefinedValuePicker_1.default,
                     DatePicker: DatePicker_1.default,
                     RockButton: RockButton_1.default,
@@ -141,11 +141,15 @@ System.register(["../../Controls/CampusPicker", "../../Controls/DefinedValuePick
                     accounts() {
                         return this.configurationValues['financialAccounts'] || [];
                     },
-                    campus() {
+                    campuses() {
+                        return this.configurationValues['campuses'] || [];
+                    },
+                    campusName() {
                         if (this.args.campusGuid === null) {
                             return null;
                         }
-                        return Index_1.default.getters['campuses/getByGuid'](this.args.campusGuid) || null;
+                        const matchedCampuses = this.campuses.filter(c => c.value === this.args.campusGuid);
+                        return matchedCampuses.length >= 1 ? matchedCampuses[0].text : null;
                     },
                     accountAndCampusString() {
                         const accountNames = [];
@@ -156,8 +160,8 @@ System.register(["../../Controls/CampusPicker", "../../Controls/DefinedValuePick
                             }
                             accountNames.push(account.publicName);
                         }
-                        if (this.campus) {
-                            return `${String_1.asCommaAnd(accountNames)} - ${this.campus.name}`;
+                        if (this.campusName) {
+                            return `${String_1.asCommaAnd(accountNames)} - ${this.campusName}`;
                         }
                         return String_1.asCommaAnd(accountNames);
                     }
@@ -244,7 +248,7 @@ System.register(["../../Controls/CampusPicker", "../../Controls/DefinedValuePick
         <template v-for="account in accounts">
             <CurrencyBox :label="account.publicName" v-model="args.accountAmounts[account.guid]" />
         </template>
-        <CampusPicker v-model="args.campusGuid" :showBlankItem="false" />
+        <DropDownList v-model="args.campusGuid" :showBlankItem="false" :options="campuses" />
         <DefinedValuePicker :definedTypeGuid="frequencyDefinedTypeGuid" v-model="args.frequencyValueGuid" label="Frequency" :showBlankItem="false" />
         <DatePicker label="Process Gift On" v-model="args.giftDate" />
         <Alert alertType="validation" v-if="page1Error">{{page1Error}}</Alert>

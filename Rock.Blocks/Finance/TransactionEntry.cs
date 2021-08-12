@@ -868,7 +868,15 @@ mission. We are so grateful for your commitment.</p>
                 {
                     FileUrl = FinancialGatewayComponent?.GetObsidianControlFileUrl( FinancialGateway ),
                     Settings = FinancialGatewayComponent?.GetObsidianControlSettings( FinancialGateway )
-                }
+                },
+                Campuses = CampusCache.All()
+                    .Where( c => c.IsActive ?? false )
+                    .Select( c => new CampusOptionViewModel
+                    {
+                        Value = c.Guid.ToString(),
+                        Text = c.Name
+                    } )
+                    .ToList()
             };
         }
 
@@ -1831,6 +1839,36 @@ mission. We are so grateful for your commitment.</p>
             ///   <c>true</c> if this instance is give anonymously; otherwise, <c>false</c>.
             /// </value>
             public bool IsGiveAnonymously { get; set; }
+
+            /// <summary>
+            /// Gets or sets the campuses available for the user to select.
+            /// </summary>
+            /// <value>
+            /// The campuses available for the user to select.
+            /// </value>
+            public List<CampusOptionViewModel> Campuses { get; set; }
+        }
+
+        /// <summary>
+        /// Identifies a single option that will be shown in the campus picker.
+        /// </summary>
+        public class CampusOptionViewModel
+        {
+            /// <summary>
+            /// Gets or sets the value.
+            /// </summary>
+            /// <value>
+            /// The value.
+            /// </value>
+            public string Value { get; set; }
+
+            /// <summary>
+            /// Gets or sets the text.
+            /// </summary>
+            /// <value>
+            /// The text.
+            /// </value>
+            public string Text { get; set; }
         }
 
         #endregion ViewModels

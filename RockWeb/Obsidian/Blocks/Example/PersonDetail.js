@@ -1,4 +1,4 @@
-System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../../Elements/RockButton", "../../Elements/TextBox", "vue", "../../Store/Index", "../../Elements/EmailBox", "../../Controls/RockValidation", "../../Controls/RockForm", "../../Controls/CampusPicker", "../../Controls/Loading", "../../Controls/PrimaryBlock", "@Obsidian/Services/Date", "../../Util/RockDate", "../../Elements/DatePicker", "../../Controls/AddressControl"], function (exports_1, context_1) {
+System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../../Elements/RockButton", "../../Elements/TextBox", "vue", "../../Store/Index", "../../Elements/EmailBox", "../../Controls/RockValidation", "../../Controls/RockForm", "../../Controls/Loading", "../../Controls/PrimaryBlock", "@Obsidian/Services/Date", "../../Util/RockDate", "../../Elements/DatePicker", "../../Controls/AddressControl"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,7 +9,7 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var Bus_1, PaneledBlockTemplate_1, RockButton_1, TextBox_1, vue_1, Index_1, EmailBox_1, RockValidation_1, RockForm_1, CampusPicker_1, Loading_1, PrimaryBlock_1, Date_1, RockDate_1, DatePicker_1, AddressControl_1;
+    var Bus_1, PaneledBlockTemplate_1, RockButton_1, TextBox_1, vue_1, Index_1, EmailBox_1, RockValidation_1, RockForm_1, Loading_1, PrimaryBlock_1, Date_1, RockDate_1, DatePicker_1, AddressControl_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -40,9 +40,6 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
             function (RockForm_1_1) {
                 RockForm_1 = RockForm_1_1;
             },
-            function (CampusPicker_1_1) {
-                CampusPicker_1 = CampusPicker_1_1;
-            },
             function (Loading_1_1) {
                 Loading_1 = Loading_1_1;
             },
@@ -72,7 +69,6 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                     EmailBox: EmailBox_1.default,
                     RockValidation: RockValidation_1.default,
                     RockForm: RockForm_1.default,
-                    CampusPicker: CampusPicker_1.default,
                     Loading: Loading_1.default,
                     PrimaryBlock: PrimaryBlock_1.default,
                     DatePicker: DatePicker_1.default,
@@ -91,7 +87,6 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                         messageToPublish: '',
                         receivedMessage: '',
                         isLoading: false,
-                        campusGuid: '',
                         birthdate: null,
                         address: AddressControl_1.getDefaultAddressControlModel()
                     };
@@ -101,10 +96,7 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                         this.isEditMode = isEditMode;
                     },
                     doEdit() {
-                        var _a;
                         this.personForEditing = this.person ? Object.assign({}, this.person) : null;
-                        console.log(this.personForEditing);
-                        this.campusGuid = ((_a = this.campus) === null || _a === void 0 ? void 0 : _a.guid) || '';
                         this.birthdate = this.birthdateOrNull ? RockDate_1.toRockDate(this.birthdateOrNull) : null;
                         this.setIsEditMode(true);
                     },
@@ -114,7 +106,7 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                     doSave() {
                         return __awaiter(this, void 0, void 0, function* () {
                             if (this.personForEditing) {
-                                this.person = Object.assign(Object.assign({}, this.personForEditing), { birthDay: RockDate_1.default.getDay(this.birthdate), birthMonth: RockDate_1.default.getMonth(this.birthdate), birthYear: RockDate_1.default.getYear(this.birthdate), primaryCampusId: null });
+                                this.person = Object.assign(Object.assign({}, this.personForEditing), { birthDay: RockDate_1.default.getDay(this.birthdate), birthMonth: RockDate_1.default.getMonth(this.birthdate), birthYear: RockDate_1.default.getYear(this.birthdate) });
                                 this.isLoading = true;
                                 yield this.invokeBlockAction('EditPerson', {
                                     personArgs: this.person
@@ -145,17 +137,6 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                             return 'Not Completed';
                         }
                         return Date_1.asDateString(this.birthdateOrNull);
-                    },
-                    campus() {
-                        var _a;
-                        if (((_a = this.person) === null || _a === void 0 ? void 0 : _a.primaryCampusId) != null) {
-                            return Index_1.default.getters['campuses/getById'](this.person.primaryCampusId) || null;
-                        }
-                        return null;
-                    },
-                    campusName() {
-                        var _a;
-                        return ((_a = this.campus) === null || _a === void 0 ? void 0 : _a.name) || '';
                     },
                     blockTitle() {
                         return this.person ?
@@ -212,7 +193,6 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                         </div>
                         <div class="col-sm-6">
                             <EmailBox label="Email" v-model="personForEditing.email" />
-                            <CampusPicker v-model="campusGuid" />
                             <DatePicker label="Birthdate" v-model="birthdate" rules="required" />
                         </div>
                         <div class="col-sm-12">
@@ -234,8 +214,6 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                                 <dd>{{person.lastName}}</dd>
                                 <dt>Email</dt>
                                 <dd>{{person.email}}</dd>
-                                <dt>Campus</dt>
-                                <dd>{{campusName || 'None'}}</dd>
                                 <dt>Birthdate</dt>
                                 <dd>{{birthdateFormatted}}</dd>
                             </dl>

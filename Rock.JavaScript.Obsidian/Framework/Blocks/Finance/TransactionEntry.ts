@@ -14,7 +14,7 @@
 // limitations under the License.
 // </copyright>
 //
-import CampusPicker from '../../Controls/CampusPicker';
+import DropDownList, { DropDownListOption } from '../../Elements/DropDownList';
 import DefinedValuePicker from '../../Controls/DefinedValuePicker';
 import CurrencyBox from '../../Elements/CurrencyBox';
 import { defineComponent, inject } from 'vue';
@@ -27,7 +27,7 @@ import { asFormattedString } from '@Obsidian/Services/Number';
 import { InvokeBlockActionFunc } from '../../Controls/RockBlock';
 import { ConfigurationValues } from '../../Index';
 import Toggle from '../../Elements/Toggle';
-import { Campus, FinancialAccount, Person } from '@Obsidian/ViewModels';
+import { FinancialAccount, Person } from '@Obsidian/ViewModels';
 import store from '../../Store/Index';
 import TextBox from '../../Elements/TextBox';
 import { asCommaAnd } from '@Obsidian/Services/String';
@@ -63,9 +63,10 @@ export type ProcessTransactionArgs = {
 
 export default defineComponent({
     name: 'Finance.TransactionEntry',
+
     components: {
         CurrencyBox,
-        CampusPicker,
+        DropDownList,
         DefinedValuePicker,
         DatePicker,
         RockButton,
@@ -75,12 +76,14 @@ export default defineComponent({
         GatewayControl,
         RockValidation
     },
+
     setup() {
         return {
             invokeBlockAction: inject('invokeBlockAction') as InvokeBlockActionFunc,
             configurationValues: inject('configurationValues') as ConfigurationValues
         };
     },
+
     data() {
         return {
             loading: false,
@@ -119,6 +122,7 @@ export default defineComponent({
             } as ProcessTransactionArgs
         };
     },
+
     computed: {
         totalAmount(): number {
             let total = 0;
@@ -129,25 +133,37 @@ export default defineComponent({
 
             return total;
         },
+
         totalAmountFormatted(): string {
             return `$${asFormattedString(this.totalAmount, 2)}`;
         },
+
         gatewayControlModel(): GatewayControlModel {
             return this.configurationValues['gatewayControl'] as GatewayControlModel;
         },
+
         currentPerson(): Person | null {
             return store.state.currentPerson;
         },
+
         accounts(): FinancialAccount[] {
             return this.configurationValues['financialAccounts'] as FinancialAccount[] || [];
         },
-        campus(): Campus | null {
+
+        campuses(): DropDownListOption[] {
+            return this.configurationValues['campuses'] as DropDownListOption[] || [];
+        },
+
+        campusName(): string | null {
             if (this.args.campusGuid === null) {
                 return null;
             }
 
-            return (<(guid: Guid) => Campus | null>store.getters['campuses/getByGuid'])(this.args.campusGuid) || null;
+            const matchedCampuses = this.campuses.filter(c => c.value === this.args.campusGuid);
+
+            return matchedCampuses.length >= 1 ? matchedCampuses[0].text : null;
         },
+
         accountAndCampusString(): string {
             const accountNames = [] as string[];
 
@@ -161,18 +177,20 @@ export default defineComponent({
                 accountNames.push(account.publicName);
             }
 
-            if (this.campus) {
-                return `${asCommaAnd(accountNames)} - ${this.campus.name}`;
+            if (this.campusName) {
+                return `${asCommaAnd(accountNames)} - ${this.campusName}`;
             }
 
             return asCommaAnd(accountNames);
         }
     },
+
     methods: {
         goBack(): void {
             this.pageIndex--;
             this.doGatewayControlSubmit = false;
         },
+
         onPageOneSubmit(): void {
             if (this.totalAmount <= 0) {
                 this.page1Error = 'Please specify an amount';
@@ -222,6 +240,7 @@ export default defineComponent({
             this.loading = false;
             this.gatewayValidationFields = invalidFields;
         },
+
         async onPageThreeSubmit(): Promise<void> {
             this.loading = true;
 
@@ -240,6 +259,7 @@ export default defineComponent({
             }
         }
     },
+
     watch: {
         currentPerson: {
             immediate: true,
@@ -254,6 +274,7 @@ export default defineComponent({
             }
         }
     },
+
     template: `
 <div class="transaction-entry-v2">
     <Alert v-if="criticalError" danger>
@@ -270,7 +291,7 @@ export default defineComponent({
         <template v-for="account in accounts">
             <CurrencyBox :label="account.publicName" v-model="args.accountAmounts[account.guid]" />
         </template>
-        <CampusPicker v-model="args.campusGuid" :showBlankItem="false" />
+        <DropDownList v-model="args.campusGuid" :showBlankItem="false" :options="campuses" />
         <DefinedValuePicker :definedTypeGuid="frequencyDefinedTypeGuid" v-model="args.frequencyValueGuid" label="Frequency" :showBlankItem="false" />
         <DatePicker label="Process Gift On" v-model="args.giftDate" />
         <Alert alertType="validation" v-if="page1Error">{{page1Error}}</Alert>

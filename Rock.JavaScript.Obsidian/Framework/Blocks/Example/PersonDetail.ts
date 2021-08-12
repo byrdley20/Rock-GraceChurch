@@ -23,12 +23,11 @@ import store from '../../Store/Index';
 import EmailBox from '../../Elements/EmailBox';
 import RockValidation from '../../Controls/RockValidation';
 import RockForm from '../../Controls/RockForm';
-import CampusPicker from '../../Controls/CampusPicker';
 import { Guid } from '../../Util/Guid';
 import Loading from '../../Controls/Loading';
 import PrimaryBlock from '../../Controls/PrimaryBlock';
 import { InvokeBlockActionFunc } from '../../Controls/RockBlock';
-import { Campus, Person } from '@Obsidian/ViewModels';
+import { Person } from '@Obsidian/ViewModels';
 import { asDateString } from '@Obsidian/Services/Date';
 import RockDate, { RockDateType, toRockDate } from '../../Util/RockDate';
 import DatePicker from '../../Elements/DatePicker';
@@ -36,6 +35,7 @@ import AddressControl, { getDefaultAddressControlModel } from '../../Controls/Ad
 
 export default defineComponent({
     name: 'Example.PersonDetail',
+
     components: {
         PaneledBlockTemplate,
         RockButton,
@@ -43,17 +43,18 @@ export default defineComponent({
         EmailBox,
         RockValidation,
         RockForm,
-        CampusPicker,
         Loading,
         PrimaryBlock,
         DatePicker,
         AddressControl
     },
+
     setup() {
         return {
             invokeBlockAction: inject('invokeBlockAction') as InvokeBlockActionFunc
         };
     },
+
     data() {
         return {
             person: null as Person | null,
@@ -62,33 +63,33 @@ export default defineComponent({
             messageToPublish: '',
             receivedMessage: '',
             isLoading: false,
-            campusGuid: '' as Guid,
             birthdate: null as RockDateType | null,
             address: getDefaultAddressControlModel()
         };
     },
+
     methods: {
         setIsEditMode(isEditMode: boolean): void {
             this.isEditMode = isEditMode;
         },
+
         doEdit(): void {
             this.personForEditing = this.person ? { ...this.person } : null;
-            console.log(this.personForEditing);
-            this.campusGuid = this.campus?.guid || '';
             this.birthdate = this.birthdateOrNull ? toRockDate(this.birthdateOrNull) : null;
             this.setIsEditMode(true);
         },
+
         doCancel(): void {
             this.setIsEditMode(false);
         },
+
         async doSave(): Promise<void> {
             if (this.personForEditing) {
                 this.person = {
                     ...this.personForEditing,
                     birthDay: RockDate.getDay(this.birthdate),
                     birthMonth: RockDate.getMonth(this.birthdate),
-                    birthYear: RockDate.getYear(this.birthdate),
-                    primaryCampusId: null
+                    birthYear: RockDate.getYear(this.birthdate)
                 };
                 this.isLoading = true;
 
@@ -101,14 +102,17 @@ export default defineComponent({
 
             this.setIsEditMode(false);
         },
+
         doPublish(): void {
             bus.publish('PersonDetail:Message', this.messageToPublish);
             this.messageToPublish = '';
         },
+
         receiveMessage(message: string): void {
             this.receivedMessage = message;
         }
     },
+
     computed: {
         birthdateOrNull(): Date | null {
             if (!this.person?.birthDay || !this.person.birthMonth || !this.person.birthYear) {
@@ -117,6 +121,7 @@ export default defineComponent({
 
             return new Date(`${this.person.birthYear}-${this.person.birthMonth}-${this.person.birthDay}`);
         },
+
         birthdateFormatted(): string {
             if (!this.birthdateOrNull) {
                 return 'Not Completed';
@@ -124,24 +129,17 @@ export default defineComponent({
 
             return asDateString(this.birthdateOrNull);
         },
-        campus(): Campus | null {
-            if (this.person?.primaryCampusId != null) {
-                return (<(id: number) => Campus | null>store.getters['campuses/getById'])(this.person.primaryCampusId) || null;
-            }
 
-            return null;
-        },
-        campusName(): string {
-            return this.campus?.name || '';
-        },
         blockTitle(): string {
             return this.person ?
                 `: ${this.person.nickName || this.person.firstName} ${this.person.lastName}` :
                 '';
         },
+
         currentPerson(): Person | null {
             return store.state.currentPerson;
         },
+
         currentPersonGuid(): Guid | null {
             return this.currentPerson ? this.currentPerson.guid : null;
         }
@@ -168,9 +166,11 @@ export default defineComponent({
             }
         }
     },
+
     created(): void {
         bus.subscribe<string>('PersonSecondary:Message', this.receiveMessage);
     },
+
     template: `
 <PrimaryBlock :hideSecondaryBlocks="isEditMode">
     <PaneledBlockTemplate>
@@ -192,7 +192,6 @@ export default defineComponent({
                         </div>
                         <div class="col-sm-6">
                             <EmailBox label="Email" v-model="personForEditing.email" />
-                            <CampusPicker v-model="campusGuid" />
                             <DatePicker label="Birthdate" v-model="birthdate" rules="required" />
                         </div>
                         <div class="col-sm-12">
@@ -214,8 +213,6 @@ export default defineComponent({
                                 <dd>{{person.lastName}}</dd>
                                 <dt>Email</dt>
                                 <dd>{{person.email}}</dd>
-                                <dt>Campus</dt>
-                                <dd>{{campusName || 'None'}}</dd>
                                 <dt>Birthdate</dt>
                                 <dd>{{birthdateFormatted}}</dd>
                             </dl>

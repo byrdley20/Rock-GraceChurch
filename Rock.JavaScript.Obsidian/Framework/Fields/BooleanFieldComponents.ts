@@ -92,8 +92,8 @@ export const EditComponent = defineComponent({
             const falseVal = asTrueFalseOrNull(false);
 
             return [
-                { key: falseVal, text: this.falseText, value: falseVal },
-                { key: trueVal, text: this.trueText, value: trueVal }
+                { text: this.falseText, value: falseVal },
+                { text: this.trueText, value: trueVal }
             ] as DropDownListOption[];
         }
     },

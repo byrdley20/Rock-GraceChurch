@@ -87,8 +87,8 @@ System.register(["vue", "./Index", "@Obsidian/Services/Boolean", "../Elements/Dr
                         const trueVal = Boolean_1.asTrueFalseOrNull(true);
                         const falseVal = Boolean_1.asTrueFalseOrNull(false);
                         return [
-                            { key: falseVal, text: this.falseText, value: falseVal },
-                            { key: trueVal, text: this.trueText, value: trueVal }
+                            { text: this.falseText, value: falseVal },
+                            { text: this.trueText, value: trueVal }
                         ];
                     }
                 },

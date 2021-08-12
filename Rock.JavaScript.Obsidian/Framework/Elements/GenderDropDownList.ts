@@ -18,7 +18,7 @@ import { defineComponent, PropType } from 'vue';
 import { ruleArrayToString, ruleStringToArray } from '../Rules/Index';
 import DropDownList, { DropDownListOption } from './DropDownList';
 
-export enum Gender {
+export const enum Gender {
     Unknown = 0,
     Male = 1,
     Female = 2
@@ -43,8 +43,8 @@ export default defineComponent({
     computed: {
         options(): DropDownListOption[] {
             return [
-                { key: Gender.Male.toString(), text: 'Male', value: Gender.Male.toString() },
-                { key: Gender.Female.toString(), text: 'Female', value: Gender.Female.toString() }
+                { text: 'Male', value: Gender.Male.toString() },
+                { text: 'Female', value: Gender.Female.toString() }
             ];
         },
         computedRules(): string {

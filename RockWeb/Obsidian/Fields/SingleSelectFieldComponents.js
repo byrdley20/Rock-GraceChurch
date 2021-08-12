@@ -51,7 +51,6 @@ System.register(["vue", "./Index", "../Elements/DropDownList", "../Elements/Radi
                             });
                             if (this.isRadioButtons && !this.isRequired) {
                                 providedOptions.unshift({
-                                    key: 'None',
                                     text: 'None',
                                     value: ''
                                 });

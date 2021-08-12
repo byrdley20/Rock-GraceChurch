@@ -153,7 +153,6 @@ export default defineComponent( {
                 if ( !usedFamilyGuids[ registrant.familyGuid ] && info?.firstName && info?.lastName )
                 {
                     options.push( {
-                        key: registrant.familyGuid,
                         text: `${info.firstName} ${info.lastName}`,
                         value: registrant.familyGuid
                     } );
@@ -166,14 +165,12 @@ export default defineComponent( {
             if ( this.currentPerson?.primaryFamilyGuid && this.currentPerson.fullName && !usedFamilyGuids[ this.currentPerson.primaryFamilyGuid ] )
             {
                 options.push( {
-                    key: this.currentPerson.primaryFamilyGuid,
                     text: this.currentPerson.fullName,
                     value: this.currentPerson.primaryFamilyGuid
                 } );
             }
 
             options.push( {
-                key: this.currentRegistrant.ownFamilyGuid,
                 text: 'None of the above',
                 value: this.currentRegistrant.ownFamilyGuid
             } );

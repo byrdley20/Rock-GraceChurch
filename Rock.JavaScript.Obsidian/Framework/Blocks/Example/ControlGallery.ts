@@ -149,10 +149,10 @@ const DropDownListGallery = defineComponent( {
         return {
             value: 'a',
             options: [
-                { key: 'a', text: 'A Text', value: 'a' },
-                { key: 'b', text: 'B Text', value: 'b' },
-                { key: 'c', text: 'C Text', value: 'c' },
-                { key: 'd', text: 'D Text', value: 'd' }
+                { text: 'A Text', value: 'a' },
+                { text: 'B Text', value: 'b' },
+                { text: 'C Text', value: 'c' },
+                { text: 'D Text', value: 'd' }
             ] as DropDownListOption[]
         };
     },
@@ -189,13 +189,13 @@ const RadioButtonListGallery = defineComponent( {
             isHorizontal: true,
             repeatColumns: 0,
             options: [
-                { key: 'a', text: 'A Text', value: 'a' },
-                { key: 'b', text: 'B Text', value: 'b' },
-                { key: 'c', text: 'C Text', value: 'c' },
-                { key: 'd', text: 'D Text', value: 'd' },
-                { key: 'e', text: 'E Text', value: 'e' },
-                { key: 'f', text: 'F Text', value: 'f' },
-                { key: 'g', text: 'G Text', value: 'g' }
+                { text: 'A Text', value: 'a' },
+                { text: 'B Text', value: 'b' },
+                { text: 'C Text', value: 'c' },
+                { text: 'D Text', value: 'd' },
+                { text: 'E Text', value: 'e' },
+                { text: 'F Text', value: 'f' },
+                { text: 'G Text', value: 'g' }
             ] as DropDownListOption[]
         };
     },

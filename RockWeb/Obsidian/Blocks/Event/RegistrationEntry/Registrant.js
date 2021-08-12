@@ -140,7 +140,6 @@ System.register(["vue", "../../../Elements/DropDownList", "../../../Elements/Rad
                             const info = RegistrationEntry_1.getRegistrantBasicInfo(registrant, this.viewModel.registrantForms);
                             if (!usedFamilyGuids[registrant.familyGuid] && (info === null || info === void 0 ? void 0 : info.firstName) && (info === null || info === void 0 ? void 0 : info.lastName)) {
                                 options.push({
-                                    key: registrant.familyGuid,
                                     text: `${info.firstName} ${info.lastName}`,
                                     value: registrant.familyGuid
                                 });
@@ -149,13 +148,11 @@ System.register(["vue", "../../../Elements/DropDownList", "../../../Elements/Rad
                         }
                         if (((_a = this.currentPerson) === null || _a === void 0 ? void 0 : _a.primaryFamilyGuid) && this.currentPerson.fullName && !usedFamilyGuids[this.currentPerson.primaryFamilyGuid]) {
                             options.push({
-                                key: this.currentPerson.primaryFamilyGuid,
                                 text: this.currentPerson.fullName,
                                 value: this.currentPerson.primaryFamilyGuid
                             });
                         }
                         options.push({
-                            key: this.currentRegistrant.ownFamilyGuid,
                             text: 'None of the above',
                             value: this.currentRegistrant.ownFamilyGuid
                         });

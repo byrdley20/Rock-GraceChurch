@@ -58,7 +58,6 @@ export const EditComponent = defineComponent({
 
                 if (this.isRadioButtons && !this.isRequired) {
                     providedOptions.unshift({
-                        key: 'None',
                         text: 'None',
                         value: ''
                     });

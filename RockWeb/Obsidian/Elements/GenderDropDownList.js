@@ -1,6 +1,6 @@
 System.register(["vue", "../Rules/Index", "./DropDownList"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, Index_1, DropDownList_1, Gender;
+    var vue_1, Index_1, DropDownList_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -15,12 +15,6 @@ System.register(["vue", "../Rules/Index", "./DropDownList"], function (exports_1
             }
         ],
         execute: function () {
-            (function (Gender) {
-                Gender[Gender["Unknown"] = 0] = "Unknown";
-                Gender[Gender["Male"] = 1] = "Male";
-                Gender[Gender["Female"] = 2] = "Female";
-            })(Gender || (Gender = {}));
-            exports_1("Gender", Gender);
             exports_1("default", vue_1.defineComponent({
                 name: 'GenderDropDownList',
                 components: {
@@ -34,19 +28,19 @@ System.register(["vue", "../Rules/Index", "./DropDownList"], function (exports_1
                 },
                 data() {
                     return {
-                        blankValue: `${Gender.Unknown}`
+                        blankValue: `${0}`
                     };
                 },
                 computed: {
                     options() {
                         return [
-                            { key: Gender.Male.toString(), text: 'Male', value: Gender.Male.toString() },
-                            { key: Gender.Female.toString(), text: 'Female', value: Gender.Female.toString() }
+                            { text: 'Male', value: 1..toString() },
+                            { text: 'Female', value: 2..toString() }
                         ];
                     },
                     computedRules() {
                         const rules = Index_1.ruleStringToArray(this.rules);
-                        const notEqualRule = `notequal:${Gender.Unknown}`;
+                        const notEqualRule = `notequal:${0}`;
                         if (rules.indexOf('required') !== -1 && rules.indexOf(notEqualRule) === -1) {
                             rules.push(notEqualRule);
                         }

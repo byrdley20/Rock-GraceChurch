@@ -36,9 +36,9 @@ export const EditComponent = defineComponent({
     computed: {
         dropDownListOptions(): DropDownListOption[] {
             return [
-                { key: '0', text: 'Unknown', value: '0' },
-                { key: '1', text: 'Male', value: '1' },
-                { key: '2', text: 'Female', value: '2' }
+                { text: 'Unknown', value: '0' },
+                { text: 'Male', value: '1' },
+                { text: 'Female', value: '2' }
             ] as DropDownListOption[];
         }
     },

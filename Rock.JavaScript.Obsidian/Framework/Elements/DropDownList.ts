@@ -19,7 +19,6 @@ import { newGuid } from '../Util/Guid.js';
 import RockFormField from './RockFormField.js';
 
 export type DropDownListOption = {
-    key?: string,
     value: string,
     text: string
 };
@@ -108,9 +107,9 @@ export default defineComponent( {
                         placeholder_text_multiple: ' ',
                         placeholder_text_single: ' '
                     } )
-                    .change( (ev: any) =>
+                    .change( (ev: Event) =>
                     {
-                        this.internalValue = ev.target.value;
+                        this.internalValue = (ev.target as HTMLSelectElement).value;
                     } );
             }
             else

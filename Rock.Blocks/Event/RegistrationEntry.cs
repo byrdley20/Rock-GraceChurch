@@ -26,6 +26,7 @@ using Rock.Data;
 using Rock.Financial;
 using Rock.Model;
 using Rock.Tasks;
+using Rock.ViewModel;
 using Rock.ViewModel.Blocks;
 using Rock.ViewModel.Controls;
 using Rock.Web.Cache;
@@ -939,7 +940,7 @@ namespace Rock.Blocks.Event
                 case RegistrationFieldSource.PersonField:
                     return GetPersonCurrentFieldValue( rockContext, person, field );
                 case RegistrationFieldSource.PersonAttribute:
-                    return GetEntityCurrentAttributeValue( rockContext, person, field );
+                    return GetEntityCurrentClientAttributeValue( rockContext, person, field );
             }
 
             return null;
@@ -966,7 +967,7 @@ namespace Rock.Blocks.Event
                     return person.Email;
                 case RegistrationPersonFieldType.Campus:
                     var family = person.GetFamily( rockContext );
-                    return family?.Guid;
+                    return family?.Campus?.Guid;
                 case RegistrationPersonFieldType.Birthdate:
                     return new BirthdayPickerViewModel
                     {
@@ -997,7 +998,7 @@ namespace Rock.Blocks.Event
         /// <param name="entity">The entity.</param>
         /// <param name="field">The field.</param>
         /// <returns></returns>
-        private object GetEntityCurrentAttributeValue( RockContext rockContext, IHasAttributes entity, RegistrationTemplateFormField field )
+        private string GetEntityCurrentClientAttributeValue( RockContext rockContext, IHasAttributes entity, RegistrationTemplateFormField field )
         {
             var attribute = AttributeCache.Get( field.AttributeId ?? 0 );
 
@@ -1007,7 +1008,8 @@ namespace Rock.Blocks.Event
             }
 
             entity.LoadAttributes( rockContext );
-            return entity.GetAttributeValue( attribute.Key );
+
+            return ViewModelHelper.FromDatabaseAttributeValue( entity.GetAttributeValue( attribute.Key ), attribute );
         }
 
         /// <summary>
@@ -1347,7 +1349,11 @@ namespace Rock.Blocks.Event
                     switch ( field.PersonFieldType )
                     {
                         case RegistrationPersonFieldType.Campus:
-                            campusId = fieldValue.ToString().AsIntegerOrNull();
+                            var campusGuid = fieldValue.ToString().AsGuidOrNull();
+                            if ( campusGuid.HasValue )
+                            {
+                                campusId = CampusCache.Get( campusGuid.Value )?.Id ?? campusId;
+                            }
                             break;
 
                         case RegistrationPersonFieldType.MiddleName:
@@ -1655,18 +1661,19 @@ namespace Rock.Blocks.Event
 
                 var newValue = registrantInfo.FieldValues.GetValueOrNull( field.Guid );
                 var originalValue = registrant.GetAttributeValue( attribute.Key );
-                var newValueAsString = newValue.ToStringSafe();
+                var newValueAsString = ViewModelHelper.ToDatabaseAttributeValue( newValue.ToStringSafe(), attribute );
                 registrant.SetAttributeValue( attribute.Key, newValueAsString );
 
+                // Commented out 8/12/2021, in theory this is handled by new field type logic.
                 // DateTime values must be stored in ISO8601
-                var isDateAttribute =
-                    attribute.FieldType.Guid.Equals( Rock.SystemGuid.FieldType.DATE.AsGuid() ) ||
-                    attribute.FieldType.Guid.Equals( Rock.SystemGuid.FieldType.DATE_TIME.AsGuid() );
+                //var isDateAttribute =
+                //    attribute.FieldType.Guid.Equals( Rock.SystemGuid.FieldType.DATE.AsGuid() ) ||
+                //    attribute.FieldType.Guid.Equals( Rock.SystemGuid.FieldType.DATE_TIME.AsGuid() );
 
-                if ( isDateAttribute && DateTime.TryParse( newValueAsString, out var asDateTime ) )
-                {
-                    newValueAsString = asDateTime.ToISO8601DateString();
-                }
+                //if ( isDateAttribute && DateTime.TryParse( newValueAsString, out var asDateTime ) )
+                //{
+                //    newValueAsString = asDateTime.ToISO8601DateString();
+                //}
 
                 if ( ( originalValue ?? string.Empty ).Trim() != ( newValueAsString ?? string.Empty ).Trim() )
                 {
@@ -1829,7 +1836,7 @@ namespace Rock.Blocks.Event
                     var attribute = fieldModel.AttributeId.HasValue ? AttributeCache.Get( fieldModel.AttributeId.Value ) : null;
 
                     field.Guid = fieldModel.Guid;
-                    field.Attribute = attribute?.ToViewModel();
+                    field.Attribute = attribute != null ? ViewModelHelper.ToClientEditableAttributeValue( attribute, attribute.DefaultValue ) : null;
                     field.FieldSource = ( int ) fieldModel.FieldSource;
                     field.PersonFieldType = ( int ) fieldModel.PersonFieldType;
                     field.IsRequired = fieldModel.IsRequired;
@@ -1871,7 +1878,7 @@ namespace Rock.Blocks.Event
             var beforeAttributes = registrationAttributes
                 .Where( a =>
                     a.Categories.Any( c => c.Guid == Rock.SystemGuid.Category.REGISTRATION_ATTRIBUTE_START_OF_REGISTRATION.AsGuid() ) )
-                .Select( a => a.ToViewModel( currentPerson, false ) )
+                .Select( a => ViewModelHelper.ToClientEditableAttributeValue( a, a.DefaultValue ) )
                 .ToList();
 
             // only show the Registration Attributes After Registrants that have don't have a category or have a category of REGISTRATION_ATTRIBUTE_END_OF_REGISTRATION
@@ -1879,7 +1886,7 @@ namespace Rock.Blocks.Event
                 .Where( a =>
                     !a.Categories.Any() ||
                     a.Categories.Any( c => c.Guid == Rock.SystemGuid.Category.REGISTRATION_ATTRIBUTE_END_OF_REGISTRATION.AsGuid() ) )
-                .Select( a => a.ToViewModel( currentPerson, false ) )
+                .Select( a => ViewModelHelper.ToClientEditableAttributeValue( a, a.DefaultValue ) )
                 .ToList();
 
             // Get the maximum number of registrants
@@ -2755,8 +2762,8 @@ namespace Rock.Blocks.Event
                             if ( attribute != null )
                             {
                                 string originalValue = groupMember.GetAttributeValue( attribute.Key );
-                                string newValue = fieldValue.ToString();
-                                groupMember.SetAttributeValue( attribute.Key, fieldValue.ToString() );
+                                string newValue = ViewModelHelper.ToDatabaseAttributeValue( fieldValue.ToString(), attribute );
+                                groupMember.SetAttributeValue( attribute.Key, newValue );
 
                                 if ( ( originalValue ?? string.Empty ).Trim() != ( newValue ?? string.Empty ).Trim() )
                                 {

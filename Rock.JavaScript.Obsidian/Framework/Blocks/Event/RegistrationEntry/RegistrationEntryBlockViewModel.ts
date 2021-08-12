@@ -17,7 +17,7 @@
 
 import { GatewayControlModel } from '../../../Controls/GatewayControl';
 import { Guid } from '../../../Util/Guid';
-import { Attribute } from '@Obsidian/ViewModels';
+import { ClientEditableAttributeValue } from '@Obsidian/ViewModels';
 import { RegistrationEntryBlockArgs, RegistrationEntryBlockSession } from './RegistrationEntryBlockArgs';
 
 export enum RegistrationPersonFieldType
@@ -111,8 +111,8 @@ export interface RegistrationEntryBlockViewModel
     registrantForms: RegistrationEntryBlockFormViewModel[];
     fees: RegistrationEntryBlockFeeViewModel[];
     familyMembers: RegistrationEntryBlockFamilyMemberViewModel[];
-    registrationAttributesStart: Attribute[];
-    registrationAttributesEnd: Attribute[];
+    registrationAttributesStart: ClientEditableAttributeValue[];
+    registrationAttributesEnd: ClientEditableAttributeValue[];
     forceEmailUpdate: boolean;
     registrarOption: RegistrarOption;
     cost: number;
@@ -171,7 +171,7 @@ export interface RegistrationEntryBlockFormFieldViewModel
     personFieldType: RegistrationPersonFieldType;
     isRequired: boolean;
     isSharedValue: boolean;
-    attribute: Attribute;
+    attribute: ClientEditableAttributeValue | null;
     visibilityRuleType: FilterExpressionType;
     visibilityRules: RegistrationEntryBlockFormFieldRuleViewModel[];
     preHtml: string;

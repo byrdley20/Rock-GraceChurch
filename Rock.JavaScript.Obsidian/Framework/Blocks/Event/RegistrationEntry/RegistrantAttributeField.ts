@@ -15,122 +15,97 @@
 // </copyright>
 //
 
-import { defineComponent, PropType } from 'vue';
+import { computed, defineComponent, PropType, reactive, watch } from 'vue';
 import RockField from '../../../Controls/RockField';
 import Alert from '../../../Elements/Alert';
 import { Guid } from '../../../Util/Guid';
-import { Attribute } from '@Obsidian/ViewModels';
 import { ComparisonType, FilterExpressionType, RegistrationEntryBlockFormFieldRuleViewModel, RegistrationEntryBlockFormFieldViewModel } from './RegistrationEntryBlockViewModel';
+
+function isRuleMet(rule: RegistrationEntryBlockFormFieldRuleViewModel, fieldValues: Record<Guid, unknown>) {
+    const value = fieldValues[rule.comparedToRegistrationTemplateFormFieldGuid] || '';
+
+    if (typeof value !== 'string') {
+        return false;
+    }
+
+    const strVal = value.toLowerCase().trim();
+    const comparison = rule.comparedToValue.toLowerCase().trim();
+
+    if (!strVal) {
+        return false;
+    }
+
+    switch (rule.comparisonType) {
+        case ComparisonType.EqualTo:
+            return strVal === comparison;
+        case ComparisonType.NotEqualTo:
+            return strVal !== comparison;
+        case ComparisonType.Contains:
+            return strVal.includes(comparison);
+        case ComparisonType.DoesNotContain:
+            return !strVal.includes(comparison);
+    }
+
+    return false;
+}
 
 export default defineComponent( {
     name: 'Event.RegistrationEntry.RegistrantAttributeField',
+
     components: {
         Alert,
         RockField
     },
+
     props: {
         field: {
             type: Object as PropType<RegistrationEntryBlockFormFieldViewModel>,
             required: true
         },
+
         fieldValues: {
             type: Object as PropType<Record<Guid, unknown>>,
             required: true
         }
     },
-    data()
-    {
-        return {
-            fieldControlComponent: null as unknown,
-            fieldControlComponentProps: {}
-        };
-    },
-    methods: {
-        isRuleMet( rule: RegistrationEntryBlockFormFieldRuleViewModel )
-        {
-            const value = this.fieldValues[ rule.comparedToRegistrationTemplateFormFieldGuid ] || '';
 
-            if ( typeof value !== 'string' )
-            {
-                return false;
-            }
-
-            const strVal = value.toLowerCase().trim();
-            const comparison = rule.comparedToValue.toLowerCase().trim();
-
-            if ( !strVal )
-            {
-                return false;
-            }
-
-            switch ( rule.comparisonType )
-            {
-                case ComparisonType.EqualTo:
-                    return strVal === comparison;
-                case ComparisonType.NotEqualTo:
-                    return strVal !== comparison;
-                case ComparisonType.Contains:
-                    return strVal.includes( comparison );
-                case ComparisonType.DoesNotContain:
-                    return !strVal.includes( comparison );
-            }
-
-            return false;
-        }
-    },
-    computed: {
-        isVisible(): boolean
-        {
-            switch ( this.field.visibilityRuleType )
-            {
+    setup(props) {
+        const isVisible = computed(() => {
+            switch (props.field.visibilityRuleType) {
                 case FilterExpressionType.GroupAll:
-                    return this.field.visibilityRules.every( vr => this.isRuleMet( vr ) );
+                    return props.field.visibilityRules.every(vr => isRuleMet(vr, props.fieldValues));
+
                 case FilterExpressionType.GroupAllFalse:
-                    return this.field.visibilityRules.every( vr => !this.isRuleMet( vr ) );
+                    return props.field.visibilityRules.every(vr => !isRuleMet(vr, props.fieldValues));
+
                 case FilterExpressionType.GroupAny:
-                    return this.field.visibilityRules.some( vr => this.isRuleMet( vr ) );
+                    return props.field.visibilityRules.some(vr => isRuleMet(vr, props.fieldValues));
+
                 case FilterExpressionType.GroupAnyFalse:
-                    return this.field.visibilityRules.some( vr => !this.isRuleMet( vr ) );
+                    return props.field.visibilityRules.some(vr => !isRuleMet(vr, props.fieldValues));
             }
 
             return true;
-        },
-        attribute(): Attribute | null
-        {
-            return this.field.attribute || null;
-        },
-        fieldProps(): Record<string, unknown>
-        {
-            if ( !this.attribute )
-            {
-                return {};
-            }
+        });
 
-            return {
-                fieldTypeGuid: this.attribute.fieldTypeGuid,
-                isEditMode: true,
-                label: this.attribute.name,
-                help: this.attribute.description,
-                rules: this.field.isRequired ? 'required' : '',
-                configurationValues: this.attribute.qualifierValues
-            };
-        }
+        const attribute = reactive({
+            ...props.field.attribute,
+            value: props.fieldValues[props.field.guid] ?? props.field.attribute?.value ?? ''
+        });
+
+        watch(() => attribute.value, (value) => {
+            props.fieldValues[props.field.guid] = value;
+        });
+
+        return {
+            isVisible,
+            attribute
+        };
     },
-    watch: {
-        field: {
-            immediate: true,
-            handler()
-            {
-                if ( !( this.field.guid in this.fieldValues ) )
-                {
-                    this.fieldValues[ this.field.guid ] = this.attribute?.defaultValue ||  '';
-                }
-            }
-        }
-    },
+
     template: `
 <template v-if="isVisible">
-    <RockField v-if="attribute" v-bind="fieldProps" v-model="this.fieldValues[this.field.guid]" />
+    <RockField v-if="attribute" isEditMode :attributeValue="attribute" />
     <Alert v-else alertType="danger">Could not resolve attribute field</Alert>
 </template>`
 } );

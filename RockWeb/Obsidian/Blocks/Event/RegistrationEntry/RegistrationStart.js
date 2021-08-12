@@ -53,12 +53,8 @@ System.register(["vue", "../../../Controls/AttributeValuesContainer", "../../../
                         immediate: true,
                         handler() {
                             this.attributeValues = this.registrationEntryState.viewModel.registrationAttributesStart.map(a => {
-                                const currentValue = this.registrationEntryState.registrationFieldValues[a.guid] || '';
-                                return {
-                                    attribute: a,
-                                    attributeId: a.id,
-                                    value: currentValue
-                                };
+                                const currentValue = this.registrationEntryState.registrationFieldValues[a.attributeGuid] || '';
+                                return Object.assign(Object.assign({}, a), { value: currentValue });
                             });
                         }
                     },
@@ -67,10 +63,7 @@ System.register(["vue", "../../../Controls/AttributeValuesContainer", "../../../
                         deep: true,
                         handler() {
                             for (const attributeValue of this.attributeValues) {
-                                const attribute = attributeValue.attribute;
-                                if (attribute) {
-                                    this.registrationEntryState.registrationFieldValues[attribute.guid] = attributeValue.value;
-                                }
+                                this.registrationEntryState.registrationFieldValues[attributeValue.attributeGuid] = attributeValue.value;
                             }
                         }
                     }

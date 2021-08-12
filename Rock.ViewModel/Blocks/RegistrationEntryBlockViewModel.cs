@@ -137,7 +137,7 @@ namespace Rock.ViewModel.Blocks
         /// <value>
         /// The registration attributes start.
         /// </value>
-        public IEnumerable<AttributeViewModel> RegistrationAttributesStart { get; set; }
+        public IEnumerable<ClientEditableAttributeValueViewModel> RegistrationAttributesStart { get; set; }
 
         /// <summary>
         /// Gets or sets the registration attributes end.
@@ -145,7 +145,7 @@ namespace Rock.ViewModel.Blocks
         /// <value>
         /// The registration attributes end.
         /// </value>
-        public IEnumerable<AttributeViewModel> RegistrationAttributesEnd { get; set; }
+        public IEnumerable<ClientEditableAttributeValueViewModel> RegistrationAttributesEnd { get; set; }
 
         /// <summary>
         /// Gets or sets the maximum registrants.
@@ -495,7 +495,7 @@ namespace Rock.ViewModel.Blocks
         /// <value>
         /// The attribute.
         /// </value>
-        public AttributeViewModel Attribute { get; set; }
+        public ClientEditableAttributeValueViewModel Attribute { get; set; }
 
         /// <summary>
         /// Gets or sets the type of the visibility rule.

@@ -19,7 +19,7 @@ import { defineComponent, inject } from 'vue';
 import AttributeValuesContainer from '../../../Controls/AttributeValuesContainer';
 import RockForm from '../../../Controls/RockForm';
 import RockButton from '../../../Elements/RockButton';
-import { AttributeValue } from '@Obsidian/ViewModels';
+import { ClientEditableAttributeValue } from '@Obsidian/ViewModels';
 import { RegistrationEntryState } from '../RegistrationEntry';
 
 export default defineComponent( {
@@ -38,7 +38,7 @@ export default defineComponent( {
     data()
     {
         return {
-            attributeValues: [] as AttributeValue[]
+            attributeValues: [] as ClientEditableAttributeValue[]
         };
     },
     methods: {
@@ -54,33 +54,23 @@ export default defineComponent( {
     watch: {
         viewModel: {
             immediate: true,
-            handler()
-            {
-                this.attributeValues = this.registrationEntryState.viewModel.registrationAttributesEnd.map( a =>
-                {
-                    const currentValue = this.registrationEntryState.registrationFieldValues[ a.guid ] || '';
+            handler() {
+                this.attributeValues = this.registrationEntryState.viewModel.registrationAttributesEnd.map(a => {
+                    const currentValue = this.registrationEntryState.registrationFieldValues[a.attributeGuid] || '';
 
                     return {
-                        attribute: a,
-                        attributeId: a.id,
+                        ...a,
                         value: currentValue
-                    } as AttributeValue;
-                } );
+                    } as ClientEditableAttributeValue;
+                });
             }
         },
         attributeValues: {
             immediate: true,
             deep: true,
-            handler()
-            {
-                for ( const attributeValue of this.attributeValues )
-                {
-                    const attribute = attributeValue.attribute;
-
-                    if ( attribute )
-                    {
-                        this.registrationEntryState.registrationFieldValues[ attribute.guid ] = attributeValue.value;
-                    }
+            handler() {
+                for (const attributeValue of this.attributeValues) {
+                    this.registrationEntryState.registrationFieldValues[attributeValue.attributeGuid] = attributeValue.value;
                 }
             }
         }

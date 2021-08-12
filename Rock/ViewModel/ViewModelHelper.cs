@@ -117,7 +117,8 @@ namespace Rock.ViewModel
         /// </summary>
         /// <param name="attributeValue">The attribute value.</param>
         /// <returns>A <see cref="ClientAttributeValueViewModel"/> instance.</returns>
-        public static ClientAttributeValueViewModel ToClientAttributeValue( AttributeValueCache attributeValue )
+        /// <remarks>Internal until this is moved to a permanent location.</remarks>
+        internal static ClientAttributeValueViewModel ToClientAttributeValue( AttributeValueCache attributeValue )
         {
             var attribute = AttributeCache.Get( attributeValue.AttributeId );
 
@@ -145,17 +146,31 @@ namespace Rock.ViewModel
         /// </summary>
         /// <param name="attributeValue">The attribute value.</param>
         /// <returns>A <see cref="ClientEditableAttributeValueViewModel"/> instance.</returns>
-        public static ClientEditableAttributeValueViewModel ToClientEditableAttributeValue( AttributeValueCache attributeValue )
+        /// <remarks>Internal until this is moved to a permanent location.</remarks>
+        internal static ClientEditableAttributeValueViewModel ToClientEditableAttributeValue( AttributeValueCache attributeValue )
         {
             var attribute = AttributeCache.Get( attributeValue.AttributeId );
 
+            return ToClientEditableAttributeValue( attribute, attributeValue.Value );
+        }
+
+        /// <summary>
+        /// Converts an Attribute and the specified value to a view model that can be
+        /// sent to the client.
+        /// </summary>
+        /// <param name="attribute">The attribute.</param>
+        /// <param name="value">The value to be encoded.</param>
+        /// <returns>A <see cref="ClientEditableAttributeValueViewModel"/> instance.</returns>
+        /// <remarks>Internal until this is moved to a permanent location.</remarks>
+        internal static ClientEditableAttributeValueViewModel ToClientEditableAttributeValue( AttributeCache attribute, string value )
+        {
             var fieldType = _fieldTypes.GetOrAdd( attribute.FieldType.Guid, GetFieldType );
 
             return new ClientEditableAttributeValueViewModel
             {
                 FieldTypeGuid = attribute.FieldType.Guid,
                 AttributeGuid = attribute.Guid,
-                Name = attributeValue.AttributeName,
+                Name = attribute.Name,
                 Categories = attribute.Categories.Select( c => new ClientAttributeValueCategoryViewModel
                 {
                     Guid = c.Guid,
@@ -163,8 +178,8 @@ namespace Rock.ViewModel
                     Order = c.Order
                 } ).ToList(),
                 Order = attribute.Order,
-                TextValue = fieldType.GetTextValue( attributeValue.Value, attribute.QualifierValues ),
-                Value = fieldType.GetClientValue( attributeValue.Value, attribute.QualifierValues ),
+                TextValue = fieldType.GetTextValue( value, attribute.QualifierValues ),
+                Value = fieldType.GetClientValue( value, attribute.QualifierValues ),
                 Key = attribute.Key,
                 IsRequired = attribute.IsRequired,
                 Description = attribute.Description,
@@ -179,11 +194,26 @@ namespace Rock.ViewModel
         /// <param name="clientValue">The value provided by the client.</param>
         /// <param name="attribute">The attribute being set.</param>
         /// <returns>A string value.</returns>
-        public static string ToDatabaseAttributeValue( string clientValue, AttributeCache attribute )
+        /// <remarks>Internal until this is moved to a permanent location.</remarks>
+        internal static string ToDatabaseAttributeValue( string clientValue, AttributeCache attribute )
         {
             var fieldType = _fieldTypes.GetOrAdd( attribute.FieldType.Guid, GetFieldType );
 
             return fieldType.GetValueFromClient( clientValue, attribute.QualifierValues );
+        }
+
+        /// <summary>
+        /// Converts a database value into one that can be sent to a client.
+        /// </summary>
+        /// <param name="databaseValue">The value that came from the database.</param>
+        /// <param name="attribute">The attribute being set.</param>
+        /// <returns>A string value.</returns>
+        /// <remarks>Internal until this is moved to a permanent location.</remarks>
+        internal static string FromDatabaseAttributeValue( string databaseValue, AttributeCache attribute )
+        {
+            var fieldType = _fieldTypes.GetOrAdd( attribute.FieldType.Guid, GetFieldType );
+
+            return fieldType.GetClientValue( databaseValue, attribute.QualifierValues );
         }
 
         /// <summary>

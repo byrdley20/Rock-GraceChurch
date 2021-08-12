@@ -134,6 +134,7 @@ export default defineComponent( {
                     case RegistrationPersonFieldType.Birthdate:
                         defaultValue = getDefaultDatePartsPickerModel();
                         break;
+
                     case RegistrationPersonFieldType.Address:
                         defaultValue = getDefaultAddressControlModel();
                         break;

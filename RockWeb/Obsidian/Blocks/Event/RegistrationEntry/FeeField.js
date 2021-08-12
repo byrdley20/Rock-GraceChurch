@@ -96,7 +96,6 @@ System.register(["vue", "../../../Elements/Alert", "../../../Elements/CheckBox",
                     },
                     dropDownListOptions() {
                         return this.fee.items.map(i => ({
-                            key: i.guid,
                             text: this.getItemLabel(i),
                             value: i.guid
                         }));

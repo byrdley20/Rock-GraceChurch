@@ -15,10 +15,6 @@ System.register(["../Util/Guid", "./BooleanField", "./ColorField", "./CurrencyFi
         };
     }
     exports_1("getFieldEditorProps", getFieldEditorProps);
-    function legacyRegisterFieldType(fieldTypeGuid, component) {
-        return {};
-    }
-    exports_1("legacyRegisterFieldType", legacyRegisterFieldType);
     function registerFieldType(fieldTypeGuid, fieldType) {
         const normalizedGuid = Guid_1.normalize(fieldTypeGuid);
         if (!Guid_1.isValidGuid(fieldTypeGuid) || normalizedGuid === null) {

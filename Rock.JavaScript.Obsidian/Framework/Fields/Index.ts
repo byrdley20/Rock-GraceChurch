@@ -14,7 +14,7 @@
 // limitations under the License.
 // </copyright>
 //
-import { Component, PropType } from 'vue';
+import { PropType } from 'vue';
 import { Guid, normalize, isValidGuid } from '../Util/Guid';
 import { FieldType } from './FieldType';
 import { FieldType as FieldTypeGuids } from '@Obsidian/SystemGuids';
@@ -47,15 +47,12 @@ export function getFieldEditorProps(): FieldEditorBaseProps {
             type: String as PropType<string>,
             required: true
         },
+
         configurationValues: {
             type: Object as PropType<ConfigurationValues>,
             default: () => ({})
         }
     };
-}
-
-export function legacyRegisterFieldType(fieldTypeGuid: Guid, component: Component) {
-    return {};
 }
 
 /**

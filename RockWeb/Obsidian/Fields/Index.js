@@ -1,6 +1,6 @@
-System.register(["../Util/Guid", "./BooleanField", "./ColorField", "./CurrencyField", "./DateField", "./DateTimeField", "./DayOfWeekField", "./DaysOfWeekField", "./DecimalField", "./DecimalRangeField", "./EmailField", "./GenderField", "./IntegerField", "./IntegerRangeField", "./MemoField", "./MonthDayField", "./PhoneNumberField", "./RatingField", "./SingleSelectField", "./TextField", "./TimeField"], function (exports_1, context_1) {
+System.register(["../Util/Guid", "./BooleanField", "./ColorField", "./CurrencyField", "./DateField", "./DateTimeField", "./DayOfWeekField", "./DaysOfWeekField", "./DecimalField", "./DecimalRangeField", "./DefinedValueField", "./EmailField", "./GenderField", "./IntegerField", "./IntegerRangeField", "./MemoField", "./MonthDayField", "./PhoneNumberField", "./RatingField", "./SingleSelectField", "./TextField", "./TimeField"], function (exports_1, context_1) {
     "use strict";
-    var Guid_1, fieldTypeTable, BooleanField_1, ColorField_1, CurrencyField_1, DateField_1, DateTimeField_1, DayOfWeekField_1, DaysOfWeekField_1, DecimalField_1, DecimalRangeField_1, EmailField_1, GenderField_1, IntegerField_1, IntegerRangeField_1, MemoField_1, MonthDayField_1, PhoneNumberField_1, RatingField_1, SingleSelectField_1, TextField_1, TimeField_1;
+    var Guid_1, fieldTypeTable, BooleanField_1, ColorField_1, CurrencyField_1, DateField_1, DateTimeField_1, DayOfWeekField_1, DaysOfWeekField_1, DecimalField_1, DecimalRangeField_1, DefinedValueField_1, EmailField_1, GenderField_1, IntegerField_1, IntegerRangeField_1, MemoField_1, MonthDayField_1, PhoneNumberField_1, RatingField_1, SingleSelectField_1, TextField_1, TimeField_1;
     var __moduleName = context_1 && context_1.id;
     function getFieldEditorProps() {
         return {
@@ -74,6 +74,9 @@ System.register(["../Util/Guid", "./BooleanField", "./ColorField", "./CurrencyFi
             function (DecimalRangeField_1_1) {
                 DecimalRangeField_1 = DecimalRangeField_1_1;
             },
+            function (DefinedValueField_1_1) {
+                DefinedValueField_1 = DefinedValueField_1_1;
+            },
             function (EmailField_1_1) {
                 EmailField_1 = EmailField_1_1;
             },
@@ -119,6 +122,7 @@ System.register(["../Util/Guid", "./BooleanField", "./ColorField", "./CurrencyFi
             registerFieldType("08943FF9-F2A8-4DB4-A72A-31938B200C8C", new DaysOfWeekField_1.DaysOfWeekFieldType());
             registerFieldType("C757A554-3009-4214-B05D-CEA2B2EA6B8F", new DecimalField_1.DecimalFieldType());
             registerFieldType("758D9648-573E-4800-B5AF-7CC29F4BE170", new DecimalRangeField_1.DecimalRangeFieldType());
+            registerFieldType("59D5A94C-94A0-4630-B80A-BB25697D74C7", new DefinedValueField_1.DefinedValueFieldType());
             registerFieldType("3D045CAE-EA72-4A04-B7BE-7FD1D6214217", new EmailField_1.EmailFieldType());
             registerFieldType("2E28779B-4C76-4142-AE8D-49EA31DDB503", new GenderField_1.GenderFieldType());
             registerFieldType("A75DFC58-7A1B-4799-BF31-451B2BBE38FF", new IntegerField_1.IntegerFieldType());

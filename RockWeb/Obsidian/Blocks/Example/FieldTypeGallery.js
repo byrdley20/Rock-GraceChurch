@@ -180,8 +180,13 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                     DaysOfWeekGallery: GetFieldTypeGalleryComponent('DaysOfWeek', '2,5', '08943FF9-F2A8-4DB4-A72A-31938B200C8C', {}),
                     DecimalGallery: GetFieldTypeGalleryComponent('Decimal', '18.283', 'C757A554-3009-4214-B05D-CEA2B2EA6B8F', {}),
                     DecimalRangeGallery: GetFieldTypeGalleryComponent('DecimalRange', '18.283,100', '758D9648-573E-4800-B5AF-7CC29F4BE170', {}),
-                    DefinedValueGallery: GetFieldTypeGalleryComponent('DefinedValue (WIP)', 'af28af43-8461-41ac-a2c5-85122712be96', '59D5A94C-94A0-4630-B80A-BB25697D74C7', {
-                        definedtype: '92',
+                    DefinedValueGallery: GetFieldTypeGalleryComponent('DefinedValue', '{ "value": "F19FC180-FE8F-4B72-A59C-8013E3B0EB0D", "text": "Single", "description": "Used when the individual is single." }', '59D5A94C-94A0-4630-B80A-BB25697D74C7', {
+                        values: JSON.stringify([
+                            { value: '5FE5A540-7D9F-433E-B47E-4229D1472248', text: 'Married', description: 'Used when an individual is married.' },
+                            { value: 'F19FC180-FE8F-4B72-A59C-8013E3B0EB0D', text: 'Single', description: 'Used when the individual is single.' },
+                            { value: '3B689240-24C2-434B-A7B9-A4A6CBA7928C', text: 'Divorced', description: 'Used when the individual is divorced.' },
+                            { value: 'AE5A0228-9910-4505-B3C6-E6C98BEE2E7F', text: 'Unknown', description: '' }
+                        ]),
                         allowmultiple: '',
                         displaydescription: 'true',
                         enhancedselection: '',

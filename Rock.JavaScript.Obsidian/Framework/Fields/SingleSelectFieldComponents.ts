@@ -106,6 +106,7 @@ export const EditComponent = defineComponent({
         internalValue() {
             this.$emit('update:modelValue', this.internalValue);
         },
+
         modelValue: {
             immediate: true,
             handler() {

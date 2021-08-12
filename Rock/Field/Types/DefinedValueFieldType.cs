@@ -46,6 +46,7 @@ namespace Rock.Field.Types
         private const string ALLOW_ADDING_NEW_VALUES_KEY = "AllowAddingNewValues";
         private const string REPEAT_COLUMNS_KEY = "RepeatColumns";
         private const string SELECTABLE_VALUES_KEY = "SelectableDefinedValuesId";
+        private const string CLIENT_VALUES = "values";
 
         /// <summary>
         /// Returns a list of the configuration keys.
@@ -63,6 +64,33 @@ namespace Rock.Field.Types
             configKeys.Add( REPEAT_COLUMNS_KEY );
             configKeys.Add( SELECTABLE_VALUES_KEY );
             return configKeys;
+        }
+
+        /// <inheritdoc/>
+        public override Dictionary<string, string> GetClientConfigurationValues( Dictionary<string, ConfigurationValue> configurationValues )
+        {
+            var clientConfiguration = base.GetClientConfigurationValues( configurationValues );
+            int? definedTypeId = configurationValues.ContainsKey( DEFINED_TYPE_KEY ) ? configurationValues[DEFINED_TYPE_KEY].Value.AsIntegerOrNull() : null;
+
+            if ( definedTypeId.HasValue )
+            {
+                var definedType = DefinedTypeCache.Get( definedTypeId.Value );
+
+                clientConfiguration[CLIENT_VALUES] = definedType.DefinedValues
+                    .Select( v => new
+                    {
+                        Value = v.Guid,
+                        Text = v.Value,
+                        v.Description
+                    } )
+                    .ToCamelCaseJson( false, true );
+            }
+            else
+            {
+                clientConfiguration[CLIENT_VALUES] = "[]";
+            }
+
+            return clientConfiguration;
         }
 
         /// <summary>
@@ -370,28 +398,16 @@ namespace Rock.Field.Types
 
         #region Formatting
 
-        /// <summary>
-        /// Returns the field's current value(s)
-        /// </summary>
-        /// <param name="parentControl">The parent control.</param>
-        /// <param name="value">Information about the value</param>
-        /// <param name="configurationValues">The configuration values.</param>
-        /// <param name="condensed">Flag indicating if the value should be condensed (i.e. for use in a grid column)</param>
-        /// <returns></returns>
-        public override string FormatValue( Control parentControl, string value, Dictionary<string, ConfigurationValue> configurationValues, bool condensed )
+        /// <inheritdoc/>
+        public override string GetTextValue( string value, Dictionary<string, ConfigurationValue> configurationValues )
         {
             string formattedValue = string.Empty;
 
             if ( !string.IsNullOrWhiteSpace( value ) )
             {
-                bool useDescription = false;
-                if ( !condensed &&
-                     configurationValues != null &&
-                     configurationValues.ContainsKey( DISPLAY_DESCRIPTION ) &&
-                     configurationValues[DISPLAY_DESCRIPTION].Value.AsBoolean() )
-                {
-                    useDescription = true;
-                }
+                bool useDescription = configurationValues?.ContainsKey( DEFINED_TYPE_KEY ) ?? false
+                    ? configurationValues[DISPLAY_DESCRIPTION].Value.AsBoolean()
+                    : false;
 
                 var names = new List<string>();
                 foreach ( Guid guid in value.Split( new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries ).AsGuidList() )
@@ -406,7 +422,43 @@ namespace Rock.Field.Types
                 formattedValue = names.AsDelimited( ", " );
             }
 
-            return base.FormatValue( parentControl, formattedValue, null, condensed );
+            return formattedValue;
+        }
+
+        /// <inheritdoc/>
+        public override string GetCondensedTextValue( string value, Dictionary<string, ConfigurationValue> configurationValues )
+        {
+            string formattedValue = string.Empty;
+
+            if ( !string.IsNullOrWhiteSpace( value ) )
+            {
+                var names = new List<string>();
+                foreach ( Guid guid in value.Split( new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries ).AsGuidList() )
+                {
+                    var definedValue = DefinedValueCache.Get( guid );
+                    if ( definedValue != null )
+                    {
+                        names.Add( definedValue.Value );
+                    }
+                }
+
+                formattedValue = names.AsDelimited( ", " );
+            }
+
+            return formattedValue.Truncate( 100 );
+        }
+
+        /// <summary>
+        /// Returns the field's current value(s)
+        /// </summary>
+        /// <param name="parentControl">The parent control.</param>
+        /// <param name="value">Information about the value</param>
+        /// <param name="configurationValues">The configuration values.</param>
+        /// <param name="condensed">Flag indicating if the value should be condensed (i.e. for use in a grid column)</param>
+        /// <returns></returns>
+        public override string FormatValue( Control parentControl, string value, Dictionary<string, ConfigurationValue> configurationValues, bool condensed )
+        {
+            return condensed ? GetTextValue( value, configurationValues ) : GetCondensedTextValue( value, configurationValues );
         }
 
         /// <summary>
@@ -418,8 +470,6 @@ namespace Rock.Field.Types
         /// <returns></returns>
         public override object SortValue( System.Web.UI.Control parentControl, string value, Dictionary<string, ConfigurationValue> configurationValues )
         {
-            string formattedValue = string.Empty;
-
             if ( !string.IsNullOrWhiteSpace( value ) )
             {
                 bool useDescription = false;
@@ -447,6 +497,36 @@ namespace Rock.Field.Types
         #endregion
 
         #region Edit Control
+
+        /// <inheritdoc/>
+        public override string GetClientValue( string value, Dictionary<string, ConfigurationValue> configurationValues )
+        {
+            var guid = value.AsGuidOrNull();
+            DefinedValueCache definedValue = null;
+            bool useDescription = configurationValues?.ContainsKey( DEFINED_TYPE_KEY ) ?? false
+                ? configurationValues[DISPLAY_DESCRIPTION].Value.AsBoolean()
+                : false;
+
+            if ( guid.HasValue )
+            {
+                definedValue = DefinedValueCache.Get( guid.Value );
+            }
+
+            return new ClientValue
+            {
+                Value = definedValue?.Guid.ToString() ?? string.Empty,
+                Text = definedValue?.Value ?? string.Empty,
+                Description = useDescription ? definedValue?.Description ?? string.Empty : string.Empty
+            }.ToCamelCaseJson( false, true );
+        }
+
+        /// <inheritdoc/>
+        public override string GetValueFromClient( string clientValue, Dictionary<string, ConfigurationValue> configurationValues )
+        {
+            var value = clientValue.FromJsonOrNull<ClientValue>();
+
+            return value?.Value ?? string.Empty;
+        }
 
         /// <summary>
         /// Creates the control(s) necessary for prompting user for a new value
@@ -1055,5 +1135,14 @@ namespace Rock.Field.Types
             return definedValues;
         }
         #endregion
+
+        private class ClientValue
+        {
+            public string Value { get; set; }
+
+            public string Text { get; set; }
+
+            public string Description { get; set; }
+        }
     }
 }

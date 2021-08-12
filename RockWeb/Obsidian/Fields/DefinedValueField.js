@@ -1,109 +1,61 @@
-System.register(["vue", "./Index", "../Controls/DefinedValuePicker", "@Obsidian/Services/Number", "@Obsidian/Services/Boolean"], function (exports_1, context_1) {
+System.register(["vue", "./FieldType", "@Obsidian/Services/Boolean"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, Index_1, DefinedValuePicker_1, Number_1, Boolean_1, fieldTypeGuid, ConfigurationValueKey;
+    var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+    };
+    var vue_1, FieldType_1, Boolean_1, editComponent, DefinedValueFieldType;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (Index_1_1) {
-                Index_1 = Index_1_1;
-            },
-            function (DefinedValuePicker_1_1) {
-                DefinedValuePicker_1 = DefinedValuePicker_1_1;
-            },
-            function (Number_1_1) {
-                Number_1 = Number_1_1;
+            function (FieldType_1_1) {
+                FieldType_1 = FieldType_1_1;
             },
             function (Boolean_1_1) {
                 Boolean_1 = Boolean_1_1;
             }
         ],
         execute: function () {
-            fieldTypeGuid = '59D5A94C-94A0-4630-B80A-BB25697D74C7';
-            (function (ConfigurationValueKey) {
-                ConfigurationValueKey["DefinedType"] = "definedtype";
-                ConfigurationValueKey["AllowMultiple"] = "allowmultiple";
-                ConfigurationValueKey["DisplayDescription"] = "displaydescription";
-                ConfigurationValueKey["EnhancedSelection"] = "enhancedselection";
-                ConfigurationValueKey["IncludeInactive"] = "includeInactive";
-                ConfigurationValueKey["AllowAddingNewValues"] = "AllowAddingNewValues";
-                ConfigurationValueKey["RepeatColumns"] = "RepeatColumns";
-            })(ConfigurationValueKey || (ConfigurationValueKey = {}));
-            exports_1("default", Index_1.legacyRegisterFieldType(fieldTypeGuid, vue_1.defineComponent({
-                name: 'DefinedValueField',
-                inheritAttrs: false,
-                components: {
-                    DefinedValuePicker: DefinedValuePicker_1.default
-                },
-                props: Index_1.getFieldEditorProps(),
-                data() {
-                    return {
-                        definedValues: [],
-                        internalValue: ''
-                    };
-                },
-                computed: {
-                    selectedDefinedValues() {
-                        const guids = this.internalValue.toLowerCase().split(",");
-                        return this.definedValues.filter(dv => guids.indexOf(dv.guid.toLowerCase()) !== -1);
-                    },
-                    displayValue() {
-                        if (this.selectedDefinedValues.length === 0) {
-                            return '';
-                        }
-                        if (this.displayDescription) {
-                            return this.selectedDefinedValues.map(v => { var _a; return (_a = v.description) !== null && _a !== void 0 ? _a : ""; }).join(", ");
-                        }
-                        return this.selectedDefinedValues.map(v => { var _a; return (_a = v.value) !== null && _a !== void 0 ? _a : ""; }).join(", ");
-                    },
-                    displayDescription() {
-                        const displayDescription = this.configurationValues[ConfigurationValueKey.DisplayDescription];
-                        return Boolean_1.asBoolean(displayDescription);
-                    },
-                    configAttributes() {
-                        const attributes = Object.assign({}, this.$attrs);
-                        const definedType = this.configurationValues[ConfigurationValueKey.DefinedType];
-                        if (definedType) {
-                            const definedTypeId = Number_1.toNumberOrNull(definedType);
-                            if (definedTypeId) {
-                                const definedType = this.$store.getters['definedTypes/getById'](definedTypeId);
-                                attributes.definedTypeGuid = (definedType === null || definedType === void 0 ? void 0 : definedType.guid) || '';
+            editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
+                return (yield context_1.import('./DefinedValueFieldComponents')).EditComponent;
+            }));
+            DefinedValueFieldType = class DefinedValueFieldType extends FieldType_1.FieldTypeBase {
+                updateTextValue(value) {
+                    var _a, _b, _c, _d;
+                    try {
+                        const clientValue = JSON.parse((_a = value.value) !== null && _a !== void 0 ? _a : '');
+                        try {
+                            const values = JSON.parse((_c = (_b = value.configurationValues) === null || _b === void 0 ? void 0 : _b["values"]) !== null && _c !== void 0 ? _c : '[]');
+                            const displayDescription = Boolean_1.asBoolean((_d = value.configurationValues) === null || _d === void 0 ? void 0 : _d["displaydescription"]);
+                            const selectedValues = values.filter(v => v.value === clientValue.value);
+                            if (selectedValues.length >= 1) {
+                                value.textValue = displayDescription ? selectedValues[0].description : selectedValues[0].text;
+                            }
+                            else {
+                                value.textValue = '';
                             }
                         }
-                        if (this.displayDescription) {
-                            attributes.displayDescriptions = true;
-                        }
-                        const enhancedConfig = this.configurationValues[ConfigurationValueKey.EnhancedSelection];
-                        if (enhancedConfig) {
-                            attributes.enhanceForLongLists = Boolean_1.asBoolean(enhancedConfig);
-                        }
-                        return attributes;
-                    }
-                },
-                methods: {
-                    receivedDefinedValues(definedValues) {
-                        this.definedValues = definedValues;
-                    }
-                },
-                watch: {
-                    internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
-                    },
-                    modelValue: {
-                        immediate: true,
-                        handler() {
-                            this.internalValue = this.modelValue || '';
+                        catch (_e) {
+                            value.textValue = value.value;
                         }
                     }
-                },
-                template: `
-<div v-show="isEditMode">
-    <DefinedValuePicker v-model="internalValue" v-bind="configAttributes" @receivedDefinedValues="receivedDefinedValues" />
-</div>
-<span v-if="!isEditMode">{{ displayValue }}</span>`
-            })));
+                    catch (_f) {
+                        value.textValue = '';
+                    }
+                }
+                getEditComponent(_value) {
+                    return editComponent;
+                }
+            };
+            exports_1("DefinedValueFieldType", DefinedValueFieldType);
         }
     };
 });

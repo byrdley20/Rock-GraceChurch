@@ -90,7 +90,7 @@ namespace Rock.Blocks
         /// Renders the control.
         /// </summary>
         /// <returns></returns>
-        public override string GetControlMarkup()
+        public string GetControlMarkup()
         {
             var rootElementId = $"obsidian-{BlockCache.Guid}";
 

@@ -14,24 +14,31 @@
 // limitations under the License.
 // </copyright>
 //
-import { generateCommonEntityModule } from './Generators';
-import { Module } from 'vuex';
-import { State } from './State';
-import { Entity } from '@Obsidian/ViewModels';
+//import { generateCommonEntityModule } from './Generators';
+//import { Module } from 'vuex';
+//import { State } from './State';
+//import { Entity } from '@Obsidian/ViewModels';
 
-export type CommonEntity = {
-    namespace: string;
-    apiUrl: string;
-};
+// **********************
+// TODO: Common entities should probably be retired before release.
+// It was a good idea to simplify things, but after further discussion it
+// was decided it opens up too many security holes moving forward. Giving
+// the client API access to all campuses and defined values is a bit too
+// concerning.
+// **********************
 
-// The common entity configs that will be used with generateCommonEntityModule to create store modules
-export const commonEntities: CommonEntity[] = [
-    { namespace: 'campuses', apiUrl: '/api/v2/CommonEntities/Campuses' },
-    { namespace: 'definedTypes', apiUrl: '/api/v2/CommonEntities/DefinedTypes' }
-];
-export const commonEntityModules: Record<string, Module<{ items: Entity[] }, State>> = {};
 
-// Generate a module for each config
-for (const commonEntity of commonEntities) {
-    commonEntityModules[commonEntity.namespace] = generateCommonEntityModule(commonEntity);
-}
+//export type CommonEntity = {
+//    namespace: string;
+//    apiUrl: string;
+//};
+
+//// The common entity configs that will be used with generateCommonEntityModule to create store modules
+//export const commonEntities: CommonEntity[] = [
+//];
+//export const commonEntityModules: Record<string, Module<{ items: Entity[] }, State>> = {};
+
+//// Generate a module for each config
+//for (const commonEntity of commonEntities) {
+//    commonEntityModules[commonEntity.namespace] = generateCommonEntityModule(commonEntity);
+//}

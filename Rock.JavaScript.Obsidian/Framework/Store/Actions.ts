@@ -16,7 +16,7 @@
 //
 
 import { ActionContext, ActionTree } from 'vuex';
-import { commonEntities } from './CommonEntities';
+//import { commonEntities } from './CommonEntities';
 import { Mutations, MutationType } from './Mutations';
 import { State } from './State';
 import { PageConfig } from '../Index';
@@ -45,11 +45,12 @@ export const actions: ActionTree<State, State> & Actions = {
         context.commit(MutationType.SetPageInitializationData, { pageConfig: value.pageConfig });
 
         // Initialize each common entity module
-        for (const commonEntity of commonEntities) {
-            context.dispatch(`${commonEntity.namespace}/initialize`);
-        }
+    //    for (const commonEntity of commonEntities) {
+    //        context.dispatch(`${commonEntity.namespace}/initialize`);
+    //    }
     },
 
+    // This should be replaced with something else, doesn't really fit as a store action.
     [ActionType.RedirectToLogin](context) {
         if (context.state.loginUrlWithReturnUrl) {
             window.location.href = context.state.loginUrlWithReturnUrl;

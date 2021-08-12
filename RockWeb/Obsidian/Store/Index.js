@@ -1,6 +1,6 @@
-System.register(["vuex", "./CommonEntities", "./State", "./Mutations", "./Actions", "./Getters"], function (exports_1, context_1) {
+System.register(["vuex", "./State", "./Mutations", "./Actions", "./Getters"], function (exports_1, context_1) {
     "use strict";
-    var vuex_1, CommonEntities_1, State_1, Mutations_1, Actions_1, Getters_1, store;
+    var vuex_1, State_1, Mutations_1, Actions_1, Getters_1, store;
     var __moduleName = context_1 && context_1.id;
     function useStore() {
         return store;
@@ -10,9 +10,6 @@ System.register(["vuex", "./CommonEntities", "./State", "./Mutations", "./Action
         setters: [
             function (vuex_1_1) {
                 vuex_1 = vuex_1_1;
-            },
-            function (CommonEntities_1_1) {
-                CommonEntities_1 = CommonEntities_1_1;
             },
             function (State_1_1) {
                 State_1 = State_1_1;
@@ -33,7 +30,7 @@ System.register(["vuex", "./CommonEntities", "./State", "./Mutations", "./Action
                 getters: Getters_1.getters,
                 mutations: Mutations_1.mutations,
                 actions: Actions_1.actions,
-                modules: Object.assign({}, CommonEntities_1.commonEntityModules)
+                modules: {}
             }));
             exports_1("default", store);
         }

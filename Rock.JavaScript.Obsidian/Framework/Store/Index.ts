@@ -15,7 +15,7 @@
 // </copyright>
 //
 import { createStore, Store as VuexStore } from 'vuex';
-import { commonEntityModules } from './CommonEntities';
+//import { commonEntityModules } from './CommonEntities';
 import { State, state } from './State';
 import { mutations } from './Mutations';
 import { actions } from './Actions';
@@ -40,7 +40,7 @@ export const store: Store = createStore<State>({
     mutations,
     actions,
     modules: {
-        ...commonEntityModules
+        //...commonEntityModules
     }
 });
 

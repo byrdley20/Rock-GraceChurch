@@ -14,22 +14,22 @@
 // limitations under the License.
 // </copyright>
 //
-import { Component, defineComponent, PropType } from 'vue';
-import DropDownList, { DropDownListOption } from '../Elements/DropDownList';
-import { Module } from 'vuex';
-import { State } from './State';
-import cache from '../Util/Cache';
-import http from '../Util/Http';
-import { CommonEntity } from './CommonEntities';
-import { splitCamelCase } from '@Obsidian/Services/String';
-import { Guid } from '../Util/Guid';
-import { Entity } from '@Obsidian/ViewModels';
+//import { Component, defineComponent, PropType } from 'vue';
+//import DropDownList, { DropDownListOption } from '../Elements/DropDownList';
+//import { Module } from 'vuex';
+//import { State } from './State';
+//import cache from '../Util/Cache';
+//import http from '../Util/Http';
+//import { CommonEntity } from './CommonEntities';
+//import { splitCamelCase } from '@Obsidian/Services/String';
+//import { Guid } from '../Util/Guid';
+//import { Entity } from '@Obsidian/ViewModels';
 
-export type CommonEntityOption = {
-    guid: Guid;
-    id: number;
-    text: string;
-};
+//export type CommonEntityOption = {
+//    guid: Guid;
+//    id: number;
+//    text: string;
+//};
 
 /**
 * Generate and add a common entity picker. Common entities are those stored in the Obsidian store.
@@ -37,102 +37,102 @@ export type CommonEntityOption = {
 * @param {any} getOptionsFunc A function called with the store as a parameter that should return the
 * options object list for the drop down list.
 */
-export function createCommonEntityPicker(entityName: string, getOptionsFunc: () => CommonEntityOption[]): Component {
-    const entityNameForDisplay = splitCamelCase(entityName);
+//export function createCommonEntityPicker(entityName: string, getOptionsFunc: () => CommonEntityOption[]): Component {
+//    const entityNameForDisplay = splitCamelCase(entityName);
 
-    return defineComponent({
-        name: `${entityName}Picker`,
-        components: {
-            DropDownList
-        },
-        props: {
-            modelValue: {
-                type: String as PropType<Guid>,
-                required: true
-            },
-            label: {
-                type: String as PropType<string>,
-                default: entityNameForDisplay
-            }
-        },
-        data() {
-            return {
-                providedOptions: getOptionsFunc(),
-                selectedGuid: '',
-                isLoading: false
-            };
-        },
-        computed: {
-            options(): DropDownListOption[] {
-                return getOptionsFunc().map(o => ({
-                    text: o.text,
-                    value: o.guid
-                } as DropDownListOption));
-            }
-        },
-        watch: {
-            modelValue: {
-                immediate: true,
-                handler(): void {
-                    this.selectedGuid = this.modelValue;
-                }
-            },
-            selectedGuid: {
-                immediate: true,
-                handler(): void {
-                    this.$emit('update:modelValue', this.selectedGuid);
-                }
-            }
-        },
-        template: `
-<DropDownList v-model="selectedGuid" :disabled="isLoading" :label="label" :options="options" />`
-    });
-}
+//    return defineComponent({
+//        name: `${entityName}Picker`,
+//        components: {
+//            DropDownList
+//        },
+//        props: {
+//            modelValue: {
+//                type: String as PropType<Guid>,
+//                required: true
+//            },
+//            label: {
+//                type: String as PropType<string>,
+//                default: entityNameForDisplay
+//            }
+//        },
+//        data() {
+//            return {
+//                providedOptions: getOptionsFunc(),
+//                selectedGuid: '',
+//                isLoading: false
+//            };
+//        },
+//        computed: {
+//            options(): DropDownListOption[] {
+//                return getOptionsFunc().map(o => ({
+//                    text: o.text,
+//                    value: o.guid
+//                } as DropDownListOption));
+//            }
+//        },
+//        watch: {
+//            modelValue: {
+//                immediate: true,
+//                handler(): void {
+//                    this.selectedGuid = this.modelValue;
+//                }
+//            },
+//            selectedGuid: {
+//                immediate: true,
+//                handler(): void {
+//                    this.$emit('update:modelValue', this.selectedGuid);
+//                }
+//            }
+//        },
+//        template: `
+//<DropDownList v-model="selectedGuid" :disabled="isLoading" :label="label" :options="options" />`
+//    });
+//}
 
 /**
 * Generate a Vuex module that fetches, caches, and stores common entities for use across all controls and blocks.
 * Provide the namespace (ex: campuses) that will serve as the Vuex namespace.
 * Also provide the apiUrl (ex: api/campuses) that allows the module to hydrate its items when needed.
 */
-export function generateCommonEntityModule<TEntity extends Entity>(commonEntity: CommonEntity): Module<{ items: TEntity[] }, State> {
-    return {
-        namespaced: true as const,
-        state: {
-            items: []
-        },
-        mutations: {
-            setItems(state, { items }: { items: TEntity[] }): void {
-                state.items = items;
-            }
-        },
-        getters: {
-            all(state): TEntity[] {
-                return state.items;
-            },
-            getByGuid(state) {
-                return (guid: Guid): TEntity | null => {
-                    return state.items.find(i => i.guid === guid) || null;
-                };
-            },
-            getById(state) {
-                return (id: number): TEntity | null => {
-                    return state.items.find(i => i.id === id) || null;
-                };
-            }
-        },
-        actions: {
-            async initialize(context): Promise<void> {
-                const cacheKey = `common-entity-${commonEntity.namespace}`;
-                let items = cache.get<TEntity[]>(cacheKey) || [];
+//export function generateCommonEntityModule<TEntity extends Entity>(commonEntity: CommonEntity): Module<{ items: TEntity[] }, State> {
+//    return {
+//        namespaced: true as const,
+//        state: {
+//            items: []
+//        },
+//        mutations: {
+//            setItems(state, { items }: { items: TEntity[] }): void {
+//                state.items = items;
+//            }
+//        },
+//        getters: {
+//            all(state): TEntity[] {
+//                return state.items;
+//            },
+//            getByGuid(state) {
+//                return (guid: Guid): TEntity | null => {
+//                    return state.items.find(i => i.guid === guid) || null;
+//                };
+//            },
+//            getById(state) {
+//                return (id: number): TEntity | null => {
+//                    return state.items.find(i => i.id === id) || null;
+//                };
+//            }
+//        },
+//        actions: {
+//            async initialize(context): Promise<void> {
+//                const cacheKey = `common-entity-${commonEntity.namespace}`;
+//                let items = cache.get<TEntity[]>(cacheKey) || [];
 
-                if (!items || !items.length) {
-                    const response = await http.get<TEntity[]>(commonEntity.apiUrl);
-                    items = response.data || [];
-                    cache.set(cacheKey, items);
-                }
+//                if (!items || !items.length) {
+//                    const response = await http.get<TEntity[]>(commonEntity.apiUrl);
+//                    items = response.data || [];
+//                    cache.set(cacheKey, items);
+//                }
 
-                context.commit('setItems', { items });
-            }
-        }
-    };
-}
+//                context.commit('setItems', { items });
+//            }
+//        }
+//    };
+//}

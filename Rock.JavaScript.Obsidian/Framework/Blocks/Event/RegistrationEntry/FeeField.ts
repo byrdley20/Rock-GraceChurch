@@ -108,7 +108,6 @@ export default defineComponent( {
         dropDownListOptions(): DropDownListOption[]
         {
             return this.fee.items.map( i => ( {
-                key: i.guid,
                 text: this.getItemLabel( i ),
                 value: i.guid
             } ) );

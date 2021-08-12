@@ -63,7 +63,6 @@ System.register(["vue", "../Elements/DropDownList"], function (exports_1, contex
                     },
                     options() {
                         return this.definedValues.map(dv => ({
-                            key: dv.guid,
                             value: dv.guid,
                             text: this.displayDescriptions ? dv.description : dv.value
                         }));

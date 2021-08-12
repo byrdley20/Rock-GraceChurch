@@ -65,7 +65,6 @@ export function createCommonEntityPicker(entityName: string, getOptionsFunc: () 
         computed: {
             options(): DropDownListOption[] {
                 return getOptionsFunc().map(o => ({
-                    key: o.guid,
                     text: o.text,
                     value: o.guid
                 } as DropDownListOption));

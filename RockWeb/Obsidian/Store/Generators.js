@@ -38,7 +38,6 @@ System.register(["vue", "../Elements/DropDownList", "../Util/Cache", "../Util/Ht
             computed: {
                 options() {
                     return getOptionsFunc().map(o => ({
-                        key: o.guid,
                         text: o.text,
                         value: o.guid
                     }));

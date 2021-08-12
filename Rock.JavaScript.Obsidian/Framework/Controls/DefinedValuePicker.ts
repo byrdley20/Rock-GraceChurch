@@ -65,7 +65,6 @@ export default defineComponent( {
         options (): DropDownListOption[]
         {
             return this.definedValues.map( dv => ( {
-                key: dv.guid,
                 value: dv.guid,
                 text: this.displayDescriptions ? dv.description : dv.value
             } as DropDownListOption ) );

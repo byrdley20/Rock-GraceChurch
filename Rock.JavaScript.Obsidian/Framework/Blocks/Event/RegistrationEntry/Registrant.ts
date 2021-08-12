@@ -197,7 +197,6 @@ export default defineComponent( {
                     areEqual( fm.familyGuid, selectedFamily ) &&
                     !usedFamilyMemberGuids.includes( fm.guid ) )
                 .map( fm => ( {
-                    key: fm.guid,
                     text: fm.fullName,
                     value: fm.guid
                 } ) );

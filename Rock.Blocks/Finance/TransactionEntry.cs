@@ -28,6 +28,7 @@ using Rock.Tasks;
 using Rock.Transactions;
 using Rock.ViewModel;
 using Rock.ViewModel.Controls;
+using Rock.ViewModel.NonEntities;
 using Rock.Web.Cache;
 using Rock.Web.UI.Controls;
 
@@ -871,10 +872,19 @@ mission. We are so grateful for your commitment.</p>
                 },
                 Campuses = CampusCache.All()
                     .Where( c => c.IsActive ?? false )
-                    .Select( c => new CampusOptionViewModel
+                    .Select( c => new ListOptionViewModel
                     {
                         Value = c.Guid.ToString(),
                         Text = c.Name
+                    } )
+                    .ToList(),
+                Frequencies = DefinedTypeCache.Get( SystemGuid.DefinedType.FINANCIAL_FREQUENCY )
+                    .DefinedValues
+                    .Where( v => v.IsActive )
+                    .Select( v => new ListOptionViewModel
+                    {
+                        Value = v.Guid.ToString(),
+                        Text = v.Value
                     } )
                     .ToList()
             };
@@ -1846,29 +1856,15 @@ mission. We are so grateful for your commitment.</p>
             /// <value>
             /// The campuses available for the user to select.
             /// </value>
-            public List<CampusOptionViewModel> Campuses { get; set; }
-        }
-
-        /// <summary>
-        /// Identifies a single option that will be shown in the campus picker.
-        /// </summary>
-        public class CampusOptionViewModel
-        {
-            /// <summary>
-            /// Gets or sets the value.
-            /// </summary>
-            /// <value>
-            /// The value.
-            /// </value>
-            public string Value { get; set; }
+            public List<ListOptionViewModel> Campuses { get; set; }
 
             /// <summary>
-            /// Gets or sets the text.
+            /// Gets or sets the available giving frequencies.
             /// </summary>
             /// <value>
-            /// The text.
+            /// The available giving frequencies.
             /// </value>
-            public string Text { get; set; }
+            public List<ListOptionViewModel> Frequencies { get; set; }
         }
 
         #endregion ViewModels

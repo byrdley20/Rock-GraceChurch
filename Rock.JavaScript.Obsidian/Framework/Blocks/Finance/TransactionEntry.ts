@@ -15,10 +15,8 @@
 // </copyright>
 //
 import DropDownList, { DropDownListOption } from '../../Elements/DropDownList';
-import DefinedValuePicker from '../../Controls/DefinedValuePicker';
 import CurrencyBox from '../../Elements/CurrencyBox';
 import { defineComponent, inject } from 'vue';
-import { DefinedType } from '@Obsidian/SystemGuids';
 import DatePicker from '../../Elements/DatePicker';
 import RockButton from '../../Elements/RockButton';
 import { areEqual, Guid, newGuid } from '../../Util/Guid';
@@ -67,7 +65,6 @@ export default defineComponent({
     components: {
         CurrencyBox,
         DropDownList,
-        DefinedValuePicker,
         DatePicker,
         RockButton,
         Alert,
@@ -94,7 +91,6 @@ export default defineComponent({
             doGatewayControlSubmit: false,
             pageIndex: 1,
             page1Error: '',
-            frequencyDefinedTypeGuid: DefinedType.FinancialFrequency,
             args: {
                 isGivingAsPerson: true,
                 email: '',
@@ -152,6 +148,10 @@ export default defineComponent({
 
         campuses(): DropDownListOption[] {
             return this.configurationValues['campuses'] as DropDownListOption[] || [];
+        },
+
+        frequencies(): DropDownListOption[] {
+            return this.configurationValues['frequencies'] as DropDownListOption[] || [];
         },
 
         campusName(): string | null {
@@ -291,8 +291,8 @@ export default defineComponent({
         <template v-for="account in accounts">
             <CurrencyBox :label="account.publicName" v-model="args.accountAmounts[account.guid]" />
         </template>
-        <DropDownList v-model="args.campusGuid" :showBlankItem="false" :options="campuses" />
-        <DefinedValuePicker :definedTypeGuid="frequencyDefinedTypeGuid" v-model="args.frequencyValueGuid" label="Frequency" :showBlankItem="false" />
+        <DropDownList label="Campus" v-model="args.campusGuid" :showBlankItem="false" :options="campuses" />
+        <DropDownList label="Frequency" v-model="args.frequencyValueGuid" :showBlankItem="false" :options="frequencies" />
         <DatePicker label="Process Gift On" v-model="args.giftDate" />
         <Alert alertType="validation" v-if="page1Error">{{page1Error}}</Alert>
         <RockButton btnType="primary" @click="onPageOneSubmit">Give Now</RockButton>

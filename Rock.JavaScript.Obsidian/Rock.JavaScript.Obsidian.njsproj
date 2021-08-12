@@ -100,8 +100,6 @@
     <TypeScriptCompile Include="Framework\Controls\AttributeValuesContainer.ts" />
     <TypeScriptCompile Include="Framework\Controls\BlockActionSourcedGrid.ts" />
     <TypeScriptCompile Include="Framework\Controls\ComponentFromUrl.ts" />
-    <TypeScriptCompile Include="Framework\Controls\DefinedTypePicker.ts" />
-    <TypeScriptCompile Include="Framework\Controls\DefinedValuePicker.ts" />
     <TypeScriptCompile Include="Framework\Controls\Dialog.ts" />
     <TypeScriptCompile Include="Framework\Controls\GatewayControl.ts" />
     <TypeScriptCompile Include="Framework\Controls\Grid.ts" />

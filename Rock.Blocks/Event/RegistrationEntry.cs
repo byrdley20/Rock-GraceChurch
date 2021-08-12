@@ -29,6 +29,7 @@ using Rock.Tasks;
 using Rock.ViewModel;
 using Rock.ViewModel.Blocks;
 using Rock.ViewModel.Controls;
+using Rock.ViewModel.NonEntities;
 using Rock.Web.Cache;
 
 namespace Rock.Blocks.Event
@@ -1974,7 +1975,7 @@ namespace Rock.Blocks.Event
                 GatewayGuid = financialGateway?.Guid,
                 Campuses = CampusCache.All()
                     .Where( c => c.IsActive ?? false )
-                    .Select( c => new CampusOptionViewModel
+                    .Select( c => new ListOptionViewModel
                     {
                         Value = c.Guid.ToString(),
                         Text = c.Name

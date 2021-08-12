@@ -14,15 +14,29 @@
 // limitations under the License.
 // </copyright>
 //
-import { CommonEntityOption, createCommonEntityPicker } from '../Store/Generators';
-import store from '../Store/Index';
-import { DefinedType } from '@Obsidian/ViewModels';
 
-export default createCommonEntityPicker(
-    'DefinedType',
-    () => (<DefinedType[]>store.getters['definedTypes/all']).map((dt: DefinedType) => ({
-        guid: dt.guid,
-        id: dt.id,
-        text: dt.name
-    } as CommonEntityOption))
-);
+namespace Rock.ViewModel.NonEntities
+{
+    /// <summary>
+    /// Identifies a single option that will be shown in the campus picker.
+    /// </summary>
+    public class ListOptionViewModel
+    {
+        /// <summary>
+        /// Gets or sets the value.
+        /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
+        public string Value { get; set; }
+
+        /// <summary>
+        /// Gets or sets the text.
+        /// </summary>
+        /// <value>
+        /// The text.
+        /// </value>
+        public string Text { get; set; }
+    }
+
+}

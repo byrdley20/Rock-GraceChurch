@@ -16,13 +16,9 @@
 //
 
 import PaneledBlockTemplate from '../../Templates/PaneledBlockTemplate';
-import DefinedTypePicker from '../../Controls/DefinedTypePicker';
-import DefinedValuePicker from '../../Controls/DefinedValuePicker';
 import { defineComponent, PropType } from 'vue';
-import store from '../../Store/Index';
 import TextBox from '../../Elements/TextBox';
 import EmailBox from '../../Elements/EmailBox';
-import { DefinedValue, DefinedType } from '@Obsidian/ViewModels';
 import CurrencyBox from '../../Elements/CurrencyBox';
 import PanelWidget from '../../Elements/PanelWidget';
 import DatePicker from '../../Elements/DatePicker';
@@ -492,67 +488,6 @@ const TextBoxGallery = defineComponent( {
 </GalleryAndResult>`
 } );
 
-/** Demonstrates a defined type and defined value picker */
-const DefinedTypeAndValueGallery = defineComponent( {
-    name: 'DefinedTypeAndValueGallery',
-    components: {
-        GalleryAndResult,
-        DefinedTypePicker,
-        DefinedValuePicker,
-        Toggle
-    },
-    data ()
-    {
-        return {
-            displayDescriptions: false,
-            definedTypeGuid: '',
-            definedValueGuid: '',
-            definedValue: null as DefinedValue | null
-        };
-    },
-    computed: {
-        definedTypeName (): string
-        {
-            const definedType = (<(guid: Guid) => DefinedType | null>store.getters['definedTypes/getByGuid'])(this.definedTypeGuid) as DefinedType;
-            return definedType?.name || '';
-        },
-        definedValueName (): string
-        {
-            return this.definedValue?.value || '';
-        }
-    },
-    methods: {
-        onDefinedValueChange(definedValue: DefinedValue | null): void {
-            this.definedValue = definedValue;
-        }
-    },
-    template: `
-<GalleryAndResult>
-    <template #header>
-        DefinedTypePicker and DefinedValuePicker
-    </template>
-    <template #gallery>
-        <Toggle label="Use Descriptions" v-model="displayDescriptions" />
-        <DefinedTypePicker v-model="definedTypeGuid" />
-        <DefinedTypePicker v-model="definedTypeGuid" />
-        <DefinedValuePicker v-model="definedValueGuid" :definedTypeGuid="definedTypeGuid" :displayDescriptions="displayDescriptions" />
-        <DefinedValuePicker v-model="definedValueGuid" @update:model="onDefinedValueChange" :definedTypeGuid="definedTypeGuid" />
-    </template>
-    <template #result>
-        <p>
-            <strong>Defined Type Guid</strong>
-            {{definedTypeGuid}}
-            <span v-if="definedTypeName">({{definedTypeName}})</span>
-        </p>
-        <p>
-            <strong>Defined Value Guid</strong>
-            {{definedValueGuid}}
-            <span v-if="definedValueName">({{definedValueName}})</span>
-        </p>
-    </template>
-</GalleryAndResult>`
-} );
-
 /** Demonstrates a color picker */
 const ColorPickerGallery = defineComponent({
     name: 'ColorPickerGallery',
@@ -811,7 +746,6 @@ export default defineComponent({
         DropDownListGallery,
         HelpBlockGallery,
         FormRulesGallery,
-        DefinedTypeAndValueGallery,
         ColorPickerGallery,
         NumberBoxGallery,
         NumberRangeBoxGallery,
@@ -887,8 +821,6 @@ export default defineComponent({
         </GalleryAndResult>
 
         <DatePartsPickerGallery />
-
-        <DefinedTypeAndValueGallery />
 
         <GalleryAndResult>
             <template #header>

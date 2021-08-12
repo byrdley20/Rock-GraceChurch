@@ -1,23 +1,14 @@
-System.register(["../../Templates/PaneledBlockTemplate", "../../Controls/DefinedTypePicker", "../../Controls/DefinedValuePicker", "vue", "../../Store/Index", "../../Elements/TextBox", "../../Elements/EmailBox", "../../Elements/CurrencyBox", "../../Elements/PanelWidget", "../../Elements/DatePicker", "../../Elements/DateTimePicker", "../../Elements/BirthdayPicker", "../../Elements/NumberUpDown", "../../Controls/AddressControl", "../../Elements/Toggle", "../../Elements/ItemsWithPreAndPostHtml", "../../Elements/StaticFormControl", "../../Elements/ProgressTracker", "../../Controls/RockForm", "../../Elements/RockButton", "../../Elements/RadioButtonList", "../../Elements/DropDownList", "../../Controls/Dialog", "../../Elements/CheckBox", "../../Elements/PhoneNumberBox", "../../Elements/HelpBlock", "../../Elements/DatePartsPicker", "../../Elements/ColorPicker", "../../Elements/NumberBox", "../../Elements/NumberRangeBox", "../../Elements/GenderDropDownList", "../../Elements/SocialSecurityNumberBox", "../../Elements/TimePicker", "../../Elements/CheckBoxList", "../../Elements/Rating", "@Obsidian/Services/Number"], function (exports_1, context_1) {
+System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/TextBox", "../../Elements/EmailBox", "../../Elements/CurrencyBox", "../../Elements/PanelWidget", "../../Elements/DatePicker", "../../Elements/DateTimePicker", "../../Elements/BirthdayPicker", "../../Elements/NumberUpDown", "../../Controls/AddressControl", "../../Elements/Toggle", "../../Elements/ItemsWithPreAndPostHtml", "../../Elements/StaticFormControl", "../../Elements/ProgressTracker", "../../Controls/RockForm", "../../Elements/RockButton", "../../Elements/RadioButtonList", "../../Elements/DropDownList", "../../Controls/Dialog", "../../Elements/CheckBox", "../../Elements/PhoneNumberBox", "../../Elements/HelpBlock", "../../Elements/DatePartsPicker", "../../Elements/ColorPicker", "../../Elements/NumberBox", "../../Elements/NumberRangeBox", "../../Elements/GenderDropDownList", "../../Elements/SocialSecurityNumberBox", "../../Elements/TimePicker", "../../Elements/CheckBoxList", "../../Elements/Rating", "@Obsidian/Services/Number"], function (exports_1, context_1) {
     "use strict";
-    var PaneledBlockTemplate_1, DefinedTypePicker_1, DefinedValuePicker_1, vue_1, Index_1, TextBox_1, EmailBox_1, CurrencyBox_1, PanelWidget_1, DatePicker_1, DateTimePicker_1, BirthdayPicker_1, NumberUpDown_1, AddressControl_1, Toggle_1, ItemsWithPreAndPostHtml_1, StaticFormControl_1, ProgressTracker_1, RockForm_1, RockButton_1, RadioButtonList_1, DropDownList_1, Dialog_1, CheckBox_1, PhoneNumberBox_1, HelpBlock_1, DatePartsPicker_1, ColorPicker_1, NumberBox_1, NumberRangeBox_1, GenderDropDownList_1, SocialSecurityNumberBox_1, TimePicker_1, CheckBoxList_1, Rating_1, Number_1, GalleryAndResult, PhoneNumberBoxGallery, HelpBlockGallery, DropDownListGallery, RadioButtonListGallery, CheckBoxGallery, DialogGallery, FormRulesGallery, CheckBoxListGallery, DatePickerGallery, DateTimePickerGallery, DatePartsPickerGallery, TextBoxGallery, DefinedTypeAndValueGallery, ColorPickerGallery, NumberBoxGallery, NumberRangeBoxGallery, GenderDropDownListGallery, SocialSecurityNumberBoxGallery, TimePickerGallery, RatingGallery;
+    var PaneledBlockTemplate_1, vue_1, TextBox_1, EmailBox_1, CurrencyBox_1, PanelWidget_1, DatePicker_1, DateTimePicker_1, BirthdayPicker_1, NumberUpDown_1, AddressControl_1, Toggle_1, ItemsWithPreAndPostHtml_1, StaticFormControl_1, ProgressTracker_1, RockForm_1, RockButton_1, RadioButtonList_1, DropDownList_1, Dialog_1, CheckBox_1, PhoneNumberBox_1, HelpBlock_1, DatePartsPicker_1, ColorPicker_1, NumberBox_1, NumberRangeBox_1, GenderDropDownList_1, SocialSecurityNumberBox_1, TimePicker_1, CheckBoxList_1, Rating_1, Number_1, GalleryAndResult, PhoneNumberBoxGallery, HelpBlockGallery, DropDownListGallery, RadioButtonListGallery, CheckBoxGallery, DialogGallery, FormRulesGallery, CheckBoxListGallery, DatePickerGallery, DateTimePickerGallery, DatePartsPickerGallery, TextBoxGallery, ColorPickerGallery, NumberBoxGallery, NumberRangeBoxGallery, GenderDropDownListGallery, SocialSecurityNumberBoxGallery, TimePickerGallery, RatingGallery;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (PaneledBlockTemplate_1_1) {
                 PaneledBlockTemplate_1 = PaneledBlockTemplate_1_1;
             },
-            function (DefinedTypePicker_1_1) {
-                DefinedTypePicker_1 = DefinedTypePicker_1_1;
-            },
-            function (DefinedValuePicker_1_1) {
-                DefinedValuePicker_1 = DefinedValuePicker_1_1;
-            },
             function (vue_1_1) {
                 vue_1 = vue_1_1;
-            },
-            function (Index_1_1) {
-                Index_1 = Index_1_1;
             },
             function (TextBox_1_1) {
                 TextBox_1 = TextBox_1_1;
@@ -515,63 +506,6 @@ System.register(["../../Templates/PaneledBlockTemplate", "../../Controls/Defined
     </template>
 </GalleryAndResult>`
             });
-            DefinedTypeAndValueGallery = vue_1.defineComponent({
-                name: 'DefinedTypeAndValueGallery',
-                components: {
-                    GalleryAndResult,
-                    DefinedTypePicker: DefinedTypePicker_1.default,
-                    DefinedValuePicker: DefinedValuePicker_1.default,
-                    Toggle: Toggle_1.default
-                },
-                data() {
-                    return {
-                        displayDescriptions: false,
-                        definedTypeGuid: '',
-                        definedValueGuid: '',
-                        definedValue: null
-                    };
-                },
-                computed: {
-                    definedTypeName() {
-                        const definedType = Index_1.default.getters['definedTypes/getByGuid'](this.definedTypeGuid);
-                        return (definedType === null || definedType === void 0 ? void 0 : definedType.name) || '';
-                    },
-                    definedValueName() {
-                        var _a;
-                        return ((_a = this.definedValue) === null || _a === void 0 ? void 0 : _a.value) || '';
-                    }
-                },
-                methods: {
-                    onDefinedValueChange(definedValue) {
-                        this.definedValue = definedValue;
-                    }
-                },
-                template: `
-<GalleryAndResult>
-    <template #header>
-        DefinedTypePicker and DefinedValuePicker
-    </template>
-    <template #gallery>
-        <Toggle label="Use Descriptions" v-model="displayDescriptions" />
-        <DefinedTypePicker v-model="definedTypeGuid" />
-        <DefinedTypePicker v-model="definedTypeGuid" />
-        <DefinedValuePicker v-model="definedValueGuid" :definedTypeGuid="definedTypeGuid" :displayDescriptions="displayDescriptions" />
-        <DefinedValuePicker v-model="definedValueGuid" @update:model="onDefinedValueChange" :definedTypeGuid="definedTypeGuid" />
-    </template>
-    <template #result>
-        <p>
-            <strong>Defined Type Guid</strong>
-            {{definedTypeGuid}}
-            <span v-if="definedTypeName">({{definedTypeName}})</span>
-        </p>
-        <p>
-            <strong>Defined Value Guid</strong>
-            {{definedValueGuid}}
-            <span v-if="definedValueName">({{definedValueName}})</span>
-        </p>
-    </template>
-</GalleryAndResult>`
-            });
             ColorPickerGallery = vue_1.defineComponent({
                 name: 'ColorPickerGallery',
                 components: {
@@ -816,7 +750,6 @@ System.register(["../../Templates/PaneledBlockTemplate", "../../Controls/Defined
                     DropDownListGallery,
                     HelpBlockGallery,
                     FormRulesGallery,
-                    DefinedTypeAndValueGallery,
                     ColorPickerGallery,
                     NumberBoxGallery,
                     NumberRangeBoxGallery,
@@ -888,8 +821,6 @@ System.register(["../../Templates/PaneledBlockTemplate", "../../Controls/Defined
         </GalleryAndResult>
 
         <DatePartsPickerGallery />
-
-        <DefinedTypeAndValueGallery />
 
         <GalleryAndResult>
             <template #header>

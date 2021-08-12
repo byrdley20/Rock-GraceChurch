@@ -1,4 +1,4 @@
-System.register(["../../Elements/DropDownList", "../../Controls/DefinedValuePicker", "../../Elements/CurrencyBox", "vue", "../../Elements/DatePicker", "../../Elements/RockButton", "../../Util/Guid", "../../Elements/Alert", "@Obsidian/Services/Number", "../../Elements/Toggle", "../../Store/Index", "../../Elements/TextBox", "@Obsidian/Services/String", "../../Util/RockDate", "../../Controls/GatewayControl", "../../Controls/RockValidation"], function (exports_1, context_1) {
+System.register(["../../Elements/DropDownList", "../../Elements/CurrencyBox", "vue", "../../Elements/DatePicker", "../../Elements/RockButton", "../../Util/Guid", "../../Elements/Alert", "@Obsidian/Services/Number", "../../Elements/Toggle", "../../Store/Index", "../../Elements/TextBox", "@Obsidian/Services/String", "../../Util/RockDate", "../../Controls/GatewayControl", "../../Controls/RockValidation"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,15 +9,12 @@ System.register(["../../Elements/DropDownList", "../../Controls/DefinedValuePick
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var DropDownList_1, DefinedValuePicker_1, CurrencyBox_1, vue_1, DatePicker_1, RockButton_1, Guid_1, Alert_1, Number_1, Toggle_1, Index_1, TextBox_1, String_1, RockDate_1, GatewayControl_1, RockValidation_1;
+    var DropDownList_1, CurrencyBox_1, vue_1, DatePicker_1, RockButton_1, Guid_1, Alert_1, Number_1, Toggle_1, Index_1, TextBox_1, String_1, RockDate_1, GatewayControl_1, RockValidation_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (DropDownList_1_1) {
                 DropDownList_1 = DropDownList_1_1;
-            },
-            function (DefinedValuePicker_1_1) {
-                DefinedValuePicker_1 = DefinedValuePicker_1_1;
             },
             function (CurrencyBox_1_1) {
                 CurrencyBox_1 = CurrencyBox_1_1;
@@ -68,7 +65,6 @@ System.register(["../../Elements/DropDownList", "../../Controls/DefinedValuePick
                 components: {
                     CurrencyBox: CurrencyBox_1.default,
                     DropDownList: DropDownList_1.default,
-                    DefinedValuePicker: DefinedValuePicker_1.default,
                     DatePicker: DatePicker_1.default,
                     RockButton: RockButton_1.default,
                     Alert: Alert_1.default,
@@ -93,7 +89,6 @@ System.register(["../../Elements/DropDownList", "../../Controls/DefinedValuePick
                         doGatewayControlSubmit: false,
                         pageIndex: 1,
                         page1Error: '',
-                        frequencyDefinedTypeGuid: "1F645CFB-5BBD-4465-B9CA-0D2104A1479B",
                         args: {
                             isGivingAsPerson: true,
                             email: '',
@@ -143,6 +138,9 @@ System.register(["../../Elements/DropDownList", "../../Controls/DefinedValuePick
                     },
                     campuses() {
                         return this.configurationValues['campuses'] || [];
+                    },
+                    frequencies() {
+                        return this.configurationValues['frequencies'] || [];
                     },
                     campusName() {
                         if (this.args.campusGuid === null) {
@@ -248,8 +246,8 @@ System.register(["../../Elements/DropDownList", "../../Controls/DefinedValuePick
         <template v-for="account in accounts">
             <CurrencyBox :label="account.publicName" v-model="args.accountAmounts[account.guid]" />
         </template>
-        <DropDownList v-model="args.campusGuid" :showBlankItem="false" :options="campuses" />
-        <DefinedValuePicker :definedTypeGuid="frequencyDefinedTypeGuid" v-model="args.frequencyValueGuid" label="Frequency" :showBlankItem="false" />
+        <DropDownList label="Campus" v-model="args.campusGuid" :showBlankItem="false" :options="campuses" />
+        <DropDownList label="Frequency" v-model="args.frequencyValueGuid" :showBlankItem="false" :options="frequencies" />
         <DatePicker label="Process Gift On" v-model="args.giftDate" />
         <Alert alertType="validation" v-if="page1Error">{{page1Error}}</Alert>
         <RockButton btnType="primary" @click="onPageOneSubmit">Give Now</RockButton>

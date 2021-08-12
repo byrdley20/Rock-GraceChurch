@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using Rock.ViewModel.Controls;
+using Rock.ViewModel.NonEntities;
 
 namespace Rock.ViewModel.Blocks
 {
@@ -314,29 +315,7 @@ namespace Rock.ViewModel.Blocks
         /// <value>
         /// The campuses available for the user to select.
         /// </value>
-        public List<CampusOptionViewModel> Campuses { get; set; }
-    }
-
-    /// <summary>
-    /// Identifies a single option that will be shown in the campus picker.
-    /// </summary>
-    public class CampusOptionViewModel
-    {
-        /// <summary>
-        /// Gets or sets the value.
-        /// </summary>
-        /// <value>
-        /// The value.
-        /// </value>
-        public string Value { get; set; }
-
-        /// <summary>
-        /// Gets or sets the text.
-        /// </summary>
-        /// <value>
-        /// The text.
-        /// </value>
-        public string Text { get; set; }
+        public List<ListOptionViewModel> Campuses { get; set; }
     }
 
     /// <summary>

@@ -40,7 +40,7 @@ System.register(["vue", "../Rules/Index", "./RockFormField"], function (exports_
                 },
                 methods: {
                     getValue() {
-                        let value = `${this.internalArea}-${this.internalGroup}-${this.internalSerial}`;
+                        const value = `${this.internalArea}-${this.internalGroup}-${this.internalSerial}`;
                         return value === "--" ? "" : value;
                     },
                     keyPress(e) {

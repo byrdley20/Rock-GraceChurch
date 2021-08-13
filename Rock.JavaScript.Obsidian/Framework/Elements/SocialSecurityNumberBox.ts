@@ -45,7 +45,7 @@ export default defineComponent({
 
     methods: {
         getValue(): string {
-            let value = `${this.internalArea}-${this.internalGroup}-${this.internalSerial}`;
+            const value = `${this.internalArea}-${this.internalGroup}-${this.internalSerial}`;
 
             return value === "--" ? "" : value;
         },

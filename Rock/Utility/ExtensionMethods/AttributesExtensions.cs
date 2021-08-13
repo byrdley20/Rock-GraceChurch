@@ -195,7 +195,7 @@ namespace Rock
                     Attribute = AttributeCache.Get( av.Value.AttributeId )
                 } )
                 .Where( av => !enforceSecurity || av.Attribute.IsAuthorized( Rock.Security.Authorization.VIEW, currentPerson ) )
-                .Select( kvp => ViewModelHelper.ToClientAttributeValue( kvp.Value ) )
+                .Select( kvp => ClientAttributeHelper.ToClientAttributeValue( kvp.Value ) )
                 .ToList();
         }
 
@@ -222,7 +222,7 @@ namespace Rock
                     Attribute = AttributeCache.Get( av.Value.AttributeId )
                 } )
                 .Where( av => !enforceSecurity || av.Attribute.IsAuthorized( Rock.Security.Authorization.VIEW, currentPerson ) )
-                .Select( kvp => ViewModelHelper.ToClientEditableAttributeValue( kvp.Value ) )
+                .Select( kvp => ClientAttributeHelper.ToClientEditableAttributeValue( kvp.Value ) )
                 .ToList();
         }
 
@@ -260,7 +260,7 @@ namespace Rock
                     continue;
                 }
 
-                var value = ViewModelHelper.ToDatabaseAttributeValue( kvp.Value, attribute );
+                var value = ClientAttributeHelper.GetValueFromClient( attribute, kvp.Value );
 
                 entity.SetAttributeValue( kvp.Key, value );
             }
@@ -299,7 +299,7 @@ namespace Rock
                 return;
             }
 
-            var databaseValue = ViewModelHelper.ToDatabaseAttributeValue( value, attribute );
+            var databaseValue = ClientAttributeHelper.GetValueFromClient( attribute, value );
 
             entity.SetAttributeValue( key, databaseValue );
         }

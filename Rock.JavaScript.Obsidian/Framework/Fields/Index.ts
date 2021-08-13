@@ -164,6 +164,9 @@ registerFieldType(FieldTypeGuids.Rating, new RatingFieldType());
 import { SingleSelectFieldType } from './SingleSelectField';
 registerFieldType(FieldTypeGuids.SingleSelect, new SingleSelectFieldType());
 
+import { SSNFieldType } from './SSNField';
+registerFieldType(FieldTypeGuids.Ssn, new SSNFieldType());
+
 import { TextFieldType } from './TextField';
 registerFieldType(FieldTypeGuids.Text, new TextFieldType());
 

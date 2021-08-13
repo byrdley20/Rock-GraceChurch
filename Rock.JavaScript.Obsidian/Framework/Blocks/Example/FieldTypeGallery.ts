@@ -283,6 +283,9 @@ const galleryComponents: Record<string, Component> = {
         values: '[{"value": "pizza", "text": "Pizza"}, {"value": "sub", "text": "Sub"}]'
     }),
 
+    SSNGallery: GetFieldTypeGalleryComponent('SSN', '123-45-6789', FieldTypeGuids.Ssn, {
+    }),
+
     TextGallery: GetFieldTypeGalleryComponent('Text', 'Hello', FieldTypeGuids.Text, {
         ispassword: 'false',
         maxcharacters: '10',

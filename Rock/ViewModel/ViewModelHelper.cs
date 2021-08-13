@@ -179,7 +179,7 @@ namespace Rock.ViewModel
                 } ).ToList(),
                 Order = attribute.Order,
                 TextValue = fieldType.GetTextValue( value, attribute.QualifierValues ),
-                Value = fieldType.GetClientValue( value, attribute.QualifierValues ),
+                Value = fieldType.GetClientEditValue( value, attribute.QualifierValues ),
                 Key = attribute.Key,
                 IsRequired = attribute.IsRequired,
                 Description = attribute.Description,
@@ -209,11 +209,11 @@ namespace Rock.ViewModel
         /// <param name="attribute">The attribute being set.</param>
         /// <returns>A string value.</returns>
         /// <remarks>Internal until this is moved to a permanent location.</remarks>
-        internal static string FromDatabaseAttributeValue( string databaseValue, AttributeCache attribute )
+        internal static string ToClientEditableValue( string databaseValue, AttributeCache attribute )
         {
             var fieldType = _fieldTypes.GetOrAdd( attribute.FieldType.Guid, GetFieldType );
 
-            return fieldType.GetClientValue( databaseValue, attribute.QualifierValues );
+            return fieldType.GetClientEditValue( databaseValue, attribute.QualifierValues );
         }
 
         /// <summary>

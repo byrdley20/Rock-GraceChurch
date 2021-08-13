@@ -226,6 +226,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                     fieldtype: 'rb',
                     values: '[{"value": "pizza", "text": "Pizza"}, {"value": "sub", "text": "Sub"}]'
                 }),
+                SSNGallery: GetFieldTypeGalleryComponent('SSN', '123-45-6789', "4722C99A-C078-464A-968F-13AB5E8E318F", {}),
                 TextGallery: GetFieldTypeGalleryComponent('Text', 'Hello', "9C204CD0-1233-41C5-818A-C5DA439445AA", {
                     ispassword: 'false',
                     maxcharacters: '10',

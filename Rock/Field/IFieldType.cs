@@ -202,12 +202,21 @@ namespace Rock.Field
 
         /// <summary>
         /// Gets the value that will be sent down to the client. This value is
-        /// used for both custom formatting on the client as well as editing.
+        /// used custom formatting performed on the client.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="configurationValues">The configuration values.</param>
         /// <returns>A string of text to send to the client.</returns>
         string GetClientValue( string value, Dictionary<string, ConfigurationValue> configurationValues );
+
+        /// <summary>
+        /// Gets the value that will be sent down to the client. This value is
+        /// used for custom formatting as well as client-side editing.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="configurationValues">The configuration values.</param>
+        /// <returns>A string of text to send to the client.</returns>
+        string GetClientEditValue( string value, Dictionary<string, ConfigurationValue> configurationValues );
 
         /// <summary>
         /// Gets the value to be stored in the database from the value sent by

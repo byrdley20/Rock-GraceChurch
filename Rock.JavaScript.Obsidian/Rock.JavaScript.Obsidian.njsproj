@@ -198,6 +198,8 @@
     <TypeScriptCompile Include="Framework\Fields\RatingFieldComponents.ts" />
     <TypeScriptCompile Include="Framework\Fields\SingleSelectField.ts" />
     <TypeScriptCompile Include="Framework\Fields\SingleSelectFieldComponents.ts" />
+    <TypeScriptCompile Include="Framework\Fields\SSNField.ts" />
+    <TypeScriptCompile Include="Framework\Fields\SSNFieldComponents.ts" />
     <TypeScriptCompile Include="Framework\Fields\TextField.ts" />
     <TypeScriptCompile Include="Framework\Fields\TextFieldComponents.ts" />
     <TypeScriptCompile Include="Framework\Fields\TimeField.ts" />

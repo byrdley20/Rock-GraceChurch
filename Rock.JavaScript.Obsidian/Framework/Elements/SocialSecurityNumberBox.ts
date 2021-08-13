@@ -148,7 +148,7 @@ export default defineComponent({
                 <span class="separator">-</span>
                 <input ref="group" class="form-control ssn-part ssn-group" type="password" pattern="[0-9]*" maxlength="2" v-model="internalGroup" v-on:keypress="keyPress" v-on:keyup="keyUp" />
                 <span class="separator">-</span>
-                <input ref="serial" class="form-control ssn-part ssn-serial" type="password" pattern="[0-9]*" maxlength="4" v-model="internalSerial" v-on:keypress="keyPress" v-on:keyup="keyUp" />
+                <input ref="serial" class="form-control ssn-part ssn-serial" type="text" pattern="[0-9]*" maxlength="4" v-model="internalSerial" v-on:keypress="keyPress" v-on:keyup="keyUp" />
             </div>
         </div>
     </template>

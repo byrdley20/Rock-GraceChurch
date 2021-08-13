@@ -15,8 +15,15 @@
 // </copyright>
 //
 
+import { ClientAttributeValue } from '@Obsidian/ViewModels';
 import ClientEditableAttributeValue from 'ViewModels/ClientEditableAttributeValue';
+import { Component, defineAsyncComponent } from 'vue';
 import { FieldTypeBase } from './FieldType';
+
+// The edit component can be quite large, so load it only as needed.
+const editComponent = defineAsyncComponent(async () => {
+    return (await import('./SSNFieldComponents')).EditComponent;
+});
 
 export class SSNFieldType extends FieldTypeBase {
     public override updateTextValue(value: ClientEditableAttributeValue): void {
@@ -26,5 +33,9 @@ export class SSNFieldType extends FieldTypeBase {
         else {
             value.textValue = `xxx-xx-${value.value.substr(7, 4)}`;
         }
+    }
+
+    public override getEditComponent(_value: ClientAttributeValue): Component {
+        return editComponent;
     }
 }

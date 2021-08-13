@@ -1010,7 +1010,7 @@ namespace Rock.Blocks.Event
 
             entity.LoadAttributes( rockContext );
 
-            return ViewModelHelper.FromDatabaseAttributeValue( entity.GetAttributeValue( attribute.Key ), attribute );
+            return ViewModelHelper.ToClientEditableValue( entity.GetAttributeValue( attribute.Key ), attribute );
         }
 
         /// <summary>

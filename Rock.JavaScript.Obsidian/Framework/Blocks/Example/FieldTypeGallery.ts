@@ -22,6 +22,7 @@ import AttributeValuesContainer from '../../Controls/AttributeValuesContainer';
 import { Guid } from '../../Util/Guid';
 import TextBox from '../../Elements/TextBox';
 import ClientEditableAttributeValue from 'ViewModels/ClientEditableAttributeValue';
+import { ListOption } from 'ViewModels/ListOption';
 
 /**
  * Convert a simpler set of parameters into AttributeValueData

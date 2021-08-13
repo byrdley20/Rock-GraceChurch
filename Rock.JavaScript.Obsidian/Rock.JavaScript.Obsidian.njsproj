@@ -478,6 +478,7 @@
     <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\WorkflowType.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\Entity.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\index.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\ListOption.d.ts" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>

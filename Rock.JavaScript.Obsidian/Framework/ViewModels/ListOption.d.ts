@@ -15,18 +15,13 @@
 // </copyright>
 //
 
-import Entity from './Entity';
-import ClientAttributeValue from './ClientAttributeValue';
-import ClientEditableAttributeValue from './ClientEditableAttributeValue';
-import ClientAttributeValueCategory from './ClientAttributeValueCategory';
-import { ListOption } from './ListOption';
+/**
+ * An item to be displayed in a list.
+ */
+export interface ListOption {
+    /** The raw value to associated with this item. */
+    value: string;
 
-export * from './CodeGenerated/generated-index';
-
-export {
-    Entity,
-    ClientAttributeValue,
-    ClientEditableAttributeValue,
-    ClientAttributeValueCategory,
-    ListOption
-};
+    /** The value to display to the person. */
+    text: string;
+}

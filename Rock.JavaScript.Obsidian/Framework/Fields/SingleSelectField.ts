@@ -16,17 +16,12 @@
 //
 import { Component, defineAsyncComponent } from 'vue';
 import { FieldTypeBase } from './FieldType';
-import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
+import { ClientAttributeValue, ClientEditableAttributeValue, ListOption } from '@Obsidian/ViewModels';
 
 export const enum ConfigurationValueKey {
     Values = 'values',
     FieldType = 'fieldtype',
     RepeatColumns = 'repeatColumns'
-}
-
-export interface ValueItem {
-    value: string,
-    text: string
 }
 
 
@@ -46,7 +41,7 @@ export class SingleSelectFieldType extends FieldTypeBase {
         }
 
         try {
-            const values = JSON.parse(value.configurationValues?.[ConfigurationValueKey.Values] ?? '[]') as ValueItem[];
+            const values = JSON.parse(value.configurationValues?.[ConfigurationValueKey.Values] ?? '[]') as ListOption[];
             const selectedValues = values.filter(v => v.value === value.value);
 
             if (selectedValues.length >= 1) {

@@ -50,6 +50,7 @@ import CheckBoxList from '../../Elements/CheckBoxList';
 import Rating from '../../Elements/Rating';
 import { toNumber } from '@Obsidian/Services/Number';
 import { Guid } from 'Util/Guid';
+import { ListOption } from '@Obsidian/ViewModels';
 
 /** An inner component that describes the template used for each of the controls
  *  within this control gallery */
@@ -344,7 +345,7 @@ const CheckBoxListGallery = defineComponent({
                 { value: "red", text: "Red" },
                 { value: "green", text: "Green" },
                 { value: "blue", text: "Blue" }
-            ],
+            ] as ListOption[],
             items: ["green"]
         };
     },

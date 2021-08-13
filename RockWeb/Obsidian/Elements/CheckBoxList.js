@@ -26,36 +26,65 @@ System.register(["vue", "./RockFormField.js"], function (exports_1, context_1) {
                         type: Array,
                         required: true
                     },
+                    repeatColumns: {
+                        type: Number,
+                        default: 0
+                    },
+                    horizontal: {
+                        type: Boolean,
+                        default: false
+                    }
                 },
-                data: function () {
+                setup(props, { emit }) {
+                    const internalValue = vue_1.ref([...props.modelValue]);
+                    vue_1.watch(() => props.modelValue, () => internalValue.value = props.modelValue);
+                    vue_1.watchEffect(() => emit('update:modelValue', internalValue.value));
+                    const valueForOption = (option) => option.value;
+                    const textForOption = (option) => option.text;
+                    const uniqueIdForOption = (uniqueId, option) => `${uniqueId}-${option.value.replace(' ', '-')}`;
+                    const containerClasses = vue_1.computed(() => {
+                        const classes = [];
+                        if (props.horizontal) {
+                            classes.push('rockcheckboxlist-horizontal');
+                            if (props.repeatColumns > 0) {
+                                classes.push(`in-columns in-columns-${props.repeatColumns}`);
+                            }
+                        }
+                        else {
+                            classes.push('rockcheckboxlist-vertical');
+                        }
+                        return classes.join(' ');
+                    });
                     return {
-                        internalValue: this.modelValue
+                        containerClasses,
+                        internalValue,
+                        textForOption,
+                        uniqueIdForOption,
+                        valueForOption
                     };
-                },
-                methods: {},
-                computed: {},
-                watch: {
-                    modelValue() {
-                        this.internalValue = this.modelValue;
-                    },
-                    internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
-                    },
                 },
                 template: `
 <RockFormField
     :modelValue="internalValue"
     formGroupClasses="check-box-list"
     name="check-box-list">
-    <template #default="{uniqueId, field, errors, disabled}">
+    <template #default="{uniqueId}">
         <div class="control-wrapper">
-            <div class="controls rockcheckboxlist rockcheckboxlist-vertical">
-                <div class="checkbox" v-for="o in options" :key="o.value">
-                    <label>
-                        <input type="checkbox" :value="o.value" v-model="internalValue" />
-                        <span class="label-text">{{ o.text }}</span>
+            <div class="controls rockcheckboxlist" :class="containerClasses">
+                <template v-if="horizontal">
+                    <label v-for="option in options" class="checkbox-inline" :for="uniqueIdForOption(uniqueId, option)">
+                        <input :id="uniqueIdForOption(uniqueId, option)" :name="uniqueId" type="checkbox" :value="valueForOption(option)" v-model="internalValue" />
+                        <span class="label-text">{{textForOption(option)}}</span>
                     </label>
-                </div>
+                </template>
+                <template v-else>
+                    <div v-for="option in options" class="checkbox">
+                        <label :for="uniqueIdForOption(uniqueId, option)">
+                            <input :id="uniqueIdForOption(uniqueId, option)" :name="uniqueId" type="checkbox" :value="valueForOption(option)" v-model="internalValue" />
+                            <span class="label-text">{{textForOption(option)}}</span>
+                        </label>
+                    </div>
+                </template>
             </div>
         </div>
     </template>

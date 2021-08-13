@@ -156,6 +156,10 @@
     <TypeScriptCompile Include="Framework\Elements\Toggle.ts" />
     <TypeScriptCompile Include="Framework\Fields\BooleanField.ts" />
     <TypeScriptCompile Include="Framework\Fields\BooleanFieldComponents.ts" />
+    <TypeScriptCompile Include="Framework\Fields\CampusesField.ts" />
+    <TypeScriptCompile Include="Framework\Fields\CampusesFieldComponents.ts" />
+    <TypeScriptCompile Include="Framework\Fields\CampusField.ts" />
+    <TypeScriptCompile Include="Framework\Fields\CampusFieldComponents.ts" />
     <TypeScriptCompile Include="Framework\Fields\ColorField.ts" />
     <TypeScriptCompile Include="Framework\Fields\ColorFieldComponents.ts" />
     <TypeScriptCompile Include="Framework\Fields\CurrencyField.ts" />

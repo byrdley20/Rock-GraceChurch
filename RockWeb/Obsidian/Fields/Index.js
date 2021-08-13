@@ -1,6 +1,6 @@
-System.register(["../Util/Guid", "./BooleanField", "./ColorField", "./CurrencyField", "./DateField", "./DateTimeField", "./DayOfWeekField", "./DaysOfWeekField", "./DecimalField", "./DecimalRangeField", "./DefinedValueField", "./EmailField", "./GenderField", "./IntegerField", "./IntegerRangeField", "./MemoField", "./MonthDayField", "./PhoneNumberField", "./RatingField", "./SingleSelectField", "./TextField", "./TimeField"], function (exports_1, context_1) {
+System.register(["../Util/Guid", "./BooleanField", "./CampusField", "./CampusesField", "./ColorField", "./CurrencyField", "./DateField", "./DateTimeField", "./DayOfWeekField", "./DaysOfWeekField", "./DecimalField", "./DecimalRangeField", "./DefinedValueField", "./EmailField", "./GenderField", "./IntegerField", "./IntegerRangeField", "./MemoField", "./MonthDayField", "./PhoneNumberField", "./RatingField", "./SingleSelectField", "./TextField", "./TimeField"], function (exports_1, context_1) {
     "use strict";
-    var Guid_1, fieldTypeTable, BooleanField_1, ColorField_1, CurrencyField_1, DateField_1, DateTimeField_1, DayOfWeekField_1, DaysOfWeekField_1, DecimalField_1, DecimalRangeField_1, DefinedValueField_1, EmailField_1, GenderField_1, IntegerField_1, IntegerRangeField_1, MemoField_1, MonthDayField_1, PhoneNumberField_1, RatingField_1, SingleSelectField_1, TextField_1, TimeField_1;
+    var Guid_1, fieldTypeTable, BooleanField_1, CampusField_1, CampusesField_1, ColorField_1, CurrencyField_1, DateField_1, DateTimeField_1, DayOfWeekField_1, DaysOfWeekField_1, DecimalField_1, DecimalRangeField_1, DefinedValueField_1, EmailField_1, GenderField_1, IntegerField_1, IntegerRangeField_1, MemoField_1, MonthDayField_1, PhoneNumberField_1, RatingField_1, SingleSelectField_1, TextField_1, TimeField_1;
     var __moduleName = context_1 && context_1.id;
     function getFieldEditorProps() {
         return {
@@ -45,6 +45,12 @@ System.register(["../Util/Guid", "./BooleanField", "./ColorField", "./CurrencyFi
             },
             function (BooleanField_1_1) {
                 BooleanField_1 = BooleanField_1_1;
+            },
+            function (CampusField_1_1) {
+                CampusField_1 = CampusField_1_1;
+            },
+            function (CampusesField_1_1) {
+                CampusesField_1 = CampusesField_1_1;
             },
             function (ColorField_1_1) {
                 ColorField_1 = ColorField_1_1;
@@ -110,6 +116,8 @@ System.register(["../Util/Guid", "./BooleanField", "./ColorField", "./CurrencyFi
         execute: function () {
             fieldTypeTable = {};
             registerFieldType("1EDAFDED-DFE6-4334-B019-6EECBA89E05A", new BooleanField_1.BooleanFieldType());
+            registerFieldType("1B71FEF4-201F-4D53-8C60-2DF21F1985ED", new CampusField_1.CampusFieldType());
+            registerFieldType("69254F91-C97F-4C2D-9ACB-1683B088097B", new CampusesField_1.CampusesFieldType());
             registerFieldType("D747E6AE-C383-4E22-8846-71518E3DD06F", new ColorField_1.ColorFieldType());
             registerFieldType("3EE69CBC-35CE-4496-88CC-8327A447603F", new CurrencyField_1.CurrencyFieldType());
             registerFieldType("6B6AA175-4758-453F-8D83-FCD8044B5F36", new DateField_1.DateFieldType());

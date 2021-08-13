@@ -104,6 +104,12 @@ export function getFieldType(fieldTypeGuid: Guid): FieldType | null {
 import { BooleanFieldType } from './BooleanField';
 registerFieldType(FieldTypeGuids.Boolean, new BooleanFieldType());
 
+import { CampusFieldType } from './CampusField';
+registerFieldType(FieldTypeGuids.Campus, new CampusFieldType());
+
+import { CampusesFieldType } from './CampusesField';
+registerFieldType(FieldTypeGuids.Campuses, new CampusesFieldType());
+
 import { ColorFieldType } from './ColorField';
 registerFieldType(FieldTypeGuids.Color, new ColorFieldType());
 

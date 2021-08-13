@@ -71,7 +71,6 @@ export const EditComponent = defineComponent({
                     this.internalValue = ratingValue.value ?? 0;
                 }
                 catch {
-                    console.log('catch');
                     this.internalValue = 0;
                 }
             }

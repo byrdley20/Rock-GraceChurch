@@ -1,4 +1,4 @@
-System.register(["vue", "./Index", "../Elements/DatePicker", "@Obsidian/Services/Date", "@Obsidian/Services/Boolean", "@Obsidian/Services/Number", "../Elements/DatePartsPicker"], function (exports_1, context_1) {
+System.register(["vue", "./Index", "../Elements/DatePicker", "@Obsidian/Services/Boolean", "@Obsidian/Services/Number", "../Elements/DatePartsPicker"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,7 +9,7 @@ System.register(["vue", "./Index", "../Elements/DatePicker", "@Obsidian/Services
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var vue_1, Index_1, DatePicker_1, Date_1, Boolean_1, Number_1, DatePartsPicker_1, EditComponent;
+    var vue_1, Index_1, DatePicker_1, Boolean_1, Number_1, DatePartsPicker_1, EditComponent;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -21,9 +21,6 @@ System.register(["vue", "./Index", "../Elements/DatePicker", "@Obsidian/Services
             },
             function (DatePicker_1_1) {
                 DatePicker_1 = DatePicker_1_1;
-            },
-            function (Date_1_1) {
-                Date_1 = Date_1_1;
             },
             function (Boolean_1_1) {
                 Boolean_1 = Boolean_1_1;
@@ -51,9 +48,7 @@ System.register(["vue", "./Index", "../Elements/DatePicker", "@Obsidian/Services
                     };
                 },
                 setup() {
-                    return {
-                        http: vue_1.inject('http')
-                    };
+                    return {};
                 },
                 computed: {
                     datePartsAsDate() {
@@ -83,12 +78,13 @@ System.register(["vue", "./Index", "../Elements/DatePicker", "@Obsidian/Services
                 },
                 methods: {
                     syncModelValue() {
-                        this.internalValue = this.modelValue || '';
-                        const asDate = Date_1.asDateOrNull(this.modelValue);
-                        if (asDate) {
-                            this.internalDateParts.year = asDate.getFullYear();
-                            this.internalDateParts.month = asDate.getMonth() + 1;
-                            this.internalDateParts.day = asDate.getDate();
+                        var _a, _b;
+                        this.internalValue = (_a = this.modelValue) !== null && _a !== void 0 ? _a : '';
+                        const dateParts = /^(\d{4})-(\d{1,2})-(\d{1,2})/.exec((_b = this.modelValue) !== null && _b !== void 0 ? _b : '');
+                        if (dateParts != null) {
+                            this.internalDateParts.year = Number_1.toNumber(dateParts[1]);
+                            this.internalDateParts.month = Number_1.toNumber(dateParts[2]);
+                            this.internalDateParts.day = Number_1.toNumber(dateParts[3]);
                         }
                         else {
                             this.internalDateParts.year = 0;
@@ -99,13 +95,23 @@ System.register(["vue", "./Index", "../Elements/DatePicker", "@Obsidian/Services
                 },
                 watch: {
                     datePartsAsDate() {
+                        var _a;
                         if (this.isDatePartsPicker) {
-                            this.$emit('update:modelValue', Date_1.toRockDateOrNull(this.datePartsAsDate) || '');
+                            const d1 = this.datePartsAsDate;
+                            const d2 = Date.parse((_a = this.modelValue) !== null && _a !== void 0 ? _a : '');
+                            if (d1 === null || isNaN(d2) || d1.getTime() !== d2) {
+                                this.$emit('update:modelValue', d1 !== null ? d1.toISOString().split('T')[0] : '');
+                            }
                         }
                     },
                     internalValue() {
+                        var _a;
                         if (!this.isDatePartsPicker) {
-                            this.$emit('update:modelValue', this.internalValue || '');
+                            const d1 = Date.parse(this.internalValue);
+                            const d2 = Date.parse((_a = this.modelValue) !== null && _a !== void 0 ? _a : '');
+                            if (isNaN(d1) || isNaN(d2) || d1 !== d2) {
+                                this.$emit('update:modelValue', this.internalValue);
+                            }
                         }
                     },
                     modelValue: {

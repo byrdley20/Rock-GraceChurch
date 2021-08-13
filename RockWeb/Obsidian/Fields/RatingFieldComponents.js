@@ -52,7 +52,6 @@ System.register(["vue", "./Index", "@Obsidian/Services/Number", "../Elements/Rat
                                 this.internalValue = (_b = ratingValue.value) !== null && _b !== void 0 ? _b : 0;
                             }
                             catch (_c) {
-                                console.log('catch');
                                 this.internalValue = 0;
                             }
                         }

@@ -14,11 +14,9 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, inject } from 'vue';
+import { defineComponent } from 'vue';
 import { getFieldEditorProps } from './Index';
 import DatePicker from '../Elements/DatePicker';
-import { BlockHttp } from '../Controls/RockBlock';
-import { asDateOrNull, toRockDateOrNull } from '@Obsidian/Services/Date';
 import { asBoolean } from '@Obsidian/Services/Boolean';
 import { toNumber } from '@Obsidian/Services/Number';
 import DatePartsPicker, { getDefaultDatePartsPickerModel } from '../Elements/DatePartsPicker';
@@ -26,11 +24,14 @@ import { ConfigurationValueKey } from './DateField';
 
 export const EditComponent = defineComponent({
     name: 'DateField',
+
     components: {
         DatePicker,
         DatePartsPicker
     },
+
     props: getFieldEditorProps(),
+
     data() {
         return {
             internalValue: '',
@@ -38,11 +39,12 @@ export const EditComponent = defineComponent({
             formattedString: ''
         };
     },
+
     setup() {
         return {
-            http: inject('http') as BlockHttp
         };
     },
+
     computed: {
         datePartsAsDate(): Date | null {
             if (!this.internalDateParts?.day || !this.internalDateParts.month || !this.internalDateParts.year) {
@@ -75,15 +77,16 @@ export const EditComponent = defineComponent({
             return attributes;
         }
     },
+
     methods: {
         syncModelValue(): void {
-            this.internalValue = this.modelValue || '';
-            const asDate = asDateOrNull(this.modelValue);
+            this.internalValue = this.modelValue ?? '';
+            const dateParts = /^(\d{4})-(\d{1,2})-(\d{1,2})/.exec(this.modelValue ?? '');
 
-            if (asDate) {
-                this.internalDateParts.year = asDate.getFullYear();
-                this.internalDateParts.month = asDate.getMonth() + 1;
-                this.internalDateParts.day = asDate.getDate();
+            if (dateParts != null) {
+                this.internalDateParts.year = toNumber(dateParts[1]);
+                this.internalDateParts.month = toNumber(dateParts[2]);
+                this.internalDateParts.day = toNumber(dateParts[3]);
             }
             else {
                 this.internalDateParts.year = 0;
@@ -92,17 +95,30 @@ export const EditComponent = defineComponent({
             }
         }
     },
+
     watch: {
         datePartsAsDate(): void {
             if (this.isDatePartsPicker) {
-                this.$emit('update:modelValue', toRockDateOrNull(this.datePartsAsDate) || '');
+                const d1 = this.datePartsAsDate;
+                const d2 = Date.parse(this.modelValue ?? '');
+
+                if (d1 === null || isNaN(d2) || d1.getTime() !== d2) {
+                    this.$emit('update:modelValue', d1 !== null ? d1.toISOString().split('T')[0] : '');
+                }
             }
         },
+
         internalValue(): void {
             if (!this.isDatePartsPicker) {
-                this.$emit('update:modelValue', this.internalValue || '');
+                const d1 = Date.parse(this.internalValue);
+                const d2 = Date.parse(this.modelValue ?? '');
+
+                if (isNaN(d1) || isNaN(d2) || d1 !== d2) {
+                    this.$emit('update:modelValue', this.internalValue);
+                }
             }
         },
+
         modelValue: {
             immediate: true,
             async handler(): Promise<void> {
@@ -110,6 +126,7 @@ export const EditComponent = defineComponent({
             }
         }
     },
+
     template: `
 <DatePartsPicker v-if="isDatePartsPicker" v-model="internalDateParts" v-bind="configAttributes" />
 <DatePicker v-else v-model="internalValue" v-bind="configAttributes" />

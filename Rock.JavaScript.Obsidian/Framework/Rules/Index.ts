@@ -277,5 +277,9 @@ defineRule("ssn", (value: unknown) => {
         return true;
     }
 
+    if (/^[0-9]{9}$/.test(String(value))) {
+        return true;
+    }
+
     return "must be a valid social security number";
 });

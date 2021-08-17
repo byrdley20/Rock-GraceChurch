@@ -89,7 +89,7 @@ namespace Rock.Field.Types
         /// <inheritdoc/>
         public override string GetValueFromClient( string clientValue, Dictionary<string, ConfigurationValue> configurationValues )
         {
-            return base.GetValueFromClient( clientValue, configurationValues );
+            return Security.Encryption.EncryptString( clientValue );
         }
 
         /// <summary>

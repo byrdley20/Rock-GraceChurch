@@ -27,12 +27,19 @@ const editComponent = defineAsyncComponent(async () => {
 
 export class SSNFieldType extends FieldTypeBase {
     public override updateTextValue(value: ClientEditableAttributeValue): void {
-        if (value.value === null || value.value === undefined || value.value.length !== 11) {
+        if (value.value === null || value.value === undefined) {
             value.textValue = '';
+            return;
         }
-        else {
-            value.textValue = `xxx-xx-${value.value.substr(7, 4)}`;
+
+        const strippedValue = value.value.replace(/[^0-9]/g, '');
+
+        if (strippedValue.length !== 9) {
+            value.textValue = '';
+            return;
         }
+
+        value.textValue = `xxx-xx-${value.value.substr(5, 4)}`;
     }
 
     public override getEditComponent(_value: ClientAttributeValue): Component {

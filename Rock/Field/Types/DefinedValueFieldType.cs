@@ -503,7 +503,7 @@ namespace Rock.Field.Types
         {
             var guid = value.AsGuidOrNull();
             DefinedValueCache definedValue = null;
-            bool useDescription = configurationValues?.ContainsKey( DEFINED_TYPE_KEY ) ?? false
+            bool useDescription = configurationValues?.ContainsKey( DISPLAY_DESCRIPTION ) ?? false
                 ? configurationValues[DISPLAY_DESCRIPTION].Value.AsBoolean()
                 : false;
 

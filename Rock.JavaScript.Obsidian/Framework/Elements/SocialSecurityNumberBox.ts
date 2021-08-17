@@ -45,14 +45,14 @@ export default defineComponent({
 
     methods: {
         getValue(): string {
-            const value = `${this.internalArea}-${this.internalGroup}-${this.internalSerial}`;
+            const value = `${this.internalArea}${this.internalGroup}${this.internalSerial}`;
 
-            return value === "--" ? "" : value;
+            return value;
         },
 
         keyPress(e: KeyboardEvent): boolean {
             if (/^[0-9]$/.test(e.key) === false) {
-                e.preventDefault()
+                e.preventDefault();
                 return false;
             }
 
@@ -100,11 +100,18 @@ export default defineComponent({
         modelValue: {
             immediate: true,
             handler() {
-                const components = this.modelValue.split("-");
+                const strippedValue = this.modelValue.replace(/[^0-9]/g, '');
 
-                this.internalArea = components.length >= 1 ? components[0] : "";
-                this.internalGroup = components.length >= 2 ? components[1] : "";
-                this.internalSerial = components.length >= 3 ? components[2] : "";
+                if (strippedValue.length !== 9) {
+                    this.internalArea = '';
+                    this.internalGroup = '';
+                    this.internalSerial = '';
+                }
+                else {
+                    this.internalArea = strippedValue.substr(0, 3);
+                    this.internalGroup = strippedValue.substr(3, 2);
+                    this.internalSerial = strippedValue.substr(5, 4);
+                }
 
                 this.internalValue = this.getValue();
             }
@@ -113,7 +120,7 @@ export default defineComponent({
         internalArea() {
             this.internalValue = this.getValue();
 
-            if (this.internalValue.length === 0 || this.internalValue.length === 11) {
+            if (this.internalValue.length === 0 || this.internalValue.length === 9) {
                 this.$emit('update:modelValue', this.internalValue);
             }
         },
@@ -121,7 +128,7 @@ export default defineComponent({
         internalGroup() {
             this.internalValue = this.getValue();
 
-            if (this.internalValue.length === 0 || this.internalValue.length === 11) {
+            if (this.internalValue.length === 0 || this.internalValue.length === 9) {
                 this.$emit('update:modelValue', this.internalValue);
             }
         },
@@ -129,7 +136,7 @@ export default defineComponent({
         internalSerial() {
             this.internalValue = this.getValue();
 
-            if (this.internalValue.length === 0 || this.internalValue.length === 11) {
+            if (this.internalValue.length === 0 || this.internalValue.length === 9) {
                 this.$emit('update:modelValue', this.internalValue);
             }
         },

@@ -40,8 +40,8 @@ System.register(["vue", "../Rules/Index", "./RockFormField"], function (exports_
                 },
                 methods: {
                     getValue() {
-                        const value = `${this.internalArea}-${this.internalGroup}-${this.internalSerial}`;
-                        return value === "--" ? "" : value;
+                        const value = `${this.internalArea}${this.internalGroup}${this.internalSerial}`;
+                        return value;
                     },
                     keyPress(e) {
                         if (/^[0-9]$/.test(e.key) === false) {
@@ -83,28 +83,35 @@ System.register(["vue", "../Rules/Index", "./RockFormField"], function (exports_
                     modelValue: {
                         immediate: true,
                         handler() {
-                            const components = this.modelValue.split("-");
-                            this.internalArea = components.length >= 1 ? components[0] : "";
-                            this.internalGroup = components.length >= 2 ? components[1] : "";
-                            this.internalSerial = components.length >= 3 ? components[2] : "";
+                            const strippedValue = this.modelValue.replace(/[^0-9]/g, '');
+                            if (strippedValue.length !== 9) {
+                                this.internalArea = '';
+                                this.internalGroup = '';
+                                this.internalSerial = '';
+                            }
+                            else {
+                                this.internalArea = strippedValue.substr(0, 3);
+                                this.internalGroup = strippedValue.substr(3, 2);
+                                this.internalSerial = strippedValue.substr(5, 4);
+                            }
                             this.internalValue = this.getValue();
                         }
                     },
                     internalArea() {
                         this.internalValue = this.getValue();
-                        if (this.internalValue.length === 0 || this.internalValue.length === 11) {
+                        if (this.internalValue.length === 0 || this.internalValue.length === 9) {
                             this.$emit('update:modelValue', this.internalValue);
                         }
                     },
                     internalGroup() {
                         this.internalValue = this.getValue();
-                        if (this.internalValue.length === 0 || this.internalValue.length === 11) {
+                        if (this.internalValue.length === 0 || this.internalValue.length === 9) {
                             this.$emit('update:modelValue', this.internalValue);
                         }
                     },
                     internalSerial() {
                         this.internalValue = this.getValue();
-                        if (this.internalValue.length === 0 || this.internalValue.length === 11) {
+                        if (this.internalValue.length === 0 || this.internalValue.length === 9) {
                             this.$emit('update:modelValue', this.internalValue);
                         }
                     },

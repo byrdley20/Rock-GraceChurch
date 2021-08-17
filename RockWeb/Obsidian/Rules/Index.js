@@ -177,6 +177,9 @@ System.register(["@Obsidian/Services/DateKey", "@Obsidian/Services/Email", "@Obs
                 if (/^[0-9]{3}-[0-9]{2}-[0-9]{4}$/.test(String(value))) {
                     return true;
                 }
+                if (/^[0-9]{9}$/.test(String(value))) {
+                    return true;
+                }
                 return "must be a valid social security number";
             });
         }

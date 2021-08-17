@@ -26,12 +26,16 @@ System.register(["vue", "./FieldType"], function (exports_1, context_1) {
             }));
             SSNFieldType = class SSNFieldType extends FieldType_1.FieldTypeBase {
                 updateTextValue(value) {
-                    if (value.value === null || value.value === undefined || value.value.length !== 11) {
+                    if (value.value === null || value.value === undefined) {
                         value.textValue = '';
+                        return;
                     }
-                    else {
-                        value.textValue = `xxx-xx-${value.value.substr(7, 4)}`;
+                    const strippedValue = value.value.replace(/[^0-9]/g, '');
+                    if (strippedValue.length !== 9) {
+                        value.textValue = '';
+                        return;
                     }
+                    value.textValue = `xxx-xx-${value.value.substr(5, 4)}`;
                 }
                 getEditComponent(_value) {
                     return editComponent;

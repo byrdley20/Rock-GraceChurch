@@ -1,7 +1,34 @@
-System.register(["vue", "./Index", "../Elements/DropDownList", "@Obsidian/Services/Boolean"], function (exports_1, context_1) {
+System.register(["vue", "./Index", "../Elements/CheckBoxList", "../Elements/DropDownList", "@Obsidian/Services/Boolean"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, Index_1, DropDownList_1, Boolean_1, EditComponent;
+    var vue_1, Index_1, CheckBoxList_1, DropDownList_1, Boolean_1, EditComponent;
     var __moduleName = context_1 && context_1.id;
+    function parseModelValue(modelValue) {
+        try {
+            const clientValue = JSON.parse(modelValue !== null && modelValue !== void 0 ? modelValue : '');
+            return clientValue.value;
+        }
+        catch (_a) {
+            return '';
+        }
+    }
+    function getClientValue(value, valueOptions) {
+        const values = Array.isArray(value) ? value : [value];
+        const selectedValues = valueOptions.filter(v => values.includes(v.value));
+        if (selectedValues.length >= 1) {
+            return {
+                value: selectedValues.map(v => v.value).join(','),
+                text: selectedValues.map(v => v.text).join(', '),
+                description: selectedValues.map(v => v.description).join(', ')
+            };
+        }
+        else {
+            return {
+                value: '',
+                text: '',
+                description: ''
+            };
+        }
+    }
     return {
         setters: [
             function (vue_1_1) {
@@ -9,6 +36,9 @@ System.register(["vue", "./Index", "../Elements/DropDownList", "@Obsidian/Servic
             },
             function (Index_1_1) {
                 Index_1 = Index_1_1;
+            },
+            function (CheckBoxList_1_1) {
+                CheckBoxList_1 = CheckBoxList_1_1;
             },
             function (DropDownList_1_1) {
                 DropDownList_1 = DropDownList_1_1;
@@ -21,84 +51,77 @@ System.register(["vue", "./Index", "../Elements/DropDownList", "@Obsidian/Servic
             exports_1("EditComponent", EditComponent = vue_1.defineComponent({
                 name: 'DefinedValueField',
                 components: {
-                    DropDownList: DropDownList_1.default
+                    DropDownList: DropDownList_1.default,
+                    CheckBoxList: CheckBoxList_1.default
                 },
                 props: Index_1.getFieldEditorProps(),
-                setup() {
-                    return {
-                        isRequired: vue_1.inject('isRequired')
-                    };
-                },
-                data() {
-                    return {
-                        internalValue: ''
-                    };
-                },
-                computed: {
-                    valueOptions() {
+                setup(props, { emit }) {
+                    const internalValue = vue_1.ref(parseModelValue(props.modelValue));
+                    const internalValues = vue_1.ref(parseModelValue(props.modelValue).split(',').filter(v => v !== ''));
+                    const valueOptions = vue_1.computed(() => {
                         var _a;
                         try {
-                            return JSON.parse((_a = this.configurationValues["values"]) !== null && _a !== void 0 ? _a : '[]');
+                            return JSON.parse((_a = props.configurationValues["values"]) !== null && _a !== void 0 ? _a : '[]');
                         }
                         catch (_b) {
                             return [];
                         }
-                    },
-                    options() {
-                        const valueOptions = this.valueOptions;
-                        const providedOptions = valueOptions.map(v => {
+                    });
+                    const options = vue_1.computed(() => {
+                        const providedOptions = valueOptions.value.map(v => {
                             return {
                                 text: v.text,
                                 value: v.value
                             };
                         });
                         return providedOptions;
-                    },
-                    configAttributes() {
+                    });
+                    const optionsMultiple = vue_1.computed(() => {
+                        return valueOptions.value.map(v => {
+                            return {
+                                text: v.text,
+                                value: v.value
+                            };
+                        });
+                    });
+                    const isMultiple = vue_1.computed(() => Boolean_1.asBoolean(props.configurationValues["allowmultiple"]));
+                    const configAttributes = vue_1.computed(() => {
                         const attributes = {};
-                        const enhancedConfig = this.configurationValues["enhancedselection"];
+                        const enhancedConfig = props.configurationValues["enhancedselection"];
                         if (enhancedConfig) {
                             attributes.enhanceForLongLists = Boolean_1.asBoolean(enhancedConfig);
                         }
                         return attributes;
-                    }
-                },
-                watch: {
-                    internalValue() {
-                        const selectedValues = this.valueOptions.filter(v => v.value === this.internalValue);
-                        let clientValue;
-                        if (selectedValues.length >= 1) {
-                            clientValue = {
-                                value: selectedValues[0].value,
-                                text: selectedValues[0].text,
-                                description: selectedValues[0].description
-                            };
+                    });
+                    vue_1.watch(() => props.modelValue, () => {
+                        internalValue.value = parseModelValue(props.modelValue);
+                        internalValues.value = parseModelValue(props.modelValue).split(',').filter(v => v !== '');
+                    });
+                    vue_1.watch(() => internalValue.value, () => {
+                        if (!isMultiple.value) {
+                            const clientValue = getClientValue(internalValue.value, valueOptions.value);
+                            emit('update:modelValue', JSON.stringify(clientValue));
                         }
-                        else {
-                            clientValue = {
-                                value: '',
-                                text: '',
-                                description: ''
-                            };
+                    });
+                    vue_1.watch(() => internalValues.value, () => {
+                        if (isMultiple.value) {
+                            const clientValue = getClientValue(internalValues.value, valueOptions.value);
+                            emit('update:modelValue', JSON.stringify(clientValue));
                         }
-                        this.$emit('update:modelValue', JSON.stringify(clientValue));
-                    },
-                    modelValue: {
-                        immediate: true,
-                        handler() {
-                            var _a;
-                            try {
-                                const clientValue = JSON.parse((_a = this.modelValue) !== null && _a !== void 0 ? _a : '');
-                                this.internalValue = clientValue.value;
-                            }
-                            catch (_b) {
-                                this.internalValue = '';
-                            }
-                        }
-                    }
+                    });
+                    return {
+                        configAttributes,
+                        internalValue,
+                        internalValues,
+                        isMultiple,
+                        isRequired: vue_1.inject('isRequired'),
+                        options,
+                        optionsMultiple
+                    };
                 },
                 template: `
-<DropDownList v-model="internalValue" v-bind="configAttributes" :options="options" :showBlankItem="!isRequired" />
+<DropDownList v-if="!isMultiple" v-model="internalValue" v-bind="configAttributes" :options="options" :showBlankItem="!isRequired" />
+<CheckBoxList v-else v-model="internalValues" :options="optionsMultiple" />
 `
             }));
         }

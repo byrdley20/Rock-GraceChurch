@@ -501,22 +501,26 @@ namespace Rock.Field.Types
         /// <inheritdoc/>
         public override string GetClientValue( string value, Dictionary<string, ConfigurationValue> configurationValues )
         {
-            var guid = value.AsGuidOrNull();
-            DefinedValueCache definedValue = null;
+            var guids = value.SplitDelimitedValues().AsGuidList();
             bool useDescription = configurationValues?.ContainsKey( DISPLAY_DESCRIPTION ) ?? false
                 ? configurationValues[DISPLAY_DESCRIPTION].Value.AsBoolean()
                 : false;
 
-            if ( guid.HasValue )
+            var definedValues = new List<DefinedValueCache>();
+            foreach ( var guid in guids )
             {
-                definedValue = DefinedValueCache.Get( guid.Value );
+                var definedValue = DefinedValueCache.Get( guid );
+                if ( definedValue != null )
+                {
+                    definedValues.Add( definedValue );
+                }
             }
 
             return new ClientValue
             {
-                Value = definedValue?.Guid.ToString() ?? string.Empty,
-                Text = definedValue?.Value ?? string.Empty,
-                Description = useDescription ? definedValue?.Description ?? string.Empty : string.Empty
+                Value = value,
+                Text = definedValues.Select( v => v.Value ).JoinStrings( ", " ),
+                Description = useDescription ? definedValues.Select( v => v.Description ).JoinStrings( ", " ) : string.Empty
             }.ToCamelCaseJson( false, true );
         }
 

@@ -14,48 +14,71 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, inject } from 'vue';
+import { computed, defineComponent, inject, ref, watch } from 'vue';
 import { getFieldEditorProps } from './Index';
+import CheckBoxList from '../Elements/CheckBoxList';
 import DropDownList, { DropDownListOption } from '../Elements/DropDownList';
 import { asBoolean } from '@Obsidian/Services/Boolean';
 import { ClientValue, ConfigurationValueKey, ValueItem } from './DefinedValueField';
+import { ListOption } from '@Obsidian/ViewModels';
+
+function parseModelValue(modelValue: string | undefined): string {
+    try {
+        const clientValue = JSON.parse(modelValue ?? '') as ClientValue;
+
+        return clientValue.value;
+    }
+    catch {
+        return '';
+    }
+}
+
+function getClientValue(value: string | string[], valueOptions: ValueItem[]): ClientValue {
+    const values = Array.isArray(value) ? value : [value];
+    const selectedValues = valueOptions.filter(v => values.includes(v.value));
+
+    if (selectedValues.length >= 1) {
+        return {
+            value: selectedValues.map(v => v.value).join(','),
+            text: selectedValues.map(v => v.text).join(', '),
+            description: selectedValues.map(v => v.description).join(', ')
+        };
+    }
+    else {
+        return {
+            value: '',
+            text: '',
+            description: ''
+        };
+    }
+}
 
 export const EditComponent = defineComponent({
     name: 'DefinedValueField',
 
     components: {
-        DropDownList
+        DropDownList,
+        CheckBoxList
     },
 
     props: getFieldEditorProps(),
 
-    setup() {
-        return {
-            isRequired: inject('isRequired') as boolean
-        };
-    },
+    setup(props, { emit }) {
+        const internalValue = ref(parseModelValue(props.modelValue));
+        const internalValues = ref(parseModelValue(props.modelValue).split(',').filter(v => v !== ''));
 
-    data() {
-        return {
-            internalValue: ''
-        };
-    },
-
-    computed: {
-        valueOptions(): ValueItem[] {
+        const valueOptions = computed((): ValueItem[] => {
             try {
-                return JSON.parse(this.configurationValues[ConfigurationValueKey.Values] ?? '[]') as ValueItem[];
+                return JSON.parse(props.configurationValues[ConfigurationValueKey.Values] ?? '[]') as ValueItem[];
             }
             catch {
                 return [];
             }
-        },
+        });
 
         /** The options to choose from in the drop down list */
-        options(): DropDownListOption[] {
-            const valueOptions = this.valueOptions;
-
-            const providedOptions: DropDownListOption[] = valueOptions.map(v => {
+        const options = computed((): DropDownListOption[] => {
+            const providedOptions: DropDownListOption[] = valueOptions.value.map(v => {
                 return {
                     text: v.text,
                     value: v.value
@@ -63,59 +86,65 @@ export const EditComponent = defineComponent({
             });
 
             return providedOptions;
-        },
+        });
 
-        configAttributes(): Record<string, unknown> {
-            const attributes: Record<string, unknown> = { };
+        /** The options to choose from in the drop down list */
+        const optionsMultiple = computed((): ListOption[] => {
+            return valueOptions.value.map(v => {
+                return {
+                    text: v.text,
+                    value: v.value
+                } as ListOption;
+            });
+        });
 
-            const enhancedConfig = this.configurationValues[ConfigurationValueKey.EnhancedSelection];
+        const isMultiple = computed((): boolean => asBoolean(props.configurationValues[ConfigurationValueKey.AllowMultiple]));
+
+        const configAttributes = computed((): Record<string, unknown> => {
+            const attributes: Record<string, unknown> = {};
+
+            const enhancedConfig = props.configurationValues[ConfigurationValueKey.EnhancedSelection];
             if (enhancedConfig) {
                 attributes.enhanceForLongLists = asBoolean(enhancedConfig);
             }
 
             return attributes;
-        }
-    },
+        });
 
-    watch: {
-        internalValue(): void {
-            const selectedValues = this.valueOptions.filter(v => v.value === this.internalValue);
-            let clientValue: ClientValue;
+        watch(() => props.modelValue, () => {
+            internalValue.value = parseModelValue(props.modelValue);
+            internalValues.value = parseModelValue(props.modelValue).split(',').filter(v => v !== '');
+        });
 
-            if (selectedValues.length >= 1) {
-                clientValue = {
-                    value: selectedValues[0].value,
-                    text: selectedValues[0].text,
-                    description: selectedValues[0].description
-                };
+        watch(() => internalValue.value, () => {
+            if (!isMultiple.value) {
+                const clientValue = getClientValue(internalValue.value, valueOptions.value);
+
+                emit('update:modelValue', JSON.stringify(clientValue));
             }
-            else {
-                clientValue = {
-                    value: '',
-                    text: '',
-                    description: ''
-                };
+        });
+
+        watch(() => internalValues.value, () => {
+            if (isMultiple.value) {
+                const clientValue = getClientValue(internalValues.value, valueOptions.value);
+
+                emit('update:modelValue', JSON.stringify(clientValue));
             }
+        });
 
-            this.$emit('update:modelValue', JSON.stringify(clientValue));
-        },
-
-        modelValue: {
-            immediate: true,
-            handler(): void {
-                try {
-                    const clientValue = JSON.parse(this.modelValue ?? '') as ClientValue;
-
-                    this.internalValue = clientValue.value;
-                }
-                catch {
-                    this.internalValue = '';
-                }
-            }
-        }
+        return {
+            configAttributes,
+            internalValue,
+            internalValues,
+            isMultiple,
+            isRequired: inject('isRequired') as boolean,
+            options,
+            optionsMultiple
+        };
     },
 
     template: `
-<DropDownList v-model="internalValue" v-bind="configAttributes" :options="options" :showBlankItem="!isRequired" />
+<DropDownList v-if="!isMultiple" v-model="internalValue" v-bind="configAttributes" :options="options" :showBlankItem="!isRequired" />
+<CheckBoxList v-else v-model="internalValues" :options="optionsMultiple" />
 `
 });

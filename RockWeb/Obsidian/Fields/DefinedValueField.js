@@ -35,16 +35,13 @@ System.register(["vue", "./FieldType", "@Obsidian/Services/Boolean"], function (
                         try {
                             const values = JSON.parse((_c = (_b = value.configurationValues) === null || _b === void 0 ? void 0 : _b["values"]) !== null && _c !== void 0 ? _c : '[]');
                             const displayDescription = Boolean_1.asBoolean((_d = value.configurationValues) === null || _d === void 0 ? void 0 : _d["displaydescription"]);
-                            const selectedValues = values.filter(v => v.value === clientValue.value);
-                            if (selectedValues.length >= 1) {
-                                value.textValue = displayDescription ? selectedValues[0].description : selectedValues[0].text;
-                            }
-                            else {
-                                value.textValue = '';
-                            }
+                            const rawValues = clientValue.value.split(',');
+                            value.textValue = values.filter(v => rawValues.includes(v.value))
+                                .map(v => displayDescription ? v.description : v.text)
+                                .join(', ');
                         }
                         catch (_e) {
-                            value.textValue = value.value;
+                            value.textValue = clientValue.value;
                         }
                     }
                     catch (_f) {

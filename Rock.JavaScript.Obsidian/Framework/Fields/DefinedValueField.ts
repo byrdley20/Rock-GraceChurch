@@ -58,17 +58,14 @@ export class DefinedValueFieldType extends FieldTypeBase {
             try {
                 const values = JSON.parse(value.configurationValues?.[ConfigurationValueKey.Values] ?? '[]') as ValueItem[];
                 const displayDescription = asBoolean(value.configurationValues?.[ConfigurationValueKey.DisplayDescription]);
-                const selectedValues = values.filter(v => v.value === clientValue.value);
+                const rawValues = clientValue.value.split(',');
 
-                if (selectedValues.length >= 1) {
-                    value.textValue = displayDescription ? selectedValues[0].description : selectedValues[0].text;
-                }
-                else {
-                    value.textValue = '';
-                }
+                value.textValue = values.filter(v => rawValues.includes(v.value))
+                    .map(v => displayDescription ? v.description : v.text)
+                    .join(', ');
             }
             catch {
-                value.textValue = value.value;
+                value.textValue = clientValue.value;
             }
         }
         catch {

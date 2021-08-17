@@ -25,7 +25,8 @@ const vendorMaps: Record<string, string> = {
     "mitt": "Mitt",
     "vee-validate": "VeeValidate",
     "vue": "Vue",
-    "vuex": "Vuex"
+    "vuex": "Vuex",
+    "linqts": "Linqts"
 };
 
 /**

@@ -15,6 +15,7 @@
 // </copyright>
 //
 import { mount } from '@vue/test-utils';
+import assert = require('assert');
 import TextBox from '../../Elements/TextBox';
 
 describe('TextBox', () => {
@@ -26,7 +27,8 @@ describe('TextBox', () => {
         });
 
         const labels = wrapper.findAll('label');
-        expect(labels.length).toBe(0);
+
+        assert.equal(labels.length, 0);
     });
 
     it('Renders label when passed', async () => {
@@ -39,8 +41,8 @@ describe('TextBox', () => {
         });
 
         const labels = wrapper.findAll('label');
-        expect(labels.length).toBe(1);
-        expect(labels[0].text()).toBe(labelText);
+        assert.equal(labels.length, 1);
+        assert.equal(labels[0].text(), labelText);
     });
 
     it('Shows a countdown', async () => {
@@ -57,7 +59,7 @@ describe('TextBox', () => {
         });
 
         const countdownElements = wrapper.findAll('em.badge');
-        expect(countdownElements.length).toBe(1);
-        expect(countdownElements[0].text()).toBe(charsRemaining.toString());
+        assert.equal(countdownElements.length, 1);
+        assert.equal(countdownElements[0].text(), charsRemaining.toString());
     });
 });

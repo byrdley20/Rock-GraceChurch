@@ -16,6 +16,8 @@
 //
 
 import RockDate, { RockDateType } from '../Util/RockDate';
+import { List } from 'linqts';
+import { padLeft } from './String';
 
 /**
  * Transform the value into a date or null
@@ -118,4 +120,54 @@ export function asElapsedString ( dateTime: Date )
     }
 
     return `${Math.round( totalYears )}yrs`;
+}
+
+
+type DateFormatterCommand = (date: Date) => string;
+
+const englishDayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const englishMonthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+const dateFormatters: Record<string, DateFormatterCommand> = {
+    'yyyyy': date => padLeft(date.getFullYear().toString(), 5, '0'),
+    'yyyy': date => padLeft(date.getFullYear().toString(), 4, '0'),
+    'yyy': date => padLeft(date.getFullYear().toString(), 3, '0'),
+    'yy': date => padLeft((date.getFullYear() % 100).toString(), 2, '0'),
+    'y': date => (date.getFullYear() % 100).toString(),
+
+    'MMMM': date => englishMonthNames[date.getMonth()],
+    'MMM': date => englishMonthNames[date.getMonth()].substr(0, 3),
+    'MM': date => padLeft((date.getMonth() + 1).toString(), 2, '0'),
+    'M': date => (date.getMonth() + 1).toString(),
+
+
+    'dddd': date => englishDayNames[date.getDay()],
+    'ddd': date => englishDayNames[date.getDay()].substr(0, 3),
+    'dd': date => padLeft(date.getDate().toString(), 2, '0'),
+    'd': date => date.getDate().toString(),
+};
+const dateFormatterKeys = new List<string>(Object.keys(dateFormatters))
+    .OrderByDescending(k => k.length)
+    .ToArray();
+
+export function formatAspDate(date: Date, format: string): string {
+    let result = '';
+
+    for (let i = 0; i < format.length; i++) {
+        let matchFound = false;
+
+        for (const k of dateFormatterKeys) {
+            if (format.substr(i, k.length) === k) {
+                result += dateFormatters[k](date);
+                matchFound = true;
+                break;
+            }
+        }
+
+        if (!matchFound) {
+            result += format[i];
+        }
+    }
+
+    return result;
 }

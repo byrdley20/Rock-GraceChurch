@@ -1,5 +1,7 @@
 import "systemjs";
 
+declare type ReadyCallbackFn = () => void;
+
 /**
  * A map for a package name to it's URL path.
  */
@@ -51,7 +53,7 @@ interface ObsidianOptions {
  */
 class Obsidian {
     /** Functions that will need to be called once Obsidian is ready. */
-    private readonly callbacks: Array<Function> = [];
+    private readonly callbacks: Array<ReadyCallbackFn> = [];
 
     /** True if Obsidian has fully initialized and is ready to render. */
     private isReady: boolean = false;
@@ -80,7 +82,7 @@ class Obsidian {
      * 
      * @param callback The callback.
      */
-    public onReady(callback: Function): void {
+    public onReady(callback: ReadyCallbackFn): void {
         if (this.isReady) {
             callback();
         }

@@ -22,7 +22,7 @@ import { padLeft, padRight } from './String';
  * Transform the value into a date or null
  * @param val
  */
-export function asDateOrNull(val: unknown) {
+export function asDateOrNull(val: unknown): Date | null {
     if (val === undefined || val === null) {
         return null;
     }

@@ -1,8 +1,30 @@
 {
-  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "outDir": ".",
+    "rootDir": "..",
+    "declaration": false,
+    "incremental": true,
+    "noImplicitAny": true,
+    "noImplicitOverride": true,
+    "noEmit": true,
+    "noEmitOnError": true,
+    "removeComments": true,
+    "allowUnreachableCode": false,
+    "forceConsistentCasingInFileNames": true,
+    "sourceMap": true,
+    "target": "ES2016",
     "module": "CommonJS",
-    "baseUrl": ".."
+    "moduleResolution": "Node",
+    "baseUrl": "..",
+    "strict": true,
+    "lib": [
+      "DOM",
+      "ES2016",
+      "ES2020.Symbol.WellKnown"
+    ],
+    "paths": {
+      "@Obsidian/ViewModels": [ "ViewModels/Index" ],
+      "@Obsidian/SystemGuids": [ "SystemGuids/Index" ],
+      "@Obsidian/Services/*": [ "Services/*" ]
+    }
   }
 }

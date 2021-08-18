@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface ConnectionType extends Entity {
     connectionRequestDetailPageId: number | null;
@@ -41,8 +40,8 @@ export default interface ConnectionType extends Entity {
     requestBadgeLava: string | null;
     requestHeaderLava: string | null;
     requiresPlacementGroupToConnect: boolean;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

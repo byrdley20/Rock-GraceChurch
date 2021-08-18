@@ -22,27 +22,26 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface UserLogin extends Entity {
     apiKey: string | null;
     entityTypeId: number | null;
     failedPasswordAttemptCount: number | null;
-    failedPasswordAttemptWindowStartDateTime: RockDateType | null;
+    failedPasswordAttemptWindowStartDateTime: string | null;
     isConfirmed: boolean | null;
     isLockedOut: boolean | null;
     isOnLine: boolean | null;
     isPasswordChangeRequired: boolean | null;
-    lastActivityDateTime: RockDateType | null;
-    lastLockedOutDateTime: RockDateType | null;
-    lastLoginDateTime: RockDateType | null;
-    lastPasswordChangedDateTime: RockDateType | null;
-    lastPasswordExpirationWarningDateTime: RockDateType | null;
+    lastActivityDateTime: string | null;
+    lastLockedOutDateTime: string | null;
+    lastLoginDateTime: string | null;
+    lastPasswordChangedDateTime: string | null;
+    lastPasswordExpirationWarningDateTime: string | null;
     password: string | null;
     personId: number | null;
     userName: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

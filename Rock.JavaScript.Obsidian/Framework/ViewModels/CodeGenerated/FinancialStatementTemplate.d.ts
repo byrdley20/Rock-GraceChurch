@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface FinancialStatementTemplate extends Entity {
     description: string | null;
@@ -32,8 +31,8 @@ export default interface FinancialStatementTemplate extends Entity {
     name: string | null;
     reportSettingsJson: string | null;
     reportTemplate: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

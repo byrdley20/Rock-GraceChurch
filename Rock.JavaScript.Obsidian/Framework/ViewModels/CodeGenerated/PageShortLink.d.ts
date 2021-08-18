@@ -22,14 +22,13 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface PageShortLink extends Entity {
     siteId: number;
     token: string | null;
     url: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

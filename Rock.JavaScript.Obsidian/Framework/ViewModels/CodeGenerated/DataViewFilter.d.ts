@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface DataViewFilter extends Entity {
     dataViewId: number | null;
@@ -31,8 +30,8 @@ export default interface DataViewFilter extends Entity {
     parentId: number | null;
     relatedDataViewId: number | null;
     selection: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

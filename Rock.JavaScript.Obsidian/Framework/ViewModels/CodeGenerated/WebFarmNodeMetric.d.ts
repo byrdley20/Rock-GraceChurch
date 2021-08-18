@@ -22,16 +22,15 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface WebFarmNodeMetric extends Entity {
     metricType: number;
     metricValue: number;
-    metricValueDateTime: RockDateType;
+    metricValueDateTime: string;
     note: string | null;
     webFarmNodeId: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

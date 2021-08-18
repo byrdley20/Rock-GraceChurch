@@ -22,15 +22,14 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface InteractionSession extends Entity {
     deviceTypeId: number | null;
     interactionMode: string | null;
     ipAddress: string | null;
     sessionData: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

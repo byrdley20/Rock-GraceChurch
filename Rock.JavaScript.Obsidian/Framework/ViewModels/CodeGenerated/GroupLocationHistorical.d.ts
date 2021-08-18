@@ -22,21 +22,20 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface GroupLocationHistorical extends Entity {
     currentRowIndicator: boolean;
-    effectiveDateTime: RockDateType;
-    expireDateTime: RockDateType;
+    effectiveDateTime: string;
+    expireDateTime: string;
     groupId: number;
     groupLocationId: number | null;
     groupLocationTypeName: string | null;
     groupLocationTypeValueId: number | null;
     locationId: number;
-    locationModifiedDateTime: RockDateType | null;
+    locationModifiedDateTime: string | null;
     locationName: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

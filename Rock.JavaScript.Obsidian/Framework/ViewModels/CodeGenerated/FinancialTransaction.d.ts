@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface FinancialTransaction extends Entity {
     authorizedPersonAliasId: number | null;
@@ -33,27 +32,27 @@ export default interface FinancialTransaction extends Entity {
     financialGatewayId: number | null;
     financialPaymentDetailId: number | null;
     foreignCurrencyCodeValueId: number | null;
-    futureProcessingDateTime: RockDateType | null;
+    futureProcessingDateTime: string | null;
     isReconciled: boolean | null;
     isSettled: boolean | null;
     mICRStatus: number | null;
     nonCashAssetTypeValueId: number | null;
     processedByPersonAliasId: number | null;
-    processedDateTime: RockDateType | null;
+    processedDateTime: string | null;
     scheduledTransactionId: number | null;
-    settledDate: RockDateType | null;
+    settledDate: string | null;
     settledGroupId: string | null;
     showAsAnonymous: boolean;
     sourceTypeValueId: number | null;
     status: string | null;
     statusMessage: string | null;
     summary: string | null;
-    sundayDate: RockDateType | null;
+    sundayDate: string | null;
     transactionCode: string | null;
-    transactionDateTime: RockDateType | null;
+    transactionDateTime: string | null;
     transactionTypeValueId: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

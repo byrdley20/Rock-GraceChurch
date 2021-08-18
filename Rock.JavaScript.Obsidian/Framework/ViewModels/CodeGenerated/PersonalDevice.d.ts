@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface PersonalDevice extends Entity {
     deviceRegistrationId: string | null;
@@ -38,8 +37,8 @@ export default interface PersonalDevice extends Entity {
     personAliasId: number | null;
     platformValueId: number | null;
     siteId: number | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

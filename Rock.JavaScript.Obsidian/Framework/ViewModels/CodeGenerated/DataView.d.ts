@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface DataView extends Entity {
     categoryId: number | null;
@@ -31,17 +30,17 @@ export default interface DataView extends Entity {
     entityTypeId: number | null;
     includeDeceased: boolean;
     isSystem: boolean;
-    lastRunDateTime: RockDateType | null;
+    lastRunDateTime: string | null;
     name: string | null;
-    persistedLastRefreshDateTime: RockDateType | null;
+    persistedLastRefreshDateTime: string | null;
     persistedLastRunDurationMilliseconds: number | null;
     persistedScheduleIntervalMinutes: number | null;
     runCount: number | null;
-    runCountLastRefreshDateTime: RockDateType | null;
+    runCountLastRefreshDateTime: string | null;
     timeToRunDurationMilliseconds: number | null;
     transformEntityTypeId: number | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

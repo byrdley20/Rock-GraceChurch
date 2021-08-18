@@ -22,20 +22,19 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface RegistrationSession extends Entity {
     clientIpAddress: string | null;
-    expirationDateTime: RockDateType;
+    expirationDateTime: string;
     paymentGatewayReference: string | null;
     registrationCount: number;
     registrationData: string | null;
     registrationId: number | null;
     registrationInstanceId: number;
-    sessionStartDateTime: RockDateType;
+    sessionStartDateTime: string;
     sessionStatus: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

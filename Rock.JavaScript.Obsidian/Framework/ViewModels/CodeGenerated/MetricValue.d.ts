@@ -22,17 +22,16 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface MetricValue extends Entity {
     metricId: number;
-    metricValueDateTime: RockDateType | null;
+    metricValueDateTime: string | null;
     metricValueType: number;
     note: string | null;
     xValue: string | null;
     yValue: number | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface FinancialTransactionAlertType extends Entity {
     alertSummaryNotificationGroupId: number | null;
@@ -45,8 +44,8 @@ export default interface FinancialTransactionAlertType extends Entity {
     sendBusEvent: boolean;
     systemCommunicationId: number | null;
     workflowTypeId: number | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

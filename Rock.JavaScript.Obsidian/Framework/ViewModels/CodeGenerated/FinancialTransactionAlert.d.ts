@@ -22,11 +22,10 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface FinancialTransactionAlert extends Entity {
     alertDateKey: number;
-    alertDateTime: RockDateType;
+    alertDateTime: string;
     alertTypeId: number;
     amount: number | null;
     amountCurrentIqr: number | null;
@@ -40,8 +39,8 @@ export default interface FinancialTransactionAlert extends Entity {
     personAliasId: number;
     reasonsKey: string | null;
     transactionId: number | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

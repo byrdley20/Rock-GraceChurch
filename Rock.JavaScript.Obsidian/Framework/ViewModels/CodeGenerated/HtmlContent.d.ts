@@ -22,20 +22,19 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface HtmlContent extends Entity {
     approvedByPersonAliasId: number | null;
-    approvedDateTime: RockDateType | null;
+    approvedDateTime: string | null;
     blockId: number;
     content: string | null;
     entityValue: string | null;
-    expireDateTime: RockDateType | null;
+    expireDateTime: string | null;
     isApproved: boolean;
-    startDateTime: RockDateType | null;
+    startDateTime: string | null;
     version: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

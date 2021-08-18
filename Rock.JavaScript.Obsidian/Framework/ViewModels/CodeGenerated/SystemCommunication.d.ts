@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface SystemCommunication extends Entity {
     bcc: string | null;
@@ -47,8 +46,8 @@ export default interface SystemCommunication extends Entity {
     subject: string | null;
     title: string | null;
     to: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

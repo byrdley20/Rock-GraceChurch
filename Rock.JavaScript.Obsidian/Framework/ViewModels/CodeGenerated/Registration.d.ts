@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface Registration extends Entity {
     confirmationEmail: string | null;
@@ -33,11 +32,11 @@ export default interface Registration extends Entity {
     groupId: number | null;
     isTemporary: boolean;
     lastName: string | null;
-    lastPaymentReminderDateTime: RockDateType | null;
+    lastPaymentReminderDateTime: string | null;
     personAliasId: number | null;
     registrationInstanceId: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

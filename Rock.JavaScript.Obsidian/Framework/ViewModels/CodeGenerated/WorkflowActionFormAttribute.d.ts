@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface WorkflowActionFormAttribute extends Entity {
     attributeId: number;
@@ -35,8 +34,8 @@ export default interface WorkflowActionFormAttribute extends Entity {
     postHtml: string | null;
     preHtml: string | null;
     workflowActionFormId: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

@@ -22,11 +22,10 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface EventItem extends Entity {
     approvedByPersonAliasId: number | null;
-    approvedOnDateTime: RockDateType | null;
+    approvedOnDateTime: string | null;
     description: string | null;
     detailsUrl: string | null;
     isActive: boolean;
@@ -34,8 +33,8 @@ export default interface EventItem extends Entity {
     name: string | null;
     photoId: number | null;
     summary: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

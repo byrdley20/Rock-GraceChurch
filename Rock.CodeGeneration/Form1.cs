@@ -1211,8 +1211,7 @@ namespace Rock.ViewModel
                     }
                     break;
                 case TypeCode.DateTime:
-                    imports.Add( "import { RockDateType } from '../../Util/RockDate';" );
-                    tsType = "RockDateType";
+                    tsType = "string";
                     break;
                 case TypeCode.Boolean:
                     tsType = "boolean";

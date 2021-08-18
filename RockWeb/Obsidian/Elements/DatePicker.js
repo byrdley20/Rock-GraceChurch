@@ -1,6 +1,6 @@
-System.register(["vue", "@Obsidian/Services/Number", "../Util/RockDate", "./RockFormField", "./TextBox"], function (exports_1, context_1) {
+System.register(["vue", "@Obsidian/Services/Number", "./RockFormField", "./TextBox"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, Number_1, RockDate_1, RockFormField_1, TextBox_1;
+    var vue_1, Number_1, RockFormField_1, TextBox_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -9,9 +9,6 @@ System.register(["vue", "@Obsidian/Services/Number", "../Util/RockDate", "./Rock
             },
             function (Number_1_1) {
                 Number_1 = Number_1_1;
-            },
-            function (RockDate_1_1) {
-                RockDate_1 = RockDate_1_1;
             },
             function (RockFormField_1_1) {
                 RockFormField_1 = RockFormField_1_1;
@@ -53,7 +50,14 @@ System.register(["vue", "@Obsidian/Services/Number", "../Util/RockDate", "./Rock
                 },
                 computed: {
                     asRockDateOrNull() {
-                        return this.internalValue ? RockDate_1.default.toRockDate(new Date(this.internalValue)) : null;
+                        var _a;
+                        const match = /^(\d+)\/(\d+)\/(\d+)/.exec((_a = this.internalValue) !== null && _a !== void 0 ? _a : '');
+                        if (match !== null) {
+                            return `${match[3]}-${match[2]}-${match[1]}`;
+                        }
+                        else {
+                            return null;
+                        }
                     },
                     asCurrentDateValue() {
                         const plusMinus = `${Number_1.toNumber(this.currentDiff)}`;
@@ -103,10 +107,13 @@ System.register(["vue", "@Obsidian/Services/Number", "../Util/RockDate", "./Rock
                                 }
                                 return;
                             }
-                            const month = RockDate_1.default.getMonth(this.modelValue);
-                            const day = RockDate_1.default.getDay(this.modelValue);
-                            const year = RockDate_1.default.getYear(this.modelValue);
-                            this.internalValue = `${month}/${day}/${year}`;
+                            const match = /^(\d+)-(\d+)-(\d+)/.exec(this.modelValue);
+                            if (match !== null) {
+                                this.internalValue = `${match[3]}/${match[2]}/${match[1]}`;
+                            }
+                            else {
+                                this.internalValue = null;
+                            }
                         }
                     }
                 },

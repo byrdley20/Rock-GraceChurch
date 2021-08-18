@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface ConnectionOpportunityGroupConfig extends Entity {
     connectionOpportunityId: number;
@@ -30,8 +29,8 @@ export default interface ConnectionOpportunityGroupConfig extends Entity {
     groupMemberStatus: number;
     groupTypeId: number;
     useAllGroupsOfType: boolean;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

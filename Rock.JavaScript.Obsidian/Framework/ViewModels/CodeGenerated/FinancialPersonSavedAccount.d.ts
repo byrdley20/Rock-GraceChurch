@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface FinancialPersonSavedAccount extends Entity {
     financialGatewayId: number | null;
@@ -36,8 +35,8 @@ export default interface FinancialPersonSavedAccount extends Entity {
     preferredForeignCurrencyCodeValueId: number | null;
     referenceNumber: string | null;
     transactionCode: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

@@ -22,24 +22,23 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface Streak extends Entity {
     currentStreakCount: number;
-    currentStreakStartDate: RockDateType | null;
+    currentStreakStartDate: string | null;
     engagementCount: number;
     engagementMap: (number)[];
-    enrollmentDate: RockDateType;
+    enrollmentDate: string;
     exclusionMap: (number)[];
-    inactiveDateTime: RockDateType | null;
+    inactiveDateTime: string | null;
     locationId: number | null;
     longestStreakCount: number;
-    longestStreakEndDate: RockDateType | null;
-    longestStreakStartDate: RockDateType | null;
+    longestStreakEndDate: string | null;
+    longestStreakStartDate: string | null;
     personAliasId: number;
     streakTypeId: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

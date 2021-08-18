@@ -22,17 +22,16 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface ServiceLog extends Entity {
     input: string | null;
-    logDateTime: RockDateType | null;
+    logDateTime: string | null;
     name: string | null;
     result: string | null;
     success: boolean;
     type: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

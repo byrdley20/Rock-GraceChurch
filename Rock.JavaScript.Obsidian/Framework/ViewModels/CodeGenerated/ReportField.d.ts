@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface ReportField extends Entity {
     columnHeaderText: string | null;
@@ -36,8 +35,8 @@ export default interface ReportField extends Entity {
     showInGrid: boolean;
     sortDirection: number;
     sortOrder: number | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface AchievementType extends Entity {
     achievementFailureWorkflowTypeId: number | null;
@@ -46,8 +45,8 @@ export default interface AchievementType extends Entity {
     name: string | null;
     resultsLavaTemplate: string | null;
     sourceEntityTypeId: number | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

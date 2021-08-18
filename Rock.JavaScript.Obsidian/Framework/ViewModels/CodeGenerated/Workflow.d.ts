@@ -22,23 +22,22 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface Workflow extends Entity {
-    activatedDateTime: RockDateType | null;
-    completedDateTime: RockDateType | null;
+    activatedDateTime: string | null;
+    completedDateTime: string | null;
     description: string | null;
     entityId: number | null;
     entityTypeId: number | null;
     initiatorPersonAliasId: number | null;
     isProcessing: boolean;
-    lastProcessedDateTime: RockDateType | null;
+    lastProcessedDateTime: string | null;
     name: string | null;
     status: string | null;
     workflowIdNumber: number;
     workflowTypeId: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

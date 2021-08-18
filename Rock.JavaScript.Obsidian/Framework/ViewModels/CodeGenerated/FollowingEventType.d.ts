@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface FollowingEventType extends Entity {
     description: string | null;
@@ -31,12 +30,12 @@ export default interface FollowingEventType extends Entity {
     followedEntityTypeId: number | null;
     isActive: boolean;
     isNoticeRequired: boolean;
-    lastCheckDateTime: RockDateType | null;
+    lastCheckDateTime: string | null;
     name: string | null;
     order: number;
     sendOnWeekends: boolean;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

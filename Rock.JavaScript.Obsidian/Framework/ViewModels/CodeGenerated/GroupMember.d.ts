@@ -22,29 +22,28 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface GroupMember extends Entity {
     archivedByPersonAliasId: number | null;
-    archivedDateTime: RockDateType | null;
+    archivedDateTime: string | null;
     communicationPreference: number;
-    dateTimeAdded: RockDateType | null;
+    dateTimeAdded: string | null;
     groupId: number;
     groupMemberStatus: number;
     groupOrder: number | null;
     groupRoleId: number;
     guestCount: number | null;
-    inactiveDateTime: RockDateType | null;
+    inactiveDateTime: string | null;
     isArchived: boolean;
     isNotified: boolean;
     isSystem: boolean;
     note: string | null;
     personId: number;
     scheduleReminderEmailOffsetDays: number | null;
-    scheduleStartDate: RockDateType | null;
+    scheduleStartDate: string | null;
     scheduleTemplateId: number | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

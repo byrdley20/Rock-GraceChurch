@@ -22,21 +22,20 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface AttributeValueHistorical extends Entity {
     attributeValueId: number;
     currentRowIndicator: boolean;
-    effectiveDateTime: RockDateType;
-    expireDateTime: RockDateType;
+    effectiveDateTime: string;
+    expireDateTime: string;
     value: string | null;
     valueAsBoolean: boolean | null;
-    valueAsDateTime: RockDateType | null;
+    valueAsDateTime: string | null;
     valueAsNumeric: number | null;
     valueAsPersonId: number | null;
     valueFormatted: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

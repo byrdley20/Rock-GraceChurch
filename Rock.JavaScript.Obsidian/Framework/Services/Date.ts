@@ -15,7 +15,6 @@
 // </copyright>
 //
 
-import RockDate, { RockDateType } from '../Util/RockDate';
 import { List } from 'linqts';
 import { padLeft, padRight } from './String';
 
@@ -43,20 +42,6 @@ export function asDateOrNull(val: unknown) {
     }
 
     return null;
-}
-
-/**
- * To a RockDate value.  Mon Dec 2 => 2000-12-02
- * @param val
- */
-export function toRockDateOrNull(val: unknown): RockDateType | null {
-    const date = asDateOrNull(val);
-
-    if (date === null) {
-        return null;
-    }
-
-    return RockDate.toRockDate(date);
 }
 
 /**

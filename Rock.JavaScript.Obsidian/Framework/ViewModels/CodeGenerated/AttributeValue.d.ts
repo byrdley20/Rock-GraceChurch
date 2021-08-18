@@ -23,7 +23,6 @@
 
 import Entity from '../Entity';
 import Attribute from './Attribute';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface AttributeValue extends Entity {
     attribute: Attribute | null;
@@ -32,8 +31,8 @@ export default interface AttributeValue extends Entity {
     isSystem: boolean;
     value: string | null;
     valueAsNumeric: number | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

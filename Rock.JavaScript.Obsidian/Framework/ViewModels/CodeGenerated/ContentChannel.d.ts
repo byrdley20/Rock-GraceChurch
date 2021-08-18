@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface ContentChannel extends Entity {
     channelUrl: string | null;
@@ -43,8 +42,8 @@ export default interface ContentChannel extends Entity {
     rootImageDirectory: string | null;
     structuredContentToolValueId: number | null;
     timeToLive: number | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

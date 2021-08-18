@@ -168,6 +168,9 @@ import PageRoute from './PageRoute';
 import PageShortLink from './PageShortLink';
 import Person from './Person';
 import PersonalDevice from './PersonalDevice';
+import PersonalLink from './PersonalLink';
+import PersonalLinkSection from './PersonalLinkSection';
+import PersonalLinkSectionOrder from './PersonalLinkSectionOrder';
 import PersonDuplicate from './PersonDuplicate';
 import PersonPreviousName from './PersonPreviousName';
 import PersonScheduleExclusion from './PersonScheduleExclusion';
@@ -381,6 +384,9 @@ export {
     PageShortLink,
     Person,
     PersonalDevice,
+    PersonalLink,
+    PersonalLinkSection,
+    PersonalLinkSectionOrder,
     PersonDuplicate,
     PersonPreviousName,
     PersonScheduleExclusion,

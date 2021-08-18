@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface ConnectionWorkflow extends Entity {
     connectionOpportunityId: number | null;
@@ -30,8 +29,8 @@ export default interface ConnectionWorkflow extends Entity {
     qualifierValue: string | null;
     triggerType: number;
     workflowTypeId: number | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

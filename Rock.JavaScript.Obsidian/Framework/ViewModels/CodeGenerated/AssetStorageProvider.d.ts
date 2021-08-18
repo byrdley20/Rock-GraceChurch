@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface AssetStorageProvider extends Entity {
     description: string | null;
@@ -30,8 +29,8 @@ export default interface AssetStorageProvider extends Entity {
     isActive: boolean;
     name: string | null;
     order: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

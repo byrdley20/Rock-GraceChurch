@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface AttendanceOccurrence extends Entity {
     acceptConfirmationMessage: string | null;
@@ -35,13 +34,13 @@ export default interface AttendanceOccurrence extends Entity {
     locationId: number | null;
     name: string | null;
     notes: string | null;
-    occurrenceDate: RockDateType;
+    occurrenceDate: string;
     scheduleId: number | null;
     showDeclineReasons: boolean;
     stepTypeId: number | null;
-    sundayDate: RockDateType;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    sundayDate: string;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

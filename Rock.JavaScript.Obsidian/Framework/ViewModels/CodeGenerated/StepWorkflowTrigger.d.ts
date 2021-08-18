@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface StepWorkflowTrigger extends Entity {
     isActive: boolean;
@@ -32,8 +31,8 @@ export default interface StepWorkflowTrigger extends Entity {
     typeQualifier: string | null;
     workflowName: string | null;
     workflowTypeId: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

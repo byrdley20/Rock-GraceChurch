@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface PersonDuplicate extends Entity {
     capacity: number | null;
@@ -33,8 +32,8 @@ export default interface PersonDuplicate extends Entity {
     score: number | null;
     scoreDetail: string | null;
     totalCapacity: number | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

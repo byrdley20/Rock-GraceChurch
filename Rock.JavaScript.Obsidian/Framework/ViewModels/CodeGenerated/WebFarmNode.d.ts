@@ -22,22 +22,21 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface WebFarmNode extends Entity {
-    addedDateTime: RockDateType;
+    addedDateTime: string;
     configuredLeadershipPollingIntervalSeconds: number | null;
     currentLeadershipPollingIntervalSeconds: number;
     isActive: boolean;
     isCurrentJobRunner: boolean;
     isLeader: boolean;
     jobsAllowed: boolean;
-    lastRestartDateTime: RockDateType;
-    lastSeenDateTime: RockDateType;
+    lastRestartDateTime: string;
+    lastSeenDateTime: string;
     nodeName: string | null;
-    stoppedDateTime: RockDateType | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    stoppedDateTime: string | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

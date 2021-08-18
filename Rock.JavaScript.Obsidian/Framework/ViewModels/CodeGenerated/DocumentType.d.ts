@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface DocumentType extends Entity {
     binaryFileTypeId: number;
@@ -37,8 +36,8 @@ export default interface DocumentType extends Entity {
     name: string | null;
     order: number;
     userSelectable: boolean;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

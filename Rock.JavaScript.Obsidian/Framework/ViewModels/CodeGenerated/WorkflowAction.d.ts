@@ -22,16 +22,15 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface WorkflowAction extends Entity {
     actionTypeId: number;
     activityId: number;
-    completedDateTime: RockDateType | null;
+    completedDateTime: string | null;
     formAction: string | null;
-    lastProcessedDateTime: RockDateType | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    lastProcessedDateTime: string | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

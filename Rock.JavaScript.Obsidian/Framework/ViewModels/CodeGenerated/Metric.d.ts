@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface Metric extends Entity {
     adminPersonAliasId: number | null;
@@ -33,7 +32,7 @@ export default interface Metric extends Entity {
     iconCssClass: string | null;
     isCumulative: boolean;
     isSystem: boolean;
-    lastRunDateTime: RockDateType | null;
+    lastRunDateTime: string | null;
     metricChampionPersonAliasId: number | null;
     numericDataType: number;
     scheduleId: number | null;
@@ -44,8 +43,8 @@ export default interface Metric extends Entity {
     title: string | null;
     xAxisLabel: string | null;
     yAxisLabel: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

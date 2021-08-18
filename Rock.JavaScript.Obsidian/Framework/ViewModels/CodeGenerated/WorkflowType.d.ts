@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface WorkflowType extends Entity {
     categoryId: number | null;
@@ -41,8 +40,8 @@ export default interface WorkflowType extends Entity {
     summaryViewText: string | null;
     workflowIdPrefix: string | null;
     workTerm: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

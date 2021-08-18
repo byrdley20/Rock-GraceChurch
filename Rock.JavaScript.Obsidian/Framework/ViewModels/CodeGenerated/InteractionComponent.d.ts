@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface InteractionComponent extends Entity {
     channelCustom1: string | null;
@@ -33,8 +32,8 @@ export default interface InteractionComponent extends Entity {
     entityId: number | null;
     interactionChannelId: number;
     name: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

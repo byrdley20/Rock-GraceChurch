@@ -22,17 +22,16 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface MediaAccount extends Entity {
     componentEntityTypeId: number;
     isActive: boolean;
-    lastRefreshDateTime: RockDateType | null;
+    lastRefreshDateTime: string | null;
     metricData: string | null;
     name: string | null;
     sourceData: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface AttributeMatrixTemplate extends Entity {
     description: string | null;
@@ -31,8 +30,8 @@ export default interface AttributeMatrixTemplate extends Entity {
     maximumRows: number | null;
     minimumRows: number | null;
     name: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

@@ -22,19 +22,18 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface GroupSync extends Entity {
     addUserAccountsDuringSync: boolean;
     exitSystemCommunicationId: number | null;
     groupId: number;
     groupTypeRoleId: number;
-    lastRefreshDateTime: RockDateType | null;
+    lastRefreshDateTime: string | null;
     scheduleIntervalMinutes: number | null;
     syncDataViewId: number;
     welcomeSystemCommunicationId: number | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

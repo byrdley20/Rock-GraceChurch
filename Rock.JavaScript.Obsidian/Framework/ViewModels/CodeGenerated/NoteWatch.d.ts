@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface NoteWatch extends Entity {
     allowOverride: boolean;
@@ -34,8 +33,8 @@ export default interface NoteWatch extends Entity {
     watcherGroupId: number | null;
     watcherPersonAliasId: number | null;
     watchReplies: boolean;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

@@ -22,30 +22,29 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface GroupHistorical extends Entity {
     archivedByPersonAliasId: number | null;
-    archivedDateTime: RockDateType | null;
+    archivedDateTime: string | null;
     campusId: number | null;
     currentRowIndicator: boolean;
     description: string | null;
-    effectiveDateTime: RockDateType;
-    expireDateTime: RockDateType;
+    effectiveDateTime: string;
+    expireDateTime: string;
     groupId: number;
     groupName: string | null;
     groupTypeId: number;
     groupTypeName: string | null;
-    inactiveDateTime: RockDateType | null;
+    inactiveDateTime: string | null;
     isActive: boolean;
     isArchived: boolean;
     parentGroupId: number | null;
     scheduleId: number | null;
-    scheduleModifiedDateTime: RockDateType | null;
+    scheduleModifiedDateTime: string | null;
     scheduleName: string | null;
     statusValueId: number | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

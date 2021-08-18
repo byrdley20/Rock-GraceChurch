@@ -1,4 +1,4 @@
-System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../../Elements/RockButton", "../../Elements/TextBox", "vue", "../../Store/Index", "../../Elements/EmailBox", "../../Controls/RockValidation", "../../Controls/RockForm", "../../Controls/Loading", "../../Controls/PrimaryBlock", "@Obsidian/Services/Date", "../../Util/RockDate", "../../Elements/DatePicker", "../../Controls/AddressControl"], function (exports_1, context_1) {
+System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../../Elements/RockButton", "../../Elements/TextBox", "vue", "../../Store/Index", "../../Elements/EmailBox", "../../Controls/RockValidation", "../../Controls/RockForm", "../../Controls/Loading", "../../Controls/PrimaryBlock", "@Obsidian/Services/Date", "../../Elements/DatePicker", "../../Controls/AddressControl", "@Obsidian/Services/Number"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,7 +9,7 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var Bus_1, PaneledBlockTemplate_1, RockButton_1, TextBox_1, vue_1, Index_1, EmailBox_1, RockValidation_1, RockForm_1, Loading_1, PrimaryBlock_1, Date_1, RockDate_1, DatePicker_1, AddressControl_1;
+    var Bus_1, PaneledBlockTemplate_1, RockButton_1, TextBox_1, vue_1, Index_1, EmailBox_1, RockValidation_1, RockForm_1, Loading_1, PrimaryBlock_1, Date_1, DatePicker_1, AddressControl_1, Number_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -49,14 +49,14 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
             function (Date_1_1) {
                 Date_1 = Date_1_1;
             },
-            function (RockDate_1_1) {
-                RockDate_1 = RockDate_1_1;
-            },
             function (DatePicker_1_1) {
                 DatePicker_1 = DatePicker_1_1;
             },
             function (AddressControl_1_1) {
                 AddressControl_1 = AddressControl_1_1;
+            },
+            function (Number_1_1) {
+                Number_1 = Number_1_1;
             }
         ],
         execute: function () {
@@ -97,16 +97,26 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                     },
                     doEdit() {
                         this.personForEditing = this.person ? Object.assign({}, this.person) : null;
-                        this.birthdate = this.birthdateOrNull ? RockDate_1.toRockDate(this.birthdateOrNull) : null;
+                        this.birthdate = this.birthdateOrNull ? Date_1.formatAspDate(this.birthdateOrNull, 'yyyy-MM-dd') : null;
                         this.setIsEditMode(true);
                     },
                     doCancel() {
                         this.setIsEditMode(false);
                     },
                     doSave() {
+                        var _a;
                         return __awaiter(this, void 0, void 0, function* () {
                             if (this.personForEditing) {
-                                this.person = Object.assign(Object.assign({}, this.personForEditing), { birthDay: RockDate_1.default.getDay(this.birthdate), birthMonth: RockDate_1.default.getMonth(this.birthdate), birthYear: RockDate_1.default.getYear(this.birthdate) });
+                                const match = /^(\d+)-(\d+)-(\d+)/.exec((_a = this.birthdate) !== null && _a !== void 0 ? _a : '');
+                                let birthDay = null;
+                                let birthMonth = null;
+                                let birthYear = null;
+                                if (match !== null) {
+                                    birthYear = Number_1.toNumber(match[1]);
+                                    birthMonth = Number_1.toNumber(match[2]);
+                                    birthDay = Number_1.toNumber(match[3]);
+                                }
+                                this.person = Object.assign(Object.assign({}, this.personForEditing), { birthDay: birthDay, birthMonth: birthMonth, birthYear: birthYear });
                                 this.isLoading = true;
                                 yield this.invokeBlockAction('EditPerson', {
                                     personArgs: this.person

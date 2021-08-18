@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface RelatedEntity extends Entity {
     isSystem: boolean;
@@ -33,8 +32,8 @@ export default interface RelatedEntity extends Entity {
     sourceEntityTypeId: number;
     targetEntityId: number;
     targetEntityTypeId: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

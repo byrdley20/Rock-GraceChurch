@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface BinaryFileType extends Entity {
     cacheControlHeaderSettings: string | null;
@@ -39,8 +38,8 @@ export default interface BinaryFileType extends Entity {
     preferredResolution: number;
     requiresViewSecurity: boolean;
     storageEntityTypeId: number | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

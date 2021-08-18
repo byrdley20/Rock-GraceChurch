@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface CommunicationTemplate extends Entity {
     bCCEmails: string | null;
@@ -52,8 +51,8 @@ export default interface CommunicationTemplate extends Entity {
     sMSFromDefinedValueId: number | null;
     sMSMessage: string | null;
     subject: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

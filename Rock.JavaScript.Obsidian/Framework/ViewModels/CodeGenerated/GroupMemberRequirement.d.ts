@@ -22,17 +22,16 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface GroupMemberRequirement extends Entity {
     groupMemberId: number;
     groupRequirementId: number;
-    lastRequirementCheckDateTime: RockDateType | null;
-    requirementFailDateTime: RockDateType | null;
-    requirementMetDateTime: RockDateType | null;
-    requirementWarningDateTime: RockDateType | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    lastRequirementCheckDateTime: string | null;
+    requirementFailDateTime: string | null;
+    requirementMetDateTime: string | null;
+    requirementWarningDateTime: string | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

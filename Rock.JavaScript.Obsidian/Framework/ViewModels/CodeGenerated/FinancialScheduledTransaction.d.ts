@@ -22,32 +22,31 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface FinancialScheduledTransaction extends Entity {
     authorizedPersonAliasId: number;
-    cardReminderDate: RockDateType | null;
-    endDate: RockDateType | null;
+    cardReminderDate: string | null;
+    endDate: string | null;
     financialGatewayId: number | null;
     financialPaymentDetailId: number | null;
     foreignCurrencyCodeValueId: number | null;
     gatewayScheduleId: string | null;
-    inactivateDateTime: RockDateType | null;
+    inactivateDateTime: string | null;
     isActive: boolean;
-    lastRemindedDate: RockDateType | null;
-    lastStatusUpdateDateTime: RockDateType | null;
-    nextPaymentDate: RockDateType | null;
+    lastRemindedDate: string | null;
+    lastStatusUpdateDateTime: string | null;
+    nextPaymentDate: string | null;
     numberOfPayments: number | null;
     sourceTypeValueId: number | null;
-    startDate: RockDateType;
+    startDate: string;
     status: number | null;
     statusMessage: string | null;
     summary: string | null;
     transactionCode: string | null;
     transactionFrequencyValueId: number;
     transactionTypeValueId: number | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

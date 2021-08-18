@@ -22,15 +22,14 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface ScheduleCategoryExclusion extends Entity {
     categoryId: number;
-    endDate: RockDateType;
-    startDate: RockDateType;
+    endDate: string;
+    startDate: string;
     title: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

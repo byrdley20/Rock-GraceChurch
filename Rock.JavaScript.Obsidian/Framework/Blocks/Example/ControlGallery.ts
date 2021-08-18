@@ -23,7 +23,6 @@ import CurrencyBox from '../../Elements/CurrencyBox';
 import PanelWidget from '../../Elements/PanelWidget';
 import DatePicker from '../../Elements/DatePicker';
 import DateTimePicker from '../../Elements/DateTimePicker';
-import { RockDateType } from '../../Util/RockDate';
 import BirthdayPicker from '../../Elements/BirthdayPicker';
 import NumberUpDown from '../../Elements/NumberUpDown';
 import AddressControl, { getDefaultAddressControlModel } from '../../Controls/AddressControl';
@@ -374,7 +373,7 @@ const DatePickerGallery = defineComponent( {
     data ()
     {
         return {
-            date: null as RockDateType | null,
+            date: null as string | null,
             currentDate: 'CURRENT:1'
         };
     },
@@ -406,7 +405,7 @@ const DateTimePickerGallery = defineComponent({
     },
     data() {
         return {
-            date: null as RockDateType | null
+            date: null as string | null
         };
     },
     template: `

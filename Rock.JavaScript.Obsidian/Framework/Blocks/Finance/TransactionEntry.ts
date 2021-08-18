@@ -29,9 +29,9 @@ import { FinancialAccount, Person } from '@Obsidian/ViewModels';
 import store from '../../Store/Index';
 import TextBox from '../../Elements/TextBox';
 import { asCommaAnd } from '@Obsidian/Services/String';
-import RockDate, { RockDateType } from '../../Util/RockDate';
 import GatewayControl, { GatewayControlModel } from '../../Controls/GatewayControl';
 import RockValidation from '../../Controls/RockValidation';
+import { formatAspDate } from '@Obsidian/Services/Date';
 
 export type ProcessTransactionArgs = {
     isGivingAsPerson: boolean;
@@ -55,7 +55,7 @@ export type ProcessTransactionArgs = {
     campusGuid: Guid | null;
     businessGuid: Guid | null;
     frequencyValueGuid: Guid;
-    giftDate: RockDateType;
+    giftDate: string;
     isGiveAnonymously: boolean;
 };
 
@@ -113,7 +113,7 @@ export default defineComponent({
                 campusGuid: '',
                 businessGuid: null,
                 frequencyValueGuid: '',
-                giftDate: RockDate.newDate(),
+                giftDate: formatAspDate(new Date(), 'yyyy-MM-dd'),
                 isGiveAnonymously: false
             } as ProcessTransactionArgs
         };

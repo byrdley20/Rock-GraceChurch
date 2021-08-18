@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface EventItemOccurrenceGroupMap extends Entity {
     eventItemOccurrenceId: number | null;
@@ -30,8 +29,8 @@ export default interface EventItemOccurrenceGroupMap extends Entity {
     publicName: string | null;
     registrationInstanceId: number | null;
     urlSlug: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

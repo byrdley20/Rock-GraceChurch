@@ -23,7 +23,6 @@
 
 import Entity from '../Entity';
 import { Guid } from '../../Util/Guid';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface Attribute extends Entity {
     abbreviatedName: string | null;
@@ -54,8 +53,8 @@ export default interface Attribute extends Entity {
     preHtml: string | null;
     qualifierValues: Record<string, unknown>;
     showOnBulk: boolean;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

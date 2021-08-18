@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface Report extends Entity {
     categoryId: number | null;
@@ -31,13 +30,13 @@ export default interface Report extends Entity {
     entityTypeId: number | null;
     fetchTop: number | null;
     isSystem: boolean;
-    lastRunDateTime: RockDateType | null;
+    lastRunDateTime: string | null;
     name: string | null;
     queryHint: string | null;
     runCount: number | null;
     timeToRunDurationMilliseconds: number | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

@@ -22,18 +22,17 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface FinancialPledge extends Entity {
     accountId: number | null;
-    endDate: RockDateType;
+    endDate: string;
     groupId: number | null;
     personAliasId: number | null;
     pledgeFrequencyValueId: number | null;
-    startDate: RockDateType;
+    startDate: string;
     totalAmount: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

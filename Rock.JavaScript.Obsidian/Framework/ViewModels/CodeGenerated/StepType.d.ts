@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface StepType extends Entity {
     allowManualEditing: boolean;
@@ -42,8 +41,8 @@ export default interface StepType extends Entity {
     order: number;
     showCountOnBadge: boolean;
     stepProgramId: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

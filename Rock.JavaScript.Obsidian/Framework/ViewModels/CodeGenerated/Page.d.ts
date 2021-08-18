@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface Page extends Entity {
     additionalSettings: string | null;
@@ -55,8 +54,8 @@ export default interface Page extends Entity {
     pageTitle: string | null;
     parentPageId: number | null;
     requiresEncryption: boolean;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

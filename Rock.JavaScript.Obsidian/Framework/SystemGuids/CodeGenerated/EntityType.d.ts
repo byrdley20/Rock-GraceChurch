@@ -310,10 +310,13 @@ declare const enum EntityType {
     /** The asset storage file-system component (Rock.Storage.AssetStorage.FileSystemComponent) */
     StorageAssetstorageFilesystem = 'FFEA94EA-D394-4C1A-A3AE-23E6C50F047A',
 
-    /** The guid for the Rock.Model.WorkflowType entity */
+    /** The EntityType Guid for  */
+    Workflow = '3540E9A7-FE30-43A9-8B0A-A372B63DFC93',
+
+    /** The EntityType Guid for  */
     WorkflowType = 'C9F3C4A5-1526-474D-803F-D6C7A45CBBAE',
 
-    /** The guid for the Rock.Model.WorkflowType entity */
+    /** The EntityType Guid for  */
     WorkflowActionType = '23E3273A-B137-48A3-9AFF-C8DC832DDCA6',
 
     /** The guid for the Test Financial Gateway entity type */

@@ -28,10 +28,10 @@ import Loading from '../../Controls/Loading';
 import PrimaryBlock from '../../Controls/PrimaryBlock';
 import { InvokeBlockActionFunc } from '../../Controls/RockBlock';
 import { Person } from '@Obsidian/ViewModels';
-import { asDateString } from '@Obsidian/Services/Date';
-import RockDate, { RockDateType, toRockDate } from '../../Util/RockDate';
+import { asDateString, formatAspDate } from '@Obsidian/Services/Date';
 import DatePicker from '../../Elements/DatePicker';
 import AddressControl, { getDefaultAddressControlModel } from '../../Controls/AddressControl';
+import { toNumber } from '@Obsidian/Services/Number';
 
 export default defineComponent({
     name: 'Example.PersonDetail',
@@ -63,7 +63,7 @@ export default defineComponent({
             messageToPublish: '',
             receivedMessage: '',
             isLoading: false,
-            birthdate: null as RockDateType | null,
+            birthdate: null as string | null,
             address: getDefaultAddressControlModel()
         };
     },
@@ -75,7 +75,7 @@ export default defineComponent({
 
         doEdit(): void {
             this.personForEditing = this.person ? { ...this.person } : null;
-            this.birthdate = this.birthdateOrNull ? toRockDate(this.birthdateOrNull) : null;
+            this.birthdate = this.birthdateOrNull ? formatAspDate(this.birthdateOrNull, 'yyyy-MM-dd') : null;
             this.setIsEditMode(true);
         },
 
@@ -85,11 +85,22 @@ export default defineComponent({
 
         async doSave(): Promise<void> {
             if (this.personForEditing) {
+                const match = /^(\d+)-(\d+)-(\d+)/.exec(this.birthdate ?? '');
+                let birthDay: number | null = null;
+                let birthMonth: number | null = null;
+                let birthYear: number | null = null;
+
+                if (match !== null) {
+                    birthYear = toNumber(match[1]);
+                    birthMonth = toNumber(match[2]);
+                    birthDay = toNumber(match[3]);
+                }
+
                 this.person = {
                     ...this.personForEditing,
-                    birthDay: RockDate.getDay(this.birthdate),
-                    birthMonth: RockDate.getMonth(this.birthdate),
-                    birthYear: RockDate.getYear(this.birthdate)
+                    birthDay: birthDay,
+                    birthMonth: birthMonth,
+                    birthYear: birthYear
                 };
                 this.isLoading = true;
 

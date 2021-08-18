@@ -22,12 +22,11 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface FinancialBatch extends Entity {
     accountingSystemCode: string | null;
-    batchEndDateTime: RockDateType | null;
-    batchStartDateTime: RockDateType | null;
+    batchEndDateTime: string | null;
+    batchStartDateTime: string | null;
     campusId: number | null;
     controlAmount: number;
     controlItemCount: number | null;
@@ -35,8 +34,8 @@ export default interface FinancialBatch extends Entity {
     name: string | null;
     note: string | null;
     status: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

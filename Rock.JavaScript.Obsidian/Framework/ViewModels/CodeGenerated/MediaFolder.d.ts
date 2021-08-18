@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface MediaFolder extends Entity {
     contentChannelAttributeId: number | null;
@@ -37,8 +36,8 @@ export default interface MediaFolder extends Entity {
     sourceData: string | null;
     sourceKey: string | null;
     workflowTypeId: number | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

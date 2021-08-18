@@ -22,21 +22,20 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 import { Guid } from '../../Util/Guid';
 
 export default interface GroupDemographicValue extends Entity {
     groupDemographicTypeId: number;
     groupId: number;
-    lastCalculatedDateTime: RockDateType | null;
+    lastCalculatedDateTime: string | null;
     relatedEntityId: number | null;
     relatedEntityTypeId: number | null;
     value: string | null;
     valueAsBoolean: boolean | null;
     valueAsGuid: Guid | null;
     valueAsNumeric: number | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

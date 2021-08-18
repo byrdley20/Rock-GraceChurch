@@ -22,22 +22,21 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface RegistrationTemplateDiscount extends Entity {
     autoApplyDiscount: boolean;
     code: string | null;
     discountAmount: number;
     discountPercentage: number;
-    endDate: RockDateType | null;
+    endDate: string | null;
     maxRegistrants: number | null;
     maxUsage: number | null;
     minRegistrants: number | null;
     order: number;
     registrationTemplateId: number;
-    startDate: RockDateType | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    startDate: string | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

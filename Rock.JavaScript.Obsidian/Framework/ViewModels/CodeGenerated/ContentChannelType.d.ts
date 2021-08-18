@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface ContentChannelType extends Entity {
     dateRangeType: number;
@@ -33,8 +32,8 @@ export default interface ContentChannelType extends Entity {
     isSystem: boolean;
     name: string | null;
     showInChannelList: boolean;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

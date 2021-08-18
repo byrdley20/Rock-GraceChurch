@@ -22,15 +22,14 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface NotificationRecipient extends Entity {
     notificationId: number;
     personAliasId: number;
     read: boolean;
-    readDateTime: RockDateType | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    readDateTime: string | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

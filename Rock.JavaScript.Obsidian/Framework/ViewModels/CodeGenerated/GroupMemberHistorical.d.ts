@@ -22,24 +22,23 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface GroupMemberHistorical extends Entity {
     archivedByPersonAliasId: number | null;
-    archivedDateTime: RockDateType | null;
+    archivedDateTime: string | null;
     currentRowIndicator: boolean;
-    effectiveDateTime: RockDateType;
-    expireDateTime: RockDateType;
+    effectiveDateTime: string;
+    expireDateTime: string;
     groupId: number;
     groupMemberId: number;
     groupMemberStatus: number;
     groupRoleId: number;
     groupRoleName: string | null;
-    inactiveDateTime: RockDateType | null;
+    inactiveDateTime: string | null;
     isArchived: boolean;
     isLeader: boolean;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

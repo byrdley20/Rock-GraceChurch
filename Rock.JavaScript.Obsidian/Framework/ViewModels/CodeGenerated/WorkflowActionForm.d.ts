@@ -23,7 +23,6 @@
 
 import Entity from '../Entity';
 import { Guid } from '../../Util/Guid';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface WorkflowActionForm extends Entity {
     actionAttributeGuid: Guid | null;
@@ -55,8 +54,8 @@ export default interface WorkflowActionForm extends Entity {
     personEntrySpouseAttributeGuid: Guid | null;
     personEntrySpouseEntryOption: number;
     personEntrySpouseLabel: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

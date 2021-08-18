@@ -22,16 +22,15 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface Notification extends Entity {
     classification: number;
     iconCssClass: string | null;
     message: string | null;
-    sentDateTime: RockDateType;
+    sentDateTime: string;
     title: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

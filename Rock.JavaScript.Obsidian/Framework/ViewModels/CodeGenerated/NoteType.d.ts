@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface NoteType extends Entity {
     allowsAttachments: boolean;
@@ -45,8 +44,8 @@ export default interface NoteType extends Entity {
     requiresApprovals: boolean;
     sendApprovalNotifications: boolean;
     userSelectable: boolean;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

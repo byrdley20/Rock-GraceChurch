@@ -269,7 +269,6 @@
     <TypeScriptCompile Include="Framework\Util\Guid.ts" />
     <TypeScriptCompile Include="Framework\Util\Http.ts" />
     <TypeScriptCompile Include="Framework\Util\Page.ts" />
-    <TypeScriptCompile Include="Framework\Util\RockDate.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\ClientAttributeValue.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\ClientAttributeValueCategory.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\ClientEditableAttributeValue.d.ts" />

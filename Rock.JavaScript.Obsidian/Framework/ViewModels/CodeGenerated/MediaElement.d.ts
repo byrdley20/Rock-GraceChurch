@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface MediaElement extends Entity {
     description: string | null;
@@ -31,13 +30,13 @@ export default interface MediaElement extends Entity {
     mediaFolderId: number;
     metricData: string | null;
     name: string | null;
-    sourceCreatedDateTime: RockDateType | null;
+    sourceCreatedDateTime: string | null;
     sourceData: string | null;
     sourceKey: string | null;
-    sourceModifiedDateTime: RockDateType | null;
+    sourceModifiedDateTime: string | null;
     thumbnailDataJson: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

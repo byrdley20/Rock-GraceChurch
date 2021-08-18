@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface Campus extends Entity {
     campusStatusValueId: number | null;
@@ -40,8 +39,8 @@ export default interface Campus extends Entity {
     teamGroupId: number | null;
     timeZoneId: string | null;
     url: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

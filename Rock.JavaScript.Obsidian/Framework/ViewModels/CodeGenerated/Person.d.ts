@@ -22,19 +22,18 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 import { Guid } from '../../Util/Guid';
 
 export default interface Person extends Entity {
     ageClassification: number;
-    anniversaryDate: RockDateType | null;
+    anniversaryDate: string | null;
     birthDay: number | null;
     birthMonth: number | null;
     birthYear: number | null;
     communicationPreference: number;
     connectionStatusValueId: number | null;
     contributionFinancialAccountId: number | null;
-    deceasedDate: RockDateType | null;
+    deceasedDate: string | null;
     email: string | null;
     emailNote: string | null;
     emailPreference: number;
@@ -59,7 +58,7 @@ export default interface Person extends Entity {
     primaryCampusId: number | null;
     primaryFamilyGuid: Guid | null;
     primaryFamilyId: number | null;
-    recordStatusLastModifiedDateTime: RockDateType | null;
+    recordStatusLastModifiedDateTime: string | null;
     recordStatusReasonValueId: number | null;
     recordStatusValueId: number | null;
     recordTypeValueId: number | null;
@@ -72,8 +71,8 @@ export default interface Person extends Entity {
     topSignalIconCssClass: string | null;
     topSignalId: number | null;
     viewedCount: number | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

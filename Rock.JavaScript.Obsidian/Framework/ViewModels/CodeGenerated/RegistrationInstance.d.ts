@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface RegistrationInstance extends Entity {
     accountId: number | null;
@@ -34,7 +33,7 @@ export default interface RegistrationInstance extends Entity {
     cost: number | null;
     defaultPayment: number | null;
     details: string | null;
-    endDateTime: RockDateType | null;
+    endDateTime: string | null;
     externalGatewayFundId: number | null;
     externalGatewayMerchantId: number | null;
     isActive: boolean;
@@ -47,13 +46,13 @@ export default interface RegistrationInstance extends Entity {
     registrationTemplateId: number;
     registrationWorkflowTypeId: number | null;
     reminderSent: boolean;
-    sendReminderDateTime: RockDateType | null;
-    startDateTime: RockDateType | null;
+    sendReminderDateTime: string | null;
+    startDateTime: string | null;
     timeoutIsEnabled: boolean;
     timeoutLengthMinutes: number | null;
     timeoutThreshold: number | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

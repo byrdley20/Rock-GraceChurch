@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface MergeTemplate extends Entity {
     categoryId: number;
@@ -31,8 +30,8 @@ export default interface MergeTemplate extends Entity {
     name: string | null;
     personAliasId: number | null;
     templateBinaryFileId: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

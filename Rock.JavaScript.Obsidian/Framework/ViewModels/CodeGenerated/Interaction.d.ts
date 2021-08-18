@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface Interaction extends Entity {
     campaign: string | null;
@@ -33,8 +32,8 @@ export default interface Interaction extends Entity {
     entityId: number | null;
     interactionComponentId: number;
     interactionData: string | null;
-    interactionDateTime: RockDateType;
-    interactionEndDateTime: RockDateType | null;
+    interactionDateTime: string;
+    interactionEndDateTime: string | null;
     interactionLength: number | null;
     interactionSessionId: number | null;
     interactionSummary: string | null;
@@ -47,8 +46,8 @@ export default interface Interaction extends Entity {
     relatedEntityTypeId: number | null;
     source: string | null;
     term: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

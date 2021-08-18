@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface Device extends Entity {
     cameraBarcodeConfigurationType: number | null;
@@ -36,8 +35,8 @@ export default interface Device extends Entity {
     printerDeviceId: number | null;
     printFrom: number;
     printToOverride: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

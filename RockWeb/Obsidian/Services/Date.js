@@ -1,6 +1,6 @@
-System.register(["../Util/RockDate", "linqts", "./String"], function (exports_1, context_1) {
+System.register(["linqts", "./String"], function (exports_1, context_1) {
     "use strict";
-    var RockDate_1, linqts_1, String_1, englishDayNames, englishMonthNames, dateFormatters, dateFormatterKeys, standardDateFormats;
+    var linqts_1, String_1, englishDayNames, englishMonthNames, dateFormatters, dateFormatterKeys, standardDateFormats;
     var __moduleName = context_1 && context_1.id;
     function asDateOrNull(val) {
         if (val === undefined || val === null) {
@@ -19,14 +19,6 @@ System.register(["../Util/RockDate", "linqts", "./String"], function (exports_1,
         return null;
     }
     exports_1("asDateOrNull", asDateOrNull);
-    function toRockDateOrNull(val) {
-        const date = asDateOrNull(val);
-        if (date === null) {
-            return null;
-        }
-        return RockDate_1.default.toRockDate(date);
-    }
-    exports_1("toRockDateOrNull", toRockDateOrNull);
     function asDateString(val) {
         const dateOrNull = asDateOrNull(val);
         if (!dateOrNull) {
@@ -139,9 +131,6 @@ System.register(["../Util/RockDate", "linqts", "./String"], function (exports_1,
     exports_1("formatAspDate", formatAspDate);
     return {
         setters: [
-            function (RockDate_1_1) {
-                RockDate_1 = RockDate_1_1;
-            },
             function (linqts_1_1) {
                 linqts_1 = linqts_1_1;
             },

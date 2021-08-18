@@ -43,6 +43,9 @@ declare const enum InteractionChannel {
     /** Interaction Channel GUID for bible events. */
     BibleEvents = '45B6C8CD-5016-4FCF-9AED-A7EECFE00C5E',
 
+    /** Interaction Channel GUID Views and Completions for Workflow Entry Forms. */
+    WorkflowLaunches = 'DAA17190-7119-4901-B105-26C6B5E4CDB4',
+
 }
 
 export default InteractionChannel;

@@ -22,17 +22,16 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface ServiceJobHistory extends Entity {
     serviceJobId: number;
     serviceWorker: string | null;
-    startDateTime: RockDateType | null;
+    startDateTime: string | null;
     status: string | null;
     statusMessage: string | null;
-    stopDateTime: RockDateType | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    stopDateTime: string | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

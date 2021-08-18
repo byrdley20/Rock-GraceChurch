@@ -22,18 +22,17 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface AchievementAttempt extends Entity {
-    achievementAttemptEndDateTime: RockDateType | null;
-    achievementAttemptStartDateTime: RockDateType;
+    achievementAttemptEndDateTime: string | null;
+    achievementAttemptStartDateTime: string;
     achievementTypeId: number;
     achieverEntityId: number;
     isClosed: boolean;
     isSuccessful: boolean;
     progress: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

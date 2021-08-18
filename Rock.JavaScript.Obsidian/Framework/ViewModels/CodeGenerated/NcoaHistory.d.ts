@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface NcoaHistory extends Entity {
     addressInvalidReason: number;
@@ -30,11 +29,11 @@ export default interface NcoaHistory extends Entity {
     familyId: number;
     locationId: number | null;
     matchFlag: number;
-    moveDate: RockDateType | null;
+    moveDate: string | null;
     moveDistance: number | null;
     moveType: number;
     ncoaNote: string | null;
-    ncoaRunDateTime: RockDateType;
+    ncoaRunDateTime: string;
     ncoaType: number;
     originalCity: string | null;
     originalPostalCode: string | null;
@@ -51,8 +50,8 @@ export default interface NcoaHistory extends Entity {
     updatedState: string | null;
     updatedStreet1: string | null;
     updatedStreet2: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

@@ -22,14 +22,13 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface FollowingEventNotification extends Entity {
     entityId: number;
     followingEventTypeId: number;
-    lastNotified: RockDateType;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    lastNotified: string;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

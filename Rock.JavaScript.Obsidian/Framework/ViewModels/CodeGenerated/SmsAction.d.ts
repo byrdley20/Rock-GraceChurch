@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface SmsAction extends Entity {
     continueAfterProcessing: boolean;
@@ -31,8 +30,8 @@ export default interface SmsAction extends Entity {
     order: number;
     smsActionComponentEntityTypeId: number;
     smsPipelineId: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

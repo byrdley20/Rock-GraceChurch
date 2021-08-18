@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface Schedule extends Entity {
     autoInactivateWhenComplete: boolean;
@@ -30,16 +29,16 @@ export default interface Schedule extends Entity {
     checkInEndOffsetMinutes: number | null;
     checkInStartOffsetMinutes: number | null;
     description: string | null;
-    effectiveEndDate: RockDateType | null;
-    effectiveStartDate: RockDateType | null;
+    effectiveEndDate: string | null;
+    effectiveStartDate: string | null;
     iCalendarContent: string | null;
     isActive: boolean;
     name: string | null;
     order: number;
     weeklyDayOfWeek: number | null;
     weeklyTimeOfDay: Record<string, unknown> | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface ServiceJob extends Entity {
     assembly: string | null;
@@ -33,17 +32,17 @@ export default interface ServiceJob extends Entity {
     historyCount: number;
     isActive: boolean | null;
     isSystem: boolean;
-    lastRunDateTime: RockDateType | null;
+    lastRunDateTime: string | null;
     lastRunDurationSeconds: number | null;
     lastRunSchedulerName: string | null;
     lastStatus: string | null;
     lastStatusMessage: string | null;
-    lastSuccessfulRunDateTime: RockDateType | null;
+    lastSuccessfulRunDateTime: string | null;
     name: string | null;
     notificationEmails: string | null;
     notificationStatus: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

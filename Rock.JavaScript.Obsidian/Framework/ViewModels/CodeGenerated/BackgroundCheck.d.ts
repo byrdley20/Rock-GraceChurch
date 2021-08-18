@@ -22,23 +22,22 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface BackgroundCheck extends Entity {
     packageName: string | null;
     personAliasId: number;
     processorEntityTypeId: number | null;
     recordFound: boolean | null;
-    requestDate: RockDateType;
+    requestDate: string;
     requestId: string | null;
     responseData: string | null;
-    responseDate: RockDateType | null;
+    responseDate: string | null;
     responseDocumentId: number | null;
     responseId: string | null;
     status: string | null;
     workflowId: number | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

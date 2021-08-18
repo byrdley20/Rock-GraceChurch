@@ -22,16 +22,15 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface Note extends Entity {
     approvalsSent: boolean;
     approvalStatus: number;
     approvedByPersonAliasId: number | null;
-    approvedDateTime: RockDateType | null;
+    approvedDateTime: string | null;
     caption: string | null;
     editedByPersonAliasId: number | null;
-    editedDateTime: RockDateType | null;
+    editedDateTime: string | null;
     entityId: number | null;
     isAlert: boolean | null;
     isPrivateNote: boolean;
@@ -41,8 +40,8 @@ export default interface Note extends Entity {
     notificationsSent: boolean;
     parentNoteId: number | null;
     text: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

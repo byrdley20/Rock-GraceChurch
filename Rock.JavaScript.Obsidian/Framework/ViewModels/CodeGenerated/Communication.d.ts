@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface Communication extends Entity {
     additionalMergeFieldsJson: string | null;
@@ -34,7 +33,7 @@ export default interface Communication extends Entity {
     excludeDuplicateRecipientAddress: boolean;
     fromEmail: string | null;
     fromName: string | null;
-    futureSendDateTime: RockDateType | null;
+    futureSendDateTime: string | null;
     isBulkCommunication: boolean;
     listGroupId: number | null;
     message: string | null;
@@ -48,12 +47,12 @@ export default interface Communication extends Entity {
     pushSound: string | null;
     pushTitle: string | null;
     replyToEmail: string | null;
-    reviewedDateTime: RockDateType | null;
+    reviewedDateTime: string | null;
     reviewerNote: string | null;
     reviewerPersonAliasId: number | null;
     segmentCriteria: number;
     segments: string | null;
-    sendDateTime: RockDateType | null;
+    sendDateTime: string | null;
     senderPersonAliasId: number | null;
     sMSFromDefinedValueId: number | null;
     sMSMessage: string | null;
@@ -61,8 +60,8 @@ export default interface Communication extends Entity {
     subject: string | null;
     systemCommunicationId: number | null;
     urlReferrer: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

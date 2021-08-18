@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface RegistrationRegistrant extends Entity {
     cost: number;
@@ -31,8 +30,8 @@ export default interface RegistrationRegistrant extends Entity {
     onWaitList: boolean;
     personAliasId: number | null;
     registrationId: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

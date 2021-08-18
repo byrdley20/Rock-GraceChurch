@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface ConnectionRequestActivity extends Entity {
     connectionActivityTypeId: number;
@@ -30,8 +29,8 @@ export default interface ConnectionRequestActivity extends Entity {
     connectionRequestId: number;
     connectorPersonAliasId: number | null;
     note: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface RegistrationTemplate extends Entity {
     addPersonNote: boolean;
@@ -81,8 +80,8 @@ export default interface RegistrationTemplate extends Entity {
     waitListTransitionFromEmail: string | null;
     waitListTransitionFromName: string | null;
     waitListTransitionSubject: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface Location extends Entity {
     assessorParcelId: string | null;
@@ -31,10 +30,10 @@ export default interface Location extends Entity {
     country: string | null;
     county: string | null;
     firmRoomThreshold: number | null;
-    geocodeAttemptedDateTime: RockDateType | null;
+    geocodeAttemptedDateTime: string | null;
     geocodeAttemptedResult: string | null;
     geocodeAttemptedServiceType: string | null;
-    geocodedDateTime: RockDateType | null;
+    geocodedDateTime: string | null;
     geoFence: Record<string, unknown>;
     geoPoint: Record<string, unknown>;
     imageId: number | null;
@@ -46,15 +45,15 @@ export default interface Location extends Entity {
     postalCode: string | null;
     printerDeviceId: number | null;
     softRoomThreshold: number | null;
-    standardizeAttemptedDateTime: RockDateType | null;
+    standardizeAttemptedDateTime: string | null;
     standardizeAttemptedResult: string | null;
     standardizeAttemptedServiceType: string | null;
-    standardizedDateTime: RockDateType | null;
+    standardizedDateTime: string | null;
     state: string | null;
     street1: string | null;
     street2: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

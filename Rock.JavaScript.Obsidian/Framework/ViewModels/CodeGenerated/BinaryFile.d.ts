@@ -22,11 +22,10 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface BinaryFile extends Entity {
     binaryFileTypeId: number | null;
-    contentLastModified: RockDateType | null;
+    contentLastModified: string | null;
     description: string | null;
     fileName: string | null;
     fileSize: number | null;
@@ -37,8 +36,8 @@ export default interface BinaryFile extends Entity {
     path: string | null;
     storageEntitySettings: string | null;
     width: number | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

@@ -22,18 +22,17 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface FollowingSuggested extends Entity {
     entityId: number;
     entityTypeId: number;
-    lastPromotedDateTime: RockDateType | null;
+    lastPromotedDateTime: string | null;
     personAliasId: number;
     status: number;
-    statusChangedDateTime: RockDateType;
+    statusChangedDateTime: string;
     suggestionTypeId: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

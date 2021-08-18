@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface BenevolenceRequest extends Entity {
     campusId: number | null;
@@ -36,14 +35,14 @@ export default interface BenevolenceRequest extends Entity {
     lastName: string | null;
     locationId: number | null;
     providedNextSteps: string | null;
-    requestDateTime: RockDateType;
+    requestDateTime: string;
     requestedByPersonAliasId: number | null;
     requestStatusValueId: number | null;
     requestText: string | null;
     resultSummary: string | null;
     workPhoneNumber: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

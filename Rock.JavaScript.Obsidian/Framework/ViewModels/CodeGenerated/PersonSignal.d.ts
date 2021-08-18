@@ -22,16 +22,15 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface PersonSignal extends Entity {
-    expirationDate: RockDateType | null;
+    expirationDate: string | null;
     note: string | null;
     ownerPersonAliasId: number;
     personId: number;
     signalTypeId: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

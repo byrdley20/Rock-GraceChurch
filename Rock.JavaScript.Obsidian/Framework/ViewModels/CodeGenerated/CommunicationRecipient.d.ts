@@ -22,25 +22,24 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface CommunicationRecipient extends Entity {
     additionalMergeValuesJson: string | null;
     communicationId: number;
     mediumEntityTypeId: number | null;
     openedClient: string | null;
-    openedDateTime: RockDateType | null;
+    openedDateTime: string | null;
     personalDeviceId: number | null;
     personAliasId: number | null;
     responseCode: string | null;
-    sendDateTime: RockDateType | null;
+    sendDateTime: string | null;
     sentMessage: string | null;
     status: number;
     statusNote: string | null;
     transportEntityTypeName: string | null;
     uniqueMessageId: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

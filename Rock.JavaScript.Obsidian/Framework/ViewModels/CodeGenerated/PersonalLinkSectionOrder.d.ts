@@ -23,10 +23,10 @@
 
 import Entity from '../Entity';
 
-export default interface SmsPipeline extends Entity {
-    description: string | null;
-    isActive: boolean;
-    name: string | null;
+export default interface PersonalLinkSectionOrder extends Entity {
+    order: number;
+    personAliasId: number;
+    sectionId: number;
     createdDateTime: string | null;
     modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;

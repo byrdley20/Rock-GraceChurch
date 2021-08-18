@@ -23,7 +23,6 @@
 
 import Entity from '../Entity';
 import { Guid } from '../../Util/Guid';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface TaggedItem extends Entity {
     entityGuid: Guid;
@@ -31,8 +30,8 @@ export default interface TaggedItem extends Entity {
     isSystem: boolean;
     quantity: number;
     tagId: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

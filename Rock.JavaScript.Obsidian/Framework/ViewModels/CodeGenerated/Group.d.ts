@@ -22,12 +22,11 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface Group extends Entity {
     allowGuests: boolean | null;
     archivedByPersonAliasId: number | null;
-    archivedDateTime: RockDateType | null;
+    archivedDateTime: string | null;
     attendanceRecordRequiredForCheckIn: number;
     campusId: number | null;
     description: string | null;
@@ -37,7 +36,7 @@ export default interface Group extends Entity {
     groupSalutation: string | null;
     groupSalutationFull: string | null;
     groupTypeId: number;
-    inactiveDateTime: RockDateType | null;
+    inactiveDateTime: string | null;
     inactiveReasonNote: string | null;
     inactiveReasonValueId: number | null;
     isActive: boolean;
@@ -55,8 +54,8 @@ export default interface Group extends Entity {
     scheduleId: number | null;
     schedulingMustMeetRequirements: boolean;
     statusValueId: number | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

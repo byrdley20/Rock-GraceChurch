@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface SignalType extends Entity {
     description: string | null;
@@ -30,8 +29,8 @@ export default interface SignalType extends Entity {
     order: number;
     signalColor: string | null;
     signalIconCssClass: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

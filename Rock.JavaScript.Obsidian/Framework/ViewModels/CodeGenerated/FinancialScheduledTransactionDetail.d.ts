@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface FinancialScheduledTransactionDetail extends Entity {
     accountId: number;
@@ -32,8 +31,8 @@ export default interface FinancialScheduledTransactionDetail extends Entity {
     feeCoverageAmount: number | null;
     scheduledTransactionId: number;
     summary: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

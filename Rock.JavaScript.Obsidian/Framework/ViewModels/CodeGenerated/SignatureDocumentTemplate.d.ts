@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface SignatureDocumentTemplate extends Entity {
     binaryFileTypeId: number | null;
@@ -36,8 +35,8 @@ export default interface SignatureDocumentTemplate extends Entity {
     providerEntityTypeId: number | null;
     providerTemplateKey: string | null;
     signatureType: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

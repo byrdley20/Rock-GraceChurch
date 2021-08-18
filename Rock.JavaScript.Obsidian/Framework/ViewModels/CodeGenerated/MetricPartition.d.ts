@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface MetricPartition extends Entity {
     entityTypeId: number | null;
@@ -32,8 +31,8 @@ export default interface MetricPartition extends Entity {
     label: string | null;
     metricId: number;
     order: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

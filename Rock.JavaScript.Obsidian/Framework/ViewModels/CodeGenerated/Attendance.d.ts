@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface Attendance extends Entity {
     attendanceCheckInSessionId: number | null;
@@ -33,18 +32,18 @@ export default interface Attendance extends Entity {
     declineReasonValueId: number | null;
     deviceId: number | null;
     didAttend: boolean | null;
-    endDateTime: RockDateType | null;
+    endDateTime: string | null;
     isFirstTime: boolean | null;
     note: string | null;
     occurrenceId: number;
     personAliasId: number | null;
     presentByPersonAliasId: number | null;
-    presentDateTime: RockDateType | null;
+    presentDateTime: string | null;
     processed: boolean | null;
     qualifierValueId: number | null;
     requestedToAttend: boolean | null;
     rSVP: number;
-    rSVPDateTime: RockDateType | null;
+    rSVPDateTime: string | null;
     scheduleConfirmationSent: boolean | null;
     scheduledByPersonAliasId: number | null;
     scheduledToAttend: boolean | null;
@@ -52,9 +51,9 @@ export default interface Attendance extends Entity {
     searchResultGroupId: number | null;
     searchTypeValueId: number | null;
     searchValue: string | null;
-    startDateTime: RockDateType;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    startDateTime: string;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

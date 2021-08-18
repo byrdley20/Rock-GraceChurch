@@ -22,25 +22,24 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface ContentChannelItem extends Entity {
     approvedByPersonAliasId: number | null;
-    approvedDateTime: RockDateType | null;
+    approvedDateTime: string | null;
     content: string | null;
     contentChannelId: number;
     contentChannelTypeId: number;
-    expireDateTime: RockDateType | null;
+    expireDateTime: string | null;
     itemGlobalKey: string | null;
     order: number;
     permalink: string | null;
     priority: number;
-    startDateTime: RockDateType;
+    startDateTime: string;
     status: number;
     structuredContent: string | null;
     title: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

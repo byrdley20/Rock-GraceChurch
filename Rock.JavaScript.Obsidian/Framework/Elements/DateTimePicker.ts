@@ -16,7 +16,6 @@
 //
 import { defineComponent, PropType } from 'vue';
 import { toNumber } from '@Obsidian/Services/Number';
-import  { RockDateType } from '../Util/RockDate';
 import RockFormField from './RockFormField';
 import TextBox from './TextBox';
 import BasicTimePicker from './BasicTimePicker';
@@ -48,7 +47,7 @@ export default defineComponent({
 
     props: {
         modelValue: {
-            type: String as PropType<RockDateType | null>,
+            type: String as PropType<string | null>,
             default: null
         },
         displayCurrentOption: {
@@ -77,7 +76,7 @@ export default defineComponent({
     },
 
     computed: {
-        asRockDateTimeOrNull(): RockDateType | null {
+        asRockDateTimeOrNull(): string | null {
             if (this.internalDateValue) {
                 const date = new Date(this.internalDateValue);
 
@@ -107,7 +106,7 @@ export default defineComponent({
             return `CURRENT:${plusMinus}`;
         },
 
-        valueToEmit(): string | RockDateType | null {
+        valueToEmit(): string | string | null {
             if (this.isCurrent) {
                 return this.asCurrentDateValue;
             }

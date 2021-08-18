@@ -22,19 +22,18 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface SignatureDocument extends Entity {
     appliesToPersonAliasId: number | null;
     assignedToPersonAliasId: number | null;
     binaryFileId: number | null;
-    completionEmailSentDateTime: RockDateType | null;
+    completionEmailSentDateTime: string | null;
     documentKey: string | null;
     entityId: number | null;
     entityTypeId: number | null;
     inviteCount: number;
-    lastInviteDate: RockDateType | null;
-    lastStatusDate: RockDateType | null;
+    lastInviteDate: string | null;
+    lastStatusDate: string | null;
     name: string | null;
     signatureData: string | null;
     signatureDocumentTemplateId: number;
@@ -43,12 +42,12 @@ export default interface SignatureDocument extends Entity {
     signedByPersonAliasId: number | null;
     signedClientIp: string | null;
     signedClientUserAgent: string | null;
-    signedDateTime: RockDateType | null;
+    signedDateTime: string | null;
     signedDocumentText: string | null;
     signedName: string | null;
     status: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

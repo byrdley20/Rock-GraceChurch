@@ -22,20 +22,19 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface Assessment extends Entity {
     assessmentResultData: string | null;
     assessmentTypeId: number;
-    completedDateTime: RockDateType | null;
-    lastReminderDate: RockDateType | null;
+    completedDateTime: string | null;
+    lastReminderDate: string | null;
     personAliasId: number;
-    requestedDateTime: RockDateType | null;
-    requestedDueDate: RockDateType | null;
+    requestedDateTime: string | null;
+    requestedDueDate: string | null;
     requesterPersonAliasId: number | null;
     status: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

@@ -22,15 +22,14 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface PersonSearchKey extends Entity {
     isValuePrivate: boolean;
     personAliasId: number | null;
     searchTypeValueId: number;
     searchValue: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

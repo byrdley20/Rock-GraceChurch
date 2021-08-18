@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface Site extends Entity {
     additionalSettings: string | null;
@@ -49,7 +48,7 @@ export default interface Site extends Entity {
     isActive: boolean;
     isIndexEnabled: boolean;
     isSystem: boolean;
-    latestVersionDateTime: RockDateType | null;
+    latestVersionDateTime: string | null;
     loginPageId: number | null;
     loginPageRouteId: number | null;
     mobilePageId: number | null;
@@ -65,8 +64,8 @@ export default interface Site extends Entity {
     siteType: number;
     theme: string | null;
     thumbnailBinaryFileId: number | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

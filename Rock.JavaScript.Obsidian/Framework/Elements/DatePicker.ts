@@ -16,7 +16,6 @@
 //
 import { defineComponent, PropType } from 'vue';
 import { toNumber } from '@Obsidian/Services/Number';
-import RockDate, { RockDateType } from '../Util/RockDate';
 import RockFormField from './RockFormField';
 import TextBox from './TextBox';
 
@@ -42,7 +41,7 @@ export default defineComponent( {
     },
     props: {
         modelValue: {
-            type: String as PropType<RockDateType | null>,
+            type: String as PropType<string | null>,
             default: null
         },
         displayCurrentOption: {
@@ -66,9 +65,16 @@ export default defineComponent( {
         };
     },
     computed: {
-        asRockDateOrNull (): RockDateType | null
+        asRockDateOrNull (): string | null
         {
-            return this.internalValue ? RockDate.toRockDate( new Date( this.internalValue ) ) : null;
+            const match = /^(\d+)\/(\d+)\/(\d+)/.exec(this.internalValue ?? '');
+
+            if (match !== null) {
+                return `${match[3]}-${match[2]}-${match[1]}`;
+            }
+            else {
+                return null;
+            }
         },
 
         asCurrentDateValue (): string
@@ -77,7 +83,7 @@ export default defineComponent( {
             return `CURRENT:${plusMinus}`;
         },
 
-        valueToEmit (): string | RockDateType | null
+        valueToEmit (): string | string | null
         {
             if ( this.isCurrent )
             {
@@ -128,10 +134,14 @@ export default defineComponent( {
                     return;
                 }
 
-                const month = RockDate.getMonth(this.modelValue);
-                const day = RockDate.getDay(this.modelValue);
-                const year = RockDate.getYear(this.modelValue);
-                this.internalValue = `${month}/${day}/${year}`;
+                const match = /^(\d+)-(\d+)-(\d+)/.exec(this.modelValue);
+
+                if (match !== null) {
+                    this.internalValue = `${match[3]}/${match[2]}/${match[1]}`;
+                }
+                else {
+                    this.internalValue = null;
+                }
             }
         }
     },

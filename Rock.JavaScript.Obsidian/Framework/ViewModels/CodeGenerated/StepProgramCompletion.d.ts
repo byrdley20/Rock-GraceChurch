@@ -22,16 +22,15 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface StepProgramCompletion extends Entity {
     campusId: number | null;
-    endDateTime: RockDateType | null;
+    endDateTime: string | null;
     personAliasId: number;
-    startDateTime: RockDateType;
+    startDateTime: string;
     stepProgramId: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

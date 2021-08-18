@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface GroupRequirementType extends Entity {
     canExpire: boolean;
@@ -38,8 +37,8 @@ export default interface GroupRequirementType extends Entity {
     warningDataViewId: number | null;
     warningLabel: string | null;
     warningSqlExpression: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface ConnectionStatus extends Entity {
     autoInactivateState: boolean;
@@ -34,8 +33,8 @@ export default interface ConnectionStatus extends Entity {
     isDefault: boolean;
     name: string | null;
     order: number;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

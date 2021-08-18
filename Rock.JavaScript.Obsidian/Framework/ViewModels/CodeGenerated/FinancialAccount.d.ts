@@ -22,13 +22,12 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface FinancialAccount extends Entity {
     accountTypeValueId: number | null;
     campusId: number | null;
     description: string | null;
-    endDate: RockDateType | null;
+    endDate: string | null;
     glCode: string | null;
     imageBinaryFileId: number | null;
     isActive: boolean;
@@ -39,10 +38,10 @@ export default interface FinancialAccount extends Entity {
     parentAccountId: number | null;
     publicDescription: string | null;
     publicName: string | null;
-    startDate: RockDateType | null;
+    startDate: string | null;
     url: string | null;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

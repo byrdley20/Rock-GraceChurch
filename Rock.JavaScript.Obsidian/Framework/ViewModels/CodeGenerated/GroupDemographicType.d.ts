@@ -22,7 +22,6 @@
 //
 
 import Entity from '../Entity';
-import { RockDateType } from '../../Util/RockDate';
 
 export default interface GroupDemographicType extends Entity {
     componentEntityTypeId: number;
@@ -33,8 +32,8 @@ export default interface GroupDemographicType extends Entity {
     name: string | null;
     roleFilter: string | null;
     runOnPersonUpdate: boolean;
-    createdDateTime: RockDateType | null;
-    modifiedDateTime: RockDateType | null;
+    createdDateTime: string | null;
+    modifiedDateTime: string | null;
     createdByPersonAliasId: number | null;
     modifiedByPersonAliasId: number | null;
 }

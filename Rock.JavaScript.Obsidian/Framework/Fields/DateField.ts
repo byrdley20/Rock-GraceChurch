@@ -20,7 +20,7 @@ import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/Vi
 import { asBoolean } from '@Obsidian/Services/Boolean';
 import { toNumber } from '@Obsidian/Services/Number';
 import { get as httpGet } from '../Util/Http';
-import { asDateOrNull, asElapsedString } from '@Obsidian/Services/Date';
+import { asDateOrNull, asElapsedString, formatAspDate } from '@Obsidian/Services/Date';
 
 export const enum ConfigurationValueKey {
     Format = 'format',
@@ -75,7 +75,7 @@ export class DateFieldType extends FieldTypeBase {
             const dateFormatTemplate = value.configurationValues?.[ConfigurationValueKey.Format] || 'MM/dd/yyy';
 
             if (dateValue !== null) {
-                let textValue = await this.getFormattedDateString(dateValue, dateFormatTemplate);
+                let textValue = formatAspDate(dateValue, dateFormatTemplate);
 
                 const displayDiff = asBoolean(value.configurationValues?.[ConfigurationValueKey.DisplayDiff]);
 
@@ -89,12 +89,6 @@ export class DateFieldType extends FieldTypeBase {
                 value.textValue = '';
             }
         }
-    }
-
-    private async getFormattedDateString(value: Date | string, format: string): Promise<string> {
-        const result = await httpGet<string>('/api/Utility/FormatDate', { value, format });
-
-        return result.data || `${value}`;
     }
 
     private isCurrentDateValue(value: ClientAttributeValue): boolean {

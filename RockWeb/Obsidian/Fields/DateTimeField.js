@@ -1,4 +1,4 @@
-System.register(["vue", "./FieldType", "@Obsidian/Services/Boolean", "@Obsidian/Services/Number", "../Util/Http", "@Obsidian/Services/Date"], function (exports_1, context_1) {
+System.register(["vue", "./FieldType", "@Obsidian/Services/Boolean", "@Obsidian/Services/Number", "@Obsidian/Services/Date"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,7 +9,7 @@ System.register(["vue", "./FieldType", "@Obsidian/Services/Boolean", "@Obsidian/
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var vue_1, FieldType_1, Boolean_1, Number_1, Http_1, Date_1, editComponent, DateTimeFieldType;
+    var vue_1, FieldType_1, Boolean_1, Number_1, Date_1, editComponent, DateTimeFieldType;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -24,9 +24,6 @@ System.register(["vue", "./FieldType", "@Obsidian/Services/Boolean", "@Obsidian/
             },
             function (Number_1_1) {
                 Number_1 = Number_1_1;
-            },
-            function (Http_1_1) {
-                Http_1 = Http_1_1;
             },
             function (Date_1_1) {
                 Date_1 = Date_1_1;
@@ -69,7 +66,7 @@ System.register(["vue", "./FieldType", "@Obsidian/Services/Boolean", "@Obsidian/
                             const dateValue = Date_1.asDateOrNull(value.value);
                             const dateFormatTemplate = ((_b = value.configurationValues) === null || _b === void 0 ? void 0 : _b["format"]) || 'MM/dd/yyy';
                             if (dateValue !== null) {
-                                let textValue = yield this.getFormattedDateString(dateValue, dateFormatTemplate);
+                                let textValue = Date_1.formatAspDate(dateValue, dateFormatTemplate);
                                 const displayDiff = Boolean_1.asBoolean((_c = value.configurationValues) === null || _c === void 0 ? void 0 : _c["displayDiff"]);
                                 if (displayDiff === true) {
                                     textValue = `${textValue} ${Date_1.asElapsedString(dateValue)}`;
@@ -80,12 +77,6 @@ System.register(["vue", "./FieldType", "@Obsidian/Services/Boolean", "@Obsidian/
                                 value.textValue = '';
                             }
                         }
-                    });
-                }
-                getFormattedDateString(value, format) {
-                    return __awaiter(this, void 0, void 0, function* () {
-                        const result = yield Http_1.get('/api/Utility/FormatDate', { value, format });
-                        return result.data || `${value}`;
                     });
                 }
                 isCurrentDateValue(value) {

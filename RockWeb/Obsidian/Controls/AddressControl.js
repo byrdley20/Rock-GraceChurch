@@ -1,14 +1,10 @@
-System.register(["vue", "../Elements/DropDownList", "../Elements/RockLabel", "../Elements/TextBox", "../Rules/Index", "../Util/Guid"], function (exports_1, context_1) {
+System.register(["vue", "../Elements/RockFormField", "../Elements/DropDownList", "../Elements/RockLabel", "../Elements/TextBox", "../Util/Guid"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, DropDownList_1, RockLabel_1, TextBox_1, Index_1, Guid_1;
+    var vue_1, RockFormField_1, DropDownList_1, RockLabel_1, TextBox_1, Guid_1, stateOptions, AddressControlBase;
     var __moduleName = context_1 && context_1.id;
     function getDefaultAddressControlModel() {
         return {
-            street1: '',
-            street2: '',
-            city: '',
             state: 'AZ',
-            postalCode: '',
             country: 'US'
         };
     }
@@ -17,6 +13,9 @@ System.register(["vue", "../Elements/DropDownList", "../Elements/RockLabel", "..
         setters: [
             function (vue_1_1) {
                 vue_1 = vue_1_1;
+            },
+            function (RockFormField_1_1) {
+                RockFormField_1 = RockFormField_1_1;
             },
             function (DropDownList_1_1) {
                 DropDownList_1 = DropDownList_1_1;
@@ -27,16 +26,22 @@ System.register(["vue", "../Elements/DropDownList", "../Elements/RockLabel", "..
             function (TextBox_1_1) {
                 TextBox_1 = TextBox_1_1;
             },
-            function (Index_1_1) {
-                Index_1 = Index_1_1;
-            },
             function (Guid_1_1) {
                 Guid_1 = Guid_1_1;
             }
         ],
         execute: function () {
-            exports_1("default", vue_1.defineComponent({
-                name: 'AddressControl',
+            stateOptions = [
+                'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM',
+                'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA',
+                'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV',
+                'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW',
+                'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA',
+                'WA', 'WV', 'WI', 'WY'
+            ]
+                .map(o => ({ value: o, text: o }));
+            exports_1("AddressControlBase", AddressControlBase = vue_1.defineComponent({
+                name: 'AddressControlBase',
                 components: {
                     TextBox: TextBox_1.default,
                     RockLabel: RockLabel_1.default,
@@ -45,109 +50,51 @@ System.register(["vue", "../Elements/DropDownList", "../Elements/RockLabel", "..
                 props: {
                     modelValue: {
                         type: Object,
-                        required: true
+                        default: {}
                     },
-                    label: {
-                        type: String,
-                        default: 'Address'
-                    },
-                    help: {
-                        type: String,
-                        default: ''
-                    },
-                    rules: {
+                    id: {
                         type: String,
                         default: ''
                     }
                 },
-                data() {
+                setup(props) {
+                    const uniqueId = props.id || `rock-addresscontrol-${Guid_1.newGuid}`;
                     return {
-                        state: '',
-                        uniqueId: `rock-addresscontrol-${Guid_1.newGuid()}`,
-                        stateOptions: [
-                            { value: 'AL', text: 'AL' },
-                            { value: 'AK', text: 'AK' },
-                            { value: 'AS', text: 'AS' },
-                            { value: 'AZ', text: 'AZ' },
-                            { value: 'AR', text: 'AR' },
-                            { value: 'CA', text: 'CA' },
-                            { value: 'CO', text: 'CO' },
-                            { value: 'CT', text: 'CT' },
-                            { value: 'DE', text: 'DE' },
-                            { value: 'DC', text: 'DC' },
-                            { value: 'FM', text: 'FM' },
-                            { value: 'FL', text: 'FL' },
-                            { value: 'GA', text: 'GA' },
-                            { value: 'GU', text: 'GU' },
-                            { value: 'HI', text: 'HI' },
-                            { value: 'ID', text: 'ID' },
-                            { value: 'IL', text: 'IL' },
-                            { value: 'IN', text: 'IN' },
-                            { value: 'IA', text: 'IA' },
-                            { value: 'KS', text: 'KS' },
-                            { value: 'KY', text: 'KY' },
-                            { value: 'LA', text: 'LA' },
-                            { value: 'ME', text: 'ME' },
-                            { value: 'MH', text: 'MH' },
-                            { value: 'MD', text: 'MD' },
-                            { value: 'MA', text: 'MA' },
-                            { value: 'MI', text: 'MI' },
-                            { value: 'MN', text: 'MN' },
-                            { value: 'MS', text: 'MS' },
-                            { value: 'MO', text: 'MO' },
-                            { value: 'MT', text: 'MT' },
-                            { value: 'NE', text: 'NE' },
-                            { value: 'NV', text: 'NV' },
-                            { value: 'NH', text: 'NH' },
-                            { value: 'NJ', text: 'NJ' },
-                            { value: 'NM', text: 'NM' },
-                            { value: 'NY', text: 'NY' },
-                            { value: 'NC', text: 'NC' },
-                            { value: 'ND', text: 'ND' },
-                            { value: 'MP', text: 'MP' },
-                            { value: 'OH', text: 'OH' },
-                            { value: 'OK', text: 'OK' },
-                            { value: 'OR', text: 'OR' },
-                            { value: 'PW', text: 'PW' },
-                            { value: 'PA', text: 'PA' },
-                            { value: 'PR', text: 'PR' },
-                            { value: 'RI', text: 'RI' },
-                            { value: 'SC', text: 'SC' },
-                            { value: 'SD', text: 'SD' },
-                            { value: 'TN', text: 'TN' },
-                            { value: 'TX', text: 'TX' },
-                            { value: 'UT', text: 'UT' },
-                            { value: 'VT', text: 'VT' },
-                            { value: 'VI', text: 'VI' },
-                            { value: 'VA', text: 'VA' },
-                            { value: 'WA', text: 'WA' },
-                            { value: 'WV', text: 'WV' },
-                            { value: 'WI', text: 'WI' },
-                            { value: 'WY', text: 'WY' }
-                        ]
+                        uniqueId,
+                        stateOptions
                     };
                 },
-                computed: {
-                    isRequired() {
-                        const rules = Index_1.ruleStringToArray(this.rules);
-                        return rules.indexOf('required') !== -1;
+                template: `
+<div :id="uniqueId">
+    <TextBox placeholder="Address Line 1" :rules="rules" v-model="modelValue.street1" validationTitle="Address Line 1" />
+    <TextBox placeholder="Address Line 2" v-model="modelValue.street2" validationTitle="Address Line 2" />
+    <div class="form-row">
+        <TextBox placeholder="City" :rules="rules" v-model="modelValue.city" class="col-sm-6" validationTitle="City" />
+        <DropDownList :showBlankItem="false" v-model="modelValue.state" class="col-sm-3" :options="stateOptions" />
+        <TextBox placeholder="Zip" :rules="rules" v-model="modelValue.postalCode" class="col-sm-3" validationTitle="Zip" />
+    </div>
+</div>
+`
+            }));
+            exports_1("default", vue_1.defineComponent({
+                name: 'AddressControl',
+                components: {
+                    RockFormField: RockFormField_1.default,
+                    AddressControlBase
+                },
+                props: {
+                    modelValue: {
+                        type: Object,
+                        default: {}
                     }
                 },
                 template: `
-<div class="form-group address-control" :class="isRequired ? 'required' : ''">
-    <RockLabel v-if="label || help" :for="uniqueId" :help="help">
-        {{label}}
-    </RockLabel>
+<RockFormField formGroupClasses="address-control" #default="{uniqueId, field, disabled}" name="addresscontrol" v-model.lazy="modelValue">
     <div class="control-wrapper">
-        <TextBox placeholder="Address Line 1" :rules="rules" v-model="modelValue.street1" validationTitle="Address Line 1" />
-        <TextBox placeholder="Address Line 2" v-model="modelValue.street2" validationTitle="Address Line 2" />
-        <div class="form-row">
-            <TextBox placeholder="City" :rules="rules" v-model="modelValue.city" class="col-sm-6" validationTitle="City" />
-            <DropDownList :showBlankItem="false" v-model="modelValue.state" class="col-sm-3" :options="stateOptions" />
-            <TextBox placeholder="Zip" :rules="rules" v-model="modelValue.postalCode" class="col-sm-3" validationTitle="Zip" />
-        </div>
+        <AddressControlBase v-model.lazy="modelValue" v-bind="field" :disabled="disabled" />
     </div>
-</div>`
+</RockFormField>
+`
             }));
         }
     };

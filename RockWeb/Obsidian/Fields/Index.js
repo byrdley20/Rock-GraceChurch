@@ -1,6 +1,6 @@
-System.register(["../Util/Guid", "./BooleanField", "./CampusField", "./CampusesField", "./ColorField", "./CurrencyField", "./DateField", "./DateRangeField", "./DateTimeField", "./DayOfWeekField", "./DaysOfWeekField", "./DecimalField", "./DecimalRangeField", "./DefinedValueField", "./EmailField", "./GenderField", "./IntegerField", "./IntegerRangeField", "./MemoField", "./MonthDayField", "./PhoneNumberField", "./RatingField", "./SingleSelectField", "./SSNField", "./TextField", "./TimeField"], function (exports_1, context_1) {
+System.register(["../Util/Guid", "./AddressField", "./BooleanField", "./CampusField", "./CampusesField", "./ColorField", "./CurrencyField", "./DateField", "./DateRangeField", "./DateTimeField", "./DayOfWeekField", "./DaysOfWeekField", "./DecimalField", "./DecimalRangeField", "./DefinedValueField", "./EmailField", "./GenderField", "./IntegerField", "./IntegerRangeField", "./MemoField", "./MonthDayField", "./PhoneNumberField", "./RatingField", "./SingleSelectField", "./SSNField", "./TextField", "./TimeField"], function (exports_1, context_1) {
     "use strict";
-    var Guid_1, fieldTypeTable, BooleanField_1, CampusField_1, CampusesField_1, ColorField_1, CurrencyField_1, DateField_1, DateRangeField_1, DateTimeField_1, DayOfWeekField_1, DaysOfWeekField_1, DecimalField_1, DecimalRangeField_1, DefinedValueField_1, EmailField_1, GenderField_1, IntegerField_1, IntegerRangeField_1, MemoField_1, MonthDayField_1, PhoneNumberField_1, RatingField_1, SingleSelectField_1, SSNField_1, TextField_1, TimeField_1;
+    var Guid_1, fieldTypeTable, AddressField_1, BooleanField_1, CampusField_1, CampusesField_1, ColorField_1, CurrencyField_1, DateField_1, DateRangeField_1, DateTimeField_1, DayOfWeekField_1, DaysOfWeekField_1, DecimalField_1, DecimalRangeField_1, DefinedValueField_1, EmailField_1, GenderField_1, IntegerField_1, IntegerRangeField_1, MemoField_1, MonthDayField_1, PhoneNumberField_1, RatingField_1, SingleSelectField_1, SSNField_1, TextField_1, TimeField_1;
     var __moduleName = context_1 && context_1.id;
     function getFieldEditorProps() {
         return {
@@ -42,6 +42,9 @@ System.register(["../Util/Guid", "./BooleanField", "./CampusField", "./CampusesF
         setters: [
             function (Guid_1_1) {
                 Guid_1 = Guid_1_1;
+            },
+            function (AddressField_1_1) {
+                AddressField_1 = AddressField_1_1;
             },
             function (BooleanField_1_1) {
                 BooleanField_1 = BooleanField_1_1;
@@ -121,6 +124,7 @@ System.register(["../Util/Guid", "./BooleanField", "./CampusField", "./CampusesF
         ],
         execute: function () {
             fieldTypeTable = {};
+            registerFieldType("0A495222-23B7-41D3-82C8-D484CDB75D17", new AddressField_1.AddressFieldType());
             registerFieldType("1EDAFDED-DFE6-4334-B019-6EECBA89E05A", new BooleanField_1.BooleanFieldType());
             registerFieldType("1B71FEF4-201F-4D53-8C60-2DF21F1985ED", new CampusField_1.CampusFieldType());
             registerFieldType("69254F91-C97F-4C2D-9ACB-1683B088097B", new CampusesField_1.CampusesFieldType());

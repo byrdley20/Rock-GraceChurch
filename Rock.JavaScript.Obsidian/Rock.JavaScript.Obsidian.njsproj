@@ -157,6 +157,8 @@
     <TypeScriptCompile Include="Framework\Elements\TextBox.ts" />
     <TypeScriptCompile Include="Framework\Elements\TimePicker.ts" />
     <TypeScriptCompile Include="Framework\Elements\Toggle.ts" />
+    <TypeScriptCompile Include="Framework\Fields\AddressField.ts" />
+    <TypeScriptCompile Include="Framework\Fields\AddressFieldComponents.ts" />
     <TypeScriptCompile Include="Framework\Fields\BooleanField.ts" />
     <TypeScriptCompile Include="Framework\Fields\BooleanFieldComponents.ts" />
     <TypeScriptCompile Include="Framework\Fields\CampusesField.ts" />

@@ -32,36 +32,31 @@ System.register(["vue", "./FieldType", "@Obsidian/Services/Date", "@Obsidian/Ser
             }));
             DateRangeFieldType = class DateRangeFieldType extends FieldType_1.FieldTypeBase {
                 updateTextValue(value) {
-                    this.updateTextValueAsync(value);
+                    var _a;
+                    const dateParts = ((_a = value.value) !== null && _a !== void 0 ? _a : '').split(',');
+                    if (dateParts.length !== 2) {
+                        value.textValue = '';
+                        return;
+                    }
+                    const lowerDateParts = /^(\d+)-(\d+)-(\d+)/.exec(dateParts[0]);
+                    const upperDateParts = /^(\d+)-(\d+)-(\d+)/.exec(dateParts[1]);
+                    const lowerDate = lowerDateParts !== null ? new Date(Number_1.toNumber(lowerDateParts[1]), Number_1.toNumber(lowerDateParts[2]) - 1, Number_1.toNumber(lowerDateParts[3])) : null;
+                    const upperDate = upperDateParts !== null ? new Date(Number_1.toNumber(upperDateParts[1]), Number_1.toNumber(upperDateParts[2]) - 1, Number_1.toNumber(upperDateParts[3])) : null;
+                    if (lowerDate !== null && upperDate !== null) {
+                        value.textValue = `${Date_1.formatAspDate(lowerDate, 'd')} to ${Date_1.formatAspDate(upperDate, 'd')}`;
+                    }
+                    else if (lowerDate !== null) {
+                        value.textValue = `from ${Date_1.formatAspDate(lowerDate, 'd')}`;
+                    }
+                    else if (upperDate !== null) {
+                        value.textValue = `through ${Date_1.formatAspDate(upperDate, 'd')}`;
+                    }
+                    else {
+                        value.textValue = '';
+                    }
                 }
                 getEditComponent(_value) {
                     return editComponent;
-                }
-                updateTextValueAsync(value) {
-                    var _a;
-                    return __awaiter(this, void 0, void 0, function* () {
-                        const dateParts = ((_a = value.value) !== null && _a !== void 0 ? _a : '').split(',');
-                        if (dateParts.length !== 2) {
-                            value.textValue = '';
-                            return;
-                        }
-                        const lowerDateParts = /^(\d+)-(\d+)-(\d+)/.exec(dateParts[0]);
-                        const upperDateParts = /^(\d+)-(\d+)-(\d+)/.exec(dateParts[1]);
-                        const lowerDate = lowerDateParts !== null ? new Date(Number_1.toNumber(lowerDateParts[1]), Number_1.toNumber(lowerDateParts[2]) - 1, Number_1.toNumber(lowerDateParts[3])) : null;
-                        const upperDate = upperDateParts !== null ? new Date(Number_1.toNumber(upperDateParts[1]), Number_1.toNumber(upperDateParts[2]) - 1, Number_1.toNumber(upperDateParts[3])) : null;
-                        if (lowerDate !== null && upperDate !== null) {
-                            value.textValue = `${Date_1.formatAspDate(lowerDate, 'd')} to ${Date_1.formatAspDate(upperDate, 'd')}`;
-                        }
-                        else if (lowerDate !== null) {
-                            value.textValue = `from ${Date_1.formatAspDate(lowerDate, 'd')}`;
-                        }
-                        else if (upperDate !== null) {
-                            value.textValue = `through ${Date_1.formatAspDate(upperDate, 'd')}`;
-                        }
-                        else {
-                            value.textValue = '';
-                        }
-                    });
                 }
             };
             exports_1("DateRangeFieldType", DateRangeFieldType);

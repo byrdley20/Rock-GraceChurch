@@ -822,9 +822,13 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
     </template>
     <template v-slot:default>
         <TextBoxGallery />
+
         <DatePickerGallery />
+
         <DateRangePickerGallery />
+
         <DateTimePickerGallery />
+
         <GalleryAndResult>
             <template #header>
                 CurrencyBox
@@ -837,6 +841,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 {{currency}}
             </template>
         </GalleryAndResult>
+
         <GalleryAndResult>
             <template #header>
                 EmailBox
@@ -864,6 +869,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 {{numberUpDown}}
             </template>
         </GalleryAndResult>
+
         <GalleryAndResult>
             <template #header>
                 StaticFormControl
@@ -876,18 +882,20 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 {{numberUpDown}}
             </template>
         </GalleryAndResult>
+
         <GalleryAndResult>
             <template #header>
                 AddressControl
             </template>
             <template #gallery>
-                <AddressControl v-model="address" />
+                <AddressControl label="Address 1" v-model="address" />
                 <AddressControl label="Address 2" v-model="address" />
             </template>
             <template #result>
                 <pre>{{JSON.stringify(address, null, 2)}}</pre>
             </template>
         </GalleryAndResult>
+
         <GalleryAndResult>
             <template #header>
                 Toggle
@@ -900,6 +908,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 {{toggle}}
             </template>
         </GalleryAndResult>
+
         <GalleryAndResult>
             <template #header>
                 ItemsWithPreAndPostHtml
@@ -921,6 +930,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 </ItemsWithPreAndPostHtml>
             </template>
         </GalleryAndResult>
+
         <GalleryAndResult :splitWidth="false">
             <template #header>
                 ProgressTracker
@@ -932,20 +942,35 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 <ProgressTracker :items="progressTrackerItems" :currentIndex="progressTrackerIndex" />
             </template>
         </GalleryAndResult>
+
         <FormRulesGallery />
+
         <RadioButtonListGallery />
+
         <DialogGallery />
+
         <CheckBoxGallery />
+
         <CheckBoxListGallery />
+
         <PhoneNumberBoxGallery />
+
         <DropDownListGallery />
+
         <HelpBlockGallery />
+
         <ColorPickerGallery />
+
         <NumberBoxGallery />
+
         <NumberRangeBoxGallery />
+
         <GenderDropDownListGallery />
+
         <SocialSecurityNumberBoxGallery />
+
         <TimePickerGallery />
+
         <RatingGallery />
     </template>
 </PaneledBlockTemplate>`

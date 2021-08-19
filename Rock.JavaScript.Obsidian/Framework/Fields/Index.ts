@@ -101,6 +101,9 @@ export function getFieldType(fieldTypeGuid: Guid): FieldType | null {
  * Define the standard field types in Rock.
  */
 
+import { AddressFieldType } from './AddressField';
+registerFieldType(FieldTypeGuids.Address, new AddressFieldType());
+
 import { BooleanFieldType } from './BooleanField';
 registerFieldType(FieldTypeGuids.Boolean, new BooleanFieldType());
 

@@ -177,6 +177,9 @@ const GetFieldTypeGalleryComponent = ( name: string, initialValue: string, field
 };
 
 const galleryComponents: Record<string, Component> = {
+    AddressGallery: GetFieldTypeGalleryComponent('Address', '{"street1": "3120 W Cholla St", "city": "Phoenix", "state": "AZ", "postalCode": "85029-4113", "country": "US"}', FieldTypeGuids.Address, {
+    }),
+
     BooleanGallery: GetFieldTypeGalleryComponent('Boolean', 't', FieldTypeGuids.Boolean, {
         truetext: 'This is true',
         falsetext: 'This is false',

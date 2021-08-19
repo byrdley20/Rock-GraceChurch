@@ -38,14 +38,6 @@ const editComponent = defineAsyncComponent(async () => {
  */
 export class DateTimeFieldType extends FieldTypeBase {
     public override updateTextValue(value: ClientEditableAttributeValue): void {
-        this.updateTextValueAsync(value);
-    }
-
-    public override getEditComponent(_value: ClientAttributeValue): Component {
-        return editComponent;
-    }
-
-    private async updateTextValueAsync(value: ClientEditableAttributeValue): Promise<void> {
         if (this.isCurrentDateValue(value)) {
             const parts = (value.value ?? '').split(':');
             const diff = parts.length === 2 ? toNumber(parts[1]) : 0;
@@ -85,6 +77,10 @@ export class DateTimeFieldType extends FieldTypeBase {
                 value.textValue = '';
             }
         }
+    }
+
+    public override getEditComponent(_value: ClientAttributeValue): Component {
+        return editComponent;
     }
 
     private isCurrentDateValue(value: ClientAttributeValue): boolean {

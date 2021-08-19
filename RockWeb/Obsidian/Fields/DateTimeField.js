@@ -35,49 +35,44 @@ System.register(["vue", "./FieldType", "@Obsidian/Services/Boolean", "@Obsidian/
             }));
             DateTimeFieldType = class DateTimeFieldType extends FieldType_1.FieldTypeBase {
                 updateTextValue(value) {
-                    this.updateTextValueAsync(value);
+                    var _a, _b, _c;
+                    if (this.isCurrentDateValue(value)) {
+                        const parts = ((_a = value.value) !== null && _a !== void 0 ? _a : '').split(':');
+                        const diff = parts.length === 2 ? Number_1.toNumber(parts[1]) : 0;
+                        if (diff === 1) {
+                            value.textValue = 'Current Date plus 1 day';
+                        }
+                        else if (diff > 0) {
+                            value.textValue = `Current Date plus ${diff} days`;
+                        }
+                        else if (diff === -1) {
+                            value.textValue = 'Current Date minus 1 day';
+                        }
+                        else if (diff < 0) {
+                            value.textValue = `Current Date minus ${Math.abs(diff)} days`;
+                        }
+                        else {
+                            value.textValue = 'Current Date';
+                        }
+                    }
+                    else {
+                        const dateValue = Date_1.parseDirtyRoundTripDateOrNull(value.value);
+                        const dateFormatTemplate = ((_b = value.configurationValues) === null || _b === void 0 ? void 0 : _b["format"]) || 'MM/dd/yyy';
+                        if (dateValue !== null) {
+                            let textValue = Date_1.formatAspDate(dateValue, dateFormatTemplate);
+                            const displayDiff = Boolean_1.asBoolean((_c = value.configurationValues) === null || _c === void 0 ? void 0 : _c["displayDiff"]);
+                            if (displayDiff === true) {
+                                textValue = `${textValue} ${Date_1.asElapsedString(dateValue)}`;
+                            }
+                            value.textValue = textValue;
+                        }
+                        else {
+                            value.textValue = '';
+                        }
+                    }
                 }
                 getEditComponent(_value) {
                     return editComponent;
-                }
-                updateTextValueAsync(value) {
-                    var _a, _b, _c;
-                    return __awaiter(this, void 0, void 0, function* () {
-                        if (this.isCurrentDateValue(value)) {
-                            const parts = ((_a = value.value) !== null && _a !== void 0 ? _a : '').split(':');
-                            const diff = parts.length === 2 ? Number_1.toNumber(parts[1]) : 0;
-                            if (diff === 1) {
-                                value.textValue = 'Current Date plus 1 day';
-                            }
-                            else if (diff > 0) {
-                                value.textValue = `Current Date plus ${diff} days`;
-                            }
-                            else if (diff === -1) {
-                                value.textValue = 'Current Date minus 1 day';
-                            }
-                            else if (diff < 0) {
-                                value.textValue = `Current Date minus ${Math.abs(diff)} days`;
-                            }
-                            else {
-                                value.textValue = 'Current Date';
-                            }
-                        }
-                        else {
-                            const dateValue = Date_1.parseDirtyRoundTripDateOrNull(value.value);
-                            const dateFormatTemplate = ((_b = value.configurationValues) === null || _b === void 0 ? void 0 : _b["format"]) || 'MM/dd/yyy';
-                            if (dateValue !== null) {
-                                let textValue = Date_1.formatAspDate(dateValue, dateFormatTemplate);
-                                const displayDiff = Boolean_1.asBoolean((_c = value.configurationValues) === null || _c === void 0 ? void 0 : _c["displayDiff"]);
-                                if (displayDiff === true) {
-                                    textValue = `${textValue} ${Date_1.asElapsedString(dateValue)}`;
-                                }
-                                value.textValue = textValue;
-                            }
-                            else {
-                                value.textValue = '';
-                            }
-                        }
-                    });
                 }
                 isCurrentDateValue(value) {
                     var _a;

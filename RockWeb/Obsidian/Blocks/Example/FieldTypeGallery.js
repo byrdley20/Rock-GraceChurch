@@ -152,6 +152,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 });
             };
             galleryComponents = {
+                AddressGallery: GetFieldTypeGalleryComponent('Address', '{"street1": "3120 W Cholla St", "city": "Phoenix", "state": "AZ", "postalCode": "85029-4113", "country": "US"}', "0A495222-23B7-41D3-82C8-D484CDB75D17", {}),
                 BooleanGallery: GetFieldTypeGalleryComponent('Boolean', 't', "1EDAFDED-DFE6-4334-B019-6EECBA89E05A", {
                     truetext: 'This is true',
                     falsetext: 'This is false',

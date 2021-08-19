@@ -31,14 +31,6 @@ const editComponent = defineAsyncComponent(async () => {
  */
 export class DateRangeFieldType extends FieldTypeBase {
     public override updateTextValue(value: ClientEditableAttributeValue): void {
-        this.updateTextValueAsync(value);
-    }
-
-    public override getEditComponent(_value: ClientAttributeValue): Component {
-        return editComponent;
-    }
-
-    private async updateTextValueAsync(value: ClientEditableAttributeValue): Promise<void> {
         const dateParts = (value.value ?? '').split(',');
 
         if (dateParts.length !== 2) {
@@ -64,5 +56,9 @@ export class DateRangeFieldType extends FieldTypeBase {
         else {
             value.textValue = '';
         }
+    }
+
+    public override getEditComponent(_value: ClientAttributeValue): Component {
+        return editComponent;
     }
 }

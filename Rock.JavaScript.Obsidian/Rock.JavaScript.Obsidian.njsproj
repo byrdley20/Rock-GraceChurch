@@ -130,6 +130,7 @@
     <TypeScriptCompile Include="Framework\Elements\CurrencyBox.ts" />
     <TypeScriptCompile Include="Framework\Elements\DatePartsPicker.ts" />
     <TypeScriptCompile Include="Framework\Elements\DatePicker.ts" />
+    <TypeScriptCompile Include="Framework\Elements\DateRangePicker.ts" />
     <TypeScriptCompile Include="Framework\Elements\DateTimePicker.ts" />
     <TypeScriptCompile Include="Framework\Elements\DropDownList.ts" />
     <TypeScriptCompile Include="Framework\Elements\EmailBox.ts" />
@@ -168,6 +169,8 @@
     <TypeScriptCompile Include="Framework\Fields\CurrencyFieldComponents.ts" />
     <TypeScriptCompile Include="Framework\Fields\DateField.ts" />
     <TypeScriptCompile Include="Framework\Fields\DateFieldComponents.ts" />
+    <TypeScriptCompile Include="Framework\Fields\DateRangeField.ts" />
+    <TypeScriptCompile Include="Framework\Fields\DateRangeFieldComponents.ts" />
     <TypeScriptCompile Include="Framework\Fields\DateTimeField.ts" />
     <TypeScriptCompile Include="Framework\Fields\DateTimeFieldComponents.ts" />
     <TypeScriptCompile Include="Framework\Fields\DayOfWeekField.ts" />

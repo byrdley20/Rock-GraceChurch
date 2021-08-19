@@ -19,8 +19,7 @@ import { FieldTypeBase } from './FieldType';
 import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
 import { asBoolean } from '@Obsidian/Services/Boolean';
 import { toNumber } from '@Obsidian/Services/Number';
-import { get as httpGet } from '../Util/Http';
-import { asDateOrNull, asElapsedString, formatAspDate } from '@Obsidian/Services/Date';
+import { parseDirtyRoundTripDateOrNull, asElapsedString, formatAspDate } from '@Obsidian/Services/Date';
 
 export const enum ConfigurationValueKey {
     Format = 'format',
@@ -41,7 +40,6 @@ const editComponent = defineAsyncComponent(async () => {
  */
 export class DateFieldType extends FieldTypeBase {
     public override updateTextValue(value: ClientEditableAttributeValue): void {
-        // TODO: Replace this with custom date formatting logic.
         this.updateTextValueAsync(value);
     }
 
@@ -71,7 +69,7 @@ export class DateFieldType extends FieldTypeBase {
             }
         }
         else {
-            const dateValue = asDateOrNull(value.value);
+            const dateValue = parseDirtyRoundTripDateOrNull(value.value);
             const dateFormatTemplate = value.configurationValues?.[ConfigurationValueKey.Format] || 'MM/dd/yyy';
 
             if (dateValue !== null) {

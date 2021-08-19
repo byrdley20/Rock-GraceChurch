@@ -19,6 +19,50 @@ import { List } from 'linqts';
 import { padLeft, padRight } from './String';
 
 /**
+ * This is a temporary function to parse a round trip date format into a Date
+ * object. Any TZ data is ignored.
+ * 
+ * @param value The value to be parsed.
+ * @returns A new date object or null if it couldn't be parsed.
+ */
+export function parseDirtyRoundTripDateOrNull(value: string | undefined | null): Date | null {
+    if (value === undefined || value === null) {
+        return null;
+    }
+
+    const components = /^(\d{4})-(\d{2})-(\d{2})(?:$|(?:T(\d{2}):(\d{2}):(\d{2})(?:$|\.(\d+))))/.exec(value);
+
+    if (components === null) {
+        return null;
+    }
+
+    try {
+        const year = parseInt(components[1]);
+        const month = parseInt(components[2]);
+        const day = parseInt(components[3]);
+        let hour = 0;
+        let minute = 0;
+        let second = 0;
+        let millisecond = 0;
+
+        if (components.length >= 7) {
+            hour = Math.min(23, parseInt(components[4] ?? '0'));
+            minute = Math.min(59, parseInt(components[5] ?? '0'));
+            second = Math.min(59, parseInt(components[6] ?? '0'));
+        }
+
+        if (components.length == 8) {
+            millisecond = parseInt(components[7] ?? '0');
+        }
+
+        return new Date(year, month - 1, day, hour, minute, second, millisecond);
+    }
+    catch {
+        return null;
+    }
+}
+
+/**
  * Transform the value into a date or null
  * @param val
  */

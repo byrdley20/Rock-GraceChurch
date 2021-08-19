@@ -86,7 +86,7 @@ namespace Rock.Web.UI
         /// <summary>
         /// The fingerprint to use with obsidian files.
         /// </summary>
-        private static string _obsidianFingerprint = null;
+        private static long _obsidianFingerprint = 0;
 
         /// <summary>
         /// The obsidian file watchers.
@@ -1382,7 +1382,7 @@ Obsidian.onReady(() => {{
     }});
 }});
 
-Obsidian.init({{ debug: true, fingerprint: ""{_obsidianFingerprint}"" }});
+Obsidian.init({{ debug: true, fingerprint: ""v={_obsidianFingerprint}"" }});
 ";
 
                             ClientScript.RegisterStartupScript( this.Page.GetType(), "rock-obsidian-init", script, true );
@@ -3557,7 +3557,7 @@ Sys.Application.add_load(function () {
                     .OrderByDescending( d => d )
                     .FirstOrDefault();
 
-                _obsidianFingerprint = $"v={(lastWriteTime ?? RockDateTime.Now).Ticks}";
+                _obsidianFingerprint = (lastWriteTime ?? RockDateTime.Now).Ticks;
 
                 // Check if we are in debug mode and if so enable the watchers.
                 var cfg = ( CompilationSection ) ConfigurationManager.GetSection( "system.web/compilation" );
@@ -3585,7 +3585,7 @@ Sys.Application.add_load(function () {
             }
             catch ( Exception ex )
             {
-                _obsidianFingerprint = $"v={RockDateTime.Now.Ticks}";
+                _obsidianFingerprint = RockDateTime.Now.Ticks;
                 Debug.WriteLine( ex.Message );
             }
         }
@@ -3603,11 +3603,11 @@ Sys.Application.add_load(function () {
 
                 dateTime = RockDateTime.ConvertLocalDateTimeToRockDateTime( dateTime );
 
-                _obsidianFingerprint = $"v={dateTime.Ticks}";
+                _obsidianFingerprint = Math.Max( _obsidianFingerprint, dateTime.Ticks );
             }
             catch
             {
-                _obsidianFingerprint = $"v={RockDateTime.Now.Ticks}";
+                _obsidianFingerprint = RockDateTime.Now.Ticks;
             }
         }
 
@@ -3620,15 +3620,16 @@ Sys.Application.add_load(function () {
         {
             try
             {
+                System.Diagnostics.Debug.WriteLine( $"OnChanged: {fileSystemEventArgs.FullPath}" );
                 var dateTime = new FileInfo( fileSystemEventArgs.FullPath ).LastWriteTime;
 
                 dateTime = RockDateTime.ConvertLocalDateTimeToRockDateTime( dateTime );
 
-                _obsidianFingerprint = $"v={dateTime.Ticks}";
+                _obsidianFingerprint = Math.Max( _obsidianFingerprint, dateTime.Ticks );
             }
             catch
             {
-                _obsidianFingerprint = $"v={RockDateTime.Now.Ticks}";
+                _obsidianFingerprint = RockDateTime.Now.Ticks;
             }
         }
 

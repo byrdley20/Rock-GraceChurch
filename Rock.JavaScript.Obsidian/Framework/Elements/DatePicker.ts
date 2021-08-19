@@ -17,6 +17,7 @@
 import { defineComponent, PropType } from 'vue';
 import { toNumber } from '@Obsidian/Services/Number';
 import RockFormField from './RockFormField';
+import { newGuid } from '../Util/Guid';
 import TextBox from './TextBox';
 
 type Rock = {
@@ -33,29 +34,138 @@ declare global {
     }
 }
 
-export default defineComponent( {
-    name: 'DatePicker',
-    components: {
-        RockFormField,
-        TextBox
-    },
+export const DatePickerBase = defineComponent({
+    name: 'DatePickerBase',
+
     props: {
         modelValue: {
             type: String as PropType<string | null>,
             default: null
         },
+
+        id: {
+            type: String as PropType<string>,
+            default: ''
+        },
+
+        disabled: {
+            type: Boolean as PropType<boolean>,
+            default: false
+        }
+    },
+
+    emits: [
+        'update:modelValue'
+    ],
+
+    data: function () {
+        return {
+            internalValue: null as string | null,
+            defaultId: `datepicker-${newGuid()}`
+        };
+    },
+
+    computed: {
+        computedId(): string {
+            return this.id || this.defaultId;
+        },
+
+        asRockDateOrNull(): string | null {
+            const match = /^(\d+)\/(\d+)\/(\d+)/.exec(this.internalValue ?? '');
+
+            if (match !== null) {
+                return `${match[3]}-${match[1]}-${match[2]}`;
+            }
+            else {
+                return null;
+            }
+        }
+    },
+
+    watch: {
+        asRockDateOrNull(): void {
+            this.$emit('update:modelValue', this.asRockDateOrNull);
+        },
+
+        modelValue: {
+            immediate: true,
+            handler(): void {
+                if (!this.modelValue) {
+                    this.internalValue = null;
+
+                    return;
+                }
+
+                const match = /^(\d+)-(\d+)-(\d+)/.exec(this.modelValue);
+
+                if (match !== null) {
+                    this.internalValue = `${match[2]}/${match[3]}/${match[1]}`;
+                }
+                else {
+                    this.internalValue = null;
+                }
+            }
+        }
+    },
+
+    mounted() {
+        const input = this.$refs['input'] as HTMLInputElement;
+        const inputId = input.id;
+        const Rock = window.Rock;
+
+        Rock.controls.datePicker.initialize({
+            id: inputId,
+            startView: 0,
+            showOnFocus: true,
+            format: 'mm/dd/yyyy',
+            todayHighlight: true,
+            forceParse: true,
+            onChangeScript: () => {
+                this.internalValue = input.value;
+            }
+        });
+    },
+
+    template: `
+<div class="input-group input-width-md js-date-picker date">
+    <input ref="input" type="text" :id="computedId" class="form-control" v-model.lazy="internalValue" :disabled="isCurrent" />
+    <span class="input-group-addon">
+        <i class="fa fa-calendar"></i>
+    </span>
+</div>
+`
+});
+
+export default defineComponent( {
+    name: 'DatePicker',
+
+    components: {
+        RockFormField,
+        DatePickerBase,
+        TextBox
+    },
+
+    props: {
+        modelValue: {
+            type: String as PropType<string | null>,
+            default: null
+        },
+
         displayCurrentOption: {
             type: Boolean as PropType<boolean>,
             default: false
         },
+
         isCurrentDateOffset: {
             type: Boolean as PropType<boolean>,
             default: false
         }
     },
+
     emits: [
         'update:modelValue'
     ],
+
     data: function ()
     {
         return {
@@ -64,19 +174,8 @@ export default defineComponent( {
             currentDiff: '0'
         };
     },
+
     computed: {
-        asRockDateOrNull (): string | null
-        {
-            const match = /^(\d+)\/(\d+)\/(\d+)/.exec(this.internalValue ?? '');
-
-            if (match !== null) {
-                return `${match[3]}-${match[2]}-${match[1]}`;
-            }
-            else {
-                return null;
-            }
-        },
-
         asCurrentDateValue (): string
         {
             const plusMinus = `${toNumber(this.currentDiff)}`;
@@ -90,9 +189,10 @@ export default defineComponent( {
                 return this.asCurrentDateValue;
             }
 
-            return this.asRockDateOrNull;
+            return this.internalValue;
         }
     },
+
     watch: {
         isCurrentDateOffset: {
             immediate: true,
@@ -102,6 +202,7 @@ export default defineComponent( {
                 }
             }
         },
+
         isCurrent: {
             immediate: true,
             handler(): void {
@@ -110,9 +211,11 @@ export default defineComponent( {
                 }
             }
         },
+
         valueToEmit(): void {
             this.$emit('update:modelValue', this.valueToEmit);
         },
+
         modelValue: {
             immediate: true,
             handler(): void {
@@ -120,6 +223,7 @@ export default defineComponent( {
                     this.internalValue = null;
                     this.isCurrent = false;
                     this.currentDiff = '0';
+
                     return;
                 }
 
@@ -134,50 +238,17 @@ export default defineComponent( {
                     return;
                 }
 
-                const match = /^(\d+)-(\d+)-(\d+)/.exec(this.modelValue);
-
-                if (match !== null) {
-                    this.internalValue = `${match[3]}/${match[2]}/${match[1]}`;
-                }
-                else {
-                    this.internalValue = null;
-                }
+                this.internalValue = this.modelValue;
             }
         }
     },
-    mounted ()
-    {
-        const input = this.$refs[ 'input' ] as HTMLInputElement;
-        const inputId = input.id;
-        const Rock = window.Rock;
 
-        Rock.controls.datePicker.initialize( {
-            id: inputId,
-            startView: 0,
-            showOnFocus: true,
-            format: 'mm/dd/yyyy',
-            todayHighlight: true,
-            forceParse: true,
-            onChangeScript: () =>
-            {
-                if ( !this.isCurrent )
-                {
-                    this.internalValue = input.value;
-                }
-            }
-        } );
-    },
     template: `
 <RockFormField formGroupClasses="date-picker" #default="{uniqueId}" name="datepicker" v-model.lazy="internalValue">
     <div class="control-wrapper">
-        <div class="form-control-group">
+        <div v-if="displayCurrentOption" class="form-control-group">
             <div class="form-row">
-                <div class="input-group input-width-md js-date-picker date">
-                    <input ref="input" type="text" :id="uniqueId" class="form-control" v-model.lazy="internalValue" :disabled="isCurrent" />
-                    <span class="input-group-addon">
-                        <i class="fa fa-calendar"></i>
-                    </span>
-                </div>
+                <DatePickerBase v-model.lazy="internalValue" :id="uniqueId" :disabled="isCurrent" />
                 <div v-if="displayCurrentOption || isCurrent" class="input-group">
                     <div class="checkbox">
                         <label title="">
@@ -190,6 +261,7 @@ export default defineComponent( {
                 <TextBox label="+- Days" v-model="currentDiff" inputClasses="input-width-md" help="Enter the number of days after the current date to use as the date. Use a negative number to specify days before." />
             </div>
         </div>
+        <DatePickerBase v-else v-model.lazy="internalValue" :id="uniqueId" :disabled="isCurrent" />
     </div>
 </RockFormField>`
 } );

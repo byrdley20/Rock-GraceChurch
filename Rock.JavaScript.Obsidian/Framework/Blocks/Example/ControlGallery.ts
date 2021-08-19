@@ -22,6 +22,7 @@ import EmailBox from '../../Elements/EmailBox';
 import CurrencyBox from '../../Elements/CurrencyBox';
 import PanelWidget from '../../Elements/PanelWidget';
 import DatePicker from '../../Elements/DatePicker';
+import DateRangePicker from '../../Elements/DateRangePicker';
 import DateTimePicker from '../../Elements/DateTimePicker';
 import BirthdayPicker from '../../Elements/BirthdayPicker';
 import NumberUpDown from '../../Elements/NumberUpDown';
@@ -48,7 +49,6 @@ import TimePicker from '../../Elements/TimePicker';
 import CheckBoxList from '../../Elements/CheckBoxList';
 import Rating from '../../Elements/Rating';
 import { toNumber } from '@Obsidian/Services/Number';
-import { Guid } from 'Util/Guid';
 import { ListOption } from '@Obsidian/ViewModels';
 
 /** An inner component that describes the template used for each of the controls
@@ -396,6 +396,33 @@ const DatePickerGallery = defineComponent( {
 </GalleryAndResult>`
 } );
 
+/** Demonstrates date range pickers */
+const DateRangePickerGallery = defineComponent({
+    name: 'DateRangePickerGallery',
+    components: {
+        GalleryAndResult,
+        DateRangePicker
+    },
+    data() {
+        return {
+            date: {}
+        };
+    },
+    template: `
+<GalleryAndResult>
+    <template #header>
+        DateRangePicker
+    </template>
+    <template #gallery>
+        <DateRangePicker label="Date Range 1" v-model="date" />
+        <DateRangePicker label="Date Range 2" v-model="date" />
+    </template>
+    <template #result>
+        Date: {{JSON.stringify(date, null, 2)}}
+    </template>
+</GalleryAndResult>`
+});
+
 /** Demonstrates date time pickers */
 const DateTimePickerGallery = defineComponent({
     name: 'DatePickerGallery',
@@ -728,6 +755,7 @@ export default defineComponent({
         CurrencyBox,
         EmailBox,
         DatePickerGallery,
+        DateRangePickerGallery,
         DateTimePickerGallery,
         DatePartsPickerGallery,
         NumberUpDown,
@@ -794,6 +822,7 @@ export default defineComponent({
     <template v-slot:default>
         <TextBoxGallery />
         <DatePickerGallery />
+        <DateRangePickerGallery />
         <DateTimePickerGallery />
         <GalleryAndResult>
             <template #header>

@@ -183,6 +183,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                     datePickerControlType: 'Date Parts Picker',
                     futureYearCount: '2'
                 }),
+                DateRangeGallery: GetFieldTypeGalleryComponent('DateRange', '2021-07-25T00:00:00.0000000,2021-07-29T00:00:00.0000000', "9C7D431C-875C-4792-9E76-93F3A32BB850", {}),
                 DateTimeGallery: GetFieldTypeGalleryComponent('DateTime', '2009-02-11T14:23:00', "FE95430C-322D-4B67-9C77-DFD1D4408725", {
                     format: 'MMM dd, yyyy h:mm tt',
                     displayDiff: 'false',

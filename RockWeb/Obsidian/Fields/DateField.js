@@ -63,7 +63,7 @@ System.register(["vue", "./FieldType", "@Obsidian/Services/Boolean", "@Obsidian/
                             }
                         }
                         else {
-                            const dateValue = Date_1.asDateOrNull(value.value);
+                            const dateValue = Date_1.parseDirtyRoundTripDateOrNull(value.value);
                             const dateFormatTemplate = ((_b = value.configurationValues) === null || _b === void 0 ? void 0 : _b["format"]) || 'MM/dd/yyy';
                             if (dateValue !== null) {
                                 let textValue = Date_1.formatAspDate(dateValue, dateFormatTemplate);

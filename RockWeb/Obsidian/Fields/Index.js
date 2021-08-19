@@ -1,6 +1,6 @@
-System.register(["../Util/Guid", "./BooleanField", "./CampusField", "./CampusesField", "./ColorField", "./CurrencyField", "./DateField", "./DateTimeField", "./DayOfWeekField", "./DaysOfWeekField", "./DecimalField", "./DecimalRangeField", "./DefinedValueField", "./EmailField", "./GenderField", "./IntegerField", "./IntegerRangeField", "./MemoField", "./MonthDayField", "./PhoneNumberField", "./RatingField", "./SingleSelectField", "./SSNField", "./TextField", "./TimeField"], function (exports_1, context_1) {
+System.register(["../Util/Guid", "./BooleanField", "./CampusField", "./CampusesField", "./ColorField", "./CurrencyField", "./DateField", "./DateRangeField", "./DateTimeField", "./DayOfWeekField", "./DaysOfWeekField", "./DecimalField", "./DecimalRangeField", "./DefinedValueField", "./EmailField", "./GenderField", "./IntegerField", "./IntegerRangeField", "./MemoField", "./MonthDayField", "./PhoneNumberField", "./RatingField", "./SingleSelectField", "./SSNField", "./TextField", "./TimeField"], function (exports_1, context_1) {
     "use strict";
-    var Guid_1, fieldTypeTable, BooleanField_1, CampusField_1, CampusesField_1, ColorField_1, CurrencyField_1, DateField_1, DateTimeField_1, DayOfWeekField_1, DaysOfWeekField_1, DecimalField_1, DecimalRangeField_1, DefinedValueField_1, EmailField_1, GenderField_1, IntegerField_1, IntegerRangeField_1, MemoField_1, MonthDayField_1, PhoneNumberField_1, RatingField_1, SingleSelectField_1, SSNField_1, TextField_1, TimeField_1;
+    var Guid_1, fieldTypeTable, BooleanField_1, CampusField_1, CampusesField_1, ColorField_1, CurrencyField_1, DateField_1, DateRangeField_1, DateTimeField_1, DayOfWeekField_1, DaysOfWeekField_1, DecimalField_1, DecimalRangeField_1, DefinedValueField_1, EmailField_1, GenderField_1, IntegerField_1, IntegerRangeField_1, MemoField_1, MonthDayField_1, PhoneNumberField_1, RatingField_1, SingleSelectField_1, SSNField_1, TextField_1, TimeField_1;
     var __moduleName = context_1 && context_1.id;
     function getFieldEditorProps() {
         return {
@@ -60,6 +60,9 @@ System.register(["../Util/Guid", "./BooleanField", "./CampusField", "./CampusesF
             },
             function (DateField_1_1) {
                 DateField_1 = DateField_1_1;
+            },
+            function (DateRangeField_1_1) {
+                DateRangeField_1 = DateRangeField_1_1;
             },
             function (DateTimeField_1_1) {
                 DateTimeField_1 = DateTimeField_1_1;
@@ -124,6 +127,7 @@ System.register(["../Util/Guid", "./BooleanField", "./CampusField", "./CampusesF
             registerFieldType("D747E6AE-C383-4E22-8846-71518E3DD06F", new ColorField_1.ColorFieldType());
             registerFieldType("3EE69CBC-35CE-4496-88CC-8327A447603F", new CurrencyField_1.CurrencyFieldType());
             registerFieldType("6B6AA175-4758-453F-8D83-FCD8044B5F36", new DateField_1.DateFieldType());
+            registerFieldType("9C7D431C-875C-4792-9E76-93F3A32BB850", new DateRangeField_1.DateRangeFieldType());
             registerFieldType("FE95430C-322D-4B67-9C77-DFD1D4408725", new DateTimeField_1.DateTimeFieldType());
             registerFieldType("7EDFA2DE-FDD3-4AC1-B356-1F5BFC231DAE", new DayOfWeekField_1.DayOfWeekFieldType());
             registerFieldType("08943FF9-F2A8-4DB4-A72A-31938B200C8C", new DaysOfWeekField_1.DaysOfWeekFieldType());

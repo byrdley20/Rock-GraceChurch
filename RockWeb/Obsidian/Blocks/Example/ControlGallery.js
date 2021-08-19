@@ -1,6 +1,6 @@
-System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/TextBox", "../../Elements/EmailBox", "../../Elements/CurrencyBox", "../../Elements/PanelWidget", "../../Elements/DatePicker", "../../Elements/DateTimePicker", "../../Elements/BirthdayPicker", "../../Elements/NumberUpDown", "../../Controls/AddressControl", "../../Elements/Toggle", "../../Elements/ItemsWithPreAndPostHtml", "../../Elements/StaticFormControl", "../../Elements/ProgressTracker", "../../Controls/RockForm", "../../Elements/RockButton", "../../Elements/RadioButtonList", "../../Elements/DropDownList", "../../Controls/Dialog", "../../Elements/CheckBox", "../../Elements/PhoneNumberBox", "../../Elements/HelpBlock", "../../Elements/DatePartsPicker", "../../Elements/ColorPicker", "../../Elements/NumberBox", "../../Elements/NumberRangeBox", "../../Elements/GenderDropDownList", "../../Elements/SocialSecurityNumberBox", "../../Elements/TimePicker", "../../Elements/CheckBoxList", "../../Elements/Rating", "@Obsidian/Services/Number"], function (exports_1, context_1) {
+System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/TextBox", "../../Elements/EmailBox", "../../Elements/CurrencyBox", "../../Elements/PanelWidget", "../../Elements/DatePicker", "../../Elements/DateRangePicker", "../../Elements/DateTimePicker", "../../Elements/BirthdayPicker", "../../Elements/NumberUpDown", "../../Controls/AddressControl", "../../Elements/Toggle", "../../Elements/ItemsWithPreAndPostHtml", "../../Elements/StaticFormControl", "../../Elements/ProgressTracker", "../../Controls/RockForm", "../../Elements/RockButton", "../../Elements/RadioButtonList", "../../Elements/DropDownList", "../../Controls/Dialog", "../../Elements/CheckBox", "../../Elements/PhoneNumberBox", "../../Elements/HelpBlock", "../../Elements/DatePartsPicker", "../../Elements/ColorPicker", "../../Elements/NumberBox", "../../Elements/NumberRangeBox", "../../Elements/GenderDropDownList", "../../Elements/SocialSecurityNumberBox", "../../Elements/TimePicker", "../../Elements/CheckBoxList", "../../Elements/Rating", "@Obsidian/Services/Number"], function (exports_1, context_1) {
     "use strict";
-    var PaneledBlockTemplate_1, vue_1, TextBox_1, EmailBox_1, CurrencyBox_1, PanelWidget_1, DatePicker_1, DateTimePicker_1, BirthdayPicker_1, NumberUpDown_1, AddressControl_1, Toggle_1, ItemsWithPreAndPostHtml_1, StaticFormControl_1, ProgressTracker_1, RockForm_1, RockButton_1, RadioButtonList_1, DropDownList_1, Dialog_1, CheckBox_1, PhoneNumberBox_1, HelpBlock_1, DatePartsPicker_1, ColorPicker_1, NumberBox_1, NumberRangeBox_1, GenderDropDownList_1, SocialSecurityNumberBox_1, TimePicker_1, CheckBoxList_1, Rating_1, Number_1, GalleryAndResult, PhoneNumberBoxGallery, HelpBlockGallery, DropDownListGallery, RadioButtonListGallery, CheckBoxGallery, DialogGallery, FormRulesGallery, CheckBoxListGallery, DatePickerGallery, DateTimePickerGallery, DatePartsPickerGallery, TextBoxGallery, ColorPickerGallery, NumberBoxGallery, NumberRangeBoxGallery, GenderDropDownListGallery, SocialSecurityNumberBoxGallery, TimePickerGallery, RatingGallery;
+    var PaneledBlockTemplate_1, vue_1, TextBox_1, EmailBox_1, CurrencyBox_1, PanelWidget_1, DatePicker_1, DateRangePicker_1, DateTimePicker_1, BirthdayPicker_1, NumberUpDown_1, AddressControl_1, Toggle_1, ItemsWithPreAndPostHtml_1, StaticFormControl_1, ProgressTracker_1, RockForm_1, RockButton_1, RadioButtonList_1, DropDownList_1, Dialog_1, CheckBox_1, PhoneNumberBox_1, HelpBlock_1, DatePartsPicker_1, ColorPicker_1, NumberBox_1, NumberRangeBox_1, GenderDropDownList_1, SocialSecurityNumberBox_1, TimePicker_1, CheckBoxList_1, Rating_1, Number_1, GalleryAndResult, PhoneNumberBoxGallery, HelpBlockGallery, DropDownListGallery, RadioButtonListGallery, CheckBoxGallery, DialogGallery, FormRulesGallery, CheckBoxListGallery, DatePickerGallery, DateRangePickerGallery, DateTimePickerGallery, DatePartsPickerGallery, TextBoxGallery, ColorPickerGallery, NumberBoxGallery, NumberRangeBoxGallery, GenderDropDownListGallery, SocialSecurityNumberBoxGallery, TimePickerGallery, RatingGallery;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -24,6 +24,9 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
             },
             function (DatePicker_1_1) {
                 DatePicker_1 = DatePicker_1_1;
+            },
+            function (DateRangePicker_1_1) {
+                DateRangePicker_1 = DateRangePicker_1_1;
             },
             function (DateTimePicker_1_1) {
                 DateTimePicker_1 = DateTimePicker_1_1;
@@ -422,6 +425,31 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
     </template>
 </GalleryAndResult>`
             });
+            DateRangePickerGallery = vue_1.defineComponent({
+                name: 'DateRangePickerGallery',
+                components: {
+                    GalleryAndResult,
+                    DateRangePicker: DateRangePicker_1.default
+                },
+                data() {
+                    return {
+                        date: {}
+                    };
+                },
+                template: `
+<GalleryAndResult>
+    <template #header>
+        DateRangePicker
+    </template>
+    <template #gallery>
+        <DateRangePicker label="Date Range 1" v-model="date" />
+        <DateRangePicker label="Date Range 2" v-model="date" />
+    </template>
+    <template #result>
+        Date: {{JSON.stringify(date, null, 2)}}
+    </template>
+</GalleryAndResult>`
+            });
             DateTimePickerGallery = vue_1.defineComponent({
                 name: 'DatePickerGallery',
                 components: {
@@ -732,6 +760,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                     CurrencyBox: CurrencyBox_1.default,
                     EmailBox: EmailBox_1.default,
                     DatePickerGallery,
+                    DateRangePickerGallery,
                     DateTimePickerGallery,
                     DatePartsPickerGallery,
                     NumberUpDown: NumberUpDown_1.default,
@@ -794,6 +823,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
     <template v-slot:default>
         <TextBoxGallery />
         <DatePickerGallery />
+        <DateRangePickerGallery />
         <DateTimePickerGallery />
         <GalleryAndResult>
             <template #header>

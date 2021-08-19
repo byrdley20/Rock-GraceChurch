@@ -119,6 +119,9 @@ registerFieldType(FieldTypeGuids.Currency, new CurrencyFieldType());
 import { DateFieldType } from './DateField';
 registerFieldType(FieldTypeGuids.Date, new DateFieldType());
 
+import { DateRangeFieldType } from './DateRangeField';
+registerFieldType(FieldTypeGuids.DateRange, new DateRangeFieldType());
+
 import { DateTimeFieldType } from './DateTimeField';
 registerFieldType(FieldTypeGuids.DateTime, new DateTimeFieldType());
 

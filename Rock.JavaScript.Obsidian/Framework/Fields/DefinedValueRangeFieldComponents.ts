@@ -47,18 +47,18 @@ function getClientValue(lowerValue: string, upperValue: string, valueOptions: Va
     const lv = firstOrDefault(valueOptions, v => v.value === lowerValue);
     const uv = firstOrDefault(valueOptions, v => v.value === upperValue);
 
-    if (!lv || !uv) {
+    if (!lv && !uv) {
         return {
-            value: (lowerValue === '' && upperValue === '') ? '' : `${lowerValue},${upperValue}`,
+            value: '',
             text: '',
             description: ''
         };
     }
 
     return {
-        value: `${lv.value},${uv.value}`,
-        text: `${lv.text} to ${uv.text}`,
-        description: showDescription ? `${lv.description} to ${uv.description}` : ''
+        value: `${lv?.value ?? ''},${uv?.value ?? ''}`,
+        text: `${lv?.text ?? ''} to ${uv?.text ?? ''}`,
+        description: showDescription ? `${lv?.description ?? ''} to ${uv?.description ?? ''}` : ''
     };
 }
 
@@ -139,12 +139,12 @@ export const EditComponent = defineComponent({
     :rules="computedRules">
     <div :id="uniqueId" class="form-control-group">
         <select class="input-width-md form-control" v-model="lowerValue">
-            <option v-if="isRequired" value=""></option>
+            <option v-if="!isRequired" value=""></option>
             <option v-for="o in options" :key="o.value" :value="o.value">{{o.text}}</option>
         </select>
         <span class="to"> to </span>
         <select class="input-width-md form-control" v-model="upperValue">
-            <option v-if="isRequired" value=""></option>
+            <option v-if="!isRequired" value=""></option>
             <option v-for="o in options" :key="o.value" :value="o.value">{{o.text}}</option>
         </select>
     </div>

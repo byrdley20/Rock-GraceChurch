@@ -53,7 +53,7 @@ System.register(["vue", "./FieldType", "@Obsidian/Services/Boolean"], function (
                     }
                 }
                 updateTextValue(value) {
-                    var _a, _b, _c, _d, _e, _f;
+                    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
                     try {
                         const clientValue = JSON.parse((_a = value.value) !== null && _a !== void 0 ? _a : '');
                         try {
@@ -66,22 +66,22 @@ System.register(["vue", "./FieldType", "@Obsidian/Services/Boolean"], function (
                             }
                             const lowerValue = firstOrDefault(values, v => (v === null || v === void 0 ? void 0 : v.value) === rawValues[0]);
                             const upperValue = firstOrDefault(values, v => (v === null || v === void 0 ? void 0 : v.value) === rawValues[1]);
-                            if (lowerValue === undefined || upperValue === undefined) {
+                            if (lowerValue === undefined && upperValue === undefined) {
                                 value.textValue = '';
                                 return;
                             }
                             if (displayDescription) {
-                                value.textValue = `${lowerValue.description} to ${upperValue.description}`;
+                                value.textValue = `${(_f = lowerValue === null || lowerValue === void 0 ? void 0 : lowerValue.description) !== null && _f !== void 0 ? _f : ''} to ${(_g = upperValue === null || upperValue === void 0 ? void 0 : upperValue.description) !== null && _g !== void 0 ? _g : ''}`;
                             }
                             else {
-                                value.textValue = `${lowerValue.text} to ${upperValue.text}`;
+                                value.textValue = `${(_h = lowerValue === null || lowerValue === void 0 ? void 0 : lowerValue.text) !== null && _h !== void 0 ? _h : ''} to ${(_j = upperValue === null || upperValue === void 0 ? void 0 : upperValue.text) !== null && _j !== void 0 ? _j : ''}`;
                             }
                         }
-                        catch (_g) {
-                            value.textValue = (_f = clientValue.value) !== null && _f !== void 0 ? _f : '';
+                        catch (_l) {
+                            value.textValue = (_k = clientValue.value) !== null && _k !== void 0 ? _k : '';
                         }
                     }
-                    catch (_h) {
+                    catch (_m) {
                         value.textValue = value.value;
                     }
                 }

@@ -21,19 +21,20 @@ System.register(["vue", "./Index", "../Elements/RockFormField", "@Obsidian/Servi
         return filtered.length >= 1 ? filtered[0] : undefined;
     }
     function getClientValue(lowerValue, upperValue, valueOptions, showDescription) {
+        var _a, _b, _c, _d, _e, _f;
         const lv = firstOrDefault(valueOptions, v => v.value === lowerValue);
         const uv = firstOrDefault(valueOptions, v => v.value === upperValue);
-        if (!lv || !uv) {
+        if (!lv && !uv) {
             return {
-                value: (lowerValue === '' && upperValue === '') ? '' : `${lowerValue},${upperValue}`,
+                value: '',
                 text: '',
                 description: ''
             };
         }
         return {
-            value: `${lv.value},${uv.value}`,
-            text: `${lv.text} to ${uv.text}`,
-            description: showDescription ? `${lv.description} to ${uv.description}` : ''
+            value: `${(_a = lv === null || lv === void 0 ? void 0 : lv.value) !== null && _a !== void 0 ? _a : ''},${(_b = uv === null || uv === void 0 ? void 0 : uv.value) !== null && _b !== void 0 ? _b : ''}`,
+            text: `${(_c = lv === null || lv === void 0 ? void 0 : lv.text) !== null && _c !== void 0 ? _c : ''} to ${(_d = uv === null || uv === void 0 ? void 0 : uv.text) !== null && _d !== void 0 ? _d : ''}`,
+            description: showDescription ? `${(_e = lv === null || lv === void 0 ? void 0 : lv.description) !== null && _e !== void 0 ? _e : ''} to ${(_f = uv === null || uv === void 0 ? void 0 : uv.description) !== null && _f !== void 0 ? _f : ''}` : ''
         };
     }
     return {
@@ -116,12 +117,12 @@ System.register(["vue", "./Index", "../Elements/RockFormField", "@Obsidian/Servi
     :rules="computedRules">
     <div :id="uniqueId" class="form-control-group">
         <select class="input-width-md form-control" v-model="lowerValue">
-            <option v-if="isRequired" value=""></option>
+            <option v-if="!isRequired" value=""></option>
             <option v-for="o in options" :key="o.value" :value="o.value">{{o.text}}</option>
         </select>
         <span class="to"> to </span>
         <select class="input-width-md form-control" v-model="upperValue">
-            <option v-if="isRequired" value=""></option>
+            <option v-if="!isRequired" value=""></option>
             <option v-for="o in options" :key="o.value" :value="o.value">{{o.text}}</option>
         </select>
     </div>

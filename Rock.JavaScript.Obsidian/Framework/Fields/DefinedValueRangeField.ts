@@ -93,16 +93,16 @@ export class DefinedValueRangeFieldType extends FieldTypeBase {
                 const lowerValue = firstOrDefault(values, v => v?.value === rawValues[0]);
                 const upperValue = firstOrDefault(values, v => v?.value === rawValues[1]);
 
-                if (lowerValue === undefined || upperValue === undefined) {
+                if (lowerValue === undefined && upperValue === undefined) {
                     value.textValue = '';
                     return;
                 }
 
                 if (displayDescription) {
-                    value.textValue = `${lowerValue.description} to ${upperValue.description}`;
+                    value.textValue = `${lowerValue?.description ?? ''} to ${upperValue?.description ?? ''}`;
                 }
                 else {
-                    value.textValue = `${lowerValue.text} to ${upperValue.text}`;
+                    value.textValue = `${lowerValue?.text ?? ''} to ${upperValue?.text ?? ''}`;
                 }
             }
             catch {

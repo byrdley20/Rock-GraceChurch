@@ -16,18 +16,19 @@
 //
 import { defineComponent, inject } from 'vue';
 import { getFieldEditorProps } from './Index';
-import DropDownList, { DropDownListOption } from '../Elements/DropDownList';
-import RadioButtonList from '../Elements/RadioButtonList';
+import ListBox from '../Elements/ListBox';
+import CheckBoxList from '../Elements/CheckBoxList';
 import { toNumberOrNull } from '@Obsidian/Services/Number';
-import { ConfigurationValueKey } from './SingleSelectField';
+import { ConfigurationValueKey } from './MultiSelectField';
 import { ListOption } from '@Obsidian/ViewModels';
+import { asBoolean } from '@Obsidian/Services/Boolean';
 
 export const EditComponent = defineComponent({
-    name: 'SingleSelectFieldEdit',
+    name: 'MultiSelectFieldEdit',
 
     components: {
-        DropDownList,
-        RadioButtonList
+        ListBox,
+        CheckBoxList
     },
 
     props: getFieldEditorProps(),
@@ -40,83 +41,82 @@ export const EditComponent = defineComponent({
 
     data() {
         return {
-            internalValue: ''
+            internalValue: [] as string[]
         };
     },
 
     computed: {
-        /** The options to choose from in the drop down list */
-        options(): DropDownListOption[] {
+        /** The options to choose from */
+        options(): ListOption[] {
             try {
                 const valuesConfig = JSON.parse(this.configurationValues[ConfigurationValueKey.Values] ?? '[]') as ListOption[];
 
-                const providedOptions: DropDownListOption[] = valuesConfig.map(v => {
+                return valuesConfig.map(v => {
                     return {
                         text: v.text,
                         value: v.value
-                    };
+                    } as ListOption;
                 });
-
-                if (this.isRadioButtons && !this.isRequired) {
-                    providedOptions.unshift({
-                        text: 'None',
-                        value: ''
-                    });
-                }
-
-                return providedOptions;
             }
             catch {
                 return [];
             }
         },
 
-        /** Any additional attributes that will be assigned to the drop down list control */
-        ddlConfigAttributes(): Record<string, number | boolean> {
+        /** Any additional attributes that will be assigned to the list box control */
+        listBoxConfigAttributes(): Record<string, number | boolean> {
             const attributes: Record<string, number | boolean> = {};
-            const fieldTypeConfig = this.configurationValues[ConfigurationValueKey.FieldType];
+            const enhancedSelection = this.configurationValues[ConfigurationValueKey.EnhancedSelection];
 
-            if (fieldTypeConfig === 'ddl_enhanced') {
+            if (asBoolean(enhancedSelection)) {
                 attributes.enhanceForLongLists = true;
             }
 
             return attributes;
         },
 
-        /** Any additional attributes that will be assigned to the radio button control */
-        rbConfigAttributes(): Record<string, number | boolean> {
+        /** Any additional attributes that will be assigned to the check box list control */
+        checkBoxListConfigAttributes(): Record<string, number | boolean> {
             const attributes: Record<string, number | boolean> = {};
             const repeatColumnsConfig = this.configurationValues[ConfigurationValueKey.RepeatColumns];
+            const repeatDirection = this.configurationValues[ConfigurationValueKey.RepeatDirection];
 
             if (repeatColumnsConfig) {
                 attributes['repeatColumns'] = toNumberOrNull(repeatColumnsConfig) || 0;
             }
 
+            if (repeatDirection !== 'Vertical') {
+                attributes['horizontal'] = true;
+            }
+
             return attributes;
         },
 
-        /** Is the control going to be radio buttons? */
-        isRadioButtons(): boolean {
-            const fieldTypeConfig = this.configurationValues[ConfigurationValueKey.FieldType];
-            return fieldTypeConfig === 'rb';
+        /** Is the control going to be list box? */
+        isListBox(): boolean {
+            const enhancedSelection = this.configurationValues[ConfigurationValueKey.EnhancedSelection];
+
+            return asBoolean(enhancedSelection);
         }
     },
 
     watch: {
         internalValue() {
-            this.$emit('update:modelValue', this.internalValue);
+            this.$emit('update:modelValue', this.internalValue.join(','));
         },
 
         modelValue: {
             immediate: true,
             handler() {
-                this.internalValue = this.modelValue || '';
+                const value = this.modelValue || '';
+
+                this.internalValue = value !== '' ? value.split(',') : [];
             }
         }
     },
 
     template: `
-<RadioButtonList v-if="isRadioButtons" v-model="internalValue" v-bind="rbConfigAttributes" :options="options" horizontal />
-<DropDownList v-else v-model="internalValue" v-bind="ddlConfigAttributes" :options="options" />
+<ListBox v-if="isListBox" v-model="internalValue" v-bind="listBoxConfigAttributes" :options="options" />
+<CheckBoxList v-else v-model="internalValue" v-bind="checkBoxListConfigAttributes" :options="options" />
 `
 });

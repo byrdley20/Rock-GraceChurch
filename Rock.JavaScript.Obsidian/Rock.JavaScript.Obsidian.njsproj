@@ -134,6 +134,7 @@
     <TypeScriptCompile Include="Framework\Elements\DateTimePicker.ts" />
     <TypeScriptCompile Include="Framework\Elements\DropDownList.ts" />
     <TypeScriptCompile Include="Framework\Elements\EmailBox.ts" />
+    <TypeScriptCompile Include="Framework\Elements\ListBox.ts" />
     <TypeScriptCompile Include="Framework\Elements\GenderDropDownList.ts" />
     <TypeScriptCompile Include="Framework\Elements\HelpBlock.ts" />
     <TypeScriptCompile Include="Framework\Elements\ItemsWithPreAndPostHtml.ts" />
@@ -199,6 +200,8 @@
     <TypeScriptCompile Include="Framework\Fields\MemoFieldComponents.ts" />
     <TypeScriptCompile Include="Framework\Fields\MonthDayField.ts" />
     <TypeScriptCompile Include="Framework\Fields\MonthDayFieldComponents.ts" />
+    <TypeScriptCompile Include="Framework\Fields\MultiSelectField.ts" />
+    <TypeScriptCompile Include="Framework\Fields\MultiSelectFieldComponents.ts" />
     <TypeScriptCompile Include="Framework\Fields\PhoneNumberField.ts" />
     <TypeScriptCompile Include="Framework\Fields\PhoneNumberFieldComponents.ts" />
     <TypeScriptCompile Include="Framework\Fields\RatingField.ts" />

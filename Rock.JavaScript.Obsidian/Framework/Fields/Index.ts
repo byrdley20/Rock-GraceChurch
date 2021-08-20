@@ -161,6 +161,9 @@ registerFieldType(FieldTypeGuids.Memo, new MemoFieldType());
 import { MonthDayFieldType } from './MonthDayField';
 registerFieldType(FieldTypeGuids.MonthDay, new MonthDayFieldType());
 
+import { MultiSelectFieldType } from './MultiSelectField';
+registerFieldType(FieldTypeGuids.MultiSelect, new MultiSelectFieldType());
+
 import { PhoneNumberFieldType } from './PhoneNumberField';
 registerFieldType(FieldTypeGuids.PhoneNumber, new PhoneNumberFieldType());
 

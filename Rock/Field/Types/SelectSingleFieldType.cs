@@ -206,7 +206,9 @@ namespace Rock.Field.Types
         /// <returns></returns>
         public override string FormatValue( System.Web.UI.Control parentControl, string value, Dictionary<string, ConfigurationValue> configurationValues, bool condensed )
         {
-            return GetTextValue( value, configurationValues );
+            var formattedValue = GetTextValue( value, configurationValues );
+
+            return base.FormatValue( parentControl, formattedValue, configurationValues, condensed );
         }
 
         /// <summary>

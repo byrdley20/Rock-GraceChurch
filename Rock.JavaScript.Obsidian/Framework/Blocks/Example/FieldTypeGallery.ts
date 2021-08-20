@@ -276,6 +276,13 @@ const galleryComponents: Record<string, Component> = {
     MonthDayGallery: GetFieldTypeGalleryComponent('MonthDay', '7/4', FieldTypeGuids.MonthDay, {
     }),
 
+    MultiSelectGallery: GetFieldTypeGalleryComponent('MultiSelect', 'pizza', FieldTypeGuids.MultiSelect, {
+        repeatColumns: '4',
+        repeatDirection: 'Horizontal',
+        enhancedselection: 'false',
+        values: '[{"value": "pizza", "text": "Pizza"}, {"value": "sub", "text": "Sub"}, {"value": "bagel", "text": "Bagel"}]'
+    }),
+
     PhoneNumberGallery: GetFieldTypeGalleryComponent('PhoneNumber', '(321) 456-7890', FieldTypeGuids.PhoneNumber, {
     }),
 
@@ -286,7 +293,7 @@ const galleryComponents: Record<string, Component> = {
     SingleSelectGallery: GetFieldTypeGalleryComponent('SingleSelect', 'pizza', FieldTypeGuids.SingleSelect, {
         repeatColumns: '4',
         fieldtype: 'rb',
-        values: '[{"value": "pizza", "text": "Pizza"}, {"value": "sub", "text": "Sub"}]'
+        values: '[{"value": "pizza", "text": "Pizza"}, {"value": "sub", "text": "Sub"}, {"value": "bagel", "text": "Bagel"}]'
     }),
 
     SSNGallery: GetFieldTypeGalleryComponent('SSN', '123-45-6789', FieldTypeGuids.Ssn, {

@@ -219,6 +219,12 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                     allowhtml: 'true'
                 }),
                 MonthDayGallery: GetFieldTypeGalleryComponent('MonthDay', '7/4', "8BED8DD8-8167-4052-B807-A1E72C133611", {}),
+                MultiSelectGallery: GetFieldTypeGalleryComponent('MultiSelect', 'pizza', "BD0D9B57-2A41-4490-89FF-F01DAB7D4904", {
+                    repeatColumns: '4',
+                    repeatDirection: 'Horizontal',
+                    enhancedselection: 'false',
+                    values: '[{"value": "pizza", "text": "Pizza"}, {"value": "sub", "text": "Sub"}, {"value": "bagel", "text": "Bagel"}]'
+                }),
                 PhoneNumberGallery: GetFieldTypeGalleryComponent('PhoneNumber', '(321) 456-7890', "6B1908EC-12A2-463A-A7BD-970CE0FAF097", {}),
                 RatingGallery: GetFieldTypeGalleryComponent('Rating', '{"value":3,"maxValue":5}', "24BC2DD2-5745-4A97-A0F9-C1EC0E6E1862", {
                     max: '5'
@@ -226,7 +232,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 SingleSelectGallery: GetFieldTypeGalleryComponent('SingleSelect', 'pizza', "7525C4CB-EE6B-41D4-9B64-A08048D5A5C0", {
                     repeatColumns: '4',
                     fieldtype: 'rb',
-                    values: '[{"value": "pizza", "text": "Pizza"}, {"value": "sub", "text": "Sub"}]'
+                    values: '[{"value": "pizza", "text": "Pizza"}, {"value": "sub", "text": "Sub"}, {"value": "bagel", "text": "Bagel"}]'
                 }),
                 SSNGallery: GetFieldTypeGalleryComponent('SSN', '123-45-6789', "4722C99A-C078-464A-968F-13AB5E8E318F", {}),
                 TextGallery: GetFieldTypeGalleryComponent('Text', 'Hello', "9C204CD0-1233-41C5-818A-C5DA439445AA", {

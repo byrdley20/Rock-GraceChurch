@@ -24,6 +24,7 @@ import PanelWidget from '../../Elements/PanelWidget';
 import DatePicker from '../../Elements/DatePicker';
 import DateRangePicker from '../../Elements/DateRangePicker';
 import DateTimePicker from '../../Elements/DateTimePicker';
+import ListBox from '../../Elements/ListBox';
 import BirthdayPicker from '../../Elements/BirthdayPicker';
 import NumberUpDown from '../../Elements/NumberUpDown';
 import AddressControl, { getDefaultAddressControlModel } from '../../Controls/AddressControl';
@@ -359,6 +360,41 @@ const CheckBoxListGallery = defineComponent({
     </template>
     <template #result>
         Items: {{JSON.stringify(items, null, 2)}}
+    </template>
+</GalleryAndResult>`
+});
+
+/** Demonstrates a list box */
+const ListBoxGallery = defineComponent({
+    name: 'ListBoxGallery',
+    components: {
+        GalleryAndResult,
+        ListBox
+    },
+    data() {
+        return {
+            value: ['a'],
+            options: [
+                { text: 'A Text', value: 'a' },
+                { text: 'B Text', value: 'b' },
+                { text: 'C Text', value: 'c' },
+                { text: 'D Text', value: 'd' }
+            ] as ListOption[]
+        };
+    },
+    template: `
+<GalleryAndResult>
+    <template #header>
+        ListBox
+    </template>
+    <template #gallery>
+        <ListBox label="Select 1" v-model="value" :options="options" />
+        <ListBox label="Select 2" v-model="value" :options="options" />
+        <ListBox label="Enhanced Select 1" v-model="value" :options="options" enhanceForLongLists />
+        <ListBox label="Enhanced Select 2" v-model="value" :options="options" enhanceForLongLists />
+    </template>
+    <template #result>
+        {{value}}
     </template>
 </GalleryAndResult>`
 });
@@ -770,6 +806,7 @@ export default defineComponent({
         DialogGallery,
         CheckBoxGallery,
         CheckBoxListGallery,
+        ListBoxGallery,
         PhoneNumberBoxGallery,
         DropDownListGallery,
         HelpBlockGallery,
@@ -894,6 +931,8 @@ export default defineComponent({
                 <pre>{{JSON.stringify(address, null, 2)}}</pre>
             </template>
         </GalleryAndResult>
+
+        <ListBoxGallery />
 
         <GalleryAndResult>
             <template #header>

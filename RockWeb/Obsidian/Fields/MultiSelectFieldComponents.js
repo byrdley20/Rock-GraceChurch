@@ -1,6 +1,6 @@
-System.register(["vue", "./Index", "../Elements/DropDownList", "../Elements/RadioButtonList", "@Obsidian/Services/Number"], function (exports_1, context_1) {
+System.register(["vue", "./Index", "../Elements/ListBox", "../Elements/CheckBoxList", "@Obsidian/Services/Number", "@Obsidian/Services/Boolean"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, Index_1, DropDownList_1, RadioButtonList_1, Number_1, EditComponent;
+    var vue_1, Index_1, ListBox_1, CheckBoxList_1, Number_1, Boolean_1, EditComponent;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -10,22 +10,25 @@ System.register(["vue", "./Index", "../Elements/DropDownList", "../Elements/Radi
             function (Index_1_1) {
                 Index_1 = Index_1_1;
             },
-            function (DropDownList_1_1) {
-                DropDownList_1 = DropDownList_1_1;
+            function (ListBox_1_1) {
+                ListBox_1 = ListBox_1_1;
             },
-            function (RadioButtonList_1_1) {
-                RadioButtonList_1 = RadioButtonList_1_1;
+            function (CheckBoxList_1_1) {
+                CheckBoxList_1 = CheckBoxList_1_1;
             },
             function (Number_1_1) {
                 Number_1 = Number_1_1;
+            },
+            function (Boolean_1_1) {
+                Boolean_1 = Boolean_1_1;
             }
         ],
         execute: function () {
             exports_1("EditComponent", EditComponent = vue_1.defineComponent({
-                name: 'SingleSelectFieldEdit',
+                name: 'MultiSelectFieldEdit',
                 components: {
-                    DropDownList: DropDownList_1.default,
-                    RadioButtonList: RadioButtonList_1.default
+                    ListBox: ListBox_1.default,
+                    CheckBoxList: CheckBoxList_1.default
                 },
                 props: Index_1.getFieldEditorProps(),
                 setup() {
@@ -35,7 +38,7 @@ System.register(["vue", "./Index", "../Elements/DropDownList", "../Elements/Radi
                 },
                 data() {
                     return {
-                        internalValue: ''
+                        internalValue: []
                     };
                 },
                 computed: {
@@ -43,62 +46,60 @@ System.register(["vue", "./Index", "../Elements/DropDownList", "../Elements/Radi
                         var _a;
                         try {
                             const valuesConfig = JSON.parse((_a = this.configurationValues["values"]) !== null && _a !== void 0 ? _a : '[]');
-                            const providedOptions = valuesConfig.map(v => {
+                            return valuesConfig.map(v => {
                                 return {
                                     text: v.text,
                                     value: v.value
                                 };
                             });
-                            if (this.isRadioButtons && !this.isRequired) {
-                                providedOptions.unshift({
-                                    text: 'None',
-                                    value: ''
-                                });
-                            }
-                            return providedOptions;
                         }
                         catch (_b) {
                             return [];
                         }
                     },
-                    ddlConfigAttributes() {
+                    listBoxConfigAttributes() {
                         const attributes = {};
-                        const fieldTypeConfig = this.configurationValues["fieldtype"];
-                        if (fieldTypeConfig === 'ddl_enhanced') {
+                        const enhancedSelection = this.configurationValues["enhancedselection"];
+                        if (Boolean_1.asBoolean(enhancedSelection)) {
                             attributes.enhanceForLongLists = true;
                         }
                         return attributes;
                     },
-                    rbConfigAttributes() {
+                    checkBoxListConfigAttributes() {
                         const attributes = {};
                         const repeatColumnsConfig = this.configurationValues["repeatColumns"];
+                        const repeatDirection = this.configurationValues["repeatDirection"];
                         if (repeatColumnsConfig) {
                             attributes['repeatColumns'] = Number_1.toNumberOrNull(repeatColumnsConfig) || 0;
                         }
+                        if (repeatDirection !== 'Vertical') {
+                            attributes['horizontal'] = true;
+                        }
                         return attributes;
                     },
-                    isRadioButtons() {
-                        const fieldTypeConfig = this.configurationValues["fieldtype"];
-                        return fieldTypeConfig === 'rb';
+                    isListBox() {
+                        const enhancedSelection = this.configurationValues["enhancedselection"];
+                        return Boolean_1.asBoolean(enhancedSelection);
                     }
                 },
                 watch: {
                     internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
+                        this.$emit('update:modelValue', this.internalValue.join(','));
                     },
                     modelValue: {
                         immediate: true,
                         handler() {
-                            this.internalValue = this.modelValue || '';
+                            const value = this.modelValue || '';
+                            this.internalValue = value !== '' ? value.split(',') : [];
                         }
                     }
                 },
                 template: `
-<RadioButtonList v-if="isRadioButtons" v-model="internalValue" v-bind="rbConfigAttributes" :options="options" horizontal />
-<DropDownList v-else v-model="internalValue" v-bind="ddlConfigAttributes" :options="options" />
+<ListBox v-if="isListBox" v-model="internalValue" v-bind="listBoxConfigAttributes" :options="options" />
+<CheckBoxList v-else v-model="internalValue" v-bind="checkBoxListConfigAttributes" :options="options" />
 `
             }));
         }
     };
 });
-//# sourceMappingURL=SingleSelectFieldComponents.js.map
+//# sourceMappingURL=MultiSelectFieldComponents.js.map

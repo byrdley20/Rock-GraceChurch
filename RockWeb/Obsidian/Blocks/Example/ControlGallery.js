@@ -1,6 +1,6 @@
-System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/TextBox", "../../Elements/EmailBox", "../../Elements/CurrencyBox", "../../Elements/PanelWidget", "../../Elements/DatePicker", "../../Elements/DateRangePicker", "../../Elements/DateTimePicker", "../../Elements/BirthdayPicker", "../../Elements/NumberUpDown", "../../Controls/AddressControl", "../../Elements/Toggle", "../../Elements/ItemsWithPreAndPostHtml", "../../Elements/StaticFormControl", "../../Elements/ProgressTracker", "../../Controls/RockForm", "../../Elements/RockButton", "../../Elements/RadioButtonList", "../../Elements/DropDownList", "../../Controls/Dialog", "../../Elements/CheckBox", "../../Elements/PhoneNumberBox", "../../Elements/HelpBlock", "../../Elements/DatePartsPicker", "../../Elements/ColorPicker", "../../Elements/NumberBox", "../../Elements/NumberRangeBox", "../../Elements/GenderDropDownList", "../../Elements/SocialSecurityNumberBox", "../../Elements/TimePicker", "../../Elements/CheckBoxList", "../../Elements/Rating", "@Obsidian/Services/Number"], function (exports_1, context_1) {
+System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/TextBox", "../../Elements/EmailBox", "../../Elements/CurrencyBox", "../../Elements/PanelWidget", "../../Elements/DatePicker", "../../Elements/DateRangePicker", "../../Elements/DateTimePicker", "../../Elements/ListBox", "../../Elements/BirthdayPicker", "../../Elements/NumberUpDown", "../../Controls/AddressControl", "../../Elements/Toggle", "../../Elements/ItemsWithPreAndPostHtml", "../../Elements/StaticFormControl", "../../Elements/ProgressTracker", "../../Controls/RockForm", "../../Elements/RockButton", "../../Elements/RadioButtonList", "../../Elements/DropDownList", "../../Controls/Dialog", "../../Elements/CheckBox", "../../Elements/PhoneNumberBox", "../../Elements/HelpBlock", "../../Elements/DatePartsPicker", "../../Elements/ColorPicker", "../../Elements/NumberBox", "../../Elements/NumberRangeBox", "../../Elements/GenderDropDownList", "../../Elements/SocialSecurityNumberBox", "../../Elements/TimePicker", "../../Elements/CheckBoxList", "../../Elements/Rating", "@Obsidian/Services/Number"], function (exports_1, context_1) {
     "use strict";
-    var PaneledBlockTemplate_1, vue_1, TextBox_1, EmailBox_1, CurrencyBox_1, PanelWidget_1, DatePicker_1, DateRangePicker_1, DateTimePicker_1, BirthdayPicker_1, NumberUpDown_1, AddressControl_1, Toggle_1, ItemsWithPreAndPostHtml_1, StaticFormControl_1, ProgressTracker_1, RockForm_1, RockButton_1, RadioButtonList_1, DropDownList_1, Dialog_1, CheckBox_1, PhoneNumberBox_1, HelpBlock_1, DatePartsPicker_1, ColorPicker_1, NumberBox_1, NumberRangeBox_1, GenderDropDownList_1, SocialSecurityNumberBox_1, TimePicker_1, CheckBoxList_1, Rating_1, Number_1, GalleryAndResult, PhoneNumberBoxGallery, HelpBlockGallery, DropDownListGallery, RadioButtonListGallery, CheckBoxGallery, DialogGallery, FormRulesGallery, CheckBoxListGallery, DatePickerGallery, DateRangePickerGallery, DateTimePickerGallery, DatePartsPickerGallery, TextBoxGallery, ColorPickerGallery, NumberBoxGallery, NumberRangeBoxGallery, GenderDropDownListGallery, SocialSecurityNumberBoxGallery, TimePickerGallery, RatingGallery;
+    var PaneledBlockTemplate_1, vue_1, TextBox_1, EmailBox_1, CurrencyBox_1, PanelWidget_1, DatePicker_1, DateRangePicker_1, DateTimePicker_1, ListBox_1, BirthdayPicker_1, NumberUpDown_1, AddressControl_1, Toggle_1, ItemsWithPreAndPostHtml_1, StaticFormControl_1, ProgressTracker_1, RockForm_1, RockButton_1, RadioButtonList_1, DropDownList_1, Dialog_1, CheckBox_1, PhoneNumberBox_1, HelpBlock_1, DatePartsPicker_1, ColorPicker_1, NumberBox_1, NumberRangeBox_1, GenderDropDownList_1, SocialSecurityNumberBox_1, TimePicker_1, CheckBoxList_1, Rating_1, Number_1, GalleryAndResult, PhoneNumberBoxGallery, HelpBlockGallery, DropDownListGallery, RadioButtonListGallery, CheckBoxGallery, DialogGallery, FormRulesGallery, CheckBoxListGallery, ListBoxGallery, DatePickerGallery, DateRangePickerGallery, DateTimePickerGallery, DatePartsPickerGallery, TextBoxGallery, ColorPickerGallery, NumberBoxGallery, NumberRangeBoxGallery, GenderDropDownListGallery, SocialSecurityNumberBoxGallery, TimePickerGallery, RatingGallery;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -30,6 +30,9 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
             },
             function (DateTimePicker_1_1) {
                 DateTimePicker_1 = DateTimePicker_1_1;
+            },
+            function (ListBox_1_1) {
+                ListBox_1 = ListBox_1_1;
             },
             function (BirthdayPicker_1_1) {
                 BirthdayPicker_1 = BirthdayPicker_1_1;
@@ -392,6 +395,39 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
     </template>
     <template #result>
         Items: {{JSON.stringify(items, null, 2)}}
+    </template>
+</GalleryAndResult>`
+            });
+            ListBoxGallery = vue_1.defineComponent({
+                name: 'ListBoxGallery',
+                components: {
+                    GalleryAndResult,
+                    ListBox: ListBox_1.default
+                },
+                data() {
+                    return {
+                        value: ['a'],
+                        options: [
+                            { text: 'A Text', value: 'a' },
+                            { text: 'B Text', value: 'b' },
+                            { text: 'C Text', value: 'c' },
+                            { text: 'D Text', value: 'd' }
+                        ]
+                    };
+                },
+                template: `
+<GalleryAndResult>
+    <template #header>
+        ListBox
+    </template>
+    <template #gallery>
+        <ListBox label="Select 1" v-model="value" :options="options" />
+        <ListBox label="Select 2" v-model="value" :options="options" />
+        <ListBox label="Enhanced Select 1" v-model="value" :options="options" enhanceForLongLists />
+        <ListBox label="Enhanced Select 2" v-model="value" :options="options" enhanceForLongLists />
+    </template>
+    <template #result>
+        {{value}}
     </template>
 </GalleryAndResult>`
             });
@@ -775,6 +811,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                     DialogGallery,
                     CheckBoxGallery,
                     CheckBoxListGallery,
+                    ListBoxGallery,
                     PhoneNumberBoxGallery,
                     DropDownListGallery,
                     HelpBlockGallery,
@@ -895,6 +932,8 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 <pre>{{JSON.stringify(address, null, 2)}}</pre>
             </template>
         </GalleryAndResult>
+
+        <ListBoxGallery />
 
         <GalleryAndResult>
             <template #header>

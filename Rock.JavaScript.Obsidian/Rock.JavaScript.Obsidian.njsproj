@@ -186,6 +186,8 @@
     <TypeScriptCompile Include="Framework\Fields\DecimalRangeFieldComponents.ts" />
     <TypeScriptCompile Include="Framework\Fields\DefinedValueField.ts" />
     <TypeScriptCompile Include="Framework\Fields\DefinedValueFieldComponents.ts" />
+    <TypeScriptCompile Include="Framework\Fields\DefinedValueRangeField.ts" />
+    <TypeScriptCompile Include="Framework\Fields\DefinedValueRangeFieldComponents.ts" />
     <TypeScriptCompile Include="Framework\Fields\EmailField.ts" />
     <TypeScriptCompile Include="Framework\Fields\EmailFieldComponents.ts" />
     <TypeScriptCompile Include="Framework\Fields\FieldType.ts" />

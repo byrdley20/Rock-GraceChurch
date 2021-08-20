@@ -254,6 +254,16 @@ const galleryComponents: Record<string, Component> = {
         RepeatColumns: ''
     }),
 
+    DefinedValueRangeGallery: GetFieldTypeGalleryComponent('DefinedValueRange', '{ "value": "F19FC180-FE8F-4B72-A59C-8013E3B0EB0D,3B689240-24C2-434B-A7B9-A4A6CBA7928C", "text": "Single to Divorced", "description": "Used when the individual is single. to Used when the individual is divorced." }', FieldTypeGuids.DefinedValueRange, {
+        values: JSON.stringify([
+            { value: '5FE5A540-7D9F-433E-B47E-4229D1472248', text: 'Married', description: 'Used when an individual is married.' },
+            { value: 'F19FC180-FE8F-4B72-A59C-8013E3B0EB0D', text: 'Single', description: 'Used when the individual is single.' },
+            { value: '3B689240-24C2-434B-A7B9-A4A6CBA7928C', text: 'Divorced', description: 'Used when the individual is divorced.' },
+            { value: 'AE5A0228-9910-4505-B3C6-E6C98BEE2E7F', text: 'Unknown', description: '' }
+        ]),
+        displaydescription: 'false'
+    }),
+
     EmailGallery: GetFieldTypeGalleryComponent('Email', 'ted@rocksolidchurchdemo.com', FieldTypeGuids.Email, {
     }),
 

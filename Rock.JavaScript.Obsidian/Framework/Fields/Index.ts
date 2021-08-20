@@ -143,6 +143,9 @@ registerFieldType(FieldTypeGuids.DecimalRange, new DecimalRangeFieldType());
 import { DefinedValueFieldType } from './DefinedValueField';
 registerFieldType(FieldTypeGuids.DefinedValue, new DefinedValueFieldType());
 
+import { DefinedValueRangeFieldType } from './DefinedValueRangeField';
+registerFieldType(FieldTypeGuids.DefinedValueRange, new DefinedValueRangeFieldType());
+
 import { EmailFieldType } from './EmailField';
 registerFieldType(FieldTypeGuids.Email, new EmailFieldType());
 

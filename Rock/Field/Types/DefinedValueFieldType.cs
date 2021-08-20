@@ -70,13 +70,14 @@ namespace Rock.Field.Types
         public override Dictionary<string, string> GetClientConfigurationValues( Dictionary<string, ConfigurationValue> configurationValues )
         {
             var clientConfiguration = base.GetClientConfigurationValues( configurationValues );
-            int? definedTypeId = configurationValues.ContainsKey( DEFINED_TYPE_KEY ) ? configurationValues[DEFINED_TYPE_KEY].Value.AsIntegerOrNull() : null;
+            int? definedTypeId = clientConfiguration.ContainsKey( DEFINED_TYPE_KEY ) ? clientConfiguration[DEFINED_TYPE_KEY].AsIntegerOrNull() : null;
 
             if ( definedTypeId.HasValue )
             {
                 var definedType = DefinedTypeCache.Get( definedTypeId.Value );
 
                 clientConfiguration[CLIENT_VALUES] = definedType.DefinedValues
+                    .OrderBy( v => v.Order )
                     .Select( v => new
                     {
                         Value = v.Guid,
@@ -84,6 +85,8 @@ namespace Rock.Field.Types
                         v.Description
                     } )
                     .ToCamelCaseJson( false, true );
+
+                clientConfiguration.Remove( DEFINED_TYPE_KEY );
             }
             else
             {

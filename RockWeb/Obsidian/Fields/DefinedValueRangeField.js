@@ -1,0 +1,96 @@
+System.register(["vue", "./FieldType", "@Obsidian/Services/Boolean"], function (exports_1, context_1) {
+    "use strict";
+    var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+    };
+    var vue_1, FieldType_1, Boolean_1, editComponent, DefinedValueRangeFieldType;
+    var __moduleName = context_1 && context_1.id;
+    function firstOrDefault(values, predicate) {
+        const filtered = values.filter(predicate);
+        return filtered.length >= 1 ? filtered[0] : undefined;
+    }
+    return {
+        setters: [
+            function (vue_1_1) {
+                vue_1 = vue_1_1;
+            },
+            function (FieldType_1_1) {
+                FieldType_1 = FieldType_1_1;
+            },
+            function (Boolean_1_1) {
+                Boolean_1 = Boolean_1_1;
+            }
+        ],
+        execute: function () {
+            editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
+                return (yield context_1.import('./DefinedValueRangeFieldComponents')).EditComponent;
+            }));
+            DefinedValueRangeFieldType = class DefinedValueRangeFieldType extends FieldType_1.FieldTypeBase {
+                getTextValue(value) {
+                    var _a, _b;
+                    try {
+                        const clientValue = JSON.parse((_a = value.value) !== null && _a !== void 0 ? _a : '');
+                        return (_b = (clientValue.description || clientValue.text)) !== null && _b !== void 0 ? _b : '';
+                    }
+                    catch (_c) {
+                        return super.getTextValue(value);
+                    }
+                }
+                getCondensedTextValue(value) {
+                    var _a, _b, _c;
+                    try {
+                        const clientValue = JSON.parse((_a = value.value) !== null && _a !== void 0 ? _a : '');
+                        return (_b = clientValue.text) !== null && _b !== void 0 ? _b : '';
+                    }
+                    catch (_d) {
+                        return (_c = value.value) !== null && _c !== void 0 ? _c : '';
+                    }
+                }
+                updateTextValue(value) {
+                    var _a, _b, _c, _d, _e, _f;
+                    try {
+                        const clientValue = JSON.parse((_a = value.value) !== null && _a !== void 0 ? _a : '');
+                        try {
+                            const values = JSON.parse((_c = (_b = value.configurationValues) === null || _b === void 0 ? void 0 : _b["values"]) !== null && _c !== void 0 ? _c : '[]');
+                            const displayDescription = Boolean_1.asBoolean((_d = value.configurationValues) === null || _d === void 0 ? void 0 : _d["displaydescription"]);
+                            const rawValues = ((_e = clientValue.value) !== null && _e !== void 0 ? _e : '').split(',');
+                            if (rawValues.length !== 2) {
+                                value.textValue = value.value;
+                                return;
+                            }
+                            const lowerValue = firstOrDefault(values, v => (v === null || v === void 0 ? void 0 : v.value) === rawValues[0]);
+                            const upperValue = firstOrDefault(values, v => (v === null || v === void 0 ? void 0 : v.value) === rawValues[1]);
+                            if (lowerValue === undefined || upperValue === undefined) {
+                                value.textValue = '';
+                                return;
+                            }
+                            if (displayDescription) {
+                                value.textValue = `${lowerValue.description} to ${upperValue.description}`;
+                            }
+                            else {
+                                value.textValue = `${lowerValue.text} to ${upperValue.text}`;
+                            }
+                        }
+                        catch (_g) {
+                            value.textValue = (_f = clientValue.value) !== null && _f !== void 0 ? _f : '';
+                        }
+                    }
+                    catch (_h) {
+                        value.textValue = value.value;
+                    }
+                }
+                getEditComponent(_value) {
+                    return editComponent;
+                }
+            };
+            exports_1("DefinedValueRangeFieldType", DefinedValueRangeFieldType);
+        }
+    };
+});
+//# sourceMappingURL=DefinedValueRangeField.js.map

@@ -208,6 +208,15 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                     AllowAddingNewValues: '',
                     RepeatColumns: ''
                 }),
+                DefinedValueRangeGallery: GetFieldTypeGalleryComponent('DefinedValueRange', '{ "value": "F19FC180-FE8F-4B72-A59C-8013E3B0EB0D,3B689240-24C2-434B-A7B9-A4A6CBA7928C", "text": "Single to Divorced", "description": "Used when the individual is single. to Used when the individual is divorced." }', "B5C07B16-844D-4620-82E3-4CCA8F5FC350", {
+                    values: JSON.stringify([
+                        { value: '5FE5A540-7D9F-433E-B47E-4229D1472248', text: 'Married', description: 'Used when an individual is married.' },
+                        { value: 'F19FC180-FE8F-4B72-A59C-8013E3B0EB0D', text: 'Single', description: 'Used when the individual is single.' },
+                        { value: '3B689240-24C2-434B-A7B9-A4A6CBA7928C', text: 'Divorced', description: 'Used when the individual is divorced.' },
+                        { value: 'AE5A0228-9910-4505-B3C6-E6C98BEE2E7F', text: 'Unknown', description: '' }
+                    ]),
+                    displaydescription: 'false'
+                }),
                 EmailGallery: GetFieldTypeGalleryComponent('Email', 'ted@rocksolidchurchdemo.com', "3D045CAE-EA72-4A04-B7BE-7FD1D6214217", {}),
                 GenderGallery: GetFieldTypeGalleryComponent('Gender', '2', "2E28779B-4C76-4142-AE8D-49EA31DDB503", {}),
                 IntegerGallery: GetFieldTypeGalleryComponent('Integer', '20', "A75DFC58-7A1B-4799-BF31-451B2BBE38FF", {}),

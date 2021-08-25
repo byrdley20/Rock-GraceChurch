@@ -27,4 +27,4 @@ System.register(["vue", "../Store/index"], function (exports_1, context_1) {
         }
     };
 });
-//# sourceMappingURL=SecondaryBlock.js.map
+//# sourceMappingURL=secondaryBlock.js.map

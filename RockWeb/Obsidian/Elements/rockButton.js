@@ -89,4 +89,4 @@ System.register(["vue"], function (exports_1, context_1) {
         }
     };
 });
-//# sourceMappingURL=RockButton.js.map
+//# sourceMappingURL=rockButton.js.map

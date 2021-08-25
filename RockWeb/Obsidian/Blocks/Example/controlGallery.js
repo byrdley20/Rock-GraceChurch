@@ -1017,4 +1017,4 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
         }
     };
 });
-//# sourceMappingURL=ControlGallery.js.map
+//# sourceMappingURL=controlGallery.js.map

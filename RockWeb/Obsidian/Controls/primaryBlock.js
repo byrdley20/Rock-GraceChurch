@@ -35,4 +35,4 @@ System.register(["vue", "../Store/index"], function (exports_1, context_1) {
         }
     };
 });
-//# sourceMappingURL=PrimaryBlock.js.map
+//# sourceMappingURL=primaryBlock.js.map

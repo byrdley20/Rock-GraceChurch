@@ -116,4 +116,4 @@ System.register(["vue", "../../Controls/rockBlock", "../../Elements/alert", "../
         }
     };
 });
-//# sourceMappingURL=StarkDetail.js.map
+//# sourceMappingURL=starkDetail.js.map

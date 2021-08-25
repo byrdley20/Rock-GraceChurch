@@ -82,4 +82,4 @@ System.register(["axios"], function (exports_1, context_1) {
         }
     };
 });
-//# sourceMappingURL=Http.js.map
+//# sourceMappingURL=http.js.map

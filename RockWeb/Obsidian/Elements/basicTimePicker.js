@@ -138,4 +138,4 @@ System.register(["vue", "@Obsidian/Services/number", "@Obsidian/Services/string"
         }
     };
 });
-//# sourceMappingURL=BasicTimePicker.js.map
+//# sourceMappingURL=basicTimePicker.js.map

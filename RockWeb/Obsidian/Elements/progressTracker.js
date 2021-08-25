@@ -189,4 +189,4 @@ System.register(["vue", "../Util/guid"], function (exports_1, context_1) {
         }
     };
 });
-//# sourceMappingURL=ProgressTracker.js.map
+//# sourceMappingURL=progressTracker.js.map

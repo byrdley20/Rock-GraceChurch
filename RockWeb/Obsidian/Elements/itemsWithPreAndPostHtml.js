@@ -50,4 +50,4 @@ System.register(["vue"], function (exports_1, context_1) {
         }
     };
 });
-//# sourceMappingURL=ItemsWithPreAndPostHtml.js.map
+//# sourceMappingURL=itemsWithPreAndPostHtml.js.map

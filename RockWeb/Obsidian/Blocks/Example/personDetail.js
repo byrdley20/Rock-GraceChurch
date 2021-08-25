@@ -251,4 +251,4 @@ System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../.
         }
     };
 });
-//# sourceMappingURL=PersonDetail.js.map
+//# sourceMappingURL=personDetail.js.map

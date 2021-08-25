@@ -35,4 +35,4 @@ System.register([], function (exports_1, context_1) {
         }
     };
 });
-//# sourceMappingURL=Guid.js.map
+//# sourceMappingURL=guid.js.map

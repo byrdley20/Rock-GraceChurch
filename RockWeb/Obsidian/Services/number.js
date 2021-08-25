@@ -110,4 +110,4 @@ System.register([], function (exports_1, context_1) {
         }
     };
 });
-//# sourceMappingURL=Number.js.map
+//# sourceMappingURL=number.js.map

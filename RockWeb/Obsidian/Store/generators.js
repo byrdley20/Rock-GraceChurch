@@ -1,2 +1,2 @@
 "use strict";
-//# sourceMappingURL=Generators.js.map
+//# sourceMappingURL=generators.js.map

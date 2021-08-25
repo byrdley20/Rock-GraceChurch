@@ -37,4 +37,4 @@ System.register(["mitt"], function (exports_1, context_1) {
         }
     };
 });
-//# sourceMappingURL=Bus.js.map
+//# sourceMappingURL=bus.js.map

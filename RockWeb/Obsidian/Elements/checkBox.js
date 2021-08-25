@@ -93,4 +93,4 @@ System.register(["vue", "../Util/guid", "../Rules/index"], function (exports_1, 
         }
     };
 });
-//# sourceMappingURL=CheckBox.js.map
+//# sourceMappingURL=checkBox.js.map

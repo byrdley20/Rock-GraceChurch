@@ -56,4 +56,4 @@ System.register(["vue"], function (exports_1, context_1) {
         }
     };
 });
-//# sourceMappingURL=Alert.js.map
+//# sourceMappingURL=alert.js.map

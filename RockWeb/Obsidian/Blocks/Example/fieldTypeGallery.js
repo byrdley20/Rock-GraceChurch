@@ -269,4 +269,4 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
         }
     };
 });
-//# sourceMappingURL=FieldTypeGallery.js.map
+//# sourceMappingURL=fieldTypeGallery.js.map

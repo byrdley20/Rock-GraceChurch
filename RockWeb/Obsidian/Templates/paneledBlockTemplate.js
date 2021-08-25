@@ -48,4 +48,4 @@ System.register(["vue"], function (exports_1, context_1) {
         }
     };
 });
-//# sourceMappingURL=PaneledBlockTemplate.js.map
+//# sourceMappingURL=paneledBlockTemplate.js.map

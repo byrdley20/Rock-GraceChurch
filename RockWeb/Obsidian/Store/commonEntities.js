@@ -1,2 +1,2 @@
 "use strict";
-//# sourceMappingURL=CommonEntities.js.map
+//# sourceMappingURL=commonEntities.js.map

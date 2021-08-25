@@ -106,4 +106,4 @@ System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../.
         }
     };
 });
-//# sourceMappingURL=PersonSecondary.js.map
+//# sourceMappingURL=personSecondary.js.map

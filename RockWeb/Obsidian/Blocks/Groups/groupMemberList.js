@@ -171,4 +171,4 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Store/ind
         }
     };
 });
-//# sourceMappingURL=GroupMemberList.js.map
+//# sourceMappingURL=groupMemberList.js.map

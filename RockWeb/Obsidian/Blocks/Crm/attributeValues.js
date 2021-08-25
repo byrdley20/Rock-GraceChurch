@@ -149,4 +149,4 @@ System.register(["vue", "../../Templates/paneledBlockTemplate", "../../Controls/
         }
     };
 });
-//# sourceMappingURL=AttributeValues.js.map
+//# sourceMappingURL=attributeValues.js.map

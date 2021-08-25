@@ -14,24 +14,24 @@
 // limitations under the License.
 // </copyright>
 //
-import bus from '../../Util/Bus';
-import PaneledBlockTemplate from '../../Templates/PaneledBlockTemplate';
-import RockButton from '../../Elements/RockButton';
-import TextBox from '../../Elements/TextBox';
+import bus from '../../Util/bus';
+import PaneledBlockTemplate from '../../Templates/paneledBlockTemplate';
+import RockButton from '../../Elements/rockButton';
+import TextBox from '../../Elements/textBox';
 import { defineComponent, inject } from 'vue';
-import store from '../../Store/Index';
-import EmailBox from '../../Elements/EmailBox';
-import RockValidation from '../../Controls/RockValidation';
-import RockForm from '../../Controls/RockForm';
-import { Guid } from '../../Util/Guid';
-import Loading from '../../Controls/Loading';
-import PrimaryBlock from '../../Controls/PrimaryBlock';
-import { InvokeBlockActionFunc } from '../../Controls/RockBlock';
+import store from '../../Store/index';
+import EmailBox from '../../Elements/emailBox';
+import RockValidation from '../../Controls/rockValidation';
+import RockForm from '../../Controls/rockForm';
+import { Guid } from '../../Util/guid';
+import Loading from '../../Controls/loading';
+import PrimaryBlock from '../../Controls/primaryBlock';
+import { InvokeBlockActionFunc } from '../../Controls/rockBlock';
 import { Person } from '@Obsidian/ViewModels';
-import { asDateString, formatAspDate } from '@Obsidian/Services/Date';
-import DatePicker from '../../Elements/DatePicker';
-import AddressControl, { getDefaultAddressControlModel } from '../../Controls/AddressControl';
-import { toNumber } from '@Obsidian/Services/Number';
+import { asDateString, formatAspDate } from '@Obsidian/Services/date';
+import DatePicker from '../../Elements/datePicker';
+import AddressControl, { getDefaultAddressControlModel } from '../../Controls/addressControl';
+import { toNumber } from '@Obsidian/Services/number';
 
 export default defineComponent({
     name: 'Example.PersonDetail',

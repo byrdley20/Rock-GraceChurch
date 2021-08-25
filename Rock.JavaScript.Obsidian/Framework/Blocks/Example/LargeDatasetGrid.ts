@@ -14,14 +14,14 @@
 // limitations under the License.
 // </copyright>
 //
-import PaneledBlockTemplate from '../../Templates/PaneledBlockTemplate';
+import PaneledBlockTemplate from '../../Templates/paneledBlockTemplate';
 import { defineComponent } from 'vue';
-import GridRow from '../../Controls/GridRow';
-import GridColumn from '../../Controls/GridColumn';
-import GridProfileLinkColumn from '../../Controls/GridProfileLinkColumn';
-import BlockActionSourcedGrid from '../../Controls/BlockActionSourcedGrid';
-import Dialog from '../../Controls/Dialog';
-import { RowContext } from '../../Controls/Grid';
+import GridRow from '../../Controls/gridRow';
+import GridColumn from '../../Controls/gridColumn';
+import GridProfileLinkColumn from '../../Controls/gridProfileLinkColumn';
+import BlockActionSourcedGrid from '../../Controls/blockActionSourcedGrid';
+import Dialog from '../../Controls/dialog';
+import { RowContext } from '../../Controls/grid';
 
 export default defineComponent({
     name: 'Example.LargeDatasetGrid',

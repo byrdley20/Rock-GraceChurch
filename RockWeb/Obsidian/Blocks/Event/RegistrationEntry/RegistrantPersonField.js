@@ -1,38 +1,38 @@
-System.register(["vue", "../../../Controls/AddressControl", "../../../Elements/TextBox", "../../../Elements/EmailBox", "../../../Elements/DropDownList", "../../../Elements/GenderDropDownList", "../../../Elements/BirthdayPicker", "../../../Controls/ComponentFromUrl", "../../../Elements/Alert", "../../../Elements/DatePartsPicker", "./RegistrationEntryBlockViewModel"], function (exports_1, context_1) {
+System.register(["vue", "../../../Controls/addressControl", "../../../Elements/textBox", "../../../Elements/emailBox", "../../../Elements/dropDownList", "../../../Elements/genderDropDownList", "../../../Elements/birthdayPicker", "../../../Controls/componentFromUrl", "../../../Elements/alert", "../../../Elements/datePartsPicker", "./RegistrationEntryBlockViewModel"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, AddressControl_1, TextBox_1, EmailBox_1, DropDownList_1, GenderDropDownList_1, BirthdayPicker_1, ComponentFromUrl_1, Alert_1, DatePartsPicker_1, RegistrationEntryBlockViewModel_1;
+    var vue_1, addressControl_1, textBox_1, emailBox_1, dropDownList_1, genderDropDownList_1, birthdayPicker_1, componentFromUrl_1, alert_1, datePartsPicker_1, RegistrationEntryBlockViewModel_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (AddressControl_1_1) {
-                AddressControl_1 = AddressControl_1_1;
+            function (addressControl_1_1) {
+                addressControl_1 = addressControl_1_1;
             },
-            function (TextBox_1_1) {
-                TextBox_1 = TextBox_1_1;
+            function (textBox_1_1) {
+                textBox_1 = textBox_1_1;
             },
-            function (EmailBox_1_1) {
-                EmailBox_1 = EmailBox_1_1;
+            function (emailBox_1_1) {
+                emailBox_1 = emailBox_1_1;
             },
-            function (DropDownList_1_1) {
-                DropDownList_1 = DropDownList_1_1;
+            function (dropDownList_1_1) {
+                dropDownList_1 = dropDownList_1_1;
             },
-            function (GenderDropDownList_1_1) {
-                GenderDropDownList_1 = GenderDropDownList_1_1;
+            function (genderDropDownList_1_1) {
+                genderDropDownList_1 = genderDropDownList_1_1;
             },
-            function (BirthdayPicker_1_1) {
-                BirthdayPicker_1 = BirthdayPicker_1_1;
+            function (birthdayPicker_1_1) {
+                birthdayPicker_1 = birthdayPicker_1_1;
             },
-            function (ComponentFromUrl_1_1) {
-                ComponentFromUrl_1 = ComponentFromUrl_1_1;
+            function (componentFromUrl_1_1) {
+                componentFromUrl_1 = componentFromUrl_1_1;
             },
-            function (Alert_1_1) {
-                Alert_1 = Alert_1_1;
+            function (alert_1_1) {
+                alert_1 = alert_1_1;
             },
-            function (DatePartsPicker_1_1) {
-                DatePartsPicker_1 = DatePartsPicker_1_1;
+            function (datePartsPicker_1_1) {
+                datePartsPicker_1 = datePartsPicker_1_1;
             },
             function (RegistrationEntryBlockViewModel_1_1) {
                 RegistrationEntryBlockViewModel_1 = RegistrationEntryBlockViewModel_1_1;
@@ -42,8 +42,8 @@ System.register(["vue", "../../../Controls/AddressControl", "../../../Elements/T
             exports_1("default", vue_1.defineComponent({
                 name: 'Event.RegistrationEntry.RegistrantPersonField',
                 components: {
-                    Alert: Alert_1.default,
-                    ComponentFromUrl: ComponentFromUrl_1.default
+                    Alert: alert_1.default,
+                    ComponentFromUrl: componentFromUrl_1.default
                 },
                 props: {
                     field: {
@@ -64,21 +64,21 @@ System.register(["vue", "../../../Controls/AddressControl", "../../../Elements/T
                     const component = vue_1.computed(() => {
                         switch (props.field.personFieldType) {
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.FirstName:
-                                return TextBox_1.default;
+                                return textBox_1.default;
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.LastName:
-                                return TextBox_1.default;
+                                return textBox_1.default;
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.MiddleName:
-                                return TextBox_1.default;
+                                return textBox_1.default;
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.Campus:
-                                return DropDownList_1.default;
+                                return dropDownList_1.default;
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.Email:
-                                return EmailBox_1.default;
+                                return emailBox_1.default;
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.Gender:
-                                return GenderDropDownList_1.default;
+                                return genderDropDownList_1.default;
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.Birthdate:
-                                return BirthdayPicker_1.default;
+                                return birthdayPicker_1.default;
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.Address:
-                                return AddressControl_1.default;
+                                return addressControl_1.default;
                         }
                         return null;
                     });
@@ -119,10 +119,10 @@ System.register(["vue", "../../../Controls/AddressControl", "../../../Elements/T
                         let defaultValue = '';
                         switch (props.field.personFieldType) {
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.Birthdate:
-                                defaultValue = DatePartsPicker_1.getDefaultDatePartsPickerModel();
+                                defaultValue = datePartsPicker_1.getDefaultDatePartsPickerModel();
                                 break;
                             case RegistrationEntryBlockViewModel_1.RegistrationPersonFieldType.Address:
-                                defaultValue = AddressControl_1.getDefaultAddressControlModel();
+                                defaultValue = addressControl_1.getDefaultAddressControlModel();
                                 break;
                         }
                         props.fieldValues[props.field.guid] = defaultValue;

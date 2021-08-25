@@ -1,26 +1,26 @@
-System.register(["vue", "../../../Elements/DropDownList", "../../../Elements/RadioButtonList", "../RegistrationEntry", "@Obsidian/Services/String", "../../../Elements/RockButton", "./RegistrantPersonField", "./RegistrantAttributeField", "../../../Elements/Alert", "./RegistrationEntryBlockViewModel", "../../../Util/Guid", "../../../Controls/RockForm", "./FeeField", "../../../Elements/ItemsWithPreAndPostHtml"], function (exports_1, context_1) {
+System.register(["vue", "../../../Elements/dropDownList", "../../../Elements/radioButtonList", "../RegistrationEntry", "@Obsidian/Services/string", "../../../Elements/rockButton", "./RegistrantPersonField", "./RegistrantAttributeField", "../../../Elements/alert", "./RegistrationEntryBlockViewModel", "../../../Util/guid", "../../../Controls/rockForm", "./FeeField", "../../../Elements/itemsWithPreAndPostHtml"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, DropDownList_1, RadioButtonList_1, RegistrationEntry_1, String_1, RockButton_1, RegistrantPersonField_1, RegistrantAttributeField_1, Alert_1, RegistrationEntryBlockViewModel_1, Guid_1, RockForm_1, FeeField_1, ItemsWithPreAndPostHtml_1;
+    var vue_1, dropDownList_1, radioButtonList_1, RegistrationEntry_1, string_1, rockButton_1, RegistrantPersonField_1, RegistrantAttributeField_1, alert_1, RegistrationEntryBlockViewModel_1, guid_1, rockForm_1, FeeField_1, itemsWithPreAndPostHtml_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (DropDownList_1_1) {
-                DropDownList_1 = DropDownList_1_1;
+            function (dropDownList_1_1) {
+                dropDownList_1 = dropDownList_1_1;
             },
-            function (RadioButtonList_1_1) {
-                RadioButtonList_1 = RadioButtonList_1_1;
+            function (radioButtonList_1_1) {
+                radioButtonList_1 = radioButtonList_1_1;
             },
             function (RegistrationEntry_1_1) {
                 RegistrationEntry_1 = RegistrationEntry_1_1;
             },
-            function (String_1_1) {
-                String_1 = String_1_1;
+            function (string_1_1) {
+                string_1 = string_1_1;
             },
-            function (RockButton_1_1) {
-                RockButton_1 = RockButton_1_1;
+            function (rockButton_1_1) {
+                rockButton_1 = rockButton_1_1;
             },
             function (RegistrantPersonField_1_1) {
                 RegistrantPersonField_1 = RegistrantPersonField_1_1;
@@ -28,38 +28,38 @@ System.register(["vue", "../../../Elements/DropDownList", "../../../Elements/Rad
             function (RegistrantAttributeField_1_1) {
                 RegistrantAttributeField_1 = RegistrantAttributeField_1_1;
             },
-            function (Alert_1_1) {
-                Alert_1 = Alert_1_1;
+            function (alert_1_1) {
+                alert_1 = alert_1_1;
             },
             function (RegistrationEntryBlockViewModel_1_1) {
                 RegistrationEntryBlockViewModel_1 = RegistrationEntryBlockViewModel_1_1;
             },
-            function (Guid_1_1) {
-                Guid_1 = Guid_1_1;
+            function (guid_1_1) {
+                guid_1 = guid_1_1;
             },
-            function (RockForm_1_1) {
-                RockForm_1 = RockForm_1_1;
+            function (rockForm_1_1) {
+                rockForm_1 = rockForm_1_1;
             },
             function (FeeField_1_1) {
                 FeeField_1 = FeeField_1_1;
             },
-            function (ItemsWithPreAndPostHtml_1_1) {
-                ItemsWithPreAndPostHtml_1 = ItemsWithPreAndPostHtml_1_1;
+            function (itemsWithPreAndPostHtml_1_1) {
+                itemsWithPreAndPostHtml_1 = itemsWithPreAndPostHtml_1_1;
             }
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
                 name: 'Event.RegistrationEntry.Registrant',
                 components: {
-                    RadioButtonList: RadioButtonList_1.default,
-                    RockButton: RockButton_1.default,
+                    RadioButtonList: radioButtonList_1.default,
+                    RockButton: rockButton_1.default,
                     RegistrantPersonField: RegistrantPersonField_1.default,
                     RegistrantAttributeField: RegistrantAttributeField_1.default,
-                    Alert: Alert_1.default,
-                    RockForm: RockForm_1.default,
+                    Alert: alert_1.default,
+                    RockForm: rockForm_1.default,
                     FeeField: FeeField_1.default,
-                    DropDownList: DropDownList_1.default,
-                    ItemsWithPreAndPostHtml: ItemsWithPreAndPostHtml_1.default
+                    DropDownList: dropDownList_1.default,
+                    ItemsWithPreAndPostHtml: itemsWithPreAndPostHtml_1.default
                 },
                 props: {
                     currentRegistrant: {
@@ -126,7 +126,7 @@ System.register(["vue", "../../../Elements/DropDownList", "../../../Elements/Rad
                         return this.$store.state.currentPerson;
                     },
                     pluralFeeTerm() {
-                        return String_1.default.toTitleCase(this.viewModel.pluralFeeTerm || 'fees');
+                        return string_1.default.toTitleCase(this.viewModel.pluralFeeTerm || 'fees');
                     },
                     familyOptions() {
                         var _a;
@@ -167,7 +167,7 @@ System.register(["vue", "../../../Elements/DropDownList", "../../../Elements/Rad
                             .filter(r => r.personGuid && r.personGuid !== this.currentRegistrant.personGuid)
                             .map(r => r.personGuid);
                         return this.viewModel.familyMembers
-                            .filter(fm => Guid_1.areEqual(fm.familyGuid, selectedFamily) &&
+                            .filter(fm => guid_1.areEqual(fm.familyGuid, selectedFamily) &&
                             !usedFamilyMemberGuids.includes(fm.guid))
                             .map(fm => ({
                             text: fm.fullName,
@@ -175,7 +175,7 @@ System.register(["vue", "../../../Elements/DropDownList", "../../../Elements/Rad
                         }));
                     },
                     uppercaseRegistrantTerm() {
-                        return String_1.default.toTitleCase(this.viewModel.registrantTerm);
+                        return string_1.default.toTitleCase(this.viewModel.registrantTerm);
                     },
                     firstName() {
                         return RegistrationEntry_1.getRegistrantBasicInfo(this.currentRegistrant, this.viewModel.registrantForms).firstName;
@@ -185,7 +185,7 @@ System.register(["vue", "../../../Elements/DropDownList", "../../../Elements/Rad
                         if (!personGuid) {
                             return null;
                         }
-                        return this.viewModel.familyMembers.find(fm => Guid_1.areEqual(fm.guid, personGuid)) || null;
+                        return this.viewModel.familyMembers.find(fm => guid_1.areEqual(fm.guid, personGuid)) || null;
                     }
                 },
                 methods: {

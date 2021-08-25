@@ -22,7 +22,7 @@
 //
 
 import { Entity } from "../entity";
-import { Guid } from '../../Util/Guid';
+import { Guid } from '../../Util/guid';
 
 export interface WorkflowActionType extends Entity {
     activityTypeId?: number;

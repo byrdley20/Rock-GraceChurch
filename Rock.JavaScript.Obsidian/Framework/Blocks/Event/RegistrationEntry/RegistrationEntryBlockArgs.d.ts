@@ -15,7 +15,7 @@
 // </copyright>
 //
 
-import { Guid } from '../../../Util/Guid';
+import { Guid } from '../../../Util/guid';
 import { RegistrantInfo, RegistrarInfo } from './RegistrationEntryBlockViewModel';
 
 export interface RegistrationEntryBlockArgs

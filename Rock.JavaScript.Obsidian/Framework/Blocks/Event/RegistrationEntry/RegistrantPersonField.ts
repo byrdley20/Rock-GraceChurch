@@ -16,16 +16,16 @@
 //
 
 import { computed, defineComponent, inject, PropType } from 'vue';
-import AddressControl, { getDefaultAddressControlModel } from '../../../Controls/AddressControl';
-import TextBox from '../../../Elements/TextBox';
-import EmailBox from '../../../Elements/EmailBox';
-import DropDownList, { DropDownListOption } from '../../../Elements/DropDownList';
-import GenderDropDownList from '../../../Elements/GenderDropDownList';
-import BirthdayPicker from '../../../Elements/BirthdayPicker';
-import ComponentFromUrl from '../../../Controls/ComponentFromUrl';
-import Alert from '../../../Elements/Alert';
-import { getDefaultDatePartsPickerModel } from '../../../Elements/DatePartsPicker';
-import { Guid } from '../../../Util/Guid';
+import AddressControl, { getDefaultAddressControlModel } from '../../../Controls/addressControl';
+import TextBox from '../../../Elements/textBox';
+import EmailBox from '../../../Elements/emailBox';
+import DropDownList, { DropDownListOption } from '../../../Elements/dropDownList';
+import GenderDropDownList from '../../../Elements/genderDropDownList';
+import BirthdayPicker from '../../../Elements/birthdayPicker';
+import ComponentFromUrl from '../../../Controls/componentFromUrl';
+import Alert from '../../../Elements/alert';
+import { getDefaultDatePartsPickerModel } from '../../../Elements/datePartsPicker';
+import { Guid } from '../../../Util/guid';
 import { RegistrationEntryBlockFormFieldViewModel, RegistrationPersonFieldType } from './RegistrationEntryBlockViewModel';
 import { RegistrationEntryState } from '../RegistrationEntry';
 

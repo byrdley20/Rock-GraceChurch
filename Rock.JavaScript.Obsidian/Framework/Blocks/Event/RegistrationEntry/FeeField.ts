@@ -16,13 +16,13 @@
 //
 
 import { defineComponent, PropType } from 'vue';
-import Alert from '../../../Elements/Alert';
-import CheckBox from '../../../Elements/CheckBox';
-import DropDownList, { DropDownListOption } from '../../../Elements/DropDownList';
-import NumberUpDown from '../../../Elements/NumberUpDown';
-import NumberUpDownGroup, { NumberUpDownGroupOption } from '../../../Elements/NumberUpDownGroup';
-import Number from '@Obsidian/Services/Number';
-import GuidHelper, { Guid } from '../../../Util/Guid';
+import Alert from '../../../Elements/alert';
+import CheckBox from '../../../Elements/checkBox';
+import DropDownList, { DropDownListOption } from '../../../Elements/dropDownList';
+import NumberUpDown from '../../../Elements/numberUpDown';
+import NumberUpDownGroup, { NumberUpDownGroupOption } from '../../../Elements/numberUpDownGroup';
+import Number from '@Obsidian/Services/number';
+import GuidHelper, { Guid } from '../../../Util/guid';
 import { RegistrationEntryBlockFeeViewModel, RegistrationEntryBlockFeeItemViewModel } from './RegistrationEntryBlockViewModel';
 
 export default defineComponent( {

@@ -16,8 +16,8 @@
 //
 
 import { defineComponent, inject } from 'vue';
-import SaveFinancialAccountForm from '../../../Controls/SaveFinancialAccountForm';
-import { Guid } from '../../../Util/Guid';
+import SaveFinancialAccountForm from '../../../Controls/saveFinancialAccountForm';
+import { Guid } from '../../../Util/guid';
 import { RegistrationEntryState } from '../RegistrationEntry';
 
 export default defineComponent( {

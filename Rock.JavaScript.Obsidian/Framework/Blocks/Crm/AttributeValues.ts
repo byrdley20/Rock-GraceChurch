@@ -15,17 +15,17 @@
 // </copyright>
 //
 import { computed, defineComponent, ref } from 'vue';
-import PaneledBlockTemplate from '../../Templates/PaneledBlockTemplate';
-import Loading from '../../Controls/Loading';
-import store from '../../Store/Index';
-import { Guid } from '../../Util/Guid';
-import { useConfigurationValues, useInvokeBlockAction } from '../../Util/Block';
-import JavaScriptAnchor from '../../Elements/JavaScriptAnchor';
-import RockForm from '../../Controls/RockForm';
-import TextBox from '../../Elements/TextBox';
-import RockButton from '../../Elements/RockButton';
+import PaneledBlockTemplate from '../../Templates/paneledBlockTemplate';
+import Loading from '../../Controls/loading';
+import store from '../../Store/index';
+import { Guid } from '../../Util/guid';
+import { useConfigurationValues, useInvokeBlockAction } from '../../Util/block';
+import JavaScriptAnchor from '../../Elements/javaScriptAnchor';
+import RockForm from '../../Controls/rockForm';
+import TextBox from '../../Elements/textBox';
+import RockButton from '../../Elements/rockButton';
 import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
-import AttributeValuesContainer from '../../Controls/AttributeValuesContainer';
+import AttributeValuesContainer from '../../Controls/attributeValuesContainer';
 
 interface ConfigurationValues {
     blockIconCssClass: string;

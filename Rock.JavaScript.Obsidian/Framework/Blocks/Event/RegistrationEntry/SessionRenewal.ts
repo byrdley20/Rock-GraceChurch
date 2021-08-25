@@ -16,12 +16,12 @@
 //
 
 import { defineComponent, inject, PropType } from 'vue';
-import Dialog from '../../../Controls/Dialog';
-import { InvokeBlockActionFunc } from '../../../Controls/RockBlock';
-import LoadingIndicator from '../../../Elements/LoadingIndicator';
-import RockButton from '../../../Elements/RockButton';
-import { toWord } from '@Obsidian/Services/Number';
-import { pluralConditional } from '@Obsidian/Services/String';
+import Dialog from '../../../Controls/dialog';
+import { InvokeBlockActionFunc } from '../../../Controls/rockBlock';
+import LoadingIndicator from '../../../Elements/loadingIndicator';
+import RockButton from '../../../Elements/rockButton';
+import { toWord } from '@Obsidian/Services/number';
+import { pluralConditional } from '@Obsidian/Services/string';
 import { RegistrationEntryState } from '../RegistrationEntry';
 import { SessionRenewalResult } from './RegistrationEntryBlockViewModel';
 

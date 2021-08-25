@@ -1,4 +1,4 @@
-System.register(["vue", "../../../Controls/Loading", "../../../Elements/CurrencyBox", "../../../Elements/HelpBlock", "../../../Rules/Index", "@Obsidian/Services/Number"], function (exports_1, context_1) {
+System.register(["vue", "../../../Controls/loading", "../../../Elements/currencyBox", "../../../Elements/helpBlock", "../../../Rules/index", "@Obsidian/Services/number"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,27 +9,27 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var vue_1, Loading_1, CurrencyBox_1, HelpBlock_1, Index_1, Number_1, RegistrationCostSummaryType;
+    var vue_1, loading_1, currencyBox_1, helpBlock_1, index_1, number_1, RegistrationCostSummaryType;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (Loading_1_1) {
-                Loading_1 = Loading_1_1;
+            function (loading_1_1) {
+                loading_1 = loading_1_1;
             },
-            function (CurrencyBox_1_1) {
-                CurrencyBox_1 = CurrencyBox_1_1;
+            function (currencyBox_1_1) {
+                currencyBox_1 = currencyBox_1_1;
             },
-            function (HelpBlock_1_1) {
-                HelpBlock_1 = HelpBlock_1_1;
+            function (helpBlock_1_1) {
+                helpBlock_1 = helpBlock_1_1;
             },
-            function (Index_1_1) {
-                Index_1 = Index_1_1;
+            function (index_1_1) {
+                index_1 = index_1_1;
             },
-            function (Number_1_1) {
-                Number_1 = Number_1_1;
+            function (number_1_1) {
+                number_1 = number_1_1;
             }
         ],
         execute: function () {
@@ -42,9 +42,9 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
             exports_1("default", vue_1.defineComponent({
                 name: 'Event.RegistrationEntry.CostSummary',
                 components: {
-                    Loading: Loading_1.default,
-                    CurrencyBox: CurrencyBox_1.default,
-                    HelpBlock: HelpBlock_1.default
+                    Loading: loading_1.default,
+                    CurrencyBox: currencyBox_1.default,
+                    HelpBlock: helpBlock_1.default
                 },
                 setup() {
                     return {
@@ -61,7 +61,7 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
                 },
                 computed: {
                     augmentedLineItems() {
-                        return this.lineItems.map(li => (Object.assign(Object.assign({}, li), { isFee: li.type === RegistrationCostSummaryType.Fee, discountHelp: (this.hasDiscount && li.cost === li.discountedCost) ? 'This item is not eligible for the discount.' : '', amountFormatted: Number_1.asFormattedString(li.cost, 2), discountedAmountFormatted: Number_1.asFormattedString(li.discountedCost, 2) })));
+                        return this.lineItems.map(li => (Object.assign(Object.assign({}, li), { isFee: li.type === RegistrationCostSummaryType.Fee, discountHelp: (this.hasDiscount && li.cost === li.discountedCost) ? 'This item is not eligible for the discount.' : '', amountFormatted: number_1.asFormattedString(li.cost, 2), discountedAmountFormatted: number_1.asFormattedString(li.discountedCost, 2) })));
                     },
                     hasDiscount() {
                         return this.lineItems.some(li => li.discountedCost !== li.cost);
@@ -72,7 +72,7 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
                         return total;
                     },
                     totalFormatted() {
-                        return `$${Number_1.asFormattedString(this.total, 2)}`;
+                        return `$${number_1.asFormattedString(this.total, 2)}`;
                     },
                     defaultPaymentAmount() {
                         let total = 0;
@@ -101,7 +101,7 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
                         return total;
                     },
                     discountedTotalFormatted() {
-                        return `$${Number_1.asFormattedString(this.discountedTotal, 2)}`;
+                        return `$${number_1.asFormattedString(this.discountedTotal, 2)}`;
                     },
                     amountDueToday() {
                         if (this.amountPreviouslyPaid) {
@@ -112,7 +112,7 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
                         return total;
                     },
                     amountDueTodayFormatted() {
-                        return `$${Number_1.asFormattedString(this.amountDueToday, 2)}`;
+                        return `$${number_1.asFormattedString(this.amountDueToday, 2)}`;
                     },
                     showAmountDueToday() {
                         return this.amountDueToday !== this.discountedTotal;
@@ -122,7 +122,7 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
                         return ((_a = this.registrationEntryState.viewModel.session) === null || _a === void 0 ? void 0 : _a.previouslyPaid) || 0;
                     },
                     amountPreviouslyPaidFormatted() {
-                        return `$${Number_1.asFormattedString(this.amountPreviouslyPaid, 2)}`;
+                        return `$${number_1.asFormattedString(this.amountPreviouslyPaid, 2)}`;
                     },
                     maxAmountCanBePaid() {
                         const balance = this.discountedTotal - this.amountPreviouslyPaid;
@@ -132,7 +132,7 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
                         return 0;
                     },
                     maxAmountCanBePaidFormatted() {
-                        return `$${Number_1.asFormattedString(this.maxAmountCanBePaid, 2)}`;
+                        return `$${number_1.asFormattedString(this.maxAmountCanBePaid, 2)}`;
                     },
                     amountRemaining() {
                         const actual = this.maxAmountCanBePaid - this.registrationEntryState.amountToPayToday;
@@ -140,7 +140,7 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
                         return bounded;
                     },
                     amountRemainingFormatted() {
-                        return `$${Number_1.asFormattedString(this.amountRemaining, 2)}`;
+                        return `$${number_1.asFormattedString(this.amountRemaining, 2)}`;
                     },
                     amountToPayTodayRules() {
                         const rules = ['required'];
@@ -151,7 +151,7 @@ System.register(["vue", "../../../Controls/Loading", "../../../Elements/Currency
                         }
                         rules.push(`gte:${min}`);
                         rules.push(`lte:${max}`);
-                        return Index_1.ruleArrayToString(rules);
+                        return index_1.ruleArrayToString(rules);
                     },
                 },
                 methods: {

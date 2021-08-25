@@ -1,4 +1,4 @@
-System.register(["vue", "./Registrant", "../../../Elements/Alert"], function (exports_1, context_1) {
+System.register(["vue", "./Registrant", "../../../Elements/alert"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,7 +9,7 @@ System.register(["vue", "./Registrant", "../../../Elements/Alert"], function (ex
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var vue_1, Registrant_1, Alert_1;
+    var vue_1, Registrant_1, alert_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -19,8 +19,8 @@ System.register(["vue", "./Registrant", "../../../Elements/Alert"], function (ex
             function (Registrant_1_1) {
                 Registrant_1 = Registrant_1_1;
             },
-            function (Alert_1_1) {
-                Alert_1 = Alert_1_1;
+            function (alert_1_1) {
+                alert_1 = alert_1_1;
             }
         ],
         execute: function () {
@@ -28,7 +28,7 @@ System.register(["vue", "./Registrant", "../../../Elements/Alert"], function (ex
                 name: 'Event.RegistrationEntry.Registrants',
                 components: {
                     Registrant: Registrant_1.default,
-                    Alert: Alert_1.default
+                    Alert: alert_1.default
                 },
                 setup() {
                     return {

@@ -16,20 +16,20 @@
 //
 
 import { defineComponent, inject, PropType } from 'vue';
-import DropDownList, { DropDownListOption } from '../../../Elements/DropDownList';
-import RadioButtonList from '../../../Elements/RadioButtonList';
+import DropDownList, { DropDownListOption } from '../../../Elements/dropDownList';
+import RadioButtonList from '../../../Elements/radioButtonList';
 import { Person } from '@Obsidian/ViewModels';
 import { getRegistrantBasicInfo, RegistrationEntryState } from '../RegistrationEntry';
-import StringFilter from '@Obsidian/Services/String';
-import RockButton from '../../../Elements/RockButton';
+import StringFilter from '@Obsidian/Services/string';
+import RockButton from '../../../Elements/rockButton';
 import RegistrantPersonField from './RegistrantPersonField';
 import RegistrantAttributeField from './RegistrantAttributeField';
-import Alert from '../../../Elements/Alert';
+import Alert from '../../../Elements/alert';
 import { RegistrantInfo, RegistrantsSameFamily, RegistrationEntryBlockFamilyMemberViewModel, RegistrationEntryBlockFormFieldViewModel, RegistrationEntryBlockFormViewModel, RegistrationEntryBlockViewModel, RegistrationFieldSource } from './RegistrationEntryBlockViewModel';
-import { areEqual, Guid } from '../../../Util/Guid';
-import RockForm from '../../../Controls/RockForm';
+import { areEqual, Guid } from '../../../Util/guid';
+import RockForm from '../../../Controls/rockForm';
 import FeeField from './FeeField';
-import ItemsWithPreAndPostHtml, { ItemWithPreAndPostHtml } from '../../../Elements/ItemsWithPreAndPostHtml';
+import ItemsWithPreAndPostHtml, { ItemWithPreAndPostHtml } from '../../../Elements/itemsWithPreAndPostHtml';
 
 export default defineComponent( {
     name: 'Event.RegistrationEntry.Registrant',

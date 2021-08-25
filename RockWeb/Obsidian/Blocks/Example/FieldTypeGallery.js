@@ -1,23 +1,23 @@
-System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/PanelWidget", "../../Controls/AttributeValuesContainer", "../../Elements/TextBox"], function (exports_1, context_1) {
+System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/panelWidget", "../../Controls/attributeValuesContainer", "../../Elements/textBox"], function (exports_1, context_1) {
     "use strict";
-    var PaneledBlockTemplate_1, vue_1, PanelWidget_1, AttributeValuesContainer_1, TextBox_1, GetAttributeValueData, GalleryAndResult, GetFieldTypeGalleryComponent, galleryComponents, galleryTemplate;
+    var paneledBlockTemplate_1, vue_1, panelWidget_1, attributeValuesContainer_1, textBox_1, GetAttributeValueData, GalleryAndResult, GetFieldTypeGalleryComponent, galleryComponents, galleryTemplate;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
-            function (PaneledBlockTemplate_1_1) {
-                PaneledBlockTemplate_1 = PaneledBlockTemplate_1_1;
+            function (paneledBlockTemplate_1_1) {
+                paneledBlockTemplate_1 = paneledBlockTemplate_1_1;
             },
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (PanelWidget_1_1) {
-                PanelWidget_1 = PanelWidget_1_1;
+            function (panelWidget_1_1) {
+                panelWidget_1 = panelWidget_1_1;
             },
-            function (AttributeValuesContainer_1_1) {
-                AttributeValuesContainer_1 = AttributeValuesContainer_1_1;
+            function (attributeValuesContainer_1_1) {
+                attributeValuesContainer_1 = attributeValuesContainer_1_1;
             },
-            function (TextBox_1_1) {
-                TextBox_1 = TextBox_1_1;
+            function (textBox_1_1) {
+                textBox_1 = textBox_1_1;
             }
         ],
         execute: function () {
@@ -54,8 +54,8 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
             GalleryAndResult = vue_1.defineComponent({
                 name: 'GalleryAndResult',
                 components: {
-                    PanelWidget: PanelWidget_1.default,
-                    AttributeValuesContainer: AttributeValuesContainer_1.default
+                    PanelWidget: panelWidget_1.default,
+                    AttributeValuesContainer: attributeValuesContainer_1.default
                 },
                 props: {
                     title: {
@@ -110,7 +110,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                     name: `${name}Gallery`,
                     components: {
                         GalleryAndResult,
-                        TextBox: TextBox_1.default
+                        TextBox: textBox_1.default
                     },
                     data() {
                         return {
@@ -254,7 +254,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
             galleryTemplate = Object.keys(galleryComponents).sort().map(g => `<${g} />`).join('');
             exports_1("default", vue_1.defineComponent({
                 name: 'Example.FieldTypeGallery',
-                components: Object.assign({ PaneledBlockTemplate: PaneledBlockTemplate_1.default }, galleryComponents),
+                components: Object.assign({ PaneledBlockTemplate: paneledBlockTemplate_1.default }, galleryComponents),
                 template: `
 <PaneledBlockTemplate>
     <template v-slot:title>

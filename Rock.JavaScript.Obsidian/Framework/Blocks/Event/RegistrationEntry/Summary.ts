@@ -16,14 +16,14 @@
 //
 
 import { defineComponent, inject } from 'vue';
-import GatewayControl, { GatewayControlModel } from '../../../Controls/GatewayControl';
-import { InvokeBlockActionFunc } from '../../../Controls/RockBlock';
-import RockForm from '../../../Controls/RockForm';
-import RockValidation from '../../../Controls/RockValidation';
-import Alert from '../../../Elements/Alert';
-import CheckBox from '../../../Elements/CheckBox';
-import EmailBox from '../../../Elements/EmailBox';
-import RockButton from '../../../Elements/RockButton';
+import GatewayControl, { GatewayControlModel } from '../../../Controls/gatewayControl';
+import { InvokeBlockActionFunc } from '../../../Controls/rockBlock';
+import RockForm from '../../../Controls/rockForm';
+import RockValidation from '../../../Controls/rockValidation';
+import Alert from '../../../Elements/alert';
+import CheckBox from '../../../Elements/checkBox';
+import EmailBox from '../../../Elements/emailBox';
+import RockButton from '../../../Elements/rockButton';
 import { getRegistrantBasicInfo, RegistrantBasicInfo, RegistrationEntryState } from '../RegistrationEntry';
 import CostSummary from './CostSummary';
 import DiscountCodeForm from './DiscountCodeForm';

@@ -14,16 +14,16 @@
 // limitations under the License.
 // </copyright>
 //
-import PaneledBlockTemplate from '../../Templates/PaneledBlockTemplate';
+import PaneledBlockTemplate from '../../Templates/paneledBlockTemplate';
 import { defineComponent, inject } from 'vue';
-import store from '../../Store/Index';
-import Grid, { FilterOptions, RowContext, SortDirection, SortProperty } from '../../Controls/Grid';
-import GridRow from '../../Controls/GridRow';
-import GridColumn from '../../Controls/GridColumn';
-import GridSelectColumn from '../../Controls/GridSelectColumn';
-import GridProfileLinkColumn from '../../Controls/GridProfileLinkColumn';
-import { InvokeBlockActionFunc } from '../../Controls/RockBlock';
-import Alert from '../../Elements/Alert';
+import store from '../../Store/index';
+import Grid, { FilterOptions, RowContext, SortDirection, SortProperty } from '../../Controls/grid';
+import GridRow from '../../Controls/gridRow';
+import GridColumn from '../../Controls/gridColumn';
+import GridSelectColumn from '../../Controls/gridSelectColumn';
+import GridProfileLinkColumn from '../../Controls/gridProfileLinkColumn';
+import { InvokeBlockActionFunc } from '../../Controls/rockBlock';
+import Alert from '../../Elements/alert';
 
 type GroupMemberViewModel = {
     fullName: string;

@@ -14,13 +14,13 @@
 // limitations under the License.
 // </copyright>
 //
-import bus from '../../Util/Bus';
-import PaneledBlockTemplate from '../../Templates/PaneledBlockTemplate';
-import SecondaryBlock from '../../Controls/SecondaryBlock';
-import RockButton from '../../Elements/RockButton';
-import TextBox from '../../Elements/TextBox';
+import bus from '../../Util/bus';
+import PaneledBlockTemplate from '../../Templates/paneledBlockTemplate';
+import SecondaryBlock from '../../Controls/secondaryBlock';
+import RockButton from '../../Elements/rockButton';
+import TextBox from '../../Elements/textBox';
 import { defineComponent } from 'vue';
-import store from '../../Store/Index';
+import store from '../../Store/index';
 import { Person } from '@Obsidian/ViewModels';
 
 export default defineComponent({

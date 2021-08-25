@@ -1,120 +1,120 @@
-System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/TextBox", "../../Elements/EmailBox", "../../Elements/CurrencyBox", "../../Elements/PanelWidget", "../../Elements/DatePicker", "../../Elements/DateRangePicker", "../../Elements/DateTimePicker", "../../Elements/ListBox", "../../Elements/BirthdayPicker", "../../Elements/NumberUpDown", "../../Controls/AddressControl", "../../Elements/Toggle", "../../Elements/ItemsWithPreAndPostHtml", "../../Elements/StaticFormControl", "../../Elements/ProgressTracker", "../../Controls/RockForm", "../../Elements/RockButton", "../../Elements/RadioButtonList", "../../Elements/DropDownList", "../../Controls/Dialog", "../../Elements/CheckBox", "../../Elements/PhoneNumberBox", "../../Elements/HelpBlock", "../../Elements/DatePartsPicker", "../../Elements/ColorPicker", "../../Elements/NumberBox", "../../Elements/NumberRangeBox", "../../Elements/GenderDropDownList", "../../Elements/SocialSecurityNumberBox", "../../Elements/TimePicker", "../../Elements/CheckBoxList", "../../Elements/Rating", "@Obsidian/Services/Number"], function (exports_1, context_1) {
+System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/textBox", "../../Elements/emailBox", "../../Elements/currencyBox", "../../Elements/panelWidget", "../../Elements/datePicker", "../../Elements/dateRangePicker", "../../Elements/dateTimePicker", "../../Elements/listBox", "../../Elements/birthdayPicker", "../../Elements/numberUpDown", "../../Controls/addressControl", "../../Elements/toggle", "../../Elements/itemsWithPreAndPostHtml", "../../Elements/staticFormControl", "../../Elements/progressTracker", "../../Controls/rockForm", "../../Elements/rockButton", "../../Elements/radioButtonList", "../../Elements/dropDownList", "../../Controls/dialog", "../../Elements/checkBox", "../../Elements/phoneNumberBox", "../../Elements/helpBlock", "../../Elements/datePartsPicker", "../../Elements/colorPicker", "../../Elements/numberBox", "../../Elements/numberRangeBox", "../../Elements/genderDropDownList", "../../Elements/socialSecurityNumberBox", "../../Elements/timePicker", "../../Elements/checkBoxList", "../../Elements/rating", "@Obsidian/Services/number"], function (exports_1, context_1) {
     "use strict";
-    var PaneledBlockTemplate_1, vue_1, TextBox_1, EmailBox_1, CurrencyBox_1, PanelWidget_1, DatePicker_1, DateRangePicker_1, DateTimePicker_1, ListBox_1, BirthdayPicker_1, NumberUpDown_1, AddressControl_1, Toggle_1, ItemsWithPreAndPostHtml_1, StaticFormControl_1, ProgressTracker_1, RockForm_1, RockButton_1, RadioButtonList_1, DropDownList_1, Dialog_1, CheckBox_1, PhoneNumberBox_1, HelpBlock_1, DatePartsPicker_1, ColorPicker_1, NumberBox_1, NumberRangeBox_1, GenderDropDownList_1, SocialSecurityNumberBox_1, TimePicker_1, CheckBoxList_1, Rating_1, Number_1, GalleryAndResult, PhoneNumberBoxGallery, HelpBlockGallery, DropDownListGallery, RadioButtonListGallery, CheckBoxGallery, DialogGallery, FormRulesGallery, CheckBoxListGallery, ListBoxGallery, DatePickerGallery, DateRangePickerGallery, DateTimePickerGallery, DatePartsPickerGallery, TextBoxGallery, ColorPickerGallery, NumberBoxGallery, NumberRangeBoxGallery, GenderDropDownListGallery, SocialSecurityNumberBoxGallery, TimePickerGallery, RatingGallery;
+    var paneledBlockTemplate_1, vue_1, textBox_1, emailBox_1, currencyBox_1, panelWidget_1, datePicker_1, dateRangePicker_1, dateTimePicker_1, listBox_1, birthdayPicker_1, numberUpDown_1, addressControl_1, toggle_1, itemsWithPreAndPostHtml_1, staticFormControl_1, progressTracker_1, rockForm_1, rockButton_1, radioButtonList_1, dropDownList_1, dialog_1, checkBox_1, phoneNumberBox_1, helpBlock_1, datePartsPicker_1, colorPicker_1, numberBox_1, numberRangeBox_1, genderDropDownList_1, socialSecurityNumberBox_1, timePicker_1, checkBoxList_1, rating_1, number_1, GalleryAndResult, PhoneNumberBoxGallery, HelpBlockGallery, DropDownListGallery, RadioButtonListGallery, CheckBoxGallery, DialogGallery, FormRulesGallery, CheckBoxListGallery, ListBoxGallery, DatePickerGallery, DateRangePickerGallery, DateTimePickerGallery, DatePartsPickerGallery, TextBoxGallery, ColorPickerGallery, NumberBoxGallery, NumberRangeBoxGallery, GenderDropDownListGallery, SocialSecurityNumberBoxGallery, TimePickerGallery, RatingGallery;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
-            function (PaneledBlockTemplate_1_1) {
-                PaneledBlockTemplate_1 = PaneledBlockTemplate_1_1;
+            function (paneledBlockTemplate_1_1) {
+                paneledBlockTemplate_1 = paneledBlockTemplate_1_1;
             },
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (TextBox_1_1) {
-                TextBox_1 = TextBox_1_1;
+            function (textBox_1_1) {
+                textBox_1 = textBox_1_1;
             },
-            function (EmailBox_1_1) {
-                EmailBox_1 = EmailBox_1_1;
+            function (emailBox_1_1) {
+                emailBox_1 = emailBox_1_1;
             },
-            function (CurrencyBox_1_1) {
-                CurrencyBox_1 = CurrencyBox_1_1;
+            function (currencyBox_1_1) {
+                currencyBox_1 = currencyBox_1_1;
             },
-            function (PanelWidget_1_1) {
-                PanelWidget_1 = PanelWidget_1_1;
+            function (panelWidget_1_1) {
+                panelWidget_1 = panelWidget_1_1;
             },
-            function (DatePicker_1_1) {
-                DatePicker_1 = DatePicker_1_1;
+            function (datePicker_1_1) {
+                datePicker_1 = datePicker_1_1;
             },
-            function (DateRangePicker_1_1) {
-                DateRangePicker_1 = DateRangePicker_1_1;
+            function (dateRangePicker_1_1) {
+                dateRangePicker_1 = dateRangePicker_1_1;
             },
-            function (DateTimePicker_1_1) {
-                DateTimePicker_1 = DateTimePicker_1_1;
+            function (dateTimePicker_1_1) {
+                dateTimePicker_1 = dateTimePicker_1_1;
             },
-            function (ListBox_1_1) {
-                ListBox_1 = ListBox_1_1;
+            function (listBox_1_1) {
+                listBox_1 = listBox_1_1;
             },
-            function (BirthdayPicker_1_1) {
-                BirthdayPicker_1 = BirthdayPicker_1_1;
+            function (birthdayPicker_1_1) {
+                birthdayPicker_1 = birthdayPicker_1_1;
             },
-            function (NumberUpDown_1_1) {
-                NumberUpDown_1 = NumberUpDown_1_1;
+            function (numberUpDown_1_1) {
+                numberUpDown_1 = numberUpDown_1_1;
             },
-            function (AddressControl_1_1) {
-                AddressControl_1 = AddressControl_1_1;
+            function (addressControl_1_1) {
+                addressControl_1 = addressControl_1_1;
             },
-            function (Toggle_1_1) {
-                Toggle_1 = Toggle_1_1;
+            function (toggle_1_1) {
+                toggle_1 = toggle_1_1;
             },
-            function (ItemsWithPreAndPostHtml_1_1) {
-                ItemsWithPreAndPostHtml_1 = ItemsWithPreAndPostHtml_1_1;
+            function (itemsWithPreAndPostHtml_1_1) {
+                itemsWithPreAndPostHtml_1 = itemsWithPreAndPostHtml_1_1;
             },
-            function (StaticFormControl_1_1) {
-                StaticFormControl_1 = StaticFormControl_1_1;
+            function (staticFormControl_1_1) {
+                staticFormControl_1 = staticFormControl_1_1;
             },
-            function (ProgressTracker_1_1) {
-                ProgressTracker_1 = ProgressTracker_1_1;
+            function (progressTracker_1_1) {
+                progressTracker_1 = progressTracker_1_1;
             },
-            function (RockForm_1_1) {
-                RockForm_1 = RockForm_1_1;
+            function (rockForm_1_1) {
+                rockForm_1 = rockForm_1_1;
             },
-            function (RockButton_1_1) {
-                RockButton_1 = RockButton_1_1;
+            function (rockButton_1_1) {
+                rockButton_1 = rockButton_1_1;
             },
-            function (RadioButtonList_1_1) {
-                RadioButtonList_1 = RadioButtonList_1_1;
+            function (radioButtonList_1_1) {
+                radioButtonList_1 = radioButtonList_1_1;
             },
-            function (DropDownList_1_1) {
-                DropDownList_1 = DropDownList_1_1;
+            function (dropDownList_1_1) {
+                dropDownList_1 = dropDownList_1_1;
             },
-            function (Dialog_1_1) {
-                Dialog_1 = Dialog_1_1;
+            function (dialog_1_1) {
+                dialog_1 = dialog_1_1;
             },
-            function (CheckBox_1_1) {
-                CheckBox_1 = CheckBox_1_1;
+            function (checkBox_1_1) {
+                checkBox_1 = checkBox_1_1;
             },
-            function (PhoneNumberBox_1_1) {
-                PhoneNumberBox_1 = PhoneNumberBox_1_1;
+            function (phoneNumberBox_1_1) {
+                phoneNumberBox_1 = phoneNumberBox_1_1;
             },
-            function (HelpBlock_1_1) {
-                HelpBlock_1 = HelpBlock_1_1;
+            function (helpBlock_1_1) {
+                helpBlock_1 = helpBlock_1_1;
             },
-            function (DatePartsPicker_1_1) {
-                DatePartsPicker_1 = DatePartsPicker_1_1;
+            function (datePartsPicker_1_1) {
+                datePartsPicker_1 = datePartsPicker_1_1;
             },
-            function (ColorPicker_1_1) {
-                ColorPicker_1 = ColorPicker_1_1;
+            function (colorPicker_1_1) {
+                colorPicker_1 = colorPicker_1_1;
             },
-            function (NumberBox_1_1) {
-                NumberBox_1 = NumberBox_1_1;
+            function (numberBox_1_1) {
+                numberBox_1 = numberBox_1_1;
             },
-            function (NumberRangeBox_1_1) {
-                NumberRangeBox_1 = NumberRangeBox_1_1;
+            function (numberRangeBox_1_1) {
+                numberRangeBox_1 = numberRangeBox_1_1;
             },
-            function (GenderDropDownList_1_1) {
-                GenderDropDownList_1 = GenderDropDownList_1_1;
+            function (genderDropDownList_1_1) {
+                genderDropDownList_1 = genderDropDownList_1_1;
             },
-            function (SocialSecurityNumberBox_1_1) {
-                SocialSecurityNumberBox_1 = SocialSecurityNumberBox_1_1;
+            function (socialSecurityNumberBox_1_1) {
+                socialSecurityNumberBox_1 = socialSecurityNumberBox_1_1;
             },
-            function (TimePicker_1_1) {
-                TimePicker_1 = TimePicker_1_1;
+            function (timePicker_1_1) {
+                timePicker_1 = timePicker_1_1;
             },
-            function (CheckBoxList_1_1) {
-                CheckBoxList_1 = CheckBoxList_1_1;
+            function (checkBoxList_1_1) {
+                checkBoxList_1 = checkBoxList_1_1;
             },
-            function (Rating_1_1) {
-                Rating_1 = Rating_1_1;
+            function (rating_1_1) {
+                rating_1 = rating_1_1;
             },
-            function (Number_1_1) {
-                Number_1 = Number_1_1;
+            function (number_1_1) {
+                number_1 = number_1_1;
             }
         ],
         execute: function () {
             GalleryAndResult = vue_1.defineComponent({
                 name: 'GalleryAndResult',
                 components: {
-                    PanelWidget: PanelWidget_1.default
+                    PanelWidget: panelWidget_1.default
                 },
                 props: {
                     splitWidth: {
@@ -147,7 +147,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 name: 'PhoneNumberBoxGallery',
                 components: {
                     GalleryAndResult,
-                    PhoneNumberBox: PhoneNumberBox_1.default
+                    PhoneNumberBox: phoneNumberBox_1.default
                 },
                 data() {
                     return {
@@ -172,7 +172,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 name: 'HelpBlockGallery',
                 components: {
                     GalleryAndResult,
-                    HelpBlock: HelpBlock_1.default
+                    HelpBlock: helpBlock_1.default
                 },
                 template: `
 <GalleryAndResult>
@@ -188,7 +188,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 name: 'DropDownListGallery',
                 components: {
                     GalleryAndResult,
-                    DropDownList: DropDownList_1.default
+                    DropDownList: dropDownList_1.default
                 },
                 data() {
                     return {
@@ -221,9 +221,9 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 name: 'RadioButtonListGallery',
                 components: {
                     GalleryAndResult,
-                    RadioButtonList: RadioButtonList_1.default,
-                    Toggle: Toggle_1.default,
-                    NumberUpDown: NumberUpDown_1.default
+                    RadioButtonList: radioButtonList_1.default,
+                    Toggle: toggle_1.default,
+                    NumberUpDown: numberUpDown_1.default
                 },
                 data() {
                     return {
@@ -261,8 +261,8 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 name: 'CheckBoxGallery',
                 components: {
                     GalleryAndResult,
-                    CheckBox: CheckBox_1.default,
-                    Toggle: Toggle_1.default
+                    CheckBox: checkBox_1.default,
+                    Toggle: toggle_1.default
                 },
                 data() {
                     return {
@@ -289,9 +289,9 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 name: 'DialogGallery',
                 components: {
                     GalleryAndResult,
-                    RockButton: RockButton_1.default,
-                    Dialog: Dialog_1.default,
-                    CheckBox: CheckBox_1.default
+                    RockButton: rockButton_1.default,
+                    Dialog: dialog_1.default,
+                    CheckBox: checkBox_1.default
                 },
                 data() {
                     return {
@@ -340,10 +340,10 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 name: 'FormRulesGallery',
                 components: {
                     GalleryAndResult,
-                    RockForm: RockForm_1.default,
-                    TextBox: TextBox_1.default,
-                    CurrencyBox: CurrencyBox_1.default,
-                    RockButton: RockButton_1.default
+                    RockForm: rockForm_1.default,
+                    TextBox: textBox_1.default,
+                    CurrencyBox: currencyBox_1.default,
+                    RockButton: rockButton_1.default
                 },
                 data() {
                     return {
@@ -372,7 +372,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 name: 'CheckBoxListGallery',
                 components: {
                     GalleryAndResult,
-                    CheckBoxList: CheckBoxList_1.default
+                    CheckBoxList: checkBoxList_1.default
                 },
                 data() {
                     return {
@@ -402,7 +402,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 name: 'ListBoxGallery',
                 components: {
                     GalleryAndResult,
-                    ListBox: ListBox_1.default
+                    ListBox: listBox_1.default
                 },
                 data() {
                     return {
@@ -435,7 +435,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 name: 'DatePickerGallery',
                 components: {
                     GalleryAndResult,
-                    DatePicker: DatePicker_1.default
+                    DatePicker: datePicker_1.default
                 },
                 data() {
                     return {
@@ -465,7 +465,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 name: 'DateRangePickerGallery',
                 components: {
                     GalleryAndResult,
-                    DateRangePicker: DateRangePicker_1.default
+                    DateRangePicker: dateRangePicker_1.default
                 },
                 data() {
                     return {
@@ -490,7 +490,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 name: 'DatePickerGallery',
                 components: {
                     GalleryAndResult,
-                    DateTimePicker: DateTimePicker_1.default
+                    DateTimePicker: dateTimePicker_1.default
                 },
                 data() {
                     return {
@@ -515,9 +515,9 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 name: 'DatePartsPickerGallery',
                 components: {
                     GalleryAndResult,
-                    Toggle: Toggle_1.default,
-                    BirthdayPicker: BirthdayPicker_1.default,
-                    DatePartsPicker: DatePartsPicker_1.default
+                    Toggle: toggle_1.default,
+                    BirthdayPicker: birthdayPicker_1.default,
+                    DatePartsPicker: datePartsPicker_1.default
                 },
                 data() {
                     return {
@@ -548,7 +548,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 name: 'TextBoxGallery',
                 components: {
                     GalleryAndResult,
-                    TextBox: TextBox_1.default
+                    TextBox: textBox_1.default
                 },
                 data() {
                     return {
@@ -574,7 +574,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 name: 'ColorPickerGallery',
                 components: {
                     GalleryAndResult,
-                    ColorPicker: ColorPicker_1.default
+                    ColorPicker: colorPicker_1.default
                 },
                 data() {
                     return {
@@ -598,10 +598,10 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 name: 'NumberBoxGallery',
                 components: {
                     GalleryAndResult,
-                    RockForm: RockForm_1.default,
-                    RockButton: RockButton_1.default,
-                    TextBox: TextBox_1.default,
-                    NumberBox: NumberBox_1.default
+                    RockForm: rockForm_1.default,
+                    RockButton: rockButton_1.default,
+                    TextBox: textBox_1.default,
+                    NumberBox: numberBox_1.default
                 },
                 data() {
                     return {
@@ -612,10 +612,10 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 },
                 computed: {
                     numericMinimumValue() {
-                        return Number_1.toNumber(this.minimumValue);
+                        return number_1.toNumber(this.minimumValue);
                     },
                     numericMaximumValue() {
-                        return Number_1.toNumber(this.maximumValue);
+                        return number_1.toNumber(this.maximumValue);
                     }
                 },
                 template: `
@@ -640,10 +640,10 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 name: 'NumberRangeBoxGallery',
                 components: {
                     GalleryAndResult,
-                    RockForm: RockForm_1.default,
-                    RockButton: RockButton_1.default,
-                    TextBox: TextBox_1.default,
-                    NumberRangeBox: NumberRangeBox_1.default
+                    RockForm: rockForm_1.default,
+                    RockButton: rockButton_1.default,
+                    TextBox: textBox_1.default,
+                    NumberRangeBox: numberRangeBox_1.default
                 },
                 data() {
                     return {
@@ -670,10 +670,10 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 name: 'GenderDropDownListGallery',
                 components: {
                     GalleryAndResult,
-                    RockForm: RockForm_1.default,
-                    RockButton: RockButton_1.default,
-                    TextBox: TextBox_1.default,
-                    GenderDropDownList: GenderDropDownList_1.default
+                    RockForm: rockForm_1.default,
+                    RockButton: rockButton_1.default,
+                    TextBox: textBox_1.default,
+                    GenderDropDownList: genderDropDownList_1.default
                 },
                 data() {
                     return {
@@ -700,10 +700,10 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 name: 'SocialSecurityNumberBoxGallery',
                 components: {
                     GalleryAndResult,
-                    RockForm: RockForm_1.default,
-                    RockButton: RockButton_1.default,
-                    TextBox: TextBox_1.default,
-                    SocialSecurityNumberBox: SocialSecurityNumberBox_1.default
+                    RockForm: rockForm_1.default,
+                    RockButton: rockButton_1.default,
+                    TextBox: textBox_1.default,
+                    SocialSecurityNumberBox: socialSecurityNumberBox_1.default
                 },
                 data() {
                     return {
@@ -730,10 +730,10 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 name: 'TimePickerGallery',
                 components: {
                     GalleryAndResult,
-                    RockForm: RockForm_1.default,
-                    RockButton: RockButton_1.default,
-                    TextBox: TextBox_1.default,
-                    TimePicker: TimePicker_1.default
+                    RockForm: rockForm_1.default,
+                    RockButton: rockButton_1.default,
+                    TextBox: textBox_1.default,
+                    TimePicker: timePicker_1.default
                 },
                 data() {
                     return {
@@ -760,9 +760,9 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                 name: 'RatingGallery',
                 components: {
                     GalleryAndResult,
-                    RockForm: RockForm_1.default,
-                    NumberBox: NumberBox_1.default,
-                    Rating: Rating_1.default
+                    RockForm: rockForm_1.default,
+                    NumberBox: numberBox_1.default,
+                    Rating: rating_1.default
                 },
                 data() {
                     return {
@@ -789,24 +789,24 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
             exports_1("default", vue_1.defineComponent({
                 name: 'Example.ControlGallery',
                 components: {
-                    PaneledBlockTemplate: PaneledBlockTemplate_1.default,
+                    PaneledBlockTemplate: paneledBlockTemplate_1.default,
                     GalleryAndResult,
-                    TextBox: TextBox_1.default,
+                    TextBox: textBox_1.default,
                     TextBoxGallery,
-                    CurrencyBox: CurrencyBox_1.default,
-                    EmailBox: EmailBox_1.default,
+                    CurrencyBox: currencyBox_1.default,
+                    EmailBox: emailBox_1.default,
                     DatePickerGallery,
                     DateRangePickerGallery,
                     DateTimePickerGallery,
                     DatePartsPickerGallery,
-                    NumberUpDown: NumberUpDown_1.default,
-                    AddressControl: AddressControl_1.default,
-                    Toggle: Toggle_1.default,
-                    ItemsWithPreAndPostHtml: ItemsWithPreAndPostHtml_1.default,
-                    StaticFormControl: StaticFormControl_1.default,
-                    ProgressTracker: ProgressTracker_1.default,
-                    RockForm: RockForm_1.default,
-                    RockButton: RockButton_1.default,
+                    NumberUpDown: numberUpDown_1.default,
+                    AddressControl: addressControl_1.default,
+                    Toggle: toggle_1.default,
+                    ItemsWithPreAndPostHtml: itemsWithPreAndPostHtml_1.default,
+                    StaticFormControl: staticFormControl_1.default,
+                    ProgressTracker: progressTracker_1.default,
+                    RockForm: rockForm_1.default,
+                    RockButton: rockButton_1.default,
                     RadioButtonListGallery,
                     DialogGallery,
                     CheckBoxGallery,
@@ -829,7 +829,7 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Elements/
                         currency: 1.234,
                         email: 'joe@joes.co',
                         numberUpDown: 1,
-                        address: AddressControl_1.getDefaultAddressControlModel(),
+                        address: addressControl_1.getDefaultAddressControlModel(),
                         toggle: false,
                         prePostHtmlItems: [
                             { preHtml: '<div class="row"><div class="col-sm-6">', postHtml: '</div>', slotName: 'item1' },

@@ -15,12 +15,12 @@
 // </copyright>
 //
 
-import PaneledBlockTemplate from '../../Templates/PaneledBlockTemplate';
+import PaneledBlockTemplate from '../../Templates/paneledBlockTemplate';
 import { Component, defineComponent, PropType, reactive } from 'vue';
-import PanelWidget from '../../Elements/PanelWidget';
-import AttributeValuesContainer from '../../Controls/AttributeValuesContainer';
-import { Guid } from '../../Util/Guid';
-import TextBox from '../../Elements/TextBox';
+import PanelWidget from '../../Elements/panelWidget';
+import AttributeValuesContainer from '../../Controls/attributeValuesContainer';
+import { Guid } from '../../Util/guid';
+import TextBox from '../../Elements/textBox';
 import { FieldType as FieldTypeGuids } from '@Obsidian/SystemGuids';
 import { ClientEditableAttributeValue, ListItem } from '@Obsidian/ViewModels';
 

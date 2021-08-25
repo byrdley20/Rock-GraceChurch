@@ -1,4 +1,4 @@
-System.register(["../../Elements/TextBox", "../../Elements/CheckBox", "../../Elements/RockButton", "vue", "../../Elements/Alert"], function (exports_1, context_1) {
+System.register(["../../Elements/textBox", "../../Elements/checkBox", "../../Elements/rockButton", "vue", "../../Elements/alert"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,34 +9,34 @@ System.register(["../../Elements/TextBox", "../../Elements/CheckBox", "../../Ele
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var TextBox_1, CheckBox_1, RockButton_1, vue_1, Alert_1;
+    var textBox_1, checkBox_1, rockButton_1, vue_1, alert_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
-            function (TextBox_1_1) {
-                TextBox_1 = TextBox_1_1;
+            function (textBox_1_1) {
+                textBox_1 = textBox_1_1;
             },
-            function (CheckBox_1_1) {
-                CheckBox_1 = CheckBox_1_1;
+            function (checkBox_1_1) {
+                checkBox_1 = checkBox_1_1;
             },
-            function (RockButton_1_1) {
-                RockButton_1 = RockButton_1_1;
+            function (rockButton_1_1) {
+                rockButton_1 = rockButton_1_1;
             },
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (Alert_1_1) {
-                Alert_1 = Alert_1_1;
+            function (alert_1_1) {
+                alert_1 = alert_1_1;
             }
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
                 name: 'Security.Login',
                 components: {
-                    TextBox: TextBox_1.default,
-                    CheckBox: CheckBox_1.default,
-                    RockButton: RockButton_1.default,
-                    Alert: Alert_1.default
+                    TextBox: textBox_1.default,
+                    CheckBox: checkBox_1.default,
+                    RockButton: rockButton_1.default,
+                    Alert: alert_1.default
                 },
                 setup() {
                     return {

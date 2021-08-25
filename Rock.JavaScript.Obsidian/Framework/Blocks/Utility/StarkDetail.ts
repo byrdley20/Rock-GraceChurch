@@ -16,10 +16,10 @@
 //
 
 import { defineComponent } from 'vue';
-import { standardBlockSetup } from '../../Controls/RockBlock';
-import Alert from '../../Elements/Alert';
-import RockButton from '../../Elements/RockButton';
-import PaneledBlockTemplate from '../../Templates/PaneledBlockTemplate';
+import { standardBlockSetup } from '../../Controls/rockBlock';
+import Alert from '../../Elements/alert';
+import RockButton from '../../Elements/rockButton';
+import PaneledBlockTemplate from '../../Templates/paneledBlockTemplate';
 
 /** An example block */
 const StarkDetailOptions = defineComponent( {

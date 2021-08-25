@@ -60,6 +60,12 @@ module.exports = {
                 modifiers: ["exported"]
             },
 
+            // Enum members should be PascalCase as it is similar to a type.
+            {
+                selector: ["enumMember"],
+                format: ["PascalCase"]
+            },
+
             // Interfaces must be prefixed with a capital I.
             {
                 selector: ["interface"],

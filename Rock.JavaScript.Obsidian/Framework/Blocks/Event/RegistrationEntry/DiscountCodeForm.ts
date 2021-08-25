@@ -16,11 +16,11 @@
 //
 
 import { defineComponent, inject } from 'vue';
-import { InvokeBlockActionFunc } from '../../../Controls/RockBlock';
-import Alert from '../../../Elements/Alert';
-import RockButton from '../../../Elements/RockButton';
-import TextBox from '../../../Elements/TextBox';
-import { asFormattedString } from '@Obsidian/Services/Number';
+import { InvokeBlockActionFunc } from '../../../Controls/rockBlock';
+import Alert from '../../../Elements/alert';
+import RockButton from '../../../Elements/rockButton';
+import TextBox from '../../../Elements/textBox';
+import { asFormattedString } from '@Obsidian/Services/number';
 import { RegistrationEntryState } from '../RegistrationEntry';
 import {  RegistrationEntryBlockViewModel } from './RegistrationEntryBlockViewModel';
 

@@ -16,9 +16,9 @@
 //
 
 import { computed, defineComponent, PropType, reactive, watch } from 'vue';
-import RockField from '../../../Controls/RockField';
-import Alert from '../../../Elements/Alert';
-import { Guid } from '../../../Util/Guid';
+import RockField from '../../../Controls/rockField';
+import Alert from '../../../Elements/alert';
+import { Guid } from '../../../Util/guid';
 import { ComparisonType, FilterExpressionType, RegistrationEntryBlockFormFieldRuleViewModel, RegistrationEntryBlockFormFieldViewModel } from './RegistrationEntryBlockViewModel';
 
 function isRuleMet(rule: RegistrationEntryBlockFormFieldRuleViewModel, fieldValues: Record<Guid, unknown>) {

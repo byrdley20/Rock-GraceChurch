@@ -1,4 +1,4 @@
-System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Store/Index", "../../Controls/Grid", "../../Controls/GridRow", "../../Controls/GridColumn", "../../Controls/GridSelectColumn", "../../Controls/GridProfileLinkColumn", "../../Elements/Alert"], function (exports_1, context_1) {
+System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Store/index", "../../Controls/grid", "../../Controls/gridRow", "../../Controls/gridColumn", "../../Controls/gridSelectColumn", "../../Controls/gridProfileLinkColumn", "../../Elements/alert"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,49 +9,49 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Store/Ind
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var PaneledBlockTemplate_1, vue_1, Index_1, Grid_1, GridRow_1, GridColumn_1, GridSelectColumn_1, GridProfileLinkColumn_1, Alert_1;
+    var paneledBlockTemplate_1, vue_1, index_1, grid_1, gridRow_1, gridColumn_1, gridSelectColumn_1, gridProfileLinkColumn_1, alert_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
-            function (PaneledBlockTemplate_1_1) {
-                PaneledBlockTemplate_1 = PaneledBlockTemplate_1_1;
+            function (paneledBlockTemplate_1_1) {
+                paneledBlockTemplate_1 = paneledBlockTemplate_1_1;
             },
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (Index_1_1) {
-                Index_1 = Index_1_1;
+            function (index_1_1) {
+                index_1 = index_1_1;
             },
-            function (Grid_1_1) {
-                Grid_1 = Grid_1_1;
+            function (grid_1_1) {
+                grid_1 = grid_1_1;
             },
-            function (GridRow_1_1) {
-                GridRow_1 = GridRow_1_1;
+            function (gridRow_1_1) {
+                gridRow_1 = gridRow_1_1;
             },
-            function (GridColumn_1_1) {
-                GridColumn_1 = GridColumn_1_1;
+            function (gridColumn_1_1) {
+                gridColumn_1 = gridColumn_1_1;
             },
-            function (GridSelectColumn_1_1) {
-                GridSelectColumn_1 = GridSelectColumn_1_1;
+            function (gridSelectColumn_1_1) {
+                gridSelectColumn_1 = gridSelectColumn_1_1;
             },
-            function (GridProfileLinkColumn_1_1) {
-                GridProfileLinkColumn_1 = GridProfileLinkColumn_1_1;
+            function (gridProfileLinkColumn_1_1) {
+                gridProfileLinkColumn_1 = gridProfileLinkColumn_1_1;
             },
-            function (Alert_1_1) {
-                Alert_1 = Alert_1_1;
+            function (alert_1_1) {
+                alert_1 = alert_1_1;
             }
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
                 name: 'Groups.GroupMemberList',
                 components: {
-                    PaneledBlockTemplate: PaneledBlockTemplate_1.default,
-                    Alert: Alert_1.default,
-                    Grid: Grid_1.default,
-                    GridRow: GridRow_1.default,
-                    GridColumn: GridColumn_1.default,
-                    GridSelectColumn: GridSelectColumn_1.default,
-                    GridProfileLinkColumn: GridProfileLinkColumn_1.default
+                    PaneledBlockTemplate: paneledBlockTemplate_1.default,
+                    Alert: alert_1.default,
+                    Grid: grid_1.default,
+                    GridRow: gridRow_1.default,
+                    GridColumn: gridColumn_1.default,
+                    GridSelectColumn: gridSelectColumn_1.default,
+                    GridProfileLinkColumn: gridProfileLinkColumn_1.default
                 },
                 setup() {
                     return {
@@ -64,14 +64,14 @@ System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Store/Ind
                         errorMessage: '',
                         members: [],
                         sortProperty: {
-                            direction: Grid_1.SortDirection.Ascending,
+                            direction: grid_1.SortDirection.Ascending,
                             property: ''
                         }
                     };
                 },
                 computed: {
                     groupId() {
-                        return (Index_1.default.getters.groupContext || {}).id || 0;
+                        return (index_1.default.getters.groupContext || {}).id || 0;
                     },
                 },
                 methods: {

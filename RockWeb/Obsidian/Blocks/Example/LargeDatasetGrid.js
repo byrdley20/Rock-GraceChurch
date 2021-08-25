@@ -1,41 +1,41 @@
-System.register(["../../Templates/PaneledBlockTemplate", "vue", "../../Controls/GridRow", "../../Controls/GridColumn", "../../Controls/GridProfileLinkColumn", "../../Controls/BlockActionSourcedGrid", "../../Controls/Dialog"], function (exports_1, context_1) {
+System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Controls/gridRow", "../../Controls/gridColumn", "../../Controls/gridProfileLinkColumn", "../../Controls/blockActionSourcedGrid", "../../Controls/dialog"], function (exports_1, context_1) {
     "use strict";
-    var PaneledBlockTemplate_1, vue_1, GridRow_1, GridColumn_1, GridProfileLinkColumn_1, BlockActionSourcedGrid_1, Dialog_1;
+    var paneledBlockTemplate_1, vue_1, gridRow_1, gridColumn_1, gridProfileLinkColumn_1, blockActionSourcedGrid_1, dialog_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
-            function (PaneledBlockTemplate_1_1) {
-                PaneledBlockTemplate_1 = PaneledBlockTemplate_1_1;
+            function (paneledBlockTemplate_1_1) {
+                paneledBlockTemplate_1 = paneledBlockTemplate_1_1;
             },
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (GridRow_1_1) {
-                GridRow_1 = GridRow_1_1;
+            function (gridRow_1_1) {
+                gridRow_1 = gridRow_1_1;
             },
-            function (GridColumn_1_1) {
-                GridColumn_1 = GridColumn_1_1;
+            function (gridColumn_1_1) {
+                gridColumn_1 = gridColumn_1_1;
             },
-            function (GridProfileLinkColumn_1_1) {
-                GridProfileLinkColumn_1 = GridProfileLinkColumn_1_1;
+            function (gridProfileLinkColumn_1_1) {
+                gridProfileLinkColumn_1 = gridProfileLinkColumn_1_1;
             },
-            function (BlockActionSourcedGrid_1_1) {
-                BlockActionSourcedGrid_1 = BlockActionSourcedGrid_1_1;
+            function (blockActionSourcedGrid_1_1) {
+                blockActionSourcedGrid_1 = blockActionSourcedGrid_1_1;
             },
-            function (Dialog_1_1) {
-                Dialog_1 = Dialog_1_1;
+            function (dialog_1_1) {
+                dialog_1 = dialog_1_1;
             }
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
                 name: 'Example.LargeDatasetGrid',
                 components: {
-                    PaneledBlockTemplate: PaneledBlockTemplate_1.default,
-                    BlockActionSourcedGrid: BlockActionSourcedGrid_1.default,
-                    GridColumn: GridColumn_1.default,
-                    GridRow: GridRow_1.default,
-                    GridProfileLinkColumn: GridProfileLinkColumn_1.default,
-                    Dialog: Dialog_1.default
+                    PaneledBlockTemplate: paneledBlockTemplate_1.default,
+                    BlockActionSourcedGrid: blockActionSourcedGrid_1.default,
+                    GridColumn: gridColumn_1.default,
+                    GridRow: gridRow_1.default,
+                    GridProfileLinkColumn: gridProfileLinkColumn_1.default,
+                    Dialog: dialog_1.default
                 },
                 data() {
                     return {

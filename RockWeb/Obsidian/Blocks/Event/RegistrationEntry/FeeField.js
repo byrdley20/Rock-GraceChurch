@@ -1,43 +1,43 @@
-System.register(["vue", "../../../Elements/Alert", "../../../Elements/CheckBox", "../../../Elements/DropDownList", "../../../Elements/NumberUpDown", "../../../Elements/NumberUpDownGroup", "@Obsidian/Services/Number", "../../../Util/Guid"], function (exports_1, context_1) {
+System.register(["vue", "../../../Elements/alert", "../../../Elements/checkBox", "../../../Elements/dropDownList", "../../../Elements/numberUpDown", "../../../Elements/numberUpDownGroup", "@Obsidian/Services/number", "../../../Util/guid"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, Alert_1, CheckBox_1, DropDownList_1, NumberUpDown_1, NumberUpDownGroup_1, Number_1, Guid_1;
+    var vue_1, alert_1, checkBox_1, dropDownList_1, numberUpDown_1, numberUpDownGroup_1, number_1, guid_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (Alert_1_1) {
-                Alert_1 = Alert_1_1;
+            function (alert_1_1) {
+                alert_1 = alert_1_1;
             },
-            function (CheckBox_1_1) {
-                CheckBox_1 = CheckBox_1_1;
+            function (checkBox_1_1) {
+                checkBox_1 = checkBox_1_1;
             },
-            function (DropDownList_1_1) {
-                DropDownList_1 = DropDownList_1_1;
+            function (dropDownList_1_1) {
+                dropDownList_1 = dropDownList_1_1;
             },
-            function (NumberUpDown_1_1) {
-                NumberUpDown_1 = NumberUpDown_1_1;
+            function (numberUpDown_1_1) {
+                numberUpDown_1 = numberUpDown_1_1;
             },
-            function (NumberUpDownGroup_1_1) {
-                NumberUpDownGroup_1 = NumberUpDownGroup_1_1;
+            function (numberUpDownGroup_1_1) {
+                numberUpDownGroup_1 = numberUpDownGroup_1_1;
             },
-            function (Number_1_1) {
-                Number_1 = Number_1_1;
+            function (number_1_1) {
+                number_1 = number_1_1;
             },
-            function (Guid_1_1) {
-                Guid_1 = Guid_1_1;
+            function (guid_1_1) {
+                guid_1 = guid_1_1;
             }
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
                 name: 'Event.RegistrationEntry.FeeField',
                 components: {
-                    NumberUpDown: NumberUpDown_1.default,
-                    NumberUpDownGroup: NumberUpDownGroup_1.default,
-                    DropDownList: DropDownList_1.default,
-                    CheckBox: CheckBox_1.default,
-                    Alert: Alert_1.default
+                    NumberUpDown: numberUpDown_1.default,
+                    NumberUpDownGroup: numberUpDownGroup_1.default,
+                    DropDownList: dropDownList_1.default,
+                    CheckBox: checkBox_1.default,
+                    Alert: alert_1.default
                 },
                 props: {
                     modelValue: {
@@ -57,9 +57,9 @@ System.register(["vue", "../../../Elements/Alert", "../../../Elements/CheckBox",
                 },
                 methods: {
                     getItemLabel(item) {
-                        const formattedCost = Number_1.default.asFormattedString(item.cost, 2);
+                        const formattedCost = number_1.default.asFormattedString(item.cost, 2);
                         if (item.countRemaining) {
-                            const formattedRemaining = Number_1.default.asFormattedString(item.countRemaining, 0);
+                            const formattedRemaining = number_1.default.asFormattedString(item.countRemaining, 0);
                             return `${item.name} ($${formattedCost}) (${formattedRemaining} remaining)`;
                         }
                         return `${item.name} ($${formattedCost})`;
@@ -68,7 +68,7 @@ System.register(["vue", "../../../Elements/Alert", "../../../Elements/CheckBox",
                 computed: {
                     label() {
                         if (this.singleItem) {
-                            const formattedCost = Number_1.default.asFormattedString(this.singleItem.cost, 2);
+                            const formattedCost = number_1.default.asFormattedString(this.singleItem.cost, 2);
                             return `${this.fee.name} ($${formattedCost})`;
                         }
                         return this.fee.name;
@@ -145,7 +145,7 @@ System.register(["vue", "../../../Elements/Alert", "../../../Elements/CheckBox",
                     },
                     dropDownValue() {
                         for (const item of this.fee.items) {
-                            const isSelected = Guid_1.default.areEqual(this.dropDownValue, item.guid);
+                            const isSelected = guid_1.default.areEqual(this.dropDownValue, item.guid);
                             this.modelValue[item.guid] = isSelected ? 1 : 0;
                         }
                     },

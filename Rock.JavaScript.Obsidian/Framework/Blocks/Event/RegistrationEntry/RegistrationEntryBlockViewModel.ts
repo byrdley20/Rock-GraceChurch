@@ -15,11 +15,11 @@
 // </copyright>
 //
 
-import { GatewayControlModel } from '../../../Controls/GatewayControl';
-import { Guid } from '../../../Util/Guid';
+import { GatewayControlModel } from '../../../Controls/gatewayControl';
+import { Guid } from '../../../Util/guid';
 import { ClientEditableAttributeValue } from '@Obsidian/ViewModels';
 import { RegistrationEntryBlockSession } from './RegistrationEntryBlockArgs';
-import { DropDownListOption } from '../../../Elements/DropDownList';
+import { DropDownListOption } from '../../../Elements/dropDownList';
 
 export enum RegistrationPersonFieldType
 {

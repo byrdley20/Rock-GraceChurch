@@ -14,7 +14,7 @@
 // limitations under the License.
 // </copyright>
 //
-import { Guid } from "../Util/Guid";
+import { Guid } from "../Util/guid";
 import ClientAttributeValue from "./clientAttributeValue";
 
 export interface Entity {

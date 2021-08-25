@@ -1198,7 +1198,7 @@ namespace Rock.ViewModel
                     if ( type == typeof( Guid ) )
                     {
                         tsType = "Guid";
-                        imports.Add( "import { Guid } from '../../Util/Guid';" );
+                        imports.Add( "import { Guid } from '../../Util/guid';" );
                     }
                     else if ( type.IsArray )
                     {

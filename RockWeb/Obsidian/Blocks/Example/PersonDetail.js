@@ -1,4 +1,4 @@
-System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../../Elements/RockButton", "../../Elements/TextBox", "vue", "../../Store/Index", "../../Elements/EmailBox", "../../Controls/RockValidation", "../../Controls/RockForm", "../../Controls/Loading", "../../Controls/PrimaryBlock", "@Obsidian/Services/Date", "../../Elements/DatePicker", "../../Controls/AddressControl", "@Obsidian/Services/Number"], function (exports_1, context_1) {
+System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../../Elements/rockButton", "../../Elements/textBox", "vue", "../../Store/index", "../../Elements/emailBox", "../../Controls/rockValidation", "../../Controls/rockForm", "../../Controls/loading", "../../Controls/primaryBlock", "@Obsidian/Services/date", "../../Elements/datePicker", "../../Controls/addressControl", "@Obsidian/Services/number"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,70 +9,70 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var Bus_1, PaneledBlockTemplate_1, RockButton_1, TextBox_1, vue_1, Index_1, EmailBox_1, RockValidation_1, RockForm_1, Loading_1, PrimaryBlock_1, Date_1, DatePicker_1, AddressControl_1, Number_1;
+    var bus_1, paneledBlockTemplate_1, rockButton_1, textBox_1, vue_1, index_1, emailBox_1, rockValidation_1, rockForm_1, loading_1, primaryBlock_1, date_1, datePicker_1, addressControl_1, number_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
-            function (Bus_1_1) {
-                Bus_1 = Bus_1_1;
+            function (bus_1_1) {
+                bus_1 = bus_1_1;
             },
-            function (PaneledBlockTemplate_1_1) {
-                PaneledBlockTemplate_1 = PaneledBlockTemplate_1_1;
+            function (paneledBlockTemplate_1_1) {
+                paneledBlockTemplate_1 = paneledBlockTemplate_1_1;
             },
-            function (RockButton_1_1) {
-                RockButton_1 = RockButton_1_1;
+            function (rockButton_1_1) {
+                rockButton_1 = rockButton_1_1;
             },
-            function (TextBox_1_1) {
-                TextBox_1 = TextBox_1_1;
+            function (textBox_1_1) {
+                textBox_1 = textBox_1_1;
             },
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (Index_1_1) {
-                Index_1 = Index_1_1;
+            function (index_1_1) {
+                index_1 = index_1_1;
             },
-            function (EmailBox_1_1) {
-                EmailBox_1 = EmailBox_1_1;
+            function (emailBox_1_1) {
+                emailBox_1 = emailBox_1_1;
             },
-            function (RockValidation_1_1) {
-                RockValidation_1 = RockValidation_1_1;
+            function (rockValidation_1_1) {
+                rockValidation_1 = rockValidation_1_1;
             },
-            function (RockForm_1_1) {
-                RockForm_1 = RockForm_1_1;
+            function (rockForm_1_1) {
+                rockForm_1 = rockForm_1_1;
             },
-            function (Loading_1_1) {
-                Loading_1 = Loading_1_1;
+            function (loading_1_1) {
+                loading_1 = loading_1_1;
             },
-            function (PrimaryBlock_1_1) {
-                PrimaryBlock_1 = PrimaryBlock_1_1;
+            function (primaryBlock_1_1) {
+                primaryBlock_1 = primaryBlock_1_1;
             },
-            function (Date_1_1) {
-                Date_1 = Date_1_1;
+            function (date_1_1) {
+                date_1 = date_1_1;
             },
-            function (DatePicker_1_1) {
-                DatePicker_1 = DatePicker_1_1;
+            function (datePicker_1_1) {
+                datePicker_1 = datePicker_1_1;
             },
-            function (AddressControl_1_1) {
-                AddressControl_1 = AddressControl_1_1;
+            function (addressControl_1_1) {
+                addressControl_1 = addressControl_1_1;
             },
-            function (Number_1_1) {
-                Number_1 = Number_1_1;
+            function (number_1_1) {
+                number_1 = number_1_1;
             }
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
                 name: 'Example.PersonDetail',
                 components: {
-                    PaneledBlockTemplate: PaneledBlockTemplate_1.default,
-                    RockButton: RockButton_1.default,
-                    TextBox: TextBox_1.default,
-                    EmailBox: EmailBox_1.default,
-                    RockValidation: RockValidation_1.default,
-                    RockForm: RockForm_1.default,
-                    Loading: Loading_1.default,
-                    PrimaryBlock: PrimaryBlock_1.default,
-                    DatePicker: DatePicker_1.default,
-                    AddressControl: AddressControl_1.default
+                    PaneledBlockTemplate: paneledBlockTemplate_1.default,
+                    RockButton: rockButton_1.default,
+                    TextBox: textBox_1.default,
+                    EmailBox: emailBox_1.default,
+                    RockValidation: rockValidation_1.default,
+                    RockForm: rockForm_1.default,
+                    Loading: loading_1.default,
+                    PrimaryBlock: primaryBlock_1.default,
+                    DatePicker: datePicker_1.default,
+                    AddressControl: addressControl_1.default
                 },
                 setup() {
                     return {
@@ -88,7 +88,7 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                         receivedMessage: '',
                         isLoading: false,
                         birthdate: null,
-                        address: AddressControl_1.getDefaultAddressControlModel()
+                        address: addressControl_1.getDefaultAddressControlModel()
                     };
                 },
                 methods: {
@@ -97,7 +97,7 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                     },
                     doEdit() {
                         this.personForEditing = this.person ? Object.assign({}, this.person) : null;
-                        this.birthdate = this.birthdateOrNull ? Date_1.formatAspDate(this.birthdateOrNull, 'yyyy-MM-dd') : null;
+                        this.birthdate = this.birthdateOrNull ? date_1.formatAspDate(this.birthdateOrNull, 'yyyy-MM-dd') : null;
                         this.setIsEditMode(true);
                     },
                     doCancel() {
@@ -112,9 +112,9 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                                 let birthMonth = null;
                                 let birthYear = null;
                                 if (match !== null) {
-                                    birthYear = Number_1.toNumber(match[1]);
-                                    birthMonth = Number_1.toNumber(match[2]);
-                                    birthDay = Number_1.toNumber(match[3]);
+                                    birthYear = number_1.toNumber(match[1]);
+                                    birthMonth = number_1.toNumber(match[2]);
+                                    birthDay = number_1.toNumber(match[3]);
                                 }
                                 this.person = Object.assign(Object.assign({}, this.personForEditing), { birthDay: birthDay, birthMonth: birthMonth, birthYear: birthYear });
                                 this.isLoading = true;
@@ -127,7 +127,7 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                         });
                     },
                     doPublish() {
-                        Bus_1.default.publish('PersonDetail:Message', this.messageToPublish);
+                        bus_1.default.publish('PersonDetail:Message', this.messageToPublish);
                         this.messageToPublish = '';
                     },
                     receiveMessage(message) {
@@ -146,7 +146,7 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                         if (!this.birthdateOrNull) {
                             return 'Not Completed';
                         }
-                        return Date_1.asDateString(this.birthdateOrNull);
+                        return date_1.asDateString(this.birthdateOrNull);
                     },
                     blockTitle() {
                         return this.person ?
@@ -154,7 +154,7 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                             '';
                     },
                     currentPerson() {
-                        return Index_1.default.state.currentPerson;
+                        return index_1.default.state.currentPerson;
                     },
                     currentPersonGuid() {
                         return this.currentPerson ? this.currentPerson.guid : null;
@@ -180,7 +180,7 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                     }
                 },
                 created() {
-                    Bus_1.default.subscribe('PersonSecondary:Message', this.receiveMessage);
+                    bus_1.default.subscribe('PersonSecondary:Message', this.receiveMessage);
                 },
                 template: `
 <PrimaryBlock :hideSecondaryBlocks="isEditMode">

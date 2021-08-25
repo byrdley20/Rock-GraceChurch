@@ -16,12 +16,12 @@
 //
 
 import { defineComponent, inject } from 'vue';
-import Loading from '../../../Controls/Loading';
-import { InvokeBlockActionFunc } from '../../../Controls/RockBlock';
-import CurrencyBox from '../../../Elements/CurrencyBox';
-import HelpBlock from '../../../Elements/HelpBlock';
-import { ruleArrayToString } from '../../../Rules/Index';
-import { asFormattedString } from '@Obsidian/Services/Number';
+import Loading from '../../../Controls/loading';
+import { InvokeBlockActionFunc } from '../../../Controls/rockBlock';
+import CurrencyBox from '../../../Elements/currencyBox';
+import HelpBlock from '../../../Elements/helpBlock';
+import { ruleArrayToString } from '../../../Rules/index';
+import { asFormattedString } from '@Obsidian/Services/number';
 import { RegistrationEntryState } from '../RegistrationEntry';
 import { RegistrationEntryBlockArgs } from './RegistrationEntryBlockArgs';
 

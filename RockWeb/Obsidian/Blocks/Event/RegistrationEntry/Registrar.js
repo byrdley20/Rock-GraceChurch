@@ -1,26 +1,26 @@
-System.register(["vue", "../../../Elements/CheckBox", "../../../Elements/EmailBox", "../../../Elements/RadioButtonList", "../../../Elements/StaticFormControl", "../../../Elements/TextBox", "../RegistrationEntry", "./RegistrationEntryBlockViewModel"], function (exports_1, context_1) {
+System.register(["vue", "../../../Elements/checkBox", "../../../Elements/emailBox", "../../../Elements/radioButtonList", "../../../Elements/staticFormControl", "../../../Elements/textBox", "../RegistrationEntry", "./RegistrationEntryBlockViewModel"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, CheckBox_1, EmailBox_1, RadioButtonList_1, StaticFormControl_1, TextBox_1, RegistrationEntry_1, RegistrationEntryBlockViewModel_1;
+    var vue_1, checkBox_1, emailBox_1, radioButtonList_1, staticFormControl_1, textBox_1, RegistrationEntry_1, RegistrationEntryBlockViewModel_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (CheckBox_1_1) {
-                CheckBox_1 = CheckBox_1_1;
+            function (checkBox_1_1) {
+                checkBox_1 = checkBox_1_1;
             },
-            function (EmailBox_1_1) {
-                EmailBox_1 = EmailBox_1_1;
+            function (emailBox_1_1) {
+                emailBox_1 = emailBox_1_1;
             },
-            function (RadioButtonList_1_1) {
-                RadioButtonList_1 = RadioButtonList_1_1;
+            function (radioButtonList_1_1) {
+                radioButtonList_1 = radioButtonList_1_1;
             },
-            function (StaticFormControl_1_1) {
-                StaticFormControl_1 = StaticFormControl_1_1;
+            function (staticFormControl_1_1) {
+                staticFormControl_1 = staticFormControl_1_1;
             },
-            function (TextBox_1_1) {
-                TextBox_1 = TextBox_1_1;
+            function (textBox_1_1) {
+                textBox_1 = textBox_1_1;
             },
             function (RegistrationEntry_1_1) {
                 RegistrationEntry_1 = RegistrationEntry_1_1;
@@ -33,11 +33,11 @@ System.register(["vue", "../../../Elements/CheckBox", "../../../Elements/EmailBo
             exports_1("default", vue_1.defineComponent({
                 name: 'Event.RegistrationEntry.Registrar',
                 components: {
-                    TextBox: TextBox_1.default,
-                    CheckBox: CheckBox_1.default,
-                    EmailBox: EmailBox_1.default,
-                    StaticFormControl: StaticFormControl_1.default,
-                    RadioButtonList: RadioButtonList_1.default
+                    TextBox: textBox_1.default,
+                    CheckBox: checkBox_1.default,
+                    EmailBox: emailBox_1.default,
+                    StaticFormControl: staticFormControl_1.default,
+                    RadioButtonList: radioButtonList_1.default
                 },
                 setup() {
                     return {

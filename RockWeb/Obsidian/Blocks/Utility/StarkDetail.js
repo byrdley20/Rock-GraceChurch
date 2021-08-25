@@ -1,4 +1,4 @@
-System.register(["vue", "../../Controls/RockBlock", "../../Elements/Alert", "../../Elements/RockButton", "../../Templates/PaneledBlockTemplate"], function (exports_1, context_1) {
+System.register(["vue", "../../Controls/rockBlock", "../../Elements/alert", "../../Elements/rockButton", "../../Templates/paneledBlockTemplate"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,34 +9,34 @@ System.register(["vue", "../../Controls/RockBlock", "../../Elements/Alert", "../
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var vue_1, RockBlock_1, Alert_1, RockButton_1, PaneledBlockTemplate_1, StarkDetailOptions;
+    var vue_1, rockBlock_1, alert_1, rockButton_1, paneledBlockTemplate_1, StarkDetailOptions;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (RockBlock_1_1) {
-                RockBlock_1 = RockBlock_1_1;
+            function (rockBlock_1_1) {
+                rockBlock_1 = rockBlock_1_1;
             },
-            function (Alert_1_1) {
-                Alert_1 = Alert_1_1;
+            function (alert_1_1) {
+                alert_1 = alert_1_1;
             },
-            function (RockButton_1_1) {
-                RockButton_1 = RockButton_1_1;
+            function (rockButton_1_1) {
+                rockButton_1 = rockButton_1_1;
             },
-            function (PaneledBlockTemplate_1_1) {
-                PaneledBlockTemplate_1 = PaneledBlockTemplate_1_1;
+            function (paneledBlockTemplate_1_1) {
+                paneledBlockTemplate_1 = paneledBlockTemplate_1_1;
             }
         ],
         execute: function () {
             StarkDetailOptions = vue_1.defineComponent({
                 name: 'Utility.StarkDetailOptions',
-                setup: RockBlock_1.standardBlockSetup,
+                setup: rockBlock_1.standardBlockSetup,
                 components: {
-                    PaneledBlockTemplate: PaneledBlockTemplate_1.default,
-                    Alert: Alert_1.default,
-                    RockButton: RockButton_1.default
+                    PaneledBlockTemplate: paneledBlockTemplate_1.default,
+                    Alert: alert_1.default,
+                    RockButton: rockButton_1.default
                 },
                 data() {
                     return {

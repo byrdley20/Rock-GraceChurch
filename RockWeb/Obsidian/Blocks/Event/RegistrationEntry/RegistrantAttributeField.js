@@ -1,6 +1,6 @@
-System.register(["vue", "../../../Controls/RockField", "../../../Elements/Alert", "./RegistrationEntryBlockViewModel"], function (exports_1, context_1) {
+System.register(["vue", "../../../Controls/rockField", "../../../Elements/alert", "./RegistrationEntryBlockViewModel"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, RockField_1, Alert_1, RegistrationEntryBlockViewModel_1;
+    var vue_1, rockField_1, alert_1, RegistrationEntryBlockViewModel_1;
     var __moduleName = context_1 && context_1.id;
     function isRuleMet(rule, fieldValues) {
         const value = fieldValues[rule.comparedToRegistrationTemplateFormFieldGuid] || '';
@@ -29,11 +29,11 @@ System.register(["vue", "../../../Controls/RockField", "../../../Elements/Alert"
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (RockField_1_1) {
-                RockField_1 = RockField_1_1;
+            function (rockField_1_1) {
+                rockField_1 = rockField_1_1;
             },
-            function (Alert_1_1) {
-                Alert_1 = Alert_1_1;
+            function (alert_1_1) {
+                alert_1 = alert_1_1;
             },
             function (RegistrationEntryBlockViewModel_1_1) {
                 RegistrationEntryBlockViewModel_1 = RegistrationEntryBlockViewModel_1_1;
@@ -43,8 +43,8 @@ System.register(["vue", "../../../Controls/RockField", "../../../Elements/Alert"
             exports_1("default", vue_1.defineComponent({
                 name: 'Event.RegistrationEntry.RegistrantAttributeField',
                 components: {
-                    Alert: Alert_1.default,
-                    RockField: RockField_1.default
+                    Alert: alert_1.default,
+                    RockField: rockField_1.default
                 },
                 props: {
                     field: {

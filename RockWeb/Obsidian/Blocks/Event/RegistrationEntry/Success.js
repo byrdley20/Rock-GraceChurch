@@ -1,21 +1,21 @@
-System.register(["vue", "../../../Controls/SaveFinancialAccountForm"], function (exports_1, context_1) {
+System.register(["vue", "../../../Controls/saveFinancialAccountForm"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, SaveFinancialAccountForm_1;
+    var vue_1, saveFinancialAccountForm_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (SaveFinancialAccountForm_1_1) {
-                SaveFinancialAccountForm_1 = SaveFinancialAccountForm_1_1;
+            function (saveFinancialAccountForm_1_1) {
+                saveFinancialAccountForm_1 = saveFinancialAccountForm_1_1;
             }
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
                 name: 'Event.RegistrationEntry.Success',
                 components: {
-                    SaveFinancialAccountForm: SaveFinancialAccountForm_1.default
+                    SaveFinancialAccountForm: saveFinancialAccountForm_1.default
                 },
                 setup() {
                     return {

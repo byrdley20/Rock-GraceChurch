@@ -16,13 +16,13 @@
 //
 
 import { defineComponent, inject } from 'vue';
-import CheckBox from '../../../Elements/CheckBox';
-import { DropDownListOption } from '../../../Elements/DropDownList';
-import EmailBox from '../../../Elements/EmailBox';
-import RadioButtonList from '../../../Elements/RadioButtonList';
-import StaticFormControl from '../../../Elements/StaticFormControl';
-import TextBox from '../../../Elements/TextBox';
-import { Guid } from '../../../Util/Guid';
+import CheckBox from '../../../Elements/checkBox';
+import { DropDownListOption } from '../../../Elements/dropDownList';
+import EmailBox from '../../../Elements/emailBox';
+import RadioButtonList from '../../../Elements/radioButtonList';
+import StaticFormControl from '../../../Elements/staticFormControl';
+import TextBox from '../../../Elements/textBox';
+import { Guid } from '../../../Util/guid';
 import { Person } from '@Obsidian/ViewModels';
 import { getRegistrantBasicInfo, RegistrantBasicInfo, RegistrationEntryState } from '../RegistrationEntry';
 import { RegistrationEntryBlockArgs } from './RegistrationEntryBlockArgs';

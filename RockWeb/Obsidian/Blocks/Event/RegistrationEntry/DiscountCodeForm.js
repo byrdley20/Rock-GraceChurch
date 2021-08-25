@@ -1,4 +1,4 @@
-System.register(["vue", "../../../Elements/Alert", "../../../Elements/RockButton", "../../../Elements/TextBox", "@Obsidian/Services/Number"], function (exports_1, context_1) {
+System.register(["vue", "../../../Elements/alert", "../../../Elements/rockButton", "../../../Elements/textBox", "@Obsidian/Services/number"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,33 +9,33 @@ System.register(["vue", "../../../Elements/Alert", "../../../Elements/RockButton
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var vue_1, Alert_1, RockButton_1, TextBox_1, Number_1;
+    var vue_1, alert_1, rockButton_1, textBox_1, number_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (Alert_1_1) {
-                Alert_1 = Alert_1_1;
+            function (alert_1_1) {
+                alert_1 = alert_1_1;
             },
-            function (RockButton_1_1) {
-                RockButton_1 = RockButton_1_1;
+            function (rockButton_1_1) {
+                rockButton_1 = rockButton_1_1;
             },
-            function (TextBox_1_1) {
-                TextBox_1 = TextBox_1_1;
+            function (textBox_1_1) {
+                textBox_1 = textBox_1_1;
             },
-            function (Number_1_1) {
-                Number_1 = Number_1_1;
+            function (number_1_1) {
+                number_1 = number_1_1;
             }
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
                 name: 'Event.RegistrationEntry.DiscountCodeForm',
                 components: {
-                    RockButton: RockButton_1.default,
-                    TextBox: TextBox_1.default,
-                    Alert: Alert_1.default
+                    RockButton: rockButton_1.default,
+                    TextBox: textBox_1.default,
+                    Alert: alert_1.default
                 },
                 setup() {
                     return {
@@ -58,8 +58,8 @@ System.register(["vue", "../../../Elements/Alert", "../../../Elements/RockButton
                             return '';
                         }
                         const discountText = discountPercent ?
-                            `${Number_1.asFormattedString(discountPercent * 100, 0)}%` :
-                            `$${Number_1.asFormattedString(discountAmount, 2)}`;
+                            `${number_1.asFormattedString(discountPercent * 100, 0)}%` :
+                            `$${number_1.asFormattedString(discountAmount, 2)}`;
                         return `Your ${discountText} discount code for all registrants was successfully applied.`;
                     },
                     isDiscountPanelVisible() {

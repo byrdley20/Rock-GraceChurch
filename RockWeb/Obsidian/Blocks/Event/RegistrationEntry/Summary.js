@@ -1,4 +1,4 @@
-System.register(["vue", "../../../Controls/GatewayControl", "../../../Controls/RockForm", "../../../Controls/RockValidation", "../../../Elements/Alert", "../../../Elements/CheckBox", "../../../Elements/EmailBox", "../../../Elements/RockButton", "../RegistrationEntry", "./CostSummary", "./DiscountCodeForm", "./Registrar"], function (exports_1, context_1) {
+System.register(["vue", "../../../Controls/gatewayControl", "../../../Controls/rockForm", "../../../Controls/rockValidation", "../../../Elements/alert", "../../../Elements/checkBox", "../../../Elements/emailBox", "../../../Elements/rockButton", "../RegistrationEntry", "./CostSummary", "./DiscountCodeForm", "./Registrar"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,33 +9,33 @@ System.register(["vue", "../../../Controls/GatewayControl", "../../../Controls/R
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var vue_1, GatewayControl_1, RockForm_1, RockValidation_1, Alert_1, CheckBox_1, EmailBox_1, RockButton_1, RegistrationEntry_1, CostSummary_1, DiscountCodeForm_1, Registrar_1;
+    var vue_1, gatewayControl_1, rockForm_1, rockValidation_1, alert_1, checkBox_1, emailBox_1, rockButton_1, RegistrationEntry_1, CostSummary_1, DiscountCodeForm_1, Registrar_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (GatewayControl_1_1) {
-                GatewayControl_1 = GatewayControl_1_1;
+            function (gatewayControl_1_1) {
+                gatewayControl_1 = gatewayControl_1_1;
             },
-            function (RockForm_1_1) {
-                RockForm_1 = RockForm_1_1;
+            function (rockForm_1_1) {
+                rockForm_1 = rockForm_1_1;
             },
-            function (RockValidation_1_1) {
-                RockValidation_1 = RockValidation_1_1;
+            function (rockValidation_1_1) {
+                rockValidation_1 = rockValidation_1_1;
             },
-            function (Alert_1_1) {
-                Alert_1 = Alert_1_1;
+            function (alert_1_1) {
+                alert_1 = alert_1_1;
             },
-            function (CheckBox_1_1) {
-                CheckBox_1 = CheckBox_1_1;
+            function (checkBox_1_1) {
+                checkBox_1 = checkBox_1_1;
             },
-            function (EmailBox_1_1) {
-                EmailBox_1 = EmailBox_1_1;
+            function (emailBox_1_1) {
+                emailBox_1 = emailBox_1_1;
             },
-            function (RockButton_1_1) {
-                RockButton_1 = RockButton_1_1;
+            function (rockButton_1_1) {
+                rockButton_1 = rockButton_1_1;
             },
             function (RegistrationEntry_1_1) {
                 RegistrationEntry_1 = RegistrationEntry_1_1;
@@ -54,13 +54,13 @@ System.register(["vue", "../../../Controls/GatewayControl", "../../../Controls/R
             exports_1("default", vue_1.defineComponent({
                 name: 'Event.RegistrationEntry.Summary',
                 components: {
-                    RockButton: RockButton_1.default,
-                    CheckBox: CheckBox_1.default,
-                    EmailBox: EmailBox_1.default,
-                    RockForm: RockForm_1.default,
-                    Alert: Alert_1.default,
-                    GatewayControl: GatewayControl_1.default,
-                    RockValidation: RockValidation_1.default,
+                    RockButton: rockButton_1.default,
+                    CheckBox: checkBox_1.default,
+                    EmailBox: emailBox_1.default,
+                    RockForm: rockForm_1.default,
+                    Alert: alert_1.default,
+                    GatewayControl: gatewayControl_1.default,
+                    RockValidation: rockValidation_1.default,
                     CostSummary: CostSummary_1.default,
                     Registrar: Registrar_1.default,
                     DiscountCodeForm: DiscountCodeForm_1.default

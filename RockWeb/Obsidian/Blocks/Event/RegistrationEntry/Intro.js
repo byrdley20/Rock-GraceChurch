@@ -1,26 +1,26 @@
-System.register(["vue", "../../../Elements/Alert", "../../../Elements/NumberUpDown", "../../../Elements/RockButton", "@Obsidian/Services/String", "../../../Util/Guid", "../RegistrationEntry"], function (exports_1, context_1) {
+System.register(["vue", "../../../Elements/alert", "../../../Elements/numberUpDown", "../../../Elements/rockButton", "@Obsidian/Services/string", "../../../Util/guid", "../RegistrationEntry"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, Alert_1, NumberUpDown_1, RockButton_1, String_1, Guid_1, RegistrationEntry_1;
+    var vue_1, alert_1, numberUpDown_1, rockButton_1, string_1, guid_1, RegistrationEntry_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (Alert_1_1) {
-                Alert_1 = Alert_1_1;
+            function (alert_1_1) {
+                alert_1 = alert_1_1;
             },
-            function (NumberUpDown_1_1) {
-                NumberUpDown_1 = NumberUpDown_1_1;
+            function (numberUpDown_1_1) {
+                numberUpDown_1 = numberUpDown_1_1;
             },
-            function (RockButton_1_1) {
-                RockButton_1 = RockButton_1_1;
+            function (rockButton_1_1) {
+                rockButton_1 = rockButton_1_1;
             },
-            function (String_1_1) {
-                String_1 = String_1_1;
+            function (string_1_1) {
+                string_1 = string_1_1;
             },
-            function (Guid_1_1) {
-                Guid_1 = Guid_1_1;
+            function (guid_1_1) {
+                guid_1 = guid_1_1;
             },
             function (RegistrationEntry_1_1) {
                 RegistrationEntry_1 = RegistrationEntry_1_1;
@@ -30,9 +30,9 @@ System.register(["vue", "../../../Elements/Alert", "../../../Elements/NumberUpDo
             exports_1("default", vue_1.defineComponent({
                 name: 'Event.RegistrationEntry.Intro',
                 components: {
-                    NumberUpDown: NumberUpDown_1.default,
-                    RockButton: RockButton_1.default,
-                    Alert: Alert_1.default
+                    NumberUpDown: numberUpDown_1.default,
+                    RockButton: rockButton_1.default,
+                    Alert: alert_1.default
                 },
                 data() {
                     const registrationEntryState = vue_1.inject('registrationEntryState');
@@ -63,7 +63,7 @@ System.register(["vue", "../../../Elements/Alert", "../../../Elements/NumberUpDo
                         if (spots === null) {
                             return '';
                         }
-                        return String_1.pluralConditional(spots, `1 more ${this.registrantTerm}`, `${spots} more ${this.registrantTermPlural}`);
+                        return string_1.pluralConditional(spots, `1 more ${this.registrantTerm}`, `${spots} more ${this.registrantTermPlural}`);
                     },
                     isFull() {
                         if (this.viewModel.spotsRemaining === null) {
@@ -85,18 +85,18 @@ System.register(["vue", "../../../Elements/Alert", "../../../Elements/NumberUpDo
                         return (this.viewModel.pluralRegistrationTerm || 'registrations').toLowerCase();
                     },
                     registrationTermTitleCase() {
-                        return String_1.toTitleCase(this.registrationTerm);
+                        return string_1.toTitleCase(this.registrationTerm);
                     }
                 },
                 methods: {
-                    pluralConditional: String_1.pluralConditional,
+                    pluralConditional: string_1.pluralConditional,
                     onNext() {
                         const forcedFamilyGuid = RegistrationEntry_1.getForcedFamilyGuid(this.currentPerson, this.viewModel);
                         const usedFamilyMemberGuids = this.registrationEntryState.registrants
                             .filter(r => r.personGuid)
                             .map(r => r.personGuid);
                         const availableFamilyMembers = this.viewModel.familyMembers
-                            .filter(fm => Guid_1.areEqual(fm.familyGuid, forcedFamilyGuid) &&
+                            .filter(fm => guid_1.areEqual(fm.familyGuid, forcedFamilyGuid) &&
                             !usedFamilyMemberGuids.includes(fm.guid));
                         while (this.numberOfRegistrants > this.registrationEntryState.registrants.length) {
                             const registrant = RegistrationEntry_1.getDefaultRegistrantInfo(this.currentPerson, this.viewModel, forcedFamilyGuid);

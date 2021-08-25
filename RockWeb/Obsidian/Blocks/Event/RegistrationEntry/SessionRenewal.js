@@ -1,4 +1,4 @@
-System.register(["vue", "../../../Controls/Dialog", "../../../Elements/LoadingIndicator", "../../../Elements/RockButton", "@Obsidian/Services/Number", "@Obsidian/Services/String"], function (exports_1, context_1) {
+System.register(["vue", "../../../Controls/dialog", "../../../Elements/loadingIndicator", "../../../Elements/rockButton", "@Obsidian/Services/number", "@Obsidian/Services/string"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,36 +9,36 @@ System.register(["vue", "../../../Controls/Dialog", "../../../Elements/LoadingIn
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var vue_1, Dialog_1, LoadingIndicator_1, RockButton_1, Number_1, String_1;
+    var vue_1, dialog_1, loadingIndicator_1, rockButton_1, number_1, string_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (Dialog_1_1) {
-                Dialog_1 = Dialog_1_1;
+            function (dialog_1_1) {
+                dialog_1 = dialog_1_1;
             },
-            function (LoadingIndicator_1_1) {
-                LoadingIndicator_1 = LoadingIndicator_1_1;
+            function (loadingIndicator_1_1) {
+                loadingIndicator_1 = loadingIndicator_1_1;
             },
-            function (RockButton_1_1) {
-                RockButton_1 = RockButton_1_1;
+            function (rockButton_1_1) {
+                rockButton_1 = rockButton_1_1;
             },
-            function (Number_1_1) {
-                Number_1 = Number_1_1;
+            function (number_1_1) {
+                number_1 = number_1_1;
             },
-            function (String_1_1) {
-                String_1 = String_1_1;
+            function (string_1_1) {
+                string_1 = string_1_1;
             }
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
                 name: 'Event.RegistrationEntry.SessionRenewal',
                 components: {
-                    Dialog: Dialog_1.default,
-                    LoadingIndicator: LoadingIndicator_1.default,
-                    RockButton: RockButton_1.default
+                    Dialog: dialog_1.default,
+                    LoadingIndicator: loadingIndicator_1.default,
+                    RockButton: rockButton_1.default
                 },
                 props: {
                     isSessionExpired: {
@@ -70,17 +70,17 @@ System.register(["vue", "../../../Controls/Dialog", "../../../Elements/LoadingIn
                         return this.registrationEntryState.registrants.filter(r => r.isOnWaitList).length;
                     },
                     waitlistRegistrantCountWord() {
-                        return Number_1.toWord(this.waitlistRegistrantCount);
+                        return number_1.toWord(this.waitlistRegistrantCount);
                     },
                     nonWaitlistRegistrantCount() {
                         return this.registrationEntryState.registrants.filter(r => !r.isOnWaitList).length;
                     },
                     nonWaitlistRegistrantCountWord() {
-                        return Number_1.toWord(this.nonWaitlistRegistrantCount);
+                        return number_1.toWord(this.nonWaitlistRegistrantCount);
                     }
                 },
                 methods: {
-                    pluralConditional: String_1.pluralConditional,
+                    pluralConditional: string_1.pluralConditional,
                     restart() {
                         this.isLoading = true;
                         location.reload();

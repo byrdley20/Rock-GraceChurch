@@ -14,24 +14,24 @@
 // limitations under the License.
 // </copyright>
 //
-import DropDownList, { DropDownListOption } from '../../Elements/DropDownList';
-import CurrencyBox from '../../Elements/CurrencyBox';
+import DropDownList, { DropDownListOption } from '../../Elements/dropDownList';
+import CurrencyBox from '../../Elements/currencyBox';
 import { defineComponent, inject } from 'vue';
-import DatePicker from '../../Elements/DatePicker';
-import RockButton from '../../Elements/RockButton';
-import { areEqual, Guid, newGuid } from '../../Util/Guid';
-import Alert from '../../Elements/Alert';
-import { asFormattedString } from '@Obsidian/Services/Number';
-import { InvokeBlockActionFunc } from '../../Controls/RockBlock';
-import { ConfigurationValues } from '../../Index';
-import Toggle from '../../Elements/Toggle';
+import DatePicker from '../../Elements/datePicker';
+import RockButton from '../../Elements/rockButton';
+import { areEqual, Guid, newGuid } from '../../Util/guid';
+import Alert from '../../Elements/alert';
+import { asFormattedString } from '@Obsidian/Services/number';
+import { InvokeBlockActionFunc } from '../../Controls/rockBlock';
+import { ConfigurationValues } from '../../index';
+import Toggle from '../../Elements/toggle';
 import { FinancialAccount, Person } from '@Obsidian/ViewModels';
-import store from '../../Store/Index';
-import TextBox from '../../Elements/TextBox';
-import { asCommaAnd } from '@Obsidian/Services/String';
-import GatewayControl, { GatewayControlModel } from '../../Controls/GatewayControl';
-import RockValidation from '../../Controls/RockValidation';
-import { formatAspDate } from '@Obsidian/Services/Date';
+import store from '../../Store/index';
+import TextBox from '../../Elements/textBox';
+import { asCommaAnd } from '@Obsidian/Services/string';
+import GatewayControl, { GatewayControlModel } from '../../Controls/gatewayControl';
+import RockValidation from '../../Controls/rockValidation';
+import { formatAspDate } from '@Obsidian/Services/date';
 
 export type ProcessTransactionArgs = {
     isGivingAsPerson: boolean;

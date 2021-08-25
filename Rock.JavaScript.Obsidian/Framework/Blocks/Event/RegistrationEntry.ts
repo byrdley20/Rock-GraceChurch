@@ -16,8 +16,8 @@
 //
 
 import { defineComponent, inject, provide, reactive, ref } from 'vue';
-import RockButton from '../../Elements/RockButton';
-import { Guid, newGuid } from '../../Util/Guid';
+import RockButton from '../../Elements/rockButton';
+import { Guid, newGuid } from '../../Util/guid';
 import RegistrationEntryIntro from './RegistrationEntry/Intro';
 import RegistrationEntryRegistrants from './RegistrationEntry/Registrants';
 import { RegistrantInfo, RegistrantsSameFamily, RegistrarInfo, RegistrationEntryBlockFormFieldViewModel, RegistrationEntryBlockFormViewModel, RegistrationEntryBlockSuccessViewModel, RegistrationEntryBlockViewModel, RegistrationPersonFieldType } from './RegistrationEntry/RegistrationEntryBlockViewModel';
@@ -25,16 +25,16 @@ import RegistrationEntryRegistrationStart from './RegistrationEntry/Registration
 import RegistrationEntryRegistrationEnd from './RegistrationEntry/RegistrationEnd';
 import RegistrationEntrySummary from './RegistrationEntry/Summary';
 import Registrants from './RegistrationEntry/Registrants';
-import ProgressTracker, { ProgressTrackerItem } from '../../Elements/ProgressTracker';
-import NumberFilter, { toWord } from '@Obsidian/Services/Number';
-import StringFilter, { isNullOrWhiteSpace, toTitleCase } from '@Obsidian/Services/String';
-import Alert from '../../Elements/Alert';
-import CountdownTimer from '../../Elements/CountdownTimer';
+import ProgressTracker, { ProgressTrackerItem } from '../../Elements/progressTracker';
+import NumberFilter, { toWord } from '@Obsidian/Services/number';
+import StringFilter, { isNullOrWhiteSpace, toTitleCase } from '@Obsidian/Services/string';
+import Alert from '../../Elements/alert';
+import CountdownTimer from '../../Elements/countdownTimer';
 import RegistrationEntrySuccess from './RegistrationEntry/Success';
-import Page from '../../Util/Page';
+import Page from '../../Util/page';
 import { RegistrationEntryBlockArgs } from './RegistrationEntry/RegistrationEntryBlockArgs';
-import { InvokeBlockActionFunc } from '../../Controls/RockBlock';
-import JavaScriptAnchor from '../../Elements/JavaScriptAnchor';
+import { InvokeBlockActionFunc } from '../../Controls/rockBlock';
+import JavaScriptAnchor from '../../Elements/javaScriptAnchor';
 import { Person } from '@Obsidian/ViewModels';
 import SessionRenewal from './RegistrationEntry/SessionRenewal';
 

@@ -1,4 +1,4 @@
-System.register(["vue", "../../Templates/PaneledBlockTemplate", "../../Controls/Loading", "../../Store/Index", "../../Util/Block", "../../Elements/JavaScriptAnchor", "../../Controls/RockForm", "../../Elements/TextBox", "../../Elements/RockButton", "../../Controls/AttributeValuesContainer"], function (exports_1, context_1) {
+System.register(["vue", "../../Templates/paneledBlockTemplate", "../../Controls/loading", "../../Store/index", "../../Util/block", "../../Elements/javaScriptAnchor", "../../Controls/rockForm", "../../Elements/textBox", "../../Elements/rockButton", "../../Controls/attributeValuesContainer"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,7 +9,7 @@ System.register(["vue", "../../Templates/PaneledBlockTemplate", "../../Controls/
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var vue_1, PaneledBlockTemplate_1, Loading_1, Index_1, Block_1, JavaScriptAnchor_1, RockForm_1, TextBox_1, RockButton_1, AttributeValuesContainer_1;
+    var vue_1, paneledBlockTemplate_1, loading_1, index_1, block_1, javaScriptAnchor_1, rockForm_1, textBox_1, rockButton_1, attributeValuesContainer_1;
     var __moduleName = context_1 && context_1.id;
     function sortedAttributeValues(attributeValues) {
         const sortedValues = [...attributeValues];
@@ -31,51 +31,51 @@ System.register(["vue", "../../Templates/PaneledBlockTemplate", "../../Controls/
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (PaneledBlockTemplate_1_1) {
-                PaneledBlockTemplate_1 = PaneledBlockTemplate_1_1;
+            function (paneledBlockTemplate_1_1) {
+                paneledBlockTemplate_1 = paneledBlockTemplate_1_1;
             },
-            function (Loading_1_1) {
-                Loading_1 = Loading_1_1;
+            function (loading_1_1) {
+                loading_1 = loading_1_1;
             },
-            function (Index_1_1) {
-                Index_1 = Index_1_1;
+            function (index_1_1) {
+                index_1 = index_1_1;
             },
-            function (Block_1_1) {
-                Block_1 = Block_1_1;
+            function (block_1_1) {
+                block_1 = block_1_1;
             },
-            function (JavaScriptAnchor_1_1) {
-                JavaScriptAnchor_1 = JavaScriptAnchor_1_1;
+            function (javaScriptAnchor_1_1) {
+                javaScriptAnchor_1 = javaScriptAnchor_1_1;
             },
-            function (RockForm_1_1) {
-                RockForm_1 = RockForm_1_1;
+            function (rockForm_1_1) {
+                rockForm_1 = rockForm_1_1;
             },
-            function (TextBox_1_1) {
-                TextBox_1 = TextBox_1_1;
+            function (textBox_1_1) {
+                textBox_1 = textBox_1_1;
             },
-            function (RockButton_1_1) {
-                RockButton_1 = RockButton_1_1;
+            function (rockButton_1_1) {
+                rockButton_1 = rockButton_1_1;
             },
-            function (AttributeValuesContainer_1_1) {
-                AttributeValuesContainer_1 = AttributeValuesContainer_1_1;
+            function (attributeValuesContainer_1_1) {
+                attributeValuesContainer_1 = attributeValuesContainer_1_1;
             }
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
                 name: 'Crm.AttributeValues',
                 components: {
-                    PaneledBlockTemplate: PaneledBlockTemplate_1.default,
-                    Loading: Loading_1.default,
-                    JavaScriptAnchor: JavaScriptAnchor_1.default,
-                    RockForm: RockForm_1.default,
-                    TextBox: TextBox_1.default,
-                    RockButton: RockButton_1.default,
-                    AttributeValuesContainer: AttributeValuesContainer_1.default
+                    PaneledBlockTemplate: paneledBlockTemplate_1.default,
+                    Loading: loading_1.default,
+                    JavaScriptAnchor: javaScriptAnchor_1.default,
+                    RockForm: rockForm_1.default,
+                    TextBox: textBox_1.default,
+                    RockButton: rockButton_1.default,
+                    AttributeValuesContainer: attributeValuesContainer_1.default
                 },
                 setup() {
-                    const configurationValues = Block_1.useConfigurationValues();
-                    const invokeBlockAction = Block_1.useInvokeBlockAction();
+                    const configurationValues = block_1.useConfigurationValues();
+                    const invokeBlockAction = block_1.useInvokeBlockAction();
                     const attributeValues = vue_1.ref(sortedAttributeValues(configurationValues.attributes));
-                    const personGuid = vue_1.computed(() => { var _a; return ((_a = Index_1.default.getters.personContext) === null || _a === void 0 ? void 0 : _a.guid) || null; });
+                    const personGuid = vue_1.computed(() => { var _a; return ((_a = index_1.default.getters.personContext) === null || _a === void 0 ? void 0 : _a.guid) || null; });
                     const isLoading = vue_1.ref(false);
                     const isEditMode = vue_1.ref(false);
                     const goToViewMode = () => isEditMode.value = false;

@@ -1,39 +1,39 @@
-System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../../Controls/SecondaryBlock", "../../Elements/RockButton", "../../Elements/TextBox", "vue", "../../Store/Index"], function (exports_1, context_1) {
+System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../../Controls/secondaryBlock", "../../Elements/rockButton", "../../Elements/textBox", "vue", "../../Store/index"], function (exports_1, context_1) {
     "use strict";
-    var Bus_1, PaneledBlockTemplate_1, SecondaryBlock_1, RockButton_1, TextBox_1, vue_1, Index_1;
+    var bus_1, paneledBlockTemplate_1, secondaryBlock_1, rockButton_1, textBox_1, vue_1, index_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
-            function (Bus_1_1) {
-                Bus_1 = Bus_1_1;
+            function (bus_1_1) {
+                bus_1 = bus_1_1;
             },
-            function (PaneledBlockTemplate_1_1) {
-                PaneledBlockTemplate_1 = PaneledBlockTemplate_1_1;
+            function (paneledBlockTemplate_1_1) {
+                paneledBlockTemplate_1 = paneledBlockTemplate_1_1;
             },
-            function (SecondaryBlock_1_1) {
-                SecondaryBlock_1 = SecondaryBlock_1_1;
+            function (secondaryBlock_1_1) {
+                secondaryBlock_1 = secondaryBlock_1_1;
             },
-            function (RockButton_1_1) {
-                RockButton_1 = RockButton_1_1;
+            function (rockButton_1_1) {
+                rockButton_1 = rockButton_1_1;
             },
-            function (TextBox_1_1) {
-                TextBox_1 = TextBox_1_1;
+            function (textBox_1_1) {
+                textBox_1 = textBox_1_1;
             },
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (Index_1_1) {
-                Index_1 = Index_1_1;
+            function (index_1_1) {
+                index_1 = index_1_1;
             }
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
                 name: 'Example.PersonSecondary',
                 components: {
-                    PaneledBlockTemplate: PaneledBlockTemplate_1.default,
-                    SecondaryBlock: SecondaryBlock_1.default,
-                    TextBox: TextBox_1.default,
-                    RockButton: RockButton_1.default
+                    PaneledBlockTemplate: paneledBlockTemplate_1.default,
+                    SecondaryBlock: secondaryBlock_1.default,
+                    TextBox: textBox_1.default,
+                    RockButton: rockButton_1.default
                 },
                 data() {
                     return {
@@ -46,7 +46,7 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                         this.receivedMessage = message;
                     },
                     doPublish() {
-                        Bus_1.default.publish('PersonSecondary:Message', this.messageToPublish);
+                        bus_1.default.publish('PersonSecondary:Message', this.messageToPublish);
                         this.messageToPublish = '';
                     },
                     doThrowError() {
@@ -55,7 +55,7 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                 },
                 computed: {
                     currentPerson() {
-                        return Index_1.default.state.currentPerson;
+                        return index_1.default.state.currentPerson;
                     },
                     currentPersonName() {
                         var _a;
@@ -70,7 +70,7 @@ System.register(["../../Util/Bus", "../../Templates/PaneledBlockTemplate", "../.
                     }
                 },
                 created() {
-                    Bus_1.default.subscribe('PersonDetail:Message', this.receiveMessage);
+                    bus_1.default.subscribe('PersonDetail:Message', this.receiveMessage);
                 },
                 template: `<SecondaryBlock>
     <PaneledBlockTemplate>

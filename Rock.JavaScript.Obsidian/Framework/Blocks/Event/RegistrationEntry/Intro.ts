@@ -16,11 +16,11 @@
 //
 
 import { defineComponent, inject } from 'vue';
-import Alert from '../../../Elements/Alert';
-import NumberUpDown from '../../../Elements/NumberUpDown';
-import RockButton from '../../../Elements/RockButton';
-import { toTitleCase, pluralConditional } from '@Obsidian/Services/String';
-import { areEqual } from '../../../Util/Guid';
+import Alert from '../../../Elements/alert';
+import NumberUpDown from '../../../Elements/numberUpDown';
+import RockButton from '../../../Elements/rockButton';
+import { toTitleCase, pluralConditional } from '@Obsidian/Services/string';
+import { areEqual } from '../../../Util/guid';
 import { Person } from '@Obsidian/ViewModels';
 import { getDefaultRegistrantInfo, getForcedFamilyGuid, RegistrationEntryState } from '../RegistrationEntry';
 import { RegistrationEntryBlockViewModel } from './RegistrationEntryBlockViewModel';

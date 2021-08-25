@@ -1975,7 +1975,7 @@ namespace Rock.Blocks.Event
                 GatewayGuid = financialGateway?.Guid,
                 Campuses = CampusCache.All()
                     .Where( c => c.IsActive ?? false )
-                    .Select( c => new ListOptionViewModel
+                    .Select( c => new ListItemViewModel
                     {
                         Value = c.Guid.ToString(),
                         Text = c.Name

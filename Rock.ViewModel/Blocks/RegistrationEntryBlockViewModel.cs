@@ -315,7 +315,7 @@ namespace Rock.ViewModel.Blocks
         /// <value>
         /// The campuses available for the user to select.
         /// </value>
-        public List<ListOptionViewModel> Campuses { get; set; }
+        public List<ListItemViewModel> Campuses { get; set; }
     }
 
     /// <summary>

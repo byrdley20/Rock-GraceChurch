@@ -59,7 +59,7 @@ namespace Rock.Field.Types
             }
 
             var clientValues = GetListSource( configurationValues )
-                    .Select( kvp => new ListOptionViewModel
+                    .Select( kvp => new ListItemViewModel
                     {
                         Value = kvp.Key,
                         Text = kvp.Value

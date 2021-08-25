@@ -269,7 +269,7 @@
     <Compile Include="IViewModel.cs" />
     <Compile Include="IViewModelWithAttributes.cs" />
     <Compile Include="NonEntities\AttributeConfigurationValue.cs" />
-    <Compile Include="NonEntities\ListOptionViewModel.cs" />
+    <Compile Include="NonEntities\ListItemViewModel.cs" />
     <Compile Include="Partials\AttributeValueViewModel.partial.cs" />
     <Compile Include="Partials\AttributeViewModel.partial.cs" />
     <Compile Include="Partials\PersonViewModel.partial.cs" />

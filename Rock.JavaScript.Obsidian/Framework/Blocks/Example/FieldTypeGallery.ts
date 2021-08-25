@@ -23,7 +23,7 @@ import { Guid } from '../../Util/Guid';
 import TextBox from '../../Elements/TextBox';
 import { FieldType as FieldTypeGuids } from '@Obsidian/SystemGuids';
 import ClientEditableAttributeValue from 'ViewModels/ClientEditableAttributeValue';
-import { ListOption } from 'ViewModels/ListOption';
+import { ListItem } from 'ViewModels/ListItem';
 
 /**
  * Convert a simpler set of parameters into AttributeValueData
@@ -191,7 +191,7 @@ const galleryComponents: Record<string, Component> = {
             { value: '069D4509-398A-4E08-8225-A0658E8A51E8', text: 'Main Campus' },
             { value: '0D8B2F85-5DC2-406E-8A7D-D435F3153C58', text: 'Secondary Campus' },
             { value: '8C99160C-D0FC-49E4-AA9D-87EAE7297AF1', text: 'Tertiary Campus' }
-        ] as ListOption[])
+        ] as ListItem[])
     }),
 
     CampusesGallery: GetFieldTypeGalleryComponent('Campuses', '', FieldTypeGuids.Campuses, {
@@ -200,7 +200,7 @@ const galleryComponents: Record<string, Component> = {
             { value: '069D4509-398A-4E08-8225-A0658E8A51E8', text: 'Main Campus' },
             { value: '0D8B2F85-5DC2-406E-8A7D-D435F3153C58', text: 'Secondary Campus' },
             { value: '8C99160C-D0FC-49E4-AA9D-87EAE7297AF1', text: 'Tertiary Campus' }
-        ] as ListOption[])
+        ] as ListItem[])
     }),
 
     ColorGallery: GetFieldTypeGalleryComponent('Color', '#ee7725', FieldTypeGuids.Color, {

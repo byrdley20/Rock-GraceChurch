@@ -20,7 +20,7 @@ import DropDownList, { DropDownListOption } from '../Elements/DropDownList';
 import RadioButtonList from '../Elements/RadioButtonList';
 import { toNumberOrNull } from '@Obsidian/Services/Number';
 import { ConfigurationValueKey } from './SingleSelectField';
-import { ListOption } from '@Obsidian/ViewModels';
+import { ListItem } from '@Obsidian/ViewModels';
 
 export const EditComponent = defineComponent({
     name: 'SingleSelectFieldEdit',
@@ -48,7 +48,7 @@ export const EditComponent = defineComponent({
         /** The options to choose from in the drop down list */
         options(): DropDownListOption[] {
             try {
-                const valuesConfig = JSON.parse(this.configurationValues[ConfigurationValueKey.Values] ?? '[]') as ListOption[];
+                const valuesConfig = JSON.parse(this.configurationValues[ConfigurationValueKey.Values] ?? '[]') as ListItem[];
 
                 const providedOptions: DropDownListOption[] = valuesConfig.map(v => {
                     return {

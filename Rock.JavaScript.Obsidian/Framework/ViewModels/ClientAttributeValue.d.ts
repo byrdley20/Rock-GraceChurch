@@ -14,8 +14,8 @@
 // limitations under the License.
 // </copyright>
 //
-import { Guid } from '../Util/Guid';
-import ClientAttributeValueCategory from './ClientAttributeValueCategory';
+import { Guid } from "../Util/Guid";
+import ClientAttributeValueCategory from "./ClientAttributeValueCategory";
 
 export default interface ClientAttributeValue {
     /** The field type unique identifier. */

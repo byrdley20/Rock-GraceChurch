@@ -18,7 +18,7 @@ import { computed, defineComponent, inject, ref, watch } from 'vue';
 import { getFieldEditorProps } from './Index';
 import RockFormField from '../Elements/RockFormField';
 import { ClientValue, ConfigurationValueKey, ValueItem } from './DefinedValueRangeField';
-import { ListOption } from '@Obsidian/ViewModels';
+import { ListItem } from '@Obsidian/ViewModels';
 import { asBoolean } from '@Obsidian/Services/Boolean';
 
 function parseModelValue(modelValue: string | undefined): string[] {
@@ -91,8 +91,8 @@ export const EditComponent = defineComponent({
         });
 
         /** The options to choose from in the drop down list */
-        const options = computed((): ListOption[] => {
-            const providedOptions: ListOption[] = valueOptions.value.map(v => {
+        const options = computed((): ListItem[] => {
+            const providedOptions: ListItem[] = valueOptions.value.map(v => {
                 return {
                     text: showDescription.value ? v.description : v.text,
                     value: v.value
@@ -121,10 +121,10 @@ export const EditComponent = defineComponent({
             upperValue,
             isRequired: inject('isRequired') as boolean,
             options,
-            getKeyForOption(option: ListOption): string {
+            getKeyForOption(option: ListItem): string {
                 return option.value;
             },
-            getTextForOption(option: ListOption): string {
+            getTextForOption(option: ListItem): string {
                 return option.text;
             }
         };

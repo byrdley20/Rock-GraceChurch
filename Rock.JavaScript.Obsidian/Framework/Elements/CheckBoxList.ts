@@ -16,7 +16,7 @@
 //
 import { computed, defineComponent, PropType, ref, watch, watchEffect } from 'vue';
 import RockFormField from './RockFormField.js';
-import { ListOption } from '@Obsidian/ViewModels';
+import { ListItem } from '@Obsidian/ViewModels';
 import { Guid } from 'Util/Guid.js';
 
 export default defineComponent({
@@ -33,7 +33,7 @@ export default defineComponent({
         },
 
         options: {
-            type: Array as PropType<Array<ListOption>>,
+            type: Array as PropType<Array<ListItem>>,
             required: true
         },
 
@@ -54,10 +54,10 @@ export default defineComponent({
         watch(() => props.modelValue, () => internalValue.value = props.modelValue);
         watchEffect(() => emit('update:modelValue', internalValue.value));
 
-        const valueForOption = (option: ListOption): string => option.value;
-        const textForOption = (option: ListOption): string => option.text;
+        const valueForOption = (option: ListItem): string => option.value;
+        const textForOption = (option: ListItem): string => option.text;
 
-        const uniqueIdForOption = (uniqueId: Guid, option: ListOption): string => `${uniqueId}-${option.value.replace(' ', '-')}`;
+        const uniqueIdForOption = (uniqueId: Guid, option: ListItem): string => `${uniqueId}-${option.value.replace(' ', '-')}`;
 
         const containerClasses = computed(() => {
             const classes: string[] = [];

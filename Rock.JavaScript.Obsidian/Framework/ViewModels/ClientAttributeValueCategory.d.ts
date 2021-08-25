@@ -14,7 +14,7 @@
 // limitations under the License.
 // </copyright>
 //
-import { Guid } from '../Util/Guid';
+import { Guid } from "../Util/Guid";
 
 /**
  * Specifies a single category that a ClientAttributeValue is a member of.

@@ -24,7 +24,8 @@ module.exports = {
         quotes: ["warn", "double", { "avoidEscape": true, "allowTemplateLiterals": true }],
 
         // Warn if semicolons are omitted.
-        semi: ["warn", "always"],
+        semi: "off",
+        "@typescript-eslint/semi": ["error", "always"],
 
         // Warn about unused variables, unless they are prefixed with underscore.
         "@typescript-eslint/no-unused-vars": ["warn", {

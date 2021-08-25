@@ -19,7 +19,7 @@ import { getFieldEditorProps } from './Index';
 import { DayOfWeek } from './DayOfWeekField';
 import CheckBoxList from '../Elements/CheckBoxList';
 import { toNumber } from '@Obsidian/Services/Number';
-import { ListOption } from '@Obsidian/ViewModels';
+import { ListItem } from '@Obsidian/ViewModels';
 
 export const EditComponent = defineComponent({
     name: 'DaysOfWeekField',
@@ -40,7 +40,7 @@ export const EditComponent = defineComponent({
          * Builds a list of the drop down options that are used to display
          * in the drop down list.
          */
-        options(): Array<ListOption> {
+        options(): Array<ListItem> {
             return [
                 { text: 'Sunday', value: DayOfWeek.Sunday.toString() },
                 { text: 'Monday', value: DayOfWeek.Monday.toString() },

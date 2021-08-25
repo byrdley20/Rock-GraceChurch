@@ -872,7 +872,7 @@ mission. We are so grateful for your commitment.</p>
                 },
                 Campuses = CampusCache.All()
                     .Where( c => c.IsActive ?? false )
-                    .Select( c => new ListOptionViewModel
+                    .Select( c => new ListItemViewModel
                     {
                         Value = c.Guid.ToString(),
                         Text = c.Name
@@ -881,7 +881,7 @@ mission. We are so grateful for your commitment.</p>
                 Frequencies = DefinedTypeCache.Get( SystemGuid.DefinedType.FINANCIAL_FREQUENCY )
                     .DefinedValues
                     .Where( v => v.IsActive )
-                    .Select( v => new ListOptionViewModel
+                    .Select( v => new ListItemViewModel
                     {
                         Value = v.Guid.ToString(),
                         Text = v.Value
@@ -1856,7 +1856,7 @@ mission. We are so grateful for your commitment.</p>
             /// <value>
             /// The campuses available for the user to select.
             /// </value>
-            public List<ListOptionViewModel> Campuses { get; set; }
+            public List<ListItemViewModel> Campuses { get; set; }
 
             /// <summary>
             /// Gets or sets the available giving frequencies.
@@ -1864,7 +1864,7 @@ mission. We are so grateful for your commitment.</p>
             /// <value>
             /// The available giving frequencies.
             /// </value>
-            public List<ListOptionViewModel> Frequencies { get; set; }
+            public List<ListItemViewModel> Frequencies { get; set; }
         }
 
         #endregion ViewModels

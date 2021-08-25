@@ -20,7 +20,7 @@ import ListBox from '../Elements/ListBox';
 import CheckBoxList from '../Elements/CheckBoxList';
 import { toNumberOrNull } from '@Obsidian/Services/Number';
 import { ConfigurationValueKey } from './MultiSelectField';
-import { ListOption } from '@Obsidian/ViewModels';
+import { ListItem } from '@Obsidian/ViewModels';
 import { asBoolean } from '@Obsidian/Services/Boolean';
 
 export const EditComponent = defineComponent({
@@ -47,15 +47,15 @@ export const EditComponent = defineComponent({
 
     computed: {
         /** The options to choose from */
-        options(): ListOption[] {
+        options(): ListItem[] {
             try {
-                const valuesConfig = JSON.parse(this.configurationValues[ConfigurationValueKey.Values] ?? '[]') as ListOption[];
+                const valuesConfig = JSON.parse(this.configurationValues[ConfigurationValueKey.Values] ?? '[]') as ListItem[];
 
                 return valuesConfig.map(v => {
                     return {
                         text: v.text,
                         value: v.value
-                    } as ListOption;
+                    } as ListItem;
                 });
             }
             catch {

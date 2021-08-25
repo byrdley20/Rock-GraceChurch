@@ -20,7 +20,7 @@ import CheckBoxList from '../Elements/CheckBoxList';
 import DropDownList, { DropDownListOption } from '../Elements/DropDownList';
 import { asBoolean } from '@Obsidian/Services/Boolean';
 import { ClientValue, ConfigurationValueKey, ValueItem } from './DefinedValueField';
-import { ListOption } from '@Obsidian/ViewModels';
+import { ListItem } from '@Obsidian/ViewModels';
 
 function parseModelValue(modelValue: string | undefined): string {
     try {
@@ -89,12 +89,12 @@ export const EditComponent = defineComponent({
         });
 
         /** The options to choose from in the drop down list */
-        const optionsMultiple = computed((): ListOption[] => {
+        const optionsMultiple = computed((): ListItem[] => {
             return valueOptions.value.map(v => {
                 return {
                     text: v.text,
                     value: v.value
-                } as ListOption;
+                } as ListItem;
             });
         });
 

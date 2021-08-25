@@ -14,7 +14,7 @@
 // limitations under the License.
 // </copyright>
 //
-import { ListOption } from 'ViewModels/ListOption.js';
+import { ListItem } from 'ViewModels/ListItem.js';
 import { defineComponent, PropType } from 'vue';
 import { newGuid } from '../Util/Guid.js';
 import RockFormField from './RockFormField.js';
@@ -31,7 +31,7 @@ export default defineComponent({
         },
 
         options: {
-            type: Array as PropType<ListOption[]>,
+            type: Array as PropType<ListItem[]>,
             required: true
         },
 

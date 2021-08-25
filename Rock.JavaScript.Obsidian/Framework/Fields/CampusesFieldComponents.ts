@@ -19,7 +19,7 @@ import { getFieldEditorProps } from './Index';
 import CheckBoxList from '../Elements/CheckBoxList';
 import { toNumberOrNull } from '@Obsidian/Services/Number';
 import { ConfigurationValueKey } from './CampusesField';
-import { ListOption } from 'ViewModels/ListOption';
+import { ListItem } from 'ViewModels/ListItem';
 
 export const EditComponent = defineComponent({
     name: 'CampusesField.Edit',
@@ -34,9 +34,9 @@ export const EditComponent = defineComponent({
         const internalValue = ref(props.modelValue ? props.modelValue.split(',') : []);
 
         /** The options to choose from in the drop down list */
-        const options = computed((): ListOption[] => {
+        const options = computed((): ListItem[] => {
             try {
-                return JSON.parse(props.configurationValues[ConfigurationValueKey.Values] ?? '[]') as ListOption[];
+                return JSON.parse(props.configurationValues[ConfigurationValueKey.Values] ?? '[]') as ListItem[];
             }
             catch {
                 return [];

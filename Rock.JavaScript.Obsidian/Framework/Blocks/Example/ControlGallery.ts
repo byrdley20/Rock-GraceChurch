@@ -50,7 +50,7 @@ import TimePicker from '../../Elements/TimePicker';
 import CheckBoxList from '../../Elements/CheckBoxList';
 import Rating from '../../Elements/Rating';
 import { toNumber } from '@Obsidian/Services/Number';
-import { ListOption } from '@Obsidian/ViewModels';
+import { ListItem } from '@Obsidian/ViewModels';
 
 /** An inner component that describes the template used for each of the controls
  *  within this control gallery */
@@ -345,7 +345,7 @@ const CheckBoxListGallery = defineComponent({
                 { value: "red", text: "Red" },
                 { value: "green", text: "Green" },
                 { value: "blue", text: "Blue" }
-            ] as ListOption[],
+            ] as ListItem[],
             items: ["green"]
         };
     },
@@ -379,7 +379,7 @@ const ListBoxGallery = defineComponent({
                 { text: 'B Text', value: 'b' },
                 { text: 'C Text', value: 'c' },
                 { text: 'D Text', value: 'd' }
-            ] as ListOption[]
+            ] as ListItem[]
         };
     },
     template: `

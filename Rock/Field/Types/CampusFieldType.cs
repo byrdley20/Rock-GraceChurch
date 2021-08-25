@@ -63,7 +63,7 @@ namespace Rock.Field.Types
         public override Dictionary<string, string> GetClientConfigurationValues( Dictionary<string, ConfigurationValue> configurationValues )
         {
             var clientValues = GetListSource( configurationValues )
-                    .Select( kvp => new ListOptionViewModel
+                    .Select( kvp => new ListItemViewModel
                     {
                         Value = kvp.Key,
                         Text = kvp.Value

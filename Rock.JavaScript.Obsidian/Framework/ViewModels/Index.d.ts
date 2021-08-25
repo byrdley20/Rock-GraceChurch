@@ -19,7 +19,7 @@ import Entity from './Entity';
 import ClientAttributeValue from './ClientAttributeValue';
 import ClientEditableAttributeValue from './ClientEditableAttributeValue';
 import ClientAttributeValueCategory from './ClientAttributeValueCategory';
-import { ListOption } from './ListOption';
+import { ListItem } from './ListItem';
 
 export * from './CodeGenerated/generated-index';
 
@@ -28,5 +28,5 @@ export {
     ClientAttributeValue,
     ClientEditableAttributeValue,
     ClientAttributeValueCategory,
-    ListOption
+    ListItem
 };

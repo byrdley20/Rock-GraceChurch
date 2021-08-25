@@ -1,4 +1,4 @@
-﻿// <copyright>
+// <copyright>
 // Copyright by the Spark Development Network
 //
 // Licensed under the Rock Community License (the "License");
@@ -15,28 +15,16 @@
 // </copyright>
 //
 
-namespace Rock.ViewModel.NonEntities
-{
-    /// <summary>
-    /// Identifies a single option that will be shown in the campus picker.
-    /// </summary>
-    public class ListOptionViewModel
-    {
-        /// <summary>
-        /// Gets or sets the value.
-        /// </summary>
-        /// <value>
-        /// The value.
-        /// </value>
-        public string Value { get; set; }
+/**
+ * An item to be displayed in a list.
+ */
+export declare type ListItem = {
+    /** The raw value to associated with this item. */
+    value: string;
 
-        /// <summary>
-        /// Gets or sets the text.
-        /// </summary>
-        /// <value>
-        /// The text.
-        /// </value>
-        public string Text { get; set; }
-    }
+    /** The value to display to the person. */
+    text: string;
 
+    /** The name of the category this item belongs to. */
+    category?: string | null;
 }

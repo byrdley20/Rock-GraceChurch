@@ -18,7 +18,7 @@ import { computed, defineComponent, ref, SetupContext, watch, watchEffect } from
 import { getFieldEditorProps } from './Index';
 import DropDownList, { DropDownListOption } from '../Elements/DropDownList';
 import { ConfigurationValueKey } from './CampusField';
-import { ListOption } from 'ViewModels/ListOption';
+import { ListItem } from 'ViewModels/ListItem';
 
 export const EditComponent = defineComponent({
     name: 'CampusField.Edit',
@@ -35,7 +35,7 @@ export const EditComponent = defineComponent({
         /** The options to choose from in the drop down list */
         const options = computed((): DropDownListOption[] => {
             try {
-                const valueOptions = JSON.parse(props.configurationValues[ConfigurationValueKey.Values] ?? '[]') as ListOption[];
+                const valueOptions = JSON.parse(props.configurationValues[ConfigurationValueKey.Values] ?? '[]') as ListItem[];
 
                 return valueOptions.map(o => {
                     return {

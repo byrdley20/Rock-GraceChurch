@@ -30,6 +30,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include=".eslintrc.js" />
     <Content Include="Core\.eslintrc.js" />
     <Content Include="Framework\.eslintrc.js" />
     <Content Include="Framework\Tests\tsconfig.json" />
@@ -496,7 +497,7 @@
     <TypeScriptCompile Include="Framework\ViewModels\CodeGenerated\WorkflowType.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\Entity.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\index.d.ts" />
-    <TypeScriptCompile Include="Framework\ViewModels\ListOption.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\ListItem.d.ts" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>

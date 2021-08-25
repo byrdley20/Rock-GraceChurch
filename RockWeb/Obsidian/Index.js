@@ -15,7 +15,7 @@ System.register(["vue", "./Controls/RockBlock", "./Store/Index", "./Rules/Index"
         return __awaiter(this, void 0, void 0, function* () {
             const blockPath = `${config.blockFileUrl}.js`;
             let blockComponent = null;
-            let errorMessage = '';
+            let errorMessage = "";
             try {
                 const blockComponentModule = yield context_1.import(blockPath);
                 blockComponent = blockComponentModule ?
@@ -26,7 +26,7 @@ System.register(["vue", "./Controls/RockBlock", "./Store/Index", "./Rules/Index"
                 console.error(e);
                 errorMessage = `${e}`;
             }
-            const name = `Root${config.blockFileUrl.replace(/\//g, '.')}`;
+            const name = `Root${config.blockFileUrl.replace(/\//g, ".")}`;
             const startTimeMs = (new Date()).getTime();
             const app = vue_1.createApp({
                 name,
@@ -65,11 +65,11 @@ System.register(["vue", "./Controls/RockBlock", "./Store/Index", "./Rules/Index"
     function initializePageTimings(config) {
         const rootElement = document.getElementById(config.elementId);
         if (!rootElement) {
-            console.error('Could not show Obsidian debug timings because the HTML element did not resolve.');
+            console.error("Could not show Obsidian debug timings because the HTML element did not resolve.");
             return;
         }
         const app = vue_1.createApp({
-            name: 'PageDebugTimingsRoot',
+            name: "PageDebugTimingsRoot",
             components: {
                 PageDebugTimings: PageDebugTimings_1.default
             },

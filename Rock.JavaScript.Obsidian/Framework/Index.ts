@@ -14,15 +14,15 @@
 // limitations under the License.
 // </copyright>
 //
-import { App, Component, createApp, markRaw } from 'vue';
-import RockBlock from './Controls/RockBlock';
-import store from './Store/Index';
-import { Guid } from './Util/Guid';
-import './Rules/Index';
-import { Person, Entity } from '@Obsidian/ViewModels';
-import PageDebugTimings, { DebugTimingViewModel } from './Controls/PageDebugTimings';
-import Alert from './Elements/Alert';
-import { ActionType } from './Store/Index';
+import { App, Component, createApp, markRaw } from "vue";
+import RockBlock from "./Controls/RockBlock";
+import store from "./Store/Index";
+import { Guid } from "./Util/Guid";
+import "./Rules/Index";
+import { Person, Entity } from "@Obsidian/ViewModels";
+import PageDebugTimings, { DebugTimingViewModel } from "./Controls/PageDebugTimings";
+import Alert from "./Elements/Alert";
+import { ActionType } from "./Store/Index";
 
 export type ConfigurationValues = Record<string, unknown>;
 
@@ -54,40 +54,36 @@ type DebugTimingConfig = {
 * @param config
 * @param blockComponent
 */
-export async function initializeBlock ( config: BlockConfig ): Promise<App>
-{
+export async function initializeBlock(config: BlockConfig): Promise<App> {
     const blockPath = `${config.blockFileUrl}.js`;
     let blockComponent: Component | null = null;
-    let errorMessage = '';
+    let errorMessage = "";
 
-    try
-    {
-        const blockComponentModule = await import( blockPath );
+    try {
+        const blockComponentModule = await import(blockPath);
         blockComponent = blockComponentModule ?
-            ( blockComponentModule.default || blockComponentModule ) :
+            (blockComponentModule.default || blockComponentModule) :
             null;
     }
-    catch ( e )
-    {
+    catch (e) {
         // Log the error, but continue setting up the app so the UI will show the user an error
-        console.error( e );
+        console.error(e);
         errorMessage = `${e}`;
     }
 
-    const name = `Root${config.blockFileUrl.replace( /\//g, '.' )}`;
-    const startTimeMs = ( new Date() ).getTime();
+    const name = `Root${config.blockFileUrl.replace(/\//g, ".")}`;
+    const startTimeMs = (new Date()).getTime();
 
-    const app = createApp( {
+    const app = createApp({
         name,
         components: {
             RockBlock,
             Alert
         },
-        data ()
-        {
+        data() {
             return {
                 config: config,
-                blockComponent: blockComponent ? markRaw( blockComponent ) : null,
+                blockComponent: blockComponent ? markRaw(blockComponent) : null,
                 startTimeMs,
                 errorMessage
             };
@@ -99,10 +95,10 @@ export async function initializeBlock ( config: BlockConfig ): Promise<App>
     {{errorMessage}}
 </Alert>
 <RockBlock v-else :config="config" :blockComponent="blockComponent" :startTimeMs="startTimeMs" />`
-    } );
+    });
 
-    app.use( store );
-    app.mount( config.rootElement );
+    app.use(store);
+    app.mount(config.rootElement);
 
     return app;
 }
@@ -112,38 +108,34 @@ export async function initializeBlock ( config: BlockConfig ): Promise<App>
 * page parameters and context entities.
 * @param {object} pageData
 */
-export async function initializePage ( pageConfig: PageConfig ): Promise<void>
-{
-    await store.dispatch( ActionType.Initialize, { pageConfig } );
+export async function initializePage(pageConfig: PageConfig): Promise<void> {
+    await store.dispatch(ActionType.Initialize, { pageConfig });
 }
 
 /**
  * Shows the Obsidian debug timings
  * @param debugTimingConfig
  */
-export function initializePageTimings ( config: DebugTimingConfig ): void
-{
+export function initializePageTimings(config: DebugTimingConfig): void {
     const rootElement = document.getElementById(config.elementId);
 
-    if ( !rootElement )
-    {
-        console.error( 'Could not show Obsidian debug timings because the HTML element did not resolve.' );
+    if (!rootElement) {
+        console.error("Could not show Obsidian debug timings because the HTML element did not resolve.");
         return;
     }
 
-    const app = createApp( {
-        name: 'PageDebugTimingsRoot',
+    const app = createApp({
+        name: "PageDebugTimingsRoot",
         components: {
             PageDebugTimings
         },
-        data ()
-        {
+        data() {
             return {
                 viewModels: config.debugTimingViewModels
             };
         },
         template: `<PageDebugTimings :serverViewModels="viewModels" />`
-    } );
-    app.use( store );
-    app.mount( rootElement );
+    });
+    app.use(store);
+    app.mount(rootElement);
 }

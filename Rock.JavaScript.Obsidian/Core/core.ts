@@ -41,7 +41,7 @@ const packageMaps: Record<string, string> = {
 /**
  * The options that obsidian should be initialized with.
  */
-interface ObsidianOptions {
+interface IObsidianOptions {
     fingerprint?: string;
 }
 
@@ -59,7 +59,7 @@ class Obsidian {
     private isReady: boolean = false;
 
     /** The options Obsidian was initialized with. */
-    private options!: Required<ObsidianOptions>;
+    private options!: Required<IObsidianOptions>;
 
     /** The package maps that have been parsed. */
     private packageMaps: PackageMap[];
@@ -159,10 +159,10 @@ class Obsidian {
             if (vendorMaps[url] !== undefined) {
                 const module = await System.import("/Obsidian/obsidian-vendor.js", parentUrl);
 
-                return [[], function (_export: System.ExportFn): System.Declare {
+                return [[], function (exportFn: System.ExportFn): System.Declare {
                     return {
                         execute(): void {
-                            _export(module[vendorMaps[url]]);
+                            exportFn(module[vendorMaps[url]]);
                         }
                     };
                 }];
@@ -201,7 +201,7 @@ class Obsidian {
     /**
      * Initialize the framework.
      */
-    public init(options?: ObsidianOptions): void {
+    public init(options?: IObsidianOptions): void {
         this.options = {
             fingerprint: options?.fingerprint ?? ""
         };

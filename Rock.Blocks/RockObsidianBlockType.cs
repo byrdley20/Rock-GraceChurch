@@ -40,7 +40,9 @@ namespace Rock.Blocks
             {
                 var type = GetType();
                 var lastNamespace = type.Namespace.Split( '.' ).Last();
-                return $"/Obsidian/Blocks/{lastNamespace}/{type.Name}";
+                var fileName = $"{type.Name.Substring( 0, 1 ).ToLower()}{type.Name.Substring( 1 )}";
+
+                return $"/Obsidian/Blocks/{lastNamespace}/{fileName}";
             }
         }
 

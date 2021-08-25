@@ -21,19 +21,19 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface GroupSync extends Entity {
-    addUserAccountsDuringSync: boolean;
-    exitSystemCommunicationId: number | null;
-    groupId: number;
-    groupTypeRoleId: number;
-    lastRefreshDateTime: string | null;
-    scheduleIntervalMinutes: number | null;
-    syncDataViewId: number;
-    welcomeSystemCommunicationId: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface GroupSync extends Entity {
+    addUserAccountsDuringSync?: boolean;
+    exitSystemCommunicationId?: number | null;
+    groupId?: number;
+    groupTypeRoleId?: number;
+    lastRefreshDateTime?: string | null;
+    scheduleIntervalMinutes?: number | null;
+    syncDataViewId?: number;
+    welcomeSystemCommunicationId?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

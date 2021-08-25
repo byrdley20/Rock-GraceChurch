@@ -21,22 +21,22 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface FinancialPersonSavedAccount extends Entity {
-    financialGatewayId: number | null;
-    financialPaymentDetailId: number | null;
-    gatewayPersonIdentifier: string | null;
-    groupId: number | null;
-    isDefault: boolean;
-    isSystem: boolean;
-    name: string | null;
-    personAliasId: number | null;
-    preferredForeignCurrencyCodeValueId: number | null;
-    referenceNumber: string | null;
-    transactionCode: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface FinancialPersonSavedAccount extends Entity {
+    financialGatewayId?: number | null;
+    financialPaymentDetailId?: number | null;
+    gatewayPersonIdentifier?: string | null;
+    groupId?: number | null;
+    isDefault?: boolean;
+    isSystem?: boolean;
+    name?: string | null;
+    personAliasId?: number | null;
+    preferredForeignCurrencyCodeValueId?: number | null;
+    referenceNumber?: string | null;
+    transactionCode?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

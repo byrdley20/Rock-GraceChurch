@@ -21,26 +21,26 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface Campus extends Entity {
-    campusStatusValueId: number | null;
-    campusTypeValueId: number | null;
-    description: string | null;
-    isActive: boolean | null;
-    isSystem: boolean;
-    leaderPersonAliasId: number | null;
-    locationId: number | null;
-    name: string | null;
-    order: number;
-    phoneNumber: string | null;
-    serviceTimes: string | null;
-    shortCode: string | null;
-    teamGroupId: number | null;
-    timeZoneId: string | null;
-    url: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface Campus extends Entity {
+    campusStatusValueId?: number | null;
+    campusTypeValueId?: number | null;
+    description?: string | null;
+    isActive?: boolean | null;
+    isSystem?: boolean;
+    leaderPersonAliasId?: number | null;
+    locationId?: number | null;
+    name?: string | null;
+    order?: number;
+    phoneNumber?: string | null;
+    serviceTimes?: string | null;
+    shortCode?: string | null;
+    teamGroupId?: number | null;
+    timeZoneId?: string | null;
+    url?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

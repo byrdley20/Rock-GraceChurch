@@ -21,25 +21,25 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface ContentChannelItem extends Entity {
-    approvedByPersonAliasId: number | null;
-    approvedDateTime: string | null;
-    content: string | null;
-    contentChannelId: number;
-    contentChannelTypeId: number;
-    expireDateTime: string | null;
-    itemGlobalKey: string | null;
-    order: number;
-    permalink: string | null;
-    priority: number;
-    startDateTime: string;
-    status: number;
-    structuredContent: string | null;
-    title: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface ContentChannelItem extends Entity {
+    approvedByPersonAliasId?: number | null;
+    approvedDateTime?: string | null;
+    content?: string | null;
+    contentChannelId?: number;
+    contentChannelTypeId?: number;
+    expireDateTime?: string | null;
+    itemGlobalKey?: string | null;
+    order?: number;
+    permalink?: string | null;
+    priority?: number;
+    startDateTime?: string;
+    status?: number;
+    structuredContent?: string | null;
+    title?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

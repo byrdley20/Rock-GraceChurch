@@ -21,19 +21,14 @@
 // </copyright>
 //
 
-declare const enum ConnectionActivityType {
+export const enum ConnectionActivityType {
     /** The assigned activity type */
     Assigned = 'DB4C6D25-211C-4995-B194-9FEF7551F26B',
-
     /** The connected activity type */
     Connected = '04C61230-97B6-4702-89C0-634E5AE57D6F',
-
     /** The transferred activity type */
     Transferred = '6E7C8475-2A03-42EB-A883-5B2CC6CAE519',
-
     /** The Future Follow-up Complete activity type */
     FutureFollowupComplete = 'D0FBB866-9029-4705-B3BA-07364F3D7FC1',
-
 }
 
-export default ConnectionActivityType;

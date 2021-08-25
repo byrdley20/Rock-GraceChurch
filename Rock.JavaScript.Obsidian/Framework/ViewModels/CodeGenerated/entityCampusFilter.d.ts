@@ -21,14 +21,14 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface EntityCampusFilter extends Entity {
-    campusId: number;
-    entityId: number;
-    entityTypeId: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface EntityCampusFilter extends Entity {
+    campusId?: number;
+    entityId?: number;
+    entityTypeId?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

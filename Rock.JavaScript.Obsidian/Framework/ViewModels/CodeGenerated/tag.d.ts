@@ -21,23 +21,23 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface Tag extends Entity {
-    backgroundColor: string | null;
-    categoryId: number | null;
-    description: string | null;
-    entityTypeId: number | null;
-    entityTypeQualifierColumn: string | null;
-    entityTypeQualifierValue: string | null;
-    iconCssClass: string | null;
-    isActive: boolean;
-    isSystem: boolean;
-    name: string | null;
-    order: number;
-    ownerPersonAliasId: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface Tag extends Entity {
+    backgroundColor?: string | null;
+    categoryId?: number | null;
+    description?: string | null;
+    entityTypeId?: number | null;
+    entityTypeQualifierColumn?: string | null;
+    entityTypeQualifierValue?: string | null;
+    iconCssClass?: string | null;
+    isActive?: boolean;
+    isSystem?: boolean;
+    name?: string | null;
+    order?: number;
+    ownerPersonAliasId?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

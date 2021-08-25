@@ -21,23 +21,23 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface BinaryFile extends Entity {
-    binaryFileTypeId: number | null;
-    contentLastModified: string | null;
-    description: string | null;
-    fileName: string | null;
-    fileSize: number | null;
-    height: number | null;
-    isSystem: boolean;
-    isTemporary: boolean;
-    mimeType: string | null;
-    path: string | null;
-    storageEntitySettings: string | null;
-    width: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface BinaryFile extends Entity {
+    binaryFileTypeId?: number | null;
+    contentLastModified?: string | null;
+    description?: string | null;
+    fileName?: string | null;
+    fileSize?: number | null;
+    height?: number | null;
+    isSystem?: boolean;
+    isTemporary?: boolean;
+    mimeType?: string | null;
+    path?: string | null;
+    storageEntitySettings?: string | null;
+    width?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

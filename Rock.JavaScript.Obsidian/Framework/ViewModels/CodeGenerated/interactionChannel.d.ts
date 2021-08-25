@@ -21,36 +21,36 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface InteractionChannel extends Entity {
-    channelData: string | null;
-    channelDetailTemplate: string | null;
-    channelEntityId: number | null;
-    channelListTemplate: string | null;
-    channelTypeMediumValueId: number | null;
-    componentCacheDuration: number | null;
-    componentCustom1Label: string | null;
-    componentCustom2Label: string | null;
-    componentCustomIndexed1Label: string | null;
-    componentDetailTemplate: string | null;
-    componentEntityTypeId: number | null;
-    componentListTemplate: string | null;
-    engagementStrength: number | null;
-    interactionCustom1Label: string | null;
-    interactionCustom2Label: string | null;
-    interactionCustomIndexed1Label: string | null;
-    interactionDetailTemplate: string | null;
-    interactionEntityTypeId: number | null;
-    interactionListTemplate: string | null;
-    isActive: boolean;
-    name: string | null;
-    retentionDuration: number | null;
-    sessionDetailTemplate: string | null;
-    sessionListTemplate: string | null;
-    usesSession: boolean;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface InteractionChannel extends Entity {
+    channelData?: string | null;
+    channelDetailTemplate?: string | null;
+    channelEntityId?: number | null;
+    channelListTemplate?: string | null;
+    channelTypeMediumValueId?: number | null;
+    componentCacheDuration?: number | null;
+    componentCustom1Label?: string | null;
+    componentCustom2Label?: string | null;
+    componentCustomIndexed1Label?: string | null;
+    componentDetailTemplate?: string | null;
+    componentEntityTypeId?: number | null;
+    componentListTemplate?: string | null;
+    engagementStrength?: number | null;
+    interactionCustom1Label?: string | null;
+    interactionCustom2Label?: string | null;
+    interactionCustomIndexed1Label?: string | null;
+    interactionDetailTemplate?: string | null;
+    interactionEntityTypeId?: number | null;
+    interactionListTemplate?: string | null;
+    isActive?: boolean;
+    name?: string | null;
+    retentionDuration?: number | null;
+    sessionDetailTemplate?: string | null;
+    sessionListTemplate?: string | null;
+    usesSession?: boolean;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

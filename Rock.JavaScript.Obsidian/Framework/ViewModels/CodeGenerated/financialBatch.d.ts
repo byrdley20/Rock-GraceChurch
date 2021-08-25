@@ -21,21 +21,21 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface FinancialBatch extends Entity {
-    accountingSystemCode: string | null;
-    batchEndDateTime: string | null;
-    batchStartDateTime: string | null;
-    campusId: number | null;
-    controlAmount: number;
-    controlItemCount: number | null;
-    isAutomated: boolean;
-    name: string | null;
-    note: string | null;
-    status: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface FinancialBatch extends Entity {
+    accountingSystemCode?: string | null;
+    batchEndDateTime?: string | null;
+    batchStartDateTime?: string | null;
+    campusId?: number | null;
+    controlAmount?: number;
+    controlItemCount?: number | null;
+    isAutomated?: boolean;
+    name?: string | null;
+    note?: string | null;
+    status?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

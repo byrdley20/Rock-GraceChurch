@@ -21,17 +21,17 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface MediaAccount extends Entity {
-    componentEntityTypeId: number;
-    isActive: boolean;
-    lastRefreshDateTime: string | null;
-    metricData: string | null;
-    name: string | null;
-    sourceData: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface MediaAccount extends Entity {
+    componentEntityTypeId?: number;
+    isActive?: boolean;
+    lastRefreshDateTime?: string | null;
+    metricData?: string | null;
+    name?: string | null;
+    sourceData?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

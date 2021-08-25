@@ -21,41 +21,41 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface Page extends Entity {
-    additionalSettings: string | null;
-    allowIndexing: boolean;
-    bodyCssClass: string | null;
-    breadCrumbDisplayIcon: boolean;
-    breadCrumbDisplayName: boolean;
-    browserTitle: string | null;
-    cacheControlHeaderSettings: string | null;
-    description: string | null;
-    displayInNavWhen: number;
-    enableViewState: boolean;
-    headerContent: string | null;
-    iconBinaryFileId: number | null;
-    iconCssClass: string | null;
-    includeAdminFooter: boolean;
-    internalName: string | null;
-    isSystem: boolean;
-    keyWords: string | null;
-    layoutId: number;
-    medianPageLoadTimeDurationSeconds: number | null;
-    menuDisplayChildPages: boolean;
-    menuDisplayDescription: boolean;
-    menuDisplayIcon: boolean;
-    order: number;
-    pageDisplayBreadCrumb: boolean;
-    pageDisplayDescription: boolean;
-    pageDisplayIcon: boolean;
-    pageDisplayTitle: boolean;
-    pageTitle: string | null;
-    parentPageId: number | null;
-    requiresEncryption: boolean;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface Page extends Entity {
+    additionalSettings?: string | null;
+    allowIndexing?: boolean;
+    bodyCssClass?: string | null;
+    breadCrumbDisplayIcon?: boolean;
+    breadCrumbDisplayName?: boolean;
+    browserTitle?: string | null;
+    cacheControlHeaderSettings?: string | null;
+    description?: string | null;
+    displayInNavWhen?: number;
+    enableViewState?: boolean;
+    headerContent?: string | null;
+    iconBinaryFileId?: number | null;
+    iconCssClass?: string | null;
+    includeAdminFooter?: boolean;
+    internalName?: string | null;
+    isSystem?: boolean;
+    keyWords?: string | null;
+    layoutId?: number;
+    medianPageLoadTimeDurationSeconds?: number | null;
+    menuDisplayChildPages?: boolean;
+    menuDisplayDescription?: boolean;
+    menuDisplayIcon?: boolean;
+    order?: number;
+    pageDisplayBreadCrumb?: boolean;
+    pageDisplayDescription?: boolean;
+    pageDisplayIcon?: boolean;
+    pageDisplayTitle?: boolean;
+    pageTitle?: string | null;
+    parentPageId?: number | null;
+    requiresEncryption?: boolean;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

@@ -21,26 +21,26 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface FinancialTransactionAlert extends Entity {
-    alertDateKey: number;
-    alertDateTime: string;
-    alertTypeId: number;
-    amount: number | null;
-    amountCurrentIqr: number | null;
-    amountCurrentMedian: number | null;
-    amountIqrMultiplier: number | null;
-    frequencyCurrentMean: number | null;
-    frequencyCurrentStandardDeviation: number | null;
-    frequencyDifferenceFromMean: number | null;
-    frequencyZScore: number | null;
-    givingId: string | null;
-    personAliasId: number;
-    reasonsKey: string | null;
-    transactionId: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface FinancialTransactionAlert extends Entity {
+    alertDateKey?: number;
+    alertDateTime?: string;
+    alertTypeId?: number;
+    amount?: number | null;
+    amountCurrentIqr?: number | null;
+    amountCurrentMedian?: number | null;
+    amountIqrMultiplier?: number | null;
+    frequencyCurrentMean?: number | null;
+    frequencyCurrentStandardDeviation?: number | null;
+    frequencyDifferenceFromMean?: number | null;
+    frequencyZScore?: number | null;
+    givingId?: string | null;
+    personAliasId?: number;
+    reasonsKey?: string | null;
+    transactionId?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

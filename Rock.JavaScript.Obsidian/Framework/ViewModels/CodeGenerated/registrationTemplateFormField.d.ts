@@ -21,25 +21,25 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface RegistrationTemplateFormField extends Entity {
-    attributeId: number | null;
-    fieldSource: number;
-    fieldVisibilityRulesJSON: string | null;
-    isGridField: boolean;
-    isInternal: boolean;
-    isRequired: boolean;
-    isSharedValue: boolean;
-    order: number;
-    personFieldType: number;
-    postText: string | null;
-    preText: string | null;
-    registrationTemplateFormId: number;
-    showCurrentValue: boolean;
-    showOnWaitlist: boolean;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface RegistrationTemplateFormField extends Entity {
+    attributeId?: number | null;
+    fieldSource?: number;
+    fieldVisibilityRulesJSON?: string | null;
+    isGridField?: boolean;
+    isInternal?: boolean;
+    isRequired?: boolean;
+    isSharedValue?: boolean;
+    order?: number;
+    personFieldType?: number;
+    postText?: string | null;
+    preText?: string | null;
+    registrationTemplateFormId?: number;
+    showCurrentValue?: boolean;
+    showOnWaitlist?: boolean;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

@@ -21,27 +21,27 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface FinancialAccount extends Entity {
-    accountTypeValueId: number | null;
-    campusId: number | null;
-    description: string | null;
-    endDate: string | null;
-    glCode: string | null;
-    imageBinaryFileId: number | null;
-    isActive: boolean;
-    isPublic: boolean | null;
-    isTaxDeductible: boolean;
-    name: string | null;
-    order: number;
-    parentAccountId: number | null;
-    publicDescription: string | null;
-    publicName: string | null;
-    startDate: string | null;
-    url: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface FinancialAccount extends Entity {
+    accountTypeValueId?: number | null;
+    campusId?: number | null;
+    description?: string | null;
+    endDate?: string | null;
+    glCode?: string | null;
+    imageBinaryFileId?: number | null;
+    isActive?: boolean;
+    isPublic?: boolean | null;
+    isTaxDeductible?: boolean;
+    name?: string | null;
+    order?: number;
+    parentAccountId?: number | null;
+    publicDescription?: string | null;
+    publicName?: string | null;
+    startDate?: string | null;
+    url?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

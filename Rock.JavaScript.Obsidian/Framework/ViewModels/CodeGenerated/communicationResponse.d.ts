@@ -21,20 +21,20 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface CommunicationResponse extends Entity {
-    fromPersonAliasId: number | null;
-    isRead: boolean;
-    messageKey: string | null;
-    relatedCommunicationId: number | null;
-    relatedMediumEntityTypeId: number;
-    relatedSmsFromDefinedValueId: number | null;
-    relatedTransportEntityTypeId: number;
-    response: string | null;
-    toPersonAliasId: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface CommunicationResponse extends Entity {
+    fromPersonAliasId?: number | null;
+    isRead?: boolean;
+    messageKey?: string | null;
+    relatedCommunicationId?: number | null;
+    relatedMediumEntityTypeId?: number;
+    relatedSmsFromDefinedValueId?: number | null;
+    relatedTransportEntityTypeId?: number;
+    response?: string | null;
+    toPersonAliasId?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

@@ -21,32 +21,32 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface PrayerRequest extends Entity {
-    allowComments: boolean | null;
-    answer: string | null;
-    approvedByPersonAliasId: number | null;
-    approvedOnDateTime: string | null;
-    campusId: number | null;
-    categoryId: number | null;
-    email: string | null;
-    enteredDateTime: string;
-    expirationDate: string | null;
-    firstName: string | null;
-    flagCount: number | null;
-    groupId: number | null;
-    isActive: boolean | null;
-    isApproved: boolean | null;
-    isPublic: boolean | null;
-    isUrgent: boolean | null;
-    languageValueId: number | null;
-    lastName: string | null;
-    prayerCount: number | null;
-    requestedByPersonAliasId: number | null;
-    text: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface PrayerRequest extends Entity {
+    allowComments?: boolean | null;
+    answer?: string | null;
+    approvedByPersonAliasId?: number | null;
+    approvedOnDateTime?: string | null;
+    campusId?: number | null;
+    categoryId?: number | null;
+    email?: string | null;
+    enteredDateTime?: string;
+    expirationDate?: string | null;
+    firstName?: string | null;
+    flagCount?: number | null;
+    groupId?: number | null;
+    isActive?: boolean | null;
+    isApproved?: boolean | null;
+    isPublic?: boolean | null;
+    isUrgent?: boolean | null;
+    languageValueId?: number | null;
+    lastName?: string | null;
+    prayerCount?: number | null;
+    requestedByPersonAliasId?: number | null;
+    text?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

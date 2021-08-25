@@ -21,20 +21,20 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface RegistrationSession extends Entity {
-    clientIpAddress: string | null;
-    expirationDateTime: string;
-    paymentGatewayReference: string | null;
-    registrationCount: number;
-    registrationData: string | null;
-    registrationId: number | null;
-    registrationInstanceId: number;
-    sessionStartDateTime: string;
-    sessionStatus: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface RegistrationSession extends Entity {
+    clientIpAddress?: string | null;
+    expirationDateTime?: string;
+    paymentGatewayReference?: string | null;
+    registrationCount?: number;
+    registrationData?: string | null;
+    registrationId?: number | null;
+    registrationInstanceId?: number;
+    sessionStartDateTime?: string;
+    sessionStatus?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

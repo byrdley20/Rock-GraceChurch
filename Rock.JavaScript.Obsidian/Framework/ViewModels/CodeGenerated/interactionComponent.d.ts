@@ -21,19 +21,19 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface InteractionComponent extends Entity {
-    channelCustom1: string | null;
-    channelCustom2: string | null;
-    channelCustomIndexed1: string | null;
-    componentData: string | null;
-    componentSummary: string | null;
-    entityId: number | null;
-    interactionChannelId: number;
-    name: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface InteractionComponent extends Entity {
+    channelCustom1?: string | null;
+    channelCustom2?: string | null;
+    channelCustomIndexed1?: string | null;
+    componentData?: string | null;
+    componentSummary?: string | null;
+    entityId?: number | null;
+    interactionChannelId?: number;
+    name?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

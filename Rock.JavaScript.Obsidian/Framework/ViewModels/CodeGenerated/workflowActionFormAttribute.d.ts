@@ -21,21 +21,21 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface WorkflowActionFormAttribute extends Entity {
-    attributeId: number;
-    fieldVisibilityRulesJSON: string | null;
-    hideLabel: boolean;
-    isReadOnly: boolean;
-    isRequired: boolean;
-    isVisible: boolean;
-    order: number;
-    postHtml: string | null;
-    preHtml: string | null;
-    workflowActionFormId: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface WorkflowActionFormAttribute extends Entity {
+    attributeId?: number;
+    fieldVisibilityRulesJSON?: string | null;
+    hideLabel?: boolean;
+    isReadOnly?: boolean;
+    isRequired?: boolean;
+    isVisible?: boolean;
+    order?: number;
+    postHtml?: string | null;
+    preHtml?: string | null;
+    workflowActionFormId?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

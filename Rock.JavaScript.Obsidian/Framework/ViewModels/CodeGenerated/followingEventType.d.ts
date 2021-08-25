@@ -21,21 +21,21 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface FollowingEventType extends Entity {
-    description: string | null;
-    entityNotificationFormatLava: string | null;
-    entityTypeId: number | null;
-    followedEntityTypeId: number | null;
-    isActive: boolean;
-    isNoticeRequired: boolean;
-    lastCheckDateTime: string | null;
-    name: string | null;
-    order: number;
-    sendOnWeekends: boolean;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface FollowingEventType extends Entity {
+    description?: string | null;
+    entityNotificationFormatLava?: string | null;
+    entityTypeId?: number | null;
+    followedEntityTypeId?: number | null;
+    isActive?: boolean;
+    isNoticeRequired?: boolean;
+    lastCheckDateTime?: string | null;
+    name?: string | null;
+    order?: number;
+    sendOnWeekends?: boolean;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

@@ -21,22 +21,22 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface WebFarmNode extends Entity {
-    addedDateTime: string;
-    configuredLeadershipPollingIntervalSeconds: number | null;
-    currentLeadershipPollingIntervalSeconds: number;
-    isActive: boolean;
-    isCurrentJobRunner: boolean;
-    isLeader: boolean;
-    jobsAllowed: boolean;
-    lastRestartDateTime: string;
-    lastSeenDateTime: string;
-    nodeName: string | null;
-    stoppedDateTime: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface WebFarmNode extends Entity {
+    addedDateTime?: string;
+    configuredLeadershipPollingIntervalSeconds?: number | null;
+    currentLeadershipPollingIntervalSeconds?: number;
+    isActive?: boolean;
+    isCurrentJobRunner?: boolean;
+    isLeader?: boolean;
+    jobsAllowed?: boolean;
+    lastRestartDateTime?: string;
+    lastSeenDateTime?: string;
+    nodeName?: string | null;
+    stoppedDateTime?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

@@ -21,21 +21,21 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface GroupLocationHistorical extends Entity {
-    currentRowIndicator: boolean;
-    effectiveDateTime: string;
-    expireDateTime: string;
-    groupId: number;
-    groupLocationId: number | null;
-    groupLocationTypeName: string | null;
-    groupLocationTypeValueId: number | null;
-    locationId: number;
-    locationModifiedDateTime: string | null;
-    locationName: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface GroupLocationHistorical extends Entity {
+    currentRowIndicator?: boolean;
+    effectiveDateTime?: string;
+    expireDateTime?: string;
+    groupId?: number;
+    groupLocationId?: number | null;
+    groupLocationTypeName?: string | null;
+    groupLocationTypeValueId?: number | null;
+    locationId?: number;
+    locationModifiedDateTime?: string | null;
+    locationName?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

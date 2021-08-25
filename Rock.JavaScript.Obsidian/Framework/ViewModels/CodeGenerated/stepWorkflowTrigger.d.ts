@@ -21,18 +21,18 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface StepWorkflowTrigger extends Entity {
-    isActive: boolean;
-    stepProgramId: number | null;
-    stepTypeId: number | null;
-    triggerType: number;
-    typeQualifier: string | null;
-    workflowName: string | null;
-    workflowTypeId: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface StepWorkflowTrigger extends Entity {
+    isActive?: boolean;
+    stepProgramId?: number | null;
+    stepTypeId?: number | null;
+    triggerType?: number;
+    typeQualifier?: string | null;
+    workflowName?: string | null;
+    workflowTypeId?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

@@ -21,24 +21,24 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface Block extends Entity {
-    additionalSettings: string | null;
-    blockTypeId: number;
-    cssClass: string | null;
-    isSystem: boolean;
-    layoutId: number | null;
-    name: string | null;
-    order: number;
-    outputCacheDuration: number;
-    pageId: number | null;
-    postHtml: string | null;
-    preHtml: string | null;
-    siteId: number | null;
-    zone: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface Block extends Entity {
+    additionalSettings?: string | null;
+    blockTypeId?: number;
+    cssClass?: string | null;
+    isSystem?: boolean;
+    layoutId?: number | null;
+    name?: string | null;
+    order?: number;
+    outputCacheDuration?: number;
+    pageId?: number | null;
+    postHtml?: string | null;
+    preHtml?: string | null;
+    siteId?: number | null;
+    zone?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

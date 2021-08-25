@@ -21,19 +21,19 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface Auth extends Entity {
-    action: string | null;
-    allowOrDeny: string | null;
-    entityId: number | null;
-    entityTypeId: number;
-    groupId: number | null;
-    order: number;
-    personAliasId: number | null;
-    specialRole: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface Auth extends Entity {
+    action?: string | null;
+    allowOrDeny?: string | null;
+    entityId?: number | null;
+    entityTypeId?: number;
+    groupId?: number | null;
+    order?: number;
+    personAliasId?: number | null;
+    specialRole?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

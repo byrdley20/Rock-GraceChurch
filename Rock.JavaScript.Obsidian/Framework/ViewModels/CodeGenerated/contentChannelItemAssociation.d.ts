@@ -21,14 +21,14 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface ContentChannelItemAssociation extends Entity {
-    childContentChannelItemId: number;
-    contentChannelItemId: number;
-    order: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface ContentChannelItemAssociation extends Entity {
+    childContentChannelItemId?: number;
+    contentChannelItemId?: number;
+    order?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

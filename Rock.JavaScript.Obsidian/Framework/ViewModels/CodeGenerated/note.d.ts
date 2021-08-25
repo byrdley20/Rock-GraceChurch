@@ -21,27 +21,27 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface Note extends Entity {
-    approvalsSent: boolean;
-    approvalStatus: number;
-    approvedByPersonAliasId: number | null;
-    approvedDateTime: string | null;
-    caption: string | null;
-    editedByPersonAliasId: number | null;
-    editedDateTime: string | null;
-    entityId: number | null;
-    isAlert: boolean | null;
-    isPrivateNote: boolean;
-    isSystem: boolean;
-    noteTypeId: number;
-    noteUrl: string | null;
-    notificationsSent: boolean;
-    parentNoteId: number | null;
-    text: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface Note extends Entity {
+    approvalsSent?: boolean;
+    approvalStatus?: number;
+    approvedByPersonAliasId?: number | null;
+    approvedDateTime?: string | null;
+    caption?: string | null;
+    editedByPersonAliasId?: number | null;
+    editedDateTime?: string | null;
+    entityId?: number | null;
+    isAlert?: boolean | null;
+    isPrivateNote?: boolean;
+    isSystem?: boolean;
+    noteTypeId?: number;
+    noteUrl?: string | null;
+    notificationsSent?: boolean;
+    parentNoteId?: number | null;
+    text?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

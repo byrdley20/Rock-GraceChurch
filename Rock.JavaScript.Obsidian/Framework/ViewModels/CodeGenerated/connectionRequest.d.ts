@@ -21,24 +21,24 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface ConnectionRequest extends Entity {
-    assignedGroupId: number | null;
-    assignedGroupMemberAttributeValues: string | null;
-    assignedGroupMemberRoleId: number | null;
-    assignedGroupMemberStatus: number | null;
-    campusId: number | null;
-    comments: string | null;
-    connectionOpportunityId: number;
-    connectionState: number;
-    connectionStatusId: number;
-    connectorPersonAliasId: number | null;
-    followupDate: string | null;
-    order: number;
-    personAliasId: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface ConnectionRequest extends Entity {
+    assignedGroupId?: number | null;
+    assignedGroupMemberAttributeValues?: string | null;
+    assignedGroupMemberRoleId?: number | null;
+    assignedGroupMemberStatus?: number | null;
+    campusId?: number | null;
+    comments?: string | null;
+    connectionOpportunityId?: number;
+    connectionState?: number;
+    connectionStatusId?: number;
+    connectorPersonAliasId?: number | null;
+    followupDate?: string | null;
+    order?: number;
+    personAliasId?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

@@ -21,23 +21,23 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface GroupTypeRole extends Entity {
-    canEdit: boolean;
-    canManageMembers: boolean;
-    canView: boolean;
-    description: string | null;
-    groupTypeId: number | null;
-    isLeader: boolean;
-    isSystem: boolean;
-    maxCount: number | null;
-    minCount: number | null;
-    name: string | null;
-    order: number;
-    receiveRequirementsNotifications: boolean;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface GroupTypeRole extends Entity {
+    canEdit?: boolean;
+    canManageMembers?: boolean;
+    canView?: boolean;
+    description?: string | null;
+    groupTypeId?: number | null;
+    isLeader?: boolean;
+    isSystem?: boolean;
+    maxCount?: number | null;
+    minCount?: number | null;
+    name?: string | null;
+    order?: number;
+    receiveRequirementsNotifications?: boolean;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

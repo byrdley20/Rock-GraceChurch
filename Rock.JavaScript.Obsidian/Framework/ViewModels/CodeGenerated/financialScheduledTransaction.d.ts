@@ -21,32 +21,32 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface FinancialScheduledTransaction extends Entity {
-    authorizedPersonAliasId: number;
-    cardReminderDate: string | null;
-    endDate: string | null;
-    financialGatewayId: number | null;
-    financialPaymentDetailId: number | null;
-    foreignCurrencyCodeValueId: number | null;
-    gatewayScheduleId: string | null;
-    inactivateDateTime: string | null;
-    isActive: boolean;
-    lastRemindedDate: string | null;
-    lastStatusUpdateDateTime: string | null;
-    nextPaymentDate: string | null;
-    numberOfPayments: number | null;
-    sourceTypeValueId: number | null;
-    startDate: string;
-    status: number | null;
-    statusMessage: string | null;
-    summary: string | null;
-    transactionCode: string | null;
-    transactionFrequencyValueId: number;
-    transactionTypeValueId: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface FinancialScheduledTransaction extends Entity {
+    authorizedPersonAliasId?: number;
+    cardReminderDate?: string | null;
+    endDate?: string | null;
+    financialGatewayId?: number | null;
+    financialPaymentDetailId?: number | null;
+    foreignCurrencyCodeValueId?: number | null;
+    gatewayScheduleId?: string | null;
+    inactivateDateTime?: string | null;
+    isActive?: boolean;
+    lastRemindedDate?: string | null;
+    lastStatusUpdateDateTime?: string | null;
+    nextPaymentDate?: string | null;
+    numberOfPayments?: number | null;
+    sourceTypeValueId?: number | null;
+    startDate?: string;
+    status?: number | null;
+    statusMessage?: string | null;
+    summary?: string | null;
+    transactionCode?: string | null;
+    transactionFrequencyValueId?: number;
+    transactionTypeValueId?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

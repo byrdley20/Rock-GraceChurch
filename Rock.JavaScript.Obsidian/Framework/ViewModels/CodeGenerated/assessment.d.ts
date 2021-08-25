@@ -21,20 +21,20 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface Assessment extends Entity {
-    assessmentResultData: string | null;
-    assessmentTypeId: number;
-    completedDateTime: string | null;
-    lastReminderDate: string | null;
-    personAliasId: number;
-    requestedDateTime: string | null;
-    requestedDueDate: string | null;
-    requesterPersonAliasId: number | null;
-    status: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface Assessment extends Entity {
+    assessmentResultData?: string | null;
+    assessmentTypeId?: number;
+    completedDateTime?: string | null;
+    lastReminderDate?: string | null;
+    personAliasId?: number;
+    requestedDateTime?: string | null;
+    requestedDueDate?: string | null;
+    requesterPersonAliasId?: number | null;
+    status?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

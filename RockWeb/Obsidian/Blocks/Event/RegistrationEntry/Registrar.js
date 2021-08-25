@@ -118,7 +118,7 @@ System.register(["vue", "../../../Elements/CheckBox", "../../../Elements/EmailBo
                             this.registrar.nickName = this.currentPerson.nickName || this.currentPerson.firstName || '';
                             this.registrar.lastName = this.currentPerson.lastName || '';
                             this.registrar.email = this.currentPerson.email || '';
-                            this.registrar.familyGuid = this.currentPerson.primaryFamilyGuid;
+                            this.registrar.familyGuid = this.currentPerson.primaryFamilyGuid || null;
                             return;
                         }
                         if (this.viewModel.registrarOption === RegistrationEntryBlockViewModel_1.RegistrarOption.PromptForRegistrar) {

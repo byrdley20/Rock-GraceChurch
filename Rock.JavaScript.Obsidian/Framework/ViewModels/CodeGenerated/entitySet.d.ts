@@ -21,18 +21,18 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface EntitySet extends Entity {
-    entitySetPurposeValueId: number | null;
-    entityTypeId: number | null;
-    expireDateTime: string | null;
-    name: string | null;
-    note: string | null;
-    order: number;
-    parentEntitySetId: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface EntitySet extends Entity {
+    entitySetPurposeValueId?: number | null;
+    entityTypeId?: number | null;
+    expireDateTime?: string | null;
+    name?: string | null;
+    note?: string | null;
+    order?: number;
+    parentEntitySetId?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

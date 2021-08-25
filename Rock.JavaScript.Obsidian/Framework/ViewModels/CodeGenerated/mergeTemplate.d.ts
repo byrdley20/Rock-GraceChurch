@@ -21,17 +21,17 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface MergeTemplate extends Entity {
-    categoryId: number;
-    description: string | null;
-    mergeTemplateTypeEntityTypeId: number;
-    name: string | null;
-    personAliasId: number | null;
-    templateBinaryFileId: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface MergeTemplate extends Entity {
+    categoryId?: number;
+    description?: string | null;
+    mergeTemplateTypeEntityTypeId?: number;
+    name?: string | null;
+    personAliasId?: number | null;
+    templateBinaryFileId?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

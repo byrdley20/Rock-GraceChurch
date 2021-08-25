@@ -21,22 +21,22 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface ReportField extends Entity {
-    columnHeaderText: string | null;
-    columnOrder: number;
-    dataSelectComponentEntityTypeId: number | null;
-    isCommunicationMergeField: boolean | null;
-    isCommunicationRecipientField: boolean | null;
-    reportFieldType: number;
-    reportId: number;
-    selection: string | null;
-    showInGrid: boolean;
-    sortDirection: number;
-    sortOrder: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface ReportField extends Entity {
+    columnHeaderText?: string | null;
+    columnOrder?: number;
+    dataSelectComponentEntityTypeId?: number | null;
+    isCommunicationMergeField?: boolean | null;
+    isCommunicationRecipientField?: boolean | null;
+    reportFieldType?: number;
+    reportId?: number;
+    selection?: string | null;
+    showInGrid?: boolean;
+    sortDirection?: number;
+    sortOrder?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

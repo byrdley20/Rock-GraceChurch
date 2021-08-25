@@ -21,22 +21,22 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface Report extends Entity {
-    categoryId: number | null;
-    dataViewId: number | null;
-    description: string | null;
-    entityTypeId: number | null;
-    fetchTop: number | null;
-    isSystem: boolean;
-    lastRunDateTime: string | null;
-    name: string | null;
-    queryHint: string | null;
-    runCount: number | null;
-    timeToRunDurationMilliseconds: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface Report extends Entity {
+    categoryId?: number | null;
+    dataViewId?: number | null;
+    description?: string | null;
+    entityTypeId?: number | null;
+    fetchTop?: number | null;
+    isSystem?: boolean;
+    lastRunDateTime?: string | null;
+    name?: string | null;
+    queryHint?: string | null;
+    runCount?: number | null;
+    timeToRunDurationMilliseconds?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

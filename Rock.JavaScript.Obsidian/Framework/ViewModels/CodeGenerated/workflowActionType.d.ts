@@ -21,22 +21,22 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 import { Guid } from '../../Util/Guid';
 
-export default interface WorkflowActionType extends Entity {
-    activityTypeId: number;
-    criteriaAttributeGuid: Guid | null;
-    criteriaComparisonType: number;
-    criteriaValue: string | null;
-    entityTypeId: number;
-    isActionCompletedOnSuccess: boolean;
-    isActivityCompletedOnSuccess: boolean;
-    name: string | null;
-    order: number;
-    workflowFormId: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface WorkflowActionType extends Entity {
+    activityTypeId?: number;
+    criteriaAttributeGuid?: Guid | null;
+    criteriaComparisonType?: number;
+    criteriaValue?: string | null;
+    entityTypeId?: number;
+    isActionCompletedOnSuccess?: boolean;
+    isActivityCompletedOnSuccess?: boolean;
+    name?: string | null;
+    order?: number;
+    workflowFormId?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

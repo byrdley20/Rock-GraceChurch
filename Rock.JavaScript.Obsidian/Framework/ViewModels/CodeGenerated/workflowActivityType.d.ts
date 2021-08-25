@@ -21,17 +21,17 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface WorkflowActivityType extends Entity {
-    description: string | null;
-    isActivatedWithWorkflow: boolean;
-    isActive: boolean | null;
-    name: string | null;
-    order: number;
-    workflowTypeId: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface WorkflowActivityType extends Entity {
+    description?: string | null;
+    isActivatedWithWorkflow?: boolean;
+    isActive?: boolean | null;
+    name?: string | null;
+    order?: number;
+    workflowTypeId?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

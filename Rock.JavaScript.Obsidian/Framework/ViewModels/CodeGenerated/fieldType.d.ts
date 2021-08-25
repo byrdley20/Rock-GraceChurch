@@ -21,16 +21,16 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface FieldType extends Entity {
-    assembly: string | null;
-    class: string | null;
-    description: string | null;
-    isSystem: boolean;
-    name: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface FieldType extends Entity {
+    assembly?: string | null;
+    class?: string | null;
+    description?: string | null;
+    isSystem?: boolean;
+    name?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

@@ -21,16 +21,16 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface GroupRequirement extends Entity {
-    groupId: number | null;
-    groupRequirementTypeId: number;
-    groupRoleId: number | null;
-    groupTypeId: number | null;
-    mustMeetRequirementToAddMember: boolean;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface GroupRequirement extends Entity {
+    groupId?: number | null;
+    groupRequirementTypeId?: number;
+    groupRoleId?: number | null;
+    groupTypeId?: number | null;
+    mustMeetRequirementToAddMember?: boolean;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

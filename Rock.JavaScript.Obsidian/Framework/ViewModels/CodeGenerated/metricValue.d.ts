@@ -21,17 +21,17 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface MetricValue extends Entity {
-    metricId: number;
-    metricValueDateTime: string | null;
-    metricValueType: number;
-    note: string | null;
-    xValue: string | null;
-    yValue: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface MetricValue extends Entity {
+    metricId?: number;
+    metricValueDateTime?: string | null;
+    metricValueType?: number;
+    note?: string | null;
+    xValue?: string | null;
+    yValue?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

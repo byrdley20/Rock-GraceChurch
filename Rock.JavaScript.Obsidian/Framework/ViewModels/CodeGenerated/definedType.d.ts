@@ -21,20 +21,20 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface DefinedType extends Entity {
-    categoryId: number | null;
-    description: string | null;
-    enableSecurityOnValues: boolean;
-    fieldTypeId: number | null;
-    helpText: string | null;
-    isActive: boolean;
-    isSystem: boolean;
-    name: string | null;
-    order: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface DefinedType extends Entity {
+    categoryId?: number | null;
+    description?: string | null;
+    enableSecurityOnValues?: boolean;
+    fieldTypeId?: number | null;
+    helpText?: string | null;
+    isActive?: boolean;
+    isSystem?: boolean;
+    name?: string | null;
+    order?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

@@ -21,38 +21,38 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface CommunicationTemplate extends Entity {
-    bCCEmails: string | null;
-    categoryId: number | null;
-    cCEmails: string | null;
-    cssInliningEnabled: boolean;
-    description: string | null;
-    fromEmail: string | null;
-    fromName: string | null;
-    imageFileId: number | null;
-    isActive: boolean;
-    isSystem: boolean;
-    lavaFieldsJson: string | null;
-    logoBinaryFileId: number | null;
-    message: string | null;
-    messageMetaData: string | null;
-    name: string | null;
-    pushData: string | null;
-    pushImageBinaryFileId: number | null;
-    pushMessage: string | null;
-    pushOpenAction: number | null;
-    pushOpenMessage: string | null;
-    pushSound: string | null;
-    pushTitle: string | null;
-    replyToEmail: string | null;
-    senderPersonAliasId: number | null;
-    sMSFromDefinedValueId: number | null;
-    sMSMessage: string | null;
-    subject: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface CommunicationTemplate extends Entity {
+    bCCEmails?: string | null;
+    categoryId?: number | null;
+    cCEmails?: string | null;
+    cssInliningEnabled?: boolean;
+    description?: string | null;
+    fromEmail?: string | null;
+    fromName?: string | null;
+    imageFileId?: number | null;
+    isActive?: boolean;
+    isSystem?: boolean;
+    lavaFieldsJson?: string | null;
+    logoBinaryFileId?: number | null;
+    message?: string | null;
+    messageMetaData?: string | null;
+    name?: string | null;
+    pushData?: string | null;
+    pushImageBinaryFileId?: number | null;
+    pushMessage?: string | null;
+    pushOpenAction?: number | null;
+    pushOpenMessage?: string | null;
+    pushSound?: string | null;
+    pushTitle?: string | null;
+    replyToEmail?: string | null;
+    senderPersonAliasId?: number | null;
+    sMSFromDefinedValueId?: number | null;
+    sMSMessage?: string | null;
+    subject?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

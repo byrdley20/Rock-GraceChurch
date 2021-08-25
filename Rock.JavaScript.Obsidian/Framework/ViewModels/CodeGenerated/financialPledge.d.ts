@@ -21,18 +21,18 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface FinancialPledge extends Entity {
-    accountId: number | null;
-    endDate: string;
-    groupId: number | null;
-    personAliasId: number | null;
-    pledgeFrequencyValueId: number | null;
-    startDate: string;
-    totalAmount: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface FinancialPledge extends Entity {
+    accountId?: number | null;
+    endDate?: string;
+    groupId?: number | null;
+    personAliasId?: number | null;
+    pledgeFrequencyValueId?: number | null;
+    startDate?: string;
+    totalAmount?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

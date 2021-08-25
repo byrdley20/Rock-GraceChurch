@@ -21,17 +21,17 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface RegistrationRegistrant extends Entity {
-    cost: number;
-    discountApplies: boolean;
-    groupMemberId: number | null;
-    onWaitList: boolean;
-    personAliasId: number | null;
-    registrationId: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface RegistrationRegistrant extends Entity {
+    cost?: number;
+    discountApplies?: boolean;
+    groupMemberId?: number | null;
+    onWaitList?: boolean;
+    personAliasId?: number | null;
+    registrationId?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

@@ -21,21 +21,21 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface SystemEmail extends Entity {
-    bcc: string | null;
-    body: string | null;
-    categoryId: number | null;
-    cc: string | null;
-    from: string | null;
-    fromName: string | null;
-    isSystem: boolean;
-    subject: string | null;
-    title: string | null;
-    to: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface SystemEmail extends Entity {
+    bcc?: string | null;
+    body?: string | null;
+    categoryId?: number | null;
+    cc?: string | null;
+    from?: string | null;
+    fromName?: string | null;
+    isSystem?: boolean;
+    subject?: string | null;
+    title?: string | null;
+    to?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

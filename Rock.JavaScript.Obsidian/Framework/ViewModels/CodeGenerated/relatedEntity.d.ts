@@ -21,19 +21,19 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface RelatedEntity extends Entity {
-    isSystem: boolean;
-    order: number;
-    purposeKey: string | null;
-    qualifierValue: string | null;
-    sourceEntityId: number;
-    sourceEntityTypeId: number;
-    targetEntityId: number;
-    targetEntityTypeId: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface RelatedEntity extends Entity {
+    isSystem?: boolean;
+    order?: number;
+    purposeKey?: string | null;
+    qualifierValue?: string | null;
+    sourceEntityId?: number;
+    sourceEntityTypeId?: number;
+    targetEntityId?: number;
+    targetEntityTypeId?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

@@ -21,42 +21,42 @@
 // </copyright>
 //
 
-import AchievementType from './AchievementType';
-import StreakType from './StreakType';
-import Badge from './Badge';
-import AuthScope from './AuthScope';
-import BinaryFile from './BinaryFile';
-import FinancialStatementTemplate from './FinancialStatementTemplate';
-import Metric from './Metric';
-import Person from './Person';
-import SystemCommunication from './SystemCommunication';
-import AssessmentType from './AssessmentType';
-import ContentChannelType from './ContentChannelType';
-import Layout from './Layout';
-import PageRoute from './PageRoute';
-import SystemSetting from './SystemSetting';
-import Block from './Block';
-import Communication from './Communication';
-import InteractionChannel from './InteractionChannel';
-import WorkflowType from './WorkflowType';
-import Attribute from './Attribute';
-import BinaryFiletype from './BinaryFiletype';
-import BlockType from './BlockType';
-import Category from './Category';
-import ConnectionActivityType from './ConnectionActivityType';
-import DefinedType from './DefinedType';
-import DefinedValue from './DefinedValue';
-import EntityType from './EntityType';
-import FieldType from './FieldType';
-import FinancialAccount from './FinancialAccount';
-import Group from './Group';
-import GroupRole from './GroupRole';
-import GroupType from './GroupType';
-import NoteType from './NoteType';
-import Page from './Page';
-import ServiceJob from './ServiceJob';
-import Site from './Site';
-import SystemEmail from './SystemEmail';
+import { AchievementType } from "./achievementType";
+import { StreakType } from "./streakType";
+import { Badge } from "./badge";
+import { AuthScope } from "./authScope";
+import { BinaryFile } from "./binaryFile";
+import { FinancialStatementTemplate } from "./financialStatementTemplate";
+import { Metric } from "./metric";
+import { Person } from "./person";
+import { SystemCommunication } from "./systemCommunication";
+import { AssessmentType } from "./assessmentType";
+import { ContentChannelType } from "./contentChannelType";
+import { Layout } from "./layout";
+import { PageRoute } from "./pageRoute";
+import { SystemSetting } from "./systemSetting";
+import { Block } from "./block";
+import { Communication } from "./communication";
+import { InteractionChannel } from "./interactionChannel";
+import { WorkflowType } from "./workflowType";
+import { Attribute } from "./attribute";
+import { BinaryFiletype } from "./binaryFiletype";
+import { BlockType } from "./blockType";
+import { Category } from "./category";
+import { ConnectionActivityType } from "./connectionActivityType";
+import { DefinedType } from "./definedType";
+import { DefinedValue } from "./definedValue";
+import { EntityType } from "./entityType";
+import { FieldType } from "./fieldType";
+import { FinancialAccount } from "./financialAccount";
+import { Group } from "./group";
+import { GroupRole } from "./groupRole";
+import { GroupType } from "./groupType";
+import { NoteType } from "./noteType";
+import { Page } from "./page";
+import { ServiceJob } from "./serviceJob";
+import { Site } from "./site";
+import { SystemEmail } from "./systemEmail";
 
 export {
     AchievementType,

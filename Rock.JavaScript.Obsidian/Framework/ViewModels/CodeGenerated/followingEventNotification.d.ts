@@ -21,14 +21,14 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface FollowingEventNotification extends Entity {
-    entityId: number;
-    followingEventTypeId: number;
-    lastNotified: string;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface FollowingEventNotification extends Entity {
+    entityId?: number;
+    followingEventTypeId?: number;
+    lastNotified?: string;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

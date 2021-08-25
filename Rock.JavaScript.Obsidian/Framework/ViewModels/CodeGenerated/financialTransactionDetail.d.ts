@@ -21,20 +21,20 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface FinancialTransactionDetail extends Entity {
-    accountId: number;
-    amount: number;
-    entityId: number | null;
-    entityTypeId: number | null;
-    feeAmount: number | null;
-    feeCoverageAmount: number | null;
-    foreignCurrencyAmount: number | null;
-    summary: string | null;
-    transactionId: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface FinancialTransactionDetail extends Entity {
+    accountId?: number;
+    amount?: number;
+    entityId?: number | null;
+    entityTypeId?: number | null;
+    feeAmount?: number | null;
+    feeCoverageAmount?: number | null;
+    foreignCurrencyAmount?: number | null;
+    summary?: string | null;
+    transactionId?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

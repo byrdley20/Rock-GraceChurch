@@ -21,17 +21,17 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 import { Guid } from '../../Util/Guid';
 
-export default interface TaggedItem extends Entity {
-    entityGuid: Guid;
-    entityTypeId: number;
-    isSystem: boolean;
-    quantity: number;
-    tagId: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface TaggedItem extends Entity {
+    entityGuid?: Guid;
+    entityTypeId?: number;
+    isSystem?: boolean;
+    quantity?: number;
+    tagId?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

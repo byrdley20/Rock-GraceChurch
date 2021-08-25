@@ -21,30 +21,30 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface Metric extends Entity {
-    adminPersonAliasId: number | null;
-    autoPartitionOnPrimaryCampus: boolean;
-    dataViewId: number | null;
-    description: string | null;
-    enableAnalytics: boolean;
-    iconCssClass: string | null;
-    isCumulative: boolean;
-    isSystem: boolean;
-    lastRunDateTime: string | null;
-    metricChampionPersonAliasId: number | null;
-    numericDataType: number;
-    scheduleId: number | null;
-    sourceLava: string | null;
-    sourceSql: string | null;
-    sourceValueTypeId: number | null;
-    subtitle: string | null;
-    title: string | null;
-    xAxisLabel: string | null;
-    yAxisLabel: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface Metric extends Entity {
+    adminPersonAliasId?: number | null;
+    autoPartitionOnPrimaryCampus?: boolean;
+    dataViewId?: number | null;
+    description?: string | null;
+    enableAnalytics?: boolean;
+    iconCssClass?: string | null;
+    isCumulative?: boolean;
+    isSystem?: boolean;
+    lastRunDateTime?: string | null;
+    metricChampionPersonAliasId?: number | null;
+    numericDataType?: number;
+    scheduleId?: number | null;
+    sourceLava?: string | null;
+    sourceSql?: string | null;
+    sourceValueTypeId?: number | null;
+    subtitle?: string | null;
+    title?: string | null;
+    xAxisLabel?: string | null;
+    yAxisLabel?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

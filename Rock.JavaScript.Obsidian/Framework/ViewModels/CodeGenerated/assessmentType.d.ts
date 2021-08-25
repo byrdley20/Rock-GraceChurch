@@ -21,23 +21,23 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface AssessmentType extends Entity {
-    assessmentPath: string | null;
-    assessmentResultsPath: string | null;
-    badgeColor: string | null;
-    badgeSummaryLava: string | null;
-    description: string | null;
-    iconCssClass: string | null;
-    isActive: boolean;
-    isSystem: boolean;
-    minimumDaysToRetake: number;
-    requiresRequest: boolean;
-    title: string | null;
-    validDuration: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface AssessmentType extends Entity {
+    assessmentPath?: string | null;
+    assessmentResultsPath?: string | null;
+    badgeColor?: string | null;
+    badgeSummaryLava?: string | null;
+    description?: string | null;
+    iconCssClass?: string | null;
+    isActive?: boolean;
+    isSystem?: boolean;
+    minimumDaysToRetake?: number;
+    requiresRequest?: boolean;
+    title?: string | null;
+    validDuration?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

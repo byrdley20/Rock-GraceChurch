@@ -21,21 +21,21 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface Step extends Entity {
-    campusId: number | null;
-    completedDateTime: string | null;
-    endDateTime: string | null;
-    note: string | null;
-    order: number;
-    personAliasId: number;
-    startDateTime: string | null;
-    stepProgramCompletionId: number | null;
-    stepStatusId: number | null;
-    stepTypeId: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface Step extends Entity {
+    campusId?: number | null;
+    completedDateTime?: string | null;
+    endDateTime?: string | null;
+    note?: string | null;
+    order?: number;
+    personAliasId?: number;
+    startDateTime?: string | null;
+    stepProgramCompletionId?: number | null;
+    stepStatusId?: number | null;
+    stepTypeId?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

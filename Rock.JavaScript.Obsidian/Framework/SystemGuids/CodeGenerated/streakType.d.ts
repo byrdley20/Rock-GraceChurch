@@ -21,10 +21,8 @@
 // </copyright>
 //
 
-declare const enum StreakType {
+export const enum StreakType {
     /** Weekly Attendance */
     WeeklyAttendance = 'B9FADD97-38A4-4141-B6DB-48154563A2A9',
-
 }
 
-export default StreakType;

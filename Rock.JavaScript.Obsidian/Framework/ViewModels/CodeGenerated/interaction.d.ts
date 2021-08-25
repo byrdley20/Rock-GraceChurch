@@ -21,33 +21,33 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface Interaction extends Entity {
-    campaign: string | null;
-    channelCustom1: string | null;
-    channelCustom2: string | null;
-    channelCustomIndexed1: string | null;
-    content: string | null;
-    entityId: number | null;
-    interactionComponentId: number;
-    interactionData: string | null;
-    interactionDateTime: string;
-    interactionEndDateTime: string | null;
-    interactionLength: number | null;
-    interactionSessionId: number | null;
-    interactionSummary: string | null;
-    interactionTimeToServe: number | null;
-    medium: string | null;
-    operation: string | null;
-    personalDeviceId: number | null;
-    personAliasId: number | null;
-    relatedEntityId: number | null;
-    relatedEntityTypeId: number | null;
-    source: string | null;
-    term: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface Interaction extends Entity {
+    campaign?: string | null;
+    channelCustom1?: string | null;
+    channelCustom2?: string | null;
+    channelCustomIndexed1?: string | null;
+    content?: string | null;
+    entityId?: number | null;
+    interactionComponentId?: number;
+    interactionData?: string | null;
+    interactionDateTime?: string;
+    interactionEndDateTime?: string | null;
+    interactionLength?: number | null;
+    interactionSessionId?: number | null;
+    interactionSummary?: string | null;
+    interactionTimeToServe?: number | null;
+    medium?: string | null;
+    operation?: string | null;
+    personalDeviceId?: number | null;
+    personAliasId?: number | null;
+    relatedEntityId?: number | null;
+    relatedEntityTypeId?: number | null;
+    source?: string | null;
+    term?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

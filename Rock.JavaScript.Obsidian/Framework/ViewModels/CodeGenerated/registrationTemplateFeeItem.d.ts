@@ -21,17 +21,17 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface RegistrationTemplateFeeItem extends Entity {
-    cost: number;
-    isActive: boolean;
-    maximumUsageCount: number | null;
-    name: string | null;
-    order: number;
-    registrationTemplateFeeId: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface RegistrationTemplateFeeItem extends Entity {
+    cost?: number;
+    isActive?: boolean;
+    maximumUsageCount?: number | null;
+    name?: string | null;
+    order?: number;
+    registrationTemplateFeeId?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

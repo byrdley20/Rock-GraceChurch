@@ -21,16 +21,16 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface WebFarmNodeMetric extends Entity {
-    metricType: number;
-    metricValue: number;
-    metricValueDateTime: string;
-    note: string | null;
-    webFarmNodeId: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface WebFarmNodeMetric extends Entity {
+    metricType?: number;
+    metricValue?: number;
+    metricValueDateTime?: string;
+    note?: string | null;
+    webFarmNodeId?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

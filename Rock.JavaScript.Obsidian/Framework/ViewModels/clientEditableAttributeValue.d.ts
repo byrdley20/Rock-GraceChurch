@@ -14,7 +14,7 @@
 // limitations under the License.
 // </copyright>
 //
-import ClientAttributeValue from "./ClientAttributeValue";
+import ClientAttributeValue from "./clientAttributeValue";
 
 export default interface ClientEditableAttributeValue extends ClientAttributeValue {
     /** The key that identifies this attribute on the entity. */

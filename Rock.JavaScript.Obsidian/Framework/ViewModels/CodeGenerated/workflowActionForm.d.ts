@@ -21,41 +21,41 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 import { Guid } from '../../Util/Guid';
 
-export default interface WorkflowActionForm extends Entity {
-    actionAttributeGuid: Guid | null;
-    actions: string | null;
-    allowNotes: boolean | null;
-    allowPersonEntry: boolean;
-    footer: string | null;
-    header: string | null;
-    includeActionsInNotification: boolean;
-    notificationSystemCommunicationId: number | null;
-    personEntryAddressEntryOption: number;
-    personEntryAutofillCurrentPerson: boolean;
-    personEntryBirthdateEntryOption: number;
-    personEntryCampusIsVisible: boolean;
-    personEntryCampusStatusValueId: number | null;
-    personEntryCampusTypeValueId: number | null;
-    personEntryConnectionStatusValueId: number | null;
-    personEntryEmailEntryOption: number;
-    personEntryFamilyAttributeGuid: Guid | null;
-    personEntryGenderEntryOption: number;
-    personEntryGroupLocationTypeValueId: number | null;
-    personEntryHideIfCurrentPersonKnown: boolean;
-    personEntryMaritalStatusEntryOption: number;
-    personEntryMobilePhoneEntryOption: number;
-    personEntryPersonAttributeGuid: Guid | null;
-    personEntryPostHtml: string | null;
-    personEntryPreHtml: string | null;
-    personEntryRecordStatusValueId: number | null;
-    personEntrySpouseAttributeGuid: Guid | null;
-    personEntrySpouseEntryOption: number;
-    personEntrySpouseLabel: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface WorkflowActionForm extends Entity {
+    actionAttributeGuid?: Guid | null;
+    actions?: string | null;
+    allowNotes?: boolean | null;
+    allowPersonEntry?: boolean;
+    footer?: string | null;
+    header?: string | null;
+    includeActionsInNotification?: boolean;
+    notificationSystemCommunicationId?: number | null;
+    personEntryAddressEntryOption?: number;
+    personEntryAutofillCurrentPerson?: boolean;
+    personEntryBirthdateEntryOption?: number;
+    personEntryCampusIsVisible?: boolean;
+    personEntryCampusStatusValueId?: number | null;
+    personEntryCampusTypeValueId?: number | null;
+    personEntryConnectionStatusValueId?: number | null;
+    personEntryEmailEntryOption?: number;
+    personEntryFamilyAttributeGuid?: Guid | null;
+    personEntryGenderEntryOption?: number;
+    personEntryGroupLocationTypeValueId?: number | null;
+    personEntryHideIfCurrentPersonKnown?: boolean;
+    personEntryMaritalStatusEntryOption?: number;
+    personEntryMobilePhoneEntryOption?: number;
+    personEntryPersonAttributeGuid?: Guid | null;
+    personEntryPostHtml?: string | null;
+    personEntryPreHtml?: string | null;
+    personEntryRecordStatusValueId?: number | null;
+    personEntrySpouseAttributeGuid?: Guid | null;
+    personEntrySpouseEntryOption?: number;
+    personEntrySpouseLabel?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

@@ -21,19 +21,19 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface FollowingSuggestionType extends Entity {
-    description: string | null;
-    entityNotificationFormatLava: string | null;
-    entityTypeId: number | null;
-    isActive: boolean;
-    name: string | null;
-    order: number;
-    reasonNote: string | null;
-    reminderDays: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface FollowingSuggestionType extends Entity {
+    description?: string | null;
+    entityNotificationFormatLava?: string | null;
+    entityTypeId?: number | null;
+    isActive?: boolean;
+    name?: string | null;
+    order?: number;
+    reasonNote?: string | null;
+    reminderDays?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

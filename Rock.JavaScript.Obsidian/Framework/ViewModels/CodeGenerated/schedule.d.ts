@@ -21,24 +21,24 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface Schedule extends Entity {
-    autoInactivateWhenComplete: boolean;
-    categoryId: number | null;
-    checkInEndOffsetMinutes: number | null;
-    checkInStartOffsetMinutes: number | null;
-    description: string | null;
-    effectiveEndDate: string | null;
-    effectiveStartDate: string | null;
-    iCalendarContent: string | null;
-    isActive: boolean;
-    name: string | null;
-    order: number;
-    weeklyDayOfWeek: number | null;
-    weeklyTimeOfDay: Record<string, unknown> | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface Schedule extends Entity {
+    autoInactivateWhenComplete?: boolean;
+    categoryId?: number | null;
+    checkInEndOffsetMinutes?: number | null;
+    checkInStartOffsetMinutes?: number | null;
+    description?: string | null;
+    effectiveEndDate?: string | null;
+    effectiveStartDate?: string | null;
+    iCalendarContent?: string | null;
+    isActive?: boolean;
+    name?: string | null;
+    order?: number;
+    weeklyDayOfWeek?: number | null;
+    weeklyTimeOfDay?: Record<string, unknown> | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

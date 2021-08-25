@@ -21,19 +21,19 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface PersonDuplicate extends Entity {
-    capacity: number | null;
-    duplicatePersonAliasId: number;
-    ignoreUntilScoreChanges: boolean;
-    isConfirmedAsNotDuplicate: boolean;
-    personAliasId: number;
-    score: number | null;
-    scoreDetail: string | null;
-    totalCapacity: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface PersonDuplicate extends Entity {
+    capacity?: number | null;
+    duplicatePersonAliasId?: number;
+    ignoreUntilScoreChanges?: boolean;
+    isConfirmedAsNotDuplicate?: boolean;
+    personAliasId?: number;
+    score?: number | null;
+    scoreDetail?: string | null;
+    totalCapacity?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

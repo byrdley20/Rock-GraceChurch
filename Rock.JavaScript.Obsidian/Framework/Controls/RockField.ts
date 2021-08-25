@@ -17,9 +17,7 @@
 import { getFieldType } from '../Fields/Index';
 import { computed, defineComponent, PropType, provide } from 'vue';
 import { TextFieldType } from '../Fields/TextField';
-
-import ClientAttributeValue from 'ViewModels/ClientAttributeValue';
-import ClientEditableAttributeValue from 'ViewModels/ClientEditableAttributeValue';
+import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
 
 const textField = new TextFieldType();
 

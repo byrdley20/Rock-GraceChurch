@@ -21,17 +21,17 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface DefinedValue extends Entity {
-    definedTypeId: number;
-    description: string | null;
-    isActive: boolean;
-    isSystem: boolean;
-    order: number;
-    value: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface DefinedValue extends Entity {
+    definedTypeId?: number;
+    description?: string | null;
+    isActive?: boolean;
+    isSystem?: boolean;
+    order?: number;
+    value?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

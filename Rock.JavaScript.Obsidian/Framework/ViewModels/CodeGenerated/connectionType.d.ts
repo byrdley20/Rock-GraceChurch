@@ -21,27 +21,27 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface ConnectionType extends Entity {
-    connectionRequestDetailPageId: number | null;
-    connectionRequestDetailPageRouteId: number | null;
-    daysUntilRequestIdle: number;
-    defaultView: number;
-    description: string | null;
-    enableFullActivityList: boolean;
-    enableFutureFollowup: boolean;
-    enableRequestSecurity: boolean;
-    iconCssClass: string | null;
-    isActive: boolean;
-    name: string | null;
-    order: number;
-    ownerPersonAliasId: number | null;
-    requestBadgeLava: string | null;
-    requestHeaderLava: string | null;
-    requiresPlacementGroupToConnect: boolean;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface ConnectionType extends Entity {
+    connectionRequestDetailPageId?: number | null;
+    connectionRequestDetailPageRouteId?: number | null;
+    daysUntilRequestIdle?: number;
+    defaultView?: number;
+    description?: string | null;
+    enableFullActivityList?: boolean;
+    enableFutureFollowup?: boolean;
+    enableRequestSecurity?: boolean;
+    iconCssClass?: string | null;
+    isActive?: boolean;
+    name?: string | null;
+    order?: number;
+    ownerPersonAliasId?: number | null;
+    requestBadgeLava?: string | null;
+    requestHeaderLava?: string | null;
+    requiresPlacementGroupToConnect?: boolean;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

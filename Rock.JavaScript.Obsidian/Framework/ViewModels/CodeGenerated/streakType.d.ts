@@ -21,22 +21,22 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface StreakType extends Entity {
-    description: string | null;
-    enableAttendance: boolean;
-    firstDayOfWeek: number | null;
-    isActive: boolean;
-    name: string | null;
-    occurrenceFrequency: number;
-    occurrenceMap: (number)[];
-    requiresEnrollment: boolean;
-    startDate: string;
-    structureEntityId: number | null;
-    structureType: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface StreakType extends Entity {
+    description?: string | null;
+    enableAttendance?: boolean;
+    firstDayOfWeek?: number | null;
+    isActive?: boolean;
+    name?: string | null;
+    occurrenceFrequency?: number;
+    occurrenceMap?: (number)[];
+    requiresEnrollment?: boolean;
+    startDate?: string;
+    structureEntityId?: number | null;
+    structureType?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

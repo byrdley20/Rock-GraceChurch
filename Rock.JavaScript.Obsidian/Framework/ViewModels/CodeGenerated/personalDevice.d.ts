@@ -21,24 +21,24 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface PersonalDevice extends Entity {
-    deviceRegistrationId: string | null;
-    deviceUniqueIdentifier: string | null;
-    deviceVersion: string | null;
-    isActive: boolean;
-    mACAddress: string | null;
-    manufacturer: string | null;
-    model: string | null;
-    name: string | null;
-    notificationsEnabled: boolean;
-    personalDeviceTypeValueId: number | null;
-    personAliasId: number | null;
-    platformValueId: number | null;
-    siteId: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface PersonalDevice extends Entity {
+    deviceRegistrationId?: string | null;
+    deviceUniqueIdentifier?: string | null;
+    deviceVersion?: string | null;
+    isActive?: boolean;
+    mACAddress?: string | null;
+    manufacturer?: string | null;
+    model?: string | null;
+    name?: string | null;
+    notificationsEnabled?: boolean;
+    personalDeviceTypeValueId?: number | null;
+    personAliasId?: number | null;
+    platformValueId?: number | null;
+    siteId?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

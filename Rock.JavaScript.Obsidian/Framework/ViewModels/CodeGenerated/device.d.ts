@@ -21,22 +21,22 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface Device extends Entity {
-    cameraBarcodeConfigurationType: number | null;
-    description: string | null;
-    deviceTypeValueId: number;
-    hasCamera: boolean;
-    iPAddress: string | null;
-    isActive: boolean;
-    locationId: number | null;
-    name: string | null;
-    printerDeviceId: number | null;
-    printFrom: number;
-    printToOverride: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface Device extends Entity {
+    cameraBarcodeConfigurationType?: number | null;
+    description?: string | null;
+    deviceTypeValueId?: number;
+    hasCamera?: boolean;
+    iPAddress?: string | null;
+    isActive?: boolean;
+    locationId?: number | null;
+    name?: string | null;
+    printerDeviceId?: number | null;
+    printFrom?: number;
+    printToOverride?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

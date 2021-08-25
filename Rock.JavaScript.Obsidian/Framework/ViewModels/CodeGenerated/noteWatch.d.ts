@@ -21,20 +21,20 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface NoteWatch extends Entity {
-    allowOverride: boolean;
-    entityId: number | null;
-    entityTypeId: number | null;
-    isWatching: boolean;
-    noteId: number | null;
-    noteTypeId: number | null;
-    watcherGroupId: number | null;
-    watcherPersonAliasId: number | null;
-    watchReplies: boolean;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface NoteWatch extends Entity {
+    allowOverride?: boolean;
+    entityId?: number | null;
+    entityTypeId?: number | null;
+    isWatching?: boolean;
+    noteId?: number | null;
+    noteTypeId?: number | null;
+    watcherGroupId?: number | null;
+    watcherPersonAliasId?: number | null;
+    watchReplies?: boolean;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

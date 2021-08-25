@@ -21,15 +21,15 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface PersonalLinkSection extends Entity {
-    iconCssClass: string | null;
-    isShared: boolean;
-    name: string | null;
-    personAliasId: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface PersonalLinkSection extends Entity {
+    iconCssClass?: string | null;
+    isShared?: boolean;
+    name?: string | null;
+    personAliasId?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

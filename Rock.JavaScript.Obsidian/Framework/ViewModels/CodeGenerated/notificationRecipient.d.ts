@@ -21,15 +21,15 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface NotificationRecipient extends Entity {
-    notificationId: number;
-    personAliasId: number;
-    read: boolean;
-    readDateTime: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface NotificationRecipient extends Entity {
+    notificationId?: number;
+    personAliasId?: number;
+    read?: boolean;
+    readDateTime?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

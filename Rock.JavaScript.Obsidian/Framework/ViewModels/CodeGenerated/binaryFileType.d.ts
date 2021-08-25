@@ -21,25 +21,25 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface BinaryFileType extends Entity {
-    cacheControlHeaderSettings: string | null;
-    cacheToServerFileSystem: boolean;
-    description: string | null;
-    iconCssClass: string | null;
-    isSystem: boolean;
-    maxHeight: number | null;
-    maxWidth: number | null;
-    name: string | null;
-    preferredColorDepth: number;
-    preferredFormat: number;
-    preferredRequired: boolean;
-    preferredResolution: number;
-    requiresViewSecurity: boolean;
-    storageEntityTypeId: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface BinaryFileType extends Entity {
+    cacheControlHeaderSettings?: string | null;
+    cacheToServerFileSystem?: boolean;
+    description?: string | null;
+    iconCssClass?: string | null;
+    isSystem?: boolean;
+    maxHeight?: number | null;
+    maxWidth?: number | null;
+    name?: string | null;
+    preferredColorDepth?: number;
+    preferredFormat?: number;
+    preferredRequired?: boolean;
+    preferredResolution?: number;
+    requiresViewSecurity?: boolean;
+    storageEntityTypeId?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

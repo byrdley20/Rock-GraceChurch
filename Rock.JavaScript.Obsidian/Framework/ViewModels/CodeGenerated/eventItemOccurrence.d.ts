@@ -21,19 +21,19 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface EventItemOccurrence extends Entity {
-    campusId: number | null;
-    contactEmail: string | null;
-    contactPersonAliasId: number | null;
-    contactPhone: string | null;
-    eventItemId: number;
-    location: string | null;
-    note: string | null;
-    scheduleId: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface EventItemOccurrence extends Entity {
+    campusId?: number | null;
+    contactEmail?: string | null;
+    contactPersonAliasId?: number | null;
+    contactPhone?: string | null;
+    eventItemId?: number;
+    location?: string | null;
+    note?: string | null;
+    scheduleId?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

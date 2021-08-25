@@ -21,26 +21,26 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface AttendanceOccurrence extends Entity {
-    acceptConfirmationMessage: string | null;
-    anonymousAttendanceCount: number | null;
-    attendanceTypeValueId: number | null;
-    declineConfirmationMessage: string | null;
-    declineReasonValueIds: string | null;
-    didNotOccur: boolean | null;
-    groupId: number | null;
-    locationId: number | null;
-    name: string | null;
-    notes: string | null;
-    occurrenceDate: string;
-    scheduleId: number | null;
-    showDeclineReasons: boolean;
-    stepTypeId: number | null;
-    sundayDate: string;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface AttendanceOccurrence extends Entity {
+    acceptConfirmationMessage?: string | null;
+    anonymousAttendanceCount?: number | null;
+    attendanceTypeValueId?: number | null;
+    declineConfirmationMessage?: string | null;
+    declineReasonValueIds?: string | null;
+    didNotOccur?: boolean | null;
+    groupId?: number | null;
+    locationId?: number | null;
+    name?: string | null;
+    notes?: string | null;
+    occurrenceDate?: string;
+    scheduleId?: number | null;
+    showDeclineReasons?: boolean;
+    stepTypeId?: number | null;
+    sundayDate?: string;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

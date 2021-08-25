@@ -21,33 +21,33 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface SystemCommunication extends Entity {
-    bcc: string | null;
-    body: string | null;
-    categoryId: number | null;
-    cc: string | null;
-    cssInliningEnabled: boolean;
-    from: string | null;
-    fromName: string | null;
-    isActive: boolean | null;
-    isSystem: boolean;
-    lavaFieldsJson: string | null;
-    pushData: string | null;
-    pushImageBinaryFileId: number | null;
-    pushMessage: string | null;
-    pushOpenAction: number | null;
-    pushOpenMessage: string | null;
-    pushSound: string | null;
-    pushTitle: string | null;
-    sMSFromDefinedValueId: number | null;
-    sMSMessage: string | null;
-    subject: string | null;
-    title: string | null;
-    to: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface SystemCommunication extends Entity {
+    bcc?: string | null;
+    body?: string | null;
+    categoryId?: number | null;
+    cc?: string | null;
+    cssInliningEnabled?: boolean;
+    from?: string | null;
+    fromName?: string | null;
+    isActive?: boolean | null;
+    isSystem?: boolean;
+    lavaFieldsJson?: string | null;
+    pushData?: string | null;
+    pushImageBinaryFileId?: number | null;
+    pushMessage?: string | null;
+    pushOpenAction?: number | null;
+    pushOpenMessage?: string | null;
+    pushSound?: string | null;
+    pushTitle?: string | null;
+    sMSFromDefinedValueId?: number | null;
+    sMSMessage?: string | null;
+    subject?: string | null;
+    title?: string | null;
+    to?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

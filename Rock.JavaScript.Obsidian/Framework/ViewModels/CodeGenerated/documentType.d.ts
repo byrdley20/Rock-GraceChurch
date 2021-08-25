@@ -21,23 +21,23 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface DocumentType extends Entity {
-    binaryFileTypeId: number;
-    defaultDocumentNameTemplate: string | null;
-    entityTypeId: number;
-    entityTypeQualifierColumn: string | null;
-    entityTypeQualifierValue: string | null;
-    iconCssClass: string | null;
-    isImage: boolean;
-    isSystem: boolean;
-    maxDocumentsPerEntity: number | null;
-    name: string | null;
-    order: number;
-    userSelectable: boolean;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface DocumentType extends Entity {
+    binaryFileTypeId?: number;
+    defaultDocumentNameTemplate?: string | null;
+    entityTypeId?: number;
+    entityTypeQualifierColumn?: string | null;
+    entityTypeQualifierValue?: string | null;
+    iconCssClass?: string | null;
+    isImage?: boolean;
+    isSystem?: boolean;
+    maxDocumentsPerEntity?: number | null;
+    name?: string | null;
+    order?: number;
+    userSelectable?: boolean;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

@@ -21,38 +21,38 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface RegistrationInstance extends Entity {
-    accountId: number | null;
-    additionalConfirmationDetails: string | null;
-    additionalReminderDetails: string | null;
-    contactEmail: string | null;
-    contactPersonAliasId: number | null;
-    contactPhone: string | null;
-    cost: number | null;
-    defaultPayment: number | null;
-    details: string | null;
-    endDateTime: string | null;
-    externalGatewayFundId: number | null;
-    externalGatewayMerchantId: number | null;
-    isActive: boolean;
-    maxAttendees: number | null;
-    minimumInitialPayment: number | null;
-    name: string | null;
-    paymentRedirectData: string | null;
-    registrationInstructions: string | null;
-    registrationMeteringThreshold: number | null;
-    registrationTemplateId: number;
-    registrationWorkflowTypeId: number | null;
-    reminderSent: boolean;
-    sendReminderDateTime: string | null;
-    startDateTime: string | null;
-    timeoutIsEnabled: boolean;
-    timeoutLengthMinutes: number | null;
-    timeoutThreshold: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface RegistrationInstance extends Entity {
+    accountId?: number | null;
+    additionalConfirmationDetails?: string | null;
+    additionalReminderDetails?: string | null;
+    contactEmail?: string | null;
+    contactPersonAliasId?: number | null;
+    contactPhone?: string | null;
+    cost?: number | null;
+    defaultPayment?: number | null;
+    details?: string | null;
+    endDateTime?: string | null;
+    externalGatewayFundId?: number | null;
+    externalGatewayMerchantId?: number | null;
+    isActive?: boolean;
+    maxAttendees?: number | null;
+    minimumInitialPayment?: number | null;
+    name?: string | null;
+    paymentRedirectData?: string | null;
+    registrationInstructions?: string | null;
+    registrationMeteringThreshold?: number | null;
+    registrationTemplateId?: number;
+    registrationWorkflowTypeId?: number | null;
+    reminderSent?: boolean;
+    sendReminderDateTime?: string | null;
+    startDateTime?: string | null;
+    timeoutIsEnabled?: boolean;
+    timeoutLengthMinutes?: number | null;
+    timeoutThreshold?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

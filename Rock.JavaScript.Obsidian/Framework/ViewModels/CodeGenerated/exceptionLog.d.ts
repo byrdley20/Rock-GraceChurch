@@ -21,25 +21,25 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface ExceptionLog extends Entity {
-    cookies: string | null;
-    description: string | null;
-    exceptionType: string | null;
-    form: string | null;
-    hasInnerException: boolean | null;
-    pageId: number | null;
-    pageUrl: string | null;
-    parentId: number | null;
-    queryString: string | null;
-    serverVariables: string | null;
-    siteId: number | null;
-    source: string | null;
-    stackTrace: string | null;
-    statusCode: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface ExceptionLog extends Entity {
+    cookies?: string | null;
+    description?: string | null;
+    exceptionType?: string | null;
+    form?: string | null;
+    hasInnerException?: boolean | null;
+    pageId?: number | null;
+    pageUrl?: string | null;
+    parentId?: number | null;
+    queryString?: string | null;
+    serverVariables?: string | null;
+    siteId?: number | null;
+    source?: string | null;
+    stackTrace?: string | null;
+    statusCode?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

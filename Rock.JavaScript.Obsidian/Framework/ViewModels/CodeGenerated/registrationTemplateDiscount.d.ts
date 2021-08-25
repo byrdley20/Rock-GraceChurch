@@ -21,22 +21,22 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface RegistrationTemplateDiscount extends Entity {
-    autoApplyDiscount: boolean;
-    code: string | null;
-    discountAmount: number;
-    discountPercentage: number;
-    endDate: string | null;
-    maxRegistrants: number | null;
-    maxUsage: number | null;
-    minRegistrants: number | null;
-    order: number;
-    registrationTemplateId: number;
-    startDate: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface RegistrationTemplateDiscount extends Entity {
+    autoApplyDiscount?: boolean;
+    code?: string | null;
+    discountAmount?: number;
+    discountPercentage?: number;
+    endDate?: string | null;
+    maxRegistrants?: number | null;
+    maxUsage?: number | null;
+    minRegistrants?: number | null;
+    order?: number;
+    registrationTemplateId?: number;
+    startDate?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

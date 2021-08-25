@@ -21,16 +21,16 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface SignalType extends Entity {
-    description: string | null;
-    name: string | null;
-    order: number;
-    signalColor: string | null;
-    signalIconCssClass: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface SignalType extends Entity {
+    description?: string | null;
+    name?: string | null;
+    order?: number;
+    signalColor?: string | null;
+    signalIconCssClass?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

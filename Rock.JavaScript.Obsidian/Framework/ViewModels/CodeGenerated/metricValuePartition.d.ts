@@ -21,14 +21,14 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface MetricValuePartition extends Entity {
-    entityId: number | null;
-    metricPartitionId: number | null;
-    metricValueId: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface MetricValuePartition extends Entity {
+    entityId?: number | null;
+    metricPartitionId?: number | null;
+    metricValueId?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

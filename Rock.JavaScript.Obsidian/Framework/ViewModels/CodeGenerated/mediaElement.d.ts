@@ -21,22 +21,22 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface MediaElement extends Entity {
-    description: string | null;
-    durationSeconds: number | null;
-    fileDataJson: string | null;
-    mediaFolderId: number;
-    metricData: string | null;
-    name: string | null;
-    sourceCreatedDateTime: string | null;
-    sourceData: string | null;
-    sourceKey: string | null;
-    sourceModifiedDateTime: string | null;
-    thumbnailDataJson: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface MediaElement extends Entity {
+    description?: string | null;
+    durationSeconds?: number | null;
+    fileDataJson?: string | null;
+    mediaFolderId?: number;
+    metricData?: string | null;
+    name?: string | null;
+    sourceCreatedDateTime?: string | null;
+    sourceData?: string | null;
+    sourceKey?: string | null;
+    sourceModifiedDateTime?: string | null;
+    thumbnailDataJson?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

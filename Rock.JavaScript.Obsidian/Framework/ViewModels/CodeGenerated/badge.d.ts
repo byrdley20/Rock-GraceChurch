@@ -21,19 +21,19 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface Badge extends Entity {
-    badgeComponentEntityTypeId: number;
-    description: string | null;
-    entityTypeId: number | null;
-    entityTypeQualifierColumn: string | null;
-    entityTypeQualifierValue: string | null;
-    isActive: boolean;
-    name: string | null;
-    order: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface Badge extends Entity {
+    badgeComponentEntityTypeId?: number;
+    description?: string | null;
+    entityTypeId?: number | null;
+    entityTypeQualifierColumn?: string | null;
+    entityTypeQualifierValue?: string | null;
+    isActive?: boolean;
+    name?: string | null;
+    order?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

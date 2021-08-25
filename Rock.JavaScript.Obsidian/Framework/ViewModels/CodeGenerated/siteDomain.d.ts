@@ -21,15 +21,15 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface SiteDomain extends Entity {
-    domain: string | null;
-    isSystem: boolean;
-    order: number;
-    siteId: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface SiteDomain extends Entity {
+    domain?: string | null;
+    isSystem?: boolean;
+    order?: number;
+    siteId?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

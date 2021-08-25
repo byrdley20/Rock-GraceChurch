@@ -21,13 +21,13 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface EventItemOccurrenceChannelItem extends Entity {
-    contentChannelItemId: number;
-    eventItemOccurrenceId: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface EventItemOccurrenceChannelItem extends Entity {
+    contentChannelItemId?: number;
+    eventItemOccurrenceId?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

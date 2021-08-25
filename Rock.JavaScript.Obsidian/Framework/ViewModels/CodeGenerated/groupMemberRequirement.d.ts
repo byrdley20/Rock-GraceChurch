@@ -21,17 +21,17 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface GroupMemberRequirement extends Entity {
-    groupMemberId: number;
-    groupRequirementId: number;
-    lastRequirementCheckDateTime: string | null;
-    requirementFailDateTime: string | null;
-    requirementMetDateTime: string | null;
-    requirementWarningDateTime: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface GroupMemberRequirement extends Entity {
+    groupMemberId?: number;
+    groupRequirementId?: number;
+    lastRequirementCheckDateTime?: string | null;
+    requirementFailDateTime?: string | null;
+    requirementMetDateTime?: string | null;
+    requirementWarningDateTime?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

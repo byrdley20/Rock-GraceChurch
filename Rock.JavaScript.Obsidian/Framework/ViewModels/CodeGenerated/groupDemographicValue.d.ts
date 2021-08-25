@@ -21,21 +21,21 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 import { Guid } from '../../Util/Guid';
 
-export default interface GroupDemographicValue extends Entity {
-    groupDemographicTypeId: number;
-    groupId: number;
-    lastCalculatedDateTime: string | null;
-    relatedEntityId: number | null;
-    relatedEntityTypeId: number | null;
-    value: string | null;
-    valueAsBoolean: boolean | null;
-    valueAsGuid: Guid | null;
-    valueAsNumeric: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface GroupDemographicValue extends Entity {
+    groupDemographicTypeId?: number;
+    groupId?: number;
+    lastCalculatedDateTime?: string | null;
+    relatedEntityId?: number | null;
+    relatedEntityTypeId?: number | null;
+    value?: string | null;
+    valueAsBoolean?: boolean | null;
+    valueAsGuid?: Guid | null;
+    valueAsNumeric?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

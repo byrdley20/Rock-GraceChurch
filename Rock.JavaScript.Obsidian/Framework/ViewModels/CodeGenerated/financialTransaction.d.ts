@@ -21,38 +21,38 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface FinancialTransaction extends Entity {
-    authorizedPersonAliasId: number | null;
-    batchId: number | null;
-    checkMicrEncrypted: string | null;
-    checkMicrHash: string | null;
-    checkMicrParts: string | null;
-    financialGatewayId: number | null;
-    financialPaymentDetailId: number | null;
-    foreignCurrencyCodeValueId: number | null;
-    futureProcessingDateTime: string | null;
-    isReconciled: boolean | null;
-    isSettled: boolean | null;
-    mICRStatus: number | null;
-    nonCashAssetTypeValueId: number | null;
-    processedByPersonAliasId: number | null;
-    processedDateTime: string | null;
-    scheduledTransactionId: number | null;
-    settledDate: string | null;
-    settledGroupId: string | null;
-    showAsAnonymous: boolean;
-    sourceTypeValueId: number | null;
-    status: string | null;
-    statusMessage: string | null;
-    summary: string | null;
-    sundayDate: string | null;
-    transactionCode: string | null;
-    transactionDateTime: string | null;
-    transactionTypeValueId: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface FinancialTransaction extends Entity {
+    authorizedPersonAliasId?: number | null;
+    batchId?: number | null;
+    checkMicrEncrypted?: string | null;
+    checkMicrHash?: string | null;
+    checkMicrParts?: string | null;
+    financialGatewayId?: number | null;
+    financialPaymentDetailId?: number | null;
+    foreignCurrencyCodeValueId?: number | null;
+    futureProcessingDateTime?: string | null;
+    isReconciled?: boolean | null;
+    isSettled?: boolean | null;
+    mICRStatus?: number | null;
+    nonCashAssetTypeValueId?: number | null;
+    processedByPersonAliasId?: number | null;
+    processedDateTime?: string | null;
+    scheduledTransactionId?: number | null;
+    settledDate?: string | null;
+    settledGroupId?: string | null;
+    showAsAnonymous?: boolean;
+    sourceTypeValueId?: number | null;
+    status?: string | null;
+    statusMessage?: string | null;
+    summary?: string | null;
+    sundayDate?: string | null;
+    transactionCode?: string | null;
+    transactionDateTime?: string | null;
+    transactionTypeValueId?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

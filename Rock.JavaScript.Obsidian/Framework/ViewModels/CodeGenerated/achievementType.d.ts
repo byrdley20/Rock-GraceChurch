@@ -21,32 +21,32 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface AchievementType extends Entity {
-    achievementFailureWorkflowTypeId: number | null;
-    achievementIconCssClass: string | null;
-    achievementStartWorkflowTypeId: number | null;
-    achievementStepStatusId: number | null;
-    achievementStepTypeId: number | null;
-    achievementSuccessWorkflowTypeId: number | null;
-    achieverEntityTypeId: number;
-    allowOverAchievement: boolean;
-    badgeLavaTemplate: string | null;
-    categoryId: number | null;
-    componentConfigJson: string | null;
-    componentEntityTypeId: number;
-    customSummaryLavaTemplate: string | null;
-    description: string | null;
-    imageBinaryFileId: number | null;
-    isActive: boolean;
-    isPublic: boolean;
-    maxAccomplishmentsAllowed: number | null;
-    name: string | null;
-    resultsLavaTemplate: string | null;
-    sourceEntityTypeId: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface AchievementType extends Entity {
+    achievementFailureWorkflowTypeId?: number | null;
+    achievementIconCssClass?: string | null;
+    achievementStartWorkflowTypeId?: number | null;
+    achievementStepStatusId?: number | null;
+    achievementStepTypeId?: number | null;
+    achievementSuccessWorkflowTypeId?: number | null;
+    achieverEntityTypeId?: number;
+    allowOverAchievement?: boolean;
+    badgeLavaTemplate?: string | null;
+    categoryId?: number | null;
+    componentConfigJson?: string | null;
+    componentEntityTypeId?: number;
+    customSummaryLavaTemplate?: string | null;
+    description?: string | null;
+    imageBinaryFileId?: number | null;
+    isActive?: boolean;
+    isPublic?: boolean;
+    maxAccomplishmentsAllowed?: number | null;
+    name?: string | null;
+    resultsLavaTemplate?: string | null;
+    sourceEntityTypeId?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

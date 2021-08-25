@@ -21,37 +21,37 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface NcoaHistory extends Entity {
-    addressInvalidReason: number;
-    addressStatus: number;
-    familyId: number;
-    locationId: number | null;
-    matchFlag: number;
-    moveDate: string | null;
-    moveDistance: number | null;
-    moveType: number;
-    ncoaNote: string | null;
-    ncoaRunDateTime: string;
-    ncoaType: number;
-    originalCity: string | null;
-    originalPostalCode: string | null;
-    originalState: string | null;
-    originalStreet1: string | null;
-    originalStreet2: string | null;
-    personAliasId: number;
-    processed: number;
-    updatedAddressType: number;
-    updatedBarcode: string | null;
-    updatedCity: string | null;
-    updatedCountry: string | null;
-    updatedPostalCode: string | null;
-    updatedState: string | null;
-    updatedStreet1: string | null;
-    updatedStreet2: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface NcoaHistory extends Entity {
+    addressInvalidReason?: number;
+    addressStatus?: number;
+    familyId?: number;
+    locationId?: number | null;
+    matchFlag?: number;
+    moveDate?: string | null;
+    moveDistance?: number | null;
+    moveType?: number;
+    ncoaNote?: string | null;
+    ncoaRunDateTime?: string;
+    ncoaType?: number;
+    originalCity?: string | null;
+    originalPostalCode?: string | null;
+    originalState?: string | null;
+    originalStreet1?: string | null;
+    originalStreet2?: string | null;
+    personAliasId?: number;
+    processed?: number;
+    updatedAddressType?: number;
+    updatedBarcode?: string | null;
+    updatedCity?: string | null;
+    updatedCountry?: string | null;
+    updatedPostalCode?: string | null;
+    updatedState?: string | null;
+    updatedStreet1?: string | null;
+    updatedStreet2?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

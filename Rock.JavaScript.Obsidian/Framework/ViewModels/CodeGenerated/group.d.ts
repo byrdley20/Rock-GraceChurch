@@ -21,41 +21,41 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface Group extends Entity {
-    allowGuests: boolean | null;
-    archivedByPersonAliasId: number | null;
-    archivedDateTime: string | null;
-    attendanceRecordRequiredForCheckIn: number;
-    campusId: number | null;
-    description: string | null;
-    disableScheduleToolboxAccess: boolean;
-    disableScheduling: boolean;
-    groupCapacity: number | null;
-    groupSalutation: string | null;
-    groupSalutationFull: string | null;
-    groupTypeId: number;
-    inactiveDateTime: string | null;
-    inactiveReasonNote: string | null;
-    inactiveReasonValueId: number | null;
-    isActive: boolean;
-    isArchived: boolean;
-    isPublic: boolean;
-    isSecurityRole: boolean;
-    isSystem: boolean;
-    name: string | null;
-    order: number;
-    parentGroupId: number | null;
-    requiredSignatureDocumentTemplateId: number | null;
-    rSVPReminderOffsetDays: number | null;
-    rSVPReminderSystemCommunicationId: number | null;
-    scheduleCancellationPersonAliasId: number | null;
-    scheduleId: number | null;
-    schedulingMustMeetRequirements: boolean;
-    statusValueId: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface Group extends Entity {
+    allowGuests?: boolean | null;
+    archivedByPersonAliasId?: number | null;
+    archivedDateTime?: string | null;
+    attendanceRecordRequiredForCheckIn?: number;
+    campusId?: number | null;
+    description?: string | null;
+    disableScheduleToolboxAccess?: boolean;
+    disableScheduling?: boolean;
+    groupCapacity?: number | null;
+    groupSalutation?: string | null;
+    groupSalutationFull?: string | null;
+    groupTypeId?: number;
+    inactiveDateTime?: string | null;
+    inactiveReasonNote?: string | null;
+    inactiveReasonValueId?: number | null;
+    isActive?: boolean;
+    isArchived?: boolean;
+    isPublic?: boolean;
+    isSecurityRole?: boolean;
+    isSystem?: boolean;
+    name?: string | null;
+    order?: number;
+    parentGroupId?: number | null;
+    requiredSignatureDocumentTemplateId?: number | null;
+    rSVPReminderOffsetDays?: number | null;
+    rSVPReminderSystemCommunicationId?: number | null;
+    scheduleCancellationPersonAliasId?: number | null;
+    scheduleId?: number | null;
+    schedulingMustMeetRequirements?: boolean;
+    statusValueId?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

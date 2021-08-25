@@ -21,22 +21,22 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface Registration extends Entity {
-    confirmationEmail: string | null;
-    discountAmount: number;
-    discountCode: string | null;
-    discountPercentage: number;
-    firstName: string | null;
-    groupId: number | null;
-    isTemporary: boolean;
-    lastName: string | null;
-    lastPaymentReminderDateTime: string | null;
-    personAliasId: number | null;
-    registrationInstanceId: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface Registration extends Entity {
+    confirmationEmail?: string | null;
+    discountAmount?: number;
+    discountCode?: string | null;
+    discountPercentage?: number;
+    firstName?: string | null;
+    groupId?: number | null;
+    isTemporary?: boolean;
+    lastName?: string | null;
+    lastPaymentReminderDateTime?: string | null;
+    personAliasId?: number | null;
+    registrationInstanceId?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

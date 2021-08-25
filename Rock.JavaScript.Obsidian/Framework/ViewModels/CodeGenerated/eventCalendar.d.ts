@@ -21,16 +21,16 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface EventCalendar extends Entity {
-    description: string | null;
-    iconCssClass: string | null;
-    isActive: boolean;
-    isIndexEnabled: boolean;
-    name: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface EventCalendar extends Entity {
+    description?: string | null;
+    iconCssClass?: string | null;
+    isActive?: boolean;
+    isIndexEnabled?: boolean;
+    name?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

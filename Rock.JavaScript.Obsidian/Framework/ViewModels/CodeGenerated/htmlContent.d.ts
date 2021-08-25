@@ -21,20 +21,20 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface HtmlContent extends Entity {
-    approvedByPersonAliasId: number | null;
-    approvedDateTime: string | null;
-    blockId: number;
-    content: string | null;
-    entityValue: string | null;
-    expireDateTime: string | null;
-    isApproved: boolean;
-    startDateTime: string | null;
-    version: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface HtmlContent extends Entity {
+    approvedByPersonAliasId?: number | null;
+    approvedDateTime?: string | null;
+    blockId?: number;
+    content?: string | null;
+    entityValue?: string | null;
+    expireDateTime?: string | null;
+    isApproved?: boolean;
+    startDateTime?: string | null;
+    version?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

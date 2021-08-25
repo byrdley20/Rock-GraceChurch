@@ -21,16 +21,16 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface Notification extends Entity {
-    classification: number;
-    iconCssClass: string | null;
-    message: string | null;
-    sentDateTime: string;
-    title: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface Notification extends Entity {
+    classification?: number;
+    iconCssClass?: string | null;
+    message?: string | null;
+    sentDateTime?: string;
+    title?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

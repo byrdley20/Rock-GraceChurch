@@ -19,7 +19,7 @@ import { getFieldEditorProps } from './Index';
 import CheckBoxList from '../Elements/CheckBoxList';
 import { toNumberOrNull } from '@Obsidian/Services/Number';
 import { ConfigurationValueKey } from './CampusesField';
-import { ListItem } from 'ViewModels/ListItem';
+import { ListItem } from '@Obsidian/ViewModels';
 
 export const EditComponent = defineComponent({
     name: 'CampusesField.Edit',

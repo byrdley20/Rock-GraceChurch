@@ -21,26 +21,26 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface DataView extends Entity {
-    categoryId: number | null;
-    dataViewFilterId: number | null;
-    description: string | null;
-    entityTypeId: number | null;
-    includeDeceased: boolean;
-    isSystem: boolean;
-    lastRunDateTime: string | null;
-    name: string | null;
-    persistedLastRefreshDateTime: string | null;
-    persistedLastRunDurationMilliseconds: number | null;
-    persistedScheduleIntervalMinutes: number | null;
-    runCount: number | null;
-    runCountLastRefreshDateTime: string | null;
-    timeToRunDurationMilliseconds: number | null;
-    transformEntityTypeId: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface DataView extends Entity {
+    categoryId?: number | null;
+    dataViewFilterId?: number | null;
+    description?: string | null;
+    entityTypeId?: number | null;
+    includeDeceased?: boolean;
+    isSystem?: boolean;
+    lastRunDateTime?: string | null;
+    name?: string | null;
+    persistedLastRefreshDateTime?: string | null;
+    persistedLastRunDurationMilliseconds?: number | null;
+    persistedScheduleIntervalMinutes?: number | null;
+    runCount?: number | null;
+    runCountLastRefreshDateTime?: string | null;
+    timeToRunDurationMilliseconds?: number | null;
+    transformEntityTypeId?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

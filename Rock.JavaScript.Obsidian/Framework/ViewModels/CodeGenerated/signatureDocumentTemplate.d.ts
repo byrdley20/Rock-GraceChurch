@@ -21,22 +21,22 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface SignatureDocumentTemplate extends Entity {
-    binaryFileTypeId: number | null;
-    completionSystemCommunicationId: number | null;
-    description: string | null;
-    documentTerm: string | null;
-    inviteSystemCommunicationId: number | null;
-    isActive: boolean;
-    lavaTemplate: string | null;
-    name: string | null;
-    providerEntityTypeId: number | null;
-    providerTemplateKey: string | null;
-    signatureType: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface SignatureDocumentTemplate extends Entity {
+    binaryFileTypeId?: number | null;
+    completionSystemCommunicationId?: number | null;
+    description?: string | null;
+    documentTerm?: string | null;
+    inviteSystemCommunicationId?: number | null;
+    isActive?: boolean;
+    lavaTemplate?: string | null;
+    name?: string | null;
+    providerEntityTypeId?: number | null;
+    providerTemplateKey?: string | null;
+    signatureType?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

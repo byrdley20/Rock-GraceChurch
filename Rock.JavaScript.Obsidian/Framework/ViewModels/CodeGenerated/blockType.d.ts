@@ -21,18 +21,18 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface BlockType extends Entity {
-    category: string | null;
-    description: string | null;
-    entityTypeId: number | null;
-    isCommon: boolean;
-    isSystem: boolean;
-    name: string | null;
-    path: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface BlockType extends Entity {
+    category?: string | null;
+    description?: string | null;
+    entityTypeId?: number | null;
+    isCommon?: boolean;
+    isSystem?: boolean;
+    name?: string | null;
+    path?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

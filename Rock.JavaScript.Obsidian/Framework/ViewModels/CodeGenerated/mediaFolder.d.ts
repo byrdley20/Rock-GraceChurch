@@ -21,23 +21,23 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface MediaFolder extends Entity {
-    contentChannelAttributeId: number | null;
-    contentChannelId: number | null;
-    contentChannelItemStatus: number | null;
-    description: string | null;
-    isContentChannelSyncEnabled: boolean;
-    isPublic: boolean | null;
-    mediaAccountId: number;
-    metricData: string | null;
-    name: string | null;
-    sourceData: string | null;
-    sourceKey: string | null;
-    workflowTypeId: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface MediaFolder extends Entity {
+    contentChannelAttributeId?: number | null;
+    contentChannelId?: number | null;
+    contentChannelItemStatus?: number | null;
+    description?: string | null;
+    isContentChannelSyncEnabled?: boolean;
+    isPublic?: boolean | null;
+    mediaAccountId?: number;
+    metricData?: string | null;
+    name?: string | null;
+    sourceData?: string | null;
+    sourceKey?: string | null;
+    workflowTypeId?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

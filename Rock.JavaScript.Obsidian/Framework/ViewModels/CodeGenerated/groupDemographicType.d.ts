@@ -21,19 +21,19 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface GroupDemographicType extends Entity {
-    componentEntityTypeId: number;
-    description: string | null;
-    groupTypeId: number;
-    isAutomated: boolean;
-    lastRunDurationSeconds: number | null;
-    name: string | null;
-    roleFilter: string | null;
-    runOnPersonUpdate: boolean;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface GroupDemographicType extends Entity {
+    componentEntityTypeId?: number;
+    description?: string | null;
+    groupTypeId?: number;
+    isAutomated?: boolean;
+    lastRunDurationSeconds?: number | null;
+    name?: string | null;
+    roleFilter?: string | null;
+    runOnPersonUpdate?: boolean;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

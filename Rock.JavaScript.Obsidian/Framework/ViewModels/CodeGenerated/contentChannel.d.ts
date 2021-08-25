@@ -21,29 +21,29 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface ContentChannel extends Entity {
-    channelUrl: string | null;
-    childItemsManuallyOrdered: boolean;
-    contentChannelTypeId: number;
-    contentControlType: number;
-    description: string | null;
-    enableRss: boolean;
-    iconCssClass: string | null;
-    isIndexEnabled: boolean;
-    isStructuredContent: boolean;
-    isTaggingEnabled: boolean;
-    itemsManuallyOrdered: boolean;
-    itemTagCategoryId: number | null;
-    itemUrl: string | null;
-    name: string | null;
-    requiresApproval: boolean;
-    rootImageDirectory: string | null;
-    structuredContentToolValueId: number | null;
-    timeToLive: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface ContentChannel extends Entity {
+    channelUrl?: string | null;
+    childItemsManuallyOrdered?: boolean;
+    contentChannelTypeId?: number;
+    contentControlType?: number;
+    description?: string | null;
+    enableRss?: boolean;
+    iconCssClass?: string | null;
+    isIndexEnabled?: boolean;
+    isStructuredContent?: boolean;
+    isTaggingEnabled?: boolean;
+    itemsManuallyOrdered?: boolean;
+    itemTagCategoryId?: number | null;
+    itemUrl?: string | null;
+    name?: string | null;
+    requiresApproval?: boolean;
+    rootImageDirectory?: string | null;
+    structuredContentToolValueId?: number | null;
+    timeToLive?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

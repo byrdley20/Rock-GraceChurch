@@ -21,18 +21,18 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface FinancialStatementTemplate extends Entity {
-    description: string | null;
-    footerSettingsJson: string | null;
-    isActive: boolean;
-    logoBinaryFileId: number | null;
-    name: string | null;
-    reportSettingsJson: string | null;
-    reportTemplate: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface FinancialStatementTemplate extends Entity {
+    description?: string | null;
+    footerSettingsJson?: string | null;
+    isActive?: boolean;
+    logoBinaryFileId?: number | null;
+    name?: string | null;
+    reportSettingsJson?: string | null;
+    reportTemplate?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

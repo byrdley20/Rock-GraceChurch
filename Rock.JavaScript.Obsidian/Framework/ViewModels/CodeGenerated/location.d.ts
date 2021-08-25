@@ -21,39 +21,39 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface Location extends Entity {
-    assessorParcelId: string | null;
-    barcode: string | null;
-    city: string | null;
-    country: string | null;
-    county: string | null;
-    firmRoomThreshold: number | null;
-    geocodeAttemptedDateTime: string | null;
-    geocodeAttemptedResult: string | null;
-    geocodeAttemptedServiceType: string | null;
-    geocodedDateTime: string | null;
-    geoFence: Record<string, unknown>;
-    geoPoint: Record<string, unknown>;
-    imageId: number | null;
-    isActive: boolean;
-    isGeoPointLocked: boolean | null;
-    locationTypeValueId: number | null;
-    name: string | null;
-    parentLocationId: number | null;
-    postalCode: string | null;
-    printerDeviceId: number | null;
-    softRoomThreshold: number | null;
-    standardizeAttemptedDateTime: string | null;
-    standardizeAttemptedResult: string | null;
-    standardizeAttemptedServiceType: string | null;
-    standardizedDateTime: string | null;
-    state: string | null;
-    street1: string | null;
-    street2: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface Location extends Entity {
+    assessorParcelId?: string | null;
+    barcode?: string | null;
+    city?: string | null;
+    country?: string | null;
+    county?: string | null;
+    firmRoomThreshold?: number | null;
+    geocodeAttemptedDateTime?: string | null;
+    geocodeAttemptedResult?: string | null;
+    geocodeAttemptedServiceType?: string | null;
+    geocodedDateTime?: string | null;
+    geoFence?: Record<string, unknown>;
+    geoPoint?: Record<string, unknown>;
+    imageId?: number | null;
+    isActive?: boolean;
+    isGeoPointLocked?: boolean | null;
+    locationTypeValueId?: number | null;
+    name?: string | null;
+    parentLocationId?: number | null;
+    postalCode?: string | null;
+    printerDeviceId?: number | null;
+    softRoomThreshold?: number | null;
+    standardizeAttemptedDateTime?: string | null;
+    standardizeAttemptedResult?: string | null;
+    standardizeAttemptedServiceType?: string | null;
+    standardizedDateTime?: string | null;
+    state?: string | null;
+    street1?: string | null;
+    street2?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

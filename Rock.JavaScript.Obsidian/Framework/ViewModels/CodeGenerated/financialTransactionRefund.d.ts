@@ -21,14 +21,14 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface FinancialTransactionRefund extends Entity {
-    originalTransactionId: number | null;
-    refundReasonSummary: string | null;
-    refundReasonValueId: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface FinancialTransactionRefund extends Entity {
+    originalTransactionId?: number | null;
+    refundReasonSummary?: string | null;
+    refundReasonValueId?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

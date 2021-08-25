@@ -1,24 +1,24 @@
-System.register(["vue", "../Util/Guid.js", "./RockFormField.js"], function (exports_1, context_1) {
+System.register(["vue", "../Util/Guid", "./RockFormField"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, Guid_js_1, RockFormField_js_1;
+    var vue_1, Guid_1, RockFormField_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (vue_1_1) {
                 vue_1 = vue_1_1;
             },
-            function (Guid_js_1_1) {
-                Guid_js_1 = Guid_js_1_1;
+            function (Guid_1_1) {
+                Guid_1 = Guid_1_1;
             },
-            function (RockFormField_js_1_1) {
-                RockFormField_js_1 = RockFormField_js_1_1;
+            function (RockFormField_1_1) {
+                RockFormField_1 = RockFormField_1_1;
             }
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
                 name: 'ListBox',
                 components: {
-                    RockFormField: RockFormField_js_1.default
+                    RockFormField: RockFormField_1.default
                 },
                 props: {
                     modelValue: {
@@ -40,7 +40,7 @@ System.register(["vue", "../Util/Guid.js", "./RockFormField.js"], function (expo
                 },
                 data: function () {
                     return {
-                        uniqueId: `rock-listbox-${Guid_js_1.newGuid()}`,
+                        uniqueId: `rock-listbox-${Guid_1.newGuid()}`,
                         internalValue: [],
                         isMounted: false
                     };

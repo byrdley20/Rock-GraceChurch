@@ -21,31 +21,31 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface NoteType extends Entity {
-    allowsAttachments: boolean;
-    allowsReplies: boolean;
-    allowsWatching: boolean;
-    approvalUrlTemplate: string | null;
-    autoWatchAuthors: boolean;
-    backgroundColor: string | null;
-    binaryFileTypeId: number | null;
-    borderColor: string | null;
-    entityTypeId: number;
-    entityTypeQualifierColumn: string | null;
-    entityTypeQualifierValue: string | null;
-    fontColor: string | null;
-    iconCssClass: string | null;
-    isSystem: boolean;
-    maxReplyDepth: number | null;
-    name: string | null;
-    order: number;
-    requiresApprovals: boolean;
-    sendApprovalNotifications: boolean;
-    userSelectable: boolean;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface NoteType extends Entity {
+    allowsAttachments?: boolean;
+    allowsReplies?: boolean;
+    allowsWatching?: boolean;
+    approvalUrlTemplate?: string | null;
+    autoWatchAuthors?: boolean;
+    backgroundColor?: string | null;
+    binaryFileTypeId?: number | null;
+    borderColor?: string | null;
+    entityTypeId?: number;
+    entityTypeQualifierColumn?: string | null;
+    entityTypeQualifierValue?: string | null;
+    fontColor?: string | null;
+    iconCssClass?: string | null;
+    isSystem?: boolean;
+    maxReplyDepth?: number | null;
+    name?: string | null;
+    order?: number;
+    requiresApprovals?: boolean;
+    sendApprovalNotifications?: boolean;
+    userSelectable?: boolean;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

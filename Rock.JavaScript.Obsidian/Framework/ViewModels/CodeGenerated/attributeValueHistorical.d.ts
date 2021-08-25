@@ -21,21 +21,21 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface AttributeValueHistorical extends Entity {
-    attributeValueId: number;
-    currentRowIndicator: boolean;
-    effectiveDateTime: string;
-    expireDateTime: string;
-    value: string | null;
-    valueAsBoolean: boolean | null;
-    valueAsDateTime: string | null;
-    valueAsNumeric: number | null;
-    valueAsPersonId: number | null;
-    valueFormatted: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface AttributeValueHistorical extends Entity {
+    attributeValueId?: number;
+    currentRowIndicator?: boolean;
+    effectiveDateTime?: string;
+    expireDateTime?: string;
+    value?: string | null;
+    valueAsBoolean?: boolean | null;
+    valueAsDateTime?: string | null;
+    valueAsNumeric?: number | null;
+    valueAsPersonId?: number | null;
+    valueFormatted?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

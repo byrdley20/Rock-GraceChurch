@@ -21,16 +21,16 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface WorkflowAction extends Entity {
-    actionTypeId: number;
-    activityId: number;
-    completedDateTime: string | null;
-    formAction: string | null;
-    lastProcessedDateTime: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface WorkflowAction extends Entity {
+    actionTypeId?: number;
+    activityId?: number;
+    completedDateTime?: string | null;
+    formAction?: string | null;
+    lastProcessedDateTime?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

@@ -21,16 +21,16 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface AssetStorageProvider extends Entity {
-    description: string | null;
-    entityTypeId: number | null;
-    isActive: boolean;
-    name: string | null;
-    order: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface AssetStorageProvider extends Entity {
+    description?: string | null;
+    entityTypeId?: number | null;
+    isActive?: boolean;
+    name?: string | null;
+    order?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

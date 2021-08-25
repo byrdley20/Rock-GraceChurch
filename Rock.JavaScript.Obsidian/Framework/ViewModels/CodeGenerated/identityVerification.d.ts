@@ -21,16 +21,16 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface IdentityVerification extends Entity {
-    failedMatchAttemptCount: number | null;
-    identityVerificationCodeId: number;
-    issueDateTime: string;
-    referenceNumber: string | null;
-    requestIpAddress: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface IdentityVerification extends Entity {
+    failedMatchAttemptCount?: number | null;
+    identityVerificationCodeId?: number;
+    issueDateTime?: string;
+    referenceNumber?: string | null;
+    requestIpAddress?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

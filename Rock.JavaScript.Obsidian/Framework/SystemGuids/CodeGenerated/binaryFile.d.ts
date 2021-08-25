@@ -21,10 +21,8 @@
 // </copyright>
 //
 
-declare const enum BinaryFile {
+export const enum BinaryFile {
     /** The financial statement template rock default logo */
     FinancialStatementTemplateRockDefaultLogo = '8C453AA3-4F99-40B2-9F88-0DDAB8B8D180',
-
 }
 
-export default BinaryFile;

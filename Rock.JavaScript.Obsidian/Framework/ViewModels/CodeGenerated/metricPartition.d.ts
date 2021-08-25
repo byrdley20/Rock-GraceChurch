@@ -21,18 +21,18 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface MetricPartition extends Entity {
-    entityTypeId: number | null;
-    entityTypeQualifierColumn: string | null;
-    entityTypeQualifierValue: string | null;
-    isRequired: boolean;
-    label: string | null;
-    metricId: number;
-    order: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface MetricPartition extends Entity {
+    entityTypeId?: number | null;
+    entityTypeQualifierColumn?: string | null;
+    entityTypeQualifierValue?: string | null;
+    isRequired?: boolean;
+    label?: string | null;
+    metricId?: number;
+    order?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

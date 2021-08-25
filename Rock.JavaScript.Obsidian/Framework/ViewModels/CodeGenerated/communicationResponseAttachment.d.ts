@@ -21,14 +21,14 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface CommunicationResponseAttachment extends Entity {
-    binaryFileId: number;
-    communicationResponseId: number;
-    communicationType: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface CommunicationResponseAttachment extends Entity {
+    binaryFileId?: number;
+    communicationResponseId?: number;
+    communicationType?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

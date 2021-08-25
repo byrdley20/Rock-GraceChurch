@@ -21,31 +21,31 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface FinancialTransactionAlertType extends Entity {
-    alertSummaryNotificationGroupId: number | null;
-    alertType: number;
-    amountSensitivityScale: number | null;
-    campusId: number | null;
-    connectionOpportunityId: number | null;
-    continueIfMatched: boolean;
-    dataViewId: number | null;
-    frequencySensitivityScale: number | null;
-    maximumDaysSinceLastGift: number | null;
-    maximumGiftAmount: number | null;
-    maximumMedianGiftAmount: number | null;
-    minimumGiftAmount: number | null;
-    minimumMedianGiftAmount: number | null;
-    name: string | null;
-    order: number;
-    repeatPreventionDuration: number | null;
-    runDays: number | null;
-    sendBusEvent: boolean;
-    systemCommunicationId: number | null;
-    workflowTypeId: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface FinancialTransactionAlertType extends Entity {
+    alertSummaryNotificationGroupId?: number | null;
+    alertType?: number;
+    amountSensitivityScale?: number | null;
+    campusId?: number | null;
+    connectionOpportunityId?: number | null;
+    continueIfMatched?: boolean;
+    dataViewId?: number | null;
+    frequencySensitivityScale?: number | null;
+    maximumDaysSinceLastGift?: number | null;
+    maximumGiftAmount?: number | null;
+    maximumMedianGiftAmount?: number | null;
+    minimumGiftAmount?: number | null;
+    minimumMedianGiftAmount?: number | null;
+    name?: string | null;
+    order?: number;
+    repeatPreventionDuration?: number | null;
+    runDays?: number | null;
+    sendBusEvent?: boolean;
+    systemCommunicationId?: number | null;
+    workflowTypeId?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

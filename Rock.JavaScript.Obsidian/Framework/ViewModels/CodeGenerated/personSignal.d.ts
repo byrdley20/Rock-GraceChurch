@@ -21,16 +21,16 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface PersonSignal extends Entity {
-    expirationDate: string | null;
-    note: string | null;
-    ownerPersonAliasId: number;
-    personId: number;
-    signalTypeId: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface PersonSignal extends Entity {
+    expirationDate?: string | null;
+    note?: string | null;
+    ownerPersonAliasId?: number;
+    personId?: number;
+    signalTypeId?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

@@ -21,14 +21,14 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface BenevolenceRequestDocument extends Entity {
-    benevolenceRequestId: number;
-    binaryFileId: number;
-    order: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface BenevolenceRequestDocument extends Entity {
+    benevolenceRequestId?: number;
+    binaryFileId?: number;
+    order?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

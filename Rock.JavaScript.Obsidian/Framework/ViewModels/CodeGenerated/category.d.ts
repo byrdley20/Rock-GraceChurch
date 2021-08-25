@@ -21,21 +21,21 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface Category extends Entity {
-    description: string | null;
-    entityTypeId: number;
-    entityTypeQualifierColumn: string | null;
-    entityTypeQualifierValue: string | null;
-    highlightColor: string | null;
-    iconCssClass: string | null;
-    isSystem: boolean;
-    name: string | null;
-    order: number;
-    parentCategoryId: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface Category extends Entity {
+    description?: string | null;
+    entityTypeId?: number;
+    entityTypeQualifierColumn?: string | null;
+    entityTypeQualifierValue?: string | null;
+    highlightColor?: string | null;
+    iconCssClass?: string | null;
+    isSystem?: boolean;
+    name?: string | null;
+    order?: number;
+    parentCategoryId?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

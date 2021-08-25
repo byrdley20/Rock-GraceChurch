@@ -21,21 +21,21 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface LavaShortcode extends Entity {
-    description: string | null;
-    documentation: string | null;
-    enabledLavaCommands: string | null;
-    isActive: boolean;
-    isSystem: boolean;
-    markup: string | null;
-    name: string | null;
-    parameters: string | null;
-    tagName: string | null;
-    tagType: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface LavaShortcode extends Entity {
+    description?: string | null;
+    documentation?: string | null;
+    enabledLavaCommands?: string | null;
+    isActive?: boolean;
+    isSystem?: boolean;
+    markup?: string | null;
+    name?: string | null;
+    parameters?: string | null;
+    tagName?: string | null;
+    tagType?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

@@ -21,17 +21,17 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface ServiceLog extends Entity {
-    input: string | null;
-    logDateTime: string | null;
-    name: string | null;
-    result: string | null;
-    success: boolean;
-    type: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface ServiceLog extends Entity {
+    input?: string | null;
+    logDateTime?: string | null;
+    name?: string | null;
+    result?: string | null;
+    success?: boolean;
+    type?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

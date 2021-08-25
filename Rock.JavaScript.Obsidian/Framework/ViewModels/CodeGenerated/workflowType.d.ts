@@ -21,27 +21,27 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface WorkflowType extends Entity {
-    categoryId: number | null;
-    completedWorkflowRetentionPeriod: number | null;
-    description: string | null;
-    iconCssClass: string | null;
-    isActive: boolean | null;
-    isPersisted: boolean;
-    isSystem: boolean;
-    loggingLevel: number;
-    logRetentionPeriod: number | null;
-    name: string | null;
-    noActionMessage: string | null;
-    order: number;
-    processingIntervalSeconds: number | null;
-    summaryViewText: string | null;
-    workflowIdPrefix: string | null;
-    workTerm: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface WorkflowType extends Entity {
+    categoryId?: number | null;
+    completedWorkflowRetentionPeriod?: number | null;
+    description?: string | null;
+    iconCssClass?: string | null;
+    isActive?: boolean | null;
+    isPersisted?: boolean;
+    isSystem?: boolean;
+    loggingLevel?: number;
+    logRetentionPeriod?: number | null;
+    name?: string | null;
+    noActionMessage?: string | null;
+    order?: number;
+    processingIntervalSeconds?: number | null;
+    summaryViewText?: string | null;
+    workflowIdPrefix?: string | null;
+    workTerm?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

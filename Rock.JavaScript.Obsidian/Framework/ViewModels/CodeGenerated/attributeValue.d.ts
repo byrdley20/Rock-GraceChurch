@@ -21,18 +21,18 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
-import Attribute from './Attribute';
+import { Entity } from "../entity";
+import { Attribute } from './attribute';
 
-export default interface AttributeValue extends Entity {
-    attribute: Attribute | null;
-    attributeId: number;
-    entityId: number | null;
-    isSystem: boolean;
-    value: string | null;
-    valueAsNumeric: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface AttributeValue extends Entity {
+    attribute?: Attribute | null;
+    attributeId?: number;
+    entityId?: number | null;
+    isSystem?: boolean;
+    value?: string | null;
+    valueAsNumeric?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

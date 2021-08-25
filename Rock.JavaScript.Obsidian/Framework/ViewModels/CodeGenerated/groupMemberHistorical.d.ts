@@ -21,24 +21,24 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface GroupMemberHistorical extends Entity {
-    archivedByPersonAliasId: number | null;
-    archivedDateTime: string | null;
-    currentRowIndicator: boolean;
-    effectiveDateTime: string;
-    expireDateTime: string;
-    groupId: number;
-    groupMemberId: number;
-    groupMemberStatus: number;
-    groupRoleId: number;
-    groupRoleName: string | null;
-    inactiveDateTime: string | null;
-    isArchived: boolean;
-    isLeader: boolean;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface GroupMemberHistorical extends Entity {
+    archivedByPersonAliasId?: number | null;
+    archivedDateTime?: string | null;
+    currentRowIndicator?: boolean;
+    effectiveDateTime?: string;
+    expireDateTime?: string;
+    groupId?: number;
+    groupMemberId?: number;
+    groupMemberStatus?: number;
+    groupRoleId?: number;
+    groupRoleName?: string | null;
+    inactiveDateTime?: string | null;
+    isArchived?: boolean;
+    isLeader?: boolean;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

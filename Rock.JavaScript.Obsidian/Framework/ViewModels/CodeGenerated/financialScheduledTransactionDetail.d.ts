@@ -21,18 +21,18 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface FinancialScheduledTransactionDetail extends Entity {
-    accountId: number;
-    amount: number;
-    entityId: number | null;
-    entityTypeId: number | null;
-    feeCoverageAmount: number | null;
-    scheduledTransactionId: number;
-    summary: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface FinancialScheduledTransactionDetail extends Entity {
+    accountId?: number;
+    amount?: number;
+    entityId?: number | null;
+    entityTypeId?: number | null;
+    feeCoverageAmount?: number | null;
+    scheduledTransactionId?: number;
+    summary?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

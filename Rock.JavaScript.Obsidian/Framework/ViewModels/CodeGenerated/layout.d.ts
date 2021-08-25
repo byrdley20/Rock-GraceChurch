@@ -21,18 +21,18 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface Layout extends Entity {
-    description: string | null;
-    fileName: string | null;
-    isSystem: boolean;
-    layoutMobilePhone: string | null;
-    layoutMobileTablet: string | null;
-    name: string | null;
-    siteId: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface Layout extends Entity {
+    description?: string | null;
+    fileName?: string | null;
+    isSystem?: boolean;
+    layoutMobilePhone?: string | null;
+    layoutMobileTablet?: string | null;
+    name?: string | null;
+    siteId?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

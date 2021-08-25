@@ -21,17 +21,17 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface AttributeMatrixTemplate extends Entity {
-    description: string | null;
-    formattedLava: string | null;
-    isActive: boolean;
-    maximumRows: number | null;
-    minimumRows: number | null;
-    name: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface AttributeMatrixTemplate extends Entity {
+    description?: string | null;
+    formattedLava?: string | null;
+    isActive?: boolean;
+    maximumRows?: number | null;
+    minimumRows?: number | null;
+    name?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

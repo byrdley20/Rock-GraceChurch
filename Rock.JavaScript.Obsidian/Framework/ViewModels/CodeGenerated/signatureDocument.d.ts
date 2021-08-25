@@ -21,33 +21,33 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface SignatureDocument extends Entity {
-    appliesToPersonAliasId: number | null;
-    assignedToPersonAliasId: number | null;
-    binaryFileId: number | null;
-    completionEmailSentDateTime: string | null;
-    documentKey: string | null;
-    entityId: number | null;
-    entityTypeId: number | null;
-    inviteCount: number;
-    lastInviteDate: string | null;
-    lastStatusDate: string | null;
-    name: string | null;
-    signatureData: string | null;
-    signatureDocumentTemplateId: number;
-    signatureVerficationHash: string | null;
-    signedByEmail: string | null;
-    signedByPersonAliasId: number | null;
-    signedClientIp: string | null;
-    signedClientUserAgent: string | null;
-    signedDateTime: string | null;
-    signedDocumentText: string | null;
-    signedName: string | null;
-    status: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface SignatureDocument extends Entity {
+    appliesToPersonAliasId?: number | null;
+    assignedToPersonAliasId?: number | null;
+    binaryFileId?: number | null;
+    completionEmailSentDateTime?: string | null;
+    documentKey?: string | null;
+    entityId?: number | null;
+    entityTypeId?: number | null;
+    inviteCount?: number;
+    lastInviteDate?: string | null;
+    lastStatusDate?: string | null;
+    name?: string | null;
+    signatureData?: string | null;
+    signatureDocumentTemplateId?: number;
+    signatureVerficationHash?: string | null;
+    signedByEmail?: string | null;
+    signedByPersonAliasId?: number | null;
+    signedClientIp?: string | null;
+    signedClientUserAgent?: string | null;
+    signedDateTime?: string | null;
+    signedDocumentText?: string | null;
+    signedName?: string | null;
+    status?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

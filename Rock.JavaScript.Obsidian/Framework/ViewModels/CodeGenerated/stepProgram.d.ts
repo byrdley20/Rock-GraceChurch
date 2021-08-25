@@ -21,19 +21,19 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface StepProgram extends Entity {
-    categoryId: number | null;
-    defaultListView: number;
-    description: string | null;
-    iconCssClass: string | null;
-    isActive: boolean;
-    name: string | null;
-    order: number;
-    stepTerm: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface StepProgram extends Entity {
+    categoryId?: number | null;
+    defaultListView?: number;
+    description?: string | null;
+    iconCssClass?: string | null;
+    isActive?: boolean;
+    name?: string | null;
+    order?: number;
+    stepTerm?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

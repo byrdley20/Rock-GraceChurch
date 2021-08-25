@@ -21,20 +21,20 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface FinancialPaymentDetail extends Entity {
-    accountNumberMasked: string | null;
-    billingLocationId: number | null;
-    creditCardTypeValueId: number | null;
-    currencyTypeValueId: number | null;
-    expirationMonth: number | null;
-    expirationYear: number | null;
-    financialPersonSavedAccountId: number | null;
-    gatewayPersonIdentifier: string | null;
-    nameOnCard: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface FinancialPaymentDetail extends Entity {
+    accountNumberMasked?: string | null;
+    billingLocationId?: number | null;
+    creditCardTypeValueId?: number | null;
+    currencyTypeValueId?: number | null;
+    expirationMonth?: number | null;
+    expirationYear?: number | null;
+    financialPersonSavedAccountId?: number | null;
+    gatewayPersonIdentifier?: string | null;
+    nameOnCard?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

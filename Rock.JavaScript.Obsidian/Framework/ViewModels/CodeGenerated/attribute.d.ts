@@ -21,40 +21,40 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 import { Guid } from '../../Util/Guid';
 
-export default interface Attribute extends Entity {
-    abbreviatedName: string | null;
-    allowSearch: boolean;
-    categoryGuids: (Guid)[];
-    defaultValue: string | null;
-    description: string | null;
-    enableHistory: boolean;
-    entityTypeId: number | null;
-    entityTypeQualifierColumn: string | null;
-    entityTypeQualifierValue: string | null;
-    fieldTypeGuid: Guid;
-    fieldTypeId: number;
-    iconCssClass: string | null;
-    isActive: boolean;
-    isAnalytic: boolean;
-    isAnalyticHistory: boolean;
-    isGridColumn: boolean;
-    isIndexEnabled: boolean;
-    isMultiValue: boolean;
-    isPublic: boolean;
-    isRequired: boolean;
-    isSystem: boolean;
-    key: string;
-    name: string | null;
-    order: number;
-    postHtml: string | null;
-    preHtml: string | null;
-    qualifierValues: Record<string, unknown>;
-    showOnBulk: boolean;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface Attribute extends Entity {
+    abbreviatedName?: string | null;
+    allowSearch?: boolean;
+    categoryGuids?: (Guid)[];
+    defaultValue?: string | null;
+    description?: string | null;
+    enableHistory?: boolean;
+    entityTypeId?: number | null;
+    entityTypeQualifierColumn?: string | null;
+    entityTypeQualifierValue?: string | null;
+    fieldTypeGuid?: Guid;
+    fieldTypeId?: number;
+    iconCssClass?: string | null;
+    isActive?: boolean;
+    isAnalytic?: boolean;
+    isAnalyticHistory?: boolean;
+    isGridColumn?: boolean;
+    isIndexEnabled?: boolean;
+    isMultiValue?: boolean;
+    isPublic?: boolean;
+    isRequired?: boolean;
+    isSystem?: boolean;
+    key?: string;
+    name?: string | null;
+    order?: number;
+    postHtml?: string | null;
+    preHtml?: string | null;
+    qualifierValues?: Record<string, unknown>;
+    showOnBulk?: boolean;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

@@ -21,15 +21,15 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface BenevolenceResult extends Entity {
-    amount: number | null;
-    benevolenceRequestId: number;
-    resultSummary: string | null;
-    resultTypeValueId: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface BenevolenceResult extends Entity {
+    amount?: number | null;
+    benevolenceRequestId?: number;
+    resultSummary?: string | null;
+    resultTypeValueId?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

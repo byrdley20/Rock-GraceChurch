@@ -21,24 +21,24 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface GroupRequirementType extends Entity {
-    canExpire: boolean;
-    checkboxLabel: string | null;
-    dataViewId: number | null;
-    description: string | null;
-    expireInDays: number | null;
-    name: string | null;
-    negativeLabel: string | null;
-    positiveLabel: string | null;
-    requirementCheckType: number;
-    sqlExpression: string | null;
-    warningDataViewId: number | null;
-    warningLabel: string | null;
-    warningSqlExpression: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface GroupRequirementType extends Entity {
+    canExpire?: boolean;
+    checkboxLabel?: string | null;
+    dataViewId?: number | null;
+    description?: string | null;
+    expireInDays?: number | null;
+    name?: string | null;
+    negativeLabel?: string | null;
+    positiveLabel?: string | null;
+    requirementCheckType?: number;
+    sqlExpression?: string | null;
+    warningDataViewId?: number | null;
+    warningLabel?: string | null;
+    warningSqlExpression?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

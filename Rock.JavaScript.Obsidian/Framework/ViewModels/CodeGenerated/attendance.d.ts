@@ -21,39 +21,39 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface Attendance extends Entity {
-    attendanceCheckInSessionId: number | null;
-    attendanceCodeId: number | null;
-    campusId: number | null;
-    checkedInByPersonAliasId: number | null;
-    checkedOutByPersonAliasId: number | null;
-    declineReasonValueId: number | null;
-    deviceId: number | null;
-    didAttend: boolean | null;
-    endDateTime: string | null;
-    isFirstTime: boolean | null;
-    note: string | null;
-    occurrenceId: number;
-    personAliasId: number | null;
-    presentByPersonAliasId: number | null;
-    presentDateTime: string | null;
-    processed: boolean | null;
-    qualifierValueId: number | null;
-    requestedToAttend: boolean | null;
-    rSVP: number;
-    rSVPDateTime: string | null;
-    scheduleConfirmationSent: boolean | null;
-    scheduledByPersonAliasId: number | null;
-    scheduledToAttend: boolean | null;
-    scheduleReminderSent: boolean | null;
-    searchResultGroupId: number | null;
-    searchTypeValueId: number | null;
-    searchValue: string | null;
-    startDateTime: string;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface Attendance extends Entity {
+    attendanceCheckInSessionId?: number | null;
+    attendanceCodeId?: number | null;
+    campusId?: number | null;
+    checkedInByPersonAliasId?: number | null;
+    checkedOutByPersonAliasId?: number | null;
+    declineReasonValueId?: number | null;
+    deviceId?: number | null;
+    didAttend?: boolean | null;
+    endDateTime?: string | null;
+    isFirstTime?: boolean | null;
+    note?: string | null;
+    occurrenceId?: number;
+    personAliasId?: number | null;
+    presentByPersonAliasId?: number | null;
+    presentDateTime?: string | null;
+    processed?: boolean | null;
+    qualifierValueId?: number | null;
+    requestedToAttend?: boolean | null;
+    rSVP?: number;
+    rSVPDateTime?: string | null;
+    scheduleConfirmationSent?: boolean | null;
+    scheduledByPersonAliasId?: number | null;
+    scheduledToAttend?: boolean | null;
+    scheduleReminderSent?: boolean | null;
+    searchResultGroupId?: number | null;
+    searchTypeValueId?: number | null;
+    searchValue?: string | null;
+    startDateTime?: string;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

@@ -21,28 +21,28 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface History extends Entity {
-    caption: string | null;
-    categoryId: number;
-    changeType: string | null;
-    entityId: number;
-    entityTypeId: number;
-    isSensitive: boolean | null;
-    isSystem: boolean;
-    newRawValue: string | null;
-    newValue: string | null;
-    oldRawValue: string | null;
-    oldValue: string | null;
-    relatedData: string | null;
-    relatedEntityId: number | null;
-    relatedEntityTypeId: number | null;
-    sourceOfChange: string | null;
-    valueName: string | null;
-    verb: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface History extends Entity {
+    caption?: string | null;
+    categoryId?: number;
+    changeType?: string | null;
+    entityId?: number;
+    entityTypeId?: number;
+    isSensitive?: boolean | null;
+    isSystem?: boolean;
+    newRawValue?: string | null;
+    newValue?: string | null;
+    oldRawValue?: string | null;
+    oldValue?: string | null;
+    relatedData?: string | null;
+    relatedEntityId?: number | null;
+    relatedEntityTypeId?: number | null;
+    sourceOfChange?: string | null;
+    valueName?: string | null;
+    verb?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

@@ -21,23 +21,23 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface BackgroundCheck extends Entity {
-    packageName: string | null;
-    personAliasId: number;
-    processorEntityTypeId: number | null;
-    recordFound: boolean | null;
-    requestDate: string;
-    requestId: string | null;
-    responseData: string | null;
-    responseDate: string | null;
-    responseDocumentId: number | null;
-    responseId: string | null;
-    status: string | null;
-    workflowId: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface BackgroundCheck extends Entity {
+    packageName?: string | null;
+    personAliasId?: number;
+    processorEntityTypeId?: number | null;
+    recordFound?: boolean | null;
+    requestDate?: string;
+    requestId?: string | null;
+    responseData?: string | null;
+    responseDate?: string | null;
+    responseDocumentId?: number | null;
+    responseId?: string | null;
+    status?: string | null;
+    workflowId?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

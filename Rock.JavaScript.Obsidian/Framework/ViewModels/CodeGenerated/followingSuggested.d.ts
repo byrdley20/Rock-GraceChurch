@@ -21,18 +21,18 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface FollowingSuggested extends Entity {
-    entityId: number;
-    entityTypeId: number;
-    lastPromotedDateTime: string | null;
-    personAliasId: number;
-    status: number;
-    statusChangedDateTime: string;
-    suggestionTypeId: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface FollowingSuggested extends Entity {
+    entityId?: number;
+    entityTypeId?: number;
+    lastPromotedDateTime?: string | null;
+    personAliasId?: number;
+    status?: number;
+    statusChangedDateTime?: string;
+    suggestionTypeId?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

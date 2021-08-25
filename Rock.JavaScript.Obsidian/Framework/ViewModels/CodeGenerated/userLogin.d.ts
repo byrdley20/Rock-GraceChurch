@@ -21,27 +21,27 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface UserLogin extends Entity {
-    apiKey: string | null;
-    entityTypeId: number | null;
-    failedPasswordAttemptCount: number | null;
-    failedPasswordAttemptWindowStartDateTime: string | null;
-    isConfirmed: boolean | null;
-    isLockedOut: boolean | null;
-    isOnLine: boolean | null;
-    isPasswordChangeRequired: boolean | null;
-    lastActivityDateTime: string | null;
-    lastLockedOutDateTime: string | null;
-    lastLoginDateTime: string | null;
-    lastPasswordChangedDateTime: string | null;
-    lastPasswordExpirationWarningDateTime: string | null;
-    password: string | null;
-    personId: number | null;
-    userName: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface UserLogin extends Entity {
+    apiKey?: string | null;
+    entityTypeId?: number | null;
+    failedPasswordAttemptCount?: number | null;
+    failedPasswordAttemptWindowStartDateTime?: string | null;
+    isConfirmed?: boolean | null;
+    isLockedOut?: boolean | null;
+    isOnLine?: boolean | null;
+    isPasswordChangeRequired?: boolean | null;
+    lastActivityDateTime?: string | null;
+    lastLockedOutDateTime?: string | null;
+    lastLoginDateTime?: string | null;
+    lastPasswordChangedDateTime?: string | null;
+    lastPasswordExpirationWarningDateTime?: string | null;
+    password?: string | null;
+    personId?: number | null;
+    userName?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

@@ -21,19 +21,19 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface ContentChannelType extends Entity {
-    dateRangeType: number;
-    disableContentField: boolean;
-    disablePriority: boolean;
-    disableStatus: boolean;
-    includeTime: boolean;
-    isSystem: boolean;
-    name: string | null;
-    showInChannelList: boolean;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface ContentChannelType extends Entity {
+    dateRangeType?: number;
+    disableContentField?: boolean;
+    disablePriority?: boolean;
+    disableStatus?: boolean;
+    includeTime?: boolean;
+    isSystem?: boolean;
+    name?: string | null;
+    showInChannelList?: boolean;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

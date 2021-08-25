@@ -21,25 +21,25 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface CommunicationRecipient extends Entity {
-    additionalMergeValuesJson: string | null;
-    communicationId: number;
-    mediumEntityTypeId: number | null;
-    openedClient: string | null;
-    openedDateTime: string | null;
-    personalDeviceId: number | null;
-    personAliasId: number | null;
-    responseCode: string | null;
-    sendDateTime: string | null;
-    sentMessage: string | null;
-    status: number;
-    statusNote: string | null;
-    transportEntityTypeName: string | null;
-    uniqueMessageId: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface CommunicationRecipient extends Entity {
+    additionalMergeValuesJson?: string | null;
+    communicationId?: number;
+    mediumEntityTypeId?: number | null;
+    openedClient?: string | null;
+    openedDateTime?: string | null;
+    personalDeviceId?: number | null;
+    personAliasId?: number | null;
+    responseCode?: string | null;
+    sendDateTime?: string | null;
+    sentMessage?: string | null;
+    status?: number;
+    statusNote?: string | null;
+    transportEntityTypeName?: string | null;
+    uniqueMessageId?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

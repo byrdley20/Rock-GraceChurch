@@ -21,15 +21,15 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface InteractionSession extends Entity {
-    deviceTypeId: number | null;
-    interactionMode: string | null;
-    ipAddress: string | null;
-    sessionData: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface InteractionSession extends Entity {
+    deviceTypeId?: number | null;
+    interactionMode?: string | null;
+    ipAddress?: string | null;
+    sessionData?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

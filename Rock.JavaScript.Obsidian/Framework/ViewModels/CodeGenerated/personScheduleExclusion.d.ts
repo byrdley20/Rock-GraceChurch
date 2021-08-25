@@ -21,17 +21,17 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface PersonScheduleExclusion extends Entity {
-    endDate: string;
-    groupId: number | null;
-    parentPersonScheduleExclusionId: number | null;
-    personAliasId: number | null;
-    startDate: string;
-    title: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface PersonScheduleExclusion extends Entity {
+    endDate?: string;
+    groupId?: number | null;
+    parentPersonScheduleExclusionId?: number | null;
+    personAliasId?: number | null;
+    startDate?: string;
+    title?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

@@ -21,18 +21,18 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface GroupLocation extends Entity {
-    groupId: number;
-    groupLocationTypeValueId: number | null;
-    groupMemberPersonAliasId: number | null;
-    isMailingLocation: boolean;
-    isMappedLocation: boolean;
-    locationId: number;
-    order: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface GroupLocation extends Entity {
+    groupId?: number;
+    groupLocationTypeValueId?: number | null;
+    groupMemberPersonAliasId?: number | null;
+    isMailingLocation?: boolean;
+    isMappedLocation?: boolean;
+    locationId?: number;
+    order?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

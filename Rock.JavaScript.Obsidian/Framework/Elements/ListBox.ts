@@ -14,10 +14,10 @@
 // limitations under the License.
 // </copyright>
 //
-import { ListItem } from 'ViewModels/ListItem.js';
+import { ListItem } from '@Obsidian/ViewModels';
 import { defineComponent, PropType } from 'vue';
-import { newGuid } from '../Util/Guid.js';
-import RockFormField from './RockFormField.js';
+import { newGuid } from '../Util/Guid';
+import RockFormField from './RockFormField';
 
 export default defineComponent({
     name: 'ListBox',

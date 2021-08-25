@@ -21,20 +21,20 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface ConnectionStatus extends Entity {
-    autoInactivateState: boolean;
-    connectionTypeId: number | null;
-    description: string | null;
-    highlightColor: string | null;
-    isActive: boolean;
-    isCritical: boolean;
-    isDefault: boolean;
-    name: string | null;
-    order: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface ConnectionStatus extends Entity {
+    autoInactivateState?: boolean;
+    connectionTypeId?: number | null;
+    description?: string | null;
+    highlightColor?: string | null;
+    isActive?: boolean;
+    isCritical?: boolean;
+    isDefault?: boolean;
+    name?: string | null;
+    order?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

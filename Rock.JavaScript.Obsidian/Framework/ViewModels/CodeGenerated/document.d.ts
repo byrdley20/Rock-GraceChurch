@@ -21,17 +21,17 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface Document extends Entity {
-    description: string | null;
-    documentTypeId: number;
-    entityId: number;
-    isSystem: boolean;
-    name: string | null;
-    purposeKey: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface Document extends Entity {
+    description?: string | null;
+    documentTypeId?: number;
+    entityId?: number;
+    isSystem?: boolean;
+    name?: string | null;
+    purposeKey?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

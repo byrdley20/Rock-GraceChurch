@@ -53,6 +53,13 @@ module.exports = {
                 leadingUnderscore: "allow"
             },
 
+            // Variables that are exported may use either camelCase or PascalCase.
+            {
+                selector: ["variable"],
+                format: ["camelCase", "PascalCase"],
+                modifiers: ["exported"]
+            },
+
             // Interfaces must be prefixed with a capital I.
             {
                 selector: ["interface"],

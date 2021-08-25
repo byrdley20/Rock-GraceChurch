@@ -21,16 +21,16 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface RestAction extends Entity {
-    apiId: string | null;
-    cacheControlHeaderSettings: string | null;
-    controllerId: number;
-    method: string | null;
-    path: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface RestAction extends Entity {
+    apiId?: string | null;
+    cacheControlHeaderSettings?: string | null;
+    controllerId?: number;
+    method?: string | null;
+    path?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

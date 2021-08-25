@@ -21,29 +21,29 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface GroupMember extends Entity {
-    archivedByPersonAliasId: number | null;
-    archivedDateTime: string | null;
-    communicationPreference: number;
-    dateTimeAdded: string | null;
-    groupId: number;
-    groupMemberStatus: number;
-    groupOrder: number | null;
-    groupRoleId: number;
-    guestCount: number | null;
-    inactiveDateTime: string | null;
-    isArchived: boolean;
-    isNotified: boolean;
-    isSystem: boolean;
-    note: string | null;
-    personId: number;
-    scheduleReminderEmailOffsetDays: number | null;
-    scheduleStartDate: string | null;
-    scheduleTemplateId: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface GroupMember extends Entity {
+    archivedByPersonAliasId?: number | null;
+    archivedDateTime?: string | null;
+    communicationPreference?: number;
+    dateTimeAdded?: string | null;
+    groupId?: number;
+    groupMemberStatus?: number;
+    groupOrder?: number | null;
+    groupRoleId?: number;
+    guestCount?: number | null;
+    inactiveDateTime?: string | null;
+    isArchived?: boolean;
+    isNotified?: boolean;
+    isSystem?: boolean;
+    note?: string | null;
+    personId?: number;
+    scheduleReminderEmailOffsetDays?: number | null;
+    scheduleStartDate?: string | null;
+    scheduleTemplateId?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

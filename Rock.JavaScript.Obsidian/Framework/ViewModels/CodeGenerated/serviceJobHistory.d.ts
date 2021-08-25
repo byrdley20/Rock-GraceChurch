@@ -21,17 +21,17 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface ServiceJobHistory extends Entity {
-    serviceJobId: number;
-    serviceWorker: string | null;
-    startDateTime: string | null;
-    status: string | null;
-    statusMessage: string | null;
-    stopDateTime: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface ServiceJobHistory extends Entity {
+    serviceJobId?: number;
+    serviceWorker?: string | null;
+    startDateTime?: string | null;
+    status?: string | null;
+    statusMessage?: string | null;
+    stopDateTime?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

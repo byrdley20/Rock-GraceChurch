@@ -21,28 +21,28 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface StepType extends Entity {
-    allowManualEditing: boolean;
-    allowMultiple: boolean;
-    audienceDataViewId: number | null;
-    autoCompleteDataViewId: number | null;
-    cardLavaTemplate: string | null;
-    description: string | null;
-    hasEndDate: boolean;
-    highlightColor: string | null;
-    iconCssClass: string | null;
-    isActive: boolean;
-    isDateRequired: boolean;
-    mergeTemplateDescriptor: string | null;
-    mergeTemplateId: number | null;
-    name: string | null;
-    order: number;
-    showCountOnBadge: boolean;
-    stepProgramId: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface StepType extends Entity {
+    allowManualEditing?: boolean;
+    allowMultiple?: boolean;
+    audienceDataViewId?: number | null;
+    autoCompleteDataViewId?: number | null;
+    cardLavaTemplate?: string | null;
+    description?: string | null;
+    hasEndDate?: boolean;
+    highlightColor?: string | null;
+    iconCssClass?: string | null;
+    isActive?: boolean;
+    isDateRequired?: boolean;
+    mergeTemplateDescriptor?: string | null;
+    mergeTemplateId?: number | null;
+    name?: string | null;
+    order?: number;
+    showCountOnBadge?: boolean;
+    stepProgramId?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

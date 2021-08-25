@@ -21,16 +21,16 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface ConnectionWorkflow extends Entity {
-    connectionOpportunityId: number | null;
-    connectionTypeId: number | null;
-    qualifierValue: string | null;
-    triggerType: number;
-    workflowTypeId: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface ConnectionWorkflow extends Entity {
+    connectionOpportunityId?: number | null;
+    connectionTypeId?: number | null;
+    qualifierValue?: string | null;
+    triggerType?: number;
+    workflowTypeId?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

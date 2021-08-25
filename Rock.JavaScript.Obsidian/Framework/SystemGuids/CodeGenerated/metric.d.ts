@@ -21,19 +21,14 @@
 // </copyright>
 //
 
-declare const enum Metric {
+export const enum Metric {
     /** Hosting Metric hard connects per second Guid */
     HostingHardConnectsPerSecond = '64D538D0-EE05-4646-91F5-EBE06460BDAB',
-
     /** Hosting Metric number of active connections Guid */
     HostingNumberOfActiveConnections = '68C54F46-A99E-4DD1-91CA-FC5941E6CFBE',
-
     /** Hosting Metric number of free connections Guid */
     HostingNumberOfFreeConnections = '8A1F73DD-4275-47C0-AF2A-6EABDA06E3C7',
-
     /** Hosting Metric soft connects per second Guid */
     HostingSoftConnectsPerSecond = 'F90F9446-8754-4001-887C-1AB920968C6D',
-
 }
 
-export default Metric;

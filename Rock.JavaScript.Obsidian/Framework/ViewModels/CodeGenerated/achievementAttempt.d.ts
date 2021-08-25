@@ -21,18 +21,18 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface AchievementAttempt extends Entity {
-    achievementAttemptEndDateTime: string | null;
-    achievementAttemptStartDateTime: string;
-    achievementTypeId: number;
-    achieverEntityId: number;
-    isClosed: boolean;
-    isSuccessful: boolean;
-    progress: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface AchievementAttempt extends Entity {
+    achievementAttemptEndDateTime?: string | null;
+    achievementAttemptStartDateTime?: string;
+    achievementTypeId?: number;
+    achieverEntityId?: number;
+    isClosed?: boolean;
+    isSuccessful?: boolean;
+    progress?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

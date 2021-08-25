@@ -21,17 +21,17 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface StepStatus extends Entity {
-    isActive: boolean;
-    isCompleteStatus: boolean;
-    name: string | null;
-    order: number;
-    statusColor: string | null;
-    stepProgramId: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface StepStatus extends Entity {
+    isActive?: boolean;
+    isCompleteStatus?: boolean;
+    name?: string | null;
+    order?: number;
+    statusColor?: string | null;
+    stepProgramId?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

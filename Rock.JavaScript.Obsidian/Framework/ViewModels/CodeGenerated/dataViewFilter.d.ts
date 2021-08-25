@@ -21,17 +21,17 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface DataViewFilter extends Entity {
-    dataViewId: number | null;
-    entityTypeId: number | null;
-    expressionType: number;
-    parentId: number | null;
-    relatedDataViewId: number | null;
-    selection: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface DataViewFilter extends Entity {
+    dataViewId?: number | null;
+    entityTypeId?: number | null;
+    expressionType?: number;
+    parentId?: number | null;
+    relatedDataViewId?: number | null;
+    selection?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

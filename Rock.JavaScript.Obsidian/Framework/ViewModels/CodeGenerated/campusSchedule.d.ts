@@ -21,15 +21,15 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface CampusSchedule extends Entity {
-    campusId: number;
-    order: number;
-    scheduleId: number;
-    scheduleTypeValueId: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface CampusSchedule extends Entity {
+    campusId?: number;
+    order?: number;
+    scheduleId?: number;
+    scheduleTypeValueId?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

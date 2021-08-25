@@ -36,7 +36,7 @@ type FieldEditorBaseProps = {
         type: PropType<ConfigurationValues>;
         default: () => ConfigurationValues;
     };
-}
+};
 
 /**
  * Get the standard properties that all field editor components must support.

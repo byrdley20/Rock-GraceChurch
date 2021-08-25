@@ -22,8 +22,7 @@ import AttributeValuesContainer from '../../Controls/AttributeValuesContainer';
 import { Guid } from '../../Util/Guid';
 import TextBox from '../../Elements/TextBox';
 import { FieldType as FieldTypeGuids } from '@Obsidian/SystemGuids';
-import ClientEditableAttributeValue from 'ViewModels/ClientEditableAttributeValue';
-import { ListItem } from 'ViewModels/ListItem';
+import { ClientEditableAttributeValue, ListItem } from '@Obsidian/ViewModels';
 
 /**
  * Convert a simpler set of parameters into AttributeValueData

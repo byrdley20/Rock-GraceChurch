@@ -21,28 +21,28 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface ServiceJob extends Entity {
-    assembly: string | null;
-    class: string | null;
-    cronExpression: string | null;
-    description: string | null;
-    enableHistory: boolean;
-    historyCount: number;
-    isActive: boolean | null;
-    isSystem: boolean;
-    lastRunDateTime: string | null;
-    lastRunDurationSeconds: number | null;
-    lastRunSchedulerName: string | null;
-    lastStatus: string | null;
-    lastStatusMessage: string | null;
-    lastSuccessfulRunDateTime: string | null;
-    name: string | null;
-    notificationEmails: string | null;
-    notificationStatus: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface ServiceJob extends Entity {
+    assembly?: string | null;
+    class?: string | null;
+    cronExpression?: string | null;
+    description?: string | null;
+    enableHistory?: boolean;
+    historyCount?: number;
+    isActive?: boolean | null;
+    isSystem?: boolean;
+    lastRunDateTime?: string | null;
+    lastRunDurationSeconds?: number | null;
+    lastRunSchedulerName?: string | null;
+    lastStatus?: string | null;
+    lastStatusMessage?: string | null;
+    lastSuccessfulRunDateTime?: string | null;
+    name?: string | null;
+    notificationEmails?: string | null;
+    notificationStatus?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

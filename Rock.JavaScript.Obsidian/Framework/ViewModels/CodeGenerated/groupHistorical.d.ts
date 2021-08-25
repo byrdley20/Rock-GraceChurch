@@ -21,30 +21,30 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface GroupHistorical extends Entity {
-    archivedByPersonAliasId: number | null;
-    archivedDateTime: string | null;
-    campusId: number | null;
-    currentRowIndicator: boolean;
-    description: string | null;
-    effectiveDateTime: string;
-    expireDateTime: string;
-    groupId: number;
-    groupName: string | null;
-    groupTypeId: number;
-    groupTypeName: string | null;
-    inactiveDateTime: string | null;
-    isActive: boolean;
-    isArchived: boolean;
-    parentGroupId: number | null;
-    scheduleId: number | null;
-    scheduleModifiedDateTime: string | null;
-    scheduleName: string | null;
-    statusValueId: number | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface GroupHistorical extends Entity {
+    archivedByPersonAliasId?: number | null;
+    archivedDateTime?: string | null;
+    campusId?: number | null;
+    currentRowIndicator?: boolean;
+    description?: string | null;
+    effectiveDateTime?: string;
+    expireDateTime?: string;
+    groupId?: number;
+    groupName?: string | null;
+    groupTypeId?: number;
+    groupTypeName?: string | null;
+    inactiveDateTime?: string | null;
+    isActive?: boolean;
+    isArchived?: boolean;
+    parentGroupId?: number | null;
+    scheduleId?: number | null;
+    scheduleModifiedDateTime?: string | null;
+    scheduleName?: string | null;
+    statusValueId?: number | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

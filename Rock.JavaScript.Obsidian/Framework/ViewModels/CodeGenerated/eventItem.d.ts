@@ -21,20 +21,20 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface EventItem extends Entity {
-    approvedByPersonAliasId: number | null;
-    approvedOnDateTime: string | null;
-    description: string | null;
-    detailsUrl: string | null;
-    isActive: boolean;
-    isApproved: boolean;
-    name: string | null;
-    photoId: number | null;
-    summary: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface EventItem extends Entity {
+    approvedByPersonAliasId?: number | null;
+    approvedOnDateTime?: string | null;
+    description?: string | null;
+    detailsUrl?: string | null;
+    isActive?: boolean;
+    isApproved?: boolean;
+    name?: string | null;
+    photoId?: number | null;
+    summary?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

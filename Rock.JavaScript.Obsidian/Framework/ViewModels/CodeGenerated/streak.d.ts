@@ -21,24 +21,24 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface Streak extends Entity {
-    currentStreakCount: number;
-    currentStreakStartDate: string | null;
-    engagementCount: number;
-    engagementMap: (number)[];
-    enrollmentDate: string;
-    exclusionMap: (number)[];
-    inactiveDateTime: string | null;
-    locationId: number | null;
-    longestStreakCount: number;
-    longestStreakEndDate: string | null;
-    longestStreakStartDate: string | null;
-    personAliasId: number;
-    streakTypeId: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface Streak extends Entity {
+    currentStreakCount?: number;
+    currentStreakStartDate?: string | null;
+    engagementCount?: number;
+    engagementMap?: (number)[];
+    enrollmentDate?: string;
+    exclusionMap?: (number)[];
+    inactiveDateTime?: string | null;
+    locationId?: number | null;
+    longestStreakCount?: number;
+    longestStreakEndDate?: string | null;
+    longestStreakStartDate?: string | null;
+    personAliasId?: number;
+    streakTypeId?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

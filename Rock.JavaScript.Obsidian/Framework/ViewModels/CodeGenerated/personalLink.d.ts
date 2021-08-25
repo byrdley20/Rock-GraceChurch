@@ -21,16 +21,16 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface PersonalLink extends Entity {
-    name: string | null;
-    order: number;
-    personAliasId: number | null;
-    sectionId: number;
-    url: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface PersonalLink extends Entity {
+    name?: string | null;
+    order?: number;
+    personAliasId?: number | null;
+    sectionId?: number;
+    url?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

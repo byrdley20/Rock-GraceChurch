@@ -21,20 +21,20 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface AuthClient extends Entity {
-    allowedClaims: string | null;
-    allowedScopes: string | null;
-    allowUserApiAccess: boolean;
-    clientId: string | null;
-    clientSecretHash: string | null;
-    isActive: boolean;
-    name: string | null;
-    postLogoutRedirectUri: string | null;
-    redirectUri: string | null;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface AuthClient extends Entity {
+    allowedClaims?: string | null;
+    allowedScopes?: string | null;
+    allowUserApiAccess?: boolean;
+    clientId?: string | null;
+    clientSecretHash?: string | null;
+    isActive?: boolean;
+    name?: string | null;
+    postLogoutRedirectUri?: string | null;
+    redirectUri?: string | null;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

@@ -21,21 +21,21 @@
 // </copyright>
 //
 
-import Entity from '../Entity';
+import { Entity } from "../entity";
 
-export default interface PhoneNumber extends Entity {
-    countryCode: string | null;
-    description: string | null;
-    extension: string | null;
-    isMessagingEnabled: boolean;
-    isSystem: boolean;
-    isUnlisted: boolean;
-    number: string | null;
-    numberFormatted: string | null;
-    numberTypeValueId: number | null;
-    personId: number;
-    createdDateTime: string | null;
-    modifiedDateTime: string | null;
-    createdByPersonAliasId: number | null;
-    modifiedByPersonAliasId: number | null;
+export interface PhoneNumber extends Entity {
+    countryCode?: string | null;
+    description?: string | null;
+    extension?: string | null;
+    isMessagingEnabled?: boolean;
+    isSystem?: boolean;
+    isUnlisted?: boolean;
+    number?: string | null;
+    numberFormatted?: string | null;
+    numberTypeValueId?: number | null;
+    personId?: number;
+    createdDateTime?: string | null;
+    modifiedDateTime?: string | null;
+    createdByPersonAliasId?: number | null;
+    modifiedByPersonAliasId?: number | null;
 }

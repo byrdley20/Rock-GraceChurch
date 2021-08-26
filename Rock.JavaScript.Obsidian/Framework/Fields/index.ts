@@ -16,10 +16,10 @@
 //
 import { PropType } from "vue";
 import { Guid, normalize, isValidGuid } from "../Util/guid";
-import { FieldType } from "./fieldType";
+import { IFieldType } from "./fieldType";
 import { FieldType as FieldTypeGuids } from "@Obsidian/SystemGuids";
 
-const fieldTypeTable: Record<Guid, FieldType> = {};
+const fieldTypeTable: Record<Guid, IFieldType> = {};
 
 export type ConfigurationValues = Record<string, string>;
 
@@ -62,7 +62,7 @@ export function getFieldEditorProps(): FieldEditorBaseProps {
  * @param fieldTypeGuid The unique identifier of the field type.
  * @param fieldType The class instance that will handle the field type.
  */
-export function registerFieldType(fieldTypeGuid: Guid, fieldType: FieldType): void {
+export function registerFieldType(fieldTypeGuid: Guid, fieldType: IFieldType): void {
     const normalizedGuid = normalize(fieldTypeGuid);
 
     if (!isValidGuid(fieldTypeGuid) || normalizedGuid === null) {
@@ -82,7 +82,7 @@ export function registerFieldType(fieldTypeGuid: Guid, fieldType: FieldType): vo
  * @param fieldTypeGuid The unique identifier of the field type.
  * @returns The field type instance or null if not found.
  */
-export function getFieldType(fieldTypeGuid: Guid): FieldType | null {
+export function getFieldType(fieldTypeGuid: Guid): IFieldType | null {
     const normalizedGuid = normalize(fieldTypeGuid);
 
     if (normalizedGuid !== null) {

@@ -1693,7 +1693,7 @@ Obsidian.onReady(() => {{
     System.import('/Obsidian/Index.js').then(indexModule => {{
         indexModule.initializePageTimings({{
             elementId: '{_obsidianPageTimingControlId}',
-            debugTimingViewModels: { _debugTimingViewModels.ToJson() }
+            debugTimingViewModels: { _debugTimingViewModels.ToCamelCaseJson( false, true ) }
         }});
     }});
 }});";

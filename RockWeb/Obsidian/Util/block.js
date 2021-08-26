@@ -3,11 +3,19 @@ System.register(["vue"], function (exports_1, context_1) {
     var vue_1;
     var __moduleName = context_1 && context_1.id;
     function useConfigurationValues() {
-        return vue_1.inject("configurationValues");
+        const result = vue_1.inject("configurationValues");
+        if (result === undefined) {
+            throw "Attempted to access block configuration outside of a RockBlock.";
+        }
+        return result;
     }
     exports_1("useConfigurationValues", useConfigurationValues);
     function useInvokeBlockAction() {
-        return vue_1.inject("invokeBlockAction");
+        const result = vue_1.inject("invokeBlockAction");
+        if (result === undefined) {
+            throw "Attempted to access block action invocation outside of a RockBlock.";
+        }
+        return result;
     }
     exports_1("useInvokeBlockAction", useInvokeBlockAction);
     return {

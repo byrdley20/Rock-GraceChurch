@@ -1,6 +1,6 @@
 System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/textBox", "../../Elements/emailBox", "../../Elements/currencyBox", "../../Elements/panelWidget", "../../Elements/datePicker", "../../Elements/dateRangePicker", "../../Elements/dateTimePicker", "../../Elements/listBox", "../../Elements/birthdayPicker", "../../Elements/numberUpDown", "../../Controls/addressControl", "../../Elements/toggle", "../../Elements/itemsWithPreAndPostHtml", "../../Elements/staticFormControl", "../../Elements/progressTracker", "../../Controls/rockForm", "../../Elements/rockButton", "../../Elements/radioButtonList", "../../Elements/dropDownList", "../../Controls/dialog", "../../Elements/checkBox", "../../Elements/phoneNumberBox", "../../Elements/helpBlock", "../../Elements/datePartsPicker", "../../Elements/colorPicker", "../../Elements/numberBox", "../../Elements/numberRangeBox", "../../Elements/genderDropDownList", "../../Elements/socialSecurityNumberBox", "../../Elements/timePicker", "../../Elements/checkBoxList", "../../Elements/rating", "@Obsidian/Services/number"], function (exports_1, context_1) {
     "use strict";
-    var paneledBlockTemplate_1, vue_1, textBox_1, emailBox_1, currencyBox_1, panelWidget_1, datePicker_1, dateRangePicker_1, dateTimePicker_1, listBox_1, birthdayPicker_1, numberUpDown_1, addressControl_1, toggle_1, itemsWithPreAndPostHtml_1, staticFormControl_1, progressTracker_1, rockForm_1, rockButton_1, radioButtonList_1, dropDownList_1, dialog_1, checkBox_1, phoneNumberBox_1, helpBlock_1, datePartsPicker_1, colorPicker_1, numberBox_1, numberRangeBox_1, genderDropDownList_1, socialSecurityNumberBox_1, timePicker_1, checkBoxList_1, rating_1, number_1, GalleryAndResult, PhoneNumberBoxGallery, HelpBlockGallery, DropDownListGallery, RadioButtonListGallery, CheckBoxGallery, DialogGallery, FormRulesGallery, CheckBoxListGallery, ListBoxGallery, DatePickerGallery, DateRangePickerGallery, DateTimePickerGallery, DatePartsPickerGallery, TextBoxGallery, ColorPickerGallery, NumberBoxGallery, NumberRangeBoxGallery, GenderDropDownListGallery, SocialSecurityNumberBoxGallery, TimePickerGallery, RatingGallery;
+    var paneledBlockTemplate_1, vue_1, textBox_1, emailBox_1, currencyBox_1, panelWidget_1, datePicker_1, dateRangePicker_1, dateTimePicker_1, listBox_1, birthdayPicker_1, numberUpDown_1, addressControl_1, toggle_1, itemsWithPreAndPostHtml_1, staticFormControl_1, progressTracker_1, rockForm_1, rockButton_1, radioButtonList_1, dropDownList_1, dialog_1, checkBox_1, phoneNumberBox_1, helpBlock_1, datePartsPicker_1, colorPicker_1, numberBox_1, numberRangeBox_1, genderDropDownList_1, socialSecurityNumberBox_1, timePicker_1, checkBoxList_1, rating_1, number_1, GalleryAndResult, phoneNumberBoxGallery, helpBlockGallery, dropDownListGallery, radioButtonListGallery, checkBoxGallery, dialogGallery, formRulesGallery, checkBoxListGallery, listBoxGallery, datePickerGallery, dateRangePickerGallery, dateTimePickerGallery, datePartsPickerGallery, textBoxGallery, colorPickerGallery, numberBoxGallery, numberRangeBoxGallery, genderDropDownListGallery, socialSecurityNumberBoxGallery, timePickerGallery, ratingGallery, galleryComponents, galleryTemplate;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -143,7 +143,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
     </template>
 </PanelWidget>`
             });
-            PhoneNumberBoxGallery = vue_1.defineComponent({
+            phoneNumberBoxGallery = vue_1.defineComponent({
                 name: "PhoneNumberBoxGallery",
                 components: {
                     GalleryAndResult,
@@ -168,7 +168,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
     </template>
 </GalleryAndResult>`
             });
-            HelpBlockGallery = vue_1.defineComponent({
+            helpBlockGallery = vue_1.defineComponent({
                 name: "HelpBlockGallery",
                 components: {
                     GalleryAndResult,
@@ -184,7 +184,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
     </template>
 </GalleryAndResult>`
             });
-            DropDownListGallery = vue_1.defineComponent({
+            dropDownListGallery = vue_1.defineComponent({
                 name: "DropDownListGallery",
                 components: {
                     GalleryAndResult,
@@ -217,7 +217,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
     </template>
 </GalleryAndResult>`
             });
-            RadioButtonListGallery = vue_1.defineComponent({
+            radioButtonListGallery = vue_1.defineComponent({
                 name: "RadioButtonListGallery",
                 components: {
                     GalleryAndResult,
@@ -257,7 +257,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
     </template>
 </GalleryAndResult>`
             });
-            CheckBoxGallery = vue_1.defineComponent({
+            checkBoxGallery = vue_1.defineComponent({
                 name: "CheckBoxGallery",
                 components: {
                     GalleryAndResult,
@@ -285,7 +285,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
     </template>
 </GalleryAndResult>`
             });
-            DialogGallery = vue_1.defineComponent({
+            dialogGallery = vue_1.defineComponent({
                 name: "DialogGallery",
                 components: {
                     GalleryAndResult,
@@ -336,7 +336,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
     </template>
 </GalleryAndResult>`
             });
-            FormRulesGallery = vue_1.defineComponent({
+            formRulesGallery = vue_1.defineComponent({
                 name: "FormRulesGallery",
                 components: {
                     GalleryAndResult,
@@ -368,7 +368,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
     </template>
 </GalleryAndResult>`
             });
-            CheckBoxListGallery = vue_1.defineComponent({
+            checkBoxListGallery = vue_1.defineComponent({
                 name: "CheckBoxListGallery",
                 components: {
                     GalleryAndResult,
@@ -398,7 +398,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
     </template>
 </GalleryAndResult>`
             });
-            ListBoxGallery = vue_1.defineComponent({
+            listBoxGallery = vue_1.defineComponent({
                 name: "ListBoxGallery",
                 components: {
                     GalleryAndResult,
@@ -431,7 +431,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
     </template>
 </GalleryAndResult>`
             });
-            DatePickerGallery = vue_1.defineComponent({
+            datePickerGallery = vue_1.defineComponent({
                 name: "DatePickerGallery",
                 components: {
                     GalleryAndResult,
@@ -461,7 +461,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
     </template>
 </GalleryAndResult>`
             });
-            DateRangePickerGallery = vue_1.defineComponent({
+            dateRangePickerGallery = vue_1.defineComponent({
                 name: "DateRangePickerGallery",
                 components: {
                     GalleryAndResult,
@@ -486,7 +486,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
     </template>
 </GalleryAndResult>`
             });
-            DateTimePickerGallery = vue_1.defineComponent({
+            dateTimePickerGallery = vue_1.defineComponent({
                 name: "DatePickerGallery",
                 components: {
                     GalleryAndResult,
@@ -511,7 +511,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
     </template>
 </GalleryAndResult>`
             });
-            DatePartsPickerGallery = vue_1.defineComponent({
+            datePartsPickerGallery = vue_1.defineComponent({
                 name: "DatePartsPickerGallery",
                 components: {
                     GalleryAndResult,
@@ -544,7 +544,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
     </template>
 </GalleryAndResult>`
             });
-            TextBoxGallery = vue_1.defineComponent({
+            textBoxGallery = vue_1.defineComponent({
                 name: "TextBoxGallery",
                 components: {
                     GalleryAndResult,
@@ -570,7 +570,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
     </template>
 </GalleryAndResult>`
             });
-            ColorPickerGallery = vue_1.defineComponent({
+            colorPickerGallery = vue_1.defineComponent({
                 name: "ColorPickerGallery",
                 components: {
                     GalleryAndResult,
@@ -594,7 +594,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
     </template>
 </GalleryAndResult>`
             });
-            NumberBoxGallery = vue_1.defineComponent({
+            numberBoxGallery = vue_1.defineComponent({
                 name: "NumberBoxGallery",
                 components: {
                     GalleryAndResult,
@@ -636,7 +636,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
     </template>
 </GalleryAndResult>`
             });
-            NumberRangeBoxGallery = vue_1.defineComponent({
+            numberRangeBoxGallery = vue_1.defineComponent({
                 name: "NumberRangeBoxGallery",
                 components: {
                     GalleryAndResult,
@@ -666,7 +666,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
     </template>
 </GalleryAndResult>`
             });
-            GenderDropDownListGallery = vue_1.defineComponent({
+            genderDropDownListGallery = vue_1.defineComponent({
                 name: "GenderDropDownListGallery",
                 components: {
                     GalleryAndResult,
@@ -696,7 +696,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
     </template>
 </GalleryAndResult>`
             });
-            SocialSecurityNumberBoxGallery = vue_1.defineComponent({
+            socialSecurityNumberBoxGallery = vue_1.defineComponent({
                 name: "SocialSecurityNumberBoxGallery",
                 components: {
                     GalleryAndResult,
@@ -726,7 +726,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
     </template>
 </GalleryAndResult>`
             });
-            TimePickerGallery = vue_1.defineComponent({
+            timePickerGallery = vue_1.defineComponent({
                 name: "TimePickerGallery",
                 components: {
                     GalleryAndResult,
@@ -756,7 +756,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
     </template>
 </GalleryAndResult>`
             });
-            RatingGallery = vue_1.defineComponent({
+            ratingGallery = vue_1.defineComponent({
                 name: "RatingGallery",
                 components: {
                     GalleryAndResult,
@@ -786,19 +786,35 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
     </template>
 </GalleryAndResult>`
             });
+            galleryComponents = {
+                textBoxGallery,
+                datePickerGallery,
+                dateRangePickerGallery,
+                dateTimePickerGallery,
+                datePartsPickerGallery,
+                radioButtonListGallery,
+                dialogGallery,
+                checkBoxGallery,
+                checkBoxListGallery,
+                listBoxGallery,
+                phoneNumberBoxGallery,
+                dropDownListGallery,
+                helpBlockGallery,
+                formRulesGallery,
+                colorPickerGallery,
+                numberBoxGallery,
+                numberRangeBoxGallery,
+                genderDropDownListGallery,
+                socialSecurityNumberBoxGallery,
+                timePickerGallery,
+                ratingGallery
+            };
+            galleryTemplate = Object.keys(galleryComponents).sort().map(g => `<${g} />`).join("");
             exports_1("default", vue_1.defineComponent({
                 name: "Example.ControlGallery",
-                components: {
-                    PaneledBlockTemplate: paneledBlockTemplate_1.default,
-                    GalleryAndResult,
-                    TextBox: textBox_1.default,
-                    TextBoxGallery,
+                components: Object.assign({ PaneledBlockTemplate: paneledBlockTemplate_1.default, GalleryAndResult: GalleryAndResult, TextBox: textBox_1.default,
                     CurrencyBox: currencyBox_1.default,
                     EmailBox: emailBox_1.default,
-                    DatePickerGallery,
-                    DateRangePickerGallery,
-                    DateTimePickerGallery,
-                    DatePartsPickerGallery,
                     NumberUpDown: numberUpDown_1.default,
                     AddressControl: addressControl_1.default,
                     Toggle: toggle_1.default,
@@ -806,24 +822,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
                     StaticFormControl: staticFormControl_1.default,
                     ProgressTracker: progressTracker_1.default,
                     RockForm: rockForm_1.default,
-                    RockButton: rockButton_1.default,
-                    RadioButtonListGallery,
-                    DialogGallery,
-                    CheckBoxGallery,
-                    CheckBoxListGallery,
-                    ListBoxGallery,
-                    PhoneNumberBoxGallery,
-                    DropDownListGallery,
-                    HelpBlockGallery,
-                    FormRulesGallery,
-                    ColorPickerGallery,
-                    NumberBoxGallery,
-                    NumberRangeBoxGallery,
-                    GenderDropDownListGallery,
-                    SocialSecurityNumberBoxGallery,
-                    TimePickerGallery,
-                    RatingGallery
-                },
+                    RockButton: rockButton_1.default }, galleryComponents),
                 data() {
                     return {
                         currency: 1.234,
@@ -858,13 +857,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
         Obsidian Control Gallery
     </template>
     <template v-slot:default>
-        <TextBoxGallery />
-
-        <DatePickerGallery />
-
-        <DateRangePickerGallery />
-
-        <DateTimePickerGallery />
+        ${galleryTemplate}
 
         <GalleryAndResult>
             <template #header>
@@ -891,8 +884,6 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
                 {{email}}
             </template>
         </GalleryAndResult>
-
-        <DatePartsPickerGallery />
 
         <GalleryAndResult>
             <template #header>
@@ -932,8 +923,6 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
                 <pre>{{JSON.stringify(address, null, 2)}}</pre>
             </template>
         </GalleryAndResult>
-
-        <ListBoxGallery />
 
         <GalleryAndResult>
             <template #header>
@@ -981,36 +970,6 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
                 <ProgressTracker :items="progressTrackerItems" :currentIndex="progressTrackerIndex" />
             </template>
         </GalleryAndResult>
-
-        <FormRulesGallery />
-
-        <RadioButtonListGallery />
-
-        <DialogGallery />
-
-        <CheckBoxGallery />
-
-        <CheckBoxListGallery />
-
-        <PhoneNumberBoxGallery />
-
-        <DropDownListGallery />
-
-        <HelpBlockGallery />
-
-        <ColorPickerGallery />
-
-        <NumberBoxGallery />
-
-        <NumberRangeBoxGallery />
-
-        <GenderDropDownListGallery />
-
-        <SocialSecurityNumberBoxGallery />
-
-        <TimePickerGallery />
-
-        <RatingGallery />
     </template>
 </PaneledBlockTemplate>`
             }));

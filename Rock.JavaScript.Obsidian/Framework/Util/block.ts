@@ -18,13 +18,21 @@
 import { InvokeBlockActionFunc } from "Controls/rockBlock";
 import { inject } from "vue";
 
+// TODO: Change these to use symbols
+
 /**
  * Maps the block configuration values to the expected type.
  * 
  * @returns The configuration values for the block.
  */
 export function useConfigurationValues<T>(): T {
-    return inject("configurationValues") as T;
+    const result = inject<T>("configurationValues");
+
+    if (result === undefined) {
+        throw "Attempted to access block configuration outside of a RockBlock.";
+    }
+
+    return result;
 }
 
 /**
@@ -33,5 +41,11 @@ export function useConfigurationValues<T>(): T {
  * @returns An instance of @see {@link InvokeBlockActionFunc}.
  */
 export function useInvokeBlockAction(): InvokeBlockActionFunc {
-    return inject("invokeBlockAction") as InvokeBlockActionFunc;
+    const result = inject<InvokeBlockActionFunc>("invokeBlockAction");
+
+    if (result === undefined) {
+        throw "Attempted to access block action invocation outside of a RockBlock.";
+    }
+
+    return result;
 }

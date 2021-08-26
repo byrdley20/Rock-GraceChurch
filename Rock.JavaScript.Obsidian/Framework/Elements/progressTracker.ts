@@ -19,13 +19,13 @@ import { defineComponent, PropType } from "vue";
 import { newGuid } from "../Util/guid";
 
 /** The data needed to represent an item in a ProgressTracker */
-export interface ProgressTrackerItem {
+export type ProgressTrackerItem = {
     title: string;
     subtitle: string;
     key: string;
-}
+};
 
-const ProgressTrackerItem = defineComponent( {
+const progressTrackerItem = defineComponent( {
     name: "ProgressTrackerItem",
     props: {
         isPast: {
@@ -88,7 +88,7 @@ const ProgressTrackerItem = defineComponent( {
 const ProgressTracker = defineComponent( {
     name: "ProgressTracker",
     components: {
-        ProgressTrackerItem
+        ProgressTrackerItem: progressTrackerItem
     },
     props: {
         currentIndex: {

@@ -42,6 +42,7 @@ export default defineComponent({
         };
     },
     mounted(): void {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const $colorPicker = (<any>window[<any>"$"])(this.$refs.colorPicker);
 
         $colorPicker.colorpicker();

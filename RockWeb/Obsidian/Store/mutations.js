@@ -23,12 +23,12 @@ System.register([], function (exports_1, context_1) {
                     const timestampMs = value.startTimeMs - pageStartTime;
                     const durationMs = value.finishTimeMs - value.startTimeMs;
                     state.debugTimings.push({
-                        TimestampMs: timestampMs,
-                        DurationMs: durationMs,
-                        IndentLevel: 1,
-                        IsTitleBold: false,
-                        SubTitle: value.subtitle,
-                        Title: value.title
+                        timestampMs: timestampMs,
+                        durationMs: durationMs,
+                        indentLevel: 1,
+                        isTitleBold: false,
+                        subTitle: value.subtitle,
+                        title: value.title
                     });
                 }
             });

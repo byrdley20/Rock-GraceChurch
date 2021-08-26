@@ -17,7 +17,7 @@
 import { defineComponent } from "vue";
 import { getFieldEditorProps } from "./index";
 import { toNumber } from "@Obsidian/Services/number";
-import DatePartsPicker, { DatePartsPickerModel } from "../Elements/datePartsPicker";
+import DatePartsPicker, { DatePartsPickerValue } from "../Elements/datePartsPicker";
 
 export const EditComponent = defineComponent({
     name: "MonthDayField.Edit",
@@ -35,7 +35,7 @@ export const EditComponent = defineComponent({
                 year: 0,
                 month: 0,
                 day: 0
-            } as DatePartsPickerModel
+            } as DatePartsPickerValue
         };
     },
 

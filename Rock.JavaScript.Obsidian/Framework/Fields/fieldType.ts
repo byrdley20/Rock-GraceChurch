@@ -27,7 +27,7 @@ import { EditComponent as TextEditComponent } from "./textFieldComponents";
  * Note to plugins: Do not implement this interface directly or your implementation
  * may break if we add new required methods.
  */
-export interface FieldType {
+export interface IFieldType {
     /**
      * Get the plain text representation of the attribute value.
      * 
@@ -105,7 +105,7 @@ export interface FieldType {
  * Basic field type implementation that is suitable for implementations to
  * extend.
  */
-export abstract class FieldTypeBase implements FieldType {
+export abstract class FieldTypeBase implements IFieldType {
     public getTextValue(value: ClientAttributeValue): string {
         return value.textValue ?? "";
     }

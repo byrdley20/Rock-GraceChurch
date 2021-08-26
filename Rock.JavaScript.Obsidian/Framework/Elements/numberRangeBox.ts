@@ -22,13 +22,13 @@ import RockFormField from "./rockFormField";
 /**
  * The model value used by the NumberRangeBox element.
  */
-export interface NumberRangeModelValue {
+export type NumberRangeModelValue = {
     /** The lower number of the range. */
     lower: number | null;
 
     /** The upper number of the range. */
     upper: number | null;
-}
+};
 
 export default defineComponent({
     name: "NumberRangeBox",

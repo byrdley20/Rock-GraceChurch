@@ -20,13 +20,13 @@ import DateKey from "@Obsidian/Services/dateKey";
 import { toNumber, toNumberOrNull } from "@Obsidian/Services/number";
 import RockFormField from "./rockFormField";
 
-export interface DatePartsPickerModel {
+export type DatePartsPickerValue = {
     year: number;
     month: number;
     day: number;
-}
+};
 
-export function getDefaultDatePartsPickerModel(): DatePartsPickerModel {
+export function getDefaultDatePartsPickerModel(): DatePartsPickerValue {
     return {
         year: 0,
         month: 0,
@@ -45,7 +45,7 @@ export default defineComponent({
             default: ""
         },
         modelValue: {
-            type: Object as PropType<DatePartsPickerModel>,
+            type: Object as PropType<DatePartsPickerValue>,
             required: true
         },
         requireYear: {
@@ -80,7 +80,7 @@ export default defineComponent({
     },
 
     methods: {
-        getValue(): DatePartsPickerModel {
+        getValue(): DatePartsPickerValue {
             return {
                 day: toNumber(this.internalDay),
                 month: toNumber(this.internalMonth),

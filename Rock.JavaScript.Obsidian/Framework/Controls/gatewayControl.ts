@@ -18,10 +18,10 @@ import { defineComponent, PropType } from "vue";
 import JavaScriptAnchor from "../Elements/javaScriptAnchor";
 import ComponentFromUrl from "./componentFromUrl";
 
-export interface GatewayControlModel {
-    FileUrl: string;
-    Settings: Record<string, unknown>;
-}
+export type GatewayControlModel = {
+    fileUrl: string;
+    settings: Record<string, unknown>;
+};
 
 export enum ValidationField {
     CardNumber,
@@ -48,10 +48,10 @@ export default defineComponent({
     },
     computed: {
         url(): string {
-            return this.gatewayControlModel.FileUrl;
+            return this.gatewayControlModel.fileUrl;
         },
         settings(): Record<string, unknown> {
-            return this.gatewayControlModel.Settings;
+            return this.gatewayControlModel.settings;
         }
     },
     methods: {

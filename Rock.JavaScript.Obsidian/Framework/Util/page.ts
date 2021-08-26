@@ -14,11 +14,11 @@
 // limitations under the License.
 // </copyright>
 //
-export function smoothScrollToTop() {
+
+export function smoothScrollToTop(): void {
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 export default {
     smoothScrollToTop
 };
-

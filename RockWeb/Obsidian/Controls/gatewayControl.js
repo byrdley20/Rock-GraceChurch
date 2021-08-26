@@ -49,10 +49,10 @@ System.register(["vue", "../Elements/javaScriptAnchor", "./componentFromUrl"], f
                 },
                 computed: {
                     url() {
-                        return this.gatewayControlModel.FileUrl;
+                        return this.gatewayControlModel.fileUrl;
                     },
                     settings() {
-                        return this.gatewayControlModel.Settings;
+                        return this.gatewayControlModel.settings;
                     }
                 },
                 methods: {

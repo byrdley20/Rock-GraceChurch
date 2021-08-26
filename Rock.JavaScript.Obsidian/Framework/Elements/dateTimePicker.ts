@@ -19,7 +19,7 @@ import { toNumber } from "@Obsidian/Services/number";
 import RockFormField from "./rockFormField";
 import TextBox from "./textBox";
 import BasicTimePicker from "./basicTimePicker";
-import { TimePickerModelValue } from "./timePicker";
+import { TimePickerValue } from "./timePicker";
 import { padLeft } from "@Obsidian/Services/string";
 
 type Rock = {
@@ -31,9 +31,11 @@ type Rock = {
 };
 
 declare global {
+    /* eslint-disable @typescript-eslint/naming-convention */
     interface Window {
         Rock: Rock;
     }
+    /* eslint-enable @typescript-eslint/naming-convention */
 }
 
 export default defineComponent({
@@ -67,7 +69,7 @@ export default defineComponent({
     data: function () {
         return {
             internalDateValue: null as string | null,
-            internalTimeValue: {} as TimePickerModelValue,
+            internalTimeValue: {} as TimePickerValue,
             isCurrent: false,
             currentDiff: "0",
             validationValue: "",
@@ -178,9 +180,8 @@ export default defineComponent({
     mounted() {
         const input = this.$refs["input"] as HTMLInputElement;
         const inputId = input.id;
-        const Rock = window.Rock;
 
-        Rock.controls.datePicker.initialize({
+        window.Rock.controls.datePicker.initialize({
             id: inputId,
             startView: 0,
             showOnFocus: true,

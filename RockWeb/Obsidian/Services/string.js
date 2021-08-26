@@ -21,10 +21,7 @@ System.register([], function (exports_1, context_1) {
     }
     exports_1("isNullOrWhiteSpace", isNullOrWhiteSpace);
     function splitCamelCase(val) {
-        if (typeof val === "string") {
-            return val.replace(/([a-z])([A-Z])/g, "$1 $2");
-        }
-        return val;
+        return val.replace(/([a-z])([A-Z])/g, "$1 $2");
     }
     exports_1("splitCamelCase", splitCamelCase);
     function asCommaAnd(strs) {

@@ -15,12 +15,14 @@
 // </copyright>
 //
 import { defineComponent, provide } from "vue";
-import { Form } from "vee-validate";
+import { Form, SubmissionHandler } from "vee-validate";
 import RockValidation from "./rockValidation";
 
 export type FormState = {
     submitCount: number;
 };
+
+type HandleSubmitFn = (evt: Event | SubmissionHandler, onSubmit?: SubmissionHandler) => unknown;
 
 export default defineComponent({
     name: "RockForm",
@@ -45,12 +47,12 @@ export default defineComponent({
         };
     },
     methods: {
-        onInternalSubmit(handleSubmit: Function, $event: Event) {
+        onInternalSubmit(handleSubmit: HandleSubmitFn, evt: Event) {
             this.formState.submitCount++;
-            return handleSubmit($event, this.emitSubmit);
+            return handleSubmit(evt, this.emitSubmit);
         },
 
-        emitSubmit(payload: any) {
+        emitSubmit(payload: Record<string, unknown>) {
             this.$emit("submit", payload);
         }
     },

@@ -24,11 +24,11 @@ export const enum ConfigurationValueKey {
     DisplayDescription = "displaydescription"
 }
 
-export interface ValueItem {
+export type ValueItem = {
     value: string,
     text: string,
     description: string
-}
+};
 
 export type ClientValue = {
     value?: string;

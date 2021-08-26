@@ -19,14 +19,14 @@ import { FieldTypeBase } from "./fieldType";
 import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
 
 
-export interface AddressFieldValue {
+export type AddressFieldValue = {
     street1?: string;
     street2?: string;
     city?: string;
     state?: string;
     postalCode?: string;
     country?: string;
-}
+};
 
 // The edit component can be quite large, so load it only as needed.
 const editComponent = defineAsyncComponent(async () => {

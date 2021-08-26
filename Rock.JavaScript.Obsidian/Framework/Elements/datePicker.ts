@@ -29,9 +29,11 @@ type Rock = {
 };
 
 declare global {
+    /* eslint-disable @typescript-eslint/naming-convention */
     interface Window {
         Rock: Rock;
     }
+    /* eslint-enable @typescript-eslint/naming-convention */
 }
 
 export const DatePickerBase = defineComponent({
@@ -111,9 +113,8 @@ export const DatePickerBase = defineComponent({
     mounted() {
         const input = this.$refs["input"] as HTMLInputElement;
         const inputId = input.id;
-        const Rock = window.Rock;
 
-        Rock.controls.datePicker.initialize({
+        window.Rock.controls.datePicker.initialize({
             id: inputId,
             startView: 0,
             showOnFocus: true,

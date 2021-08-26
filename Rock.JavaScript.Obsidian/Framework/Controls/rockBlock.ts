@@ -15,8 +15,8 @@
 // </copyright>
 //
 import { doApiCall, HttpBodyData, HttpMethod, HttpResult, HttpUrlParams } from "../Util/http";
-import { Component, defineComponent, inject, PropType, provide, reactive } from "vue";
-import { BlockConfig, ConfigurationValues } from "../index";
+import { Component, defineComponent, PropType, provide, reactive } from "vue";
+import { BlockConfig } from "../index";
 import store, { MutationType, PageDebugTiming } from "../Store/index";
 import { Guid } from "../Util/guid";
 import Alert from "../Elements/alert";
@@ -35,13 +35,6 @@ type LogItem = {
     method: HttpMethod;
     url: string;
 };
-
-export function standardBlockSetup() {
-    return {
-        configurationValues: inject( "configurationValues" ) as ConfigurationValues,
-        invokeBlockAction: inject( "invokeBlockAction" ) as InvokeBlockActionFunc
-    };
-}
 
 export default defineComponent( {
     name: "RockBlock",

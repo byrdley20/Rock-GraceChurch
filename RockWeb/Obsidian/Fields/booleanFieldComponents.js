@@ -56,7 +56,7 @@ System.register(["vue", "./index", "@Obsidian/Services/boolean", "../Elements/dr
                         }
                     },
                     trueText() {
-                        let trueText = boolean_1.asYesNoOrNull(true);
+                        let trueText = "Yes";
                         const trueConfig = this.configurationValues["truetext"];
                         if (trueConfig) {
                             trueText = trueConfig;
@@ -64,7 +64,7 @@ System.register(["vue", "./index", "@Obsidian/Services/boolean", "../Elements/dr
                         return trueText || "Yes";
                     },
                     falseText() {
-                        let falseText = boolean_1.asYesNoOrNull(false);
+                        let falseText = "No";
                         const falseConfig = this.configurationValues["falsetext"];
                         if (falseConfig) {
                             falseText = falseConfig;

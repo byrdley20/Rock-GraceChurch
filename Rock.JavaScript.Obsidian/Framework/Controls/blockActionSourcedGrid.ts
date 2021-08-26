@@ -19,10 +19,10 @@ import { defineComponent, inject, PropType } from "vue";
 import Grid, { FilterOptions, RowData, SortDirection, SortProperty } from "./grid";
 import { InvokeBlockActionFunc } from "./rockBlock";
 
-interface BlockActionGridResponse {
+type BlockActionGridResponse = {
     totalCount: number,
     currentPageData: RowData[]
-}
+};
 
 export default defineComponent( {
     name: "BlockActionSourcedGrid",

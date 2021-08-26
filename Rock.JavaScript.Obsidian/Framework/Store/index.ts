@@ -27,6 +27,7 @@ export { ActionType } from "./actions";
 
 declare module "@vue/runtime-core" {
     // provide typings for `this.$store`
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface ComponentCustomProperties {
         $store: Store
     }

@@ -18,8 +18,8 @@
  * Is the value an empty string?
  * @param val
  */
-export function isEmpty( val: unknown ) {
-    if ( typeof val === "string" ) {
+export function isEmpty(val: unknown): boolean {
+    if (typeof val === "string") {
         return val.length === 0;
     }
 
@@ -30,8 +30,8 @@ export function isEmpty( val: unknown ) {
  * Is the value an empty string?
  * @param val
  */
-export function isWhiteSpace( val: unknown ) {
-    if ( typeof val === "string" ) {
+export function isWhiteSpace(val: unknown): boolean {
+    if (typeof val === "string") {
         return val.trim().length === 0;
     }
 
@@ -42,20 +42,16 @@ export function isWhiteSpace( val: unknown ) {
  * Is the value null, undefined or whitespace?
  * @param val
  */
-export function isNullOrWhiteSpace( val: unknown ) {
-    return isWhiteSpace( val ) || val === undefined || val === null;
+export function isNullOrWhiteSpace(val: unknown): boolean {
+    return isWhiteSpace(val) || val === undefined || val === null;
 }
 
 /**
  * Turns "MyCamelCaseString" into "My Camel Case String"
  * @param val
  */
-export function splitCamelCase( val: unknown ) {
-    if ( typeof val === "string" ) {
-        return val.replace( /([a-z])([A-Z])/g, "$1 $2" );
-    }
-
-    return val;
+export function splitCamelCase(val: string): string {
+    return val.replace(/([a-z])([A-Z])/g, "$1 $2");
 }
 
 /**
@@ -63,21 +59,21 @@ export function splitCamelCase( val: unknown ) {
  * Ex: ['a', 'b', 'c'] => 'a, b, and c'
  * @param strs
  */
-export function asCommaAnd( strs: string[] ) {
-    if ( strs.length === 0 ) {
+export function asCommaAnd(strs: string[]): string {
+    if (strs.length === 0) {
         return "";
     }
 
-    if ( strs.length === 1 ) {
-        return strs[ 0 ];
+    if (strs.length === 1) {
+        return strs[0];
     }
 
-    if ( strs.length === 2 ) {
-        return `${strs[ 0 ]} and ${strs[ 1 ]}`;
+    if (strs.length === 2) {
+        return `${strs[0]} and ${strs[1]}`;
     }
 
     const last = strs.pop();
-    return `${strs.join( ", " )}, and ${last}`;
+    return `${strs.join(", ")}, and ${last}`;
 }
 
 /**
@@ -85,14 +81,14 @@ export function asCommaAnd( strs: string[] ) {
  * hellO worlD => Hello World
  * @param str
  */
-export function toTitleCase( str: string | null ) {
-    if ( !str ) {
+export function toTitleCase(str: string | null): string {
+    if (!str) {
         return "";
     }
 
-    return str.replace( /\w\S*/g, ( word ) => {
-        return word.charAt( 0 ).toUpperCase() + word.substr( 1 ).toLowerCase();
-    } );
+    return str.replace(/\w\S*/g, (word) => {
+        return word.charAt(0).toUpperCase() + word.substr(1).toLowerCase();
+    });
 }
 
 /**
@@ -104,7 +100,7 @@ export function toTitleCase( str: string | null ) {
  * @param singular
  * @param plural
  */
-export function pluralConditional( num: number, singular: string, plural: string ) {
+export function pluralConditional(num: number, singular: string, plural: string): string {
     return num === 1 ? singular : plural;
 }
 
@@ -114,15 +110,15 @@ export function pluralConditional( num: number, singular: string, plural: string
  * 3214567890 => (321) 456-7890
  * @param str
  */
-export function formatPhoneNumber ( str: string ) {
-    str = stripPhoneNumber( str );
+export function formatPhoneNumber(str: string): string {
+    str = stripPhoneNumber(str);
 
-    if ( str.length === 7 ) {
-        return `${str.substring( 0, 3 )}-${str.substring( 3, 7 )}`;
+    if (str.length === 7) {
+        return `${str.substring(0, 3)}-${str.substring(3, 7)}`;
     }
 
-    if ( str.length === 10 ) {
-        return `(${str.substring( 0, 3 )}) ${str.substring( 3, 6 )}-${str.substring( 6, 10 )}`;
+    if (str.length === 10) {
+        return `(${str.substring(0, 3)}) ${str.substring(3, 6)}-${str.substring(6, 10)}`;
     }
 
     return str;
@@ -133,12 +129,12 @@ export function formatPhoneNumber ( str: string ) {
  * (321) 456-7890 => 3214567890
  * @param str
  */
-export function stripPhoneNumber ( str: string ) {
-    if ( !str ) {
+export function stripPhoneNumber(str: string): string {
+    if (!str) {
         return "";
     }
 
-    return str.replace( /\D/g, "" );
+    return str.replace(/\D/g, "");
 }
 
 /**
@@ -193,9 +189,9 @@ export function padRight(str: string | undefined | null, length: number, padChar
     return str + Array(length - str.length + 1).join(padCharacter);
 }
 
-export interface TruncateOptions {
+export type TruncateOptions = {
     ellipsis?: boolean;
-}
+};
 
 /**
  * Ensure a string does not go over the character limit. Truncation happens

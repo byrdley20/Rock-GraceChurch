@@ -23,7 +23,7 @@ export type DropDownListOption = {
     text: string
 };
 
-export default defineComponent( {
+export default defineComponent({
     name: "DropDownList",
     components: {
         RockFormField
@@ -63,8 +63,8 @@ export default defineComponent( {
     },
     computed: {
         /** The compiled list of CSS classes (props and calculated from other inputs) for the select element */
-        compiledFormControlClasses (): string {
-            if ( this.enhanceForLongLists ) {
+        compiledFormControlClasses(): string {
+            if (this.enhanceForLongLists) {
                 return this.formControlClasses + " chosen-select";
             }
 
@@ -73,80 +73,81 @@ export default defineComponent( {
     },
     methods: {
         /** Uses jQuery to get the chosen element */
-        getChosenJqueryEl () {
-            const jquery = <any>window[ <any>"$" ];
-            let $chosenDropDown = jquery( this.$refs[ "theSelect" ] );
+        getChosenJqueryEl() {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const jquery = <any>window[<any>"$"];
+            let $chosenDropDown = jquery(this.$refs["theSelect"]);
 
-            if ( !$chosenDropDown || !$chosenDropDown.length ) {
-                $chosenDropDown = jquery( `#${this.uniqueId}` );
+            if (!$chosenDropDown || !$chosenDropDown.length) {
+                $chosenDropDown = jquery(`#${this.uniqueId}`);
             }
 
             return $chosenDropDown;
         },
 
-        createOrDestroyChosen () {
-            if ( !this.isMounted ) {
+        createOrDestroyChosen() {
+            if (!this.isMounted) {
                 return;
             }
 
             const $chosenDropDown = this.getChosenJqueryEl();
 
-            if ( this.enhanceForLongLists ) {
+            if (this.enhanceForLongLists) {
                 $chosenDropDown
-                    .chosen( {
+                    .chosen({
                         width: "100%",
                         allow_single_deselect: true,
                         placeholder_text_multiple: " ",
                         placeholder_text_single: " "
-                    } )
-                    .change( (ev: Event) => {
+                    })
+                    .change((ev: Event) => {
                         this.internalValue = (ev.target as HTMLSelectElement).value;
-                    } );
+                    });
             }
             else {
-                $chosenDropDown.chosen( "destroy" );
+                $chosenDropDown.chosen("destroy");
             }
         },
 
-        syncValue () {
+        syncValue() {
             this.internalValue = this.modelValue;
-            const selectedOption = this.options.find( o => o.value === this.internalValue ) || null;
+            const selectedOption = this.options.find(o => o.value === this.internalValue) || null;
 
-            if ( !selectedOption ) {
+            if (!selectedOption) {
                 this.internalValue = this.showBlankItem ?
                     this.blankValue :
-                    ( this.options[ 0 ]?.value || this.blankValue );
+                    (this.options[0]?.value || this.blankValue);
             }
 
-            if ( this.enhanceForLongLists ) {
-                this.$nextTick( () => {
+            if (this.enhanceForLongLists) {
+                this.$nextTick(() => {
                     const $chosenDropDown = this.getChosenJqueryEl();
-                    $chosenDropDown.trigger( "chosen:updated" );
-                } );
+                    $chosenDropDown.trigger("chosen:updated");
+                });
             }
         }
     },
     watch: {
         modelValue: {
             immediate: true,
-            handler () {
+            handler() {
                 this.syncValue();
             }
         },
         options: {
             immediate: true,
-            handler () {
+            handler() {
                 this.syncValue();
             }
         },
-        internalValue () {
-            this.$emit( "update:modelValue", this.internalValue );
+        internalValue() {
+            this.$emit("update:modelValue", this.internalValue);
         },
-        enhanceForLongLists () {
+        enhanceForLongLists() {
             this.createOrDestroyChosen();
         }
     },
-    mounted () {
+    mounted() {
         this.isMounted = true;
         this.createOrDestroyChosen();
     },
@@ -164,4 +165,4 @@ export default defineComponent( {
         </div>
     </template>
 </RockFormField>`
-} );
+});

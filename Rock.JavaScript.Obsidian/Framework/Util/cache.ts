@@ -26,7 +26,7 @@ type CacheEntry<T> = {
 * @param value
 * @param expiration
 */
-function set<T>(key: string, value: T, expiration: Date | null = null) {
+function set<T>(key: string, value: T, expiration: Date | null = null): void {
     if (!expiration) {
         // Default to one minute
         const now = new Date();
@@ -43,7 +43,7 @@ function set<T>(key: string, value: T, expiration: Date | null = null) {
  * Gets a stored cache value if there is one that has not yet expired.
  * @param key
  */
-function get<T>(key: string) {
+function get<T>(key: string): T | null {
     const cacheJson = sessionStorage.getItem(key);
 
     if (!cacheJson) {

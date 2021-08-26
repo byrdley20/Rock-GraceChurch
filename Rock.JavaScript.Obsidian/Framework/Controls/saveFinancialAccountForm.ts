@@ -25,11 +25,11 @@ import { Person } from "@Obsidian/ViewModels";
 import { BlockHttp } from "./rockBlock";
 import RockForm from "./rockForm";
 
-interface SaveFinancialAccountFormResult {
+type SaveFinancialAccountFormResult = {
     title: string;
     detail: string;
     isSuccess: boolean;
-}
+};
 
 /** A form to save a payment token for later use as a Financial Person Saved Account */
 const SaveFinancialAccountForm = defineComponent( {

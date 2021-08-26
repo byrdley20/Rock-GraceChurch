@@ -1,4 +1,4 @@
-System.register(["vue", "../../Controls/rockBlock", "../../Elements/alert", "../../Elements/rockButton", "../../Templates/paneledBlockTemplate"], function (exports_1, context_1) {
+System.register(["Util/block", "vue", "../../Elements/alert", "../../Elements/rockButton", "../../Templates/paneledBlockTemplate"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,15 +9,15 @@ System.register(["vue", "../../Controls/rockBlock", "../../Elements/alert", "../
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var vue_1, rockBlock_1, alert_1, rockButton_1, paneledBlockTemplate_1, StarkDetailOptions;
+    var block_1, vue_1, alert_1, rockButton_1, paneledBlockTemplate_1, StarkDetailOptions;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
+            function (block_1_1) {
+                block_1 = block_1_1;
+            },
             function (vue_1_1) {
                 vue_1 = vue_1_1;
-            },
-            function (rockBlock_1_1) {
-                rockBlock_1 = rockBlock_1_1;
             },
             function (alert_1_1) {
                 alert_1 = alert_1_1;
@@ -32,7 +32,14 @@ System.register(["vue", "../../Controls/rockBlock", "../../Elements/alert", "../
         execute: function () {
             StarkDetailOptions = vue_1.defineComponent({
                 name: "Utility.StarkDetailOptions",
-                setup: rockBlock_1.standardBlockSetup,
+                setup() {
+                    const invokeBlockAction = block_1.useInvokeBlockAction();
+                    const configurationValues = block_1.useConfigurationValues();
+                    return {
+                        configurationValues,
+                        invokeBlockAction
+                    };
+                },
                 components: {
                     PaneledBlockTemplate: paneledBlockTemplate_1.default,
                     Alert: alert_1.default,

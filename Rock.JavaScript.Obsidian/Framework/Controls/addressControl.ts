@@ -14,23 +14,23 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType, ref } from "vue";
+import { defineComponent, PropType } from "vue";
 import RockFormField from "../Elements/rockFormField";
 import DropDownList, { DropDownListOption } from "../Elements/dropDownList";
 import RockLabel from "../Elements/rockLabel";
 import TextBox from "../Elements/textBox";
 import { newGuid } from "../Util/guid";
 
-export interface AddressControlModel {
+export type AddressControlValue = {
     street1?: string;
     street2?: string;
     city?: string;
     state?: string;
     postalCode?: string;
     country?: string;
-}
+};
 
-export function getDefaultAddressControlModel(): AddressControlModel {
+export function getDefaultAddressControlModel(): AddressControlValue {
     return {
         state: "AZ",
         country: "US"
@@ -57,7 +57,7 @@ export const AddressControlBase = defineComponent({
 
     props: {
         modelValue: {
-            type: Object as PropType<AddressControlModel>,
+            type: Object as PropType<AddressControlValue>,
             default: {}
         },
 
@@ -99,7 +99,7 @@ export default defineComponent({
 
     props: {
         modelValue: {
-            type: Object as PropType<AddressControlModel>,
+            type: Object as PropType<AddressControlValue>,
             default: {}
         }
     },

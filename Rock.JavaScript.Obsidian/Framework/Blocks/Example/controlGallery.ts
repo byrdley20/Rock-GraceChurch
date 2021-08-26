@@ -16,7 +16,7 @@
 //
 
 import PaneledBlockTemplate from "../../Templates/paneledBlockTemplate";
-import { defineComponent, PropType } from "vue";
+import { Component, defineComponent, PropType } from "vue";
 import TextBox from "../../Elements/textBox";
 import EmailBox from "../../Elements/emailBox";
 import CurrencyBox from "../../Elements/currencyBox";
@@ -40,7 +40,7 @@ import Dialog from "../../Controls/dialog";
 import CheckBox from "../../Elements/checkBox";
 import PhoneNumberBox from "../../Elements/phoneNumberBox";
 import HelpBlock from "../../Elements/helpBlock";
-import DatePartsPicker, { DatePartsPickerModel } from "../../Elements/datePartsPicker";
+import DatePartsPicker, { DatePartsPickerValue } from "../../Elements/datePartsPicker";
 import ColorPicker from "../../Elements/colorPicker";
 import NumberBox from "../../Elements/numberBox";
 import NumberRangeBox from "../../Elements/numberRangeBox";
@@ -54,6 +54,7 @@ import { ListItem } from "@Obsidian/ViewModels";
 
 /** An inner component that describes the template used for each of the controls
  *  within this control gallery */
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const GalleryAndResult = defineComponent({
     name: "GalleryAndResult",
     components: {
@@ -88,7 +89,7 @@ const GalleryAndResult = defineComponent({
 } );
 
 /** Demonstrates a phone number box */
-const PhoneNumberBoxGallery = defineComponent( {
+const phoneNumberBoxGallery = defineComponent( {
     name: "PhoneNumberBoxGallery",
     components: {
         GalleryAndResult,
@@ -115,7 +116,7 @@ const PhoneNumberBoxGallery = defineComponent( {
 } );
 
 /** Demonstrates a help block */
-const HelpBlockGallery = defineComponent( {
+const helpBlockGallery = defineComponent( {
     name: "HelpBlockGallery",
     components: {
         GalleryAndResult,
@@ -133,7 +134,7 @@ const HelpBlockGallery = defineComponent( {
 } );
 
 /** Demonstrates a drop down list */
-const DropDownListGallery = defineComponent( {
+const dropDownListGallery = defineComponent( {
     name: "DropDownListGallery",
     components: {
         GalleryAndResult,
@@ -168,7 +169,7 @@ const DropDownListGallery = defineComponent( {
 } );
 
 /** Demonstrates a radio button list */
-const RadioButtonListGallery = defineComponent( {
+const radioButtonListGallery = defineComponent( {
     name: "RadioButtonListGallery",
     components: {
         GalleryAndResult,
@@ -210,7 +211,7 @@ const RadioButtonListGallery = defineComponent( {
 } );
 
 /** Demonstrates a checkbox */
-const CheckBoxGallery = defineComponent( {
+const checkBoxGallery = defineComponent( {
     name: "CheckBoxGallery",
     components: {
         GalleryAndResult,
@@ -240,7 +241,7 @@ const CheckBoxGallery = defineComponent( {
 } );
 
 /** Demonstrates a modal / dialog / pop-up */
-const DialogGallery = defineComponent( {
+const dialogGallery = defineComponent( {
     name: "DialogGallery",
     components: {
         GalleryAndResult,
@@ -293,7 +294,7 @@ const DialogGallery = defineComponent( {
 } );
 
 /** Demonstrates how rock forms work with rules to produce validation messages */
-const FormRulesGallery = defineComponent( {
+const formRulesGallery = defineComponent( {
     name: "FormRulesGallery",
     components: {
         GalleryAndResult,
@@ -327,7 +328,7 @@ const FormRulesGallery = defineComponent( {
 } );
 
 /** Demonstrates check box list */
-const CheckBoxListGallery = defineComponent({
+const checkBoxListGallery = defineComponent({
     name: "CheckBoxListGallery",
     components: {
         GalleryAndResult,
@@ -359,7 +360,7 @@ const CheckBoxListGallery = defineComponent({
 });
 
 /** Demonstrates a list box */
-const ListBoxGallery = defineComponent({
+const listBoxGallery = defineComponent({
     name: "ListBoxGallery",
     components: {
         GalleryAndResult,
@@ -394,7 +395,7 @@ const ListBoxGallery = defineComponent({
 });
 
 /** Demonstrates date pickers */
-const DatePickerGallery = defineComponent( {
+const datePickerGallery = defineComponent( {
     name: "DatePickerGallery",
     components: {
         GalleryAndResult,
@@ -426,7 +427,7 @@ const DatePickerGallery = defineComponent( {
 } );
 
 /** Demonstrates date range pickers */
-const DateRangePickerGallery = defineComponent({
+const dateRangePickerGallery = defineComponent({
     name: "DateRangePickerGallery",
     components: {
         GalleryAndResult,
@@ -453,7 +454,7 @@ const DateRangePickerGallery = defineComponent({
 });
 
 /** Demonstrates date time pickers */
-const DateTimePickerGallery = defineComponent({
+const dateTimePickerGallery = defineComponent({
     name: "DatePickerGallery",
     components: {
         GalleryAndResult,
@@ -480,7 +481,7 @@ const DateTimePickerGallery = defineComponent({
 });
 
 /** Demonstrates date part pickers */
-const DatePartsPickerGallery = defineComponent( {
+const datePartsPickerGallery = defineComponent( {
     name: "DatePartsPickerGallery",
     components: {
         GalleryAndResult,
@@ -495,7 +496,7 @@ const DatePartsPickerGallery = defineComponent( {
                 month: 1,
                 day: 1,
                 year: 2020
-            } as DatePartsPickerModel
+            } as DatePartsPickerValue
         };
     },
     template: `
@@ -515,7 +516,7 @@ const DatePartsPickerGallery = defineComponent( {
 } );
 
 /** Demonstrates a textbox */
-const TextBoxGallery = defineComponent( {
+const textBoxGallery = defineComponent( {
     name: "TextBoxGallery",
     components: {
         GalleryAndResult,
@@ -543,7 +544,7 @@ const TextBoxGallery = defineComponent( {
 } );
 
 /** Demonstrates a color picker */
-const ColorPickerGallery = defineComponent({
+const colorPickerGallery = defineComponent({
     name: "ColorPickerGallery",
     components: {
         GalleryAndResult,
@@ -569,7 +570,7 @@ const ColorPickerGallery = defineComponent({
 });
 
 /** Demonstrates a number box */
-const NumberBoxGallery = defineComponent({
+const numberBoxGallery = defineComponent({
     name: "NumberBoxGallery",
     components: {
         GalleryAndResult,
@@ -613,7 +614,7 @@ const NumberBoxGallery = defineComponent({
 });
 
 /** Demonstrates a number box */
-const NumberRangeBoxGallery = defineComponent({
+const numberRangeBoxGallery = defineComponent({
     name: "NumberRangeBoxGallery",
     components: {
         GalleryAndResult,
@@ -645,7 +646,7 @@ const NumberRangeBoxGallery = defineComponent({
 });
 
 /** Demonstrates a gender picker */
-const GenderDropDownListGallery = defineComponent({
+const genderDropDownListGallery = defineComponent({
     name: "GenderDropDownListGallery",
     components: {
         GalleryAndResult,
@@ -677,7 +678,7 @@ const GenderDropDownListGallery = defineComponent({
 });
 
 /** Demonstrates a social security number box */
-const SocialSecurityNumberBoxGallery = defineComponent({
+const socialSecurityNumberBoxGallery = defineComponent({
     name: "SocialSecurityNumberBoxGallery",
     components: {
         GalleryAndResult,
@@ -709,7 +710,7 @@ const SocialSecurityNumberBoxGallery = defineComponent({
 });
 
 /** Demonstrates a time picker */
-const TimePickerGallery = defineComponent({
+const timePickerGallery = defineComponent({
     name: "TimePickerGallery",
     components: {
         GalleryAndResult,
@@ -741,7 +742,7 @@ const TimePickerGallery = defineComponent({
 });
 
 /** Demonstrates a rating picker */
-const RatingGallery = defineComponent({
+const ratingGallery = defineComponent({
     name: "RatingGallery",
     components: {
         GalleryAndResult,
@@ -772,19 +773,40 @@ const RatingGallery = defineComponent({
 </GalleryAndResult>`
 });
 
+const galleryComponents: Record<string, Component> = {
+    textBoxGallery,
+    datePickerGallery,
+    dateRangePickerGallery,
+    dateTimePickerGallery,
+    datePartsPickerGallery,
+    radioButtonListGallery,
+    dialogGallery,
+    checkBoxGallery,
+    checkBoxListGallery,
+    listBoxGallery,
+    phoneNumberBoxGallery,
+    dropDownListGallery,
+    helpBlockGallery,
+    formRulesGallery,
+    colorPickerGallery,
+    numberBoxGallery,
+    numberRangeBoxGallery,
+    genderDropDownListGallery,
+    socialSecurityNumberBoxGallery,
+    timePickerGallery,
+    ratingGallery
+};
+
+const galleryTemplate = Object.keys(galleryComponents).sort().map(g => `<${g} />`).join("");
+
 export default defineComponent({
     name: "Example.ControlGallery",
     components: {
         PaneledBlockTemplate,
-        GalleryAndResult,
+        GalleryAndResult: GalleryAndResult,
         TextBox,
-        TextBoxGallery,
         CurrencyBox,
         EmailBox,
-        DatePickerGallery,
-        DateRangePickerGallery,
-        DateTimePickerGallery,
-        DatePartsPickerGallery,
         NumberUpDown,
         AddressControl,
         Toggle,
@@ -793,26 +815,10 @@ export default defineComponent({
         ProgressTracker,
         RockForm,
         RockButton,
-        RadioButtonListGallery,
-        DialogGallery,
-        CheckBoxGallery,
-        CheckBoxListGallery,
-        ListBoxGallery,
-        PhoneNumberBoxGallery,
-        DropDownListGallery,
-        HelpBlockGallery,
-        FormRulesGallery,
-        ColorPickerGallery,
-        NumberBoxGallery,
-        NumberRangeBoxGallery,
-        GenderDropDownListGallery,
-        SocialSecurityNumberBoxGallery,
-        TimePickerGallery,
-        RatingGallery
+        ...galleryComponents
     },
     data() {
         return {
-            
             currency: 1.234,
             email: "joe@joes.co",
             numberUpDown: 1,
@@ -848,13 +854,7 @@ export default defineComponent({
         Obsidian Control Gallery
     </template>
     <template v-slot:default>
-        <TextBoxGallery />
-
-        <DatePickerGallery />
-
-        <DateRangePickerGallery />
-
-        <DateTimePickerGallery />
+        ${galleryTemplate}
 
         <GalleryAndResult>
             <template #header>
@@ -881,8 +881,6 @@ export default defineComponent({
                 {{email}}
             </template>
         </GalleryAndResult>
-
-        <DatePartsPickerGallery />
 
         <GalleryAndResult>
             <template #header>
@@ -922,8 +920,6 @@ export default defineComponent({
                 <pre>{{JSON.stringify(address, null, 2)}}</pre>
             </template>
         </GalleryAndResult>
-
-        <ListBoxGallery />
 
         <GalleryAndResult>
             <template #header>
@@ -971,36 +967,6 @@ export default defineComponent({
                 <ProgressTracker :items="progressTrackerItems" :currentIndex="progressTrackerIndex" />
             </template>
         </GalleryAndResult>
-
-        <FormRulesGallery />
-
-        <RadioButtonListGallery />
-
-        <DialogGallery />
-
-        <CheckBoxGallery />
-
-        <CheckBoxListGallery />
-
-        <PhoneNumberBoxGallery />
-
-        <DropDownListGallery />
-
-        <HelpBlockGallery />
-
-        <ColorPickerGallery />
-
-        <NumberBoxGallery />
-
-        <NumberRangeBoxGallery />
-
-        <GenderDropDownListGallery />
-
-        <SocialSecurityNumberBoxGallery />
-
-        <TimePickerGallery />
-
-        <RatingGallery />
     </template>
 </PaneledBlockTemplate>`
 });

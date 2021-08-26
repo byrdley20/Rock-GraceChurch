@@ -68,6 +68,7 @@ export default defineComponent({
     methods: {
         /** Uses jQuery to get the chosen element */
         getChosenJqueryEl() {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const jquery = <any>window[<any>"$"];
             let $chosenDropDown = jquery(this.$refs["theSelect"]);
 

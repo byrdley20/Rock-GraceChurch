@@ -15,20 +15,28 @@
 // </copyright>
 //
 
+import { useConfigurationValues, useInvokeBlockAction } from "Util/block";
 import { defineComponent } from "vue";
-import { standardBlockSetup } from "../../Controls/rockBlock";
 import Alert from "../../Elements/alert";
 import RockButton from "../../Elements/rockButton";
 import PaneledBlockTemplate from "../../Templates/paneledBlockTemplate";
 
 /** An example block */
-const StarkDetailOptions = defineComponent( {
+const StarkDetailOptions = defineComponent({
     /** This is the name that will appear in the browser debug tools. This is mostly for organization and
      *  doesn't affect function. */
     name: "Utility.StarkDetailOptions",
 
     /** This allows for standard block tools, such as invokeBlockAction, to be available to this block */
-    setup: standardBlockSetup,
+    setup() {
+        const invokeBlockAction = useInvokeBlockAction();
+        const configurationValues = useConfigurationValues<Record<string, unknown>>();
+
+        return {
+            configurationValues,
+            invokeBlockAction
+        };
+    },
 
     /** These are the child components that are used by this block component */
     components: {

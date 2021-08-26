@@ -19,7 +19,7 @@
  * Transform the value into true, false, or null
  * @param val
  */
-export function asBooleanOrNull(val: unknown) {
+export function asBooleanOrNull(val: unknown): boolean | null {
     if (val === undefined || val === null) {
         return null;
     }
@@ -49,12 +49,12 @@ export function asBooleanOrNull(val: unknown) {
  * Transform the value into true or false
  * @param val
  */
-export function asBoolean(val: unknown) {
+export function asBoolean(val: unknown): boolean {
     return !!asBooleanOrNull(val);
 }
 
 /** Transform the value into the strings "Yes", "No", or null */
-export function asYesNoOrNull(val: unknown) {
+export function asYesNoOrNull(val: unknown): "Yes" | "No" | null {
     const boolOrNull = asBooleanOrNull(val);
 
     if (boolOrNull === null) {
@@ -65,7 +65,7 @@ export function asYesNoOrNull(val: unknown) {
 }
 
 /** Transform the value into the strings "True", "False", or null */
-export function asTrueFalseOrNull(val: unknown) {
+export function asTrueFalseOrNull(val: unknown): | "True" | "False" | null {
     const boolOrNull = asBooleanOrNull(val);
 
     if (boolOrNull === null) {

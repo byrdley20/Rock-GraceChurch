@@ -11,13 +11,6 @@ System.register(["../Util/http", "vue", "../Store/index", "../Elements/alert"], 
     };
     var http_1, vue_1, index_1, alert_1;
     var __moduleName = context_1 && context_1.id;
-    function standardBlockSetup() {
-        return {
-            configurationValues: vue_1.inject("configurationValues"),
-            invokeBlockAction: vue_1.inject("invokeBlockAction")
-        };
-    }
-    exports_1("standardBlockSetup", standardBlockSetup);
     return {
         setters: [
             function (http_1_1) {

@@ -1,6 +1,6 @@
 System.register(["vue", "../Util/guid"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, guid_1, ProgressTrackerItem, ProgressTracker;
+    var vue_1, guid_1, progressTrackerItem, ProgressTracker;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -12,7 +12,7 @@ System.register(["vue", "../Util/guid"], function (exports_1, context_1) {
             }
         ],
         execute: function () {
-            ProgressTrackerItem = vue_1.defineComponent({
+            progressTrackerItem = vue_1.defineComponent({
                 name: "ProgressTrackerItem",
                 props: {
                     isPast: {
@@ -72,7 +72,7 @@ System.register(["vue", "../Util/guid"], function (exports_1, context_1) {
             ProgressTracker = vue_1.defineComponent({
                 name: "ProgressTracker",
                 components: {
-                    ProgressTrackerItem
+                    ProgressTrackerItem: progressTrackerItem
                 },
                 props: {
                     currentIndex: {

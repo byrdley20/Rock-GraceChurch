@@ -19,7 +19,7 @@ import { defineComponent, PropType } from "vue";
 import JavaScriptAnchor from "./javaScriptAnchor";
 
 /** Displays a help block tool-tip. */
-const HelpBlock = defineComponent( {
+const HelpBlock = defineComponent({
     name: "HelpBlock",
     components: {
         JavaScriptAnchor
@@ -30,14 +30,15 @@ const HelpBlock = defineComponent( {
             required: true
         }
     },
-    mounted () {
+    mounted() {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const jquery = <any>window[<any>"$"];
-        jquery( this.$el ).tooltip();
+        jquery(this.$el).tooltip();
     },
     template: `
 <JavaScriptAnchor class="help" tabindex="-1" data-toggle="tooltip" data-placement="auto" data-container="body" data-html="true" title="" :data-original-title="text">
     <i class="fa fa-info-circle"></i>
 </JavaScriptAnchor>`
-} );
+});
 
 export default HelpBlock;

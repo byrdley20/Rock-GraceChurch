@@ -19,13 +19,13 @@ import { toNumber } from "@Obsidian/Services/number";
 import { padLeft } from "@Obsidian/Services/string";
 
 /** The value expected by the TimePicker. */
-export interface BasicTimePickerModelValue {
+export type BasicTimePickerValue = {
     /** Hour of the time, 0-23. */
     hour?: number;
 
     /** Minute of the time, 0-59. */
     minute?: number;
-}
+};
 
 export default defineComponent({
     name: "BasicTimePicker",
@@ -35,7 +35,7 @@ export default defineComponent({
 
     props: {
         modelValue: {
-            type: Object as PropType<BasicTimePickerModelValue>,
+            type: Object as PropType<BasicTimePickerValue>,
             default: {}
         },
         disabled: {
@@ -99,7 +99,7 @@ export default defineComponent({
 
         updateValue(): void {
             const values = /(\d+):(\d+)/.exec(this.internalValue);
-            const value: BasicTimePickerModelValue = {};
+            const value: BasicTimePickerValue = {};
 
             if (values !== null) {
                 value.hour = toNumber(values[1]) + (this.internalMeridiem === "PM" ? 12 : 0);

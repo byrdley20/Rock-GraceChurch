@@ -16,7 +16,7 @@
 //
 import { defineComponent } from "vue";
 import { getFieldEditorProps } from "./index";
-import TimePicker, { TimePickerModelValue } from "../Elements/timePicker";
+import TimePicker, { TimePickerValue } from "../Elements/timePicker";
 import { toNumber } from "@Obsidian/Services/number";
 import { padLeft } from "@Obsidian/Services/string";
 
@@ -31,7 +31,7 @@ export const EditComponent = defineComponent({
 
     data() {
         return {
-            internalTimeValue: {} as TimePickerModelValue,
+            internalTimeValue: {} as TimePickerValue,
             internalValue: ""
         };
     },

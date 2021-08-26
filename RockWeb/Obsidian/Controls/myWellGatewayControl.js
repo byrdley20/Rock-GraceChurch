@@ -177,10 +177,10 @@ System.register(["vue", "../Elements/loadingIndicator", "./gatewayControl"], fun
                 },
                 computed: {
                     publicApiKey() {
-                        return this.settings.PublicApiKey;
+                        return this.settings.publicApiKey;
                     },
                     gatewayUrl() {
-                        return this.settings.GatewayUrl;
+                        return this.settings.gatewayUrl;
                     }
                 },
                 watch: {

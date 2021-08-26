@@ -140,8 +140,7 @@ System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "./textB
                 mounted() {
                     const input = this.$refs["input"];
                     const inputId = input.id;
-                    const Rock = window.Rock;
-                    Rock.controls.datePicker.initialize({
+                    window.Rock.controls.datePicker.initialize({
                         id: inputId,
                         startView: 0,
                         showOnFocus: true,

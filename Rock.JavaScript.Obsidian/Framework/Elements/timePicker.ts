@@ -16,10 +16,10 @@
 
 import { defineComponent, PropType } from "vue";
 import { ruleArrayToString, ruleStringToArray } from "../Rules/index";
-import BasicTimePicker, { BasicTimePickerModelValue as TimePickerModelValue } from "./basicTimePicker";
+import BasicTimePicker, { BasicTimePickerValue as TimePickerValue } from "./basicTimePicker";
 import RockFormField from "./rockFormField";
 
-export { BasicTimePickerModelValue as TimePickerModelValue } from "./basicTimePicker";
+export { BasicTimePickerValue as TimePickerValue } from "./basicTimePicker";
 
 export default defineComponent({
     name: "TimePicker",
@@ -33,14 +33,14 @@ export default defineComponent({
             default: ""
         },
         modelValue: {
-            type: Object as PropType<TimePickerModelValue>,
+            type: Object as PropType<TimePickerValue>,
             default: {}
         }
     },
 
     data() {
         return {
-            internalValue: {} as TimePickerModelValue
+            internalValue: {} as TimePickerValue
         };
     },
 

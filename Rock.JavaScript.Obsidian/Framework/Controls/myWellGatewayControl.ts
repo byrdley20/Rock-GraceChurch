@@ -19,8 +19,8 @@ import LoadingIndicator from "../Elements/loadingIndicator";
 import { ValidationField } from "./gatewayControl";
 
 type Settings = {
-    PublicApiKey: string;
-    GatewayUrl: string;
+    publicApiKey: string;
+    gatewayUrl: string;
 };
 
 type Tokenizer = {
@@ -28,19 +28,19 @@ type Tokenizer = {
     submit: () => void;
 };
 
-interface Response {
+interface IResponse {
     status: "success" | "error" | "validation";
 }
 
-interface SuccessResponse extends Response {
+interface ISuccessResponse extends IResponse {
     token: string;
 }
 
-interface ErrorResponse extends Response {
+interface IErrorResponse extends IResponse {
     message: string;
 }
 
-interface ValidationResponse extends Response {
+interface IValidationResponse extends IResponse {
     invalid: string[];
 }
 
@@ -66,7 +66,8 @@ export default defineComponent( {
         };
     },
     methods: {
-        async mountControl () {
+        async mountControl() {
+            /* eslint-disable @typescript-eslint/no-explicit-any */
             const globalVarName = "Tokenizer";
 
             if ( !window[ <any>globalVarName ] ) {
@@ -85,19 +86,20 @@ export default defineComponent( {
             const settings = this.getTokenizerSettings();
             this.tokenizer = new (<any>window[ <any>globalVarName ])( settings ) as Tokenizer;
             this.tokenizer.create();
+            /* eslint-enable @typescript-eslint/no-explicit-any */
         },
-        handleResponse ( response: Response | null | undefined ) {
+        handleResponse ( response: IResponse | null | undefined ) {
             this.loading = false;
 
             if ( !response?.status || response.status === "error" ) {
-                const errorResponse = ( response as ErrorResponse | null ) || null;
+                const errorResponse = ( response as IErrorResponse | null ) || null;
                 this.$emit( "error", errorResponse?.message || "There was an unexpected problem communicating with the gateway." );
                 console.error( "MyWell response was errored:", JSON.stringify( response ) );
                 return;
             }
 
             if ( response.status === "validation" ) {
-                const validationResponse = ( response as ValidationResponse | null ) || null;
+                const validationResponse = ( response as IValidationResponse | null ) || null;
 
                 if ( !validationResponse?.invalid?.length ) {
                     this.$emit( "error", "There was a validation issue, but the invalid field was not specified." );
@@ -132,7 +134,7 @@ export default defineComponent( {
             }
 
             if ( response.status === "success" ) {
-                const successResponse = ( response as SuccessResponse | null ) || null;
+                const successResponse = ( response as ISuccessResponse | null ) || null;
 
                 if ( !successResponse?.token ) {
                     this.$emit( "error", "There was an unexpected problem communicating with the gateway." );
@@ -157,7 +159,7 @@ export default defineComponent( {
                 apikey: this.publicApiKey,
                 url: this.gatewayUrl,
                 container: this.$refs[ "container" ],
-                submission: ( resp: Response ) => {
+                submission: ( resp: IResponse ) => {
                     this.handleResponse( resp );
                 },
                 settings: {
@@ -211,10 +213,10 @@ export default defineComponent( {
     },
     computed: {
         publicApiKey (): string {
-            return this.settings.PublicApiKey;
+            return this.settings.publicApiKey;
         },
         gatewayUrl (): string {
-            return this.settings.GatewayUrl;
+            return this.settings.gatewayUrl;
         }
     },
     watch: {

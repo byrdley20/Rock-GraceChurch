@@ -16,7 +16,7 @@
 //
 import { defineComponent } from "vue";
 import { getFieldEditorProps } from "./index";
-import { asYesNoOrNull, asTrueFalseOrNull, asBoolean } from "@Obsidian/Services/boolean";
+import { asTrueFalseOrNull, asBoolean } from "@Obsidian/Services/boolean";
 import { ConfigurationValueKey } from "./booleanField";
 import DropDownList, { DropDownListOption } from "../Elements/dropDownList";
 import Toggle from "../Elements/toggle";
@@ -56,7 +56,7 @@ export const EditComponent = defineComponent({
             }
         },
         trueText(): string {
-            let trueText = asYesNoOrNull(true);
+            let trueText = "Yes";
             const trueConfig = this.configurationValues[ConfigurationValueKey.TrueText];
 
             if (trueConfig) {
@@ -66,7 +66,7 @@ export const EditComponent = defineComponent({
             return trueText || "Yes";
         },
         falseText(): string {
-            let falseText = asYesNoOrNull(false);
+            let falseText = "No";
             const falseConfig = this.configurationValues[ConfigurationValueKey.FalseText];
 
             if (falseConfig) {

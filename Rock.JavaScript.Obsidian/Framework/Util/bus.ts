@@ -40,7 +40,7 @@ const writeLog = (msg: string) => {
 /**
 * Send the payload to subscribers listening for the event name
 */
-function publish<T>(eventName: string, payload: T) {
+function publish<T>(eventName: string, payload: T): void {
     writeLog(`Published ${eventName}`);
     bus.emit(eventName, payload);
 }
@@ -49,7 +49,7 @@ function publish<T>(eventName: string, payload: T) {
 * Whenever an event is received of eventName, the callback is executed with the message
 * payload as a parameter.
 */
-function subscribe<T>(eventName: string, callback: (payload: T) => void) {
+function subscribe<T>(eventName: string, callback: (payload: T) => void): void {
     writeLog(`Subscribed to ${eventName}`);
     bus.on<T>(eventName, payload => {
         if (payload) {

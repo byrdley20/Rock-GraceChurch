@@ -22,11 +22,11 @@ export const enum ConfigurationValueKey {
     MaxRating = "max"
 }
 
-export interface RatingValue {
+export type RatingValue = {
     value?: number;
 
     maxValue?: number;
-}
+};
 
 
 // The edit component can be quite large, so load it only as needed.

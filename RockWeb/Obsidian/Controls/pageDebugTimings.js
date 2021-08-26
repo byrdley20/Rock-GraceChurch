@@ -1,6 +1,6 @@
 System.register(["@Obsidian/Services/number", "vue", "../Store/index"], function (exports_1, context_1) {
     "use strict";
-    var number_1, vue_1, index_1, PageDebugTimingRow;
+    var number_1, vue_1, index_1, pageDebugTimingRow;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -15,7 +15,7 @@ System.register(["@Obsidian/Services/number", "vue", "../Store/index"], function
             }
         ],
         execute: function () {
-            PageDebugTimingRow = vue_1.defineComponent({
+            pageDebugTimingRow = vue_1.defineComponent({
                 name: "PageDebugTimingRow",
                 props: {
                     viewModel: {
@@ -36,15 +36,15 @@ System.register(["@Obsidian/Services/number", "vue", "../Store/index"], function
                 },
                 computed: {
                     indentStyle() {
-                        if (!this.viewModel.IndentLevel) {
+                        if (!this.viewModel.indentLevel) {
                             return "";
                         }
-                        const pixels = this.viewModel.IndentLevel * 24;
+                        const pixels = this.viewModel.indentLevel * 24;
                         return `padding-left: ${pixels}px`;
                     },
                     waterfallTitle() {
-                        const timestampString = this.numberAsFormattedString(this.viewModel.TimestampMs, 2);
-                        const durationString = this.numberAsFormattedString(this.viewModel.DurationMs, 2);
+                        const timestampString = this.numberAsFormattedString(this.viewModel.timestampMs, 2);
+                        const durationString = this.numberAsFormattedString(this.viewModel.durationMs, 2);
                         return `Started at ${timestampString} ms / Duration ${durationString} ms`;
                     },
                     getPercentFromMs() {
@@ -57,26 +57,26 @@ System.register(["@Obsidian/Services/number", "vue", "../Store/index"], function
                         };
                     },
                     waterfallStyle() {
-                        const leftPercent = this.getPercentFromMs(this.viewModel.TimestampMs);
-                        const widthPercent = this.getPercentFromMs(this.viewModel.DurationMs);
+                        const leftPercent = this.getPercentFromMs(this.viewModel.timestampMs);
+                        const widthPercent = this.getPercentFromMs(this.viewModel.durationMs);
                         return `left: ${leftPercent}%; width: ${widthPercent}%;`;
                     }
                 },
                 template: `
 <tr>
-    <td class="debug-timestamp">{{numberAsFormattedString(viewModel.TimestampMs, 2)}} ms</td>
+    <td class="debug-timestamp">{{numberAsFormattedString(viewModel.timestampMs, 2)}} ms</td>
     <td :style="indentStyle">
-        <strong v-if="viewModel.IsTitleBold">
-            {{viewModel.Title}}
+        <strong v-if="viewModel.isTitleBold">
+            {{viewModel.title}}
         </strong>
         <template v-else>
-            {{viewModel.Title}}
+            {{viewModel.title}}
         </template>
-        <small v-if="viewModel.SubTitle" style="color:#A4A4A4; padding-left: 3px;">
-            {{viewModel.SubTitle}}
+        <small v-if="viewModel.subTitle" style="color:#A4A4A4; padding-left: 3px;">
+            {{viewModel.subTitle}}
         </small>
     </td>
-    <td class="debug-timestamp">{{numberAsFormattedString(viewModel.DurationMs, 2)}} ms</td>
+    <td class="debug-timestamp">{{numberAsFormattedString(viewModel.durationMs, 2)}} ms</td>
     <td class="debug-waterfall">
         <span class="debug-chart-bar" :title="waterfallTitle" :style="waterfallStyle"></span>
     </td>
@@ -85,7 +85,7 @@ System.register(["@Obsidian/Services/number", "vue", "../Store/index"], function
             exports_1("default", vue_1.defineComponent({
                 name: "PageDebugTimings",
                 components: {
-                    PageDebugTimingRow
+                    pageDebugTimingRow
                 },
                 props: {
                     serverViewModels: {
@@ -98,7 +98,7 @@ System.register(["@Obsidian/Services/number", "vue", "../Store/index"], function
                         if (!this.serverViewModels.length) {
                             return 0;
                         }
-                        return this.serverViewModels[0].TimestampMs;
+                        return this.serverViewModels[0].timestampMs;
                     },
                     serverEndTimeMs() {
                         if (!this.serverViewModels.length) {
@@ -106,14 +106,14 @@ System.register(["@Obsidian/Services/number", "vue", "../Store/index"], function
                         }
                         const lastIndex = this.serverViewModels.length - 1;
                         const lastViewModel = this.serverViewModels[lastIndex];
-                        return lastViewModel.TimestampMs + lastViewModel.DurationMs;
+                        return lastViewModel.timestampMs + lastViewModel.durationMs;
                     },
                     firstClientRelativeStartTimeMs() {
                         if (!this.relativeClientViewModels.length) {
                             return this.serverEndTimeMs;
                         }
                         const viewModel = this.relativeClientViewModels[0];
-                        return viewModel.TimestampMs;
+                        return viewModel.timestampMs;
                     },
                     clientRelativeEndTimeMs() {
                         if (!this.relativeClientViewModels.length) {
@@ -121,7 +121,7 @@ System.register(["@Obsidian/Services/number", "vue", "../Store/index"], function
                         }
                         const lastIndex = this.relativeClientViewModels.length - 1;
                         const lastViewModel = this.relativeClientViewModels[lastIndex];
-                        return lastViewModel.TimestampMs + lastViewModel.DurationMs;
+                        return lastViewModel.timestampMs + lastViewModel.durationMs;
                     },
                     totalMs() {
                         return this.clientRelativeEndTimeMs - this.serverStartTimeMs;
@@ -130,16 +130,16 @@ System.register(["@Obsidian/Services/number", "vue", "../Store/index"], function
                         return index_1.default.state.debugTimings;
                     },
                     relativeClientViewModels() {
-                        return this.clientViewModels.map(vm => (Object.assign(Object.assign({}, vm), { TimestampMs: this.serverEndTimeMs + vm.TimestampMs })));
+                        return this.clientViewModels.map(vm => (Object.assign(Object.assign({}, vm), { timestampMs: this.serverEndTimeMs + vm.timestampMs })));
                     },
                     clientHeader() {
                         return {
-                            DurationMs: this.firstClientRelativeStartTimeMs - this.serverEndTimeMs,
-                            IndentLevel: 0,
-                            IsTitleBold: true,
-                            Title: "Client Mount Blocks",
-                            TimestampMs: this.serverEndTimeMs,
-                            SubTitle: ""
+                            durationMs: this.firstClientRelativeStartTimeMs - this.serverEndTimeMs,
+                            indentLevel: 0,
+                            isTitleBold: true,
+                            title: "Client Mount Blocks",
+                            timestampMs: this.serverEndTimeMs,
+                            subTitle: ""
                         };
                     }
                 },
@@ -155,9 +155,9 @@ System.register(["@Obsidian/Services/number", "vue", "../Store/index"], function
             </tr>
         </thead>
         <tbody>
-            <PageDebugTimingRow v-for="(vm, i) in serverViewModels" :key="\`s\${i}-\${vm.TimestampMs}\`" :viewModel="vm" :startTimeMs="serverStartTimeMs" :totalMs="totalMs" />
+            <PageDebugTimingRow v-for="(vm, i) in serverViewModels" :key="\`s\${i}-\${vm.timestampMs}\`" :viewModel="vm" :startTimeMs="serverStartTimeMs" :totalMs="totalMs" />
             <PageDebugTimingRow :viewModel="clientHeader" :startTimeMs="serverStartTimeMs" :totalMs="totalMs" />
-            <PageDebugTimingRow v-for="(vm, i) in relativeClientViewModels" :key="\`c\${i}-\${vm.TimestampMs}\`" :viewModel="vm" :startTimeMs="serverStartTimeMs" :totalMs="totalMs" />
+            <PageDebugTimingRow v-for="(vm, i) in relativeClientViewModels" :key="\`c\${i}-\${vm.timestampMs}\`" :viewModel="vm" :startTimeMs="serverStartTimeMs" :totalMs="totalMs" />
         </tbody>
     </table>
 </span>`

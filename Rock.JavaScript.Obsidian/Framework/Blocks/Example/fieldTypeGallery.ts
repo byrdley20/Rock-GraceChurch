@@ -30,7 +30,7 @@ import { ClientEditableAttributeValue, ListItem } from "@Obsidian/ViewModels";
  * @param fieldTypeGuid
  * @param configValues
  */
-const GetAttributeValueData = ( name: string, initialValue: string, fieldTypeGuid: Guid, configValues: Record<string, string> ): Array<ClientEditableAttributeValue> => {
+const getAttributeValueData = ( name: string, initialValue: string, fieldTypeGuid: Guid, configValues: Record<string, string> ): Array<ClientEditableAttributeValue> => {
     const configurationValues = configValues;
 
     return [reactive({
@@ -64,7 +64,7 @@ const GetAttributeValueData = ( name: string, initialValue: string, fieldTypeGui
 
 /** An inner component that describes the template used for each of the controls
  *  within this field type gallery */
-const GalleryAndResult = defineComponent( {
+const galleryAndResult = defineComponent( {
     name: "GalleryAndResult",
     components: {
         PanelWidget,
@@ -123,18 +123,18 @@ const GalleryAndResult = defineComponent( {
  * @param fieldTypeGuid
  * @param configValues
  */
-const GetFieldTypeGalleryComponent = ( name: string, initialValue: string, fieldTypeGuid: Guid, initialConfigValues: Record<string, string> ) => {
+const getFieldTypeGalleryComponent = ( name: string, initialValue: string, fieldTypeGuid: Guid, initialConfigValues: Record<string, string> ) => {
     return defineComponent( {
         name: `${name}Gallery`,
         components: {
-            GalleryAndResult,
+            GalleryAndResult: galleryAndResult,
             TextBox
         },
         data () {
             return {
                 name,
                 configValues: { ...initialConfigValues } as Record<string, string>,
-                attributeValues: GetAttributeValueData( name, initialValue, fieldTypeGuid, initialConfigValues )
+                attributeValues: getAttributeValueData( name, initialValue, fieldTypeGuid, initialConfigValues )
             };
         },
         computed: {
@@ -173,16 +173,16 @@ const GetFieldTypeGalleryComponent = ( name: string, initialValue: string, field
 };
 
 const galleryComponents: Record<string, Component> = {
-    AddressGallery: GetFieldTypeGalleryComponent("Address", '{"street1": "3120 W Cholla St", "city": "Phoenix", "state": "AZ", "postalCode": "85029-4113", "country": "US"}', FieldTypeGuids.Address, {
+    AddressGallery: getFieldTypeGalleryComponent("Address", '{"street1": "3120 W Cholla St", "city": "Phoenix", "state": "AZ", "postalCode": "85029-4113", "country": "US"}', FieldTypeGuids.Address, {
     }),
 
-    BooleanGallery: GetFieldTypeGalleryComponent("Boolean", "t", FieldTypeGuids.Boolean, {
+    BooleanGallery: getFieldTypeGalleryComponent("Boolean", "t", FieldTypeGuids.Boolean, {
         truetext: "This is true",
         falsetext: "This is false",
         BooleanControlType: "2"
     }),
 
-    CampusGallery: GetFieldTypeGalleryComponent("Campus", "", FieldTypeGuids.Campus, {
+    CampusGallery: getFieldTypeGalleryComponent("Campus", "", FieldTypeGuids.Campus, {
         values: JSON.stringify([
             { value: "069D4509-398A-4E08-8225-A0658E8A51E8", text: "Main Campus" },
             { value: "0D8B2F85-5DC2-406E-8A7D-D435F3153C58", text: "Secondary Campus" },
@@ -190,7 +190,7 @@ const galleryComponents: Record<string, Component> = {
         ] as ListItem[])
     }),
 
-    CampusesGallery: GetFieldTypeGalleryComponent("Campuses", "", FieldTypeGuids.Campuses, {
+    CampusesGallery: getFieldTypeGalleryComponent("Campuses", "", FieldTypeGuids.Campuses, {
         repeatColumns: "4",
         values: JSON.stringify([
             { value: "069D4509-398A-4E08-8225-A0658E8A51E8", text: "Main Campus" },
@@ -199,14 +199,14 @@ const galleryComponents: Record<string, Component> = {
         ] as ListItem[])
     }),
 
-    ColorGallery: GetFieldTypeGalleryComponent("Color", "#ee7725", FieldTypeGuids.Color, {
+    ColorGallery: getFieldTypeGalleryComponent("Color", "#ee7725", FieldTypeGuids.Color, {
         selectiontype: "Color Picker"
     }),
 
-    CurrencyGallery: GetFieldTypeGalleryComponent("Currency", "4.70", FieldTypeGuids.Currency, {
+    CurrencyGallery: getFieldTypeGalleryComponent("Currency", "4.70", FieldTypeGuids.Currency, {
     }),
 
-    DateGallery: GetFieldTypeGalleryComponent("Date", "2009-02-11", FieldTypeGuids.Date, {
+    DateGallery: getFieldTypeGalleryComponent("Date", "2009-02-11", FieldTypeGuids.Date, {
         format: "MMM yyyy",
         displayDiff: "true",
         displayCurrentOption: "true",
@@ -214,28 +214,28 @@ const galleryComponents: Record<string, Component> = {
         futureYearCount: "2"
     }),
 
-    DateRangeGallery: GetFieldTypeGalleryComponent("DateRange", "2021-07-25T00:00:00.0000000,2021-07-29T00:00:00.0000000", FieldTypeGuids.DateRange, {
+    DateRangeGallery: getFieldTypeGalleryComponent("DateRange", "2021-07-25T00:00:00.0000000,2021-07-29T00:00:00.0000000", FieldTypeGuids.DateRange, {
     }),
 
-    DateTimeGallery: GetFieldTypeGalleryComponent("DateTime", "2009-02-11T14:23:00", FieldTypeGuids.DateTime, {
+    DateTimeGallery: getFieldTypeGalleryComponent("DateTime", "2009-02-11T14:23:00", FieldTypeGuids.DateTime, {
         format: "MMM dd, yyyy h:mm tt",
         displayDiff: "false",
         displayCurrentOption: "true",
     }),
 
-    DayOfWeekGallery: GetFieldTypeGalleryComponent("DayOfWeek", "2", FieldTypeGuids.DayOfWeek, {
+    DayOfWeekGallery: getFieldTypeGalleryComponent("DayOfWeek", "2", FieldTypeGuids.DayOfWeek, {
     }),
 
-    DaysOfWeekGallery: GetFieldTypeGalleryComponent("DaysOfWeek", "2,5", FieldTypeGuids.DaysOfWeek, {
+    DaysOfWeekGallery: getFieldTypeGalleryComponent("DaysOfWeek", "2,5", FieldTypeGuids.DaysOfWeek, {
     }),
 
-    DecimalGallery: GetFieldTypeGalleryComponent("Decimal", "18.283", FieldTypeGuids.Decimal, {
+    DecimalGallery: getFieldTypeGalleryComponent("Decimal", "18.283", FieldTypeGuids.Decimal, {
     }),
 
-    DecimalRangeGallery: GetFieldTypeGalleryComponent("DecimalRange", "18.283,100", FieldTypeGuids.DecimalRange, {
+    DecimalRangeGallery: getFieldTypeGalleryComponent("DecimalRange", "18.283,100", FieldTypeGuids.DecimalRange, {
     }),
 
-    DefinedValueGallery: GetFieldTypeGalleryComponent("DefinedValue", '{ "value": "F19FC180-FE8F-4B72-A59C-8013E3B0EB0D", "text": "Single", "description": "Used when the individual is single." }', FieldTypeGuids.DefinedValue, {
+    DefinedValueGallery: getFieldTypeGalleryComponent("DefinedValue", '{ "value": "F19FC180-FE8F-4B72-A59C-8013E3B0EB0D", "text": "Single", "description": "Used when the individual is single." }', FieldTypeGuids.DefinedValue, {
         values: JSON.stringify([
             { value: "5FE5A540-7D9F-433E-B47E-4229D1472248", text: "Married", description: "Used when an individual is married." },
             { value: "F19FC180-FE8F-4B72-A59C-8013E3B0EB0D", text: "Single", description: "Used when the individual is single." },
@@ -250,7 +250,7 @@ const galleryComponents: Record<string, Component> = {
         RepeatColumns: ""
     }),
 
-    DefinedValueRangeGallery: GetFieldTypeGalleryComponent("DefinedValueRange", '{ "value": "F19FC180-FE8F-4B72-A59C-8013E3B0EB0D,3B689240-24C2-434B-A7B9-A4A6CBA7928C", "text": "Single to Divorced", "description": "Used when the individual is single. to Used when the individual is divorced." }', FieldTypeGuids.DefinedValueRange, {
+    DefinedValueRangeGallery: getFieldTypeGalleryComponent("DefinedValueRange", '{ "value": "F19FC180-FE8F-4B72-A59C-8013E3B0EB0D,3B689240-24C2-434B-A7B9-A4A6CBA7928C", "text": "Single to Divorced", "description": "Used when the individual is single. to Used when the individual is divorced." }', FieldTypeGuids.DefinedValueRange, {
         values: JSON.stringify([
             { value: "5FE5A540-7D9F-433E-B47E-4229D1472248", text: "Married", description: "Used when an individual is married." },
             { value: "F19FC180-FE8F-4B72-A59C-8013E3B0EB0D", text: "Single", description: "Used when the individual is single." },
@@ -260,58 +260,58 @@ const galleryComponents: Record<string, Component> = {
         displaydescription: "false"
     }),
 
-    EmailGallery: GetFieldTypeGalleryComponent("Email", "ted@rocksolidchurchdemo.com", FieldTypeGuids.Email, {
+    EmailGallery: getFieldTypeGalleryComponent("Email", "ted@rocksolidchurchdemo.com", FieldTypeGuids.Email, {
     }),
 
-    GenderGallery: GetFieldTypeGalleryComponent("Gender", "2", FieldTypeGuids.Gender, {
+    GenderGallery: getFieldTypeGalleryComponent("Gender", "2", FieldTypeGuids.Gender, {
     }),
 
-    IntegerGallery: GetFieldTypeGalleryComponent("Integer", "20", FieldTypeGuids.Integer, {
+    IntegerGallery: getFieldTypeGalleryComponent("Integer", "20", FieldTypeGuids.Integer, {
     }),
 
-    IntegerRangeGallery: GetFieldTypeGalleryComponent("IntegerRange", "0,100", FieldTypeGuids.IntegerRange, {
+    IntegerRangeGallery: getFieldTypeGalleryComponent("IntegerRange", "0,100", FieldTypeGuids.IntegerRange, {
     }),
 
-    MemoGallery: GetFieldTypeGalleryComponent("Memo", "This is a memo", FieldTypeGuids.Memo, {
+    MemoGallery: getFieldTypeGalleryComponent("Memo", "This is a memo", FieldTypeGuids.Memo, {
         numberofrows: "10",
         maxcharacters: "100",
         showcountdown: "true",
         allowhtml: "true"
     }),
 
-    MonthDayGallery: GetFieldTypeGalleryComponent("MonthDay", "7/4", FieldTypeGuids.MonthDay, {
+    MonthDayGallery: getFieldTypeGalleryComponent("MonthDay", "7/4", FieldTypeGuids.MonthDay, {
     }),
 
-    MultiSelectGallery: GetFieldTypeGalleryComponent("MultiSelect", "pizza", FieldTypeGuids.MultiSelect, {
+    MultiSelectGallery: getFieldTypeGalleryComponent("MultiSelect", "pizza", FieldTypeGuids.MultiSelect, {
         repeatColumns: "4",
         repeatDirection: "Horizontal",
         enhancedselection: "false",
         values: '[{"value": "pizza", "text": "Pizza"}, {"value": "sub", "text": "Sub"}, {"value": "bagel", "text": "Bagel"}]'
     }),
 
-    PhoneNumberGallery: GetFieldTypeGalleryComponent("PhoneNumber", "(321) 456-7890", FieldTypeGuids.PhoneNumber, {
+    PhoneNumberGallery: getFieldTypeGalleryComponent("PhoneNumber", "(321) 456-7890", FieldTypeGuids.PhoneNumber, {
     }),
 
-    RatingGallery: GetFieldTypeGalleryComponent("Rating", '{"value":3,"maxValue":5}', FieldTypeGuids.Rating, {
+    RatingGallery: getFieldTypeGalleryComponent("Rating", '{"value":3,"maxValue":5}', FieldTypeGuids.Rating, {
         max: "5"
     }),
 
-    SingleSelectGallery: GetFieldTypeGalleryComponent("SingleSelect", "pizza", FieldTypeGuids.SingleSelect, {
+    SingleSelectGallery: getFieldTypeGalleryComponent("SingleSelect", "pizza", FieldTypeGuids.SingleSelect, {
         repeatColumns: "4",
         fieldtype: "rb",
         values: '[{"value": "pizza", "text": "Pizza"}, {"value": "sub", "text": "Sub"}, {"value": "bagel", "text": "Bagel"}]'
     }),
 
-    SSNGallery: GetFieldTypeGalleryComponent("SSN", "123-45-6789", FieldTypeGuids.Ssn, {
+    SSNGallery: getFieldTypeGalleryComponent("SSN", "123-45-6789", FieldTypeGuids.Ssn, {
     }),
 
-    TextGallery: GetFieldTypeGalleryComponent("Text", "Hello", FieldTypeGuids.Text, {
+    TextGallery: getFieldTypeGalleryComponent("Text", "Hello", FieldTypeGuids.Text, {
         ispassword: "false",
         maxcharacters: "10",
         showcountdown: "true"
     }),
 
-    TimeGallery: GetFieldTypeGalleryComponent("Time", "13:15:00", FieldTypeGuids.Time, {
+    TimeGallery: getFieldTypeGalleryComponent("Time", "13:15:00", FieldTypeGuids.Time, {
     }),
 };
 

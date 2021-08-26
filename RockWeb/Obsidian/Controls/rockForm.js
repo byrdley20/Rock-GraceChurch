@@ -36,9 +36,9 @@ System.register(["vue", "vee-validate", "./rockValidation"], function (exports_1
                     };
                 },
                 methods: {
-                    onInternalSubmit(handleSubmit, $event) {
+                    onInternalSubmit(handleSubmit, evt) {
                         this.formState.submitCount++;
-                        return handleSubmit($event, this.emitSubmit);
+                        return handleSubmit(evt, this.emitSubmit);
                     },
                     emitSubmit(payload) {
                         this.$emit("submit", payload);

@@ -1,6 +1,6 @@
 System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/textBox", "../../Elements/emailBox", "../../Elements/currencyBox", "../../Elements/panelWidget", "../../Elements/datePicker", "../../Elements/dateRangePicker", "../../Elements/dateTimePicker", "../../Elements/listBox", "../../Elements/birthdayPicker", "../../Elements/numberUpDown", "../../Controls/addressControl", "../../Elements/toggle", "../../Elements/itemsWithPreAndPostHtml", "../../Elements/staticFormControl", "../../Elements/progressTracker", "../../Controls/rockForm", "../../Elements/rockButton", "../../Elements/radioButtonList", "../../Elements/dropDownList", "../../Controls/dialog", "../../Elements/checkBox", "../../Elements/phoneNumberBox", "../../Elements/helpBlock", "../../Elements/datePartsPicker", "../../Elements/colorPicker", "../../Elements/numberBox", "../../Elements/numberRangeBox", "../../Elements/genderDropDownList", "../../Elements/socialSecurityNumberBox", "../../Elements/timePicker", "../../Elements/checkBoxList", "../../Elements/rating", "@Obsidian/Services/number"], function (exports_1, context_1) {
     "use strict";
-    var paneledBlockTemplate_1, vue_1, textBox_1, emailBox_1, currencyBox_1, panelWidget_1, datePicker_1, dateRangePicker_1, dateTimePicker_1, listBox_1, birthdayPicker_1, numberUpDown_1, addressControl_1, toggle_1, itemsWithPreAndPostHtml_1, staticFormControl_1, progressTracker_1, rockForm_1, rockButton_1, radioButtonList_1, dropDownList_1, dialog_1, checkBox_1, phoneNumberBox_1, helpBlock_1, datePartsPicker_1, colorPicker_1, numberBox_1, numberRangeBox_1, genderDropDownList_1, socialSecurityNumberBox_1, timePicker_1, checkBoxList_1, rating_1, number_1, GalleryAndResult, phoneNumberBoxGallery, helpBlockGallery, dropDownListGallery, radioButtonListGallery, checkBoxGallery, dialogGallery, formRulesGallery, checkBoxListGallery, listBoxGallery, datePickerGallery, dateRangePickerGallery, dateTimePickerGallery, datePartsPickerGallery, textBoxGallery, colorPickerGallery, numberBoxGallery, numberRangeBoxGallery, genderDropDownListGallery, socialSecurityNumberBoxGallery, timePickerGallery, ratingGallery, galleryComponents, galleryTemplate;
+    var paneledBlockTemplate_1, vue_1, textBox_1, emailBox_1, currencyBox_1, panelWidget_1, datePicker_1, dateRangePicker_1, dateTimePicker_1, listBox_1, birthdayPicker_1, numberUpDown_1, addressControl_1, toggle_1, itemsWithPreAndPostHtml_1, staticFormControl_1, progressTracker_1, rockForm_1, rockButton_1, radioButtonList_1, dropDownList_1, dialog_1, checkBox_1, phoneNumberBox_1, helpBlock_1, datePartsPicker_1, colorPicker_1, numberBox_1, numberRangeBox_1, genderDropDownList_1, socialSecurityNumberBox_1, timePicker_1, checkBoxList_1, rating_1, number_1, GalleryAndResult, phoneNumberBoxGallery, helpBlockGallery, dropDownListGallery, radioButtonListGallery, checkBoxGallery, dialogGallery, formRulesGallery, checkBoxListGallery, listBoxGallery, datePickerGallery, dateRangePickerGallery, dateTimePickerGallery, datePartsPickerGallery, textBoxGallery, colorPickerGallery, numberBoxGallery, numberRangeBoxGallery, genderDropDownListGallery, socialSecurityNumberBoxGallery, timePickerGallery, ratingGallery, currencyBoxGallery, emailBoxGallery, numberUpDownGallery, staticFormControlGallery, addressControlGallery, toggleGallery, progressTrackerGallery, itemsWithPreAndPostHtmlGallery, galleryComponents, galleryTemplate;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -786,6 +786,231 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
     </template>
 </GalleryAndResult>`
             });
+            currencyBoxGallery = vue_1.defineComponent({
+                name: "CurrencyBoxGallery",
+                components: {
+                    GalleryAndResult,
+                    CurrencyBox: currencyBox_1.default
+                },
+                data() {
+                    return {
+                        value: 1.23
+                    };
+                },
+                template: `
+<GalleryAndResult>
+    <template #header>
+        CurrencyBox
+    </template>
+    <template #gallery>
+        <CurrencyBox label="Currency 1" v-model="value" />
+        <CurrencyBox label="Currency 2" v-model="value" />
+    </template>
+    <template #result>
+        {{value}}
+    </template>
+</GalleryAndResult>`
+            });
+            emailBoxGallery = vue_1.defineComponent({
+                name: "EmailBoxGallery",
+                components: {
+                    GalleryAndResult,
+                    EmailBox: emailBox_1.default
+                },
+                data() {
+                    return {
+                        value: "ted@rocksolidchurchdemo.com"
+                    };
+                },
+                template: `
+<GalleryAndResult>
+    <template #header>
+        EmailBox
+    </template>
+    <template #gallery>
+        <EmailBox label="EmailBox 1" v-model="value" />
+        <EmailBox label="EmailBox 2" v-model="value" />
+    </template>
+    <template #result>
+        {{value}}
+    </template>
+</GalleryAndResult>`
+            });
+            numberUpDownGallery = vue_1.defineComponent({
+                name: "NumberUpDownGallery",
+                components: {
+                    GalleryAndResult,
+                    NumberUpDown: numberUpDown_1.default
+                },
+                data() {
+                    return {
+                        value: 1
+                    };
+                },
+                template: `
+<GalleryAndResult>
+    <template #header>
+        NumberUpDown
+    </template>
+    <template #gallery>
+        <NumberUpDown label="NumberUpDown 1" v-model="value" />
+        <NumberUpDown label="NumberUpDown 2" v-model="value" />
+    </template>
+    <template #result>
+        {{value}}
+    </template>
+</GalleryAndResult>`
+            });
+            staticFormControlGallery = vue_1.defineComponent({
+                name: "StaticFormControlGallery",
+                components: {
+                    GalleryAndResult,
+                    StaticFormControl: staticFormControl_1.default
+                },
+                data() {
+                    return {
+                        value: "This is some text"
+                    };
+                },
+                template: `
+<GalleryAndResult>
+    <template #header>
+        StaticFormControl
+    </template>
+    <template #gallery>
+        <StaticFormControl label="StaticFormControl 1" v-model="value" />
+        <StaticFormControl label="StaticFormControl 2" v-model="value" />
+    </template>
+    <template #result>
+        {{value}}
+    </template>
+</GalleryAndResult>`
+            });
+            addressControlGallery = vue_1.defineComponent({
+                name: "AddressControlGallery",
+                components: {
+                    GalleryAndResult,
+                    AddressControl: addressControl_1.default
+                },
+                data() {
+                    return {
+                        value: addressControl_1.getDefaultAddressControlModel()
+                    };
+                },
+                template: `
+<GalleryAndResult>
+    <template #header>
+        AddressControl
+    </template>
+    <template #gallery>
+        <AddressControl label="Address 1" v-model="value" />
+        <AddressControl label="Address 2" v-model="value" />
+    </template>
+    <template #result>
+        <pre>{{JSON.stringify(value, null, 2)}}</pre>
+    </template>
+</GalleryAndResult>`
+            });
+            toggleGallery = vue_1.defineComponent({
+                name: "ToggleGallery",
+                components: {
+                    GalleryAndResult,
+                    Toggle: toggle_1.default
+                },
+                data() {
+                    return {
+                        value: false
+                    };
+                },
+                template: `
+<GalleryAndResult>
+    <template #header>
+        Toggle
+    </template>
+    <template #gallery>
+       <Toggle label="Toggle 1" v-model="value" />
+       <Toggle label="Toggle 2" v-model="value" />
+    </template>
+    <template #result>
+        {{value}}
+    </template>
+</GalleryAndResult>`
+            });
+            progressTrackerGallery = vue_1.defineComponent({
+                name: "ProgressTrackerGallery",
+                components: {
+                    GalleryAndResult,
+                    NumberUpDown: numberUpDown_1.default,
+                    ProgressTracker: progressTracker_1.default
+                },
+                data() {
+                    return {
+                        value: 0,
+                        items: [
+                            { key: "S", title: "Start", subtitle: "The beginning" },
+                            { key: "1", title: "Step 1", subtitle: "The first step" },
+                            { key: "2", title: "Step 2", subtitle: "The second step" },
+                            { key: "3", title: "Step 3", subtitle: "The third step" },
+                            { key: "4", title: "Step 4", subtitle: "The fourth step" },
+                            { key: "5", title: "Step 5", subtitle: "The fifth step" },
+                            { key: "6", title: "Step 6", subtitle: "The sixth step" },
+                            { key: "7", title: "Step 7", subtitle: "The seventh step" },
+                            { key: "8", title: "Step 8", subtitle: "The eighth step" },
+                            { key: "F", title: "Finish", subtitle: "The finish" }
+                        ]
+                    };
+                },
+                template: `
+<GalleryAndResult :splitWidth="false">
+    <template #header>
+        ProgressTracker
+    </template>
+    <template #gallery>
+        <NumberUpDown label="Index" v-model="value" :min="0" :max="100" />
+    </template>
+    <template #result>
+        <ProgressTracker :items="items" :currentIndex="value" />
+    </template>
+</GalleryAndResult>`
+            });
+            itemsWithPreAndPostHtmlGallery = vue_1.defineComponent({
+                name: "ItemsWithPreAndPostHtmlGallery",
+                components: {
+                    GalleryAndResult,
+                    TextBox: textBox_1.default,
+                    ItemsWithPreAndPostHtml: itemsWithPreAndPostHtml_1.default
+                },
+                data() {
+                    return {
+                        value: [
+                            { preHtml: '<div class="row"><div class="col-sm-6">', postHtml: "</div>", slotName: "item1" },
+                            { preHtml: '<div class="col-sm-6">', postHtml: "</div></div>", slotName: "item2" }
+                        ],
+                    };
+                },
+                template: `
+<GalleryAndResult>
+    <template #header>
+        ItemsWithPreAndPostHtml
+    </template>
+    <template #gallery>
+        <TextBox label="Item 1 - Pre Html" v-model="value[0].preHtml" />
+        <TextBox label="Item 1 - Post Html" v-model="value[0].postHtml" />
+        <TextBox label="Item 2 - Pre Html" v-model="value[1].preHtml" />
+        <TextBox label="Item 2 - Post Html" v-model="value[1].postHtml" />
+    </template>
+    <template #result>
+        <ItemsWithPreAndPostHtml :items="value">
+            <template #item1>
+                <div style="background-color: #fcc; padding: 5px;">This is item 1</div>
+            </template>
+            <template #item2>
+                <div style="background-color: #ccf; padding: 5px;">This is item 2</div>
+            </template>
+        </ItemsWithPreAndPostHtml>
+    </template>
+</GalleryAndResult>`
+            });
             galleryComponents = {
                 textBoxGallery,
                 datePickerGallery,
@@ -807,49 +1032,20 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
                 genderDropDownListGallery,
                 socialSecurityNumberBoxGallery,
                 timePickerGallery,
-                ratingGallery
+                ratingGallery,
+                currencyBoxGallery,
+                emailBoxGallery,
+                numberUpDownGallery,
+                staticFormControlGallery,
+                addressControlGallery,
+                toggleGallery,
+                progressTrackerGallery,
+                itemsWithPreAndPostHtmlGallery
             };
             galleryTemplate = Object.keys(galleryComponents).sort().map(g => `<${g} />`).join("");
             exports_1("default", vue_1.defineComponent({
                 name: "Example.ControlGallery",
-                components: Object.assign({ PaneledBlockTemplate: paneledBlockTemplate_1.default, GalleryAndResult: GalleryAndResult, TextBox: textBox_1.default,
-                    CurrencyBox: currencyBox_1.default,
-                    EmailBox: emailBox_1.default,
-                    NumberUpDown: numberUpDown_1.default,
-                    AddressControl: addressControl_1.default,
-                    Toggle: toggle_1.default,
-                    ItemsWithPreAndPostHtml: itemsWithPreAndPostHtml_1.default,
-                    StaticFormControl: staticFormControl_1.default,
-                    ProgressTracker: progressTracker_1.default,
-                    RockForm: rockForm_1.default,
-                    RockButton: rockButton_1.default }, galleryComponents),
-                data() {
-                    return {
-                        currency: 1.234,
-                        email: "joe@joes.co",
-                        numberUpDown: 1,
-                        address: addressControl_1.getDefaultAddressControlModel(),
-                        toggle: false,
-                        prePostHtmlItems: [
-                            { preHtml: '<div class="row"><div class="col-sm-6">', postHtml: "</div>", slotName: "item1" },
-                            { preHtml: '<div class="col-sm-6">', postHtml: "</div></div>", slotName: "item2" }
-                        ],
-                        progressTrackerIndex: 0,
-                        progressTrackerItems: [
-                            { key: "S", title: "Start", subtitle: "The beginning" },
-                            { key: "1", title: "Step 1", subtitle: "The first step" },
-                            { key: "2", title: "Step 2", subtitle: "The second step" },
-                            { key: "3", title: "Step 3", subtitle: "The third step" },
-                            { key: "4", title: "Step 4", subtitle: "The fourth step" },
-                            { key: "5", title: "Step 5", subtitle: "The fifth step" },
-                            { key: "6", title: "Step 6", subtitle: "The sixth step" },
-                            { key: "7", title: "Step 7", subtitle: "The seventh step" },
-                            { key: "8", title: "Step 8", subtitle: "The eighth step" },
-                            { key: "F", title: "Finish", subtitle: "The finish" }
-                        ]
-                    };
-                },
-                computed: {},
+                components: Object.assign({ PaneledBlockTemplate: paneledBlockTemplate_1.default }, galleryComponents),
                 template: `
 <PaneledBlockTemplate>
     <template v-slot:title>
@@ -858,118 +1054,6 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
     </template>
     <template v-slot:default>
         ${galleryTemplate}
-
-        <GalleryAndResult>
-            <template #header>
-                CurrencyBox
-            </template>
-            <template #gallery>
-                <CurrencyBox label="Currency 1" v-model="currency" />
-                <CurrencyBox label="Currency 2" v-model="currency" />
-            </template>
-            <template #result>
-                {{currency}}
-            </template>
-        </GalleryAndResult>
-
-        <GalleryAndResult>
-            <template #header>
-                EmailBox
-            </template>
-            <template #gallery>
-                <EmailBox label="EmailBox 1" v-model="email" />
-                <EmailBox label="EmailBox 2" v-model="email" />
-            </template>
-            <template #result>
-                {{email}}
-            </template>
-        </GalleryAndResult>
-
-        <GalleryAndResult>
-            <template #header>
-                NumberUpDown
-            </template>
-            <template #gallery>
-                <NumberUpDown label="NumberUpDown 1" v-model="numberUpDown" />
-                <NumberUpDown label="NumberUpDown 2" v-model="numberUpDown" />
-            </template>
-            <template #result>
-                {{numberUpDown}}
-            </template>
-        </GalleryAndResult>
-
-        <GalleryAndResult>
-            <template #header>
-                StaticFormControl
-            </template>
-            <template #gallery>
-                <StaticFormControl label="StaticFormControl 1" v-model="numberUpDown" />
-                <StaticFormControl label="StaticFormControl 2" v-model="numberUpDown" />
-            </template>
-            <template #result>
-                {{numberUpDown}}
-            </template>
-        </GalleryAndResult>
-
-        <GalleryAndResult>
-            <template #header>
-                AddressControl
-            </template>
-            <template #gallery>
-                <AddressControl label="Address 1" v-model="address" />
-                <AddressControl label="Address 2" v-model="address" />
-            </template>
-            <template #result>
-                <pre>{{JSON.stringify(address, null, 2)}}</pre>
-            </template>
-        </GalleryAndResult>
-
-        <GalleryAndResult>
-            <template #header>
-                Toggle
-            </template>
-            <template #gallery>
-                <Toggle label="Toggle 1" v-model="toggle" />
-                <Toggle label="Toggle 2" v-model="toggle" />
-            </template>
-            <template #result>
-                {{toggle}}
-            </template>
-        </GalleryAndResult>
-
-        <GalleryAndResult>
-            <template #header>
-                ItemsWithPreAndPostHtml
-            </template>
-            <template #gallery>
-                <TextBox label="Item 1 - Pre Html" v-model="prePostHtmlItems[0].preHtml" />
-                <TextBox label="Item 1 - Post Html" v-model="prePostHtmlItems[0].postHtml" />
-                <TextBox label="Item 2 - Pre Html" v-model="prePostHtmlItems[1].preHtml" />
-                <TextBox label="Item 2 - Post Html" v-model="prePostHtmlItems[1].postHtml" />
-            </template>
-            <template #result>
-                <ItemsWithPreAndPostHtml :items="prePostHtmlItems">
-                    <template #item1>
-                        <div style="background-color: #fcc; padding: 5px;">This is item 1</div>
-                    </template>
-                    <template #item2>
-                        <div style="background-color: #ccf; padding: 5px;">This is item 2</div>
-                    </template>
-                </ItemsWithPreAndPostHtml>
-            </template>
-        </GalleryAndResult>
-
-        <GalleryAndResult :splitWidth="false">
-            <template #header>
-                ProgressTracker
-            </template>
-            <template #gallery>
-                <NumberUpDown label="Index" v-model="progressTrackerIndex" :min="-100" :max="100" />
-            </template>
-            <template #result>
-                <ProgressTracker :items="progressTrackerItems" :currentIndex="progressTrackerIndex" />
-            </template>
-        </GalleryAndResult>
     </template>
 </PaneledBlockTemplate>`
             }));

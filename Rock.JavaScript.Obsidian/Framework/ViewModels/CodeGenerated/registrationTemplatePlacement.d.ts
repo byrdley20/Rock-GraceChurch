@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface RegistrationTemplatePlacement extends Entity {
+export type RegistrationTemplatePlacement = IEntity & {
     allowMultiplePlacements?: boolean;
     cost?: number | null;
     groupTypeId?: number;
@@ -36,4 +36,4 @@ export interface RegistrationTemplatePlacement extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

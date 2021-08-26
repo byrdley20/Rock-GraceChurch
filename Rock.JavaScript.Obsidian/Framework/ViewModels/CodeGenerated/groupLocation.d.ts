@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface GroupLocation extends Entity {
+export type GroupLocation = IEntity & {
     groupId?: number;
     groupLocationTypeValueId?: number | null;
     groupMemberPersonAliasId?: number | null;
@@ -35,4 +35,4 @@ export interface GroupLocation extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface GroupRequirementType extends Entity {
+export type GroupRequirementType = IEntity & {
     canExpire?: boolean;
     checkboxLabel?: string | null;
     dataViewId?: number | null;
@@ -41,4 +41,4 @@ export interface GroupRequirementType extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

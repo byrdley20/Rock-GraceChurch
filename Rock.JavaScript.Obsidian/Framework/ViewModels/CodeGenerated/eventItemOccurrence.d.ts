@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface EventItemOccurrence extends Entity {
+export type EventItemOccurrence = IEntity & {
     campusId?: number | null;
     contactEmail?: string | null;
     contactPersonAliasId?: number | null;
@@ -36,4 +36,4 @@ export interface EventItemOccurrence extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

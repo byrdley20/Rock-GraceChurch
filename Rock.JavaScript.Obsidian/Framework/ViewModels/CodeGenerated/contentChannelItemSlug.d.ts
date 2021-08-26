@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface ContentChannelItemSlug extends Entity {
+export type ContentChannelItemSlug = IEntity & {
     contentChannelItemId?: number;
     isPrimary?: boolean;
     slug?: string | null;
@@ -31,4 +31,4 @@ export interface ContentChannelItemSlug extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

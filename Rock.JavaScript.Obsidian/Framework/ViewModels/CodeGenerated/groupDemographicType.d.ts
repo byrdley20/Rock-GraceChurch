@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface GroupDemographicType extends Entity {
+export type GroupDemographicType = IEntity & {
     componentEntityTypeId?: number;
     description?: string | null;
     groupTypeId?: number;
@@ -36,4 +36,4 @@ export interface GroupDemographicType extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

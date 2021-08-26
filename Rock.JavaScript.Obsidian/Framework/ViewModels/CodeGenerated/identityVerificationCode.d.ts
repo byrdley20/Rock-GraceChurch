@@ -21,13 +21,13 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface IdentityVerificationCode extends Entity {
+export type IdentityVerificationCode = IEntity & {
     code?: string | null;
     lastIssueDateTime?: string | null;
     createdDateTime?: string | null;
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

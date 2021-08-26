@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface Report extends Entity {
+export type Report = IEntity & {
     categoryId?: number | null;
     dataViewId?: number | null;
     description?: string | null;
@@ -39,4 +39,4 @@ export interface Report extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface EventCalendar extends Entity {
+export type EventCalendar = IEntity & {
     description?: string | null;
     iconCssClass?: string | null;
     isActive?: boolean;
@@ -33,4 +33,4 @@ export interface EventCalendar extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

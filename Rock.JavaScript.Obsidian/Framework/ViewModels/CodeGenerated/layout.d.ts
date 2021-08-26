@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface Layout extends Entity {
+export type Layout = IEntity & {
     description?: string | null;
     fileName?: string | null;
     isSystem?: boolean;
@@ -35,4 +35,4 @@ export interface Layout extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

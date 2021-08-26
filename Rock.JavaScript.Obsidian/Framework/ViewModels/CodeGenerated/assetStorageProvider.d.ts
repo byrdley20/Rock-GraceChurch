@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface AssetStorageProvider extends Entity {
+export type AssetStorageProvider = IEntity & {
     description?: string | null;
     entityTypeId?: number | null;
     isActive?: boolean;
@@ -33,4 +33,4 @@ export interface AssetStorageProvider extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

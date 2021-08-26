@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface WebFarmNodeMetric extends Entity {
+export type WebFarmNodeMetric = IEntity & {
     metricType?: number;
     metricValue?: number;
     metricValueDateTime?: string;
@@ -33,4 +33,4 @@ export interface WebFarmNodeMetric extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

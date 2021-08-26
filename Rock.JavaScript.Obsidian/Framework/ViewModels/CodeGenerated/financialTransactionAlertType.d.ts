@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface FinancialTransactionAlertType extends Entity {
+export type FinancialTransactionAlertType = IEntity & {
     alertSummaryNotificationGroupId?: number | null;
     alertType?: number;
     amountSensitivityScale?: number | null;
@@ -48,4 +48,4 @@ export interface FinancialTransactionAlertType extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

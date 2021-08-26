@@ -21,12 +21,12 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface AttributeMatrix extends Entity {
+export type AttributeMatrix = IEntity & {
     attributeMatrixTemplateId?: number;
     createdDateTime?: string | null;
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

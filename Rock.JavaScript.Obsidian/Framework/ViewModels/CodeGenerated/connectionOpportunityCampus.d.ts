@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface ConnectionOpportunityCampus extends Entity {
+export type ConnectionOpportunityCampus = IEntity & {
     campusId?: number;
     connectionOpportunityId?: number;
     defaultConnectorPersonAliasId?: number | null;
@@ -31,4 +31,4 @@ export interface ConnectionOpportunityCampus extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface Document extends Entity {
+export type Document = IEntity & {
     description?: string | null;
     documentTypeId?: number;
     entityId?: number;
@@ -34,4 +34,4 @@ export interface Document extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

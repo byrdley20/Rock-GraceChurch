@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface PrayerRequest extends Entity {
+export type PrayerRequest = IEntity & {
     allowComments?: boolean | null;
     answer?: string | null;
     approvedByPersonAliasId?: number | null;
@@ -49,4 +49,4 @@ export interface PrayerRequest extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

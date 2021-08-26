@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface RegistrationSession extends Entity {
+export type RegistrationSession = IEntity & {
     clientIpAddress?: string | null;
     expirationDateTime?: string;
     paymentGatewayReference?: string | null;
@@ -37,4 +37,4 @@ export interface RegistrationSession extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

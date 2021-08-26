@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface FinancialPledge extends Entity {
+export type FinancialPledge = IEntity & {
     accountId?: number | null;
     endDate?: string;
     groupId?: number | null;
@@ -35,4 +35,4 @@ export interface FinancialPledge extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

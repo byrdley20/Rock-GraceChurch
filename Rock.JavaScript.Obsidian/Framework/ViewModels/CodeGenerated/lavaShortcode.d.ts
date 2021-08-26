@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface LavaShortcode extends Entity {
+export type LavaShortcode = IEntity & {
     description?: string | null;
     documentation?: string | null;
     enabledLavaCommands?: string | null;
@@ -38,4 +38,4 @@ export interface LavaShortcode extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

@@ -21,13 +21,13 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface AttributeMatrixItem extends Entity {
+export type AttributeMatrixItem = IEntity & {
     attributeMatrixId?: number;
     order?: number;
     createdDateTime?: string | null;
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

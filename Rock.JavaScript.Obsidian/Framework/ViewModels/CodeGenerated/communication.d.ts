@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface Communication extends Entity {
+export type Communication = IEntity & {
     additionalMergeFieldsJson?: string | null;
     bCCEmails?: string | null;
     cCEmails?: string | null;
@@ -64,4 +64,4 @@ export interface Communication extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

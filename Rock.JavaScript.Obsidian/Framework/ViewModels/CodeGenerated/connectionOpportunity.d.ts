@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface ConnectionOpportunity extends Entity {
+export type ConnectionOpportunity = IEntity & {
     connectionTypeId?: number;
     description?: string | null;
     iconCssClass?: string | null;
@@ -40,4 +40,4 @@ export interface ConnectionOpportunity extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

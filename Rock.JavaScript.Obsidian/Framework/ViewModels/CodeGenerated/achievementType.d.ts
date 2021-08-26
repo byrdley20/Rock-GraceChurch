@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface AchievementType extends Entity {
+export type AchievementType = IEntity & {
     achievementFailureWorkflowTypeId?: number | null;
     achievementIconCssClass?: string | null;
     achievementStartWorkflowTypeId?: number | null;
@@ -49,4 +49,4 @@ export interface AchievementType extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

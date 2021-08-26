@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface Site extends Entity {
+export type Site = IEntity & {
     additionalSettings?: string | null;
     allowedFrameDomains?: string | null;
     allowIndexing?: boolean;
@@ -68,4 +68,4 @@ export interface Site extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface RegistrationTemplateFeeItem extends Entity {
+export type RegistrationTemplateFeeItem = IEntity & {
     cost?: number;
     isActive?: boolean;
     maximumUsageCount?: number | null;
@@ -34,4 +34,4 @@ export interface RegistrationTemplateFeeItem extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

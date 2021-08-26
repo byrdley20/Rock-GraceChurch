@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface Attendance extends Entity {
+export type Attendance = IEntity & {
     attendanceCheckInSessionId?: number | null;
     attendanceCodeId?: number | null;
     campusId?: number | null;
@@ -56,4 +56,4 @@ export interface Attendance extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

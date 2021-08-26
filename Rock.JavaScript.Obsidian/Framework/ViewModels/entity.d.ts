@@ -15,9 +15,9 @@
 // </copyright>
 //
 import { Guid } from "../Util/guid";
-import ClientAttributeValue from "./clientAttributeValue";
+import { ClientAttributeValue } from "./clientAttributeValue";
 
-export interface Entity {
+export interface IEntity {
     id: number;
     guid: Guid;
     attributes: Record<string, ClientAttributeValue> | null;

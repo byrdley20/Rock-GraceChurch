@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface FollowingEventNotification extends Entity {
+export type FollowingEventNotification = IEntity & {
     entityId?: number;
     followingEventTypeId?: number;
     lastNotified?: string;
@@ -31,4 +31,4 @@ export interface FollowingEventNotification extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

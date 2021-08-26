@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface StreakType extends Entity {
+export type StreakType = IEntity & {
     description?: string | null;
     enableAttendance?: boolean;
     firstDayOfWeek?: number | null;
@@ -39,4 +39,4 @@ export interface StreakType extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

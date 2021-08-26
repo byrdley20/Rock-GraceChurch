@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface Interaction extends Entity {
+export type Interaction = IEntity & {
     campaign?: string | null;
     channelCustom1?: string | null;
     channelCustom2?: string | null;
@@ -50,4 +50,4 @@ export interface Interaction extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

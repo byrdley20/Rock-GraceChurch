@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface PersonSignal extends Entity {
+export type PersonSignal = IEntity & {
     expirationDate?: string | null;
     note?: string | null;
     ownerPersonAliasId?: number;
@@ -33,4 +33,4 @@ export interface PersonSignal extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

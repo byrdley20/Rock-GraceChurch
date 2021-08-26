@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface SystemEmail extends Entity {
+export type SystemEmail = IEntity & {
     bcc?: string | null;
     body?: string | null;
     categoryId?: number | null;
@@ -38,4 +38,4 @@ export interface SystemEmail extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface FinancialTransaction extends Entity {
+export type FinancialTransaction = IEntity & {
     authorizedPersonAliasId?: number | null;
     batchId?: number | null;
     checkMicrEncrypted?: string | null;
@@ -55,4 +55,4 @@ export interface FinancialTransaction extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

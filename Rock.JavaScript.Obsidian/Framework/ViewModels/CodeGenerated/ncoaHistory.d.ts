@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface NcoaHistory extends Entity {
+export type NcoaHistory = IEntity & {
     addressInvalidReason?: number;
     addressStatus?: number;
     familyId?: number;
@@ -54,4 +54,4 @@ export interface NcoaHistory extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

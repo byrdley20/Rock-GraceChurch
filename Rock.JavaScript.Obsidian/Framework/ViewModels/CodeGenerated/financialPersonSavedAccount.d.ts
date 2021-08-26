@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface FinancialPersonSavedAccount extends Entity {
+export type FinancialPersonSavedAccount = IEntity & {
     financialGatewayId?: number | null;
     financialPaymentDetailId?: number | null;
     gatewayPersonIdentifier?: string | null;
@@ -39,4 +39,4 @@ export interface FinancialPersonSavedAccount extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

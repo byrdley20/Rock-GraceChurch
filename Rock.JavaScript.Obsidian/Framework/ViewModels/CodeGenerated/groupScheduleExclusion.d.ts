@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface GroupScheduleExclusion extends Entity {
+export type GroupScheduleExclusion = IEntity & {
     endDate?: string | null;
     groupTypeId?: number;
     startDate?: string | null;
@@ -31,4 +31,4 @@ export interface GroupScheduleExclusion extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

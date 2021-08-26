@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface NoteType extends Entity {
+export type NoteType = IEntity & {
     allowsAttachments?: boolean;
     allowsReplies?: boolean;
     allowsWatching?: boolean;
@@ -48,4 +48,4 @@ export interface NoteType extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface MetricValuePartition extends Entity {
+export type MetricValuePartition = IEntity & {
     entityId?: number | null;
     metricPartitionId?: number | null;
     metricValueId?: number | null;
@@ -31,4 +31,4 @@ export interface MetricValuePartition extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

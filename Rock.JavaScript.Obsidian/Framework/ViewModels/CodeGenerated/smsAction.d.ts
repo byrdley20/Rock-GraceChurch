@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface SmsAction extends Entity {
+export type SmsAction = IEntity & {
     continueAfterProcessing?: boolean;
     isActive?: boolean;
     name?: string | null;
@@ -34,4 +34,4 @@ export interface SmsAction extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

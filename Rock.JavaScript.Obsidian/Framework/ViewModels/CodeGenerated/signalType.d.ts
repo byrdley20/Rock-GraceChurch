@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface SignalType extends Entity {
+export type SignalType = IEntity & {
     description?: string | null;
     name?: string | null;
     order?: number;
@@ -33,4 +33,4 @@ export interface SignalType extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

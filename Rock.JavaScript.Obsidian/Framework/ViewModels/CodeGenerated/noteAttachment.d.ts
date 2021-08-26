@@ -21,13 +21,13 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface NoteAttachment extends Entity {
+export type NoteAttachment = IEntity & {
     binaryFileId?: number;
     noteId?: number;
     createdDateTime?: string | null;
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

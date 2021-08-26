@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface StepType extends Entity {
+export type StepType = IEntity & {
     allowManualEditing?: boolean;
     allowMultiple?: boolean;
     audienceDataViewId?: number | null;
@@ -45,4 +45,4 @@ export interface StepType extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

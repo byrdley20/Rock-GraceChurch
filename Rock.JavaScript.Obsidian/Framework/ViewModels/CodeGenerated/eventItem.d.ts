@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface EventItem extends Entity {
+export type EventItem = IEntity & {
     approvedByPersonAliasId?: number | null;
     approvedOnDateTime?: string | null;
     description?: string | null;
@@ -37,4 +37,4 @@ export interface EventItem extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

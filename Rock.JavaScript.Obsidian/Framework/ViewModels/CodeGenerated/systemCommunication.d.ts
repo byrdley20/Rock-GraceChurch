@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface SystemCommunication extends Entity {
+export type SystemCommunication = IEntity & {
     bcc?: string | null;
     body?: string | null;
     categoryId?: number | null;
@@ -50,4 +50,4 @@ export interface SystemCommunication extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

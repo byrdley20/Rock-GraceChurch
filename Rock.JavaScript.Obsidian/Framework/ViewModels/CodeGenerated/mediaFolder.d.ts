@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface MediaFolder extends Entity {
+export type MediaFolder = IEntity & {
     contentChannelAttributeId?: number | null;
     contentChannelId?: number | null;
     contentChannelItemStatus?: number | null;
@@ -40,4 +40,4 @@ export interface MediaFolder extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

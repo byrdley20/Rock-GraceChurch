@@ -21,13 +21,13 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface AchievementTypePrerequisite extends Entity {
+export type AchievementTypePrerequisite = IEntity & {
     achievementTypeId?: number;
     prerequisiteAchievementTypeId?: number;
     createdDateTime?: string | null;
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

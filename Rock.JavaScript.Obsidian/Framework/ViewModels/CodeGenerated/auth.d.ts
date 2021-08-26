@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface Auth extends Entity {
+export type Auth = IEntity & {
     action?: string | null;
     allowOrDeny?: string | null;
     entityId?: number | null;
@@ -36,4 +36,4 @@ export interface Auth extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

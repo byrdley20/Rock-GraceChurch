@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface PluginMigration extends Entity {
+export type PluginMigration = IEntity & {
     migrationName?: string | null;
     migrationNumber?: number;
     pluginAssemblyName?: string | null;
@@ -31,4 +31,4 @@ export interface PluginMigration extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

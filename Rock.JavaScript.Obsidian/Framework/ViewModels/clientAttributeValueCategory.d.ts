@@ -19,7 +19,7 @@ import { Guid } from "../Util/guid";
 /**
  * Specifies a single category that a ClientAttributeValue is a member of.
  */
-export default interface ClientAttributeValueCategory {
+export type ClientAttributeValueCategory = {
     /** Unique identifier of the category. */
     guid: Guid;
 
@@ -28,4 +28,4 @@ export default interface ClientAttributeValueCategory {
 
     /** Display order of the category. */
     order: number;
-}
+};

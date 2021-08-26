@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface RegistrationInstance extends Entity {
+export type RegistrationInstance = IEntity & {
     accountId?: number | null;
     additionalConfirmationDetails?: string | null;
     additionalReminderDetails?: string | null;
@@ -55,4 +55,4 @@ export interface RegistrationInstance extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

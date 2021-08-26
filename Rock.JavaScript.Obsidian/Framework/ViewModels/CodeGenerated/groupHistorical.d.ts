@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface GroupHistorical extends Entity {
+export type GroupHistorical = IEntity & {
     archivedByPersonAliasId?: number | null;
     archivedDateTime?: string | null;
     campusId?: number | null;
@@ -47,4 +47,4 @@ export interface GroupHistorical extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

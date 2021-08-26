@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface StepTypePrerequisite extends Entity {
+export type StepTypePrerequisite = IEntity & {
     order?: number;
     prerequisiteStepTypeId?: number;
     stepTypeId?: number;
@@ -31,4 +31,4 @@ export interface StepTypePrerequisite extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

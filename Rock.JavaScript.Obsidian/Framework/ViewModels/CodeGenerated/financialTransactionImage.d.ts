@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface FinancialTransactionImage extends Entity {
+export type FinancialTransactionImage = IEntity & {
     binaryFileId?: number;
     order?: number;
     transactionId?: number;
@@ -31,4 +31,4 @@ export interface FinancialTransactionImage extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

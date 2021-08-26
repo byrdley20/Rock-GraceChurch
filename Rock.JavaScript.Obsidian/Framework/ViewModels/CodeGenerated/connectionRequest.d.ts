@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface ConnectionRequest extends Entity {
+export type ConnectionRequest = IEntity & {
     assignedGroupId?: number | null;
     assignedGroupMemberAttributeValues?: string | null;
     assignedGroupMemberRoleId?: number | null;
@@ -41,4 +41,4 @@ export interface ConnectionRequest extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

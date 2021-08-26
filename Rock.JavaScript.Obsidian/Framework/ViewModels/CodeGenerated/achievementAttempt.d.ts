@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface AchievementAttempt extends Entity {
+export type AchievementAttempt = IEntity & {
     achievementAttemptEndDateTime?: string | null;
     achievementAttemptStartDateTime?: string;
     achievementTypeId?: number;
@@ -35,4 +35,4 @@ export interface AchievementAttempt extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

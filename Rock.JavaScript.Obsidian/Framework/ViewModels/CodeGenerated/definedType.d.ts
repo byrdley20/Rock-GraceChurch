@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface DefinedType extends Entity {
+export type DefinedType = IEntity & {
     categoryId?: number | null;
     description?: string | null;
     enableSecurityOnValues?: boolean;
@@ -37,4 +37,4 @@ export interface DefinedType extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

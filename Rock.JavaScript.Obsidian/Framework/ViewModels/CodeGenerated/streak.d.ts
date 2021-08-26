@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface Streak extends Entity {
+export type Streak = IEntity & {
     currentStreakCount?: number;
     currentStreakStartDate?: string | null;
     engagementCount?: number;
@@ -41,4 +41,4 @@ export interface Streak extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

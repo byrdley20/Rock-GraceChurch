@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface UserLogin extends Entity {
+export type UserLogin = IEntity & {
     apiKey?: string | null;
     entityTypeId?: number | null;
     failedPasswordAttemptCount?: number | null;
@@ -44,4 +44,4 @@ export interface UserLogin extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

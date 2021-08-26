@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface RegistrationRegistrantFee extends Entity {
+export type RegistrationRegistrantFee = IEntity & {
     cost?: number;
     option?: string | null;
     quantity?: number;
@@ -34,4 +34,4 @@ export interface RegistrationRegistrantFee extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

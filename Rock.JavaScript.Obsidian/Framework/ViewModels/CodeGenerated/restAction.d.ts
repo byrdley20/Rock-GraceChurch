@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface RestAction extends Entity {
+export type RestAction = IEntity & {
     apiId?: string | null;
     cacheControlHeaderSettings?: string | null;
     controllerId?: number;
@@ -33,4 +33,4 @@ export interface RestAction extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

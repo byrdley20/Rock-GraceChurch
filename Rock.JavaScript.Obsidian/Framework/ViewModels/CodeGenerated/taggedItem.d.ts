@@ -21,10 +21,10 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 import { Guid } from "../../Util/guid";
 
-export interface TaggedItem extends Entity {
+export type TaggedItem = IEntity & {
     entityGuid?: Guid;
     entityTypeId?: number;
     isSystem?: boolean;
@@ -34,4 +34,4 @@ export interface TaggedItem extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

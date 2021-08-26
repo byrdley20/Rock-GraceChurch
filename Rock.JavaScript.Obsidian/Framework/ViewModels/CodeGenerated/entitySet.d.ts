@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface EntitySet extends Entity {
+export type EntitySet = IEntity & {
     entitySetPurposeValueId?: number | null;
     entityTypeId?: number | null;
     expireDateTime?: string | null;
@@ -35,4 +35,4 @@ export interface EntitySet extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

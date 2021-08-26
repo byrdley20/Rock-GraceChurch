@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface ServiceLog extends Entity {
+export type ServiceLog = IEntity & {
     input?: string | null;
     logDateTime?: string | null;
     name?: string | null;
@@ -34,4 +34,4 @@ export interface ServiceLog extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

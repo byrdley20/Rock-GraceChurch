@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface GroupLocationHistorical extends Entity {
+export type GroupLocationHistorical = IEntity & {
     currentRowIndicator?: boolean;
     effectiveDateTime?: string;
     expireDateTime?: string;
@@ -38,4 +38,4 @@ export interface GroupLocationHistorical extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

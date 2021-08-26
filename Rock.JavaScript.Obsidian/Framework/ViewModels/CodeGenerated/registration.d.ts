@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface Registration extends Entity {
+export type Registration = IEntity & {
     confirmationEmail?: string | null;
     discountAmount?: number;
     discountCode?: string | null;
@@ -39,4 +39,4 @@ export interface Registration extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

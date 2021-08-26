@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface NotificationRecipient extends Entity {
+export type NotificationRecipient = IEntity & {
     notificationId?: number;
     personAliasId?: number;
     read?: boolean;
@@ -32,4 +32,4 @@ export interface NotificationRecipient extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

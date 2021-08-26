@@ -21,10 +21,10 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 import { Guid } from "../../Util/guid";
 
-export interface Attribute extends Entity {
+export type Attribute = IEntity & {
     abbreviatedName?: string | null;
     allowSearch?: boolean;
     categoryGuids?: (Guid)[];
@@ -57,4 +57,4 @@ export interface Attribute extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

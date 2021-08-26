@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface AttributeMatrixTemplate extends Entity {
+export type AttributeMatrixTemplate = IEntity & {
     description?: string | null;
     formattedLava?: string | null;
     isActive?: boolean;
@@ -34,4 +34,4 @@ export interface AttributeMatrixTemplate extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

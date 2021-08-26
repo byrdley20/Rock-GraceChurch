@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface EntityCampusFilter extends Entity {
+export type EntityCampusFilter = IEntity & {
     campusId?: number;
     entityId?: number;
     entityTypeId?: number;
@@ -31,4 +31,4 @@ export interface EntityCampusFilter extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

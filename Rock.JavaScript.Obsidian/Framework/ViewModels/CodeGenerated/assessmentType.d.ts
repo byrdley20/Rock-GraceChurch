@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface AssessmentType extends Entity {
+export type AssessmentType = IEntity & {
     assessmentPath?: string | null;
     assessmentResultsPath?: string | null;
     badgeColor?: string | null;
@@ -40,4 +40,4 @@ export interface AssessmentType extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

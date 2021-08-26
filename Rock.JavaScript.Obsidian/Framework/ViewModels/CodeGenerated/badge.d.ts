@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface Badge extends Entity {
+export type Badge = IEntity & {
     badgeComponentEntityTypeId?: number;
     description?: string | null;
     entityTypeId?: number | null;
@@ -36,4 +36,4 @@ export interface Badge extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

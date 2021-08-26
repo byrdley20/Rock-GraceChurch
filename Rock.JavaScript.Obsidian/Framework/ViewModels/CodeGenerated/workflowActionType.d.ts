@@ -21,10 +21,10 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 import { Guid } from "../../Util/guid";
 
-export interface WorkflowActionType extends Entity {
+export type WorkflowActionType = IEntity & {
     activityTypeId?: number;
     criteriaAttributeGuid?: Guid | null;
     criteriaComparisonType?: number;
@@ -39,4 +39,4 @@ export interface WorkflowActionType extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

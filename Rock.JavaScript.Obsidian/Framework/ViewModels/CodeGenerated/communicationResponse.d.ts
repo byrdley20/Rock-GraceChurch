@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface CommunicationResponse extends Entity {
+export type CommunicationResponse = IEntity & {
     fromPersonAliasId?: number | null;
     isRead?: boolean;
     messageKey?: string | null;
@@ -37,4 +37,4 @@ export interface CommunicationResponse extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

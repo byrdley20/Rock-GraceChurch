@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface GroupMemberAssignment extends Entity {
+export type GroupMemberAssignment = IEntity & {
     groupMemberId?: number;
     locationId?: number | null;
     scheduleId?: number | null;
@@ -31,4 +31,4 @@ export interface GroupMemberAssignment extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

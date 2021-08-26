@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface BenevolenceRequestDocument extends Entity {
+export type BenevolenceRequestDocument = IEntity & {
     benevolenceRequestId?: number;
     binaryFileId?: number;
     order?: number | null;
@@ -31,4 +31,4 @@ export interface BenevolenceRequestDocument extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

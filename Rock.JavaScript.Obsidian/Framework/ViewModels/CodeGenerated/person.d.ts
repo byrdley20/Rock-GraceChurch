@@ -21,10 +21,10 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 import { Guid } from "../../Util/guid";
 
-export interface Person extends Entity {
+export type Person = IEntity & {
     ageClassification?: number;
     anniversaryDate?: string | null;
     birthDay?: number | null;
@@ -75,4 +75,4 @@ export interface Person extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

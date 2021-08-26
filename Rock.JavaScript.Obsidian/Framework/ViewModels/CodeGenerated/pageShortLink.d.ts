@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface PageShortLink extends Entity {
+export type PageShortLink = IEntity & {
     siteId?: number;
     token?: string | null;
     url?: string | null;
@@ -31,4 +31,4 @@ export interface PageShortLink extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

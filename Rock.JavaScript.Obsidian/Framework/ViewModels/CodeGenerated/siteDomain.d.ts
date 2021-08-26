@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface SiteDomain extends Entity {
+export type SiteDomain = IEntity & {
     domain?: string | null;
     isSystem?: boolean;
     order?: number;
@@ -32,4 +32,4 @@ export interface SiteDomain extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

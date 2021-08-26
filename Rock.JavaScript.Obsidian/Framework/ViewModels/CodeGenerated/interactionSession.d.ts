@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface InteractionSession extends Entity {
+export type InteractionSession = IEntity & {
     deviceTypeId?: number | null;
     interactionMode?: string | null;
     ipAddress?: string | null;
@@ -32,4 +32,4 @@ export interface InteractionSession extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

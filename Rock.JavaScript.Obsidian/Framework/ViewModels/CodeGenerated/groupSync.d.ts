@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface GroupSync extends Entity {
+export type GroupSync = IEntity & {
     addUserAccountsDuringSync?: boolean;
     exitSystemCommunicationId?: number | null;
     groupId?: number;
@@ -36,4 +36,4 @@ export interface GroupSync extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

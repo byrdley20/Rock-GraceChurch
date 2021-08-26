@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface BlockType extends Entity {
+export type BlockType = IEntity & {
     category?: string | null;
     description?: string | null;
     entityTypeId?: number | null;
@@ -35,4 +35,4 @@ export interface BlockType extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

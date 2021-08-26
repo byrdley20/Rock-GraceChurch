@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface SignatureDocument extends Entity {
+export type SignatureDocument = IEntity & {
     appliesToPersonAliasId?: number | null;
     assignedToPersonAliasId?: number | null;
     binaryFileId?: number | null;
@@ -50,4 +50,4 @@ export interface SignatureDocument extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

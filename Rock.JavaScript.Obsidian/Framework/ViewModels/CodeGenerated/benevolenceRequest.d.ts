@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface BenevolenceRequest extends Entity {
+export type BenevolenceRequest = IEntity & {
     campusId?: number | null;
     caseWorkerPersonAliasId?: number | null;
     cellPhoneNumber?: string | null;
@@ -45,4 +45,4 @@ export interface BenevolenceRequest extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

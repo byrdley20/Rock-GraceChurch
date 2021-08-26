@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface FieldType extends Entity {
+export type FieldType = IEntity & {
     assembly?: string | null;
     class?: string | null;
     description?: string | null;
@@ -33,4 +33,4 @@ export interface FieldType extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

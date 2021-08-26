@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface ContentChannelType extends Entity {
+export type ContentChannelType = IEntity & {
     dateRangeType?: number;
     disableContentField?: boolean;
     disablePriority?: boolean;
@@ -36,4 +36,4 @@ export interface ContentChannelType extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

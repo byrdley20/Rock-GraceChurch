@@ -21,10 +21,10 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 import { Guid } from "../../Util/guid";
 
-export interface WorkflowActionForm extends Entity {
+export type WorkflowActionForm = IEntity & {
     actionAttributeGuid?: Guid | null;
     actions?: string | null;
     allowNotes?: boolean | null;
@@ -58,4 +58,4 @@ export interface WorkflowActionForm extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

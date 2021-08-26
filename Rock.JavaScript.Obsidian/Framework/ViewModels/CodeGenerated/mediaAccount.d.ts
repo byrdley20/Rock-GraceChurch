@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface MediaAccount extends Entity {
+export type MediaAccount = IEntity & {
     componentEntityTypeId?: number;
     isActive?: boolean;
     lastRefreshDateTime?: string | null;
@@ -34,4 +34,4 @@ export interface MediaAccount extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

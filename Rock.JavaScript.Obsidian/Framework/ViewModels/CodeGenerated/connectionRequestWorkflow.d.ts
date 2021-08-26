@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface ConnectionRequestWorkflow extends Entity {
+export type ConnectionRequestWorkflow = IEntity & {
     connectionRequestId?: number;
     connectionWorkflowId?: number;
     triggerQualifier?: string | null;
@@ -33,4 +33,4 @@ export interface ConnectionRequestWorkflow extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

@@ -15,7 +15,7 @@
 // </copyright>
 //
 
-import { Entity, Person } from "@Obsidian/ViewModels";
+import { IEntity, Person } from "@Obsidian/ViewModels";
 import { DebugTimingViewModel } from "../Controls/pageDebugTimings";
 import { Guid } from "../Util/guid";
 
@@ -23,7 +23,7 @@ export type State = {
     areSecondaryBlocksShown: boolean;
     currentPerson: Person | null;
     pageParameters: Record<string, unknown>;
-    contextEntities: Record<string, Entity>;
+    contextEntities: Record<string, IEntity>;
     pageId: number;
     pageGuid: Guid;
     executionStartTime: Date;

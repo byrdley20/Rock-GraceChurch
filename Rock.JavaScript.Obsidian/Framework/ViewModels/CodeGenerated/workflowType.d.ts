@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface WorkflowType extends Entity {
+export type WorkflowType = IEntity & {
     categoryId?: number | null;
     completedWorkflowRetentionPeriod?: number | null;
     description?: string | null;
@@ -44,4 +44,4 @@ export interface WorkflowType extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

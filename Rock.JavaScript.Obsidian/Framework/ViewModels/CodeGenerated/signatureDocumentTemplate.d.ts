@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface SignatureDocumentTemplate extends Entity {
+export type SignatureDocumentTemplate = IEntity & {
     binaryFileTypeId?: number | null;
     completionSystemCommunicationId?: number | null;
     description?: string | null;
@@ -39,4 +39,4 @@ export interface SignatureDocumentTemplate extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

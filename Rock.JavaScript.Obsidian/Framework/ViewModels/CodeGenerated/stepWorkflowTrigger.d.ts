@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface StepWorkflowTrigger extends Entity {
+export type StepWorkflowTrigger = IEntity & {
     isActive?: boolean;
     stepProgramId?: number | null;
     stepTypeId?: number | null;
@@ -35,4 +35,4 @@ export interface StepWorkflowTrigger extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

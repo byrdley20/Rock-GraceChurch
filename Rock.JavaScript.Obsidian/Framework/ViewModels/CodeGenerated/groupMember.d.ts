@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface GroupMember extends Entity {
+export type GroupMember = IEntity & {
     archivedByPersonAliasId?: number | null;
     archivedDateTime?: string | null;
     communicationPreference?: number;
@@ -46,4 +46,4 @@ export interface GroupMember extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

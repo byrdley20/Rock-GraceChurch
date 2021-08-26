@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface PageContext extends Entity {
+export type PageContext = IEntity & {
     entity?: string | null;
     idParameter?: string | null;
     isSystem?: boolean;
@@ -32,4 +32,4 @@ export interface PageContext extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

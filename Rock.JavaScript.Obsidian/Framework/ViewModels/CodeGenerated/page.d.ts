@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface Page extends Entity {
+export type Page = IEntity & {
     additionalSettings?: string | null;
     allowIndexing?: boolean;
     bodyCssClass?: string | null;
@@ -58,4 +58,4 @@ export interface Page extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface WebFarmNodeLog extends Entity {
+export type WebFarmNodeLog = IEntity & {
     eventDateTime?: string;
     eventType?: string | null;
     message?: string | null;
@@ -34,4 +34,4 @@ export interface WebFarmNodeLog extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

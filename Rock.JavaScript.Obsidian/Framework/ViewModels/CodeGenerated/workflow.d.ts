@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface Workflow extends Entity {
+export type Workflow = IEntity & {
     activatedDateTime?: string | null;
     completedDateTime?: string | null;
     description?: string | null;
@@ -40,4 +40,4 @@ export interface Workflow extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

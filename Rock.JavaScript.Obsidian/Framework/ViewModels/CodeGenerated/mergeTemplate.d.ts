@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface MergeTemplate extends Entity {
+export type MergeTemplate = IEntity & {
     categoryId?: number;
     description?: string | null;
     mergeTemplateTypeEntityTypeId?: number;
@@ -34,4 +34,4 @@ export interface MergeTemplate extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

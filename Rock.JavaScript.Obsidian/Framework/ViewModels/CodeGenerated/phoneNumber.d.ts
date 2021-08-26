@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface PhoneNumber extends Entity {
+export type PhoneNumber = IEntity & {
     countryCode?: string | null;
     description?: string | null;
     extension?: string | null;
@@ -38,4 +38,4 @@ export interface PhoneNumber extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

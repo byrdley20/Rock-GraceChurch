@@ -19,7 +19,7 @@ import RockBlock from "./Controls/rockBlock";
 import store, { ActionType } from "./Store/index";
 import { Guid } from "./Util/guid";
 import "./Rules/index";
-import { Person, Entity } from "@Obsidian/ViewModels";
+import { Person, IEntity } from "@Obsidian/ViewModels";
 import PageDebugTimings, { DebugTimingViewModel } from "./Controls/pageDebugTimings";
 import Alert from "./Elements/alert";
 
@@ -38,7 +38,7 @@ export type PageConfig = {
     pageGuid: Guid;
     pageParameters: Record<string, unknown>;
     currentPerson: Person | null;
-    contextEntities: Record<string, Entity>;
+    contextEntities: Record<string, IEntity>;
     loginUrlWithReturnUrl: string;
 };
 

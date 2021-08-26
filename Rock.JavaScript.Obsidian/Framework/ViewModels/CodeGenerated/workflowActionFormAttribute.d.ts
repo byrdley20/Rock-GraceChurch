@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface WorkflowActionFormAttribute extends Entity {
+export type WorkflowActionFormAttribute = IEntity & {
     attributeId?: number;
     fieldVisibilityRulesJSON?: string | null;
     hideLabel?: boolean;
@@ -38,4 +38,4 @@ export interface WorkflowActionFormAttribute extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface AttributeValueHistorical extends Entity {
+export type AttributeValueHistorical = IEntity & {
     attributeValueId?: number;
     currentRowIndicator?: boolean;
     effectiveDateTime?: string;
@@ -38,4 +38,4 @@ export interface AttributeValueHistorical extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

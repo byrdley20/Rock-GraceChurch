@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface FollowingEventType extends Entity {
+export type FollowingEventType = IEntity & {
     description?: string | null;
     entityNotificationFormatLava?: string | null;
     entityTypeId?: number | null;
@@ -38,4 +38,4 @@ export interface FollowingEventType extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

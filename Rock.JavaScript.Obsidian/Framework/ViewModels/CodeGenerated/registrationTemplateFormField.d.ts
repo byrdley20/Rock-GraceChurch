@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface RegistrationTemplateFormField extends Entity {
+export type RegistrationTemplateFormField = IEntity & {
     attributeId?: number | null;
     fieldSource?: number;
     fieldVisibilityRulesJSON?: string | null;
@@ -42,4 +42,4 @@ export interface RegistrationTemplateFormField extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

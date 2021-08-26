@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface HtmlContent extends Entity {
+export type HtmlContent = IEntity & {
     approvedByPersonAliasId?: number | null;
     approvedDateTime?: string | null;
     blockId?: number;
@@ -37,4 +37,4 @@ export interface HtmlContent extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

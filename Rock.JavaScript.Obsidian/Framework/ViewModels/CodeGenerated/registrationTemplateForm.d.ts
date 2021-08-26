@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface RegistrationTemplateForm extends Entity {
+export type RegistrationTemplateForm = IEntity & {
     name?: string | null;
     order?: number;
     registrationTemplateId?: number;
@@ -31,4 +31,4 @@ export interface RegistrationTemplateForm extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

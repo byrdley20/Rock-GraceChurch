@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface GroupTypeRole extends Entity {
+export type GroupTypeRole = IEntity & {
     canEdit?: boolean;
     canManageMembers?: boolean;
     canView?: boolean;
@@ -40,4 +40,4 @@ export interface GroupTypeRole extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

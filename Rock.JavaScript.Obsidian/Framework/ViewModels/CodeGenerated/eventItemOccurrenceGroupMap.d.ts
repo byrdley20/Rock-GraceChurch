@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface EventItemOccurrenceGroupMap extends Entity {
+export type EventItemOccurrenceGroupMap = IEntity & {
     eventItemOccurrenceId?: number | null;
     groupId?: number | null;
     publicName?: string | null;
@@ -33,4 +33,4 @@ export interface EventItemOccurrenceGroupMap extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

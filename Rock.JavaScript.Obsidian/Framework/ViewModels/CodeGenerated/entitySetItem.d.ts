@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface EntitySetItem extends Entity {
+export type EntitySetItem = IEntity & {
     additionalMergeValuesJson?: string | null;
     entityId?: number;
     entitySetId?: number;
@@ -32,4 +32,4 @@ export interface EntitySetItem extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

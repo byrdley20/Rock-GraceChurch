@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface AuthClaim extends Entity {
+export type AuthClaim = IEntity & {
     isActive?: boolean;
     isSystem?: boolean;
     name?: string | null;
@@ -34,4 +34,4 @@ export interface AuthClaim extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

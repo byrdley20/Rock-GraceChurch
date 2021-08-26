@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface FinancialTransactionDetail extends Entity {
+export type FinancialTransactionDetail = IEntity & {
     accountId?: number;
     amount?: number;
     entityId?: number | null;
@@ -37,4 +37,4 @@ export interface FinancialTransactionDetail extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

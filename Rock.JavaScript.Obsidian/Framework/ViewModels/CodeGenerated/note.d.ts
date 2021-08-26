@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface Note extends Entity {
+export type Note = IEntity & {
     approvalsSent?: boolean;
     approvalStatus?: number;
     approvedByPersonAliasId?: number | null;
@@ -44,4 +44,4 @@ export interface Note extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

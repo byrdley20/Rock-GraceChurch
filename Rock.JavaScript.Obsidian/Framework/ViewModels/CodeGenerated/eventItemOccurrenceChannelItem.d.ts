@@ -21,13 +21,13 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface EventItemOccurrenceChannelItem extends Entity {
+export type EventItemOccurrenceChannelItem = IEntity & {
     contentChannelItemId?: number;
     eventItemOccurrenceId?: number;
     createdDateTime?: string | null;
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

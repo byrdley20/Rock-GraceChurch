@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface InteractionDeviceType extends Entity {
+export type InteractionDeviceType = IEntity & {
     application?: string | null;
     clientType?: string | null;
     deviceTypeData?: string | null;
@@ -33,4 +33,4 @@ export interface InteractionDeviceType extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

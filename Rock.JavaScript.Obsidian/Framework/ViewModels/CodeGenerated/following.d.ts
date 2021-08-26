@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface Following extends Entity {
+export type Following = IEntity & {
     entityId?: number;
     entityTypeId?: number;
     personAliasId?: number;
@@ -32,4 +32,4 @@ export interface Following extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

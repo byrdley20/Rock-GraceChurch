@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface CommunicationTemplate extends Entity {
+export type CommunicationTemplate = IEntity & {
     bCCEmails?: string | null;
     categoryId?: number | null;
     cCEmails?: string | null;
@@ -55,4 +55,4 @@ export interface CommunicationTemplate extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

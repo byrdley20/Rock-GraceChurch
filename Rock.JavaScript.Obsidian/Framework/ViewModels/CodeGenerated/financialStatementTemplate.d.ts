@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface FinancialStatementTemplate extends Entity {
+export type FinancialStatementTemplate = IEntity & {
     description?: string | null;
     footerSettingsJson?: string | null;
     isActive?: boolean;
@@ -35,4 +35,4 @@ export interface FinancialStatementTemplate extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

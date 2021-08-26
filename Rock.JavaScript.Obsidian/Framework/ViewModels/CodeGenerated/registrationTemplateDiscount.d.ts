@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface RegistrationTemplateDiscount extends Entity {
+export type RegistrationTemplateDiscount = IEntity & {
     autoApplyDiscount?: boolean;
     code?: string | null;
     discountAmount?: number;
@@ -39,4 +39,4 @@ export interface RegistrationTemplateDiscount extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

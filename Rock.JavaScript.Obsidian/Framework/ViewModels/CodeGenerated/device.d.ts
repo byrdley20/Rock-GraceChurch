@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface Device extends Entity {
+export type Device = IEntity & {
     cameraBarcodeConfigurationType?: number | null;
     description?: string | null;
     deviceTypeValueId?: number;
@@ -39,4 +39,4 @@ export interface Device extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

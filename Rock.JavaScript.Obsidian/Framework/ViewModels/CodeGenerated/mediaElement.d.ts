@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface MediaElement extends Entity {
+export type MediaElement = IEntity & {
     description?: string | null;
     durationSeconds?: number | null;
     fileDataJson?: string | null;
@@ -39,4 +39,4 @@ export interface MediaElement extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface GroupMemberRequirement extends Entity {
+export type GroupMemberRequirement = IEntity & {
     groupMemberId?: number;
     groupRequirementId?: number;
     lastRequirementCheckDateTime?: string | null;
@@ -34,4 +34,4 @@ export interface GroupMemberRequirement extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface BinaryFileType extends Entity {
+export type BinaryFileType = IEntity & {
     cacheControlHeaderSettings?: string | null;
     cacheToServerFileSystem?: boolean;
     description?: string | null;
@@ -42,4 +42,4 @@ export interface BinaryFileType extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

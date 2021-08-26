@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface StepProgramCompletion extends Entity {
+export type StepProgramCompletion = IEntity & {
     campusId?: number | null;
     endDateTime?: string | null;
     personAliasId?: number;
@@ -33,4 +33,4 @@ export interface StepProgramCompletion extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

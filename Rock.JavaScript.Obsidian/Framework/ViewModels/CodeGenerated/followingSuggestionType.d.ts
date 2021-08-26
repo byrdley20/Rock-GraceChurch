@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface FollowingSuggestionType extends Entity {
+export type FollowingSuggestionType = IEntity & {
     description?: string | null;
     entityNotificationFormatLava?: string | null;
     entityTypeId?: number | null;
@@ -36,4 +36,4 @@ export interface FollowingSuggestionType extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

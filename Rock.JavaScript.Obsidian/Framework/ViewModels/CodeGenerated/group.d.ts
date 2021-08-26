@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface Group extends Entity {
+export type Group = IEntity & {
     allowGuests?: boolean | null;
     archivedByPersonAliasId?: number | null;
     archivedDateTime?: string | null;
@@ -58,4 +58,4 @@ export interface Group extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

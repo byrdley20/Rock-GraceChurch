@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface SmsPipeline extends Entity {
+export type SmsPipeline = IEntity & {
     description?: string | null;
     isActive?: boolean;
     name?: string | null;
@@ -31,4 +31,4 @@ export interface SmsPipeline extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

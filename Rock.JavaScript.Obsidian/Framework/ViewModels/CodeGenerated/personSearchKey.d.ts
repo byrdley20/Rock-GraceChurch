@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface PersonSearchKey extends Entity {
+export type PersonSearchKey = IEntity & {
     isValuePrivate?: boolean;
     personAliasId?: number | null;
     searchTypeValueId?: number;
@@ -32,4 +32,4 @@ export interface PersonSearchKey extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

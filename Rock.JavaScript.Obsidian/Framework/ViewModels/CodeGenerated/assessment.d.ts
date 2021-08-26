@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface Assessment extends Entity {
+export type Assessment = IEntity & {
     assessmentResultData?: string | null;
     assessmentTypeId?: number;
     completedDateTime?: string | null;
@@ -37,4 +37,4 @@ export interface Assessment extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

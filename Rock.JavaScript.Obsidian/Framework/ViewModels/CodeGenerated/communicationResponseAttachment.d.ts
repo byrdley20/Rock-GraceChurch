@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface CommunicationResponseAttachment extends Entity {
+export type CommunicationResponseAttachment = IEntity & {
     binaryFileId?: number;
     communicationResponseId?: number;
     communicationType?: number;
@@ -31,4 +31,4 @@ export interface CommunicationResponseAttachment extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

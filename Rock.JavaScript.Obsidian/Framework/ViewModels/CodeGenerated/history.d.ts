@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface History extends Entity {
+export type History = IEntity & {
     caption?: string | null;
     categoryId?: number;
     changeType?: string | null;
@@ -45,4 +45,4 @@ export interface History extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

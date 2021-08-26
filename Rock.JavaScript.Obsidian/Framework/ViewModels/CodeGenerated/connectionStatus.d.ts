@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface ConnectionStatus extends Entity {
+export type ConnectionStatus = IEntity & {
     autoInactivateState?: boolean;
     connectionTypeId?: number | null;
     description?: string | null;
@@ -37,4 +37,4 @@ export interface ConnectionStatus extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

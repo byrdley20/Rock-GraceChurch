@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface Notification extends Entity {
+export type Notification = IEntity & {
     classification?: number;
     iconCssClass?: string | null;
     message?: string | null;
@@ -33,4 +33,4 @@ export interface Notification extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface Tag extends Entity {
+export type Tag = IEntity & {
     backgroundColor?: string | null;
     categoryId?: number | null;
     description?: string | null;
@@ -40,4 +40,4 @@ export interface Tag extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

@@ -21,10 +21,10 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 import { Guid } from "../../Util/guid";
 
-export interface GroupDemographicValue extends Entity {
+export type GroupDemographicValue = IEntity & {
     groupDemographicTypeId?: number;
     groupId?: number;
     lastCalculatedDateTime?: string | null;
@@ -38,4 +38,4 @@ export interface GroupDemographicValue extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

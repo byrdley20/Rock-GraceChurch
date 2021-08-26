@@ -15,9 +15,9 @@
 // </copyright>
 //
 import { Guid } from "../Util/guid";
-import ClientAttributeValueCategory from "./clientAttributeValueCategory";
+import { ClientAttributeValueCategory } from "./clientAttributeValueCategory";
 
-export default interface ClientAttributeValue {
+export type ClientAttributeValue = {
     /** The field type unique identifier. */
     fieldTypeGuid: Guid;
 
@@ -38,4 +38,4 @@ export default interface ClientAttributeValue {
 
     /** The raw value provided by the server. */
     value?: string | null;
-}
+};

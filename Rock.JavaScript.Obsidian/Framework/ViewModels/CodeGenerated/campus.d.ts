@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface Campus extends Entity {
+export type Campus = IEntity & {
     campusStatusValueId?: number | null;
     campusTypeValueId?: number | null;
     description?: string | null;
@@ -43,4 +43,4 @@ export interface Campus extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface DataViewFilter extends Entity {
+export type DataViewFilter = IEntity & {
     dataViewId?: number | null;
     entityTypeId?: number | null;
     expressionType?: number;
@@ -34,4 +34,4 @@ export interface DataViewFilter extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

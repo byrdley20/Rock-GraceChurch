@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface FinancialScheduledTransaction extends Entity {
+export type FinancialScheduledTransaction = IEntity & {
     authorizedPersonAliasId?: number;
     cardReminderDate?: string | null;
     endDate?: string | null;
@@ -49,4 +49,4 @@ export interface FinancialScheduledTransaction extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

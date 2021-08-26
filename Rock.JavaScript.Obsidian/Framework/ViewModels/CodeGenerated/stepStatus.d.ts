@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface StepStatus extends Entity {
+export type StepStatus = IEntity & {
     isActive?: boolean;
     isCompleteStatus?: boolean;
     name?: string | null;
@@ -34,4 +34,4 @@ export interface StepStatus extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

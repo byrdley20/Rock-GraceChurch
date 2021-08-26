@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface PersonalLink extends Entity {
+export type PersonalLink = IEntity & {
     name?: string | null;
     order?: number;
     personAliasId?: number | null;
@@ -33,4 +33,4 @@ export interface PersonalLink extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

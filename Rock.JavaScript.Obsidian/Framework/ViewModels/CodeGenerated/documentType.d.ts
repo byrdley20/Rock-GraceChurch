@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface DocumentType extends Entity {
+export type DocumentType = IEntity & {
     binaryFileTypeId?: number;
     defaultDocumentNameTemplate?: string | null;
     entityTypeId?: number;
@@ -40,4 +40,4 @@ export interface DocumentType extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

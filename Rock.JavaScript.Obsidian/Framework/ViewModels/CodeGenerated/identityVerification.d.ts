@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface IdentityVerification extends Entity {
+export type IdentityVerification = IEntity & {
     failedMatchAttemptCount?: number | null;
     identityVerificationCodeId?: number;
     issueDateTime?: string;
@@ -33,4 +33,4 @@ export interface IdentityVerification extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

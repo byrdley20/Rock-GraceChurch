@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface StreakTypeExclusion extends Entity {
+export type StreakTypeExclusion = IEntity & {
     exclusionMap?: (number)[];
     locationId?: number | null;
     streakTypeId?: number;
@@ -31,4 +31,4 @@ export interface StreakTypeExclusion extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

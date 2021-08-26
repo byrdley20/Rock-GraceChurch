@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface PageRoute extends Entity {
+export type PageRoute = IEntity & {
     isGlobal?: boolean;
     isSystem?: boolean;
     pageId?: number;
@@ -32,4 +32,4 @@ export interface PageRoute extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

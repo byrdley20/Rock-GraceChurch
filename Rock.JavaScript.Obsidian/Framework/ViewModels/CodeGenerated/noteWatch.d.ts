@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface NoteWatch extends Entity {
+export type NoteWatch = IEntity & {
     allowOverride?: boolean;
     entityId?: number | null;
     entityTypeId?: number | null;
@@ -37,4 +37,4 @@ export interface NoteWatch extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

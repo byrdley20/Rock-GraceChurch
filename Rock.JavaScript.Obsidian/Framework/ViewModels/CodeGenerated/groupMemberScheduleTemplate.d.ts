@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface GroupMemberScheduleTemplate extends Entity {
+export type GroupMemberScheduleTemplate = IEntity & {
     groupTypeId?: number | null;
     name?: string | null;
     scheduleId?: number;
@@ -31,4 +31,4 @@ export interface GroupMemberScheduleTemplate extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

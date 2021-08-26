@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface Schedule extends Entity {
+export type Schedule = IEntity & {
     autoInactivateWhenComplete?: boolean;
     categoryId?: number | null;
     checkInEndOffsetMinutes?: number | null;
@@ -41,4 +41,4 @@ export interface Schedule extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

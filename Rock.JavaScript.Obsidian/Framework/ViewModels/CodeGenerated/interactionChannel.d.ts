@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface InteractionChannel extends Entity {
+export type InteractionChannel = IEntity & {
     channelData?: string | null;
     channelDetailTemplate?: string | null;
     channelEntityId?: number | null;
@@ -53,4 +53,4 @@ export interface InteractionChannel extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

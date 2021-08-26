@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface RelatedEntity extends Entity {
+export type RelatedEntity = IEntity & {
     isSystem?: boolean;
     order?: number;
     purposeKey?: string | null;
@@ -36,4 +36,4 @@ export interface RelatedEntity extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

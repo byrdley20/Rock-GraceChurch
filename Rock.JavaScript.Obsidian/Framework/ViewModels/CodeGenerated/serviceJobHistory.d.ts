@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface ServiceJobHistory extends Entity {
+export type ServiceJobHistory = IEntity & {
     serviceJobId?: number;
     serviceWorker?: string | null;
     startDateTime?: string | null;
@@ -34,4 +34,4 @@ export interface ServiceJobHistory extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

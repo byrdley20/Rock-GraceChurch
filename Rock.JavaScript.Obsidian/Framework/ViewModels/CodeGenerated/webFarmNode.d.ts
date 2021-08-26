@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface WebFarmNode extends Entity {
+export type WebFarmNode = IEntity & {
     addedDateTime?: string;
     configuredLeadershipPollingIntervalSeconds?: number | null;
     currentLeadershipPollingIntervalSeconds?: number;
@@ -39,4 +39,4 @@ export interface WebFarmNode extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

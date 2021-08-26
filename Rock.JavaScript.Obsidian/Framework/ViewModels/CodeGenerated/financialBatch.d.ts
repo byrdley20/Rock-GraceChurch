@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface FinancialBatch extends Entity {
+export type FinancialBatch = IEntity & {
     accountingSystemCode?: string | null;
     batchEndDateTime?: string | null;
     batchStartDateTime?: string | null;
@@ -38,4 +38,4 @@ export interface FinancialBatch extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

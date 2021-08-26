@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface Category extends Entity {
+export type Category = IEntity & {
     description?: string | null;
     entityTypeId?: number;
     entityTypeQualifierColumn?: string | null;
@@ -38,4 +38,4 @@ export interface Category extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

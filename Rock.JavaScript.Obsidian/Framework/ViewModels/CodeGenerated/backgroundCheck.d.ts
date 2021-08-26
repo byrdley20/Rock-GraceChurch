@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface BackgroundCheck extends Entity {
+export type BackgroundCheck = IEntity & {
     packageName?: string | null;
     personAliasId?: number;
     processorEntityTypeId?: number | null;
@@ -40,4 +40,4 @@ export interface BackgroundCheck extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface AttendanceOccurrence extends Entity {
+export type AttendanceOccurrence = IEntity & {
     acceptConfirmationMessage?: string | null;
     anonymousAttendanceCount?: number | null;
     attendanceTypeValueId?: number | null;
@@ -43,4 +43,4 @@ export interface AttendanceOccurrence extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

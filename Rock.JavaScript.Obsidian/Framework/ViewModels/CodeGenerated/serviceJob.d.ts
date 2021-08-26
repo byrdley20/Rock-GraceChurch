@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface ServiceJob extends Entity {
+export type ServiceJob = IEntity & {
     assembly?: string | null;
     class?: string | null;
     cronExpression?: string | null;
@@ -45,4 +45,4 @@ export interface ServiceJob extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

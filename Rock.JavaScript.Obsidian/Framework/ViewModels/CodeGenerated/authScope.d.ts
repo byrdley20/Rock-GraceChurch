@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface AuthScope extends Entity {
+export type AuthScope = IEntity & {
     isActive?: boolean;
     isSystem?: boolean;
     name?: string | null;
@@ -32,4 +32,4 @@ export interface AuthScope extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

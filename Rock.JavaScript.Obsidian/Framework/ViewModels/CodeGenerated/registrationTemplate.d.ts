@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface RegistrationTemplate extends Entity {
+export type RegistrationTemplate = IEntity & {
     addPersonNote?: boolean;
     allowExternalRegistrationUpdates?: boolean;
     allowMultipleRegistrants?: boolean;
@@ -84,4 +84,4 @@ export interface RegistrationTemplate extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

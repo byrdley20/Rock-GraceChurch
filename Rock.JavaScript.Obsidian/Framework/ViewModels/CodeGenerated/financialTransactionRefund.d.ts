@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface FinancialTransactionRefund extends Entity {
+export type FinancialTransactionRefund = IEntity & {
     originalTransactionId?: number | null;
     refundReasonSummary?: string | null;
     refundReasonValueId?: number | null;
@@ -31,4 +31,4 @@ export interface FinancialTransactionRefund extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

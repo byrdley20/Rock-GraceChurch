@@ -1,11 +1,11 @@
-import { Entity, Group, Person } from "@Obsidian/ViewModels";
+import { IEntity, Group, Person } from "@Obsidian/ViewModels";
 import { GetterTree } from "vuex";
 import { State } from "./state";
 
 export type Getters = {
     isAuthenticated(state: State): boolean;
 
-    contextEntity(state: State): (type: string) => Entity | null;
+    contextEntity(state: State): (type: string) => IEntity | null;
 
     personContext(state: State): Person | null;
 
@@ -23,7 +23,7 @@ export const getters: GetterTree<State, State> = {
         return !!state.currentPerson;
     },
 
-    contextEntity(state: State): (type: string) => Entity | null {
+    contextEntity(state: State): (type: string) => IEntity | null {
         return (type: string) => (state.contextEntities[type] || null);
     },
 

@@ -14,9 +14,9 @@
 // limitations under the License.
 // </copyright>
 //
-import ClientAttributeValue from "./clientAttributeValue";
+import { ClientAttributeValue } from "./clientAttributeValue";
 
-export default interface ClientEditableAttributeValue extends ClientAttributeValue {
+export type ClientEditableAttributeValue = ClientAttributeValue & {
     /** The key that identifies this attribute on the entity. */
     key: string;
 
@@ -28,4 +28,4 @@ export default interface ClientEditableAttributeValue extends ClientAttributeVal
 
     /** Configuration values for how to display and edit this value. */
     configurationValues?: Record<string, string> | null;
-}
+};

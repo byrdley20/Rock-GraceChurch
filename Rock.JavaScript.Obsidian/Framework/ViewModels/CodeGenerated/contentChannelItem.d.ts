@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface ContentChannelItem extends Entity {
+export type ContentChannelItem = IEntity & {
     approvedByPersonAliasId?: number | null;
     approvedDateTime?: string | null;
     content?: string | null;
@@ -42,4 +42,4 @@ export interface ContentChannelItem extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

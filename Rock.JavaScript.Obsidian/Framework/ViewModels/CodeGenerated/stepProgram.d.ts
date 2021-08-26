@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface StepProgram extends Entity {
+export type StepProgram = IEntity & {
     categoryId?: number | null;
     defaultListView?: number;
     description?: string | null;
@@ -36,4 +36,4 @@ export interface StepProgram extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

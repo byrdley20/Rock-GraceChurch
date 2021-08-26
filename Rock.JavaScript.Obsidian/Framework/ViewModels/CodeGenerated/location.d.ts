@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface Location extends Entity {
+export type Location = IEntity & {
     assessorParcelId?: string | null;
     barcode?: string | null;
     city?: string | null;
@@ -56,4 +56,4 @@ export interface Location extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

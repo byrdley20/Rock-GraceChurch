@@ -21,10 +21,10 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 import { Attribute } from "./attribute";
 
-export interface AttributeValue extends Entity {
+export type AttributeValue = IEntity & {
     attribute?: Attribute | null;
     attributeId?: number;
     entityId?: number | null;
@@ -35,4 +35,4 @@ export interface AttributeValue extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

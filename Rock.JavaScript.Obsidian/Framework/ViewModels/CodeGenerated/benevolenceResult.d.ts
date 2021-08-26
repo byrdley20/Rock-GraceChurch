@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface BenevolenceResult extends Entity {
+export type BenevolenceResult = IEntity & {
     amount?: number | null;
     benevolenceRequestId?: number;
     resultSummary?: string | null;
@@ -32,4 +32,4 @@ export interface BenevolenceResult extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

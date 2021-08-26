@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface ConnectionActivityType extends Entity {
+export type ConnectionActivityType = IEntity & {
     connectionTypeId?: number | null;
     isActive?: boolean;
     name?: string | null;
@@ -31,4 +31,4 @@ export interface ConnectionActivityType extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

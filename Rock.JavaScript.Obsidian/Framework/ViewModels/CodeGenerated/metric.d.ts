@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface Metric extends Entity {
+export type Metric = IEntity & {
     adminPersonAliasId?: number | null;
     autoPartitionOnPrimaryCampus?: boolean;
     dataViewId?: number | null;
@@ -47,4 +47,4 @@ export interface Metric extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

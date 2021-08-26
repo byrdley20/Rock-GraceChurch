@@ -21,9 +21,9 @@
 // </copyright>
 //
 
-import { Entity } from "../entity";
+import { IEntity } from "../entity";
 
-export interface GroupType extends Entity {
+export type GroupType = IEntity & {
     administratorTerm?: string | null;
     allowAnyChildGroupType?: boolean;
     allowedScheduleTypes?: number;
@@ -81,4 +81,4 @@ export interface GroupType extends Entity {
     modifiedDateTime?: string | null;
     createdByPersonAliasId?: number | null;
     modifiedByPersonAliasId?: number | null;
-}
+};

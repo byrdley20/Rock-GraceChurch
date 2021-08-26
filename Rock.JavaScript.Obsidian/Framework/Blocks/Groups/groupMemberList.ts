@@ -14,16 +14,16 @@
 // limitations under the License.
 // </copyright>
 //
-import PaneledBlockTemplate from '../../Templates/paneledBlockTemplate';
-import { defineComponent, inject } from 'vue';
-import store from '../../Store/index';
-import Grid, { FilterOptions, RowContext, SortDirection, SortProperty } from '../../Controls/grid';
-import GridRow from '../../Controls/gridRow';
-import GridColumn from '../../Controls/gridColumn';
-import GridSelectColumn from '../../Controls/gridSelectColumn';
-import GridProfileLinkColumn from '../../Controls/gridProfileLinkColumn';
-import { InvokeBlockActionFunc } from '../../Controls/rockBlock';
-import Alert from '../../Elements/alert';
+import PaneledBlockTemplate from "../../Templates/paneledBlockTemplate";
+import { defineComponent, inject } from "vue";
+import store from "../../Store/index";
+import Grid, { FilterOptions, RowContext, SortDirection, SortProperty } from "../../Controls/grid";
+import GridRow from "../../Controls/gridRow";
+import GridColumn from "../../Controls/gridColumn";
+import GridSelectColumn from "../../Controls/gridSelectColumn";
+import GridProfileLinkColumn from "../../Controls/gridProfileLinkColumn";
+import { InvokeBlockActionFunc } from "../../Controls/rockBlock";
+import Alert from "../../Elements/alert";
 
 type GroupMemberViewModel = {
     fullName: string;
@@ -39,7 +39,7 @@ type GetGroupMemberListResponse = {
 };
 
 export default defineComponent({
-    name: 'Groups.GroupMemberList',
+    name: "Groups.GroupMemberList",
     components: {
         PaneledBlockTemplate,
         Alert,
@@ -51,17 +51,17 @@ export default defineComponent({
     },
     setup() {
         return {
-            invokeBlockAction: inject('invokeBlockAction') as InvokeBlockActionFunc
+            invokeBlockAction: inject("invokeBlockAction") as InvokeBlockActionFunc
         };
     },
     data() {
         return {
             isLoading: false,
-            errorMessage: '',
+            errorMessage: "",
             members: [] as GroupMemberViewModel[],
             sortProperty: {
                 direction: SortDirection.Ascending,
-                property: ''
+                property: ""
             } as SortProperty
         };
     },
@@ -77,10 +77,10 @@ export default defineComponent({
             }
 
             this.isLoading = true;
-            this.errorMessage = '';
+            this.errorMessage = "";
 
             try {
-                const result = await this.invokeBlockAction<GetGroupMemberListResponse>('GetGroupMemberList', {
+                const result = await this.invokeBlockAction<GetGroupMemberListResponse>("GetGroupMemberList", {
                     groupId: this.groupId,
                     filterOptions: {
                         take: 50,
@@ -105,7 +105,7 @@ export default defineComponent({
         },
         onRowClick(rowContext: RowContext): void {
             const groupMemberId = rowContext.rowId;
-            location.href = '/GroupMember/' + groupMemberId;
+            location.href = "/GroupMember/" + groupMemberId;
         }
     },
     watch: {

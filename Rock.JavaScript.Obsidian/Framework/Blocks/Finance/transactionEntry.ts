@@ -14,24 +14,24 @@
 // limitations under the License.
 // </copyright>
 //
-import DropDownList, { DropDownListOption } from '../../Elements/dropDownList';
-import CurrencyBox from '../../Elements/currencyBox';
-import { defineComponent, inject } from 'vue';
-import DatePicker from '../../Elements/datePicker';
-import RockButton from '../../Elements/rockButton';
-import { areEqual, Guid, newGuid } from '../../Util/guid';
-import Alert from '../../Elements/alert';
-import { asFormattedString } from '@Obsidian/Services/number';
-import { InvokeBlockActionFunc } from '../../Controls/rockBlock';
-import { ConfigurationValues } from '../../index';
-import Toggle from '../../Elements/toggle';
-import { FinancialAccount, Person } from '@Obsidian/ViewModels';
-import store from '../../Store/index';
-import TextBox from '../../Elements/textBox';
-import { asCommaAnd } from '@Obsidian/Services/string';
-import GatewayControl, { GatewayControlModel } from '../../Controls/gatewayControl';
-import RockValidation from '../../Controls/rockValidation';
-import { formatAspDate } from '@Obsidian/Services/date';
+import DropDownList, { DropDownListOption } from "../../Elements/dropDownList";
+import CurrencyBox from "../../Elements/currencyBox";
+import { defineComponent, inject } from "vue";
+import DatePicker from "../../Elements/datePicker";
+import RockButton from "../../Elements/rockButton";
+import { areEqual, Guid, newGuid } from "../../Util/guid";
+import Alert from "../../Elements/alert";
+import { asFormattedString } from "@Obsidian/Services/number";
+import { InvokeBlockActionFunc } from "../../Controls/rockBlock";
+import { ConfigurationValues } from "../../index";
+import Toggle from "../../Elements/toggle";
+import { FinancialAccount, Person } from "@Obsidian/ViewModels";
+import store from "../../Store/index";
+import TextBox from "../../Elements/textBox";
+import { asCommaAnd } from "@Obsidian/Services/string";
+import GatewayControl, { GatewayControlModel } from "../../Controls/gatewayControl";
+import RockValidation from "../../Controls/rockValidation";
+import { formatAspDate } from "@Obsidian/Services/date";
 
 export type ProcessTransactionArgs = {
     isGivingAsPerson: boolean;
@@ -60,7 +60,7 @@ export type ProcessTransactionArgs = {
 };
 
 export default defineComponent({
-    name: 'Finance.TransactionEntry',
+    name: "Finance.TransactionEntry",
 
     components: {
         CurrencyBox,
@@ -76,44 +76,44 @@ export default defineComponent({
 
     setup() {
         return {
-            invokeBlockAction: inject('invokeBlockAction') as InvokeBlockActionFunc,
-            configurationValues: inject('configurationValues') as ConfigurationValues
+            invokeBlockAction: inject("invokeBlockAction") as InvokeBlockActionFunc,
+            configurationValues: inject("configurationValues") as ConfigurationValues
         };
     },
 
     data() {
         return {
             loading: false,
-            gatewayErrorMessage: '',
+            gatewayErrorMessage: "",
             gatewayValidationFields: {} as Record<string, string>,
             transactionGuid: newGuid(),
-            criticalError: '',
+            criticalError: "",
             doGatewayControlSubmit: false,
             pageIndex: 1,
-            page1Error: '',
+            page1Error: "",
             args: {
                 isGivingAsPerson: true,
-                email: '',
-                phoneNumber: '',
-                phoneCountryCode: '',
+                email: "",
+                phoneNumber: "",
+                phoneCountryCode: "",
                 accountAmounts: {},
-                street1: '',
-                street2: '',
-                city: '',
-                state: '',
-                postalCode: '',
-                country: '',
-                firstName: '',
-                lastName: '',
-                businessName: '',
+                street1: "",
+                street2: "",
+                city: "",
+                state: "",
+                postalCode: "",
+                country: "",
+                firstName: "",
+                lastName: "",
+                businessName: "",
                 financialPersonSavedAccountGuid: null,
-                comment: '',
+                comment: "",
                 transactionEntityId: null,
-                referenceNumber: '',
-                campusGuid: '',
+                referenceNumber: "",
+                campusGuid: "",
                 businessGuid: null,
-                frequencyValueGuid: '',
-                giftDate: formatAspDate(new Date(), 'yyyy-MM-dd'),
+                frequencyValueGuid: "",
+                giftDate: formatAspDate(new Date(), "yyyy-MM-dd"),
                 isGiveAnonymously: false
             } as ProcessTransactionArgs
         };
@@ -135,7 +135,7 @@ export default defineComponent({
         },
 
         gatewayControlModel(): GatewayControlModel {
-            return this.configurationValues['gatewayControl'] as GatewayControlModel;
+            return this.configurationValues["gatewayControl"] as GatewayControlModel;
         },
 
         currentPerson(): Person | null {
@@ -143,15 +143,15 @@ export default defineComponent({
         },
 
         accounts(): FinancialAccount[] {
-            return this.configurationValues['financialAccounts'] as FinancialAccount[] || [];
+            return this.configurationValues["financialAccounts"] as FinancialAccount[] || [];
         },
 
         campuses(): DropDownListOption[] {
-            return this.configurationValues['campuses'] as DropDownListOption[] || [];
+            return this.configurationValues["campuses"] as DropDownListOption[] || [];
         },
 
         frequencies(): DropDownListOption[] {
-            return this.configurationValues['frequencies'] as DropDownListOption[] || [];
+            return this.configurationValues["frequencies"] as DropDownListOption[] || [];
         },
 
         campusName(): string | null {
@@ -193,11 +193,11 @@ export default defineComponent({
 
         onPageOneSubmit(): void {
             if (this.totalAmount <= 0) {
-                this.page1Error = 'Please specify an amount';
+                this.page1Error = "Please specify an amount";
                 return;
             }
 
-            this.page1Error = '';
+            this.page1Error = "";
             this.pageIndex = 2;
         },
 
@@ -206,7 +206,7 @@ export default defineComponent({
          *  error, or validation handlers will be invoked. */
         onPageTwoSubmit(): void {
             this.loading = true;
-            this.gatewayErrorMessage = '';
+            this.gatewayErrorMessage = "";
             this.gatewayValidationFields = {};
             this.doGatewayControlSubmit = true;
         },
@@ -245,7 +245,7 @@ export default defineComponent({
             this.loading = true;
 
             try {
-                await this.invokeBlockAction('ProcessTransaction', {
+                await this.invokeBlockAction("ProcessTransaction", {
                     args: this.args,
                     transactionGuid: this.transactionGuid
                 });
@@ -268,9 +268,9 @@ export default defineComponent({
                     return;
                 }
 
-                this.args.firstName = this.args.firstName || this.currentPerson.firstName || '';
-                this.args.lastName = this.args.lastName || this.currentPerson.lastName || '';
-                this.args.email = this.args.email || this.currentPerson.email || '';
+                this.args.firstName = this.args.firstName || this.currentPerson.firstName || "";
+                this.args.lastName = this.args.lastName || this.currentPerson.lastName || "";
+                this.args.email = this.args.email || this.currentPerson.email || "";
             }
         }
     },

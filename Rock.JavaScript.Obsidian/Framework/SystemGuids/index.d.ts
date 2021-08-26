@@ -15,7 +15,7 @@
 // </copyright>
 //
 
-export * from './CodeGenerated/generated-index';
+export * from "./CodeGenerated/generated-index";
 
 export {
 };

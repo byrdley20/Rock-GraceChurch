@@ -14,10 +14,10 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
-import { ruleArrayToString, ruleStringToArray } from '../Rules/index';
-import { asFormattedString, toNumberOrNull } from '@Obsidian/Services/number';
-import RockFormField from './rockFormField';
+import { defineComponent, PropType } from "vue";
+import { ruleArrayToString, ruleStringToArray } from "../Rules/index";
+import { asFormattedString, toNumberOrNull } from "@Obsidian/Services/number";
+import RockFormField from "./rockFormField";
 
 /**
  * The model value used by the NumberRangeBox element.
@@ -31,7 +31,7 @@ export interface NumberRangeModelValue {
 }
 
 export default defineComponent({
-    name: 'NumberRangeBox',
+    name: "NumberRangeBox",
 
     components: {
         RockFormField
@@ -51,26 +51,26 @@ export default defineComponent({
 
         inputClasses: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         },
 
         rules: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         }
     },
 
     emits: [
-        'update:modelValue'
+        "update:modelValue"
     ],
 
     data: function () {
         return {
             internalValue: {
-                lower: '',
-                upper: ''
+                lower: "",
+                upper: ""
             },
-            validationValue: ''
+            validationValue: ""
         };
     },
 
@@ -108,7 +108,7 @@ export default defineComponent({
 
     watch: {
         computedValue(): void {
-            this.$emit('update:modelValue', this.computedValue);
+            this.$emit("update:modelValue", this.computedValue);
         },
 
         internalValue(): void {
@@ -120,7 +120,7 @@ export default defineComponent({
                 upper: toNumberOrNull(this.internalValue.upper)
             } as NumberRangeModelValue;
 
-            this.$emit('update:modelValue', emitValue);
+            this.$emit("update:modelValue", emitValue);
         },
 
         internalStep(): string {

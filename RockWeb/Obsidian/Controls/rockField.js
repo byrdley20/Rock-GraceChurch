@@ -20,7 +20,7 @@ System.register(["../Fields/index", "vue", "../Fields/textField"], function (exp
         execute: function () {
             textField = new textField_1.TextFieldType();
             exports_1("default", vue_1.defineComponent({
-                name: 'RockField',
+                name: "RockField",
                 props: {
                     attributeValue: {
                         type: Object,
@@ -40,12 +40,12 @@ System.register(["../Fields/index", "vue", "../Fields/textField"], function (exp
                         const fieldType = index_1.getFieldType(props.attributeValue.fieldTypeGuid);
                         return fieldType !== null && fieldType !== void 0 ? fieldType : textField;
                     });
-                    const showValue = vue_1.computed(() => props.showEmptyValue || field.value.getTextValue(props.attributeValue) !== '');
+                    const showValue = vue_1.computed(() => props.showEmptyValue || field.value.getTextValue(props.attributeValue) !== "");
                     const isRequired = vue_1.computed(() => instanceOfEditable(props.attributeValue) && props.attributeValue.isRequired);
-                    const rules = vue_1.computed(() => isRequired.value ? 'required' : '');
+                    const rules = vue_1.computed(() => isRequired.value ? "required" : "");
                     const isEditMode = vue_1.computed(() => props.isEditMode && instanceOfEditable(props.attributeValue));
                     const label = vue_1.computed(() => props.attributeValue.name);
-                    const helpText = vue_1.computed(() => instanceOfEditable(props.attributeValue) ? props.attributeValue.description : '');
+                    const helpText = vue_1.computed(() => instanceOfEditable(props.attributeValue) ? props.attributeValue.description : "");
                     const valueComponent = vue_1.computed(() => {
                         const _ignored = props.attributeValue.value;
                         const _ignored2 = props.attributeValue.textValue;
@@ -53,7 +53,7 @@ System.register(["../Fields/index", "vue", "../Fields/textField"], function (exp
                     });
                     const editComponent = vue_1.computed(() => field.value.getEditComponent(props.attributeValue));
                     const value = vue_1.computed({
-                        get: () => props.attributeValue.value || '',
+                        get: () => props.attributeValue.value || "",
                         set(newValue) {
                             props.attributeValue.value = newValue;
                             if (instanceOfEditable(props.attributeValue)) {
@@ -69,7 +69,7 @@ System.register(["../Fields/index", "vue", "../Fields/textField"], function (exp
                             return {};
                         }
                     });
-                    vue_1.provide('isRequired', isRequired);
+                    vue_1.provide("isRequired", isRequired);
                     return {
                         label,
                         showValue,

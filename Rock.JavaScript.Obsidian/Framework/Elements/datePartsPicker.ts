@@ -14,11 +14,11 @@
 // limitations under the License.
 // </copyright>
 
-import { defineComponent, PropType } from 'vue';
-import { ruleArrayToString, ruleStringToArray } from '../Rules/index';
-import DateKey from '@Obsidian/Services/dateKey';
-import { toNumber, toNumberOrNull } from '@Obsidian/Services/number';
-import RockFormField from './rockFormField';
+import { defineComponent, PropType } from "vue";
+import { ruleArrayToString, ruleStringToArray } from "../Rules/index";
+import DateKey from "@Obsidian/Services/dateKey";
+import { toNumber, toNumberOrNull } from "@Obsidian/Services/number";
+import RockFormField from "./rockFormField";
 
 export interface DatePartsPickerModel {
     year: number;
@@ -35,14 +35,14 @@ export function getDefaultDatePartsPickerModel(): DatePartsPickerModel {
 }
 
 export default defineComponent({
-    name: 'DatePartsPicker',
+    name: "DatePartsPicker",
     components: {
         RockFormField
     },
     props: {
         rules: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         },
         modelValue: {
             type: Object as PropType<DatePartsPickerModel>,
@@ -119,10 +119,8 @@ export default defineComponent({
         computedRequireYear(): boolean {
             return this.showYear && this.requireYear;
         },
-        internalDateKey (): string
-        {
-            if ( !this.modelValue.year && !this.computedRequireYear )
-            {
+        internalDateKey (): string {
+            if ( !this.modelValue.year && !this.computedRequireYear ) {
                 const dateKey = DateKey.toNoYearDateKey( this.modelValue.month, this.modelValue.day );
                 return dateKey;
             }
@@ -130,29 +128,24 @@ export default defineComponent({
             const dateKey = DateKey.toDateKey( this.modelValue.year, this.modelValue.month, this.modelValue.day );
             return dateKey;
         },
-        computedRules (): string
-        {
+        computedRules (): string {
             const rules = ruleStringToArray( this.rules );
 
-            if ( rules.indexOf( 'required' ) !== -1 && rules.indexOf( 'datekey' ) === -1 )
-            {
-                rules.push( 'datekey' );
+            if ( rules.indexOf( "required" ) !== -1 && rules.indexOf( "datekey" ) === -1 ) {
+                rules.push( "datekey" );
             }
 
             return ruleArrayToString( rules );
         },
-        years (): string[]
-        {
+        years (): string[] {
             const years: string[] = [];
             let year = new Date().getFullYear();
 
-            if (this.futureYearCount > 0 && this.allowFutureDates)
-            {
+            if (this.futureYearCount > 0 && this.allowFutureDates) {
                 year += this.futureYearCount;
             }
 
-            while ( year >= 1900 )
-            {
+            while ( year >= 1900 ) {
                 years.push( year.toString() );
                 year--;
             }
@@ -180,7 +173,7 @@ export default defineComponent({
         },
 
         internalDay(): void {
-            this.$emit('update:modelValue', this.getValue());
+            this.$emit("update:modelValue", this.getValue());
         },
 
         internalMonth(): void {
@@ -192,7 +185,7 @@ export default defineComponent({
                 this.internalDay = this.days.length.toString();
             }
             else {
-                this.$emit('update:modelValue', this.getValue());
+                this.$emit("update:modelValue", this.getValue());
             }
         },
 
@@ -205,7 +198,7 @@ export default defineComponent({
                 this.internalDay = this.days.length.toString();
             }
             else {
-                this.$emit('update:modelValue', this.getValue());
+                this.$emit("update:modelValue", this.getValue());
             }
         },
     },

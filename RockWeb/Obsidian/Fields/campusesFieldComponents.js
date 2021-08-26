@@ -19,17 +19,17 @@ System.register(["vue", "./index", "../Elements/checkBoxList", "@Obsidian/Servic
         ],
         execute: function () {
             exports_1("EditComponent", EditComponent = vue_1.defineComponent({
-                name: 'CampusesField.Edit',
+                name: "CampusesField.Edit",
                 components: {
                     CheckBoxList: checkBoxList_1.default
                 },
                 props: index_1.getFieldEditorProps(),
                 setup(props, context) {
-                    const internalValue = vue_1.ref(props.modelValue ? props.modelValue.split(',') : []);
+                    const internalValue = vue_1.ref(props.modelValue ? props.modelValue.split(",") : []);
                     const options = vue_1.computed(() => {
                         var _a;
                         try {
-                            return JSON.parse((_a = props.configurationValues["values"]) !== null && _a !== void 0 ? _a : '[]');
+                            return JSON.parse((_a = props.configurationValues["values"]) !== null && _a !== void 0 ? _a : "[]");
                         }
                         catch (_b) {
                             return [];
@@ -40,8 +40,8 @@ System.register(["vue", "./index", "../Elements/checkBoxList", "@Obsidian/Servic
                         const repeatColumnsConfig = props.configurationValues["repeatColumns"];
                         return (_a = number_1.toNumberOrNull(repeatColumnsConfig)) !== null && _a !== void 0 ? _a : 4;
                     });
-                    vue_1.watch(() => props.modelValue, () => internalValue.value = props.modelValue ? props.modelValue.split(',') : []);
-                    vue_1.watchEffect(() => context.emit('update:modelValue', internalValue.value.join(',')));
+                    vue_1.watch(() => props.modelValue, () => internalValue.value = props.modelValue ? props.modelValue.split(",") : []);
+                    vue_1.watchEffect(() => context.emit("update:modelValue", internalValue.value.join(",")));
                     return {
                         internalValue,
                         options,

@@ -14,11 +14,11 @@
 // limitations under the License.
 // </copyright>
 //
-import Alert from '../Elements/alert';
-import { defineComponent, PropType } from 'vue';
+import Alert from "../Elements/alert";
+import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
-    name: 'RockValidation',
+    name: "RockValidation",
     components: {
         Alert
     },
@@ -48,8 +48,7 @@ export default defineComponent({
         submitCount() {
             const wasSubmitted = this.lastSubmitCount < this.submitCount;
 
-            if ( wasSubmitted )
-            {
+            if ( wasSubmitted ) {
                 const now = new Date().getTime();
                 this.errorsToShow = { ...this.errors };
                 this.lastErrorChangeMs = now;
@@ -58,10 +57,8 @@ export default defineComponent({
         },
         errors: {
             immediate: true,
-            handler()
-            {
-                if ( this.submitCount === -1 )
-                {
+            handler() {
+                if ( this.submitCount === -1 ) {
                     // Do not debounce, just sync. This instance is probably not within a traditional form.
                     this.errorsToShow = { ...this.errors };
                     return;
@@ -75,8 +72,7 @@ export default defineComponent({
                 const now = new Date().getTime();
                 const msSinceLastChange = now - this.lastErrorChangeMs;
 
-                if ( msSinceLastChange < 500 )
-                {
+                if ( msSinceLastChange < 500 ) {
                     this.errorsToShow = { ...this.errors };
                     this.lastErrorChangeMs = now;
                 }

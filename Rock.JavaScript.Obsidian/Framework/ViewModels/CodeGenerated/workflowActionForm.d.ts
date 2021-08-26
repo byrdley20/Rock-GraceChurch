@@ -22,7 +22,7 @@
 //
 
 import { Entity } from "../entity";
-import { Guid } from '../../Util/guid';
+import { Guid } from "../../Util/guid";
 
 export interface WorkflowActionForm extends Entity {
     actionAttributeGuid?: Guid | null;

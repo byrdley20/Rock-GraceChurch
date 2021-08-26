@@ -14,9 +14,9 @@
 // limitations under the License.
 // </copyright>
 //
-import axios from 'axios';
+import axios from "axios";
 
-export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 export type HttpUrlParams = Record<string, unknown> | undefined | null;
 export type HttpBodyData = Record<string, unknown> | undefined | null;
 
@@ -52,10 +52,8 @@ async function doApiCallRaw(method: HttpMethod, url: string, params: HttpUrlPara
 * @param {object} params Query parameter object.  Will be converted to ?key1=value1&key2=value2 as part of the URL.
 * @param {any} data This will be the body of the request
 */
-export async function doApiCall<T>( method: HttpMethod, url: string, params: HttpUrlParams = undefined, data: HttpBodyData = undefined ): Promise<HttpResult<T>>
-{
-    try
-    {
+export async function doApiCall<T>( method: HttpMethod, url: string, params: HttpUrlParams = undefined, data: HttpBodyData = undefined ): Promise<HttpResult<T>> {
+    try {
         const result = await doApiCallRaw( method, url, params, data );
 
         return {
@@ -66,10 +64,8 @@ export async function doApiCall<T>( method: HttpMethod, url: string, params: Htt
             errorMessage: null
         } as HttpResult<T>;
     }
-    catch ( e )
-    {
-        if ( e?.response?.data?.Message ?? e?.response?.data?.message )
-        {
+    catch ( e ) {
+        if ( e?.response?.data?.Message ?? e?.response?.data?.message ) {
             return {
                 data: null,
                 isError: true,
@@ -95,7 +91,7 @@ export async function doApiCall<T>( method: HttpMethod, url: string, params: Htt
 * @param {object} params Query parameter object.  Will be converted to ?key1=value1&key2=value2 as part of the URL.
 */
 export async function get<T>(url: string, params: HttpUrlParams = undefined): Promise<HttpResult<T>> {
-    return await doApiCall<T>('GET', url, params, undefined);
+    return await doApiCall<T>("GET", url, params, undefined);
 }
 
 /**
@@ -105,7 +101,7 @@ export async function get<T>(url: string, params: HttpUrlParams = undefined): Pr
 * @param {any} data This will be the body of the request
 */
 export async function post<T>(url: string, params: HttpUrlParams = undefined, data: HttpBodyData = undefined): Promise<HttpResult<T>> {
-    return await doApiCall<T>('POST', url, params, data);
+    return await doApiCall<T>("POST", url, params, data);
 }
 
 export default {

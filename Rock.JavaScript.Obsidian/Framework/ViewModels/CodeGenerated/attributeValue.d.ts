@@ -22,7 +22,7 @@
 //
 
 import { Entity } from "../entity";
-import { Attribute } from './attribute';
+import { Attribute } from "./attribute";
 
 export interface AttributeValue extends Entity {
     attribute?: Attribute | null;

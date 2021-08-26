@@ -13,7 +13,7 @@ System.register(["vue", "./numberBox"], function (exports_1, context_1) {
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'CurrencyBox',
+                name: "CurrencyBox",
                 components: {
                     NumberBox: numberBox_1.default
                 },
@@ -30,7 +30,7 @@ System.register(["vue", "./numberBox"], function (exports_1, context_1) {
                     },
                 },
                 emits: [
-                    'update:modelValue'
+                    "update:modelValue"
                 ],
                 data: function () {
                     return {
@@ -44,7 +44,7 @@ System.register(["vue", "./numberBox"], function (exports_1, context_1) {
                 },
                 watch: {
                     internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
+                        this.$emit("update:modelValue", this.internalValue);
                     },
                     modelValue: {
                         immediate: true,

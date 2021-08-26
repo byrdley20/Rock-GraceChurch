@@ -13,7 +13,7 @@ System.register(["vue", "./rockFormField"], function (exports_1, context_1) {
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'TextBox',
+                name: "TextBox",
                 components: {
                     RockFormField: rockFormField_1.default
                 },
@@ -24,7 +24,7 @@ System.register(["vue", "./rockFormField"], function (exports_1, context_1) {
                     },
                     type: {
                         type: String,
-                        default: 'text'
+                        default: "text"
                     },
                     maxLength: {
                         type: Number,
@@ -36,11 +36,11 @@ System.register(["vue", "./rockFormField"], function (exports_1, context_1) {
                     },
                     placeholder: {
                         type: String,
-                        default: ''
+                        default: ""
                     },
                     inputClasses: {
                         type: String,
-                        default: ''
+                        default: ""
                     },
                     rows: {
                         type: Number,
@@ -48,11 +48,11 @@ System.register(["vue", "./rockFormField"], function (exports_1, context_1) {
                     },
                     textMode: {
                         type: String,
-                        default: ''
+                        default: ""
                     }
                 },
                 emits: [
-                    'update:modelValue'
+                    "update:modelValue"
                 ],
                 data: function () {
                     return {
@@ -62,24 +62,24 @@ System.register(["vue", "./rockFormField"], function (exports_1, context_1) {
                 computed: {
                     isTextarea() {
                         var _a;
-                        return ((_a = this.textMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === 'multiline';
+                        return ((_a = this.textMode) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === "multiline";
                     },
                     charsRemaining() {
                         return this.maxLength - this.modelValue.length;
                     },
                     countdownClass() {
                         if (this.charsRemaining >= 10) {
-                            return 'badge-default';
+                            return "badge-default";
                         }
                         if (this.charsRemaining >= 0) {
-                            return 'badge-warning';
+                            return "badge-warning";
                         }
-                        return 'badge-danger';
+                        return "badge-danger";
                     }
                 },
                 watch: {
                     internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
+                        this.$emit("update:modelValue", this.internalValue);
                     },
                     modelValue() {
                         this.internalValue = this.modelValue;

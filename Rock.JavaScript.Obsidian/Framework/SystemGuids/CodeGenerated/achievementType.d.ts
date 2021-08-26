@@ -23,8 +23,8 @@
 
 export const enum AchievementType {
     /** Ten Weeks in a row */
-    TenWeeksInARow = '21E6CC63-702B-4A5D-BC92-503B0F5CAF5D',
+    TenWeeksInARow = "21E6CC63-702B-4A5D-BC92-503B0F5CAF5D",
     /** Twenty Weeks in a Year */
-    TwentyWeeksInAYear = '67EA551D-C3A6-4339-9F39-F6F4E4DAB4EA',
+    TwentyWeeksInAYear = "67EA551D-C3A6-4339-9F39-F6F4E4DAB4EA",
 }
 

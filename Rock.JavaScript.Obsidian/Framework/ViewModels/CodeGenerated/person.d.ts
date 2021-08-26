@@ -22,7 +22,7 @@
 //
 
 import { Entity } from "../entity";
-import { Guid } from '../../Util/guid';
+import { Guid } from "../../Util/guid";
 
 export interface Person extends Entity {
     ageClassification?: number;

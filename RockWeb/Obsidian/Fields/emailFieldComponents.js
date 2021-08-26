@@ -16,24 +16,24 @@ System.register(["vue", "./index", "../Elements/emailBox"], function (exports_1,
         ],
         execute: function () {
             exports_1("EditComponent", EditComponent = vue_1.defineComponent({
-                name: 'EmailField.Edit',
+                name: "EmailField.Edit",
                 components: {
                     EmailBox: emailBox_1.default
                 },
                 props: index_1.getFieldEditorProps(),
                 data() {
                     return {
-                        internalValue: ''
+                        internalValue: ""
                     };
                 },
                 watch: {
                     internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
+                        this.$emit("update:modelValue", this.internalValue);
                     },
                     modelValue: {
                         immediate: true,
                         handler() {
-                            this.internalValue = this.modelValue || '';
+                            this.internalValue = this.modelValue || "";
                         }
                     }
                 },

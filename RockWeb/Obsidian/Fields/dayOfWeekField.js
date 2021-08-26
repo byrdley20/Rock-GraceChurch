@@ -25,39 +25,39 @@ System.register(["vue", "./fieldType", "@Obsidian/Services/number"], function (e
         ],
         execute: function () {
             editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
-                return (yield context_1.import('./dayOfWeekFieldComponents')).EditComponent;
+                return (yield context_1.import("./dayOfWeekFieldComponents")).EditComponent;
             }));
             DayOfWeekFieldType = class DayOfWeekFieldType extends fieldType_1.FieldTypeBase {
                 updateTextValue(value) {
                     const dayValue = number_1.toNumberOrNull(value.value);
                     if (dayValue === null) {
-                        value.textValue = '';
+                        value.textValue = "";
                     }
                     else {
                         switch (dayValue) {
                             case 0:
-                                value.textValue = 'Sunday';
+                                value.textValue = "Sunday";
                                 break;
                             case 1:
-                                value.textValue = 'Monday';
+                                value.textValue = "Monday";
                                 break;
                             case 2:
-                                value.textValue = 'Tuesday';
+                                value.textValue = "Tuesday";
                                 break;
                             case 3:
-                                value.textValue = 'Wednesday';
+                                value.textValue = "Wednesday";
                                 break;
                             case 4:
-                                value.textValue = 'Thursday';
+                                value.textValue = "Thursday";
                                 break;
                             case 5:
-                                value.textValue = 'Friday';
+                                value.textValue = "Friday";
                                 break;
                             case 6:
-                                value.textValue = 'Saturday';
+                                value.textValue = "Saturday";
                                 break;
                             default:
-                                value.textValue = '';
+                                value.textValue = "";
                                 break;
                         }
                     }

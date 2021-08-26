@@ -25,27 +25,27 @@ System.register(["vue", "./fieldType", "@Obsidian/Services/boolean"], function (
         ],
         execute: function () {
             editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
-                return (yield context_1.import('./definedValueFieldComponents')).EditComponent;
+                return (yield context_1.import("./definedValueFieldComponents")).EditComponent;
             }));
             DefinedValueFieldType = class DefinedValueFieldType extends fieldType_1.FieldTypeBase {
                 updateTextValue(value) {
                     var _a, _b, _c, _d;
                     try {
-                        const clientValue = JSON.parse((_a = value.value) !== null && _a !== void 0 ? _a : '');
+                        const clientValue = JSON.parse((_a = value.value) !== null && _a !== void 0 ? _a : "");
                         try {
-                            const values = JSON.parse((_c = (_b = value.configurationValues) === null || _b === void 0 ? void 0 : _b["values"]) !== null && _c !== void 0 ? _c : '[]');
+                            const values = JSON.parse((_c = (_b = value.configurationValues) === null || _b === void 0 ? void 0 : _b["values"]) !== null && _c !== void 0 ? _c : "[]");
                             const displayDescription = boolean_1.asBoolean((_d = value.configurationValues) === null || _d === void 0 ? void 0 : _d["displaydescription"]);
-                            const rawValues = clientValue.value.split(',');
+                            const rawValues = clientValue.value.split(",");
                             value.textValue = values.filter(v => rawValues.includes(v.value))
                                 .map(v => displayDescription ? v.description : v.text)
-                                .join(', ');
+                                .join(", ");
                         }
                         catch (_e) {
                             value.textValue = clientValue.value;
                         }
                     }
                     catch (_f) {
-                        value.textValue = '';
+                        value.textValue = "";
                     }
                 }
                 getEditComponent(_value) {

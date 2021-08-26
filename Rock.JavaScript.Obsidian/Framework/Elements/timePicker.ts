@@ -14,15 +14,15 @@
 // limitations under the License.
 // </copyright>
 
-import { defineComponent, PropType } from 'vue';
-import { ruleArrayToString, ruleStringToArray } from '../Rules/index';
-import BasicTimePicker, { BasicTimePickerModelValue as TimePickerModelValue } from './basicTimePicker';
-import RockFormField from './rockFormField';
+import { defineComponent, PropType } from "vue";
+import { ruleArrayToString, ruleStringToArray } from "../Rules/index";
+import BasicTimePicker, { BasicTimePickerModelValue as TimePickerModelValue } from "./basicTimePicker";
+import RockFormField from "./rockFormField";
 
-export { BasicTimePickerModelValue as TimePickerModelValue } from './basicTimePicker';
+export { BasicTimePickerModelValue as TimePickerModelValue } from "./basicTimePicker";
 
 export default defineComponent({
-    name: 'TimePicker',
+    name: "TimePicker",
     components: {
         RockFormField,
         BasicTimePicker
@@ -30,7 +30,7 @@ export default defineComponent({
     props: {
         rules: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         },
         modelValue: {
             type: Object as PropType<TimePickerModelValue>,

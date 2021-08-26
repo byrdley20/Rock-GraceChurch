@@ -13,7 +13,7 @@ System.register(["vue", "./rockFormField"], function (exports_1, context_1) {
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'StaticFormControl',
+                name: "StaticFormControl",
                 components: {
                     RockFormField: rockFormField_1.default
                 },

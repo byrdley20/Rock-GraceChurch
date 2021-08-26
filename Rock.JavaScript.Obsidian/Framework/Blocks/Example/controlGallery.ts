@@ -15,47 +15,47 @@
 // </copyright>
 //
 
-import PaneledBlockTemplate from '../../Templates/paneledBlockTemplate';
-import { defineComponent, PropType } from 'vue';
-import TextBox from '../../Elements/textBox';
-import EmailBox from '../../Elements/emailBox';
-import CurrencyBox from '../../Elements/currencyBox';
-import PanelWidget from '../../Elements/panelWidget';
-import DatePicker from '../../Elements/datePicker';
-import DateRangePicker from '../../Elements/dateRangePicker';
-import DateTimePicker from '../../Elements/dateTimePicker';
-import ListBox from '../../Elements/listBox';
-import BirthdayPicker from '../../Elements/birthdayPicker';
-import NumberUpDown from '../../Elements/numberUpDown';
-import AddressControl, { getDefaultAddressControlModel } from '../../Controls/addressControl';
-import Toggle from '../../Elements/toggle';
-import ItemsWithPreAndPostHtml, { ItemWithPreAndPostHtml } from '../../Elements/itemsWithPreAndPostHtml';
-import StaticFormControl from '../../Elements/staticFormControl';
-import ProgressTracker, { ProgressTrackerItem } from '../../Elements/progressTracker';
-import RockForm from '../../Controls/rockForm';
-import RockButton from '../../Elements/rockButton';
-import RadioButtonList from '../../Elements/radioButtonList';
-import DropDownList, { DropDownListOption } from '../../Elements/dropDownList';
-import Dialog from '../../Controls/dialog';
-import CheckBox from '../../Elements/checkBox';
-import PhoneNumberBox from '../../Elements/phoneNumberBox';
-import HelpBlock from '../../Elements/helpBlock';
-import DatePartsPicker, { DatePartsPickerModel } from '../../Elements/datePartsPicker';
-import ColorPicker from '../../Elements/colorPicker';
-import NumberBox from '../../Elements/numberBox';
-import NumberRangeBox from '../../Elements/numberRangeBox';
-import GenderDropDownList from '../../Elements/genderDropDownList';
-import SocialSecurityNumberBox from '../../Elements/socialSecurityNumberBox';
-import TimePicker from '../../Elements/timePicker';
-import CheckBoxList from '../../Elements/checkBoxList';
-import Rating from '../../Elements/rating';
-import { toNumber } from '@Obsidian/Services/number';
-import { ListItem } from '@Obsidian/ViewModels';
+import PaneledBlockTemplate from "../../Templates/paneledBlockTemplate";
+import { defineComponent, PropType } from "vue";
+import TextBox from "../../Elements/textBox";
+import EmailBox from "../../Elements/emailBox";
+import CurrencyBox from "../../Elements/currencyBox";
+import PanelWidget from "../../Elements/panelWidget";
+import DatePicker from "../../Elements/datePicker";
+import DateRangePicker from "../../Elements/dateRangePicker";
+import DateTimePicker from "../../Elements/dateTimePicker";
+import ListBox from "../../Elements/listBox";
+import BirthdayPicker from "../../Elements/birthdayPicker";
+import NumberUpDown from "../../Elements/numberUpDown";
+import AddressControl, { getDefaultAddressControlModel } from "../../Controls/addressControl";
+import Toggle from "../../Elements/toggle";
+import ItemsWithPreAndPostHtml, { ItemWithPreAndPostHtml } from "../../Elements/itemsWithPreAndPostHtml";
+import StaticFormControl from "../../Elements/staticFormControl";
+import ProgressTracker, { ProgressTrackerItem } from "../../Elements/progressTracker";
+import RockForm from "../../Controls/rockForm";
+import RockButton from "../../Elements/rockButton";
+import RadioButtonList from "../../Elements/radioButtonList";
+import DropDownList, { DropDownListOption } from "../../Elements/dropDownList";
+import Dialog from "../../Controls/dialog";
+import CheckBox from "../../Elements/checkBox";
+import PhoneNumberBox from "../../Elements/phoneNumberBox";
+import HelpBlock from "../../Elements/helpBlock";
+import DatePartsPicker, { DatePartsPickerModel } from "../../Elements/datePartsPicker";
+import ColorPicker from "../../Elements/colorPicker";
+import NumberBox from "../../Elements/numberBox";
+import NumberRangeBox from "../../Elements/numberRangeBox";
+import GenderDropDownList from "../../Elements/genderDropDownList";
+import SocialSecurityNumberBox from "../../Elements/socialSecurityNumberBox";
+import TimePicker from "../../Elements/timePicker";
+import CheckBoxList from "../../Elements/checkBoxList";
+import Rating from "../../Elements/rating";
+import { toNumber } from "@Obsidian/Services/number";
+import { ListItem } from "@Obsidian/ViewModels";
 
 /** An inner component that describes the template used for each of the controls
  *  within this control gallery */
 const GalleryAndResult = defineComponent({
-    name: 'GalleryAndResult',
+    name: "GalleryAndResult",
     components: {
         PanelWidget
     },
@@ -89,15 +89,14 @@ const GalleryAndResult = defineComponent({
 
 /** Demonstrates a phone number box */
 const PhoneNumberBoxGallery = defineComponent( {
-    name: 'PhoneNumberBoxGallery',
+    name: "PhoneNumberBoxGallery",
     components: {
         GalleryAndResult,
         PhoneNumberBox
     },
-    data ()
-    {
+    data () {
         return {
-            phoneNumber: ''
+            phoneNumber: ""
         };
     },
     template: `
@@ -117,7 +116,7 @@ const PhoneNumberBoxGallery = defineComponent( {
 
 /** Demonstrates a help block */
 const HelpBlockGallery = defineComponent( {
-    name: 'HelpBlockGallery',
+    name: "HelpBlockGallery",
     components: {
         GalleryAndResult,
         HelpBlock
@@ -135,20 +134,19 @@ const HelpBlockGallery = defineComponent( {
 
 /** Demonstrates a drop down list */
 const DropDownListGallery = defineComponent( {
-    name: 'DropDownListGallery',
+    name: "DropDownListGallery",
     components: {
         GalleryAndResult,
         DropDownList
     },
-    data ()
-    {
+    data () {
         return {
-            value: 'a',
+            value: "a",
             options: [
-                { text: 'A Text', value: 'a' },
-                { text: 'B Text', value: 'b' },
-                { text: 'C Text', value: 'c' },
-                { text: 'D Text', value: 'd' }
+                { text: "A Text", value: "a" },
+                { text: "B Text", value: "b" },
+                { text: "C Text", value: "c" },
+                { text: "D Text", value: "d" }
             ] as DropDownListOption[]
         };
     },
@@ -171,27 +169,26 @@ const DropDownListGallery = defineComponent( {
 
 /** Demonstrates a radio button list */
 const RadioButtonListGallery = defineComponent( {
-    name: 'RadioButtonListGallery',
+    name: "RadioButtonListGallery",
     components: {
         GalleryAndResult,
         RadioButtonList,
         Toggle,
         NumberUpDown
     },
-    data ()
-    {
+    data () {
         return {
-            value: 'a',
+            value: "a",
             isHorizontal: true,
             repeatColumns: 0,
             options: [
-                { text: 'A Text', value: 'a' },
-                { text: 'B Text', value: 'b' },
-                { text: 'C Text', value: 'c' },
-                { text: 'D Text', value: 'd' },
-                { text: 'E Text', value: 'e' },
-                { text: 'F Text', value: 'f' },
-                { text: 'G Text', value: 'g' }
+                { text: "A Text", value: "a" },
+                { text: "B Text", value: "b" },
+                { text: "C Text", value: "c" },
+                { text: "D Text", value: "d" },
+                { text: "E Text", value: "e" },
+                { text: "F Text", value: "f" },
+                { text: "G Text", value: "g" }
             ] as DropDownListOption[]
         };
     },
@@ -214,14 +211,13 @@ const RadioButtonListGallery = defineComponent( {
 
 /** Demonstrates a checkbox */
 const CheckBoxGallery = defineComponent( {
-    name: 'CheckBoxGallery',
+    name: "CheckBoxGallery",
     components: {
         GalleryAndResult,
         CheckBox,
         Toggle
     },
-    data ()
-    {
+    data () {
         return {
             isChecked: false,
             inline: true
@@ -245,15 +241,14 @@ const CheckBoxGallery = defineComponent( {
 
 /** Demonstrates a modal / dialog / pop-up */
 const DialogGallery = defineComponent( {
-    name: 'DialogGallery',
+    name: "DialogGallery",
     components: {
         GalleryAndResult,
         RockButton,
         Dialog,
         CheckBox
     },
-    data ()
-    {
+    data () {
         return {
             isDialogVisible: false,
             isDismissible: false
@@ -299,7 +294,7 @@ const DialogGallery = defineComponent( {
 
 /** Demonstrates how rock forms work with rules to produce validation messages */
 const FormRulesGallery = defineComponent( {
-    name: 'FormRulesGallery',
+    name: "FormRulesGallery",
     components: {
         GalleryAndResult,
         RockForm,
@@ -307,12 +302,11 @@ const FormRulesGallery = defineComponent( {
         CurrencyBox,
         RockButton
     },
-    data ()
-    {
+    data () {
         return {
             ruleTestCurrency: 1,
-            ruleTestText: '',
-            rules: 'required'
+            ruleTestText: "",
+            rules: "required"
         };
     },
     template: `
@@ -334,7 +328,7 @@ const FormRulesGallery = defineComponent( {
 
 /** Demonstrates check box list */
 const CheckBoxListGallery = defineComponent({
-    name: 'CheckBoxListGallery',
+    name: "CheckBoxListGallery",
     components: {
         GalleryAndResult,
         CheckBoxList
@@ -366,19 +360,19 @@ const CheckBoxListGallery = defineComponent({
 
 /** Demonstrates a list box */
 const ListBoxGallery = defineComponent({
-    name: 'ListBoxGallery',
+    name: "ListBoxGallery",
     components: {
         GalleryAndResult,
         ListBox
     },
     data() {
         return {
-            value: ['a'],
+            value: ["a"],
             options: [
-                { text: 'A Text', value: 'a' },
-                { text: 'B Text', value: 'b' },
-                { text: 'C Text', value: 'c' },
-                { text: 'D Text', value: 'd' }
+                { text: "A Text", value: "a" },
+                { text: "B Text", value: "b" },
+                { text: "C Text", value: "c" },
+                { text: "D Text", value: "d" }
             ] as ListItem[]
         };
     },
@@ -401,16 +395,15 @@ const ListBoxGallery = defineComponent({
 
 /** Demonstrates date pickers */
 const DatePickerGallery = defineComponent( {
-    name: 'DatePickerGallery',
+    name: "DatePickerGallery",
     components: {
         GalleryAndResult,
         DatePicker
     },
-    data ()
-    {
+    data () {
         return {
             date: null as string | null,
-            currentDate: 'CURRENT:1'
+            currentDate: "CURRENT:1"
         };
     },
     template: `
@@ -434,7 +427,7 @@ const DatePickerGallery = defineComponent( {
 
 /** Demonstrates date range pickers */
 const DateRangePickerGallery = defineComponent({
-    name: 'DateRangePickerGallery',
+    name: "DateRangePickerGallery",
     components: {
         GalleryAndResult,
         DateRangePicker
@@ -461,7 +454,7 @@ const DateRangePickerGallery = defineComponent({
 
 /** Demonstrates date time pickers */
 const DateTimePickerGallery = defineComponent({
-    name: 'DatePickerGallery',
+    name: "DatePickerGallery",
     components: {
         GalleryAndResult,
         DateTimePicker
@@ -488,15 +481,14 @@ const DateTimePickerGallery = defineComponent({
 
 /** Demonstrates date part pickers */
 const DatePartsPickerGallery = defineComponent( {
-    name: 'DatePartsPickerGallery',
+    name: "DatePartsPickerGallery",
     components: {
         GalleryAndResult,
         Toggle,
         BirthdayPicker,
         DatePartsPicker
     },
-    data ()
-    {
+    data () {
         return {
             showYear: true,
             datePartsModel: {
@@ -524,15 +516,14 @@ const DatePartsPickerGallery = defineComponent( {
 
 /** Demonstrates a textbox */
 const TextBoxGallery = defineComponent( {
-    name: 'TextBoxGallery',
+    name: "TextBoxGallery",
     components: {
         GalleryAndResult,
         TextBox
     },
-    data ()
-    {
+    data () {
         return {
-            text: 'Some two-way bound text',
+            text: "Some two-way bound text",
         };
     },
     template: `
@@ -553,14 +544,14 @@ const TextBoxGallery = defineComponent( {
 
 /** Demonstrates a color picker */
 const ColorPickerGallery = defineComponent({
-    name: 'ColorPickerGallery',
+    name: "ColorPickerGallery",
     components: {
         GalleryAndResult,
         ColorPicker
     },
     data() {
         return {
-            value: '#ee7725',
+            value: "#ee7725",
         };
     },
     template: `
@@ -579,7 +570,7 @@ const ColorPickerGallery = defineComponent({
 
 /** Demonstrates a number box */
 const NumberBoxGallery = defineComponent({
-    name: 'NumberBoxGallery',
+    name: "NumberBoxGallery",
     components: {
         GalleryAndResult,
         RockForm,
@@ -589,8 +580,8 @@ const NumberBoxGallery = defineComponent({
     },
     data() {
         return {
-            minimumValue: '0',
-            maximumValue: '100',
+            minimumValue: "0",
+            maximumValue: "100",
             value: 42,
         };
     },
@@ -623,7 +614,7 @@ const NumberBoxGallery = defineComponent({
 
 /** Demonstrates a number box */
 const NumberRangeBoxGallery = defineComponent({
-    name: 'NumberRangeBoxGallery',
+    name: "NumberRangeBoxGallery",
     components: {
         GalleryAndResult,
         RockForm,
@@ -655,7 +646,7 @@ const NumberRangeBoxGallery = defineComponent({
 
 /** Demonstrates a gender picker */
 const GenderDropDownListGallery = defineComponent({
-    name: 'GenderDropDownListGallery',
+    name: "GenderDropDownListGallery",
     components: {
         GalleryAndResult,
         RockForm,
@@ -665,7 +656,7 @@ const GenderDropDownListGallery = defineComponent({
     },
     data() {
         return {
-            value: '1',
+            value: "1",
         };
     },
     template: `
@@ -687,7 +678,7 @@ const GenderDropDownListGallery = defineComponent({
 
 /** Demonstrates a social security number box */
 const SocialSecurityNumberBoxGallery = defineComponent({
-    name: 'SocialSecurityNumberBoxGallery',
+    name: "SocialSecurityNumberBoxGallery",
     components: {
         GalleryAndResult,
         RockForm,
@@ -697,7 +688,7 @@ const SocialSecurityNumberBoxGallery = defineComponent({
     },
     data() {
         return {
-            value: '123-45-6789',
+            value: "123-45-6789",
         };
     },
     template: `
@@ -719,7 +710,7 @@ const SocialSecurityNumberBoxGallery = defineComponent({
 
 /** Demonstrates a time picker */
 const TimePickerGallery = defineComponent({
-    name: 'TimePickerGallery',
+    name: "TimePickerGallery",
     components: {
         GalleryAndResult,
         RockForm,
@@ -751,7 +742,7 @@ const TimePickerGallery = defineComponent({
 
 /** Demonstrates a rating picker */
 const RatingGallery = defineComponent({
-    name: 'RatingGallery',
+    name: "RatingGallery",
     components: {
         GalleryAndResult,
         RockForm,
@@ -782,7 +773,7 @@ const RatingGallery = defineComponent({
 });
 
 export default defineComponent({
-    name: 'Example.ControlGallery',
+    name: "Example.ControlGallery",
     components: {
         PaneledBlockTemplate,
         GalleryAndResult,
@@ -823,26 +814,26 @@ export default defineComponent({
         return {
             
             currency: 1.234,
-            email: 'joe@joes.co',
+            email: "joe@joes.co",
             numberUpDown: 1,
             address: getDefaultAddressControlModel(),
             toggle: false,
             prePostHtmlItems: [
-                { preHtml: '<div class="row"><div class="col-sm-6">', postHtml: '</div>', slotName: 'item1' },
-                { preHtml: '<div class="col-sm-6">', postHtml: '</div></div>', slotName: 'item2' }
+                { preHtml: '<div class="row"><div class="col-sm-6">', postHtml: "</div>", slotName: "item1" },
+                { preHtml: '<div class="col-sm-6">', postHtml: "</div></div>", slotName: "item2" }
             ] as ItemWithPreAndPostHtml[],
             progressTrackerIndex: 0,
             progressTrackerItems: [
-                { key: 'S', title: 'Start', subtitle: 'The beginning' },
-                { key: '1', title: 'Step 1', subtitle: 'The first step' },
-                { key: '2', title: 'Step 2', subtitle: 'The second step' },
-                { key: '3', title: 'Step 3', subtitle: 'The third step' },
-                { key: '4', title: 'Step 4', subtitle: 'The fourth step' },
-                { key: '5', title: 'Step 5', subtitle: 'The fifth step' },
-                { key: '6', title: 'Step 6', subtitle: 'The sixth step' },
-                { key: '7', title: 'Step 7', subtitle: 'The seventh step' },
-                { key: '8', title: 'Step 8', subtitle: 'The eighth step' },
-                { key: 'F', title: 'Finish', subtitle: 'The finish' }
+                { key: "S", title: "Start", subtitle: "The beginning" },
+                { key: "1", title: "Step 1", subtitle: "The first step" },
+                { key: "2", title: "Step 2", subtitle: "The second step" },
+                { key: "3", title: "Step 3", subtitle: "The third step" },
+                { key: "4", title: "Step 4", subtitle: "The fourth step" },
+                { key: "5", title: "Step 5", subtitle: "The fifth step" },
+                { key: "6", title: "Step 6", subtitle: "The sixth step" },
+                { key: "7", title: "Step 7", subtitle: "The seventh step" },
+                { key: "8", title: "Step 8", subtitle: "The eighth step" },
+                { key: "F", title: "Finish", subtitle: "The finish" }
             ] as ProgressTrackerItem[]
         };
     },

@@ -14,10 +14,10 @@
 // limitations under the License.
 // </copyright>
 //
-import { getFieldType } from '../Fields/index';
-import { computed, defineComponent, PropType, provide } from 'vue';
-import { TextFieldType } from '../Fields/textField';
-import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
+import { getFieldType } from "../Fields/index";
+import { computed, defineComponent, PropType, provide } from "vue";
+import { TextFieldType } from "../Fields/textField";
+import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
 
 const textField = new TextFieldType();
 
@@ -26,7 +26,7 @@ function instanceOfEditable(value: ClientAttributeValue): value is ClientEditabl
 }
 
 export default defineComponent({
-    name: 'RockField',
+    name: "RockField",
     props: {
         attributeValue: {
             type: Object as PropType<ClientAttributeValue | ClientEditableAttributeValue>,
@@ -49,13 +49,13 @@ export default defineComponent({
         });
 
         /** True if the read-only value should be displayed. */
-        const showValue = computed(() => props.showEmptyValue || field.value.getTextValue(props.attributeValue) !== '');
+        const showValue = computed(() => props.showEmptyValue || field.value.getTextValue(props.attributeValue) !== "");
 
         /** True if this field is required and must be filled in. */
         const isRequired = computed(() => instanceOfEditable(props.attributeValue) && props.attributeValue.isRequired);
 
         /** Indicates to the editor component if this field is required or not. */
-        const rules = computed(() => isRequired.value ? 'required' : '');
+        const rules = computed(() => isRequired.value ? "required" : "");
 
         /** True if we are currently in edit mode. */
         const isEditMode = computed(() => props.isEditMode && instanceOfEditable(props.attributeValue));
@@ -64,7 +64,7 @@ export default defineComponent({
         const label = computed(() => props.attributeValue.name);
 
         /** The help text to display in the help bubble when in edit mode. */
-        const helpText = computed(() => instanceOfEditable(props.attributeValue) ? props.attributeValue.description : '');
+        const helpText = computed(() => instanceOfEditable(props.attributeValue) ? props.attributeValue.description : "");
 
         /** The read-only component to use to display the value. */
         const valueComponent = computed(() => {
@@ -84,7 +84,7 @@ export default defineComponent({
 
         /** The value to display or edit. */
         const value = computed({
-            get: () => props.attributeValue.value || '',
+            get: () => props.attributeValue.value || "",
             set(newValue) {
                 props.attributeValue.value = newValue;
 
@@ -104,7 +104,7 @@ export default defineComponent({
             }
         });
 
-        provide('isRequired', isRequired);
+        provide("isRequired", isRequired);
 
         return {
             label,

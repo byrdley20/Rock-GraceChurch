@@ -22,7 +22,7 @@ System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "../Util
         ],
         execute: function () {
             exports_1("DatePickerBase", DatePickerBase = vue_1.defineComponent({
-                name: 'DatePickerBase',
+                name: "DatePickerBase",
                 props: {
                     modelValue: {
                         type: String,
@@ -30,7 +30,7 @@ System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "../Util
                     },
                     id: {
                         type: String,
-                        default: ''
+                        default: ""
                     },
                     disabled: {
                         type: Boolean,
@@ -38,7 +38,7 @@ System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "../Util
                     }
                 },
                 emits: [
-                    'update:modelValue'
+                    "update:modelValue"
                 ],
                 data: function () {
                     return {
@@ -52,7 +52,7 @@ System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "../Util
                     },
                     asRockDateOrNull() {
                         var _a;
-                        const match = /^(\d+)\/(\d+)\/(\d+)/.exec((_a = this.internalValue) !== null && _a !== void 0 ? _a : '');
+                        const match = /^(\d+)\/(\d+)\/(\d+)/.exec((_a = this.internalValue) !== null && _a !== void 0 ? _a : "");
                         if (match !== null) {
                             return `${match[3]}-${match[1]}-${match[2]}`;
                         }
@@ -63,7 +63,7 @@ System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "../Util
                 },
                 watch: {
                     asRockDateOrNull() {
-                        this.$emit('update:modelValue', this.asRockDateOrNull);
+                        this.$emit("update:modelValue", this.asRockDateOrNull);
                     },
                     modelValue: {
                         immediate: true,
@@ -83,14 +83,14 @@ System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "../Util
                     }
                 },
                 mounted() {
-                    const input = this.$refs['input'];
+                    const input = this.$refs["input"];
                     const inputId = input.id;
                     const Rock = window.Rock;
                     Rock.controls.datePicker.initialize({
                         id: inputId,
                         startView: 0,
                         showOnFocus: true,
-                        format: 'mm/dd/yyyy',
+                        format: "mm/dd/yyyy",
                         todayHighlight: true,
                         forceParse: true,
                         onChangeScript: () => {
@@ -108,7 +108,7 @@ System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "../Util
 `
             }));
             exports_1("default", vue_1.defineComponent({
-                name: 'DatePicker',
+                name: "DatePicker",
                 components: {
                     RockFormField: rockFormField_1.default,
                     DatePickerBase,
@@ -129,13 +129,13 @@ System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "../Util
                     }
                 },
                 emits: [
-                    'update:modelValue'
+                    "update:modelValue"
                 ],
                 data: function () {
                     return {
                         internalValue: null,
                         isCurrent: false,
-                        currentDiff: '0'
+                        currentDiff: "0"
                     };
                 },
                 computed: {
@@ -155,7 +155,7 @@ System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "../Util
                         immediate: true,
                         handler() {
                             if (!this.isCurrentDateOffset) {
-                                this.currentDiff = '0';
+                                this.currentDiff = "0";
                             }
                         }
                     },
@@ -163,12 +163,12 @@ System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "../Util
                         immediate: true,
                         handler() {
                             if (this.isCurrent) {
-                                this.internalValue = 'Current';
+                                this.internalValue = "Current";
                             }
                         }
                     },
                     valueToEmit() {
-                        this.$emit('update:modelValue', this.valueToEmit);
+                        this.$emit("update:modelValue", this.valueToEmit);
                     },
                     modelValue: {
                         immediate: true,
@@ -176,12 +176,12 @@ System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "../Util
                             if (!this.modelValue) {
                                 this.internalValue = null;
                                 this.isCurrent = false;
-                                this.currentDiff = '0';
+                                this.currentDiff = "0";
                                 return;
                             }
-                            if (this.modelValue.indexOf('CURRENT') === 0) {
+                            if (this.modelValue.indexOf("CURRENT") === 0) {
                                 this.isCurrent = true;
-                                const parts = this.modelValue.split(':');
+                                const parts = this.modelValue.split(":");
                                 if (parts.length === 2) {
                                     this.currentDiff = `${number_1.toNumber(parts[1])}`;
                                 }

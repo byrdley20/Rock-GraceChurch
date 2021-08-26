@@ -13,8 +13,8 @@ System.register(["../Util/http", "vue", "../Store/index", "../Elements/alert"], 
     var __moduleName = context_1 && context_1.id;
     function standardBlockSetup() {
         return {
-            configurationValues: vue_1.inject('configurationValues'),
-            invokeBlockAction: vue_1.inject('invokeBlockAction')
+            configurationValues: vue_1.inject("configurationValues"),
+            invokeBlockAction: vue_1.inject("invokeBlockAction")
         };
     }
     exports_1("standardBlockSetup", standardBlockSetup);
@@ -35,7 +35,7 @@ System.register(["../Util/http", "vue", "../Store/index", "../Elements/alert"], 
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'RockBlock',
+                name: "RockBlock",
                 components: {
                     Alert: alert_1.default
                 },
@@ -67,10 +67,10 @@ System.register(["../Util/http", "vue", "../Store/index", "../Elements/alert"], 
                         return yield http_1.doApiCall(method, url, params, data);
                     });
                     const get = (url, params = undefined) => __awaiter(this, void 0, void 0, function* () {
-                        return yield httpCall('GET', url, params);
+                        return yield httpCall("GET", url, params);
                     });
                     const post = (url, params = undefined, data = undefined) => __awaiter(this, void 0, void 0, function* () {
-                        return yield httpCall('POST', url, params, data);
+                        return yield httpCall("POST", url, params, data);
                     });
                     const invokeBlockAction = (actionName, data = undefined) => __awaiter(this, void 0, void 0, function* () {
                         return yield post(`/api/v2/BlockActions/${props.config.blockGuid}/${actionName}`, undefined, Object.assign({ __context: {
@@ -78,20 +78,20 @@ System.register(["../Util/http", "vue", "../Store/index", "../Elements/alert"], 
                             } }, data));
                     });
                     const blockHttp = { get, post };
-                    vue_1.provide('http', blockHttp);
-                    vue_1.provide('invokeBlockAction', invokeBlockAction);
-                    vue_1.provide('configurationValues', props.config.configurationValues);
+                    vue_1.provide("http", blockHttp);
+                    vue_1.provide("invokeBlockAction", invokeBlockAction);
+                    vue_1.provide("configurationValues", props.config.configurationValues);
                 },
                 data() {
                     return {
                         blockGuid: this.config.blockGuid,
-                        error: '',
+                        error: "",
                         finishTimeMs: null
                     };
                 },
                 methods: {
                     clearError() {
-                        this.error = '';
+                        this.error = "";
                     }
                 },
                 computed: {
@@ -106,7 +106,7 @@ System.register(["../Util/http", "vue", "../Store/index", "../Elements/alert"], 
                     }
                 },
                 errorCaptured(err) {
-                    const defaultMessage = 'An unknown error was caught from the block.';
+                    const defaultMessage = "An unknown error was caught from the block.";
                     if (err instanceof Error) {
                         this.error = err.message || defaultMessage;
                     }
@@ -120,15 +120,15 @@ System.register(["../Util/http", "vue", "../Store/index", "../Elements/alert"], 
                 mounted() {
                     var _a;
                     this.finishTimeMs = (new Date()).getTime();
-                    const componentName = ((_a = this.blockComponent) === null || _a === void 0 ? void 0 : _a.name) || '';
-                    const nameParts = componentName.split('.');
-                    let subtitle = nameParts[0] || '';
-                    if (subtitle && subtitle.indexOf('(') !== 0) {
+                    const componentName = ((_a = this.blockComponent) === null || _a === void 0 ? void 0 : _a.name) || "";
+                    const nameParts = componentName.split(".");
+                    let subtitle = nameParts[0] || "";
+                    if (subtitle && subtitle.indexOf("(") !== 0) {
                         subtitle = `(${subtitle})`;
                     }
                     if (nameParts.length) {
                         index_1.default.commit("addPageDebugTiming", {
-                            title: nameParts[1] || '<Unnamed>',
+                            title: nameParts[1] || "<Unnamed>",
                             subtitle: subtitle,
                             startTimeMs: this.startTimeMs,
                             finishTimeMs: this.finishTimeMs

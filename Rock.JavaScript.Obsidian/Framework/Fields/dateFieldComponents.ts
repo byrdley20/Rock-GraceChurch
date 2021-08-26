@@ -14,16 +14,16 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { getFieldEditorProps } from './index';
-import DatePicker from '../Elements/datePicker';
-import { asBoolean } from '@Obsidian/Services/boolean';
-import { toNumber } from '@Obsidian/Services/number';
-import DatePartsPicker, { getDefaultDatePartsPickerModel } from '../Elements/datePartsPicker';
-import { ConfigurationValueKey } from './dateField';
+import { defineComponent } from "vue";
+import { getFieldEditorProps } from "./index";
+import DatePicker from "../Elements/datePicker";
+import { asBoolean } from "@Obsidian/Services/boolean";
+import { toNumber } from "@Obsidian/Services/number";
+import DatePartsPicker, { getDefaultDatePartsPickerModel } from "../Elements/datePartsPicker";
+import { ConfigurationValueKey } from "./dateField";
 
 export const EditComponent = defineComponent({
-    name: 'DateField.Edit',
+    name: "DateField.Edit",
 
     components: {
         DatePicker,
@@ -34,9 +34,9 @@ export const EditComponent = defineComponent({
 
     data() {
         return {
-            internalValue: '',
+            internalValue: "",
             internalDateParts: getDefaultDatePartsPickerModel(),
-            formattedString: ''
+            formattedString: ""
         };
     },
 
@@ -56,7 +56,7 @@ export const EditComponent = defineComponent({
 
         isDatePartsPicker(): boolean {
             const config = this.configurationValues[ConfigurationValueKey.DatePickerControlType];
-            return config?.toLowerCase() === 'date parts picker';
+            return config?.toLowerCase() === "date parts picker";
         },
 
         configAttributes(): Record<string, number | boolean> {
@@ -80,8 +80,8 @@ export const EditComponent = defineComponent({
 
     methods: {
         syncModelValue(): void {
-            this.internalValue = this.modelValue ?? '';
-            const dateParts = /^(\d{4})-(\d{1,2})-(\d{1,2})/.exec(this.modelValue ?? '');
+            this.internalValue = this.modelValue ?? "";
+            const dateParts = /^(\d{4})-(\d{1,2})-(\d{1,2})/.exec(this.modelValue ?? "");
 
             if (dateParts != null) {
                 this.internalDateParts.year = toNumber(dateParts[1]);
@@ -100,10 +100,10 @@ export const EditComponent = defineComponent({
         datePartsAsDate(): void {
             if (this.isDatePartsPicker) {
                 const d1 = this.datePartsAsDate;
-                const d2 = Date.parse(this.modelValue ?? '');
+                const d2 = Date.parse(this.modelValue ?? "");
 
                 if (d1 === null || isNaN(d2) || d1.getTime() !== d2) {
-                    this.$emit('update:modelValue', d1 !== null ? d1.toISOString().split('T')[0] : '');
+                    this.$emit("update:modelValue", d1 !== null ? d1.toISOString().split("T")[0] : "");
                 }
             }
         },
@@ -111,10 +111,10 @@ export const EditComponent = defineComponent({
         internalValue(): void {
             if (!this.isDatePartsPicker) {
                 const d1 = Date.parse(this.internalValue);
-                const d2 = Date.parse(this.modelValue ?? '');
+                const d2 = Date.parse(this.modelValue ?? "");
 
                 if (isNaN(d1) || isNaN(d2) || d1 !== d2) {
-                    this.$emit('update:modelValue', this.internalValue);
+                    this.$emit("update:modelValue", this.internalValue);
                 }
             }
         },

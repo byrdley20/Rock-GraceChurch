@@ -14,14 +14,14 @@
 // limitations under the License.
 // </copyright>
 //
-import { Component, defineAsyncComponent } from 'vue';
-import { FieldTypeBase } from './fieldType';
-import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
-import { toNumberOrNull } from '@Obsidian/Services/number';
+import { Component, defineAsyncComponent } from "vue";
+import { FieldTypeBase } from "./fieldType";
+import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
+import { toNumberOrNull } from "@Obsidian/Services/number";
 
 // The edit component can be quite large, so load it only as needed.
 const editComponent = defineAsyncComponent(async () => {
-    return (await import('./genderFieldComponents')).EditComponent;
+    return (await import("./genderFieldComponents")).EditComponent;
 });
 
 /**
@@ -32,16 +32,16 @@ export class GenderFieldType extends FieldTypeBase {
         const numberValue = toNumberOrNull(value.value);
 
         if (numberValue === 0) {
-            value.textValue = 'Unknown';
+            value.textValue = "Unknown";
         }
         else if (numberValue === 1) {
-            value.textValue = 'Male';
+            value.textValue = "Male";
         }
         else if (numberValue === 2) {
-            value.textValue = 'Female';
+            value.textValue = "Female";
         }
         else {
-            value.textValue = '';
+            value.textValue = "";
         }
     }
 

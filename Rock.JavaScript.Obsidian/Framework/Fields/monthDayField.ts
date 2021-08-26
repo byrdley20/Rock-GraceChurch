@@ -14,14 +14,14 @@
 // limitations under the License.
 // </copyright>
 //
-import { Component, defineAsyncComponent } from 'vue';
-import { FieldTypeBase } from './fieldType';
-import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
-import { toNumber } from '@Obsidian/Services/number';
+import { Component, defineAsyncComponent } from "vue";
+import { FieldTypeBase } from "./fieldType";
+import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
+import { toNumber } from "@Obsidian/Services/number";
 
 // The edit component can be quite large, so load it only as needed.
 const editComponent = defineAsyncComponent(async () => {
-    return (await import('./monthDayFieldComponents')).EditComponent;
+    return (await import("./monthDayFieldComponents")).EditComponent;
 });
 
 /**
@@ -29,10 +29,10 @@ const editComponent = defineAsyncComponent(async () => {
  */
 export class MonthDayFieldType extends FieldTypeBase {
     public override updateTextValue(value: ClientEditableAttributeValue): void {
-        const components = (value.value || '').split('/');
+        const components = (value.value || "").split("/");
 
         if (components.length !== 2) {
-            value.textValue = '';
+            value.textValue = "";
             return;
         }
 
@@ -45,7 +45,7 @@ export class MonthDayFieldType extends FieldTypeBase {
             value.textValue = `${months[month-1]} ${day}`;
         }
         else {
-            value.textValue = '';
+            value.textValue = "";
         }
     }
 

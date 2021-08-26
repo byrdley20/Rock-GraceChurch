@@ -30,7 +30,7 @@ System.register(["vue", "./index", "@Obsidian/Services/boolean", "../Elements/dr
                 BooleanControlType[BooleanControlType["Toggle"] = 2] = "Toggle";
             })(BooleanControlType || (BooleanControlType = {}));
             exports_1("EditComponent", EditComponent = vue_1.defineComponent({
-                name: 'BooleanField.Edit',
+                name: "BooleanField.Edit",
                 components: {
                     DropDownList: dropDownList_1.default,
                     Toggle: toggle_1.default,
@@ -40,16 +40,16 @@ System.register(["vue", "./index", "@Obsidian/Services/boolean", "../Elements/dr
                 data() {
                     return {
                         internalBooleanValue: false,
-                        internalValue: ''
+                        internalValue: ""
                     };
                 },
                 computed: {
                     booleanControlType() {
                         const controlType = this.configurationValues["BooleanControlType"];
                         switch (controlType) {
-                            case '1':
+                            case "1":
                                 return BooleanControlType.Checkbox;
-                            case '2':
+                            case "2":
                                 return BooleanControlType.Toggle;
                             default:
                                 return BooleanControlType.DropDown;
@@ -61,7 +61,7 @@ System.register(["vue", "./index", "@Obsidian/Services/boolean", "../Elements/dr
                         if (trueConfig) {
                             trueText = trueConfig;
                         }
-                        return trueText || 'Yes';
+                        return trueText || "Yes";
                     },
                     falseText() {
                         let falseText = boolean_1.asYesNoOrNull(false);
@@ -69,7 +69,7 @@ System.register(["vue", "./index", "@Obsidian/Services/boolean", "../Elements/dr
                         if (falseConfig) {
                             falseText = falseConfig;
                         }
-                        return falseText || 'No';
+                        return falseText || "No";
                     },
                     isToggle() {
                         return this.booleanControlType === BooleanControlType.Toggle;
@@ -94,16 +94,16 @@ System.register(["vue", "./index", "@Obsidian/Services/boolean", "../Elements/dr
                 },
                 watch: {
                     internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
+                        this.$emit("update:modelValue", this.internalValue);
                     },
                     internalBooleanValue() {
-                        const valueToEmit = boolean_1.asTrueFalseOrNull(this.internalBooleanValue) || '';
-                        this.$emit('update:modelValue', valueToEmit);
+                        const valueToEmit = boolean_1.asTrueFalseOrNull(this.internalBooleanValue) || "";
+                        this.$emit("update:modelValue", valueToEmit);
                     },
                     modelValue: {
                         immediate: true,
                         handler() {
-                            this.internalValue = boolean_1.asTrueFalseOrNull(this.modelValue) || '';
+                            this.internalValue = boolean_1.asTrueFalseOrNull(this.modelValue) || "";
                             this.internalBooleanValue = boolean_1.asBoolean(this.modelValue);
                         }
                     }

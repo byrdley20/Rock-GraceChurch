@@ -14,21 +14,21 @@
 // limitations under the License.
 // </copyright>
 //
-import { Component, defineAsyncComponent } from 'vue';
-import { FieldTypeBase } from './fieldType';
-import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
-import { asBooleanOrNull } from '@Obsidian/Services/boolean';
+import { Component, defineAsyncComponent } from "vue";
+import { FieldTypeBase } from "./fieldType";
+import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
+import { asBooleanOrNull } from "@Obsidian/Services/boolean";
 
 export const enum ConfigurationValueKey {
-    BooleanControlType = 'BooleanControlType',
-    FalseText = 'falsetext',
-    TrueText = 'truetext'
+    BooleanControlType = "BooleanControlType",
+    FalseText = "falsetext",
+    TrueText = "truetext"
 }
 
 
 // The edit component can be quite large, so load it only as needed.
 const editComponent = defineAsyncComponent(async () => {
-    return (await import('./booleanFieldComponents')).EditComponent;
+    return (await import("./booleanFieldComponents")).EditComponent;
 });
 
 /**
@@ -39,13 +39,13 @@ export class BooleanFieldType extends FieldTypeBase {
         const boolValue = asBooleanOrNull(value.value);
 
         if (boolValue === null) {
-            return '';
+            return "";
         }
         else if (boolValue === true) {
-            return 'Y';
+            return "Y";
         }
         else {
-            return 'N';
+            return "N";
         }
     }
 
@@ -53,13 +53,13 @@ export class BooleanFieldType extends FieldTypeBase {
         const boolValue = asBooleanOrNull(value.value);
 
         if (boolValue === null) {
-            value.textValue = '';
+            value.textValue = "";
         }
         else if (boolValue === true) {
-            value.textValue = value.configurationValues?.[ConfigurationValueKey.TrueText] || 'Yes';
+            value.textValue = value.configurationValues?.[ConfigurationValueKey.TrueText] || "Yes";
         }
         else {
-            value.textValue = value.configurationValues?.[ConfigurationValueKey.FalseText] || 'No';
+            value.textValue = value.configurationValues?.[ConfigurationValueKey.FalseText] || "No";
         }
     }
 

@@ -28,14 +28,14 @@ System.register(["vue", "./fieldType", "@Obsidian/Services/date", "@Obsidian/Ser
         ],
         execute: function () {
             editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
-                return (yield context_1.import('./dateRangeFieldComponents')).EditComponent;
+                return (yield context_1.import("./dateRangeFieldComponents")).EditComponent;
             }));
             DateRangeFieldType = class DateRangeFieldType extends fieldType_1.FieldTypeBase {
                 updateTextValue(value) {
                     var _a;
-                    const dateParts = ((_a = value.value) !== null && _a !== void 0 ? _a : '').split(',');
+                    const dateParts = ((_a = value.value) !== null && _a !== void 0 ? _a : "").split(",");
                     if (dateParts.length !== 2) {
-                        value.textValue = '';
+                        value.textValue = "";
                         return;
                     }
                     const lowerDateParts = /^(\d+)-(\d+)-(\d+)/.exec(dateParts[0]);
@@ -43,16 +43,16 @@ System.register(["vue", "./fieldType", "@Obsidian/Services/date", "@Obsidian/Ser
                     const lowerDate = lowerDateParts !== null ? new Date(number_1.toNumber(lowerDateParts[1]), number_1.toNumber(lowerDateParts[2]) - 1, number_1.toNumber(lowerDateParts[3])) : null;
                     const upperDate = upperDateParts !== null ? new Date(number_1.toNumber(upperDateParts[1]), number_1.toNumber(upperDateParts[2]) - 1, number_1.toNumber(upperDateParts[3])) : null;
                     if (lowerDate !== null && upperDate !== null) {
-                        value.textValue = `${date_1.formatAspDate(lowerDate, 'd')} to ${date_1.formatAspDate(upperDate, 'd')}`;
+                        value.textValue = `${date_1.formatAspDate(lowerDate, "d")} to ${date_1.formatAspDate(upperDate, "d")}`;
                     }
                     else if (lowerDate !== null) {
-                        value.textValue = `from ${date_1.formatAspDate(lowerDate, 'd')}`;
+                        value.textValue = `from ${date_1.formatAspDate(lowerDate, "d")}`;
                     }
                     else if (upperDate !== null) {
-                        value.textValue = `through ${date_1.formatAspDate(upperDate, 'd')}`;
+                        value.textValue = `through ${date_1.formatAspDate(upperDate, "d")}`;
                     }
                     else {
-                        value.textValue = '';
+                        value.textValue = "";
                     }
                 }
                 getEditComponent(_value) {

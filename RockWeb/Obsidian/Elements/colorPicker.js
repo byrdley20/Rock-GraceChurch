@@ -13,7 +13,7 @@ System.register(["vue", "./rockFormField"], function (exports_1, context_1) {
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'ColorPicker',
+                name: "ColorPicker",
                 components: {
                     RockFormField: rockFormField_1.default
                 },
@@ -24,11 +24,11 @@ System.register(["vue", "./rockFormField"], function (exports_1, context_1) {
                     },
                     placeholder: {
                         type: String,
-                        default: ''
+                        default: ""
                     }
                 },
                 emits: [
-                    'update:modelValue'
+                    "update:modelValue"
                 ],
                 data: function () {
                     return {
@@ -36,16 +36,16 @@ System.register(["vue", "./rockFormField"], function (exports_1, context_1) {
                     };
                 },
                 mounted() {
-                    const $colorPicker = window['$'](this.$refs.colorPicker);
+                    const $colorPicker = window["$"](this.$refs.colorPicker);
                     $colorPicker.colorpicker();
-                    $colorPicker.find('> input').on('change', () => {
-                        this.internalValue = $colorPicker.find('> input').val();
+                    $colorPicker.find("> input").on("change", () => {
+                        this.internalValue = $colorPicker.find("> input").val();
                     });
                 },
                 computed: {},
                 watch: {
                     internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
+                        this.$emit("update:modelValue", this.internalValue);
                     },
                     modelValue() {
                         this.internalValue = this.modelValue;

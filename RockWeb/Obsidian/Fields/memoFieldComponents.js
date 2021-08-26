@@ -22,14 +22,14 @@ System.register(["vue", "./index", "../Elements/textBox", "@Obsidian/Services/bo
         ],
         execute: function () {
             exports_1("EditComponent", EditComponent = vue_1.defineComponent({
-                name: 'MemoField.Edit',
+                name: "MemoField.Edit",
                 components: {
                     TextBox: textBox_1.default
                 },
                 props: index_1.getFieldEditorProps(),
                 data() {
                     return {
-                        internalValue: ''
+                        internalValue: ""
                     };
                 },
                 computed: {
@@ -55,12 +55,12 @@ System.register(["vue", "./index", "../Elements/textBox", "@Obsidian/Services/bo
                 },
                 watch: {
                     internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
+                        this.$emit("update:modelValue", this.internalValue);
                     },
                     modelValue: {
                         immediate: true,
                         handler() {
-                            this.internalValue = this.modelValue || '';
+                            this.internalValue = this.modelValue || "";
                         }
                     }
                 },

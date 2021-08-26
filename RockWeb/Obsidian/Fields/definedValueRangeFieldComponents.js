@@ -5,15 +5,15 @@ System.register(["vue", "./index", "../Elements/rockFormField", "@Obsidian/Servi
     function parseModelValue(modelValue) {
         var _a;
         try {
-            const clientValue = JSON.parse(modelValue !== null && modelValue !== void 0 ? modelValue : '');
-            const splitValue = ((_a = clientValue.value) !== null && _a !== void 0 ? _a : '').split(',');
+            const clientValue = JSON.parse(modelValue !== null && modelValue !== void 0 ? modelValue : "");
+            const splitValue = ((_a = clientValue.value) !== null && _a !== void 0 ? _a : "").split(",");
             if (splitValue.length === 1) {
-                return [splitValue[0], ''];
+                return [splitValue[0], ""];
             }
             return splitValue;
         }
         catch (_b) {
-            return ['', ''];
+            return ["", ""];
         }
     }
     function firstOrDefault(values, predicate) {
@@ -26,15 +26,15 @@ System.register(["vue", "./index", "../Elements/rockFormField", "@Obsidian/Servi
         const uv = firstOrDefault(valueOptions, v => v.value === upperValue);
         if (!lv && !uv) {
             return {
-                value: '',
-                text: '',
-                description: ''
+                value: "",
+                text: "",
+                description: ""
             };
         }
         return {
-            value: `${(_a = lv === null || lv === void 0 ? void 0 : lv.value) !== null && _a !== void 0 ? _a : ''},${(_b = uv === null || uv === void 0 ? void 0 : uv.value) !== null && _b !== void 0 ? _b : ''}`,
-            text: `${(_c = lv === null || lv === void 0 ? void 0 : lv.text) !== null && _c !== void 0 ? _c : ''} to ${(_d = uv === null || uv === void 0 ? void 0 : uv.text) !== null && _d !== void 0 ? _d : ''}`,
-            description: showDescription ? `${(_e = lv === null || lv === void 0 ? void 0 : lv.description) !== null && _e !== void 0 ? _e : ''} to ${(_f = uv === null || uv === void 0 ? void 0 : uv.description) !== null && _f !== void 0 ? _f : ''}` : ''
+            value: `${(_a = lv === null || lv === void 0 ? void 0 : lv.value) !== null && _a !== void 0 ? _a : ""},${(_b = uv === null || uv === void 0 ? void 0 : uv.value) !== null && _b !== void 0 ? _b : ""}`,
+            text: `${(_c = lv === null || lv === void 0 ? void 0 : lv.text) !== null && _c !== void 0 ? _c : ""} to ${(_d = uv === null || uv === void 0 ? void 0 : uv.text) !== null && _d !== void 0 ? _d : ""}`,
+            description: showDescription ? `${(_e = lv === null || lv === void 0 ? void 0 : lv.description) !== null && _e !== void 0 ? _e : ""} to ${(_f = uv === null || uv === void 0 ? void 0 : uv.description) !== null && _f !== void 0 ? _f : ""}` : ""
         };
     }
     return {
@@ -54,7 +54,7 @@ System.register(["vue", "./index", "../Elements/rockFormField", "@Obsidian/Servi
         ],
         execute: function () {
             exports_1("EditComponent", EditComponent = vue_1.defineComponent({
-                name: 'DefinedValueRangeField.Edit',
+                name: "DefinedValueRangeField.Edit",
                 components: {
                     RockFormField: rockFormField_1.default
                 },
@@ -67,7 +67,7 @@ System.register(["vue", "./index", "../Elements/rockFormField", "@Obsidian/Servi
                     const valueOptions = vue_1.computed(() => {
                         var _a;
                         try {
-                            return JSON.parse((_a = props.configurationValues["values"]) !== null && _a !== void 0 ? _a : '[]');
+                            return JSON.parse((_a = props.configurationValues["values"]) !== null && _a !== void 0 ? _a : "[]");
                         }
                         catch (_b) {
                             return [];
@@ -92,13 +92,13 @@ System.register(["vue", "./index", "../Elements/rockFormField", "@Obsidian/Servi
                     });
                     vue_1.watch(() => [lowerValue.value, upperValue.value], () => {
                         const clientValue = getClientValue(lowerValue.value, upperValue.value, valueOptions.value, showDescription.value);
-                        emit('update:modelValue', JSON.stringify(clientValue));
+                        emit("update:modelValue", JSON.stringify(clientValue));
                     });
                     return {
                         internalValue,
                         lowerValue,
                         upperValue,
-                        isRequired: vue_1.inject('isRequired'),
+                        isRequired: vue_1.inject("isRequired"),
                         options,
                         getKeyForOption(option) {
                             return option.value;

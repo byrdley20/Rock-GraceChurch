@@ -13,7 +13,7 @@ System.register(["vue", "../Util/guid"], function (exports_1, context_1) {
         ],
         execute: function () {
             ProgressTrackerItem = vue_1.defineComponent({
-                name: 'ProgressTrackerItem',
+                name: "ProgressTrackerItem",
                 props: {
                     isPast: {
                         type: Boolean,
@@ -70,7 +70,7 @@ System.register(["vue", "../Util/guid"], function (exports_1, context_1) {
 `
             });
             ProgressTracker = vue_1.defineComponent({
-                name: 'ProgressTracker',
+                name: "ProgressTracker",
                 components: {
                     ProgressTrackerItem
                 },

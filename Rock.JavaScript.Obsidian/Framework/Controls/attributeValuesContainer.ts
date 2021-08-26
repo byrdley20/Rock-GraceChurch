@@ -14,12 +14,12 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
-import { ClientAttributeValue } from '@Obsidian/ViewModels';
-import RockField from './rockField';
+import { defineComponent, PropType } from "vue";
+import { ClientAttributeValue } from "@Obsidian/ViewModels";
+import RockField from "./rockField";
 
 export default defineComponent({
-    name: 'AttributeValuesContainer',
+    name: "AttributeValuesContainer",
     components: {
         RockField
     },

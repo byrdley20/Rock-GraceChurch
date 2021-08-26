@@ -14,75 +14,64 @@
 // limitations under the License.
 // </copyright>
 //
-import JavaScriptAnchor from '../Elements/javaScriptAnchor';
-import { defineComponent, PropType, inject } from 'vue';
-import { GridContext, RowContext, SortDirection, SortProperty } from './grid';
+import JavaScriptAnchor from "../Elements/javaScriptAnchor";
+import { defineComponent, PropType, inject } from "vue";
+import { GridContext, RowContext, SortDirection, SortProperty } from "./grid";
 
 export default defineComponent( {
-    name: 'GridColumn',
+    name: "GridColumn",
     components: {
         JavaScriptAnchor
     },
     props: {
         title: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         },
         property: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         },
         sortExpression: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         }
     },
-    setup ()
-    {
+    setup () {
         return {
-            gridContext: inject( 'gridContext' ) as GridContext,
-            rowContext: inject( 'rowContext' ) as RowContext
+            gridContext: inject( "gridContext" ) as GridContext,
+            rowContext: inject( "rowContext" ) as RowContext
         };
     },
     computed: {
-        mySortExpression (): string
-        {
+        mySortExpression (): string {
             return this.sortExpression || this.property;
         },
-        canSort (): boolean
-        {
+        canSort (): boolean {
             return !!this.sortProperty;
         },
-        sortProperty (): SortProperty | null
-        {
+        sortProperty (): SortProperty | null {
             return this.gridContext.sortProperty;
         },
-        isCurrentlySorted (): boolean
-        {
+        isCurrentlySorted (): boolean {
             return !!this.mySortExpression && this.sortProperty?.property === this.mySortExpression;
         },
-        isCurrentlySortedDesc (): boolean
-        {
+        isCurrentlySortedDesc (): boolean {
             return this.isCurrentlySorted && this.sortProperty?.direction === SortDirection.Descending;
         },
-        isCurrentlySortedAsc (): boolean
-        {
+        isCurrentlySortedAsc (): boolean {
             return this.isCurrentlySorted && this.sortProperty?.direction === SortDirection.Ascending;
         }
     },
     methods: {
-        onHeaderClick ()
-        {
-            this.$emit( 'click:header', this.property );
+        onHeaderClick () {
+            this.$emit( "click:header", this.property );
 
-            if ( this.mySortExpression && this.sortProperty )
-            {
-                if ( this.isCurrentlySortedAsc )
-                {
+            if ( this.mySortExpression && this.sortProperty ) {
+                if ( this.isCurrentlySortedAsc ) {
                     this.sortProperty.direction = SortDirection.Descending;
                 }
-                else
-                {
+                else {
                     this.sortProperty.property = this.mySortExpression;
                     this.sortProperty.direction = SortDirection.Ascending;
                 }

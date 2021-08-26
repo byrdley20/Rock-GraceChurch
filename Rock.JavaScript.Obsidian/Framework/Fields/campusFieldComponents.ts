@@ -14,14 +14,14 @@
 // limitations under the License.
 // </copyright>
 //
-import { computed, defineComponent, ref, SetupContext, watch, watchEffect } from 'vue';
-import { getFieldEditorProps } from './index';
-import DropDownList, { DropDownListOption } from '../Elements/dropDownList';
-import { ConfigurationValueKey } from './campusField';
-import { ListItem } from '@Obsidian/ViewModels';
+import { computed, defineComponent, ref, SetupContext, watch, watchEffect } from "vue";
+import { getFieldEditorProps } from "./index";
+import DropDownList, { DropDownListOption } from "../Elements/dropDownList";
+import { ConfigurationValueKey } from "./campusField";
+import { ListItem } from "@Obsidian/ViewModels";
 
 export const EditComponent = defineComponent({
-    name: 'CampusField.Edit',
+    name: "CampusField.Edit",
 
     components: {
         DropDownList
@@ -30,12 +30,12 @@ export const EditComponent = defineComponent({
     props: getFieldEditorProps(),
 
     setup(props, context: SetupContext) {
-        const internalValue = ref(props.modelValue ?? '');
+        const internalValue = ref(props.modelValue ?? "");
 
         /** The options to choose from in the drop down list */
         const options = computed((): DropDownListOption[] => {
             try {
-                const valueOptions = JSON.parse(props.configurationValues[ConfigurationValueKey.Values] ?? '[]') as ListItem[];
+                const valueOptions = JSON.parse(props.configurationValues[ConfigurationValueKey.Values] ?? "[]") as ListItem[];
 
                 return valueOptions.map(o => {
                     return {
@@ -49,9 +49,9 @@ export const EditComponent = defineComponent({
             }
         });
 
-        watch(() => props.modelValue, () => internalValue.value = props.modelValue ?? '');
+        watch(() => props.modelValue, () => internalValue.value = props.modelValue ?? "");
 
-        watchEffect(() => context.emit('update:modelValue', internalValue.value));
+        watchEffect(() => context.emit("update:modelValue", internalValue.value));
 
         return {
             internalValue,

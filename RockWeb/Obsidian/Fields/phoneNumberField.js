@@ -25,11 +25,11 @@ System.register(["vue", "./fieldType", "@Obsidian/Services/string"], function (e
         ],
         execute: function () {
             editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
-                return (yield context_1.import('./phoneNumberFieldComponents')).EditComponent;
+                return (yield context_1.import("./phoneNumberFieldComponents")).EditComponent;
             }));
             PhoneNumberFieldType = class PhoneNumberFieldType extends fieldType_1.FieldTypeBase {
                 updateTextValue(value) {
-                    value.textValue = string_1.formatPhoneNumber(value.value || '');
+                    value.textValue = string_1.formatPhoneNumber(value.value || "");
                 }
                 getEditComponent(_value) {
                     return editComponent;

@@ -13,7 +13,7 @@ System.register(["../Elements/loadingIndicator", "vue"], function (exports_1, co
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'Loading',
+                name: "Loading",
                 components: {
                     LoadingIndicator: loadingIndicator_1.default
                 },

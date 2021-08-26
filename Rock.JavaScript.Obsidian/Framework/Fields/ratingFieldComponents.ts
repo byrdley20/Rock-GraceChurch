@@ -14,14 +14,14 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { getFieldEditorProps } from './index';
-import { toNumberOrNull } from '@Obsidian/Services/number';
-import Rating from '../Elements/rating';
-import { ConfigurationValueKey, RatingValue } from './ratingField';
+import { defineComponent } from "vue";
+import { getFieldEditorProps } from "./index";
+import { toNumberOrNull } from "@Obsidian/Services/number";
+import Rating from "../Elements/rating";
+import { ConfigurationValueKey, RatingValue } from "./ratingField";
 
 export const EditComponent = defineComponent({
-    name: 'RatingField.Edit',
+    name: "RatingField.Edit",
 
     components: {
         Rating
@@ -56,7 +56,7 @@ export const EditComponent = defineComponent({
                 maxValue: this.maxRating
             };
 
-            this.$emit('update:modelValue', JSON.stringify(ratingValue));
+            this.$emit("update:modelValue", JSON.stringify(ratingValue));
         },
 
         /**
@@ -67,7 +67,7 @@ export const EditComponent = defineComponent({
             immediate: true,
             handler(): void {
                 try {
-                    const ratingValue = JSON.parse(this.modelValue ?? '') as RatingValue;
+                    const ratingValue = JSON.parse(this.modelValue ?? "") as RatingValue;
                     this.internalValue = ratingValue.value ?? 0;
                 }
                 catch {

@@ -14,15 +14,15 @@
 // limitations under the License.
 // </copyright>
 //
-import { Component, defineAsyncComponent } from 'vue';
-import { FieldTypeBase } from './fieldType';
-import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
-import { toNumber } from '@Obsidian/Services/number';
-import { padLeft } from '@Obsidian/Services/string';
+import { Component, defineAsyncComponent } from "vue";
+import { FieldTypeBase } from "./fieldType";
+import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
+import { toNumber } from "@Obsidian/Services/number";
+import { padLeft } from "@Obsidian/Services/string";
 
 // The edit component can be quite large, so load it only as needed.
 const editComponent = defineAsyncComponent(async () => {
-    return (await import('./timeFieldComponents')).EditComponent;
+    return (await import("./timeFieldComponents")).EditComponent;
 });
 
 /**
@@ -30,22 +30,22 @@ const editComponent = defineAsyncComponent(async () => {
  */
 export class TimeFieldType extends FieldTypeBase {
     public override updateTextValue(value: ClientEditableAttributeValue): void {
-        const values = /^(\d+):(\d+)/.exec(value.value ?? '');
+        const values = /^(\d+):(\d+)/.exec(value.value ?? "");
 
         if (values === null || values.length < 3) {
-            value.textValue = '';
+            value.textValue = "";
             return;
         }
 
         let hour = toNumber(values[1]);
         const minute = toNumber(values[2]);
-        const meridiem = hour >= 12 ? 'PM' : 'AM';
+        const meridiem = hour >= 12 ? "PM" : "AM";
 
         if (hour > 12) {
             hour -= 12;
         }
 
-        value.textValue = `${hour}:${padLeft(minute.toString(), 2, '0')} ${meridiem}`;
+        value.textValue = `${hour}:${padLeft(minute.toString(), 2, "0")} ${meridiem}`;
     }
 
     public override getEditComponent(_value: ClientAttributeValue): Component {

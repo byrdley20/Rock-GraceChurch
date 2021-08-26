@@ -15,20 +15,20 @@
 // </copyright>
 //
 
-import { defineComponent, inject, PropType } from 'vue';
-import { newGuid } from '../Util/guid';
-import { Field } from 'vee-validate';
-import RockLabel from './rockLabel';
-import { FormState } from '../Controls/rockForm';
+import { defineComponent, inject, PropType } from "vue";
+import { newGuid } from "../Util/guid";
+import { Field } from "vee-validate";
+import RockLabel from "./rockLabel";
+import { FormState } from "../Controls/rockForm";
 
 export default defineComponent({
-    name: 'RockFormField',
+    name: "RockFormField",
     components: {
         Field,
         RockLabel
     },
     setup() {
-        const formState = inject<FormState | null>('formState', null); 
+        const formState = inject<FormState | null>("formState", null); 
 
         return {
             formState
@@ -44,15 +44,15 @@ export default defineComponent({
         },
         label: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         },
         help: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         },
         rules: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         },
         disabled: {
             type: Boolean as PropType<boolean>,
@@ -60,27 +60,27 @@ export default defineComponent({
         },
         formGroupClasses: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         },
         inputGroupClasses: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         },
         validationTitle: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         },
-        'class': {
+        "class": {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         },
         tabIndex: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         }
     },
     emits: [
-        'update:modelValue'
+        "update:modelValue"
     ],
     data: function () {
         return {
@@ -90,7 +90,7 @@ export default defineComponent({
     },
     computed: {
         isRequired(): boolean {
-            return this.rules.includes('required');
+            return this.rules.includes("required");
         },
         classAttr(): string {
             return this.class;
@@ -98,16 +98,16 @@ export default defineComponent({
         errorClasses(): (formState: FormState | null, errors: Record<string, string>) => string {
             return (formState: FormState | null, errors: Record<string, string>) => {
                 if (!formState || formState.submitCount < 1) {
-                    return '';
+                    return "";
                 }
 
-                return Object.keys(errors).length ? 'has-error' : '';
+                return Object.keys(errors).length ? "has-error" : "";
             };
         }
     },
     watch: {
         internalValue() {
-            this.$emit('update:modelValue', this.internalValue);
+            this.$emit("update:modelValue", this.internalValue);
         },
         modelValue() {
             this.internalValue = this.modelValue;

@@ -14,10 +14,10 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
-    name: 'ProgressBar',
+    name: "ProgressBar",
     props: {
         percent: {
             type: Number as PropType<number>,

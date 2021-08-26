@@ -22,19 +22,19 @@ System.register(["vue", "./fieldType"], function (exports_1, context_1) {
         ],
         execute: function () {
             editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
-                return (yield context_1.import('./addressFieldComponents')).EditComponent;
+                return (yield context_1.import("./addressFieldComponents")).EditComponent;
             }));
             AddressFieldType = class AddressFieldType extends fieldType_1.FieldTypeBase {
                 updateTextValue(value) {
                     var _a, _b, _c, _d, _e;
                     try {
-                        const addressValue = JSON.parse(value.value || '{}');
-                        let textValue = `${(_a = addressValue.street1) !== null && _a !== void 0 ? _a : ''} ${(_b = addressValue.street2) !== null && _b !== void 0 ? _b : ''} ${(_c = addressValue.city) !== null && _c !== void 0 ? _c : ''}, ${(_d = addressValue.state) !== null && _d !== void 0 ? _d : ''} ${(_e = addressValue.postalCode) !== null && _e !== void 0 ? _e : ''}`;
-                        textValue = textValue.replace(/  +/, ' ');
-                        textValue = textValue.replace(/^ +/, '');
-                        textValue = textValue.replace(/ +$/, '');
-                        if (textValue === ',') {
-                            value.textValue = '';
+                        const addressValue = JSON.parse(value.value || "{}");
+                        let textValue = `${(_a = addressValue.street1) !== null && _a !== void 0 ? _a : ""} ${(_b = addressValue.street2) !== null && _b !== void 0 ? _b : ""} ${(_c = addressValue.city) !== null && _c !== void 0 ? _c : ""}, ${(_d = addressValue.state) !== null && _d !== void 0 ? _d : ""} ${(_e = addressValue.postalCode) !== null && _e !== void 0 ? _e : ""}`;
+                        textValue = textValue.replace(/  +/, " ");
+                        textValue = textValue.replace(/^ +/, "");
+                        textValue = textValue.replace(/ +$/, "");
+                        if (textValue === ",") {
+                            value.textValue = "";
                         }
                         else {
                             value.textValue = textValue;

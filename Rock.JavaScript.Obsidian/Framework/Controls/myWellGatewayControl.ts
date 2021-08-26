@@ -14,9 +14,9 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
-import LoadingIndicator from '../Elements/loadingIndicator';
-import { ValidationField } from './gatewayControl';
+import { defineComponent, PropType } from "vue";
+import LoadingIndicator from "../Elements/loadingIndicator";
+import { ValidationField } from "./gatewayControl";
 
 type Settings = {
     PublicApiKey: string;
@@ -29,7 +29,7 @@ type Tokenizer = {
 };
 
 interface Response {
-    status: 'success' | 'error' | 'validation';
+    status: "success" | "error" | "validation";
 }
 
 interface SuccessResponse extends Response {
@@ -45,7 +45,7 @@ interface ValidationResponse extends Response {
 }
 
 export default defineComponent( {
-    name: 'MyWellGatewayControl',
+    name: "MyWellGatewayControl",
     components: {
         LoadingIndicator
     },
@@ -59,29 +59,25 @@ export default defineComponent( {
             required: true
         }
     },
-    data ()
-    {
+    data () {
         return {
             tokenizer: null as Tokenizer | null,
             loading: true
         };
     },
     methods: {
-        async mountControl ()
-        {
-            const globalVarName = 'Tokenizer';
+        async mountControl () {
+            const globalVarName = "Tokenizer";
 
-            if ( !window[ <any>globalVarName ] )
-            {
-                const script = document.createElement( 'script' );
-                script.type = 'text/javascript';
-                script.src = 'https://sandbox.gotnpgateway.com/tokenizer/tokenizer.js'; // TODO - this should come from the gateway
-                document.getElementsByTagName( 'head' )[ 0 ].appendChild( script );
+            if ( !window[ <any>globalVarName ] ) {
+                const script = document.createElement( "script" );
+                script.type = "text/javascript";
+                script.src = "https://sandbox.gotnpgateway.com/tokenizer/tokenizer.js"; // TODO - this should come from the gateway
+                document.getElementsByTagName( "head" )[ 0 ].appendChild( script );
 
                 const sleep = () => new Promise( ( resolve ) => setTimeout( resolve, 20 ) );
 
-                while ( !window[ <any>globalVarName ] )
-                {
+                while ( !window[ <any>globalVarName ] ) {
                     await sleep();
                 }
             }
@@ -90,132 +86,123 @@ export default defineComponent( {
             this.tokenizer = new (<any>window[ <any>globalVarName ])( settings ) as Tokenizer;
             this.tokenizer.create();
         },
-        handleResponse ( response: Response | null | undefined )
-        {
+        handleResponse ( response: Response | null | undefined ) {
             this.loading = false;
 
-            if ( !response?.status || response.status === 'error' )
-            {
+            if ( !response?.status || response.status === "error" ) {
                 const errorResponse = ( response as ErrorResponse | null ) || null;
-                this.$emit( 'error', errorResponse?.message || 'There was an unexpected problem communicating with the gateway.' );
-                console.error( 'MyWell response was errored:', JSON.stringify( response ) );
+                this.$emit( "error", errorResponse?.message || "There was an unexpected problem communicating with the gateway." );
+                console.error( "MyWell response was errored:", JSON.stringify( response ) );
                 return;
             }
 
-            if ( response.status === 'validation' )
-            {
+            if ( response.status === "validation" ) {
                 const validationResponse = ( response as ValidationResponse | null ) || null;
 
-                if ( !validationResponse?.invalid?.length )
-                {
-                    this.$emit( 'error', 'There was a validation issue, but the invalid field was not specified.' );
-                    console.error( 'MyWell response was errored:', JSON.stringify( response ) );
+                if ( !validationResponse?.invalid?.length ) {
+                    this.$emit( "error", "There was a validation issue, but the invalid field was not specified." );
+                    console.error( "MyWell response was errored:", JSON.stringify( response ) );
                     return;
                 }
 
                 const validationFields: ValidationField[] = [];
 
-                for ( const myWellField of validationResponse.invalid )
-                {
-                    switch ( myWellField )
-                    {
-                        case 'cc':
+                for ( const myWellField of validationResponse.invalid ) {
+                    switch ( myWellField ) {
+                        case "cc":
                             validationFields.push( ValidationField.CardNumber );
                             break;
-                        case 'exp':
+                        case "exp":
                             validationFields.push( ValidationField.Expiry );
                             break;
                         default:
-                            console.error( 'Unknown MyWell validation field', myWellField );
+                            console.error( "Unknown MyWell validation field", myWellField );
                             break;
                     }
                 }
 
-                if ( !validationFields.length )
-                {
-                    this.$emit( 'error', 'There was a validation issue, but the invalid field could not be inferred.' );
-                    console.error( 'MyWell response contained unexpected values:', JSON.stringify( response ) );
+                if ( !validationFields.length ) {
+                    this.$emit( "error", "There was a validation issue, but the invalid field could not be inferred." );
+                    console.error( "MyWell response contained unexpected values:", JSON.stringify( response ) );
                     return;
                 }
 
-                this.$emit( 'validationRaw', validationFields );
+                this.$emit( "validationRaw", validationFields );
                 return;
             }
 
-            if ( response.status === 'success' )
-            {
+            if ( response.status === "success" ) {
                 const successResponse = ( response as SuccessResponse | null ) || null;
 
-                if ( !successResponse?.token )
-                {
-                    this.$emit( 'error', 'There was an unexpected problem communicating with the gateway.' );
-                    console.error( 'MyWell response does not have the expected token:', JSON.stringify( response ) );
+                if ( !successResponse?.token ) {
+                    this.$emit( "error", "There was an unexpected problem communicating with the gateway." );
+                    console.error( "MyWell response does not have the expected token:", JSON.stringify( response ) );
                     return;
                 }
 
-                this.$emit( 'successRaw', successResponse.token );
+                this.$emit( "successRaw", successResponse.token );
                 return;
             }
 
-            this.$emit( 'error', 'There was an unexpected problem communicating with the gateway.' );
-            console.error( 'MyWell response has invalid status:', JSON.stringify( response ) );
+            this.$emit( "error", "There was an unexpected problem communicating with the gateway." );
+            console.error( "MyWell response has invalid status:", JSON.stringify( response ) );
         },
 
         /** Generates the tokenizer settings */
-        getTokenizerSettings (): unknown
-        {
+        getTokenizerSettings (): unknown {
             return {
-                onLoad: () => { this.loading = false; },
+                onLoad: () => {
+ this.loading = false; 
+},
                 apikey: this.publicApiKey,
                 url: this.gatewayUrl,
-                container: this.$refs[ 'container' ],
-                submission: ( resp: Response ) =>
-                {
+                container: this.$refs[ "container" ],
+                submission: ( resp: Response ) => {
                     this.handleResponse( resp );
                 },
                 settings: {
                     payment: {
-                        types: [ 'card' ],
+                        types: [ "card" ],
                         ach: {
-                            'sec_code': 'web'
+                            "sec_code": "web"
                         }
                     },
                     styles: {
                         body: {
-                            color: 'rgb(51, 51, 51)'
+                            color: "rgb(51, 51, 51)"
                         },
-                        '#app': {
-                            padding: '5px 15px'
+                        "#app": {
+                            padding: "5px 15px"
                         },
-                        'input,select': {
-                            'color': 'rgb(85, 85, 85)',
-                            'border-radius': '4px',
-                            'background-color': 'rgb(255, 255, 255)',
-                            'border': '1px solid rgb(204, 204, 204)',
-                            'box-shadow': 'rgba(0, 0, 0, 0.075) 0px 1px 1px 0px inset',
-                            'padding': '6px 12px',
-                            'font-size': '14px',
-                            'height': '34px',
-                            'font-family': 'OpenSans, \'Helvetica Neue\', Helvetica, Arial, sans-serif'
+                        "input,select": {
+                            "color": "rgb(85, 85, 85)",
+                            "border-radius": "4px",
+                            "background-color": "rgb(255, 255, 255)",
+                            "border": "1px solid rgb(204, 204, 204)",
+                            "box-shadow": "rgba(0, 0, 0, 0.075) 0px 1px 1px 0px inset",
+                            "padding": "6px 12px",
+                            "font-size": "14px",
+                            "height": "34px",
+                            "font-family": "OpenSans, 'Helvetica Neue', Helvetica, Arial, sans-serif"
                         },
-                        'input:focus,select:focus': {
-                            'border': '1px solid #66afe9',
-                            'box-shadow': '0 0 0 3px rgba(102,175,233,0.6)'
+                        "input:focus,select:focus": {
+                            "border": "1px solid #66afe9",
+                            "box-shadow": "0 0 0 3px rgba(102,175,233,0.6)"
                         },
-                        'select': {
-                            'padding': '6px 4px'
+                        "select": {
+                            "padding": "6px 4px"
                         },
-                        '.fieldsetrow': {
-                            'margin-left': '-2.5px',
-                            'margin-right': '-2.5px'
+                        ".fieldsetrow": {
+                            "margin-left": "-2.5px",
+                            "margin-right": "-2.5px"
                         },
-                        '.card > .fieldset': {
-                            'padding': '0 !important',
-                            'margin': '0 2.5px 5px !important'
+                        ".card > .fieldset": {
+                            "padding": "0 !important",
+                            "margin": "0 2.5px 5px !important"
                         },
-                        'input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button': {
-                            '-webkit-appearance': 'none',
-                            'margin': '0'
+                        "input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button": {
+                            "-webkit-appearance": "none",
+                            "margin": "0"
                         }
                     }
                 }
@@ -223,27 +210,22 @@ export default defineComponent( {
         }
     },
     computed: {
-        publicApiKey (): string
-        {
+        publicApiKey (): string {
             return this.settings.PublicApiKey;
         },
-        gatewayUrl (): string
-        {
+        gatewayUrl (): string {
             return this.settings.GatewayUrl;
         }
     },
     watch: {
-        submit ()
-        {
-            if ( this.submit && this.tokenizer )
-            {
+        submit () {
+            if ( this.submit && this.tokenizer ) {
                 this.loading = true;
                 this.tokenizer.submit();
             }
         }
     },
-    async mounted ()
-    {
+    async mounted () {
         await this.mountControl();
     },
     template: `

@@ -25,32 +25,32 @@ System.register(["vue", "./fieldType", "@Obsidian/Services/boolean"], function (
         ],
         execute: function () {
             editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
-                return (yield context_1.import('./booleanFieldComponents')).EditComponent;
+                return (yield context_1.import("./booleanFieldComponents")).EditComponent;
             }));
             BooleanFieldType = class BooleanFieldType extends fieldType_1.FieldTypeBase {
                 getCondensedTextValue(value) {
                     const boolValue = boolean_1.asBooleanOrNull(value.value);
                     if (boolValue === null) {
-                        return '';
+                        return "";
                     }
                     else if (boolValue === true) {
-                        return 'Y';
+                        return "Y";
                     }
                     else {
-                        return 'N';
+                        return "N";
                     }
                 }
                 updateTextValue(value) {
                     var _a, _b;
                     const boolValue = boolean_1.asBooleanOrNull(value.value);
                     if (boolValue === null) {
-                        value.textValue = '';
+                        value.textValue = "";
                     }
                     else if (boolValue === true) {
-                        value.textValue = ((_a = value.configurationValues) === null || _a === void 0 ? void 0 : _a["truetext"]) || 'Yes';
+                        value.textValue = ((_a = value.configurationValues) === null || _a === void 0 ? void 0 : _a["truetext"]) || "Yes";
                     }
                     else {
-                        value.textValue = ((_b = value.configurationValues) === null || _b === void 0 ? void 0 : _b["falsetext"]) || 'No';
+                        value.textValue = ((_b = value.configurationValues) === null || _b === void 0 ? void 0 : _b["falsetext"]) || "No";
                     }
                 }
                 getEditComponent(_value) {

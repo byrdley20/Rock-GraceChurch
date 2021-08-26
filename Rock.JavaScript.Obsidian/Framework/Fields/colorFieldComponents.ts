@@ -14,10 +14,10 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import DropDownList, { DropDownListOption } from '../Elements/dropDownList';
-import ColorPicker from '../Elements/colorPicker';
-import { getFieldEditorProps } from './index';
+import { defineComponent } from "vue";
+import DropDownList, { DropDownListOption } from "../Elements/dropDownList";
+import ColorPicker from "../Elements/colorPicker";
+import { getFieldEditorProps } from "./index";
 
 enum ColorControlType {
     ColorPicker,
@@ -25,45 +25,45 @@ enum ColorControlType {
 }
 
 enum ConfigurationValueKey {
-    ColorControlType = 'selectiontype',
-    ColorPicker = 'Color Picker',
-    NamedColor = 'Named Color'
+    ColorControlType = "selectiontype",
+    ColorPicker = "Color Picker",
+    NamedColor = "Named Color"
 }
 
 const namedColors: string[] = [
-    'Transparent', 'AliceBlue', 'AntiqueWhite', 'Aqua', 'Aquamarine',
-    'Azure', 'Beige', 'Bisque', 'Black', 'BlanchedAlmond',
-    'Blue', 'BlueViolet', 'Brown', 'BurlyWood', 'CadetBlue',
-    'Chartreuse', 'Chocolate', 'Coral', 'CornflowerBlue', 'Cornsilk',
-    'Crimson', 'Cyan', 'DarkBlue', 'DarkCyan', 'DarkGoldenrod',
-    'DarkGray', 'DarkGreen', 'DarkKhaki', 'DarkMagenta', 'DarkOliveGreen',
-    'DarkOrange', 'DarkOrchid', 'DarkRed', 'DarkSalmon', 'DarkSeaGreen',
-    'DarkSlateBlue', 'DarkSlateGray', 'DarkTurquoise', 'DarkViolet', 'DeepPink',
-    'DeepSkyBlue', 'DimGray', 'DodgerBlue', 'Firebrick', 'FloralWhite',
-    'ForestGreen', 'Fuchsia', 'Gainsboro', 'GhostWhite', 'Gold',
-    'Goldenrod', 'Gray', 'Green', 'GreenYellow', 'Honeydew',
-    'HotPink', 'IndianRed', 'Indigo', 'Ivory', 'Khaki',
-    'Lavender', 'LavenderBlush', 'LawnGreen', 'LemonChiffon', 'LightBlue',
-    'LightCoral', 'LightCyan', 'LightGoldenrodYellow', 'LightGreen', 'LightGray',
-    'LightPink', 'LightSalmon', 'LightSeaGreen', 'LightSkyBlue', 'LightSlateGray',
-    'LightSteelBlue', 'LightYellow', 'Lime', 'LimeGreen', 'Linen',
-    'Magenta', 'Maroon', 'MediumAquamarine', 'MediumBlue', 'MediumOrchid',
-    'MediumPurple', 'MediumSeaGreen', 'MediumSlateBlue', 'MediumSpringGreen', 'MediumTurquoise',
-    'MediumVioletRed', 'MidnightBlue', 'MintCream', 'MistyRose', 'Moccasin',
-    'NavajoWhite', 'Navy', 'OldLace', 'Olive', 'OliveDrab',
-    'Orange', 'OrangeRed', 'Orchid', 'PaleGoldenrod', 'PaleGreen',
-    'PaleTurquoise', 'PaleVioletRed', 'PapayaWhip', 'PeachPuff', 'Peru',
-    'Pink', 'Plum', 'PowderBlue', 'Purple', 'Red',
-    'RosyBrown', 'RoyalBlue', 'SaddleBrown', 'Salmon', 'SandyBrown',
-    'SeaGreen', 'SeaShell', 'Sienna', 'Silver', 'SkyBlue',
-    'SlateBlue', 'SlateGray', 'Snow', 'SpringGreen', 'SteelBlue',
-    'Tan', 'Teal', 'Thistle', 'Tomato', 'Turquoise',
-    'Violet', 'Wheat', 'White', 'WhiteSmoke', 'Yellow',
-    'YellowGreen'
+    "Transparent", "AliceBlue", "AntiqueWhite", "Aqua", "Aquamarine",
+    "Azure", "Beige", "Bisque", "Black", "BlanchedAlmond",
+    "Blue", "BlueViolet", "Brown", "BurlyWood", "CadetBlue",
+    "Chartreuse", "Chocolate", "Coral", "CornflowerBlue", "Cornsilk",
+    "Crimson", "Cyan", "DarkBlue", "DarkCyan", "DarkGoldenrod",
+    "DarkGray", "DarkGreen", "DarkKhaki", "DarkMagenta", "DarkOliveGreen",
+    "DarkOrange", "DarkOrchid", "DarkRed", "DarkSalmon", "DarkSeaGreen",
+    "DarkSlateBlue", "DarkSlateGray", "DarkTurquoise", "DarkViolet", "DeepPink",
+    "DeepSkyBlue", "DimGray", "DodgerBlue", "Firebrick", "FloralWhite",
+    "ForestGreen", "Fuchsia", "Gainsboro", "GhostWhite", "Gold",
+    "Goldenrod", "Gray", "Green", "GreenYellow", "Honeydew",
+    "HotPink", "IndianRed", "Indigo", "Ivory", "Khaki",
+    "Lavender", "LavenderBlush", "LawnGreen", "LemonChiffon", "LightBlue",
+    "LightCoral", "LightCyan", "LightGoldenrodYellow", "LightGreen", "LightGray",
+    "LightPink", "LightSalmon", "LightSeaGreen", "LightSkyBlue", "LightSlateGray",
+    "LightSteelBlue", "LightYellow", "Lime", "LimeGreen", "Linen",
+    "Magenta", "Maroon", "MediumAquamarine", "MediumBlue", "MediumOrchid",
+    "MediumPurple", "MediumSeaGreen", "MediumSlateBlue", "MediumSpringGreen", "MediumTurquoise",
+    "MediumVioletRed", "MidnightBlue", "MintCream", "MistyRose", "Moccasin",
+    "NavajoWhite", "Navy", "OldLace", "Olive", "OliveDrab",
+    "Orange", "OrangeRed", "Orchid", "PaleGoldenrod", "PaleGreen",
+    "PaleTurquoise", "PaleVioletRed", "PapayaWhip", "PeachPuff", "Peru",
+    "Pink", "Plum", "PowderBlue", "Purple", "Red",
+    "RosyBrown", "RoyalBlue", "SaddleBrown", "Salmon", "SandyBrown",
+    "SeaGreen", "SeaShell", "Sienna", "Silver", "SkyBlue",
+    "SlateBlue", "SlateGray", "Snow", "SpringGreen", "SteelBlue",
+    "Tan", "Teal", "Thistle", "Tomato", "Turquoise",
+    "Violet", "Wheat", "White", "WhiteSmoke", "Yellow",
+    "YellowGreen"
 ];
 
 export const EditComponent = defineComponent({
-    name: 'ColorField.Edit',
+    name: "ColorField.Edit",
     components: {
         DropDownList,
         ColorPicker
@@ -72,7 +72,7 @@ export const EditComponent = defineComponent({
     data() {
         return {
             internalBooleanValue: false,
-            internalValue: '',
+            internalValue: "",
             dropDownListOptions: namedColors.map(v => {
                 return { text: v, value: v } as DropDownListOption;
             })
@@ -100,12 +100,12 @@ export const EditComponent = defineComponent({
     },
     watch: {
         internalValue() {
-            this.$emit('update:modelValue', this.internalValue);
+            this.$emit("update:modelValue", this.internalValue);
         },
         modelValue: {
             immediate: true,
             handler() {
-                this.internalValue = this.modelValue || '';
+                this.internalValue = this.modelValue || "";
             }
         }
     },

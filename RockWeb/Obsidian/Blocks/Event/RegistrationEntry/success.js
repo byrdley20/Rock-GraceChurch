@@ -13,13 +13,13 @@ System.register(["vue", "../../../Controls/saveFinancialAccountForm"], function 
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'Event.RegistrationEntry.Success',
+                name: "Event.RegistrationEntry.Success",
                 components: {
                     SaveFinancialAccountForm: saveFinancialAccountForm_1.default
                 },
                 setup() {
                     return {
-                        registrationEntryState: vue_1.inject('registrationEntryState')
+                        registrationEntryState: vue_1.inject("registrationEntryState")
                     };
                 },
                 computed: {
@@ -36,12 +36,12 @@ System.register(["vue", "../../../Controls/saveFinancialAccountForm"], function 
                     transactionCode() {
                         var _a;
                         return this.registrationEntryState.viewModel.isRedirectGateway ?
-                            '' :
-                            ((_a = this.registrationEntryState.successViewModel) === null || _a === void 0 ? void 0 : _a.transactionCode) || '';
+                            "" :
+                            ((_a = this.registrationEntryState.successViewModel) === null || _a === void 0 ? void 0 : _a.transactionCode) || "";
                     },
                     gatewayPersonIdentifier() {
                         var _a;
-                        return ((_a = this.registrationEntryState.successViewModel) === null || _a === void 0 ? void 0 : _a.gatewayPersonIdentifier) || '';
+                        return ((_a = this.registrationEntryState.successViewModel) === null || _a === void 0 ? void 0 : _a.gatewayPersonIdentifier) || "";
                     }
                 },
                 template: `

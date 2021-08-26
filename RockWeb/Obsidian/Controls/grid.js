@@ -22,7 +22,7 @@ System.register(["vue", "../Elements/javaScriptAnchor"], function (exports_1, co
             })(SortDirection || (SortDirection = {}));
             exports_1("SortDirection", SortDirection);
             exports_1("default", vue_1.defineComponent({
-                name: 'Grid',
+                name: "Grid",
                 components: {
                     JavaScriptAnchor: javaScriptAnchor_1.default
                 },
@@ -49,7 +49,7 @@ System.register(["vue", "../Elements/javaScriptAnchor"], function (exports_1, co
                     },
                     rowItemText: {
                         type: String,
-                        default: 'Entity'
+                        default: "Entity"
                     },
                     rowCountOverride: {
                         type: Number,
@@ -96,10 +96,10 @@ System.register(["vue", "../Elements/javaScriptAnchor"], function (exports_1, co
                             this.gridContext.selectedRowIds[rowId] = false;
                         }
                     },
-                    'gridContext.sortProperty': {
+                    "gridContext.sortProperty": {
                         deep: true,
                         handler() {
-                            this.$emit('update:sortProperty', this.gridContext.sortProperty);
+                            this.$emit("update:sortProperty", this.gridContext.sortProperty);
                         }
                     },
                 },
@@ -114,10 +114,10 @@ System.register(["vue", "../Elements/javaScriptAnchor"], function (exports_1, co
                         };
                     },
                     setPageSize(pageSize) {
-                        this.$emit('update:pageSize', pageSize);
+                        this.$emit("update:pageSize", pageSize);
                     },
                     setPageIndex(pageIndex) {
-                        this.$emit('update:currentPageIndex', pageIndex);
+                        this.$emit("update:currentPageIndex", pageIndex);
                     },
                     goToPreviousPageSet() {
                         const lowestPageInCurrentSet = this.currentPageSet[0] || 0;

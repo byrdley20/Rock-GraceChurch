@@ -28,7 +28,7 @@ System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../.
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'Example.PersonSecondary',
+                name: "Example.PersonSecondary",
                 components: {
                     PaneledBlockTemplate: paneledBlockTemplate_1.default,
                     SecondaryBlock: secondaryBlock_1.default,
@@ -37,8 +37,8 @@ System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../.
                 },
                 data() {
                     return {
-                        messageToPublish: '',
-                        receivedMessage: ''
+                        messageToPublish: "",
+                        receivedMessage: ""
                     };
                 },
                 methods: {
@@ -46,11 +46,11 @@ System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../.
                         this.receivedMessage = message;
                     },
                     doPublish() {
-                        bus_1.default.publish('PersonSecondary:Message', this.messageToPublish);
-                        this.messageToPublish = '';
+                        bus_1.default.publish("PersonSecondary:Message", this.messageToPublish);
+                        this.messageToPublish = "";
                     },
                     doThrowError() {
-                        throw new Error('This is an uncaught error');
+                        throw new Error("This is an uncaught error");
                     }
                 },
                 computed: {
@@ -59,18 +59,18 @@ System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../.
                     },
                     currentPersonName() {
                         var _a;
-                        return ((_a = this.currentPerson) === null || _a === void 0 ? void 0 : _a.fullName) || 'anonymous';
+                        return ((_a = this.currentPerson) === null || _a === void 0 ? void 0 : _a.fullName) || "anonymous";
                     },
                     imageUrl() {
                         var _a;
-                        return ((_a = this.currentPerson) === null || _a === void 0 ? void 0 : _a.photoUrl) || '/Assets/Images/person-no-photo-unknown.svg';
+                        return ((_a = this.currentPerson) === null || _a === void 0 ? void 0 : _a.photoUrl) || "/Assets/Images/person-no-photo-unknown.svg";
                     },
                     photoElementStyle() {
                         return `background-image: url("${this.imageUrl}"); background-size: cover; background-repeat: no-repeat;`;
                     }
                 },
                 created() {
-                    bus_1.default.subscribe('PersonDetail:Message', this.receiveMessage);
+                    bus_1.default.subscribe("PersonDetail:Message", this.receiveMessage);
                 },
                 template: `<SecondaryBlock>
     <PaneledBlockTemplate>

@@ -19,7 +19,7 @@ System.register(["vue", "../Elements/rockButton"], function (exports_1, context_
             })(ValidationField || (ValidationField = {}));
             exports_1("ValidationField", ValidationField);
             exports_1("default", vue_1.defineComponent({
-                name: 'Dialog',
+                name: "Dialog",
                 components: {
                     RockButton: rockButton_1.default
                 },
@@ -40,12 +40,12 @@ System.register(["vue", "../Elements/rockButton"], function (exports_1, context_
                 },
                 computed: {
                     hasHeader() {
-                        return !!this.$slots['header'];
+                        return !!this.$slots["header"];
                     }
                 },
                 methods: {
                     close() {
-                        this.$emit('update:modelValue', false);
+                        this.$emit("update:modelValue", false);
                     },
                     shake() {
                         if (!this.doShake) {
@@ -55,7 +55,7 @@ System.register(["vue", "../Elements/rockButton"], function (exports_1, context_
                     },
                     centerOnScreen() {
                         this.$nextTick(() => {
-                            const div = this.$refs['modalDiv'];
+                            const div = this.$refs["modalDiv"];
                             if (!div) {
                                 return;
                             }
@@ -70,7 +70,7 @@ System.register(["vue", "../Elements/rockButton"], function (exports_1, context_
                         immediate: true,
                         handler() {
                             const body = document.body;
-                            const cssClasses = ['modal-open', 'page-overflow'];
+                            const cssClasses = ["modal-open", "page-overflow"];
                             if (this.modelValue) {
                                 for (const cssClass of cssClasses) {
                                     body.classList.add(cssClass);

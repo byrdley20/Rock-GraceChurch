@@ -14,14 +14,14 @@
 // limitations under the License.
 // </copyright>
 //
-import { Component, defineAsyncComponent } from 'vue';
-import { FieldTypeBase } from './fieldType';
-import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
-import { asBoolean } from '@Obsidian/Services/boolean';
+import { Component, defineAsyncComponent } from "vue";
+import { FieldTypeBase } from "./fieldType";
+import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
+import { asBoolean } from "@Obsidian/Services/boolean";
 
 export const enum ConfigurationValueKey {
-    Values = 'values',
-    DisplayDescription = 'displaydescription'
+    Values = "values",
+    DisplayDescription = "displaydescription"
 }
 
 export interface ValueItem {
@@ -34,12 +34,12 @@ export type ClientValue = {
     value?: string;
     text?: string;
     description?: string;
-}
+};
 
 
 // The edit component can be quite large, so load it only as needed.
 const editComponent = defineAsyncComponent(async () => {
-    return (await import('./definedValueRangeFieldComponents')).EditComponent;
+    return (await import("./definedValueRangeFieldComponents")).EditComponent;
 });
 
 function firstOrDefault<T>(values: T[], predicate: (value: T) => boolean): T | undefined {
@@ -54,11 +54,11 @@ function firstOrDefault<T>(values: T[], predicate: (value: T) => boolean): T | u
 export class DefinedValueRangeFieldType extends FieldTypeBase {
     public override getTextValue(value: ClientAttributeValue): string {
         try {
-            const clientValue = JSON.parse(value.value ?? '') as ClientValue;
+            const clientValue = JSON.parse(value.value ?? "") as ClientValue;
 
             // If description is undefined or empty string then return text. If
             // that is undefined then return an empty string.
-            return (clientValue.description || clientValue.text) ?? '';
+            return (clientValue.description || clientValue.text) ?? "";
         }
         catch {
             return super.getTextValue(value);
@@ -67,23 +67,23 @@ export class DefinedValueRangeFieldType extends FieldTypeBase {
 
     public override getCondensedTextValue(value: ClientAttributeValue): string {
         try {
-            const clientValue = JSON.parse(value.value ?? '') as ClientValue;
+            const clientValue = JSON.parse(value.value ?? "") as ClientValue;
 
-            return clientValue.text ?? '';
+            return clientValue.text ?? "";
         }
         catch {
-            return value.value ?? '';
+            return value.value ?? "";
         }
     }
 
     public override updateTextValue(value: ClientEditableAttributeValue): void {
         try {
-            const clientValue = JSON.parse(value.value ?? '') as ClientValue;
+            const clientValue = JSON.parse(value.value ?? "") as ClientValue;
 
             try {
-                const values = JSON.parse(value.configurationValues?.[ConfigurationValueKey.Values] ?? '[]') as ValueItem[];
+                const values = JSON.parse(value.configurationValues?.[ConfigurationValueKey.Values] ?? "[]") as ValueItem[];
                 const displayDescription = asBoolean(value.configurationValues?.[ConfigurationValueKey.DisplayDescription]);
-                const rawValues = (clientValue.value ?? '').split(',');
+                const rawValues = (clientValue.value ?? "").split(",");
 
                 if (rawValues.length !== 2) {
                     value.textValue = value.value;
@@ -94,19 +94,19 @@ export class DefinedValueRangeFieldType extends FieldTypeBase {
                 const upperValue = firstOrDefault(values, v => v?.value === rawValues[1]);
 
                 if (lowerValue === undefined && upperValue === undefined) {
-                    value.textValue = '';
+                    value.textValue = "";
                     return;
                 }
 
                 if (displayDescription) {
-                    value.textValue = `${lowerValue?.description ?? ''} to ${upperValue?.description ?? ''}`;
+                    value.textValue = `${lowerValue?.description ?? ""} to ${upperValue?.description ?? ""}`;
                 }
                 else {
-                    value.textValue = `${lowerValue?.text ?? ''} to ${upperValue?.text ?? ''}`;
+                    value.textValue = `${lowerValue?.text ?? ""} to ${upperValue?.text ?? ""}`;
                 }
             }
             catch {
-                value.textValue = clientValue.value ?? '';
+                value.textValue = clientValue.value ?? "";
             }
         }
         catch {

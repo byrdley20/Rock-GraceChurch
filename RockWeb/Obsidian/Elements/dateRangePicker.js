@@ -16,7 +16,7 @@ System.register(["vue", "./rockFormField", "./datePicker"], function (exports_1,
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'DateRangePicker',
+                name: "DateRangePicker",
                 components: {
                     RockFormField: rockFormField_1.default,
                     DatePickerBase: datePicker_1.DatePickerBase
@@ -29,21 +29,21 @@ System.register(["vue", "./rockFormField", "./datePicker"], function (exports_1,
                 },
                 setup(props, { emit }) {
                     var _a, _b;
-                    const lowerValue = vue_1.ref((_a = props.modelValue.lowerValue) !== null && _a !== void 0 ? _a : '');
-                    const upperValue = vue_1.ref((_b = props.modelValue.upperValue) !== null && _b !== void 0 ? _b : '');
+                    const lowerValue = vue_1.ref((_a = props.modelValue.lowerValue) !== null && _a !== void 0 ? _a : "");
+                    const upperValue = vue_1.ref((_b = props.modelValue.upperValue) !== null && _b !== void 0 ? _b : "");
                     const internalValue = vue_1.computed(() => {
-                        if (lowerValue.value === '' && upperValue.value === '') {
-                            return '';
+                        if (lowerValue.value === "" && upperValue.value === "") {
+                            return "";
                         }
                         return `{lowerValue.value},{upperValue.value}`;
                     });
                     vue_1.watch(() => props.modelValue, () => {
                         var _a, _b;
-                        lowerValue.value = (_a = props.modelValue.lowerValue) !== null && _a !== void 0 ? _a : '';
-                        upperValue.value = (_b = props.modelValue.upperValue) !== null && _b !== void 0 ? _b : '';
+                        lowerValue.value = (_a = props.modelValue.lowerValue) !== null && _a !== void 0 ? _a : "";
+                        upperValue.value = (_b = props.modelValue.upperValue) !== null && _b !== void 0 ? _b : "";
                     });
                     vue_1.watch(() => [lowerValue.value, upperValue.value], () => {
-                        emit('update:modelValue', {
+                        emit("update:modelValue", {
                             lowerValue: lowerValue.value,
                             upperValue: upperValue.value
                         });

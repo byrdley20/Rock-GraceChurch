@@ -14,13 +14,13 @@
 // limitations under the License.
 // </copyright>
 //
-import { ListItem } from '@Obsidian/ViewModels';
-import { defineComponent, PropType } from 'vue';
-import { newGuid } from '../Util/guid';
-import RockFormField from './rockFormField';
+import { ListItem } from "@Obsidian/ViewModels";
+import { defineComponent, PropType } from "vue";
+import { newGuid } from "../Util/guid";
+import RockFormField from "./rockFormField";
 
 export default defineComponent({
-    name: 'ListBox',
+    name: "ListBox",
     components: {
         RockFormField
     },
@@ -37,7 +37,7 @@ export default defineComponent({
 
         formControlClasses: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         },
 
         enhanceForLongLists: {
@@ -58,7 +58,7 @@ export default defineComponent({
         /** The compiled list of CSS classes (props and calculated from other inputs) for the select element */
         compiledFormControlClasses(): string {
             if (this.enhanceForLongLists) {
-                return this.formControlClasses + ' chosen-select';
+                return this.formControlClasses + " chosen-select";
             }
 
             return this.formControlClasses;
@@ -68,8 +68,8 @@ export default defineComponent({
     methods: {
         /** Uses jQuery to get the chosen element */
         getChosenJqueryEl() {
-            const jquery = <any>window[<any>'$'];
-            let $chosenDropDown = jquery(this.$refs['theSelect']);
+            const jquery = <any>window[<any>"$"];
+            let $chosenDropDown = jquery(this.$refs["theSelect"]);
 
             if (!$chosenDropDown || !$chosenDropDown.length) {
                 $chosenDropDown = jquery(`#${this.uniqueId}`);
@@ -88,16 +88,16 @@ export default defineComponent({
             if (this.enhanceForLongLists) {
                 $chosenDropDown
                     .chosen({
-                        width: '100%',
-                        placeholder_text_multiple: ' ',
-                        placeholder_text_single: ' '
+                        width: "100%",
+                        placeholder_text_multiple: " ",
+                        placeholder_text_single: " "
                     })
                     .change(() => {
                         this.internalValue = $chosenDropDown.val();
                     });
             }
             else {
-                $chosenDropDown.chosen('destroy');
+                $chosenDropDown.chosen("destroy");
             }
         },
 
@@ -111,7 +111,7 @@ export default defineComponent({
             if (this.enhanceForLongLists) {
                 this.$nextTick(() => {
                     const $chosenDropDown = this.getChosenJqueryEl();
-                    $chosenDropDown.trigger('chosen:updated');
+                    $chosenDropDown.trigger("chosen:updated");
                 });
             }
         }
@@ -133,7 +133,7 @@ export default defineComponent({
         },
 
         internalValue() {
-            this.$emit('update:modelValue', this.internalValue);
+            this.$emit("update:modelValue", this.internalValue);
         },
 
         enhanceForLongLists() {

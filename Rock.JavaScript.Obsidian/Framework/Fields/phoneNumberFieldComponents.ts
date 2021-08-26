@@ -14,12 +14,12 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { getFieldEditorProps } from './index';
-import PhoneNumberBox from '../Elements/phoneNumberBox';
+import { defineComponent } from "vue";
+import { getFieldEditorProps } from "./index";
+import PhoneNumberBox from "../Elements/phoneNumberBox";
 
 export const EditComponent = defineComponent({
-    name: 'PhoneNumber.Edit',
+    name: "PhoneNumber.Edit",
 
     components: {
         PhoneNumberBox
@@ -29,7 +29,7 @@ export const EditComponent = defineComponent({
 
     data() {
         return {
-            internalValue: ''
+            internalValue: ""
         };
     },
 
@@ -42,12 +42,12 @@ export const EditComponent = defineComponent({
 
     watch: {
         internalValue(): void {
-            this.$emit('update:modelValue', this.internalValue);
+            this.$emit("update:modelValue", this.internalValue);
         },
         modelValue: {
             immediate: true,
             handler(): void {
-                this.internalValue = this.modelValue || '';
+                this.internalValue = this.modelValue || "";
             }
         }
     },

@@ -15,9 +15,9 @@
 // </copyright>
 //
 
-import { Entity, Person } from '@Obsidian/ViewModels';
-import { DebugTimingViewModel } from '../Controls/pageDebugTimings';
-import { Guid } from '../Util/guid';
+import { Entity, Person } from "@Obsidian/ViewModels";
+import { DebugTimingViewModel } from "../Controls/pageDebugTimings";
+import { Guid } from "../Util/guid";
 
 export type State = {
     areSecondaryBlocksShown: boolean;
@@ -29,7 +29,7 @@ export type State = {
     executionStartTime: Date;
     debugTimings: DebugTimingViewModel[],
     loginUrlWithReturnUrl: string
-}
+};
 
 export const state: State = {
     areSecondaryBlocksShown: true,
@@ -37,8 +37,8 @@ export const state: State = {
     pageParameters: {},
     contextEntities: {},
     pageId: 0,
-    pageGuid: '' as Guid,
+    pageGuid: "" as Guid,
     executionStartTime: new Date(),
     debugTimings: [],
-    loginUrlWithReturnUrl: ''
+    loginUrlWithReturnUrl: ""
 };

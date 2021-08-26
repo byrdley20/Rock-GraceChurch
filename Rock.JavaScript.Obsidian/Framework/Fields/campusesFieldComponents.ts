@@ -14,15 +14,15 @@
 // limitations under the License.
 // </copyright>
 //
-import { computed, defineComponent, ref, SetupContext, watch, watchEffect } from 'vue';
-import { getFieldEditorProps } from './index';
-import CheckBoxList from '../Elements/checkBoxList';
-import { toNumberOrNull } from '@Obsidian/Services/number';
-import { ConfigurationValueKey } from './campusesField';
-import { ListItem } from '@Obsidian/ViewModels';
+import { computed, defineComponent, ref, SetupContext, watch, watchEffect } from "vue";
+import { getFieldEditorProps } from "./index";
+import CheckBoxList from "../Elements/checkBoxList";
+import { toNumberOrNull } from "@Obsidian/Services/number";
+import { ConfigurationValueKey } from "./campusesField";
+import { ListItem } from "@Obsidian/ViewModels";
 
 export const EditComponent = defineComponent({
-    name: 'CampusesField.Edit',
+    name: "CampusesField.Edit",
 
     components: {
         CheckBoxList
@@ -31,12 +31,12 @@ export const EditComponent = defineComponent({
     props: getFieldEditorProps(),
 
     setup(props, context: SetupContext) {
-        const internalValue = ref(props.modelValue ? props.modelValue.split(',') : []);
+        const internalValue = ref(props.modelValue ? props.modelValue.split(",") : []);
 
         /** The options to choose from in the drop down list */
         const options = computed((): ListItem[] => {
             try {
-                return JSON.parse(props.configurationValues[ConfigurationValueKey.Values] ?? '[]') as ListItem[];
+                return JSON.parse(props.configurationValues[ConfigurationValueKey.Values] ?? "[]") as ListItem[];
             }
             catch {
                 return [];
@@ -49,9 +49,9 @@ export const EditComponent = defineComponent({
             return toNumberOrNull(repeatColumnsConfig) ?? 4;
         });
 
-        watch(() => props.modelValue, () => internalValue.value = props.modelValue ? props.modelValue.split(',') : []);
+        watch(() => props.modelValue, () => internalValue.value = props.modelValue ? props.modelValue.split(",") : []);
 
-        watchEffect(() => context.emit('update:modelValue', internalValue.value.join(',')));
+        watchEffect(() => context.emit("update:modelValue", internalValue.value.join(",")));
 
         return {
             internalValue,

@@ -14,11 +14,11 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
-import RockFormField from './rockFormField';
+import { defineComponent, PropType } from "vue";
+import RockFormField from "./rockFormField";
 
 export default defineComponent( {
-    name: 'StaticFormControl',
+    name: "StaticFormControl",
     components: {
         RockFormField
     },

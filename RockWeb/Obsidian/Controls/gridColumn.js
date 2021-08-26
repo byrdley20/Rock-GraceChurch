@@ -16,28 +16,28 @@ System.register(["../Elements/javaScriptAnchor", "vue", "./grid"], function (exp
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'GridColumn',
+                name: "GridColumn",
                 components: {
                     JavaScriptAnchor: javaScriptAnchor_1.default
                 },
                 props: {
                     title: {
                         type: String,
-                        default: ''
+                        default: ""
                     },
                     property: {
                         type: String,
-                        default: ''
+                        default: ""
                     },
                     sortExpression: {
                         type: String,
-                        default: ''
+                        default: ""
                     }
                 },
                 setup() {
                     return {
-                        gridContext: vue_1.inject('gridContext'),
-                        rowContext: vue_1.inject('rowContext')
+                        gridContext: vue_1.inject("gridContext"),
+                        rowContext: vue_1.inject("rowContext")
                     };
                 },
                 computed: {
@@ -65,7 +65,7 @@ System.register(["../Elements/javaScriptAnchor", "vue", "./grid"], function (exp
                 },
                 methods: {
                     onHeaderClick() {
-                        this.$emit('click:header', this.property);
+                        this.$emit("click:header", this.property);
                         if (this.mySortExpression && this.sortProperty) {
                             if (this.isCurrentlySortedAsc) {
                                 this.sortProperty.direction = grid_1.SortDirection.Descending;

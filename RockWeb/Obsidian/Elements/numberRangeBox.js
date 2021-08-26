@@ -19,7 +19,7 @@ System.register(["vue", "../Rules/index", "@Obsidian/Services/number", "./rockFo
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'NumberRangeBox',
+                name: "NumberRangeBox",
                 components: {
                     RockFormField: rockFormField_1.default
                 },
@@ -34,23 +34,23 @@ System.register(["vue", "../Rules/index", "@Obsidian/Services/number", "./rockFo
                     },
                     inputClasses: {
                         type: String,
-                        default: ''
+                        default: ""
                     },
                     rules: {
                         type: String,
-                        default: ''
+                        default: ""
                     }
                 },
                 emits: [
-                    'update:modelValue'
+                    "update:modelValue"
                 ],
                 data: function () {
                     return {
                         internalValue: {
-                            lower: '',
-                            upper: ''
+                            lower: "",
+                            upper: ""
                         },
-                        validationValue: ''
+                        validationValue: ""
                     };
                 },
                 methods: {
@@ -82,7 +82,7 @@ System.register(["vue", "../Rules/index", "@Obsidian/Services/number", "./rockFo
                 },
                 watch: {
                     computedValue() {
-                        this.$emit('update:modelValue', this.computedValue);
+                        this.$emit("update:modelValue", this.computedValue);
                     },
                     internalValue() {
                         var _a, _b;
@@ -92,7 +92,7 @@ System.register(["vue", "../Rules/index", "@Obsidian/Services/number", "./rockFo
                             lower: number_1.toNumberOrNull(this.internalValue.lower),
                             upper: number_1.toNumberOrNull(this.internalValue.upper)
                         };
-                        this.$emit('update:modelValue', emitValue);
+                        this.$emit("update:modelValue", emitValue);
                     },
                     internalStep() {
                         return this.decimalCount === null ? "any" : (1 / Math.pow(10, this.decimalCount)).toString();

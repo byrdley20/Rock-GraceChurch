@@ -14,10 +14,10 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
+import { defineComponent } from "vue";
 
 export default defineComponent({
-    name: 'JavaScriptAnchor',
+    name: "JavaScriptAnchor",
     template: `
 <a href="javascript:void(0);"><slot /></a>`
 });

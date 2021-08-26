@@ -4,8 +4,8 @@ System.register(["vue", "../Elements/rockFormField", "../Elements/dropDownList",
     var __moduleName = context_1 && context_1.id;
     function getDefaultAddressControlModel() {
         return {
-            state: 'AZ',
-            country: 'US'
+            state: "AZ",
+            country: "US"
         };
     }
     exports_1("getDefaultAddressControlModel", getDefaultAddressControlModel);
@@ -32,16 +32,16 @@ System.register(["vue", "../Elements/rockFormField", "../Elements/dropDownList",
         ],
         execute: function () {
             stateOptions = [
-                'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM',
-                'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA',
-                'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV',
-                'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW',
-                'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA',
-                'WA', 'WV', 'WI', 'WY'
+                "AL", "AK", "AS", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FM",
+                "FL", "GA", "GU", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA",
+                "ME", "MH", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV",
+                "NH", "NJ", "NM", "NY", "NC", "ND", "MP", "OH", "OK", "OR", "PW",
+                "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VI", "VA",
+                "WA", "WV", "WI", "WY"
             ]
                 .map(o => ({ value: o, text: o }));
             exports_1("AddressControlBase", AddressControlBase = vue_1.defineComponent({
-                name: 'AddressControlBase',
+                name: "AddressControlBase",
                 components: {
                     TextBox: textBox_1.default,
                     RockLabel: rockLabel_1.default,
@@ -54,7 +54,7 @@ System.register(["vue", "../Elements/rockFormField", "../Elements/dropDownList",
                     },
                     id: {
                         type: String,
-                        default: ''
+                        default: ""
                     }
                 },
                 setup(props) {
@@ -77,7 +77,7 @@ System.register(["vue", "../Elements/rockFormField", "../Elements/dropDownList",
 `
             }));
             exports_1("default", vue_1.defineComponent({
-                name: 'AddressControl',
+                name: "AddressControl",
                 components: {
                     RockFormField: rockFormField_1.default,
                     AddressControlBase

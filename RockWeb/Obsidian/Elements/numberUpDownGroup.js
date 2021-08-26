@@ -16,7 +16,7 @@ System.register(["vue", "./numberUpDown", "./rockFormField"], function (exports_
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'NumberUpDownGroup',
+                name: "NumberUpDownGroup",
                 components: {
                     RockFormField: rockFormField_1.default,
                     NumberUpDownInternal: numberUpDown_1.NumberUpDownInternal

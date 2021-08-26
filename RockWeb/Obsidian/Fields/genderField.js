@@ -25,22 +25,22 @@ System.register(["vue", "./fieldType", "@Obsidian/Services/number"], function (e
         ],
         execute: function () {
             editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
-                return (yield context_1.import('./genderFieldComponents')).EditComponent;
+                return (yield context_1.import("./genderFieldComponents")).EditComponent;
             }));
             GenderFieldType = class GenderFieldType extends fieldType_1.FieldTypeBase {
                 updateTextValue(value) {
                     const numberValue = number_1.toNumberOrNull(value.value);
                     if (numberValue === 0) {
-                        value.textValue = 'Unknown';
+                        value.textValue = "Unknown";
                     }
                     else if (numberValue === 1) {
-                        value.textValue = 'Male';
+                        value.textValue = "Male";
                     }
                     else if (numberValue === 2) {
-                        value.textValue = 'Female';
+                        value.textValue = "Female";
                     }
                     else {
-                        value.textValue = '';
+                        value.textValue = "";
                     }
                 }
                 getEditComponent(_value) {

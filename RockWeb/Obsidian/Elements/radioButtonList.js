@@ -13,7 +13,7 @@ System.register(["vue", "./rockFormField"], function (exports_1, context_1) {
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'RadioButtonList',
+                name: "RadioButtonList",
                 components: {
                     RockFormField: rockFormField_1.default
                 },
@@ -24,7 +24,7 @@ System.register(["vue", "./rockFormField"], function (exports_1, context_1) {
                     },
                     modelValue: {
                         type: String,
-                        default: ''
+                        default: ""
                     },
                     repeatColumns: {
                         type: Number,
@@ -36,11 +36,11 @@ System.register(["vue", "./rockFormField"], function (exports_1, context_1) {
                     }
                 },
                 emits: [
-                    'update:modelValue'
+                    "update:modelValue"
                 ],
                 data() {
                     return {
-                        internalValue: ''
+                        internalValue: ""
                     };
                 },
                 computed: {
@@ -50,23 +50,23 @@ System.register(["vue", "./rockFormField"], function (exports_1, context_1) {
                             classes.push(`in-columns in-columns-${this.repeatColumns}`);
                         }
                         if (this.horizontal) {
-                            classes.push('rockradiobuttonlist-horizontal');
+                            classes.push("rockradiobuttonlist-horizontal");
                         }
                         else {
-                            classes.push('rockradiobuttonlist-vertical');
+                            classes.push("rockradiobuttonlist-vertical");
                         }
-                        return classes.join(' ');
+                        return classes.join(" ");
                     }
                 },
                 methods: {
                     getOptionUniqueId(uniqueId, option) {
-                        const key = option.value.replace(' ', '-');
+                        const key = option.value.replace(" ", "-");
                         return `${uniqueId}-${key}`;
                     }
                 },
                 watch: {
                     internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
+                        this.$emit("update:modelValue", this.internalValue);
                     },
                     modelValue: {
                         immediate: true,

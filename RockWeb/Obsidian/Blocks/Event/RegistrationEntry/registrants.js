@@ -25,15 +25,15 @@ System.register(["vue", "./registrant", "../../../Elements/alert"], function (ex
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'Event.RegistrationEntry.Registrants',
+                name: "Event.RegistrationEntry.Registrants",
                 components: {
                     Registrant: registrant_1.default,
                     Alert: alert_1.default
                 },
                 setup() {
                     return {
-                        registrationEntryState: vue_1.inject('registrationEntryState'),
-                        persistSession: vue_1.inject('persistSession')
+                        registrationEntryState: vue_1.inject("registrationEntryState"),
+                        persistSession: vue_1.inject("persistSession")
                     };
                 },
                 data() {
@@ -45,7 +45,7 @@ System.register(["vue", "./registrant", "../../../Elements/alert"], function (ex
                     onPrevious() {
                         return __awaiter(this, void 0, void 0, function* () {
                             if (this.registrationEntryState.currentRegistrantIndex <= 0) {
-                                this.$emit('previous');
+                                this.$emit("previous");
                                 return;
                             }
                             const lastFormIndex = this.registrationEntryState.viewModel.registrantForms.length - 1;
@@ -58,7 +58,7 @@ System.register(["vue", "./registrant", "../../../Elements/alert"], function (ex
                         return __awaiter(this, void 0, void 0, function* () {
                             const lastIndex = this.registrationEntryState.registrants.length - 1;
                             if (this.registrationEntryState.currentRegistrantIndex >= lastIndex) {
-                                this.$emit('next');
+                                this.$emit("next");
                                 return;
                             }
                             if (this.registrationEntryState.currentRegistrantIndex === 0) {
@@ -83,7 +83,7 @@ System.register(["vue", "./registrant", "../../../Elements/alert"], function (ex
                                         continue;
                                     }
                                     const valueToShare = firstRegistrant.fieldValues[field.guid];
-                                    if (valueToShare && typeof valueToShare === 'object') {
+                                    if (valueToShare && typeof valueToShare === "object") {
                                         currentRegistrant.fieldValues[field.guid] = Object.assign({}, valueToShare);
                                     }
                                     else {
@@ -103,7 +103,7 @@ System.register(["vue", "./registrant", "../../../Elements/alert"], function (ex
                         return currentRegistrant.isOnWaitList;
                     },
                     registrantTerm() {
-                        return (this.registrationEntryState.viewModel.registrantTerm || 'registrant').toLowerCase();
+                        return (this.registrationEntryState.viewModel.registrantTerm || "registrant").toLowerCase();
                     },
                     registrants() {
                         return this.registrationEntryState.registrants;

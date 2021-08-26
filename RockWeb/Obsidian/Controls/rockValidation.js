@@ -13,7 +13,7 @@ System.register(["../Elements/alert", "vue"], function (exports_1, context_1) {
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'RockValidation',
+                name: "RockValidation",
                 components: {
                     Alert: alert_1.default
                 },

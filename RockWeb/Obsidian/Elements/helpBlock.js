@@ -13,7 +13,7 @@ System.register(["vue", "./javaScriptAnchor"], function (exports_1, context_1) {
         ],
         execute: function () {
             HelpBlock = vue_1.defineComponent({
-                name: 'HelpBlock',
+                name: "HelpBlock",
                 components: {
                     JavaScriptAnchor: javaScriptAnchor_1.default
                 },
@@ -24,7 +24,7 @@ System.register(["vue", "./javaScriptAnchor"], function (exports_1, context_1) {
                     }
                 },
                 mounted() {
-                    const jquery = window['$'];
+                    const jquery = window["$"];
                     jquery(this.$el).tooltip();
                 },
                 template: `

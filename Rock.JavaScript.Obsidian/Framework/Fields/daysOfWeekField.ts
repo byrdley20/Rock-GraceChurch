@@ -14,16 +14,16 @@
 // limitations under the License.
 // </copyright>
 //
-import { Component, defineAsyncComponent } from 'vue';
-import { FieldTypeBase } from './fieldType';
-import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
-import { toNumberOrNull } from '@Obsidian/Services/number';
-import { DayOfWeek } from './dayOfWeekField';
+import { Component, defineAsyncComponent } from "vue";
+import { FieldTypeBase } from "./fieldType";
+import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
+import { toNumberOrNull } from "@Obsidian/Services/number";
+import { DayOfWeek } from "./dayOfWeekField";
 
 
 // The edit component can be quite large, so load it only as needed.
 const editComponent = defineAsyncComponent(async () => {
-    return (await import('./daysOfWeekFieldComponents')).EditComponent;
+    return (await import("./daysOfWeekFieldComponents")).EditComponent;
 });
 
 /**
@@ -31,48 +31,48 @@ const editComponent = defineAsyncComponent(async () => {
  */
 export class DaysOfWeekFieldType extends FieldTypeBase {
     public override updateTextValue(value: ClientEditableAttributeValue): void {
-        if (value.value === null || value.value === undefined || value.value === '') {
-            value.textValue = '';
+        if (value.value === null || value.value === undefined || value.value === "") {
+            value.textValue = "";
             return;
         }
 
-        value.textValue = value.value.split(',')
+        value.textValue = value.value.split(",")
             .map(v => {
                 const dayValue = toNumberOrNull(v);
 
                 if (dayValue === null) {
-                    return '';
+                    return "";
                 }
                 else {
                     switch (dayValue) {
                         case DayOfWeek.Sunday:
-                            return 'Sunday';
+                            return "Sunday";
 
                         case DayOfWeek.Monday:
-                            return 'Monday';
+                            return "Monday";
 
                         case DayOfWeek.Tuesday:
-                            return 'Tuesday';
+                            return "Tuesday";
 
                         case DayOfWeek.Wednesday:
-                            return 'Wednesday';
+                            return "Wednesday";
 
                         case DayOfWeek.Thursday:
-                            return 'Thursday';
+                            return "Thursday";
 
                         case DayOfWeek.Friday:
-                            return 'Friday';
+                            return "Friday";
 
                         case DayOfWeek.Saturday:
-                            return 'Saturday';
+                            return "Saturday";
 
                         default:
-                            return '';
+                            return "";
                     }
                 }
             })
-            .filter(v => v != '')
-            .join(', ');
+            .filter(v => v != "")
+            .join(", ");
     }
 
     public override getEditComponent(_value: ClientAttributeValue): Component {

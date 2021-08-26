@@ -14,27 +14,27 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType } from "vue";
 
 export enum BtnType {
-    default = 'default',
-    primary = 'primary',
-    danger = 'danger',
-    warning = 'warning',
-    success = 'success',
-    info = 'info',
-    link = 'link'
+    Default = "default",
+    Primary = "primary",
+    Danger = "danger",
+    Warning = "warning",
+    Success = "success",
+    Info = "info",
+    Link = "link"
 }
 
 export enum BtnSize {
-    default = '',
-    xs = 'xs',
-    sm = 'sm',
-    lg = 'lg'
+    Default = "",
+    ExtraSmall = "xs",
+    Small = "sm",
+    Large = "lg"
 }
 
 export default defineComponent({
-    name: 'RockButton',
+    name: "RockButton",
     props: {
         isLoading: {
             type: Boolean as PropType<boolean>,
@@ -42,11 +42,11 @@ export default defineComponent({
         },
         loadingText: {
             type: String as PropType<string>,
-            default: 'Loading...'
+            default: "Loading..."
         },
         type: {
             type: String as PropType<string>,
-            default: 'button'
+            default: "button"
         },
         disabled: {
             type: Boolean,
@@ -54,20 +54,20 @@ export default defineComponent({
         },
         btnType: {
             type: String as PropType<BtnType>,
-            default: BtnType.default
+            default: BtnType.Default
         },
         btnSize: {
             type: String as PropType<BtnSize>,
-            default: BtnSize.default
+            default: BtnSize.Default
         }
     },
     emits: [
-        'click'
+        "click"
     ],
     methods: {
         handleClick: function (event: Event) {
             if (!this.isLoading) {
-                this.$emit('click', event);
+                this.$emit("click", event);
             }
         }
     },
@@ -77,7 +77,7 @@ export default defineComponent({
         },
         sizeClass(): string {
             if (!this.btnSize) {
-                return '';
+                return "";
             }
 
             return `btn-${this.btnSize}`;

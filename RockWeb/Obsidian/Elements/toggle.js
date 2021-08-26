@@ -16,7 +16,7 @@ System.register(["vue", "./javaScriptAnchor", "./rockFormField"], function (expo
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'Toggle',
+                name: "Toggle",
                 components: {
                     JavaScriptAnchor: javaScriptAnchor_1.default,
                     RockFormField: rockFormField_1.default
@@ -28,22 +28,22 @@ System.register(["vue", "./javaScriptAnchor", "./rockFormField"], function (expo
                     },
                     trueText: {
                         type: String,
-                        default: 'On'
+                        default: "On"
                     },
                     falseText: {
                         type: String,
-                        default: 'Off'
+                        default: "Off"
                     }
                 },
                 data() {
                     return {
-                        selectedClasses: 'active btn btn-primary',
-                        unselectedClasses: 'btn btn-default'
+                        selectedClasses: "active btn btn-primary",
+                        unselectedClasses: "btn btn-default"
                     };
                 },
                 methods: {
                     onClick(isOn) {
-                        this.$emit('update:modelValue', isOn);
+                        this.$emit("update:modelValue", isOn);
                     }
                 },
                 template: `

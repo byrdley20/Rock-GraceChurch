@@ -15,30 +15,30 @@
 // </copyright>
 //
 
-import { ActionContext, ActionTree } from 'vuex';
+import { ActionContext, ActionTree } from "vuex";
 //import { commonEntities } from './CommonEntities';
-import { Mutations, MutationType } from './mutations';
-import { State } from './state';
-import { PageConfig } from '../index';
+import { Mutations, MutationType } from "./mutations";
+import { State } from "./state";
+import { PageConfig } from "../index";
 
 export const enum ActionType {
-    Initialize = 'initialize',
+    Initialize = "initialize",
 
-    RedirectToLogin = 'redirectToLogin'
+    RedirectToLogin = "redirectToLogin"
 }
 
-type ActionAugments = Omit<ActionContext<State, State>, 'commit'> & {
+type ActionAugments = Omit<ActionContext<State, State>, "commit"> & {
     commit<K extends keyof Mutations>(
         key: K,
         payload: Parameters<Mutations[K]>[1]
     ): ReturnType<Mutations[K]>
-}
+};
 
 export type Actions = {
     [ActionType.Initialize](context: ActionAugments, value: { pageConfig: PageConfig }): void;
 
     [ActionType.RedirectToLogin](context: ActionAugments): void;
-}
+};
 
 export const actions: ActionTree<State, State> & Actions = {
     [ActionType.Initialize](context, value) {

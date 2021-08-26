@@ -13,14 +13,14 @@ System.register(["vue", "./helpBlock"], function (exports_1, context_1) {
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'RockLabel',
+                name: "RockLabel",
                 components: {
                     HelpBlock: helpBlock_1.default
                 },
                 props: {
                     help: {
                         type: String,
-                        default: ''
+                        default: ""
                     }
                 },
                 template: `

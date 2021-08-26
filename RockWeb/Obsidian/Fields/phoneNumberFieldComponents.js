@@ -16,14 +16,14 @@ System.register(["vue", "./index", "../Elements/phoneNumberBox"], function (expo
         ],
         execute: function () {
             exports_1("EditComponent", EditComponent = vue_1.defineComponent({
-                name: 'PhoneNumber.Edit',
+                name: "PhoneNumber.Edit",
                 components: {
                     PhoneNumberBox: phoneNumberBox_1.default
                 },
                 props: index_1.getFieldEditorProps(),
                 data() {
                     return {
-                        internalValue: ''
+                        internalValue: ""
                     };
                 },
                 computed: {
@@ -34,12 +34,12 @@ System.register(["vue", "./index", "../Elements/phoneNumberBox"], function (expo
                 },
                 watch: {
                     internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
+                        this.$emit("update:modelValue", this.internalValue);
                     },
                     modelValue: {
                         immediate: true,
                         handler() {
-                            this.internalValue = this.modelValue || '';
+                            this.internalValue = this.modelValue || "";
                         }
                     }
                 },

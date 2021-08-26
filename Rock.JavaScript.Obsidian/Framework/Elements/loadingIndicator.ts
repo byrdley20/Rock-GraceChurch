@@ -14,10 +14,10 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
+import { defineComponent } from "vue";
 
 export default defineComponent({
-    name: 'LoadingIndicator',
+    name: "LoadingIndicator",
     template: `
 <div class="text-muted">
     Loading...

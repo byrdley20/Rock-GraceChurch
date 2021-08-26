@@ -16,7 +16,7 @@ System.register(["vue", "../Util/guid", "./rockFormField"], function (exports_1,
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'ListBox',
+                name: "ListBox",
                 components: {
                     RockFormField: rockFormField_1.default
                 },
@@ -31,7 +31,7 @@ System.register(["vue", "../Util/guid", "./rockFormField"], function (exports_1,
                     },
                     formControlClasses: {
                         type: String,
-                        default: ''
+                        default: ""
                     },
                     enhanceForLongLists: {
                         type: Boolean,
@@ -48,15 +48,15 @@ System.register(["vue", "../Util/guid", "./rockFormField"], function (exports_1,
                 computed: {
                     compiledFormControlClasses() {
                         if (this.enhanceForLongLists) {
-                            return this.formControlClasses + ' chosen-select';
+                            return this.formControlClasses + " chosen-select";
                         }
                         return this.formControlClasses;
                     }
                 },
                 methods: {
                     getChosenJqueryEl() {
-                        const jquery = window['$'];
-                        let $chosenDropDown = jquery(this.$refs['theSelect']);
+                        const jquery = window["$"];
+                        let $chosenDropDown = jquery(this.$refs["theSelect"]);
                         if (!$chosenDropDown || !$chosenDropDown.length) {
                             $chosenDropDown = jquery(`#${this.uniqueId}`);
                         }
@@ -70,16 +70,16 @@ System.register(["vue", "../Util/guid", "./rockFormField"], function (exports_1,
                         if (this.enhanceForLongLists) {
                             $chosenDropDown
                                 .chosen({
-                                width: '100%',
-                                placeholder_text_multiple: ' ',
-                                placeholder_text_single: ' '
+                                width: "100%",
+                                placeholder_text_multiple: " ",
+                                placeholder_text_single: " "
                             })
                                 .change(() => {
                                 this.internalValue = $chosenDropDown.val();
                             });
                         }
                         else {
-                            $chosenDropDown.chosen('destroy');
+                            $chosenDropDown.chosen("destroy");
                         }
                     },
                     syncValue() {
@@ -90,7 +90,7 @@ System.register(["vue", "../Util/guid", "./rockFormField"], function (exports_1,
                         if (this.enhanceForLongLists) {
                             this.$nextTick(() => {
                                 const $chosenDropDown = this.getChosenJqueryEl();
-                                $chosenDropDown.trigger('chosen:updated');
+                                $chosenDropDown.trigger("chosen:updated");
                             });
                         }
                     }
@@ -109,7 +109,7 @@ System.register(["vue", "../Util/guid", "./rockFormField"], function (exports_1,
                         }
                     },
                     internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
+                        this.$emit("update:modelValue", this.internalValue);
                     },
                     enhanceForLongLists() {
                         this.createOrDestroyChosen();

@@ -14,11 +14,11 @@
 // limitations under the License.
 // </copyright>
 
-import { defineComponent } from 'vue';
-import DatePartsPicker from './datePartsPicker';
+import { defineComponent } from "vue";
+import DatePartsPicker from "./datePartsPicker";
 
 export default defineComponent( {
-    name: 'BirthdayPicker',
+    name: "BirthdayPicker",
     components: {
         DatePartsPicker
     },

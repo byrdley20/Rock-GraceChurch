@@ -16,7 +16,7 @@ System.register(["vue", "@Obsidian/Services/number", "@Obsidian/Services/string"
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'BasicTimePicker',
+                name: "BasicTimePicker",
                 components: {},
                 props: {
                     modelValue: {
@@ -78,7 +78,7 @@ System.register(["vue", "@Obsidian/Services/number", "@Obsidian/Services/string"
                             value.hour = number_1.toNumber(values[1]) + (this.internalMeridiem === "PM" ? 12 : 0);
                             value.minute = number_1.toNumber(values[2]);
                         }
-                        this.$emit('update:modelValue', value);
+                        this.$emit("update:modelValue", value);
                     },
                     maybeUpdateValue() {
                         const values = /(\d+):(\d+)/.exec(this.internalValue);

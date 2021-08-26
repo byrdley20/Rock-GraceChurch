@@ -31,7 +31,7 @@ System.register(["../../Elements/textBox", "../../Elements/checkBox", "../../Ele
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'Security.Login',
+                name: "Security.Login",
                 components: {
                     TextBox: textBox_1.default,
                     CheckBox: checkBox_1.default,
@@ -40,38 +40,38 @@ System.register(["../../Elements/textBox", "../../Elements/checkBox", "../../Ele
                 },
                 setup() {
                     return {
-                        invokeBlockAction: vue_1.inject('invokeBlockAction')
+                        invokeBlockAction: vue_1.inject("invokeBlockAction")
                     };
                 },
                 data() {
                     return {
-                        username: '',
-                        password: '',
+                        username: "",
+                        password: "",
                         rememberMe: false,
                         isLoading: false,
-                        errorMessage: ''
+                        errorMessage: ""
                     };
                 },
                 methods: {
                     setCookie(cookie) {
-                        let expires = '';
+                        let expires = "";
                         if (cookie.expires) {
                             const date = new Date(cookie.expires);
                             if (date < new Date()) {
-                                expires = '';
+                                expires = "";
                             }
                             else {
                                 expires = `; expires=${date.toUTCString()}`;
                             }
                         }
                         else {
-                            expires = '';
+                            expires = "";
                         }
                         document.cookie = `${cookie.name}=${cookie.value}${expires}; path=/`;
                     },
                     redirectAfterLogin() {
                         const urlParams = new URLSearchParams(window.location.search);
-                        const returnUrl = urlParams.get('returnurl');
+                        const returnUrl = urlParams.get("returnurl");
                         if (returnUrl) {
                             window.location.href = decodeURIComponent(returnUrl);
                         }
@@ -79,11 +79,11 @@ System.register(["../../Elements/textBox", "../../Elements/checkBox", "../../Ele
                     onHelpClick() {
                         return __awaiter(this, void 0, void 0, function* () {
                             this.isLoading = true;
-                            this.errorMessage = '';
+                            this.errorMessage = "";
                             try {
-                                const result = yield this.invokeBlockAction('help', undefined);
+                                const result = yield this.invokeBlockAction("help", undefined);
                                 if (result.isError) {
-                                    this.errorMessage = result.errorMessage || 'An unknown error occurred communicating with the server';
+                                    this.errorMessage = result.errorMessage || "An unknown error occurred communicating with the server";
                                 }
                                 else if (result.data) {
                                     window.location.href = result.data;
@@ -104,7 +104,7 @@ System.register(["../../Elements/textBox", "../../Elements/checkBox", "../../Ele
                             }
                             this.isLoading = true;
                             try {
-                                const result = yield this.invokeBlockAction('DoLogin', {
+                                const result = yield this.invokeBlockAction("DoLogin", {
                                     username: this.username,
                                     password: this.password,
                                     rememberMe: this.rememberMe
@@ -115,11 +115,11 @@ System.register(["../../Elements/textBox", "../../Elements/checkBox", "../../Ele
                                     return;
                                 }
                                 this.isLoading = false;
-                                this.errorMessage = result.errorMessage || 'An unknown error occurred communicating with the server';
+                                this.errorMessage = result.errorMessage || "An unknown error occurred communicating with the server";
                             }
                             catch (e) {
                                 console.log(JSON.stringify(e.response, null, 2));
-                                if (typeof e === 'string') {
+                                if (typeof e === "string") {
                                     this.errorMessage = e;
                                 }
                                 else {

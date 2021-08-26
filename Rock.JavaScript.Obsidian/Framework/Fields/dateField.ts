@@ -14,25 +14,25 @@
 // limitations under the License.
 // </copyright>
 //
-import { Component, defineAsyncComponent } from 'vue';
-import { FieldTypeBase } from './fieldType';
-import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
-import { asBoolean } from '@Obsidian/Services/boolean';
-import { toNumber } from '@Obsidian/Services/number';
-import { parseDirtyRoundTripDateOrNull, asElapsedString, formatAspDate } from '@Obsidian/Services/date';
+import { Component, defineAsyncComponent } from "vue";
+import { FieldTypeBase } from "./fieldType";
+import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
+import { asBoolean } from "@Obsidian/Services/boolean";
+import { toNumber } from "@Obsidian/Services/number";
+import { parseDirtyRoundTripDateOrNull, asElapsedString, formatAspDate } from "@Obsidian/Services/date";
 
 export const enum ConfigurationValueKey {
-    Format = 'format',
-    DisplayDiff = 'displayDiff',
-    DisplayCurrentOption = 'displayCurrentOption',
-    DatePickerControlType = 'datePickerControlType',
-    FutureYearCount = 'futureYearCount'
+    Format = "format",
+    DisplayDiff = "displayDiff",
+    DisplayCurrentOption = "displayCurrentOption",
+    DatePickerControlType = "datePickerControlType",
+    FutureYearCount = "futureYearCount"
 }
 
 
 // The edit component can be quite large, so load it only as needed.
 const editComponent = defineAsyncComponent(async () => {
-    return (await import('./dateFieldComponents')).EditComponent;
+    return (await import("./dateFieldComponents")).EditComponent;
 });
 
 /**
@@ -41,28 +41,28 @@ const editComponent = defineAsyncComponent(async () => {
 export class DateFieldType extends FieldTypeBase {
     public override updateTextValue(value: ClientEditableAttributeValue): void {
         if (this.isCurrentDateValue(value)) {
-            const parts = (value.value ?? '').split(':');
+            const parts = (value.value ?? "").split(":");
             const diff = parts.length === 2 ? toNumber(parts[1]) : 0;
 
             if (diff === 1) {
-                value.textValue = 'Current Date plus 1 day';
+                value.textValue = "Current Date plus 1 day";
             }
             else if (diff > 0) {
                 value.textValue = `Current Date plus ${diff} days`;
             }
             else if (diff === -1) {
-                value.textValue = 'Current Date minus 1 day';
+                value.textValue = "Current Date minus 1 day";
             }
             else if (diff < 0) {
                 value.textValue = `Current Date minus ${Math.abs(diff)} days`;
             }
             else {
-                value.textValue = 'Current Date';
+                value.textValue = "Current Date";
             }
         }
         else {
             const dateValue = parseDirtyRoundTripDateOrNull(value.value);
-            const dateFormatTemplate = value.configurationValues?.[ConfigurationValueKey.Format] || 'MM/dd/yyy';
+            const dateFormatTemplate = value.configurationValues?.[ConfigurationValueKey.Format] || "MM/dd/yyy";
 
             if (dateValue !== null) {
                 let textValue = formatAspDate(dateValue, dateFormatTemplate);
@@ -76,7 +76,7 @@ export class DateFieldType extends FieldTypeBase {
                 value.textValue = textValue;
             }
             else {
-                value.textValue = '';
+                value.textValue = "";
             }
         }
     }
@@ -86,6 +86,6 @@ export class DateFieldType extends FieldTypeBase {
     }
 
     private isCurrentDateValue(value: ClientAttributeValue): boolean {
-        return value.value?.indexOf('CURRENT') === 0;
+        return value.value?.indexOf("CURRENT") === 0;
     }
 }

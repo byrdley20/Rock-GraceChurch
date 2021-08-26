@@ -25,12 +25,12 @@ System.register(["vue", "./fieldType", "@Obsidian/Services/number"], function (e
         ],
         execute: function () {
             editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
-                return (yield context_1.import('./decimalFieldComponents')).EditComponent;
+                return (yield context_1.import("./decimalFieldComponents")).EditComponent;
             }));
             DecimalFieldType = class DecimalFieldType extends fieldType_1.FieldTypeBase {
                 updateTextValue(value) {
                     var _a, _b;
-                    value.textValue = (_b = (_a = number_1.toNumberOrNull(value.value)) === null || _a === void 0 ? void 0 : _a.toString()) !== null && _b !== void 0 ? _b : '';
+                    value.textValue = (_b = (_a = number_1.toNumberOrNull(value.value)) === null || _a === void 0 ? void 0 : _a.toString()) !== null && _b !== void 0 ? _b : "";
                 }
                 getEditComponent(_value) {
                     return editComponent;

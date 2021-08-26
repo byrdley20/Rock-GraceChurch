@@ -14,19 +14,19 @@
 // limitations under the License.
 // </copyright>
 //
-import { Component, defineAsyncComponent } from 'vue';
-import { FieldTypeBase } from './fieldType';
-import { ClientAttributeValue, ClientEditableAttributeValue, ListItem } from '@Obsidian/ViewModels';
+import { Component, defineAsyncComponent } from "vue";
+import { FieldTypeBase } from "./fieldType";
+import { ClientAttributeValue, ClientEditableAttributeValue, ListItem } from "@Obsidian/ViewModels";
 
 export const enum ConfigurationValueKey {
-    Values = 'values',
-    RepeatColumns = 'repeatColumns'
+    Values = "values",
+    RepeatColumns = "repeatColumns"
 }
 
 
 // The edit component can be quite large, so load it only as needed.
 const editComponent = defineAsyncComponent(async () => {
-    return (await import('./campusesFieldComponents')).EditComponent;
+    return (await import("./campusesFieldComponents")).EditComponent;
 });
 
 /**
@@ -34,17 +34,17 @@ const editComponent = defineAsyncComponent(async () => {
  */
 export class CampusesFieldType extends FieldTypeBase {
     public override updateTextValue(value: ClientEditableAttributeValue): void {
-        if (value.value === undefined || value.value === null || value.value === '') {
-            value.textValue = '';
+        if (value.value === undefined || value.value === null || value.value === "") {
+            value.textValue = "";
             return;
         }
 
         try {
-            const values = JSON.parse(value.configurationValues?.[ConfigurationValueKey.Values] ?? '[]') as ListItem[];
-            const userValues = value.value.split(',');
+            const values = JSON.parse(value.configurationValues?.[ConfigurationValueKey.Values] ?? "[]") as ListItem[];
+            const userValues = value.value.split(",");
             const selectedValues = values.filter(o => userValues.includes(o.value));
 
-            value.textValue = selectedValues.map(o => o.text).join(', ');
+            value.textValue = selectedValues.map(o => o.text).join(", ");
         }
         catch {
             value.textValue = value.value;

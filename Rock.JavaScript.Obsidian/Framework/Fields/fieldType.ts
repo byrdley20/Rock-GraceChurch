@@ -15,10 +15,10 @@
 // </copyright>
 //
 
-import { escapeHtml, truncate } from '@Obsidian/Services/string';
-import { compile, Component, defineComponent } from 'vue';
-import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
-import { EditComponent as TextEditComponent } from './textFieldComponents';
+import { escapeHtml, truncate } from "@Obsidian/Services/string";
+import { compile, Component, defineComponent } from "vue";
+import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
+import { EditComponent as TextEditComponent } from "./textFieldComponents";
 
 /**
  * Handles the conversion of an attribute value into one that can be displayed
@@ -107,7 +107,7 @@ export interface FieldType {
  */
 export abstract class FieldTypeBase implements FieldType {
     public getTextValue(value: ClientAttributeValue): string {
-        return value.textValue ?? '';
+        return value.textValue ?? "";
     }
 
     public getHtmlValue(value: ClientAttributeValue): string {
@@ -121,7 +121,7 @@ export abstract class FieldTypeBase implements FieldType {
     }
 
     public getCondensedTextValue(value: ClientAttributeValue): string {
-        return truncate(value.textValue ?? '', 10);
+        return truncate(value.textValue ?? "", 10);
     }
 
     public getCondensedHtmlValue(value: ClientAttributeValue): string {

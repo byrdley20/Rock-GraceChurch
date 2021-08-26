@@ -14,13 +14,13 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { getFieldEditorProps } from './index';
-import { toNumberOrNull } from '@Obsidian/Services/number';
-import CurrencyBox from '../Elements/currencyBox';
+import { defineComponent } from "vue";
+import { getFieldEditorProps } from "./index";
+import { toNumberOrNull } from "@Obsidian/Services/number";
+import CurrencyBox from "../Elements/currencyBox";
 
 export const EditComponent = defineComponent({
-    name: 'CurrencyField.Edit',
+    name: "CurrencyField.Edit",
     components: {
         CurrencyBox
     },
@@ -37,7 +37,7 @@ export const EditComponent = defineComponent({
          * the consuming component.
          */
         internalValue(): void {
-            this.$emit('update:modelValue', this.internalValue !== null ? this.internalValue.toString() : '');
+            this.$emit("update:modelValue", this.internalValue !== null ? this.internalValue.toString() : "");
         },
 
         /**
@@ -47,7 +47,7 @@ export const EditComponent = defineComponent({
         modelValue: {
             immediate: true,
             handler(): void {
-                this.internalValue = toNumberOrNull(this.modelValue || '');
+                this.internalValue = toNumberOrNull(this.modelValue || "");
             }
         }
     },

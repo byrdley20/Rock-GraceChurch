@@ -22,7 +22,7 @@ System.register(["vue", "./fieldType"], function (exports_1, context_1) {
         ],
         execute: function () {
             editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
-                return (yield context_1.import('./emailFieldComponents')).EditComponent;
+                return (yield context_1.import("./emailFieldComponents")).EditComponent;
             }));
             EmailFieldType = class EmailFieldType extends fieldType_1.FieldTypeBase {
                 getEditComponent(_value) {

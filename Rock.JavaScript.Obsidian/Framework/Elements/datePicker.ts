@@ -14,11 +14,11 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
-import { toNumber } from '@Obsidian/Services/number';
-import RockFormField from './rockFormField';
-import { newGuid } from '../Util/guid';
-import TextBox from './textBox';
+import { defineComponent, PropType } from "vue";
+import { toNumber } from "@Obsidian/Services/number";
+import RockFormField from "./rockFormField";
+import { newGuid } from "../Util/guid";
+import TextBox from "./textBox";
 
 type Rock = {
     controls: {
@@ -35,7 +35,7 @@ declare global {
 }
 
 export const DatePickerBase = defineComponent({
-    name: 'DatePickerBase',
+    name: "DatePickerBase",
 
     props: {
         modelValue: {
@@ -45,7 +45,7 @@ export const DatePickerBase = defineComponent({
 
         id: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         },
 
         disabled: {
@@ -55,7 +55,7 @@ export const DatePickerBase = defineComponent({
     },
 
     emits: [
-        'update:modelValue'
+        "update:modelValue"
     ],
 
     data: function () {
@@ -71,7 +71,7 @@ export const DatePickerBase = defineComponent({
         },
 
         asRockDateOrNull(): string | null {
-            const match = /^(\d+)\/(\d+)\/(\d+)/.exec(this.internalValue ?? '');
+            const match = /^(\d+)\/(\d+)\/(\d+)/.exec(this.internalValue ?? "");
 
             if (match !== null) {
                 return `${match[3]}-${match[1]}-${match[2]}`;
@@ -84,7 +84,7 @@ export const DatePickerBase = defineComponent({
 
     watch: {
         asRockDateOrNull(): void {
-            this.$emit('update:modelValue', this.asRockDateOrNull);
+            this.$emit("update:modelValue", this.asRockDateOrNull);
         },
 
         modelValue: {
@@ -109,7 +109,7 @@ export const DatePickerBase = defineComponent({
     },
 
     mounted() {
-        const input = this.$refs['input'] as HTMLInputElement;
+        const input = this.$refs["input"] as HTMLInputElement;
         const inputId = input.id;
         const Rock = window.Rock;
 
@@ -117,7 +117,7 @@ export const DatePickerBase = defineComponent({
             id: inputId,
             startView: 0,
             showOnFocus: true,
-            format: 'mm/dd/yyyy',
+            format: "mm/dd/yyyy",
             todayHighlight: true,
             forceParse: true,
             onChangeScript: () => {
@@ -137,7 +137,7 @@ export const DatePickerBase = defineComponent({
 });
 
 export default defineComponent( {
-    name: 'DatePicker',
+    name: "DatePicker",
 
     components: {
         RockFormField,
@@ -163,29 +163,25 @@ export default defineComponent( {
     },
 
     emits: [
-        'update:modelValue'
+        "update:modelValue"
     ],
 
-    data: function ()
-    {
+    data: function () {
         return {
             internalValue: null as string | null,
             isCurrent: false,
-            currentDiff: '0'
+            currentDiff: "0"
         };
     },
 
     computed: {
-        asCurrentDateValue (): string
-        {
+        asCurrentDateValue (): string {
             const plusMinus = `${toNumber(this.currentDiff)}`;
             return `CURRENT:${plusMinus}`;
         },
 
-        valueToEmit (): string | string | null
-        {
-            if ( this.isCurrent )
-            {
+        valueToEmit (): string | string | null {
+            if ( this.isCurrent ) {
                 return this.asCurrentDateValue;
             }
 
@@ -198,7 +194,7 @@ export default defineComponent( {
             immediate: true,
             handler(): void {
                 if (!this.isCurrentDateOffset) {
-                    this.currentDiff = '0';
+                    this.currentDiff = "0";
                 }
             }
         },
@@ -207,13 +203,13 @@ export default defineComponent( {
             immediate: true,
             handler(): void {
                 if (this.isCurrent) {
-                    this.internalValue = 'Current';
+                    this.internalValue = "Current";
                 }
             }
         },
 
         valueToEmit(): void {
-            this.$emit('update:modelValue', this.valueToEmit);
+            this.$emit("update:modelValue", this.valueToEmit);
         },
 
         modelValue: {
@@ -222,14 +218,14 @@ export default defineComponent( {
                 if (!this.modelValue) {
                     this.internalValue = null;
                     this.isCurrent = false;
-                    this.currentDiff = '0';
+                    this.currentDiff = "0";
 
                     return;
                 }
 
-                if (this.modelValue.indexOf('CURRENT') === 0) {
+                if (this.modelValue.indexOf("CURRENT") === 0) {
                     this.isCurrent = true;
-                    const parts = this.modelValue.split(':');
+                    const parts = this.modelValue.split(":");
 
                     if (parts.length === 2) {
                         this.currentDiff = `${toNumber(parts[1])}`;

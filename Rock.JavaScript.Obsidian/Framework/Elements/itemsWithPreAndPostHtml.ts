@@ -14,7 +14,7 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType } from "vue";
 
 export type ItemWithPreAndPostHtml = {
     slotName: string;
@@ -23,7 +23,7 @@ export type ItemWithPreAndPostHtml = {
 };
 
 export default defineComponent({
-    name: 'ItemsWithPreAndPostHtml',
+    name: "ItemsWithPreAndPostHtml",
     props: {
         items: {
             type: Array as PropType<ItemWithPreAndPostHtml[]>,
@@ -32,7 +32,7 @@ export default defineComponent({
     },
     methods: {
         onDismiss: function () {
-            this.$emit('dismiss');
+            this.$emit("dismiss");
         }
     },
     computed: {
@@ -42,19 +42,17 @@ export default defineComponent({
                 innerSlotName: `inner-${i.slotName}`
             } as Record<string, string>));
         },
-        innerTemplate(): string
-        {
-            if ( !this.items.length )
-            {
-                return '<slot />';
+        innerTemplate(): string {
+            if ( !this.items.length ) {
+                return "<slot />";
             }
 
             const templateParts = this.items.map(i => `${i.preHtml}<slot name="inner-${i.slotName}" />${i.postHtml}`);
-            return templateParts.join('');
+            return templateParts.join("");
         },
         innerComponent(): Record<string, unknown> {
             return {
-                name: 'InnerItemsWithPreAndPostHtml',
+                name: "InnerItemsWithPreAndPostHtml",
                 template: this.innerTemplate
             };
         }

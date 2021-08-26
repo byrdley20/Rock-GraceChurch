@@ -15,12 +15,12 @@
 // </copyright>
 //
 
-import { defineComponent, PropType } from 'vue';
-import JavaScriptAnchor from './javaScriptAnchor';
+import { defineComponent, PropType } from "vue";
+import JavaScriptAnchor from "./javaScriptAnchor";
 
 /** Displays a help block tool-tip. */
 const HelpBlock = defineComponent( {
-    name: 'HelpBlock',
+    name: "HelpBlock",
     components: {
         JavaScriptAnchor
     },
@@ -30,9 +30,8 @@ const HelpBlock = defineComponent( {
             required: true
         }
     },
-    mounted ()
-    {
-        const jquery = <any>window[<any>'$'];
+    mounted () {
+        const jquery = <any>window[<any>"$"];
         jquery( this.$el ).tooltip();
     },
     template: `

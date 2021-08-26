@@ -16,33 +16,33 @@ System.register(["vue", "./index", "../Elements/dropDownList"], function (export
         ],
         execute: function () {
             exports_1("EditComponent", EditComponent = vue_1.defineComponent({
-                name: 'GenderField.Edit',
+                name: "GenderField.Edit",
                 components: {
                     DropDownList: dropDownList_1.default
                 },
                 props: index_1.getFieldEditorProps(),
                 data() {
                     return {
-                        internalValue: ''
+                        internalValue: ""
                     };
                 },
                 computed: {
                     dropDownListOptions() {
                         return [
-                            { text: 'Unknown', value: '0' },
-                            { text: 'Male', value: '1' },
-                            { text: 'Female', value: '2' }
+                            { text: "Unknown", value: "0" },
+                            { text: "Male", value: "1" },
+                            { text: "Female", value: "2" }
                         ];
                     }
                 },
                 watch: {
                     internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
+                        this.$emit("update:modelValue", this.internalValue);
                     },
                     modelValue: {
                         immediate: true,
                         handler() {
-                            this.internalValue = this.modelValue || '';
+                            this.internalValue = this.modelValue || "";
                         }
                     }
                 },

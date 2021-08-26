@@ -15,12 +15,12 @@
 // </copyright>
 //
 
-import { Component, defineComponent, markRaw, PropType } from 'vue';
-import Alert from '../Elements/alert';
-import LoadingIndicator from '../Elements/loadingIndicator';
+import { Component, defineComponent, markRaw, PropType } from "vue";
+import Alert from "../Elements/alert";
+import LoadingIndicator from "../Elements/loadingIndicator";
 
 export default defineComponent({
-    name: 'ComponentFromUrl',
+    name: "ComponentFromUrl",
     components: {
         LoadingIndicator,
         Alert
@@ -35,7 +35,7 @@ export default defineComponent({
         return {
             control: null as Component | null,
             loading: true,
-            error: ''
+            error: ""
         };
     },
     async created() {

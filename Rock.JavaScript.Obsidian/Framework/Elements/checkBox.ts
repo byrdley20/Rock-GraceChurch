@@ -14,12 +14,12 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
-import { newGuid } from '../Util/guid';
-import { ruleStringToArray } from '../Rules/index';
+import { defineComponent, PropType } from "vue";
+import { newGuid } from "../Util/guid";
+import { ruleStringToArray } from "../Rules/index";
 
 export default defineComponent({
-    name: 'CheckBox',
+    name: "CheckBox",
     props: {
         modelValue: {
             type: Boolean as PropType<boolean>,
@@ -35,7 +35,7 @@ export default defineComponent({
         },
         rules: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         }
     },
     data: function () {
@@ -57,7 +57,7 @@ export default defineComponent({
     computed: {
         isRequired() {
             const rules = ruleStringToArray(this.rules);
-            return rules.indexOf('required') !== -1;
+            return rules.indexOf("required") !== -1;
         }
     },
     watch: {
@@ -65,7 +65,7 @@ export default defineComponent({
             this.internalValue = this.modelValue;
         },
         internalValue() {
-            this.$emit('update:modelValue', this.internalValue);
+            this.$emit("update:modelValue", this.internalValue);
         },
         isRequired: {
             immediate: true,

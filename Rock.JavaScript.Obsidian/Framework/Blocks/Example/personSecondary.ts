@@ -14,17 +14,17 @@
 // limitations under the License.
 // </copyright>
 //
-import bus from '../../Util/bus';
-import PaneledBlockTemplate from '../../Templates/paneledBlockTemplate';
-import SecondaryBlock from '../../Controls/secondaryBlock';
-import RockButton from '../../Elements/rockButton';
-import TextBox from '../../Elements/textBox';
-import { defineComponent } from 'vue';
-import store from '../../Store/index';
-import { Person } from '@Obsidian/ViewModels';
+import bus from "../../Util/bus";
+import PaneledBlockTemplate from "../../Templates/paneledBlockTemplate";
+import SecondaryBlock from "../../Controls/secondaryBlock";
+import RockButton from "../../Elements/rockButton";
+import TextBox from "../../Elements/textBox";
+import { defineComponent } from "vue";
+import store from "../../Store/index";
+import { Person } from "@Obsidian/ViewModels";
 
 export default defineComponent({
-    name: 'Example.PersonSecondary',
+    name: "Example.PersonSecondary",
     components: {
         PaneledBlockTemplate,
         SecondaryBlock,
@@ -33,8 +33,8 @@ export default defineComponent({
     },
     data() {
         return {
-            messageToPublish: '',
-            receivedMessage: ''
+            messageToPublish: "",
+            receivedMessage: ""
         };
     },
     methods: {
@@ -42,12 +42,12 @@ export default defineComponent({
             this.receivedMessage = message;
         },
         doPublish(): void {
-            bus.publish('PersonSecondary:Message', this.messageToPublish);
-            this.messageToPublish = '';
+            bus.publish("PersonSecondary:Message", this.messageToPublish);
+            this.messageToPublish = "";
 
         },
         doThrowError(): void {
-            throw new Error('This is an uncaught error');
+            throw new Error("This is an uncaught error");
         }
     },
     computed: {
@@ -55,17 +55,17 @@ export default defineComponent({
             return store.state.currentPerson;
         },
         currentPersonName(): string {
-            return this.currentPerson?.fullName || 'anonymous';
+            return this.currentPerson?.fullName || "anonymous";
         },
         imageUrl(): string {
-            return this.currentPerson?.photoUrl || '/Assets/Images/person-no-photo-unknown.svg';
+            return this.currentPerson?.photoUrl || "/Assets/Images/person-no-photo-unknown.svg";
         },
         photoElementStyle(): string {
             return `background-image: url("${this.imageUrl}"); background-size: cover; background-repeat: no-repeat;`;
         }
     },
     created() {
-        bus.subscribe<string>('PersonDetail:Message', this.receiveMessage);
+        bus.subscribe<string>("PersonDetail:Message", this.receiveMessage);
     },
     template:
 `<SecondaryBlock>

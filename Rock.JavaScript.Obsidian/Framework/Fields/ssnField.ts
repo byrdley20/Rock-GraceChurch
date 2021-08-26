@@ -15,26 +15,26 @@
 // </copyright>
 //
 
-import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
-import { Component, defineAsyncComponent } from 'vue';
-import { FieldTypeBase } from './fieldType';
+import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
+import { Component, defineAsyncComponent } from "vue";
+import { FieldTypeBase } from "./fieldType";
 
 // The edit component can be quite large, so load it only as needed.
 const editComponent = defineAsyncComponent(async () => {
-    return (await import('./ssnFieldComponents')).EditComponent;
+    return (await import("./ssnFieldComponents")).EditComponent;
 });
 
 export class SSNFieldType extends FieldTypeBase {
     public override updateTextValue(value: ClientEditableAttributeValue): void {
         if (value.value === null || value.value === undefined) {
-            value.textValue = '';
+            value.textValue = "";
             return;
         }
 
-        const strippedValue = value.value.replace(/[^0-9]/g, '');
+        const strippedValue = value.value.replace(/[^0-9]/g, "");
 
         if (strippedValue.length !== 9) {
-            value.textValue = '';
+            value.textValue = "";
             return;
         }
 

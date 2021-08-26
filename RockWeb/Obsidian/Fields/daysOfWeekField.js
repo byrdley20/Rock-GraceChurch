@@ -25,43 +25,43 @@ System.register(["vue", "./fieldType", "@Obsidian/Services/number"], function (e
         ],
         execute: function () {
             editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
-                return (yield context_1.import('./daysOfWeekFieldComponents')).EditComponent;
+                return (yield context_1.import("./daysOfWeekFieldComponents")).EditComponent;
             }));
             DaysOfWeekFieldType = class DaysOfWeekFieldType extends fieldType_1.FieldTypeBase {
                 updateTextValue(value) {
-                    if (value.value === null || value.value === undefined || value.value === '') {
-                        value.textValue = '';
+                    if (value.value === null || value.value === undefined || value.value === "") {
+                        value.textValue = "";
                         return;
                     }
-                    value.textValue = value.value.split(',')
+                    value.textValue = value.value.split(",")
                         .map(v => {
                         const dayValue = number_1.toNumberOrNull(v);
                         if (dayValue === null) {
-                            return '';
+                            return "";
                         }
                         else {
                             switch (dayValue) {
                                 case 0:
-                                    return 'Sunday';
+                                    return "Sunday";
                                 case 1:
-                                    return 'Monday';
+                                    return "Monday";
                                 case 2:
-                                    return 'Tuesday';
+                                    return "Tuesday";
                                 case 3:
-                                    return 'Wednesday';
+                                    return "Wednesday";
                                 case 4:
-                                    return 'Thursday';
+                                    return "Thursday";
                                 case 5:
-                                    return 'Friday';
+                                    return "Friday";
                                 case 6:
-                                    return 'Saturday';
+                                    return "Saturday";
                                 default:
-                                    return '';
+                                    return "";
                             }
                         }
                     })
-                        .filter(v => v != '')
-                        .join(', ');
+                        .filter(v => v != "")
+                        .join(", ");
                 }
                 getEditComponent(_value) {
                     return editComponent;

@@ -15,22 +15,22 @@
 // </copyright>
 //
 
-import { computed, defineComponent, inject, PropType } from 'vue';
-import AddressControl, { getDefaultAddressControlModel } from '../../../Controls/addressControl';
-import TextBox from '../../../Elements/textBox';
-import EmailBox from '../../../Elements/emailBox';
-import DropDownList, { DropDownListOption } from '../../../Elements/dropDownList';
-import GenderDropDownList from '../../../Elements/genderDropDownList';
-import BirthdayPicker from '../../../Elements/birthdayPicker';
-import ComponentFromUrl from '../../../Controls/componentFromUrl';
-import Alert from '../../../Elements/alert';
-import { getDefaultDatePartsPickerModel } from '../../../Elements/datePartsPicker';
-import { Guid } from '../../../Util/guid';
-import { RegistrationEntryBlockFormFieldViewModel, RegistrationPersonFieldType } from './registrationEntryBlockViewModel';
-import { RegistrationEntryState } from '../registrationEntry';
+import { computed, defineComponent, inject, PropType } from "vue";
+import AddressControl, { getDefaultAddressControlModel } from "../../../Controls/addressControl";
+import TextBox from "../../../Elements/textBox";
+import EmailBox from "../../../Elements/emailBox";
+import DropDownList, { DropDownListOption } from "../../../Elements/dropDownList";
+import GenderDropDownList from "../../../Elements/genderDropDownList";
+import BirthdayPicker from "../../../Elements/birthdayPicker";
+import ComponentFromUrl from "../../../Controls/componentFromUrl";
+import Alert from "../../../Elements/alert";
+import { getDefaultDatePartsPickerModel } from "../../../Elements/datePartsPicker";
+import { Guid } from "../../../Util/guid";
+import { RegistrationEntryBlockFormFieldViewModel, RegistrationPersonFieldType } from "./registrationEntryBlockViewModel";
+import { RegistrationEntryState } from "../registrationEntry";
 
 export default defineComponent({
-    name: 'Event.RegistrationEntry.RegistrantPersonField',
+    name: "Event.RegistrationEntry.RegistrantPersonField",
     components: {
         Alert,
         ComponentFromUrl
@@ -51,7 +51,7 @@ export default defineComponent({
     },
 
     setup(props) {
-        const registrationEntryState = inject('registrationEntryState') as RegistrationEntryState;
+        const registrationEntryState = inject("registrationEntryState") as RegistrationEntryState;
 
         const component = computed(() => {
             switch (props.field.personFieldType) {
@@ -85,39 +85,39 @@ export default defineComponent({
 
         const fieldControlComponentProps = computed(() => {
             const componentProps: Record<string, unknown> = {
-                rules: props.field.isRequired ? 'required' : ''
+                rules: props.field.isRequired ? "required" : ""
             };
 
             switch (props.field.personFieldType) {
                 case RegistrationPersonFieldType.FirstName:
-                    componentProps.label = 'First Name';
+                    componentProps.label = "First Name";
                     componentProps.disabled = props.isKnownFamilyMember;
                     break;
 
                 case RegistrationPersonFieldType.LastName:
-                    componentProps.label = 'Last Name';
+                    componentProps.label = "Last Name";
                     componentProps.disabled = props.isKnownFamilyMember;
                     break;
 
                 case RegistrationPersonFieldType.MiddleName:
-                    componentProps.label = 'Middle Name';
+                    componentProps.label = "Middle Name";
                     break;
 
                 case RegistrationPersonFieldType.Campus:
-                    componentProps.label = 'Campus';
+                    componentProps.label = "Campus";
                     componentProps.options = [...registrationEntryState.viewModel.campuses];
 
                     break;
 
                 case RegistrationPersonFieldType.Email:
-                    componentProps.label = 'Email';
+                    componentProps.label = "Email";
                     break;
 
                 case RegistrationPersonFieldType.Gender:
                     break;
 
                 case RegistrationPersonFieldType.Birthdate:
-                    componentProps.label = 'Birthday';
+                    componentProps.label = "Birthday";
                     break;
 
                 case RegistrationPersonFieldType.Address:
@@ -129,7 +129,7 @@ export default defineComponent({
 
         // Set the default value if needed
         if (!(props.field.guid in props.fieldValues)) {
-            let defaultValue: unknown = '';
+            let defaultValue: unknown = "";
 
             switch (props.field.personFieldType) {
                 case RegistrationPersonFieldType.Birthdate:

@@ -14,10 +14,10 @@
 // limitations under the License.
 // </copyright>
 //
-import { PropType } from 'vue';
-import { Guid, normalize, isValidGuid } from '../Util/guid';
-import { FieldType } from './fieldType';
-import { FieldType as FieldTypeGuids } from '@Obsidian/SystemGuids';
+import { PropType } from "vue";
+import { Guid, normalize, isValidGuid } from "../Util/guid";
+import { FieldType } from "./fieldType";
+import { FieldType as FieldTypeGuids } from "@Obsidian/SystemGuids";
 
 const fieldTypeTable: Record<Guid, FieldType> = {};
 
@@ -66,11 +66,11 @@ export function registerFieldType(fieldTypeGuid: Guid, fieldType: FieldType): vo
     const normalizedGuid = normalize(fieldTypeGuid);
 
     if (!isValidGuid(fieldTypeGuid) || normalizedGuid === null) {
-        throw 'Invalid guid specified when registering field type.';
+        throw "Invalid guid specified when registering field type.";
     }
 
     if (fieldTypeTable[normalizedGuid] !== undefined) {
-        throw 'Invalid attempt to replace existing field type.';
+        throw "Invalid attempt to replace existing field type.";
     }
 
     fieldTypeTable[normalizedGuid] = fieldType;
@@ -101,86 +101,86 @@ export function getFieldType(fieldTypeGuid: Guid): FieldType | null {
  * Define the standard field types in Rock.
  */
 
-import { AddressFieldType } from './addressField';
+import { AddressFieldType } from "./addressField";
 registerFieldType(FieldTypeGuids.Address, new AddressFieldType());
 
-import { BooleanFieldType } from './booleanField';
+import { BooleanFieldType } from "./booleanField";
 registerFieldType(FieldTypeGuids.Boolean, new BooleanFieldType());
 
-import { CampusFieldType } from './campusField';
+import { CampusFieldType } from "./campusField";
 registerFieldType(FieldTypeGuids.Campus, new CampusFieldType());
 
-import { CampusesFieldType } from './campusesField';
+import { CampusesFieldType } from "./campusesField";
 registerFieldType(FieldTypeGuids.Campuses, new CampusesFieldType());
 
-import { ColorFieldType } from './colorField';
+import { ColorFieldType } from "./colorField";
 registerFieldType(FieldTypeGuids.Color, new ColorFieldType());
 
-import { CurrencyFieldType } from './currencyField';
+import { CurrencyFieldType } from "./currencyField";
 registerFieldType(FieldTypeGuids.Currency, new CurrencyFieldType());
 
-import { DateFieldType } from './dateField';
+import { DateFieldType } from "./dateField";
 registerFieldType(FieldTypeGuids.Date, new DateFieldType());
 
-import { DateRangeFieldType } from './dateRangeField';
+import { DateRangeFieldType } from "./dateRangeField";
 registerFieldType(FieldTypeGuids.DateRange, new DateRangeFieldType());
 
-import { DateTimeFieldType } from './dateTimeField';
+import { DateTimeFieldType } from "./dateTimeField";
 registerFieldType(FieldTypeGuids.DateTime, new DateTimeFieldType());
 
-import { DayOfWeekFieldType } from './dayOfWeekField';
+import { DayOfWeekFieldType } from "./dayOfWeekField";
 registerFieldType(FieldTypeGuids.DayOfWeek, new DayOfWeekFieldType());
 
-import { DaysOfWeekFieldType } from './daysOfWeekField';
+import { DaysOfWeekFieldType } from "./daysOfWeekField";
 registerFieldType(FieldTypeGuids.DaysOfWeek, new DaysOfWeekFieldType());
 
-import { DecimalFieldType } from './decimalField';
+import { DecimalFieldType } from "./decimalField";
 registerFieldType(FieldTypeGuids.Decimal, new DecimalFieldType());
 
-import { DecimalRangeFieldType } from './decimalRangeField';
+import { DecimalRangeFieldType } from "./decimalRangeField";
 registerFieldType(FieldTypeGuids.DecimalRange, new DecimalRangeFieldType());
 
-import { DefinedValueFieldType } from './definedValueField';
+import { DefinedValueFieldType } from "./definedValueField";
 registerFieldType(FieldTypeGuids.DefinedValue, new DefinedValueFieldType());
 
-import { DefinedValueRangeFieldType } from './definedValueRangeField';
+import { DefinedValueRangeFieldType } from "./definedValueRangeField";
 registerFieldType(FieldTypeGuids.DefinedValueRange, new DefinedValueRangeFieldType());
 
-import { EmailFieldType } from './emailField';
+import { EmailFieldType } from "./emailField";
 registerFieldType(FieldTypeGuids.Email, new EmailFieldType());
 
-import { GenderFieldType } from './genderField';
+import { GenderFieldType } from "./genderField";
 registerFieldType(FieldTypeGuids.Gender, new GenderFieldType());
 
-import { IntegerFieldType } from './integerField';
+import { IntegerFieldType } from "./integerField";
 registerFieldType(FieldTypeGuids.Integer, new IntegerFieldType());
 
-import { IntegerRangeFieldType } from './integerRangeField';
+import { IntegerRangeFieldType } from "./integerRangeField";
 registerFieldType(FieldTypeGuids.IntegerRange, new IntegerRangeFieldType());
 
-import { MemoFieldType } from './memoField';
+import { MemoFieldType } from "./memoField";
 registerFieldType(FieldTypeGuids.Memo, new MemoFieldType());
 
-import { MonthDayFieldType } from './monthDayField';
+import { MonthDayFieldType } from "./monthDayField";
 registerFieldType(FieldTypeGuids.MonthDay, new MonthDayFieldType());
 
-import { MultiSelectFieldType } from './multiSelectField';
+import { MultiSelectFieldType } from "./multiSelectField";
 registerFieldType(FieldTypeGuids.MultiSelect, new MultiSelectFieldType());
 
-import { PhoneNumberFieldType } from './phoneNumberField';
+import { PhoneNumberFieldType } from "./phoneNumberField";
 registerFieldType(FieldTypeGuids.PhoneNumber, new PhoneNumberFieldType());
 
-import { RatingFieldType } from './ratingField';
+import { RatingFieldType } from "./ratingField";
 registerFieldType(FieldTypeGuids.Rating, new RatingFieldType());
 
-import { SingleSelectFieldType } from './singleSelectField';
+import { SingleSelectFieldType } from "./singleSelectField";
 registerFieldType(FieldTypeGuids.SingleSelect, new SingleSelectFieldType());
 
-import { SSNFieldType } from './ssnField';
+import { SSNFieldType } from "./ssnField";
 registerFieldType(FieldTypeGuids.Ssn, new SSNFieldType());
 
-import { TextFieldType } from './textField';
+import { TextFieldType } from "./textField";
 registerFieldType(FieldTypeGuids.Text, new TextFieldType());
 
-import { TimeFieldType } from './timeField';
+import { TimeFieldType } from "./timeField";
 registerFieldType(FieldTypeGuids.Time, new TimeFieldType());

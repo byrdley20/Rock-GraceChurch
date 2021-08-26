@@ -14,15 +14,15 @@
 // limitations under the License.
 // </copyright>
 //
-import { Component, defineAsyncComponent } from 'vue';
-import { FieldTypeBase } from './fieldType';
-import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
-import { toNumberOrNull } from '@Obsidian/Services/number';
+import { Component, defineAsyncComponent } from "vue";
+import { FieldTypeBase } from "./fieldType";
+import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
+import { toNumberOrNull } from "@Obsidian/Services/number";
 
 
 // The edit component can be quite large, so load it only as needed.
 const editComponent = defineAsyncComponent(async () => {
-    return (await import('./integerRangeFieldComponents')).EditComponent;
+    return (await import("./integerRangeFieldComponents")).EditComponent;
 });
 
 /**
@@ -30,17 +30,17 @@ const editComponent = defineAsyncComponent(async () => {
  */
 export class IntegerRangeFieldType extends FieldTypeBase {
     public override updateTextValue(value: ClientEditableAttributeValue): void {
-        if (value.value === null || value.value === undefined || value.value === '' || value.value === ',') {
-            value.textValue = '';
+        if (value.value === null || value.value === undefined || value.value === "" || value.value === ",") {
+            value.textValue = "";
             return;
         }
 
-        const numbers = value.value.split(',').map(v => toNumberOrNull(v));
+        const numbers = value.value.split(",").map(v => toNumberOrNull(v));
 
         // If there are not two components then it's not valid, or if both
         // components are not numbers then it's not valid.
         if (numbers.length !== 2 || (numbers[0] === null && numbers[1] === null)) {
-            value.textValue = '';
+            value.textValue = "";
             return;
         }
 

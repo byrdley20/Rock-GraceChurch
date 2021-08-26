@@ -13,23 +13,23 @@ System.register(["vue", "./gridColumn"], function (exports_1, context_1) {
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'GridProfileLinkColumn',
+                name: "GridProfileLinkColumn",
                 components: {
                     GridColumn: gridColumn_1.default
                 },
                 setup() {
                     return {
-                        rowContext: vue_1.inject('rowContext')
+                        rowContext: vue_1.inject("rowContext")
                     };
                 },
                 props: {
                     property: {
                         type: String,
-                        default: 'PersonId'
+                        default: "PersonId"
                     },
                     urlTemplate: {
                         type: String,
-                        default: '/person/{id}'
+                        default: "/person/{id}"
                     }
                 },
                 computed: {
@@ -38,9 +38,9 @@ System.register(["vue", "./gridColumn"], function (exports_1, context_1) {
                     },
                     url() {
                         if (this.personId) {
-                            return this.urlTemplate.replace('{id}', this.personId.toString());
+                            return this.urlTemplate.replace("{id}", this.personId.toString());
                         }
-                        return '';
+                        return "";
                     }
                 },
                 template: `

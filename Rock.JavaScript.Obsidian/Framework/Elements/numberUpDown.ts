@@ -14,11 +14,11 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
-import RockFormField from './rockFormField';
+import { defineComponent, PropType } from "vue";
+import RockFormField from "./rockFormField";
 
 export const NumberUpDownInternal = defineComponent({
-    name: 'NumberUpDownInternal',
+    name: "NumberUpDownInternal",
     props: {
         modelValue: {
             type: Number as PropType<number>,
@@ -70,7 +70,7 @@ export const NumberUpDownInternal = defineComponent({
             }
         },
         internalValue() {
-            this.$emit('update:modelValue', this.internalValue);
+            this.$emit("update:modelValue", this.internalValue);
         }
     },
     template: `
@@ -86,7 +86,7 @@ export const NumberUpDownInternal = defineComponent({
 });
 
 export default defineComponent({
-    name: 'NumberUpDown',
+    name: "NumberUpDown",
     components: {
         RockFormField,
         NumberUpDownInternal
@@ -106,7 +106,7 @@ export default defineComponent({
         },
         numberIncrementClasses: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         }
     },
     data() {
@@ -122,7 +122,7 @@ export default defineComponent({
             }
         },
         internalValue() {
-            this.$emit('update:modelValue', this.internalValue);
+            this.$emit("update:modelValue", this.internalValue);
         }
     },
     template: `

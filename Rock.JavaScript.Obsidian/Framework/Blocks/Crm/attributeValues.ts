@@ -14,18 +14,18 @@
 // limitations under the License.
 // </copyright>
 //
-import { computed, defineComponent, ref } from 'vue';
-import PaneledBlockTemplate from '../../Templates/paneledBlockTemplate';
-import Loading from '../../Controls/loading';
-import store from '../../Store/index';
-import { Guid } from '../../Util/guid';
-import { useConfigurationValues, useInvokeBlockAction } from '../../Util/block';
-import JavaScriptAnchor from '../../Elements/javaScriptAnchor';
-import RockForm from '../../Controls/rockForm';
-import TextBox from '../../Elements/textBox';
-import RockButton from '../../Elements/rockButton';
-import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
-import AttributeValuesContainer from '../../Controls/attributeValuesContainer';
+import { computed, defineComponent, ref } from "vue";
+import PaneledBlockTemplate from "../../Templates/paneledBlockTemplate";
+import Loading from "../../Controls/loading";
+import store from "../../Store/index";
+import { Guid } from "../../Util/guid";
+import { useConfigurationValues, useInvokeBlockAction } from "../../Util/block";
+import JavaScriptAnchor from "../../Elements/javaScriptAnchor";
+import RockForm from "../../Controls/rockForm";
+import TextBox from "../../Elements/textBox";
+import RockButton from "../../Elements/rockButton";
+import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
+import AttributeValuesContainer from "../../Controls/attributeValuesContainer";
 
 interface ConfigurationValues {
     blockIconCssClass: string;
@@ -62,7 +62,7 @@ function sortedAttributeValues(attributeValues: ClientAttributeValue[]): ClientA
 }
 
 export default defineComponent({
-    name: 'Crm.AttributeValues',
+    name: "Crm.AttributeValues",
     components: {
         PaneledBlockTemplate,
         Loading,
@@ -83,7 +83,7 @@ export default defineComponent({
         const goToViewMode = () => isEditMode.value = false;
 
         const goToEditMode = async (): Promise<void> => {
-            const result = await invokeBlockAction<ClientEditableAttributeValue[]>('GetAttributeValuesForEdit');
+            const result = await invokeBlockAction<ClientEditableAttributeValue[]>("GetAttributeValuesForEdit");
             if (result.isSuccess) {
                 attributeValues.value = sortedAttributeValues(result.data ?? []);
                 isEditMode.value = true;
@@ -96,10 +96,10 @@ export default defineComponent({
             const keyValueMap: Record<string, string | null> = {};
 
             for (const a of attributeValues.value) {
-                keyValueMap[(a as ClientEditableAttributeValue).key] = a.value || '';
+                keyValueMap[(a as ClientEditableAttributeValue).key] = a.value || "";
             }
 
-            const result = await invokeBlockAction<ClientAttributeValue[]>('SaveAttributeValues', {
+            const result = await invokeBlockAction<ClientAttributeValue[]>("SaveAttributeValues", {
                 personGuid: personGuid.value,
                 keyValueMap
             });

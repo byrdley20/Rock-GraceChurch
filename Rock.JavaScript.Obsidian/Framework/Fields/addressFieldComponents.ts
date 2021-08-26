@@ -14,13 +14,13 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, ref, watch } from 'vue';
-import { getFieldEditorProps } from './index';
-import AddressControl from '../Controls/addressControl';
-import { AddressFieldValue } from './addressField';
+import { defineComponent, ref, watch } from "vue";
+import { getFieldEditorProps } from "./index";
+import AddressControl from "../Controls/addressControl";
+import { AddressFieldValue } from "./addressField";
 
 export const EditComponent = defineComponent({
-    name: 'AddressField.Edit',
+    name: "AddressField.Edit",
 
     components: {
         AddressControl
@@ -33,7 +33,7 @@ export const EditComponent = defineComponent({
 
         watch(() => props.modelValue, () => {
             try {
-                internalValue.value = JSON.parse(props.modelValue || '{}');
+                internalValue.value = JSON.parse(props.modelValue || "{}");
             }
             catch {
                 internalValue.value = {};
@@ -41,7 +41,7 @@ export const EditComponent = defineComponent({
         }, { immediate: true });
 
         watch(() => internalValue.value, () => {
-            emit('update:modelValue', JSON.stringify(internalValue.value));
+            emit("update:modelValue", JSON.stringify(internalValue.value));
         }, { deep: true });
 
         return {

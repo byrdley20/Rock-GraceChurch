@@ -31,7 +31,7 @@ System.register(["vue", "../Elements/loadingIndicator", "../Elements/textBox", "
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'TestGatewayControl',
+                name: "TestGatewayControl",
                 components: {
                     LoadingIndicator: loadingIndicator_1.default,
                     TextBox: textBox_1.default
@@ -49,7 +49,7 @@ System.register(["vue", "../Elements/loadingIndicator", "../Elements/textBox", "
                 data() {
                     return {
                         loading: false,
-                        cardNumber: ''
+                        cardNumber: ""
                     };
                 },
                 watch: {
@@ -60,19 +60,19 @@ System.register(["vue", "../Elements/loadingIndicator", "../Elements/textBox", "
                             }
                             this.loading = true;
                             yield new Promise(resolve => setTimeout(resolve, 500));
-                            if (this.cardNumber === '0000') {
-                                this.$emit('error', 'This is a serious problem with the gateway.');
+                            if (this.cardNumber === "0000") {
+                                this.$emit("error", "This is a serious problem with the gateway.");
                                 this.loading = false;
                                 return;
                             }
                             if (this.cardNumber.length <= 10) {
                                 const validationFields = [gatewayControl_1.ValidationField.CardNumber];
-                                this.$emit('validationRaw', validationFields);
+                                this.$emit("validationRaw", validationFields);
                                 this.loading = false;
                                 return;
                             }
-                            const token = guid_1.newGuid().replace(/-/g, '');
-                            this.$emit('successRaw', token);
+                            const token = guid_1.newGuid().replace(/-/g, "");
+                            this.$emit("successRaw", token);
                             this.loading = false;
                         });
                     }

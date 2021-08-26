@@ -14,10 +14,10 @@
 // limitations under the License.
 // </copyright>
 //
-import { Component, defineAsyncComponent } from 'vue';
-import { FieldTypeBase } from './fieldType';
-import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
-import { toNumberOrNull } from '@Obsidian/Services/number';
+import { Component, defineAsyncComponent } from "vue";
+import { FieldTypeBase } from "./fieldType";
+import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
+import { toNumberOrNull } from "@Obsidian/Services/number";
 
 export const enum DayOfWeek {
     Sunday = 0,
@@ -32,7 +32,7 @@ export const enum DayOfWeek {
 
 // The edit component can be quite large, so load it only as needed.
 const editComponent = defineAsyncComponent(async () => {
-    return (await import('./dayOfWeekFieldComponents')).EditComponent;
+    return (await import("./dayOfWeekFieldComponents")).EditComponent;
 });
 
 /**
@@ -43,40 +43,40 @@ export class DayOfWeekFieldType extends FieldTypeBase {
         const dayValue = toNumberOrNull(value.value);
 
         if (dayValue === null) {
-            value.textValue = '';
+            value.textValue = "";
         }
         else {
             switch (dayValue) {
                 case DayOfWeek.Sunday:
-                    value.textValue = 'Sunday';
+                    value.textValue = "Sunday";
                     break;
 
                 case DayOfWeek.Monday:
-                    value.textValue = 'Monday';
+                    value.textValue = "Monday";
                     break;
 
                 case DayOfWeek.Tuesday:
-                    value.textValue = 'Tuesday';
+                    value.textValue = "Tuesday";
                     break;
 
                 case DayOfWeek.Wednesday:
-                    value.textValue = 'Wednesday';
+                    value.textValue = "Wednesday";
                     break;
 
                 case DayOfWeek.Thursday:
-                    value.textValue = 'Thursday';
+                    value.textValue = "Thursday";
                     break;
 
                 case DayOfWeek.Friday:
-                    value.textValue = 'Friday';
+                    value.textValue = "Friday";
                     break;
 
                 case DayOfWeek.Saturday:
-                    value.textValue = 'Saturday';
+                    value.textValue = "Saturday";
                     break;
 
                 default:
-                    value.textValue = '';
+                    value.textValue = "";
                     break;
             }
         }

@@ -61,7 +61,7 @@ System.register(["../../Elements/dropDownList", "../../Elements/currencyBox", "v
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'Finance.TransactionEntry',
+                name: "Finance.TransactionEntry",
                 components: {
                     CurrencyBox: currencyBox_1.default,
                     DropDownList: dropDownList_1.default,
@@ -75,43 +75,43 @@ System.register(["../../Elements/dropDownList", "../../Elements/currencyBox", "v
                 },
                 setup() {
                     return {
-                        invokeBlockAction: vue_1.inject('invokeBlockAction'),
-                        configurationValues: vue_1.inject('configurationValues')
+                        invokeBlockAction: vue_1.inject("invokeBlockAction"),
+                        configurationValues: vue_1.inject("configurationValues")
                     };
                 },
                 data() {
                     return {
                         loading: false,
-                        gatewayErrorMessage: '',
+                        gatewayErrorMessage: "",
                         gatewayValidationFields: {},
                         transactionGuid: guid_1.newGuid(),
-                        criticalError: '',
+                        criticalError: "",
                         doGatewayControlSubmit: false,
                         pageIndex: 1,
-                        page1Error: '',
+                        page1Error: "",
                         args: {
                             isGivingAsPerson: true,
-                            email: '',
-                            phoneNumber: '',
-                            phoneCountryCode: '',
+                            email: "",
+                            phoneNumber: "",
+                            phoneCountryCode: "",
                             accountAmounts: {},
-                            street1: '',
-                            street2: '',
-                            city: '',
-                            state: '',
-                            postalCode: '',
-                            country: '',
-                            firstName: '',
-                            lastName: '',
-                            businessName: '',
+                            street1: "",
+                            street2: "",
+                            city: "",
+                            state: "",
+                            postalCode: "",
+                            country: "",
+                            firstName: "",
+                            lastName: "",
+                            businessName: "",
                             financialPersonSavedAccountGuid: null,
-                            comment: '',
+                            comment: "",
                             transactionEntityId: null,
-                            referenceNumber: '',
-                            campusGuid: '',
+                            referenceNumber: "",
+                            campusGuid: "",
                             businessGuid: null,
-                            frequencyValueGuid: '',
-                            giftDate: date_1.formatAspDate(new Date(), 'yyyy-MM-dd'),
+                            frequencyValueGuid: "",
+                            giftDate: date_1.formatAspDate(new Date(), "yyyy-MM-dd"),
                             isGiveAnonymously: false
                         }
                     };
@@ -128,19 +128,19 @@ System.register(["../../Elements/dropDownList", "../../Elements/currencyBox", "v
                         return `$${number_1.asFormattedString(this.totalAmount, 2)}`;
                     },
                     gatewayControlModel() {
-                        return this.configurationValues['gatewayControl'];
+                        return this.configurationValues["gatewayControl"];
                     },
                     currentPerson() {
                         return index_1.default.state.currentPerson;
                     },
                     accounts() {
-                        return this.configurationValues['financialAccounts'] || [];
+                        return this.configurationValues["financialAccounts"] || [];
                     },
                     campuses() {
-                        return this.configurationValues['campuses'] || [];
+                        return this.configurationValues["campuses"] || [];
                     },
                     frequencies() {
-                        return this.configurationValues['frequencies'] || [];
+                        return this.configurationValues["frequencies"] || [];
                     },
                     campusName() {
                         if (this.args.campusGuid === null) {
@@ -171,15 +171,15 @@ System.register(["../../Elements/dropDownList", "../../Elements/currencyBox", "v
                     },
                     onPageOneSubmit() {
                         if (this.totalAmount <= 0) {
-                            this.page1Error = 'Please specify an amount';
+                            this.page1Error = "Please specify an amount";
                             return;
                         }
-                        this.page1Error = '';
+                        this.page1Error = "";
                         this.pageIndex = 2;
                     },
                     onPageTwoSubmit() {
                         this.loading = true;
-                        this.gatewayErrorMessage = '';
+                        this.gatewayErrorMessage = "";
                         this.gatewayValidationFields = {};
                         this.doGatewayControlSubmit = true;
                     },
@@ -202,7 +202,7 @@ System.register(["../../Elements/dropDownList", "../../Elements/currencyBox", "v
                         return __awaiter(this, void 0, void 0, function* () {
                             this.loading = true;
                             try {
-                                yield this.invokeBlockAction('ProcessTransaction', {
+                                yield this.invokeBlockAction("ProcessTransaction", {
                                     args: this.args,
                                     transactionGuid: this.transactionGuid
                                 });
@@ -224,9 +224,9 @@ System.register(["../../Elements/dropDownList", "../../Elements/currencyBox", "v
                             if (!this.currentPerson) {
                                 return;
                             }
-                            this.args.firstName = this.args.firstName || this.currentPerson.firstName || '';
-                            this.args.lastName = this.args.lastName || this.currentPerson.lastName || '';
-                            this.args.email = this.args.email || this.currentPerson.email || '';
+                            this.args.firstName = this.args.firstName || this.currentPerson.firstName || "";
+                            this.args.lastName = this.args.lastName || this.currentPerson.lastName || "";
+                            this.args.email = this.args.email || this.currentPerson.email || "";
                         }
                     }
                 },

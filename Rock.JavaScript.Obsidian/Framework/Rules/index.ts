@@ -14,11 +14,11 @@
 // limitations under the License.
 // </copyright>
 //
-import DateKey from '@Obsidian/Services/dateKey';
-import { isEmail } from '@Obsidian/Services/email';
-import { isNullOrWhiteSpace } from '@Obsidian/Services/string';
-import { defineRule } from 'vee-validate';
-import { toNumberOrNull } from '@Obsidian/Services/number';
+import DateKey from "@Obsidian/Services/dateKey";
+import { isEmail } from "@Obsidian/Services/email";
+import { isNullOrWhiteSpace } from "@Obsidian/Services/string";
+import { defineRule } from "vee-validate";
+import { toNumberOrNull } from "@Obsidian/Services/number";
 
 export type ValidationRuleFunction = ( value: unknown ) => boolean | string | Promise<boolean | string>;
 
@@ -27,11 +27,11 @@ export type ValidationRuleFunction = ( value: unknown ) => boolean | string | Pr
  * @param val
  */
 function convertToNumber(value: unknown): number {
-    if (typeof value === 'number') {
+    if (typeof value === "number") {
         return value;
     }
 
-    if (typeof value === 'string') {
+    if (typeof value === "string") {
         return toNumberOrNull(value) || 0;
     }
 
@@ -46,118 +46,97 @@ function convertToNumber(value: unknown): number {
  * @param value
  */
 function isNumeric(value: unknown): boolean {
-    if (typeof value === 'number') {
+    if (typeof value === "number") {
         return true;
     }
 
-    if (typeof value === 'string') {
+    if (typeof value === "string") {
         return toNumberOrNull(value) !== null;
     }
 
     return false;
 }
 
-export function ruleStringToArray ( rulesString: string ): string[]
-{
-    return rulesString.split( '|' );
+export function ruleStringToArray ( rulesString: string ): string[] {
+    return rulesString.split( "|" );
 }
 
-export function ruleArrayToString ( rulesArray: string[] ): string
-{
-    return rulesArray.join( '|' );
+export function ruleArrayToString ( rulesArray: string[] ): string {
+    return rulesArray.join( "|" );
 }
 
-defineRule( 'required', ( ( value: unknown, [ optionsJson ]: unknown[] ) =>
-{
-    const options = typeof optionsJson === 'string' ? JSON.parse( optionsJson ) : {};
+defineRule( "required", ( ( value: unknown, [ optionsJson ]: unknown[] ) => {
+    const options = typeof optionsJson === "string" ? JSON.parse( optionsJson ) : {};
 
-    if ( typeof value === 'string' )
-    {
+    if ( typeof value === "string" ) {
         const allowEmptyString = !!( options.allowEmptyString );
 
-        if ( !allowEmptyString && isNullOrWhiteSpace( value ) )
-        {
-            return 'is required';
+        if ( !allowEmptyString && isNullOrWhiteSpace( value ) ) {
+            return "is required";
         }
 
         return true;
     }
 
-    if ( typeof value === 'number' && value === 0 )
-    {
-        return 'is required';
+    if ( typeof value === "number" && value === 0 ) {
+        return "is required";
     }
 
-    if ( !value )
-    {
-        return 'is required';
+    if ( !value ) {
+        return "is required";
     }
 
     return true;
 } ) as ValidationRuleFunction );
 
-defineRule( 'email', ( value =>
-{
+defineRule( "email", ( value => {
     // Field is empty, should pass
-    if ( isNullOrWhiteSpace( value ) )
-    {
+    if ( isNullOrWhiteSpace( value ) ) {
         return true;
     }
 
     // Check if email
-    if ( !isEmail( value ) )
-    {
-        return 'must be a valid email';
+    if ( !isEmail( value ) ) {
+        return "must be a valid email";
     }
 
     return true;
 } ) as ValidationRuleFunction );
 
-defineRule( 'notequal', ( ( value: unknown, [ compare ]: unknown[] ) =>
-{
-    if ( isNumeric( value ) && isNumeric( compare ) )
-    {
-        if ( convertToNumber( value ) !== convertToNumber( compare ) )
-        {
+defineRule( "notequal", ( ( value: unknown, [ compare ]: unknown[] ) => {
+    if ( isNumeric( value ) && isNumeric( compare ) ) {
+        if ( convertToNumber( value ) !== convertToNumber( compare ) ) {
             return true;
         }
     }
-    else if ( value !== compare )
-    {
+    else if ( value !== compare ) {
         return true;
     }
 
     return `must not equal ${compare}`;
 } ) as ValidationRuleFunction );
 
-defineRule( 'equal', ( ( value: unknown, [ compare ]: unknown[] ) =>
-{
-    if ( isNumeric( value ) && isNumeric( compare ) )
-    {
-        if ( convertToNumber( value ) === convertToNumber( compare ) )
-        {
+defineRule( "equal", ( ( value: unknown, [ compare ]: unknown[] ) => {
+    if ( isNumeric( value ) && isNumeric( compare ) ) {
+        if ( convertToNumber( value ) === convertToNumber( compare ) ) {
             return true;
         }
     }
-    else if ( value === compare )
-    {
+    else if ( value === compare ) {
         return true;
     }
 
     return `must equal ${compare}`;
 } ) as ValidationRuleFunction );
 
-defineRule( 'gt', ( ( value: unknown, [ compare ]: unknown[] ) =>
-{
+defineRule( "gt", ( ( value: unknown, [ compare ]: unknown[] ) => {
     // Field is empty, should pass
     if (isNullOrWhiteSpace(value)) {
         return true;
     }
 
-    if ( isNumeric( value ) && isNumeric( compare ) )
-    {
-        if ( convertToNumber( value ) > convertToNumber( compare ) )
-        {
+    if ( isNumeric( value ) && isNumeric( compare ) ) {
+        if ( convertToNumber( value ) > convertToNumber( compare ) ) {
             return true;
         }
     }
@@ -165,17 +144,14 @@ defineRule( 'gt', ( ( value: unknown, [ compare ]: unknown[] ) =>
     return `must be greater than ${compare}`;
 } ) as ValidationRuleFunction );
 
-defineRule( 'gte', ( ( value: unknown, [ compare ]: unknown[] ) =>
-{
+defineRule( "gte", ( ( value: unknown, [ compare ]: unknown[] ) => {
     // Field is empty, should pass
     if (isNullOrWhiteSpace(value)) {
         return true;
     }
 
-    if ( isNumeric( value ) && isNumeric( compare ) )
-    {
-        if ( convertToNumber( value ) >= convertToNumber( compare ) )
-        {
+    if ( isNumeric( value ) && isNumeric( compare ) ) {
+        if ( convertToNumber( value ) >= convertToNumber( compare ) ) {
             return true;
         }
     }
@@ -183,17 +159,14 @@ defineRule( 'gte', ( ( value: unknown, [ compare ]: unknown[] ) =>
     return `must not be less than ${compare}`;
 } ) as ValidationRuleFunction );
 
-defineRule( 'lt', ( ( value: unknown, [ compare ]: unknown[] ) =>
-{
+defineRule( "lt", ( ( value: unknown, [ compare ]: unknown[] ) => {
     // Field is empty, should pass
     if (isNullOrWhiteSpace(value)) {
         return true;
     }
 
-    if ( isNumeric( value ) && isNumeric( compare ) )
-    {
-        if ( convertToNumber( value ) < convertToNumber( compare ) )
-        {
+    if ( isNumeric( value ) && isNumeric( compare ) ) {
+        if ( convertToNumber( value ) < convertToNumber( compare ) ) {
             return true;
         }
     }
@@ -201,17 +174,14 @@ defineRule( 'lt', ( ( value: unknown, [ compare ]: unknown[] ) =>
     return `must be less than ${compare}`;
 } ) as ValidationRuleFunction );
 
-defineRule( 'lte', ( ( value: unknown, [ compare ]: unknown[] ) =>
-{
+defineRule( "lte", ( ( value: unknown, [ compare ]: unknown[] ) => {
     // Field is empty, should pass
     if (isNullOrWhiteSpace(value)) {
         return true;
     }
 
-    if ( isNumeric( value ) && isNumeric( compare ) )
-    {
-        if ( convertToNumber( value ) <= convertToNumber( compare ) )
-        {
+    if ( isNumeric( value ) && isNumeric( compare ) ) {
+        if ( convertToNumber( value ) <= convertToNumber( compare ) ) {
             return true;
         }
     }
@@ -219,23 +189,19 @@ defineRule( 'lte', ( ( value: unknown, [ compare ]: unknown[] ) =>
     return `must not be more than ${compare}`;
 } ) as ValidationRuleFunction );
 
-defineRule( 'datekey', ( value =>
-{
+defineRule( "datekey", ( value => {
     const asString = value as string;
 
-    if ( !DateKey.getYear( asString ) )
-    {
-        return 'must have a year';
+    if ( !DateKey.getYear( asString ) ) {
+        return "must have a year";
     }
 
-    if ( !DateKey.getMonth( asString ) )
-    {
-        return 'must have a month';
+    if ( !DateKey.getMonth( asString ) ) {
+        return "must have a month";
     }
 
-    if ( !DateKey.getDay( asString ) )
-    {
-        return 'must have a day';
+    if ( !DateKey.getDay( asString ) ) {
+        return "must have a day";
     }
 
     return true;
@@ -251,7 +217,7 @@ defineRule("integer", (value: unknown) => {
         return true;
     }
 
-    return "must be an integer value."
+    return "must be an integer value.";
 });
 
 defineRule("decimal", (value: unknown) => {
@@ -264,7 +230,7 @@ defineRule("decimal", (value: unknown) => {
         return true;
     }
 
-    return "must be a decimal value."
+    return "must be a decimal value.";
 });
 
 defineRule("ssn", (value: unknown) => {

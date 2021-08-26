@@ -16,15 +16,15 @@ System.register(["vue", "./index", "../Elements/socialSecurityNumberBox"], funct
         ],
         execute: function () {
             exports_1("EditComponent", EditComponent = vue_1.defineComponent({
-                name: 'SSNField.Edit',
+                name: "SSNField.Edit",
                 components: {
                     SocialSecurityNumberBox: socialSecurityNumberBox_1.default
                 },
                 props: index_1.getFieldEditorProps(),
                 setup(props, { emit }) {
                     const internalValue = vue_1.ref(props.modelValue);
-                    vue_1.watch(() => props.modelValue, () => { var _a; return internalValue.value = (_a = props.modelValue) !== null && _a !== void 0 ? _a : ''; });
-                    vue_1.watchEffect(() => emit('update:modelValue', internalValue.value));
+                    vue_1.watch(() => props.modelValue, () => { var _a; return internalValue.value = (_a = props.modelValue) !== null && _a !== void 0 ? _a : ""; });
+                    vue_1.watchEffect(() => emit("update:modelValue", internalValue.value));
                     return {
                         internalValue
                     };

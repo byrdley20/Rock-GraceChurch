@@ -25,7 +25,7 @@ System.register(["vue", "./index", "../Elements/listBox", "../Elements/checkBoxL
         ],
         execute: function () {
             exports_1("EditComponent", EditComponent = vue_1.defineComponent({
-                name: 'MultiSelectField.Edit',
+                name: "MultiSelectField.Edit",
                 components: {
                     ListBox: listBox_1.default,
                     CheckBoxList: checkBoxList_1.default
@@ -33,7 +33,7 @@ System.register(["vue", "./index", "../Elements/listBox", "../Elements/checkBoxL
                 props: index_1.getFieldEditorProps(),
                 setup() {
                     return {
-                        isRequired: vue_1.inject('isRequired')
+                        isRequired: vue_1.inject("isRequired")
                     };
                 },
                 data() {
@@ -45,7 +45,7 @@ System.register(["vue", "./index", "../Elements/listBox", "../Elements/checkBoxL
                     options() {
                         var _a;
                         try {
-                            const valuesConfig = JSON.parse((_a = this.configurationValues["values"]) !== null && _a !== void 0 ? _a : '[]');
+                            const valuesConfig = JSON.parse((_a = this.configurationValues["values"]) !== null && _a !== void 0 ? _a : "[]");
                             return valuesConfig.map(v => {
                                 return {
                                     text: v.text,
@@ -70,10 +70,10 @@ System.register(["vue", "./index", "../Elements/listBox", "../Elements/checkBoxL
                         const repeatColumnsConfig = this.configurationValues["repeatColumns"];
                         const repeatDirection = this.configurationValues["repeatDirection"];
                         if (repeatColumnsConfig) {
-                            attributes['repeatColumns'] = number_1.toNumberOrNull(repeatColumnsConfig) || 0;
+                            attributes["repeatColumns"] = number_1.toNumberOrNull(repeatColumnsConfig) || 0;
                         }
-                        if (repeatDirection !== 'Vertical') {
-                            attributes['horizontal'] = true;
+                        if (repeatDirection !== "Vertical") {
+                            attributes["horizontal"] = true;
                         }
                         return attributes;
                     },
@@ -84,13 +84,13 @@ System.register(["vue", "./index", "../Elements/listBox", "../Elements/checkBoxL
                 },
                 watch: {
                     internalValue() {
-                        this.$emit('update:modelValue', this.internalValue.join(','));
+                        this.$emit("update:modelValue", this.internalValue.join(","));
                     },
                     modelValue: {
                         immediate: true,
                         handler() {
-                            const value = this.modelValue || '';
-                            this.internalValue = value !== '' ? value.split(',') : [];
+                            const value = this.modelValue || "";
+                            this.internalValue = value !== "" ? value.split(",") : [];
                         }
                     }
                 },

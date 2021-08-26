@@ -15,13 +15,13 @@
 // </copyright>
 //
 
-import { Entity } from './entity';
-import ClientAttributeValue from './clientAttributeValue';
-import ClientEditableAttributeValue from './clientEditableAttributeValue';
-import ClientAttributeValueCategory from './clientAttributeValueCategory';
-import { ListItem } from './listItem';
+import { Entity } from "./entity";
+import ClientAttributeValue from "./clientAttributeValue";
+import ClientEditableAttributeValue from "./clientEditableAttributeValue";
+import ClientAttributeValueCategory from "./clientAttributeValueCategory";
+import { ListItem } from "./listItem";
 
-export * from './CodeGenerated/generated-index';
+export * from "./CodeGenerated/generated-index";
 
 export {
     Entity,

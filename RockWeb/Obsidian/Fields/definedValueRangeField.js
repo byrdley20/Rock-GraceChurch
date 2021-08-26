@@ -29,14 +29,14 @@ System.register(["vue", "./fieldType", "@Obsidian/Services/boolean"], function (
         ],
         execute: function () {
             editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
-                return (yield context_1.import('./definedValueRangeFieldComponents')).EditComponent;
+                return (yield context_1.import("./definedValueRangeFieldComponents")).EditComponent;
             }));
             DefinedValueRangeFieldType = class DefinedValueRangeFieldType extends fieldType_1.FieldTypeBase {
                 getTextValue(value) {
                     var _a, _b;
                     try {
-                        const clientValue = JSON.parse((_a = value.value) !== null && _a !== void 0 ? _a : '');
-                        return (_b = (clientValue.description || clientValue.text)) !== null && _b !== void 0 ? _b : '';
+                        const clientValue = JSON.parse((_a = value.value) !== null && _a !== void 0 ? _a : "");
+                        return (_b = (clientValue.description || clientValue.text)) !== null && _b !== void 0 ? _b : "";
                     }
                     catch (_c) {
                         return super.getTextValue(value);
@@ -45,21 +45,21 @@ System.register(["vue", "./fieldType", "@Obsidian/Services/boolean"], function (
                 getCondensedTextValue(value) {
                     var _a, _b, _c;
                     try {
-                        const clientValue = JSON.parse((_a = value.value) !== null && _a !== void 0 ? _a : '');
-                        return (_b = clientValue.text) !== null && _b !== void 0 ? _b : '';
+                        const clientValue = JSON.parse((_a = value.value) !== null && _a !== void 0 ? _a : "");
+                        return (_b = clientValue.text) !== null && _b !== void 0 ? _b : "";
                     }
                     catch (_d) {
-                        return (_c = value.value) !== null && _c !== void 0 ? _c : '';
+                        return (_c = value.value) !== null && _c !== void 0 ? _c : "";
                     }
                 }
                 updateTextValue(value) {
                     var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
                     try {
-                        const clientValue = JSON.parse((_a = value.value) !== null && _a !== void 0 ? _a : '');
+                        const clientValue = JSON.parse((_a = value.value) !== null && _a !== void 0 ? _a : "");
                         try {
-                            const values = JSON.parse((_c = (_b = value.configurationValues) === null || _b === void 0 ? void 0 : _b["values"]) !== null && _c !== void 0 ? _c : '[]');
+                            const values = JSON.parse((_c = (_b = value.configurationValues) === null || _b === void 0 ? void 0 : _b["values"]) !== null && _c !== void 0 ? _c : "[]");
                             const displayDescription = boolean_1.asBoolean((_d = value.configurationValues) === null || _d === void 0 ? void 0 : _d["displaydescription"]);
-                            const rawValues = ((_e = clientValue.value) !== null && _e !== void 0 ? _e : '').split(',');
+                            const rawValues = ((_e = clientValue.value) !== null && _e !== void 0 ? _e : "").split(",");
                             if (rawValues.length !== 2) {
                                 value.textValue = value.value;
                                 return;
@@ -67,18 +67,18 @@ System.register(["vue", "./fieldType", "@Obsidian/Services/boolean"], function (
                             const lowerValue = firstOrDefault(values, v => (v === null || v === void 0 ? void 0 : v.value) === rawValues[0]);
                             const upperValue = firstOrDefault(values, v => (v === null || v === void 0 ? void 0 : v.value) === rawValues[1]);
                             if (lowerValue === undefined && upperValue === undefined) {
-                                value.textValue = '';
+                                value.textValue = "";
                                 return;
                             }
                             if (displayDescription) {
-                                value.textValue = `${(_f = lowerValue === null || lowerValue === void 0 ? void 0 : lowerValue.description) !== null && _f !== void 0 ? _f : ''} to ${(_g = upperValue === null || upperValue === void 0 ? void 0 : upperValue.description) !== null && _g !== void 0 ? _g : ''}`;
+                                value.textValue = `${(_f = lowerValue === null || lowerValue === void 0 ? void 0 : lowerValue.description) !== null && _f !== void 0 ? _f : ""} to ${(_g = upperValue === null || upperValue === void 0 ? void 0 : upperValue.description) !== null && _g !== void 0 ? _g : ""}`;
                             }
                             else {
-                                value.textValue = `${(_h = lowerValue === null || lowerValue === void 0 ? void 0 : lowerValue.text) !== null && _h !== void 0 ? _h : ''} to ${(_j = upperValue === null || upperValue === void 0 ? void 0 : upperValue.text) !== null && _j !== void 0 ? _j : ''}`;
+                                value.textValue = `${(_h = lowerValue === null || lowerValue === void 0 ? void 0 : lowerValue.text) !== null && _h !== void 0 ? _h : ""} to ${(_j = upperValue === null || upperValue === void 0 ? void 0 : upperValue.text) !== null && _j !== void 0 ? _j : ""}`;
                             }
                         }
                         catch (_l) {
-                            value.textValue = (_k = clientValue.value) !== null && _k !== void 0 ? _k : '';
+                            value.textValue = (_k = clientValue.value) !== null && _k !== void 0 ? _k : "";
                         }
                     }
                     catch (_m) {

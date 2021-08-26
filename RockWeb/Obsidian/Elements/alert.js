@@ -10,17 +10,17 @@ System.register(["vue"], function (exports_1, context_1) {
         ],
         execute: function () {
             (function (AlertType) {
-                AlertType["default"] = "default";
-                AlertType["success"] = "success";
-                AlertType["info"] = "info";
-                AlertType["danger"] = "danger";
-                AlertType["warning"] = "warning";
-                AlertType["primary"] = "primary";
-                AlertType["validation"] = "validation";
+                AlertType["Default"] = "default";
+                AlertType["Success"] = "success";
+                AlertType["Info"] = "info";
+                AlertType["Danger"] = "danger";
+                AlertType["Warning"] = "warning";
+                AlertType["Primary"] = "primary";
+                AlertType["Validation"] = "validation";
             })(AlertType || (AlertType = {}));
             exports_1("AlertType", AlertType);
             Alert = vue_1.defineComponent({
-                name: 'Alert',
+                name: "Alert",
                 props: {
                     dismissible: {
                         type: Boolean,
@@ -28,15 +28,15 @@ System.register(["vue"], function (exports_1, context_1) {
                     },
                     alertType: {
                         type: String,
-                        default: AlertType.default
+                        default: AlertType.Default
                     }
                 },
                 emits: [
-                    'dismiss'
+                    "dismiss"
                 ],
                 methods: {
                     onDismiss: function () {
-                        this.$emit('dismiss');
+                        this.$emit("dismiss");
                     }
                 },
                 computed: {

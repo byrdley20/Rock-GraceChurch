@@ -14,12 +14,12 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
-import JavaScriptAnchor from './javaScriptAnchor';
-import RockFormField from './rockFormField';
+import { defineComponent, PropType } from "vue";
+import JavaScriptAnchor from "./javaScriptAnchor";
+import RockFormField from "./rockFormField";
 
 export default defineComponent({
-    name: 'Toggle',
+    name: "Toggle",
     components: {
         JavaScriptAnchor,
         RockFormField
@@ -31,22 +31,22 @@ export default defineComponent({
         },
         trueText: {
             type: String as PropType<string>,
-            default: 'On'
+            default: "On"
         },
         falseText: {
             type: String as PropType<string>,
-            default: 'Off'
+            default: "Off"
         }
     },
     data() {
         return {
-            selectedClasses: 'active btn btn-primary',
-            unselectedClasses: 'btn btn-default'
+            selectedClasses: "active btn btn-primary",
+            unselectedClasses: "btn btn-default"
         };
     },
     methods: {
         onClick(isOn: boolean) {
-            this.$emit('update:modelValue', isOn);
+            this.$emit("update:modelValue", isOn);
         }
     },
     template: `

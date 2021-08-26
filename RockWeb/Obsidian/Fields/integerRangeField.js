@@ -25,17 +25,17 @@ System.register(["vue", "./fieldType", "@Obsidian/Services/number"], function (e
         ],
         execute: function () {
             editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
-                return (yield context_1.import('./integerRangeFieldComponents')).EditComponent;
+                return (yield context_1.import("./integerRangeFieldComponents")).EditComponent;
             }));
             IntegerRangeFieldType = class IntegerRangeFieldType extends fieldType_1.FieldTypeBase {
                 updateTextValue(value) {
-                    if (value.value === null || value.value === undefined || value.value === '' || value.value === ',') {
-                        value.textValue = '';
+                    if (value.value === null || value.value === undefined || value.value === "" || value.value === ",") {
+                        value.textValue = "";
                         return;
                     }
-                    const numbers = value.value.split(',').map(v => number_1.toNumberOrNull(v));
+                    const numbers = value.value.split(",").map(v => number_1.toNumberOrNull(v));
                     if (numbers.length !== 2 || (numbers[0] === null && numbers[1] === null)) {
-                        value.textValue = '';
+                        value.textValue = "";
                         return;
                     }
                     if (numbers[0] === null) {

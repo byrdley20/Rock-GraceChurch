@@ -16,7 +16,7 @@ System.register(["vue", "../Util/guid", "../Rules/index"], function (exports_1, 
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'CheckBox',
+                name: "CheckBox",
                 props: {
                     modelValue: {
                         type: Boolean,
@@ -32,7 +32,7 @@ System.register(["vue", "../Util/guid", "../Rules/index"], function (exports_1, 
                     },
                     rules: {
                         type: String,
-                        default: ''
+                        default: ""
                     }
                 },
                 data: function () {
@@ -54,7 +54,7 @@ System.register(["vue", "../Util/guid", "../Rules/index"], function (exports_1, 
                 computed: {
                     isRequired() {
                         const rules = index_1.ruleStringToArray(this.rules);
-                        return rules.indexOf('required') !== -1;
+                        return rules.indexOf("required") !== -1;
                     }
                 },
                 watch: {
@@ -62,7 +62,7 @@ System.register(["vue", "../Util/guid", "../Rules/index"], function (exports_1, 
                         this.internalValue = this.modelValue;
                     },
                     internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
+                        this.$emit("update:modelValue", this.internalValue);
                     },
                     isRequired: {
                         immediate: true,

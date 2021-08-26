@@ -25,7 +25,7 @@ System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "./textB
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'DateTimePicker',
+                name: "DateTimePicker",
                 components: {
                     RockFormField: rockFormField_1.default,
                     BasicTimePicker: basicTimePicker_1.default,
@@ -46,15 +46,15 @@ System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "./textB
                     }
                 },
                 emits: [
-                    'update:modelValue'
+                    "update:modelValue"
                 ],
                 data: function () {
                     return {
                         internalDateValue: null,
                         internalTimeValue: {},
                         isCurrent: false,
-                        currentDiff: '0',
-                        validationValue: '',
+                        currentDiff: "0",
+                        validationValue: "",
                         skipEmit: false
                     };
                 },
@@ -88,7 +88,7 @@ System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "./textB
                         if (this.isCurrent) {
                             return this.asCurrentDateValue;
                         }
-                        return (_a = this.asRockDateTimeOrNull) !== null && _a !== void 0 ? _a : '';
+                        return (_a = this.asRockDateTimeOrNull) !== null && _a !== void 0 ? _a : "";
                     }
                 },
                 watch: {
@@ -96,13 +96,13 @@ System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "./textB
                         immediate: true,
                         handler() {
                             if (!this.isCurrentDateOffset) {
-                                this.currentDiff = '0';
+                                this.currentDiff = "0";
                             }
                         }
                     },
                     valueToEmit() {
                         if (!this.skipEmit) {
-                            this.$emit('update:modelValue', this.valueToEmit);
+                            this.$emit("update:modelValue", this.valueToEmit);
                         }
                     },
                     modelValue: {
@@ -112,12 +112,12 @@ System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "./textB
                                 this.internalDateValue = null;
                                 this.internalTimeValue = {};
                                 this.isCurrent = false;
-                                this.currentDiff = '0';
+                                this.currentDiff = "0";
                                 return;
                             }
-                            if (this.modelValue.indexOf('CURRENT') === 0) {
+                            if (this.modelValue.indexOf("CURRENT") === 0) {
                                 this.isCurrent = true;
-                                const parts = this.modelValue.split(':');
+                                const parts = this.modelValue.split(":");
                                 if (parts.length === 2) {
                                     this.currentDiff = `${number_1.toNumber(parts[1])}`;
                                 }
@@ -138,14 +138,14 @@ System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "./textB
                     }
                 },
                 mounted() {
-                    const input = this.$refs['input'];
+                    const input = this.$refs["input"];
                     const inputId = input.id;
                     const Rock = window.Rock;
                     Rock.controls.datePicker.initialize({
                         id: inputId,
                         startView: 0,
                         showOnFocus: true,
-                        format: 'mm/dd/yyyy',
+                        format: "mm/dd/yyyy",
                         todayHighlight: true,
                         forceParse: true,
                         onChangeScript: () => {

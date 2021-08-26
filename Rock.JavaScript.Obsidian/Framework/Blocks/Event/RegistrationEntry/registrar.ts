@@ -15,21 +15,21 @@
 // </copyright>
 //
 
-import { defineComponent, inject } from 'vue';
-import CheckBox from '../../../Elements/checkBox';
-import { DropDownListOption } from '../../../Elements/dropDownList';
-import EmailBox from '../../../Elements/emailBox';
-import RadioButtonList from '../../../Elements/radioButtonList';
-import StaticFormControl from '../../../Elements/staticFormControl';
-import TextBox from '../../../Elements/textBox';
-import { Guid } from '../../../Util/guid';
-import { Person } from '@Obsidian/ViewModels';
-import { getRegistrantBasicInfo, RegistrantBasicInfo, RegistrationEntryState } from '../registrationEntry';
-import { RegistrationEntryBlockArgs } from './registrationEntryBlockArgs';
-import { RegistrantInfo, RegistrantsSameFamily, RegistrarInfo, RegistrarOption, RegistrationEntryBlockViewModel } from './registrationEntryBlockViewModel';
+import { defineComponent, inject } from "vue";
+import CheckBox from "../../../Elements/checkBox";
+import { DropDownListOption } from "../../../Elements/dropDownList";
+import EmailBox from "../../../Elements/emailBox";
+import RadioButtonList from "../../../Elements/radioButtonList";
+import StaticFormControl from "../../../Elements/staticFormControl";
+import TextBox from "../../../Elements/textBox";
+import { Guid } from "../../../Util/guid";
+import { Person } from "@Obsidian/ViewModels";
+import { getRegistrantBasicInfo, RegistrantBasicInfo, RegistrationEntryState } from "../registrationEntry";
+import { RegistrationEntryBlockArgs } from "./registrationEntryBlockArgs";
+import { RegistrantInfo, RegistrantsSameFamily, RegistrarInfo, RegistrarOption, RegistrationEntryBlockViewModel } from "./registrationEntryBlockViewModel";
 
 export default defineComponent( {
-    name: 'Event.RegistrationEntry.Registrar',
+    name: "Event.RegistrationEntry.Registrar",
     components: {
         TextBox,
         CheckBox,
@@ -37,15 +37,13 @@ export default defineComponent( {
         StaticFormControl,
         RadioButtonList
     },
-    setup ()
-    {
+    setup () {
         return {
-            getRegistrationEntryBlockArgs: inject( 'getRegistrationEntryBlockArgs' ) as () => RegistrationEntryBlockArgs,
-            registrationEntryState: inject( 'registrationEntryState' ) as RegistrationEntryState
+            getRegistrationEntryBlockArgs: inject( "getRegistrationEntryBlockArgs" ) as () => RegistrationEntryBlockArgs,
+            registrationEntryState: inject( "registrationEntryState" ) as RegistrationEntryState
         };
     },
-    data ()
-    {
+    data () {
         return {
             /** Should the registrar panel be shown */
             isRegistrarPanelShown: true
@@ -53,79 +51,66 @@ export default defineComponent( {
     },
     computed: {
         /** Is the registrar option set to UseLoggedInPerson */
-        useLoggedInPersonForRegistrar (): boolean
-        {
+        useLoggedInPersonForRegistrar (): boolean {
             return ( !!this.currentPerson ) && this.viewModel.registrarOption === RegistrarOption.UseLoggedInPerson;
         },
 
         /** The person that is currently authenticated */
-        currentPerson (): Person | null
-        {
+        currentPerson (): Person | null {
             return this.$store.state.currentPerson;
         },
 
         /** The person entering the registration information. This object is part of the registration state. */
-        registrar (): RegistrarInfo
-        {
+        registrar (): RegistrarInfo {
             return this.registrationEntryState.registrar;
         },
 
         /** The first registrant entered into the registration. */
-        firstRegistrant (): RegistrantInfo
-        {
+        firstRegistrant (): RegistrantInfo {
             return this.registrationEntryState.registrants[ 0 ];
         },
 
         /** This is the data sent from the C# code behind when the block initialized. */
-        viewModel (): RegistrationEntryBlockViewModel
-        {
+        viewModel (): RegistrationEntryBlockViewModel {
             return this.registrationEntryState.viewModel;
         },
 
         /** Should the checkbox allowing the registrar to choose to update their email address be shown? */
-        doShowUpdateEmailOption (): boolean
-        {
+        doShowUpdateEmailOption (): boolean {
             return !this.viewModel.forceEmailUpdate && !!this.currentPerson?.email;
         },
 
         /** Info about the registrants made available by .FirstName instead of by field guid */
-        registrantInfos (): RegistrantBasicInfo[]
-        {
+        registrantInfos (): RegistrantBasicInfo[] {
             return this.registrationEntryState.registrants.map( r => getRegistrantBasicInfo( r, this.viewModel.registrantForms ) );
         },
 
         /** The registrant term - plural if there are more than 1 */
-        registrantTerm (): string
-        {
+        registrantTerm (): string {
             return this.registrantInfos.length === 1 ? this.viewModel.registrantTerm : this.viewModel.pluralRegistrantTerm;
         },
 
         /** The name of this registration instance */
-        instanceName (): string
-        {
+        instanceName (): string {
             return this.viewModel.instanceName;
         },
 
         /** The radio options that are displayed to allow the user to pick another person that this
          *  registrar is part of a family. */
-        familyOptions (): DropDownListOption[]
-        {
+        familyOptions (): DropDownListOption[] {
             const options: DropDownListOption[] = [];
             const usedFamilyGuids: Record<Guid, boolean> = {};
 
-            if ( this.viewModel.registrantsSameFamily !== RegistrantsSameFamily.Ask )
-            {
+            if ( this.viewModel.registrantsSameFamily !== RegistrantsSameFamily.Ask ) {
                 return options;
             }
 
             // Add previous registrants as options
-            for ( let i = 0; i < this.registrationEntryState.registrants.length; i++ )
-            {
+            for ( let i = 0; i < this.registrationEntryState.registrants.length; i++ ) {
                 const registrant = this.registrationEntryState.registrants[ i ];
                 const info = getRegistrantBasicInfo( registrant, this.viewModel.registrantForms );
 
-                if ( !usedFamilyGuids[ registrant.familyGuid ] && info?.firstName && info?.lastName )
-                {
+                if ( !usedFamilyGuids[ registrant.familyGuid ] && info?.firstName && info?.lastName ) {
                     options.push( {
                         text: `${info.firstName} ${info.lastName}`,
                         value: registrant.familyGuid
@@ -136,8 +121,7 @@ export default defineComponent( {
             }
 
             // Add the current person (registrant) if not already added
-            if ( this.currentPerson?.primaryFamilyGuid && this.currentPerson.fullName && !usedFamilyGuids[ this.currentPerson.primaryFamilyGuid ] )
-            {
+            if ( this.currentPerson?.primaryFamilyGuid && this.currentPerson.fullName && !usedFamilyGuids[ this.currentPerson.primaryFamilyGuid ] ) {
                 options.push( {
                     text: this.currentPerson.fullName,
                     value: this.currentPerson.primaryFamilyGuid
@@ -145,7 +129,7 @@ export default defineComponent( {
             }
 
             options.push( {
-                text: 'None of the above',
+                text: "None of the above",
                 value: this.registrar.ownFamilyGuid
             } );
 
@@ -154,29 +138,25 @@ export default defineComponent( {
     },
     methods: {
         /** Prefill in the registrar form fields based on the admin's settings */
-        prefillRegistrar ()
-        {
+        prefillRegistrar () {
             this.isRegistrarPanelShown = true;
 
             // If the option is to prompt or use the current person, prefill the current person if available
             if ( this.currentPerson &&
-                ( this.viewModel.registrarOption === RegistrarOption.UseLoggedInPerson || this.viewModel.registrarOption === RegistrarOption.PromptForRegistrar ) )
-            {
-                this.registrar.nickName = this.currentPerson.nickName || this.currentPerson.firstName || '';
-                this.registrar.lastName = this.currentPerson.lastName || '';
-                this.registrar.email = this.currentPerson.email || '';
+                ( this.viewModel.registrarOption === RegistrarOption.UseLoggedInPerson || this.viewModel.registrarOption === RegistrarOption.PromptForRegistrar ) ) {
+                this.registrar.nickName = this.currentPerson.nickName || this.currentPerson.firstName || "";
+                this.registrar.lastName = this.currentPerson.lastName || "";
+                this.registrar.email = this.currentPerson.email || "";
                 this.registrar.familyGuid = this.currentPerson.primaryFamilyGuid || null;
                 return;
             }
 
-            if ( this.viewModel.registrarOption === RegistrarOption.PromptForRegistrar )
-            {
+            if ( this.viewModel.registrarOption === RegistrarOption.PromptForRegistrar ) {
                 return;
             }
 
             // If prefill or first-registrant, then the first registrants info is used (as least as a starting point)
-            if ( this.viewModel.registrarOption === RegistrarOption.PrefillFirstRegistrant || this.viewModel.registrarOption === RegistrarOption.UseFirstRegistrant )
-            {
+            if ( this.viewModel.registrarOption === RegistrarOption.PrefillFirstRegistrant || this.viewModel.registrarOption === RegistrarOption.UseFirstRegistrant ) {
                 const firstRegistrantInfo = getRegistrantBasicInfo( this.firstRegistrant, this.viewModel.registrantForms );
                 this.registrar.nickName = firstRegistrantInfo.firstName;
                 this.registrar.lastName = firstRegistrantInfo.lastName;
@@ -185,8 +165,7 @@ export default defineComponent( {
 
                 const hasAllInfo = ( !!this.registrar.nickName ) && ( !!this.registrar.lastName ) && ( !!this.registrar.email );
 
-                if ( hasAllInfo && this.viewModel.registrarOption === RegistrarOption.UseFirstRegistrant )
-                {
+                if ( hasAllInfo && this.viewModel.registrarOption === RegistrarOption.UseFirstRegistrant ) {
                     this.isRegistrarPanelShown = false;
                 }
 
@@ -197,8 +176,7 @@ export default defineComponent( {
     watch: {
         currentPerson: {
             immediate: true,
-            handler ()
-            {
+            handler () {
                 this.prefillRegistrar();
             }
         }

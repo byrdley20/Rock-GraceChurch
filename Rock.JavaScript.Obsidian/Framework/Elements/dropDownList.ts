@@ -14,9 +14,9 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
-import { newGuid } from '../Util/guid';
-import RockFormField from './rockFormField';
+import { defineComponent, PropType } from "vue";
+import { newGuid } from "../Util/guid";
+import RockFormField from "./rockFormField";
 
 export type DropDownListOption = {
     value: string,
@@ -24,7 +24,7 @@ export type DropDownListOption = {
 };
 
 export default defineComponent( {
-    name: 'DropDownList',
+    name: "DropDownList",
     components: {
         RockFormField
     },
@@ -43,19 +43,18 @@ export default defineComponent( {
         },
         blankValue: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         },
         formControlClasses: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         },
         enhanceForLongLists: {
             type: Boolean as PropType<boolean>,
             default: false
         }
     },
-    data: function ()
-    {
+    data: function () {
         return {
             uniqueId: `rock-dropdownlist-${newGuid()}`,
             internalValue: this.blankValue,
@@ -64,11 +63,9 @@ export default defineComponent( {
     },
     computed: {
         /** The compiled list of CSS classes (props and calculated from other inputs) for the select element */
-        compiledFormControlClasses (): string
-        {
-            if ( this.enhanceForLongLists )
-            {
-                return this.formControlClasses + ' chosen-select';
+        compiledFormControlClasses (): string {
+            if ( this.enhanceForLongLists ) {
+                return this.formControlClasses + " chosen-select";
             }
 
             return this.formControlClasses;
@@ -76,66 +73,55 @@ export default defineComponent( {
     },
     methods: {
         /** Uses jQuery to get the chosen element */
-        getChosenJqueryEl ()
-        {
-            const jquery = <any>window[ <any>'$' ];
-            let $chosenDropDown = jquery( this.$refs[ 'theSelect' ] );
+        getChosenJqueryEl () {
+            const jquery = <any>window[ <any>"$" ];
+            let $chosenDropDown = jquery( this.$refs[ "theSelect" ] );
 
-            if ( !$chosenDropDown || !$chosenDropDown.length )
-            {
+            if ( !$chosenDropDown || !$chosenDropDown.length ) {
                 $chosenDropDown = jquery( `#${this.uniqueId}` );
             }
 
             return $chosenDropDown;
         },
 
-        createOrDestroyChosen ()
-        {
-            if ( !this.isMounted )
-            {
+        createOrDestroyChosen () {
+            if ( !this.isMounted ) {
                 return;
             }
 
             const $chosenDropDown = this.getChosenJqueryEl();
 
-            if ( this.enhanceForLongLists )
-            {
+            if ( this.enhanceForLongLists ) {
                 $chosenDropDown
                     .chosen( {
-                        width: '100%',
+                        width: "100%",
                         allow_single_deselect: true,
-                        placeholder_text_multiple: ' ',
-                        placeholder_text_single: ' '
+                        placeholder_text_multiple: " ",
+                        placeholder_text_single: " "
                     } )
-                    .change( (ev: Event) =>
-                    {
+                    .change( (ev: Event) => {
                         this.internalValue = (ev.target as HTMLSelectElement).value;
                     } );
             }
-            else
-            {
-                $chosenDropDown.chosen( 'destroy' );
+            else {
+                $chosenDropDown.chosen( "destroy" );
             }
         },
 
-        syncValue ()
-        {
+        syncValue () {
             this.internalValue = this.modelValue;
             const selectedOption = this.options.find( o => o.value === this.internalValue ) || null;
 
-            if ( !selectedOption )
-            {
+            if ( !selectedOption ) {
                 this.internalValue = this.showBlankItem ?
                     this.blankValue :
                     ( this.options[ 0 ]?.value || this.blankValue );
             }
 
-            if ( this.enhanceForLongLists )
-            {
-                this.$nextTick( () =>
-                {
+            if ( this.enhanceForLongLists ) {
+                this.$nextTick( () => {
                     const $chosenDropDown = this.getChosenJqueryEl();
-                    $chosenDropDown.trigger( 'chosen:updated' );
+                    $chosenDropDown.trigger( "chosen:updated" );
                 } );
             }
         }
@@ -143,29 +129,24 @@ export default defineComponent( {
     watch: {
         modelValue: {
             immediate: true,
-            handler ()
-            {
+            handler () {
                 this.syncValue();
             }
         },
         options: {
             immediate: true,
-            handler ()
-            {
+            handler () {
                 this.syncValue();
             }
         },
-        internalValue ()
-        {
-            this.$emit( 'update:modelValue', this.internalValue );
+        internalValue () {
+            this.$emit( "update:modelValue", this.internalValue );
         },
-        enhanceForLongLists ()
-        {
+        enhanceForLongLists () {
             this.createOrDestroyChosen();
         }
     },
-    mounted ()
-    {
+    mounted () {
         this.isMounted = true;
         this.createOrDestroyChosen();
     },

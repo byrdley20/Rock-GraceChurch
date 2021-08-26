@@ -14,9 +14,9 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
-import { NumberUpDownInternal } from './numberUpDown';
-import RockFormField from './rockFormField';
+import { defineComponent, PropType } from "vue";
+import { NumberUpDownInternal } from "./numberUpDown";
+import RockFormField from "./rockFormField";
 
 export type NumberUpDownGroupOption = {
     key: string,
@@ -26,7 +26,7 @@ export type NumberUpDownGroupOption = {
 };
 
 export default defineComponent({
-    name: 'NumberUpDownGroup',
+    name: "NumberUpDownGroup",
     components: {
         RockFormField,
         NumberUpDownInternal

@@ -15,11 +15,11 @@
 // </copyright>
 //
 
-import { defineComponent, PropType } from 'vue';
-import NumberBox from './numberBox';
+import { defineComponent, PropType } from "vue";
+import NumberBox from "./numberBox";
 
 export default defineComponent({
-    name: 'CurrencyBox',
+    name: "CurrencyBox",
     components: {
         NumberBox
     },
@@ -39,7 +39,7 @@ export default defineComponent({
         },
     },
     emits: [
-        'update:modelValue'
+        "update:modelValue"
     ],
     data: function () {
         return {
@@ -53,7 +53,7 @@ export default defineComponent({
     },
     watch: {
         internalValue() {
-            this.$emit('update:modelValue', this.internalValue);
+            this.$emit("update:modelValue", this.internalValue);
         },
         modelValue: {
             immediate: true,

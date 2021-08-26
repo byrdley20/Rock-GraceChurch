@@ -15,37 +15,36 @@
 // </copyright>
 //
 
-import { defineComponent, inject, provide, reactive, ref } from 'vue';
-import RockButton from '../../Elements/rockButton';
-import { Guid, newGuid } from '../../Util/guid';
-import RegistrationEntryIntro from './RegistrationEntry/intro';
-import RegistrationEntryRegistrants from './RegistrationEntry/registrants';
-import { RegistrantInfo, RegistrantsSameFamily, RegistrarInfo, RegistrationEntryBlockFormFieldViewModel, RegistrationEntryBlockFormViewModel, RegistrationEntryBlockSuccessViewModel, RegistrationEntryBlockViewModel, RegistrationPersonFieldType } from './RegistrationEntry/registrationEntryBlockViewModel';
-import RegistrationEntryRegistrationStart from './RegistrationEntry/registrationStart';
-import RegistrationEntryRegistrationEnd from './RegistrationEntry/registrationEnd';
-import RegistrationEntrySummary from './RegistrationEntry/summary';
-import Registrants from './RegistrationEntry/registrants';
-import ProgressTracker, { ProgressTrackerItem } from '../../Elements/progressTracker';
-import NumberFilter, { toWord } from '@Obsidian/Services/number';
-import StringFilter, { isNullOrWhiteSpace, toTitleCase } from '@Obsidian/Services/string';
-import Alert from '../../Elements/alert';
-import CountdownTimer from '../../Elements/countdownTimer';
-import RegistrationEntrySuccess from './RegistrationEntry/success';
-import Page from '../../Util/page';
-import { RegistrationEntryBlockArgs } from './RegistrationEntry/registrationEntryBlockArgs';
-import { InvokeBlockActionFunc } from '../../Controls/rockBlock';
-import JavaScriptAnchor from '../../Elements/javaScriptAnchor';
-import { Person } from '@Obsidian/ViewModels';
-import SessionRenewal from './RegistrationEntry/sessionRenewal';
+import { defineComponent, inject, provide, reactive, ref } from "vue";
+import RockButton from "../../Elements/rockButton";
+import { Guid, newGuid } from "../../Util/guid";
+import RegistrationEntryIntro from "./RegistrationEntry/intro";
+import RegistrationEntryRegistrants from "./RegistrationEntry/registrants";
+import { RegistrantInfo, RegistrantsSameFamily, RegistrarInfo, RegistrationEntryBlockFormFieldViewModel, RegistrationEntryBlockFormViewModel, RegistrationEntryBlockSuccessViewModel, RegistrationEntryBlockViewModel, RegistrationPersonFieldType } from "./RegistrationEntry/registrationEntryBlockViewModel";
+import RegistrationEntryRegistrationStart from "./RegistrationEntry/registrationStart";
+import RegistrationEntryRegistrationEnd from "./RegistrationEntry/registrationEnd";
+import RegistrationEntrySummary from "./RegistrationEntry/summary";
+import Registrants from "./RegistrationEntry/registrants";
+import ProgressTracker, { ProgressTrackerItem } from "../../Elements/progressTracker";
+import NumberFilter, { toWord } from "@Obsidian/Services/number";
+import StringFilter, { isNullOrWhiteSpace, toTitleCase } from "@Obsidian/Services/string";
+import Alert from "../../Elements/alert";
+import CountdownTimer from "../../Elements/countdownTimer";
+import RegistrationEntrySuccess from "./RegistrationEntry/success";
+import Page from "../../Util/page";
+import { RegistrationEntryBlockArgs } from "./RegistrationEntry/registrationEntryBlockArgs";
+import { InvokeBlockActionFunc } from "../../Controls/rockBlock";
+import JavaScriptAnchor from "../../Elements/javaScriptAnchor";
+import { Person } from "@Obsidian/ViewModels";
+import SessionRenewal from "./RegistrationEntry/sessionRenewal";
 
-export enum Step
-{
-    'intro' = 'intro',
-    'registrationStartForm' = 'registrationStartForm',
-    'perRegistrantForms' = 'perRegistrantForms',
-    'registrationEndForm' = 'registrationEndForm',
-    'reviewAndPayment' = 'reviewAndPayment',
-    'success' = 'success'
+export enum Step {
+    "intro" = "intro",
+    "registrationStartForm" = "registrationStartForm",
+    "perRegistrantForms" = "perRegistrantForms",
+    "registrationEndForm" = "registrationEndForm",
+    "reviewAndPayment" = "reviewAndPayment",
+    "success" = "success"
 }
 
 export type RegistrantBasicInfo = {
@@ -84,8 +83,7 @@ const unknownSingleFamilyGuid = newGuid();
  * @param currentPerson
  * @param viewModel
  */
-export function getForcedFamilyGuid ( currentPerson: Person | null, viewModel: RegistrationEntryBlockViewModel ): string | null
-{
+export function getForcedFamilyGuid ( currentPerson: Person | null, viewModel: RegistrationEntryBlockViewModel ): string | null {
     return ( currentPerson && viewModel.registrantsSameFamily === RegistrantsSameFamily.Yes ) ?
         ( currentPerson.primaryFamilyGuid || unknownSingleFamilyGuid ) :
         null;
@@ -97,19 +95,16 @@ export function getForcedFamilyGuid ( currentPerson: Person | null, viewModel: R
  * @param viewModel
  * @param familyGuid
  */
-export function getDefaultRegistrantInfo ( currentPerson: Person | null, viewModel: RegistrationEntryBlockViewModel, familyGuid: Guid | null ): RegistrantInfo
-{
+export function getDefaultRegistrantInfo ( currentPerson: Person | null, viewModel: RegistrationEntryBlockViewModel, familyGuid: Guid | null ): RegistrantInfo {
     const forcedFamilyGuid = getForcedFamilyGuid( currentPerson, viewModel );
     const ownFamilyGuid = newGuid();
 
-    if ( forcedFamilyGuid )
-    {
+    if ( forcedFamilyGuid ) {
         familyGuid = forcedFamilyGuid;
     }
 
     // If the family is not specified, then assume the person is in their own family
-    if ( !familyGuid )
-    {
+    if ( !familyGuid ) {
         familyGuid = ownFamilyGuid;
     }
 
@@ -119,29 +114,28 @@ export function getDefaultRegistrantInfo ( currentPerson: Person | null, viewMod
         fieldValues: {},
         feeItemQuantities: {},
         guid: newGuid(),
-        personGuid: '',
+        personGuid: "",
         ownFamilyGuid: ownFamilyGuid
     } as RegistrantInfo;
 }
 
-export function getRegistrantBasicInfo ( registrant: RegistrantInfo, registrantForms: RegistrationEntryBlockFormViewModel[] ): RegistrantBasicInfo
-{
+export function getRegistrantBasicInfo ( registrant: RegistrantInfo, registrantForms: RegistrationEntryBlockFormViewModel[] ): RegistrantBasicInfo {
     const fields = registrantForms?.reduce((acc, f) => acc.concat(f.fields), [] as RegistrationEntryBlockFormFieldViewModel[]) || [];
 
-    const firstNameGuid = fields.find( f => f.personFieldType === RegistrationPersonFieldType.FirstName )?.guid || '';
-    const lastNameGuid = fields.find( f => f.personFieldType === RegistrationPersonFieldType.LastName )?.guid || '';
-    const emailGuid = fields.find( f => f.personFieldType === RegistrationPersonFieldType.Email )?.guid || '';
+    const firstNameGuid = fields.find( f => f.personFieldType === RegistrationPersonFieldType.FirstName )?.guid || "";
+    const lastNameGuid = fields.find( f => f.personFieldType === RegistrationPersonFieldType.LastName )?.guid || "";
+    const emailGuid = fields.find( f => f.personFieldType === RegistrationPersonFieldType.Email )?.guid || "";
 
     return {
-        firstName: ( registrant?.fieldValues[ firstNameGuid ] || '' ) as string,
-        lastName: ( registrant?.fieldValues[ lastNameGuid ] || '' ) as string,
-        email: ( registrant?.fieldValues[ emailGuid ] || '' ) as string,
+        firstName: ( registrant?.fieldValues[ firstNameGuid ] || "" ) as string,
+        lastName: ( registrant?.fieldValues[ lastNameGuid ] || "" ) as string,
+        email: ( registrant?.fieldValues[ emailGuid ] || "" ) as string,
         guid: registrant?.guid
     };
 }
 
 export default defineComponent( {
-    name: 'Event.RegistrationEntry',
+    name: "Event.RegistrationEntry",
     components: {
         RockButton,
         Registrants,
@@ -157,8 +151,7 @@ export default defineComponent( {
         JavaScriptAnchor,
         SessionRenewal
     },
-    setup ()
-    {
+    setup () {
         const steps: Record<Step, Step> = {
             [ Step.intro ]: Step.intro,
             [ Step.registrationStartForm ]: Step.registrationStartForm,
@@ -169,8 +162,8 @@ export default defineComponent( {
         };
 
         const notFound = ref( false );
-        const viewModel = inject( 'configurationValues' ) as RegistrationEntryBlockViewModel | null;
-        const invokeBlockAction = inject( 'invokeBlockAction' ) as InvokeBlockActionFunc;
+        const viewModel = inject( "configurationValues" ) as RegistrationEntryBlockViewModel | null;
+        const invokeBlockAction = inject( "invokeBlockAction" ) as InvokeBlockActionFunc;
 
         if (viewModel === null) {
             notFound.value = true;
@@ -181,26 +174,22 @@ export default defineComponent( {
             };
         }
 
-        if (!viewModel.registrationAttributesStart)
-        {
+        if (!viewModel.registrationAttributesStart) {
             notFound.value = true;
         }
 
         const hasPreAttributes = viewModel.registrationAttributesStart?.length > 0;
         let currentStep = steps.intro;
 
-        if ( viewModel.successViewModel )
-        {
+        if ( viewModel.successViewModel ) {
             // This is after having paid via redirect gateway
             currentStep = steps.success;
         }
-        else if ( viewModel.session && !viewModel.startAtBeginning )
-        {
+        else if ( viewModel.session && !viewModel.startAtBeginning ) {
             // This is an existing registration, start at the summary
             currentStep = steps.reviewAndPayment;
         }
-        else if ( viewModel.maxRegistrants === 1 && isNullOrWhiteSpace( viewModel.instructionsHtml ) )
-        {
+        else if ( viewModel.maxRegistrants === 1 && isNullOrWhiteSpace( viewModel.instructionsHtml ) ) {
             // There is no need to show the number of registrants selector or instructions. Start at the second page.
             currentStep = hasPreAttributes ? steps.registrationStartForm : steps.perRegistrantForms;
         }
@@ -215,15 +204,15 @@ export default defineComponent( {
             registrants: viewModel.session?.registrants || [ getDefaultRegistrantInfo( null, viewModel, null ) ],
             registrationFieldValues: viewModel.session?.fieldValues || {},
             registrar: viewModel.session?.registrar || {
-                nickName: '',
-                lastName: '',
-                email: '',
+                nickName: "",
+                lastName: "",
+                email: "",
                 updateEmail: true,
                 ownFamilyGuid: newGuid(),
                 familyGuid: null
             },
-            gatewayToken: '',
-            discountCode: viewModel.session?.discountCode || '',
+            gatewayToken: "",
+            discountCode: viewModel.session?.discountCode || "",
             discountAmount: viewModel.session?.discountAmount || 0,
             discountPercentage: viewModel.session?.discountPercentage || 0,
             successViewModel: viewModel.successViewModel,
@@ -232,11 +221,10 @@ export default defineComponent( {
             registrationSessionGuid: viewModel.session?.registrationSessionGuid || newGuid()
         } as RegistrationEntryState );
 
-        provide( 'registrationEntryState', registrationEntryState );
+        provide( "registrationEntryState", registrationEntryState );
 
         /** A method to get the args needed for persisting the session */
-        const getRegistrationEntryBlockArgs: () => RegistrationEntryBlockArgs = () =>
-        {
+        const getRegistrationEntryBlockArgs: () => RegistrationEntryBlockArgs = () => {
             return {
                 registrationSessionGuid: registrationEntryState.registrationSessionGuid,
                 gatewayToken: registrationEntryState.gatewayToken,
@@ -249,28 +237,25 @@ export default defineComponent( {
             };
         };
 
-        provide( 'getRegistrationEntryBlockArgs', getRegistrationEntryBlockArgs );
+        provide( "getRegistrationEntryBlockArgs", getRegistrationEntryBlockArgs );
 
         /** A method to persist the session */
-        const persistSession: ( force: boolean ) => Promise<void> = async ( force = false ) =>
-        {
-            if ( !force && !viewModel.timeoutMinutes )
-            {
+        const persistSession: ( force: boolean ) => Promise<void> = async ( force = false ) => {
+            if ( !force && !viewModel.timeoutMinutes ) {
                 return;
             }
 
-            const response = await invokeBlockAction<{ expirationDateTime: string }>( 'PersistSession', {
+            const response = await invokeBlockAction<{ expirationDateTime: string }>( "PersistSession", {
                 args: getRegistrationEntryBlockArgs()
             });
 
-            if ( response.data )
-            {
+            if ( response.data ) {
                 const asDate = new Date( response.data.expirationDateTime );
                 registrationEntryState.sessionExpirationDate = asDate;
             }
         };
 
-        provide( 'persistSession', persistSession );
+        provide( "persistSession", persistSession );
 
         /** Expose these members and make them available within the rest of the component */
         return {
@@ -281,8 +266,7 @@ export default defineComponent( {
             persistSession
         };
     },
-    data ()
-    {
+    data () {
         return {
             secondsBeforeExpiration: -1,
             hasSessionRenewalSuccess: false
@@ -290,82 +274,66 @@ export default defineComponent( {
     },
     computed: {
         /** The person currently authenticated */
-        currentPerson (): Person | null
-        {
+        currentPerson (): Person | null {
             return this.$store.state.currentPerson;
         },
 
         /** Is the session expired? */
-        isSessionExpired (): boolean
-        {
+        isSessionExpired (): boolean {
             return this.secondsBeforeExpiration === 0 && this.currentStep !== Step.success;
         },
 
-        mustLogin (): boolean
-        {
+        mustLogin (): boolean {
             return !this.$store.state.currentPerson && this.viewModel != null && ( this.viewModel.isUnauthorized || this.viewModel.loginRequiredToRegister );
         },
-        isUnauthorized (): boolean
-        {
+        isUnauthorized (): boolean {
             return this.viewModel?.isUnauthorized ?? false;
         },
-        currentStep (): string
-        {
+        currentStep (): string {
             return this.registrationEntryState?.currentStep ?? "";
         },
-        registrants (): RegistrantInfo[]
-        {
+        registrants (): RegistrantInfo[] {
             return this.registrationEntryState?.registrants ?? [];
         },
-        hasPreAttributes (): boolean
-        {
+        hasPreAttributes (): boolean {
             return (this.viewModel?.registrationAttributesStart?.length ?? 0) > 0;
         },
-        hasPostAttributes (): boolean
-        {
+        hasPostAttributes (): boolean {
             return (this.viewModel?.registrationAttributesEnd?.length ?? 0) > 0;
         },
-        progressTrackerIndex (): number
-        {
-            if ( this.currentStep === Step.intro || this.registrationEntryState == null)
-            {
+        progressTrackerIndex (): number {
+            if ( this.currentStep === Step.intro || this.registrationEntryState == null) {
                 return 0;
             }
 
             const stepsBeforePre = this.registrationEntryState?.firstStep === Step.intro ? 1 : 0;
 
-            if ( this.currentStep === Step.registrationStartForm )
-            {
+            if ( this.currentStep === Step.registrationStartForm ) {
                 return stepsBeforePre;
             }
 
             const stepsBeforeRegistrants = stepsBeforePre + ( this.hasPreAttributes ? 1 : 0 );
 
-            if ( this.currentStep === Step.perRegistrantForms )
-            {
+            if ( this.currentStep === Step.perRegistrantForms ) {
                 return this.registrationEntryState.currentRegistrantIndex + stepsBeforeRegistrants;
             }
 
             const stepsToCompleteRegistrants = this.registrationEntryState.registrants.length + stepsBeforeRegistrants;
 
-            if ( this.currentStep === Step.registrationEndForm )
-            {
+            if ( this.currentStep === Step.registrationEndForm ) {
                 return stepsToCompleteRegistrants;
             }
 
-            if ( this.currentStep === Step.reviewAndPayment )
-            {
+            if ( this.currentStep === Step.reviewAndPayment ) {
                 return stepsToCompleteRegistrants + ( this.hasPostAttributes ? 1 : 0 );
             }
 
             return 0;
         },
-        uppercaseRegistrantTerm (): string
-        {
+        uppercaseRegistrantTerm (): string {
             return StringFilter.toTitleCase( this.viewModel?.registrantTerm ?? "" );
         },
-        currentRegistrantTitle (): string
-        {
+        currentRegistrantTitle (): string {
             if (this.registrationEntryState == null) {
                 return "";
             }
@@ -374,96 +342,82 @@ export default defineComponent( {
             let title = StringFilter.toTitleCase(
                 this.registrants.length <= 1 ?
                     this.uppercaseRegistrantTerm :
-                    ordinal + ' ' + this.uppercaseRegistrantTerm );
+                    ordinal + " " + this.uppercaseRegistrantTerm );
 
-            if ( this.registrationEntryState.currentRegistrantFormIndex > 0 )
-            {
-                title += ' (cont)';
+            if ( this.registrationEntryState.currentRegistrantFormIndex > 0 ) {
+                title += " (cont)";
             }
 
             return title;
         },
-        stepTitleHtml (): string
-        {
-            if ( this.currentStep === Step.registrationStartForm )
-            {
+        stepTitleHtml (): string {
+            if ( this.currentStep === Step.registrationStartForm ) {
                 return this.viewModel?.registrationAttributeTitleStart ?? "";
             }
 
-            if ( this.currentStep === Step.perRegistrantForms )
-            {
+            if ( this.currentStep === Step.perRegistrantForms ) {
                 return this.currentRegistrantTitle;
             }
 
-            if ( this.currentStep === Step.registrationEndForm )
-            {
+            if ( this.currentStep === Step.registrationEndForm ) {
                 return this.viewModel?.registrationAttributeTitleEnd ?? "";
             }
 
-            if ( this.currentStep === Step.reviewAndPayment )
-            {
-                return 'Review Registration';
+            if ( this.currentStep === Step.reviewAndPayment ) {
+                return "Review Registration";
             }
 
-            if ( this.currentStep === Step.success )
-            {
-                return this.registrationEntryState?.successViewModel?.titleHtml || 'Congratulations';
+            if ( this.currentStep === Step.success ) {
+                return this.registrationEntryState?.successViewModel?.titleHtml || "Congratulations";
             }
 
-            return '';
+            return "";
         },
 
         /** The items to display in the progress tracker */
-        progressTrackerItems (): ProgressTrackerItem[]
-        {
+        progressTrackerItems (): ProgressTrackerItem[] {
             const items: ProgressTrackerItem[] = [];
 
             if (this.registrationEntryState == null) {
                 return items;
             }
 
-            if ( this.registrationEntryState.firstStep === Step.intro )
-            {
+            if ( this.registrationEntryState.firstStep === Step.intro ) {
                 items.push( {
-                    key: 'Start',
-                    title: 'Start',
+                    key: "Start",
+                    title: "Start",
                     subtitle: this.viewModel.registrationTerm
                 } );
             }
 
-            if ( this.hasPreAttributes )
-            {
+            if ( this.hasPreAttributes ) {
                 items.push( {
-                    key: 'Pre',
+                    key: "Pre",
                     title: this.viewModel.registrationAttributeTitleStart,
                     subtitle: this.viewModel.registrationTerm
                 } );
             }
 
-            if ( !this.registrationEntryState.registrants.length )
-            {
+            if ( !this.registrationEntryState.registrants.length ) {
                 items.push( {
-                    key: 'Registrant',
+                    key: "Registrant",
                     title: toTitleCase( this.viewModel.registrantTerm ),
                     subtitle: this.viewModel.registrationTerm
                 } );
             }
 
-            for ( let i = 0; i < this.registrationEntryState.registrants.length; i++ )
-            {
+            for ( let i = 0; i < this.registrationEntryState.registrants.length; i++ ) {
                 const registrant = this.registrationEntryState.registrants[ i ];
                 const info = getRegistrantBasicInfo( registrant, this.viewModel.registrantForms );
 
-                if ( info?.firstName && info?.lastName )
-                {
+                if ( info?.firstName && info?.lastName ) {
                     items.push( {
                         key: `Registrant-${registrant.guid}`,
                         title: info.firstName,
                         subtitle: info.lastName
                     } );
                 }
-                else
-                {
+                else {
                     items.push( {
                         key: `Registrant-${registrant.guid}`,
                         title: toTitleCase( this.viewModel.registrantTerm ),
@@ -472,18 +426,17 @@ export default defineComponent( {
                 }
             }
 
-            if ( this.hasPostAttributes )
-            {
+            if ( this.hasPostAttributes ) {
                 items.push( {
-                    key: 'Post',
+                    key: "Post",
                     title: this.viewModel.registrationAttributeTitleEnd,
                     subtitle: this.viewModel.registrationTerm
                 } );
             }
 
             items.push( {
-                key: 'Finalize',
-                title: 'Finalize',
+                key: "Finalize",
+                title: "Finalize",
                 subtitle: this.viewModel.registrationTerm
             } );
 
@@ -563,8 +516,7 @@ export default defineComponent( {
     watch: {
         currentPerson: {
             immediate: true,
-            handler ()
-            {
+            handler () {
                 if (this.viewModel != null && this.registrationEntryState != null) {
                     const forcedFamilyGuid = getForcedFamilyGuid(this.currentPerson, this.viewModel);
 
@@ -576,12 +528,10 @@ export default defineComponent( {
                 }
             }
         },
-        'registrationEntryState.sessionExpirationDate': {
+        "registrationEntryState.sessionExpirationDate": {
             immediate: true,
-            handler ()
-            {
-                if ( !this.registrationEntryState?.sessionExpirationDate )
-                {
+            handler () {
+                if ( !this.registrationEntryState?.sessionExpirationDate ) {
                     this.secondsBeforeExpiration = -1;
                     return;
                 }
@@ -593,11 +543,9 @@ export default defineComponent( {
             }
         }
     },
-    mounted ()
-    {
-        if ( this.viewModel?.loginRequiredToRegister && !this.$store.state.currentPerson )
-        {
-            this.$store.dispatch( 'redirectToLogin' );
+    mounted () {
+        if ( this.viewModel?.loginRequiredToRegister && !this.$store.state.currentPerson ) {
+            this.$store.dispatch( "redirectToLogin" );
         }
     },
     template: `

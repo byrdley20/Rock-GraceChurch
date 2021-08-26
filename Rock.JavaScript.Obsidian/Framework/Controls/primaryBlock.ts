@@ -14,11 +14,11 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
-import store, { MutationType } from '../Store/index';
+import { defineComponent, PropType } from "vue";
+import store, { MutationType } from "../Store/index";
 
 export default defineComponent({
-    name: 'PrimaryBlock',
+    name: "PrimaryBlock",
     props: {
         hideSecondaryBlocks: {
             type: Boolean as PropType<boolean>,

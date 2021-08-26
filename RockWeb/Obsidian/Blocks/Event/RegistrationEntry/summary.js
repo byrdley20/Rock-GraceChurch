@@ -52,7 +52,7 @@ System.register(["vue", "../../../Controls/gatewayControl", "../../../Controls/r
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'Event.RegistrationEntry.Summary',
+                name: "Event.RegistrationEntry.Summary",
                 components: {
                     RockButton: rockButton_1.default,
                     CheckBox: checkBox_1.default,
@@ -67,18 +67,18 @@ System.register(["vue", "../../../Controls/gatewayControl", "../../../Controls/r
                 },
                 setup() {
                     return {
-                        getRegistrationEntryBlockArgs: vue_1.inject('getRegistrationEntryBlockArgs'),
-                        invokeBlockAction: vue_1.inject('invokeBlockAction'),
-                        registrationEntryState: vue_1.inject('registrationEntryState')
+                        getRegistrationEntryBlockArgs: vue_1.inject("getRegistrationEntryBlockArgs"),
+                        invokeBlockAction: vue_1.inject("invokeBlockAction"),
+                        registrationEntryState: vue_1.inject("registrationEntryState")
                     };
                 },
                 data() {
                     return {
                         loading: false,
                         doGatewayControlSubmit: false,
-                        gatewayErrorMessage: '',
+                        gatewayErrorMessage: "",
                         gatewayValidationFields: {},
-                        submitErrorMessage: ''
+                        submitErrorMessage: ""
                     };
                 },
                 computed: {
@@ -98,12 +98,12 @@ System.register(["vue", "../../../Controls/gatewayControl", "../../../Controls/r
                         return this.viewModel.instanceName;
                     },
                     finishButtonText() {
-                        return (this.viewModel.isRedirectGateway && this.registrationEntryState.amountToPayToday) ? 'Pay' : 'Finish';
+                        return (this.viewModel.isRedirectGateway && this.registrationEntryState.amountToPayToday) ? "Pay" : "Finish";
                     }
                 },
                 methods: {
                     onPrevious() {
-                        this.$emit('previous');
+                        this.$emit("previous");
                     },
                     onNext() {
                         return __awaiter(this, void 0, void 0, function* () {
@@ -119,7 +119,7 @@ System.register(["vue", "../../../Controls/gatewayControl", "../../../Controls/r
                                     }
                                 }
                                 else {
-                                    this.gatewayErrorMessage = '';
+                                    this.gatewayErrorMessage = "";
                                     this.gatewayValidationFields = {};
                                     this.doGatewayControlSubmit = true;
                                 }
@@ -128,7 +128,7 @@ System.register(["vue", "../../../Controls/gatewayControl", "../../../Controls/r
                                 const success = yield this.submit();
                                 this.loading = false;
                                 if (success) {
-                                    this.$emit('next');
+                                    this.$emit("next");
                                 }
                             }
                         });
@@ -139,13 +139,13 @@ System.register(["vue", "../../../Controls/gatewayControl", "../../../Controls/r
                             const success = yield this.submit();
                             this.loading = false;
                             if (success) {
-                                this.$emit('next');
+                                this.$emit("next");
                             }
                         });
                     },
                     onGatewayControlReset() {
                         return __awaiter(this, void 0, void 0, function* () {
-                            this.registrationEntryState.gatewayToken = '';
+                            this.registrationEntryState.gatewayToken = "";
                             this.doGatewayControlSubmit = false;
                         });
                     },
@@ -161,11 +161,11 @@ System.register(["vue", "../../../Controls/gatewayControl", "../../../Controls/r
                     },
                     submit() {
                         return __awaiter(this, void 0, void 0, function* () {
-                            const result = yield this.invokeBlockAction('SubmitRegistration', {
+                            const result = yield this.invokeBlockAction("SubmitRegistration", {
                                 args: this.getRegistrationEntryBlockArgs()
                             });
                             if (result.isError || !result.data) {
-                                this.submitErrorMessage = result.errorMessage || 'Unknown error';
+                                this.submitErrorMessage = result.errorMessage || "Unknown error";
                             }
                             else {
                                 this.registrationEntryState.successViewModel = result.data;
@@ -175,13 +175,13 @@ System.register(["vue", "../../../Controls/gatewayControl", "../../../Controls/r
                     },
                     getPaymentRedirect() {
                         return __awaiter(this, void 0, void 0, function* () {
-                            const result = yield this.invokeBlockAction('GetPaymentRedirect', {
+                            const result = yield this.invokeBlockAction("GetPaymentRedirect", {
                                 args: this.getRegistrationEntryBlockArgs()
                             });
                             if (result.isError || !result.data) {
-                                this.submitErrorMessage = result.errorMessage || 'Unknown error';
+                                this.submitErrorMessage = result.errorMessage || "Unknown error";
                             }
-                            return result.data || '';
+                            return result.data || "";
                         });
                     }
                 },

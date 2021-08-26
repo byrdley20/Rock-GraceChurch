@@ -22,17 +22,17 @@ System.register(["vue", "./fieldType"], function (exports_1, context_1) {
         ],
         execute: function () {
             editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
-                return (yield context_1.import('./ssnFieldComponents')).EditComponent;
+                return (yield context_1.import("./ssnFieldComponents")).EditComponent;
             }));
             SSNFieldType = class SSNFieldType extends fieldType_1.FieldTypeBase {
                 updateTextValue(value) {
                     if (value.value === null || value.value === undefined) {
-                        value.textValue = '';
+                        value.textValue = "";
                         return;
                     }
-                    const strippedValue = value.value.replace(/[^0-9]/g, '');
+                    const strippedValue = value.value.replace(/[^0-9]/g, "");
                     if (strippedValue.length !== 9) {
-                        value.textValue = '';
+                        value.textValue = "";
                         return;
                     }
                     value.textValue = `xxx-xx-${value.value.substr(5, 4)}`;

@@ -15,22 +15,22 @@
 // </copyright>
 //
 
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType } from "vue";
 
 /** The type of the alert box to display. Ex: 'success' will appear green and as if something good happened. */
 export enum AlertType {
-    default = 'default',
-    success = 'success',
-    info = 'info',
-    danger = 'danger',
-    warning = 'warning',
-    primary = 'primary',
-    validation = 'validation'
+    Default = "default",
+    Success = "success",
+    Info = "info",
+    Danger = "danger",
+    Warning = "warning",
+    Primary = "primary",
+    Validation = "validation"
 }
 
 /** Displays a bootstrap style alert box. */
 const Alert = defineComponent( {
-    name: 'Alert',
+    name: "Alert",
     props: {
         dismissible: {
             type: Boolean as PropType<boolean>,
@@ -38,21 +38,19 @@ const Alert = defineComponent( {
         },
         alertType: {
             type: String as PropType<AlertType>,
-            default: AlertType.default
+            default: AlertType.Default
         }
     },
     emits: [
-        'dismiss'
+        "dismiss"
     ],
     methods: {
-        onDismiss: function ()
-        {
-            this.$emit( 'dismiss' );
+        onDismiss: function () {
+            this.$emit( "dismiss" );
         }
     },
     computed: {
-        typeClass(): string
-        {
+        typeClass(): string {
             return `alert-${this.alertType}`;
         },
     },

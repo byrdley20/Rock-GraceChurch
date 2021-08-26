@@ -15,18 +15,17 @@
 // </copyright>
 //
 
-import { defineComponent, inject, PropType } from 'vue';
-import Grid, { FilterOptions, RowData, SortDirection, SortProperty } from './grid';
-import { InvokeBlockActionFunc } from './rockBlock';
+import { defineComponent, inject, PropType } from "vue";
+import Grid, { FilterOptions, RowData, SortDirection, SortProperty } from "./grid";
+import { InvokeBlockActionFunc } from "./rockBlock";
 
-interface BlockActionGridResponse
-{
+interface BlockActionGridResponse {
     totalCount: number,
     currentPageData: RowData[]
 }
 
 export default defineComponent( {
-    name: 'BlockActionSourcedGrid',
+    name: "BlockActionSourcedGrid",
     components: {
         Grid
     },
@@ -40,20 +39,18 @@ export default defineComponent( {
             required: true
         }
     },
-    setup ()
-    {
+    setup () {
         return {
-            invokeBlockAction: inject( 'invokeBlockAction' ) as InvokeBlockActionFunc
+            invokeBlockAction: inject( "invokeBlockAction" ) as InvokeBlockActionFunc
         };
     },
-    data ()
-    {
+    data () {
         return {
             pageSize: 50,
             totalRowCount: 0,
             currentPageIndex: 1,
             isLoading: false,
-            errorMessage: '',
+            errorMessage: "",
             sortProperty: {
                 direction: SortDirection.Ascending,
                 property: this.rowIdKey
@@ -62,24 +59,20 @@ export default defineComponent( {
         };
     },
     computed: {
-        sortString (): string
-        {
+        sortString (): string {
             return `${this.sortProperty.property} ${this.sortProperty.direction}`;
         }
     },
     methods: {
-        async fetchData ()
-        {
-            if ( this.isLoading )
-            {
+        async fetchData () {
+            if ( this.isLoading ) {
                 return;
             }
 
             this.isLoading = true;
-            this.errorMessage = '';
+            this.errorMessage = "";
 
-            try
-            {
+            try {
                 const result = await this.invokeBlockAction<BlockActionGridResponse>( this.blockActionName, {
                     filterOptions: {
                         take: this.pageSize,
@@ -88,49 +81,39 @@ export default defineComponent( {
                     sortProperty: this.sortProperty
                 } );
 
-                if ( result.data && result.data.currentPageData )
-                {
+                if ( result.data && result.data.currentPageData ) {
                     this.currentPageData = result.data.currentPageData;
                     this.totalRowCount = result.data.totalCount;
                 }
-                else
-                {
+                else {
                     this.currentPageData = [];
                 }
             }
-            catch ( e )
-            {
+            catch ( e ) {
                 this.errorMessage = `An exception occurred: ${e}`;
             }
-            finally
-            {
+            finally {
                 this.isLoading = false;
             }
         }
     },
     watch: {
-        async pageSize ()
-        {
-            if ( this.currentPageIndex > 1 )
-            {
+        async pageSize () {
+            if ( this.currentPageIndex > 1 ) {
                 this.currentPageIndex = 1;
             }
-            else
-            {
+            else {
                 await this.fetchData();
             }
         },
-        async currentPageIndex ()
-        {
+        async currentPageIndex () {
             await this.fetchData();
         },
-        async 'sortString' ()
-        {
+        async "sortString" () {
             await this.fetchData();
         }
     },
-    async mounted ()
-    {
+    async mounted () {
         await this.fetchData();
     },
     template: `

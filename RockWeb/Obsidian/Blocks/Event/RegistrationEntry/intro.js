@@ -28,14 +28,14 @@ System.register(["vue", "../../../Elements/alert", "../../../Elements/numberUpDo
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'Event.RegistrationEntry.Intro',
+                name: "Event.RegistrationEntry.Intro",
                 components: {
                     NumberUpDown: numberUpDown_1.default,
                     RockButton: rockButton_1.default,
                     Alert: alert_1.default
                 },
                 data() {
-                    const registrationEntryState = vue_1.inject('registrationEntryState');
+                    const registrationEntryState = vue_1.inject("registrationEntryState");
                     return {
                         numberOfRegistrants: registrationEntryState.registrants.length,
                         registrationEntryState,
@@ -61,7 +61,7 @@ System.register(["vue", "../../../Elements/alert", "../../../Elements/numberUpDo
                     remainingCapacityPhrase() {
                         const spots = this.viewModel.spotsRemaining;
                         if (spots === null) {
-                            return '';
+                            return "";
                         }
                         return string_1.pluralConditional(spots, `1 more ${this.registrantTerm}`, `${spots} more ${this.registrantTermPlural}`);
                     },
@@ -73,16 +73,16 @@ System.register(["vue", "../../../Elements/alert", "../../../Elements/numberUpDo
                     },
                     registrantTerm() {
                         this.viewModel.instanceName;
-                        return (this.viewModel.registrantTerm || 'registrant').toLowerCase();
+                        return (this.viewModel.registrantTerm || "registrant").toLowerCase();
                     },
                     registrantTermPlural() {
-                        return (this.viewModel.pluralRegistrantTerm || 'registrants').toLowerCase();
+                        return (this.viewModel.pluralRegistrantTerm || "registrants").toLowerCase();
                     },
                     registrationTerm() {
-                        return (this.viewModel.registrationTerm || 'registration').toLowerCase();
+                        return (this.viewModel.registrationTerm || "registration").toLowerCase();
                     },
                     registrationTermPlural() {
-                        return (this.viewModel.pluralRegistrationTerm || 'registrations').toLowerCase();
+                        return (this.viewModel.pluralRegistrationTerm || "registrations").toLowerCase();
                     },
                     registrationTermTitleCase() {
                         return string_1.toTitleCase(this.registrationTerm);
@@ -112,7 +112,7 @@ System.register(["vue", "../../../Elements/alert", "../../../Elements/numberUpDo
                             const registrant = this.registrationEntryState.registrants[0];
                             registrant.personGuid = familyMember.guid;
                         }
-                        this.$emit('next');
+                        this.$emit("next");
                     },
                 },
                 watch: {

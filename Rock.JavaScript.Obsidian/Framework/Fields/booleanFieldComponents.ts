@@ -14,13 +14,13 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { getFieldEditorProps } from './index';
-import { asYesNoOrNull, asTrueFalseOrNull, asBoolean } from '@Obsidian/Services/boolean';
-import { ConfigurationValueKey } from './booleanField';
-import DropDownList, { DropDownListOption } from '../Elements/dropDownList';
-import Toggle from '../Elements/toggle';
-import CheckBox from '../Elements/checkBox';
+import { defineComponent } from "vue";
+import { getFieldEditorProps } from "./index";
+import { asYesNoOrNull, asTrueFalseOrNull, asBoolean } from "@Obsidian/Services/boolean";
+import { ConfigurationValueKey } from "./booleanField";
+import DropDownList, { DropDownListOption } from "../Elements/dropDownList";
+import Toggle from "../Elements/toggle";
+import CheckBox from "../Elements/checkBox";
 
 enum BooleanControlType {
     DropDown,
@@ -29,7 +29,7 @@ enum BooleanControlType {
 }
 
 export const EditComponent = defineComponent({
-    name: 'BooleanField.Edit',
+    name: "BooleanField.Edit",
     components: {
         DropDownList,
         Toggle,
@@ -39,7 +39,7 @@ export const EditComponent = defineComponent({
     data() {
         return {
             internalBooleanValue: false,
-            internalValue: ''
+            internalValue: ""
         };
     },
     computed: {
@@ -47,9 +47,9 @@ export const EditComponent = defineComponent({
             const controlType = this.configurationValues[ConfigurationValueKey.BooleanControlType];
 
             switch (controlType) {
-                case '1':
+                case "1":
                     return BooleanControlType.Checkbox;
-                case '2':
+                case "2":
                     return BooleanControlType.Toggle;
                 default:
                     return BooleanControlType.DropDown;
@@ -63,7 +63,7 @@ export const EditComponent = defineComponent({
                 trueText = trueConfig;
             }
 
-            return trueText || 'Yes';
+            return trueText || "Yes";
         },
         falseText(): string {
             let falseText = asYesNoOrNull(false);
@@ -73,7 +73,7 @@ export const EditComponent = defineComponent({
                 falseText = falseConfig;
             }
 
-            return falseText || 'No';
+            return falseText || "No";
         },
         isToggle(): boolean {
             return this.booleanControlType === BooleanControlType.Toggle;
@@ -99,16 +99,16 @@ export const EditComponent = defineComponent({
     },
     watch: {
         internalValue(): void {
-            this.$emit('update:modelValue', this.internalValue);
+            this.$emit("update:modelValue", this.internalValue);
         },
         internalBooleanValue(): void {
-            const valueToEmit = asTrueFalseOrNull(this.internalBooleanValue) || '';
-            this.$emit('update:modelValue', valueToEmit);
+            const valueToEmit = asTrueFalseOrNull(this.internalBooleanValue) || "";
+            this.$emit("update:modelValue", valueToEmit);
         },
         modelValue: {
             immediate: true,
             handler(): void {
-                this.internalValue = asTrueFalseOrNull(this.modelValue) || '';
+                this.internalValue = asTrueFalseOrNull(this.modelValue) || "";
                 this.internalBooleanValue = asBoolean(this.modelValue);
             }
         }

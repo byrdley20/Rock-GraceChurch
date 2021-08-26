@@ -14,18 +14,18 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
-import HelpBlock from './helpBlock';
+import { defineComponent, PropType } from "vue";
+import HelpBlock from "./helpBlock";
 
 export default defineComponent({
-    name: 'RockLabel',
+    name: "RockLabel",
     components: {
         HelpBlock
     },
     props: {
         help: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         }
     },
     template: `

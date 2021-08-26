@@ -14,11 +14,11 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
-import RockButton from './rockButton';
+import { defineComponent, PropType } from "vue";
+import RockButton from "./rockButton";
 
 export default defineComponent({
-    name: 'PanelWidget',
+    name: "PanelWidget",
     components: {
         RockButton
     },

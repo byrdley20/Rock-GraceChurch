@@ -16,7 +16,7 @@ System.register(["vue", "./index", "../Elements/dateRangePicker"], function (exp
         ],
         execute: function () {
             exports_1("EditComponent", EditComponent = vue_1.defineComponent({
-                name: 'DateRangeField.Edit',
+                name: "DateRangeField.Edit",
                 components: {
                     DateRangePicker: dateRangePicker_1.default
                 },
@@ -33,17 +33,17 @@ System.register(["vue", "./index", "../Elements/dateRangePicker"], function (exp
                     internalValue() {
                         var _a, _b;
                         if (!this.internalValue.lowerValue && !this.internalValue.upperValue) {
-                            this.$emit('update:modelValue', '');
+                            this.$emit("update:modelValue", "");
                         }
                         else {
-                            this.$emit('update:modelValue', `${(_a = this.internalValue.lowerValue) !== null && _a !== void 0 ? _a : ''},${(_b = this.internalValue.upperValue) !== null && _b !== void 0 ? _b : ''}`);
+                            this.$emit("update:modelValue", `${(_a = this.internalValue.lowerValue) !== null && _a !== void 0 ? _a : ""},${(_b = this.internalValue.upperValue) !== null && _b !== void 0 ? _b : ""}`);
                         }
                     },
                     modelValue: {
                         immediate: true,
                         handler() {
                             var _a;
-                            const components = ((_a = this.modelValue) !== null && _a !== void 0 ? _a : '').split(',');
+                            const components = ((_a = this.modelValue) !== null && _a !== void 0 ? _a : "").split(",");
                             if (components.length === 2) {
                                 this.internalValue = {
                                     lowerValue: components[0],

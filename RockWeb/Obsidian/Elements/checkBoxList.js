@@ -13,7 +13,7 @@ System.register(["vue", "./rockFormField"], function (exports_1, context_1) {
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'CheckBoxList',
+                name: "CheckBoxList",
                 components: {
                     RockFormField: rockFormField_1.default
                 },
@@ -38,22 +38,22 @@ System.register(["vue", "./rockFormField"], function (exports_1, context_1) {
                 setup(props, { emit }) {
                     const internalValue = vue_1.ref([...props.modelValue]);
                     vue_1.watch(() => props.modelValue, () => internalValue.value = props.modelValue);
-                    vue_1.watchEffect(() => emit('update:modelValue', internalValue.value));
+                    vue_1.watchEffect(() => emit("update:modelValue", internalValue.value));
                     const valueForOption = (option) => option.value;
                     const textForOption = (option) => option.text;
-                    const uniqueIdForOption = (uniqueId, option) => `${uniqueId}-${option.value.replace(' ', '-')}`;
+                    const uniqueIdForOption = (uniqueId, option) => `${uniqueId}-${option.value.replace(" ", "-")}`;
                     const containerClasses = vue_1.computed(() => {
                         const classes = [];
                         if (props.horizontal) {
-                            classes.push('rockcheckboxlist-horizontal');
+                            classes.push("rockcheckboxlist-horizontal");
                             if (props.repeatColumns > 0) {
                                 classes.push(`in-columns in-columns-${props.repeatColumns}`);
                             }
                         }
                         else {
-                            classes.push('rockcheckboxlist-vertical');
+                            classes.push("rockcheckboxlist-vertical");
                         }
-                        return classes.join(' ');
+                        return classes.join(" ");
                     });
                     return {
                         containerClasses,

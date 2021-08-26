@@ -30,14 +30,14 @@ System.register(["vue", "../Rules/index", "@Obsidian/Services/dateKey", "@Obsidi
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'DatePartsPicker',
+                name: "DatePartsPicker",
                 components: {
                     RockFormField: rockFormField_1.default
                 },
                 props: {
                     rules: {
                         type: String,
-                        default: ''
+                        default: ""
                     },
                     modelValue: {
                         type: Object,
@@ -117,8 +117,8 @@ System.register(["vue", "../Rules/index", "@Obsidian/Services/dateKey", "@Obsidi
                     },
                     computedRules() {
                         const rules = index_1.ruleStringToArray(this.rules);
-                        if (rules.indexOf('required') !== -1 && rules.indexOf('datekey') === -1) {
-                            rules.push('datekey');
+                        if (rules.indexOf("required") !== -1 && rules.indexOf("datekey") === -1) {
+                            rules.push("datekey");
                         }
                         return index_1.ruleArrayToString(rules);
                     },
@@ -152,7 +152,7 @@ System.register(["vue", "../Rules/index", "@Obsidian/Services/dateKey", "@Obsidi
                         }
                     },
                     internalDay() {
-                        this.$emit('update:modelValue', this.getValue());
+                        this.$emit("update:modelValue", this.getValue());
                     },
                     internalMonth() {
                         const day = number_1.toNumberOrNull(this.internalDay);
@@ -161,7 +161,7 @@ System.register(["vue", "../Rules/index", "@Obsidian/Services/dateKey", "@Obsidi
                             this.internalDay = this.days.length.toString();
                         }
                         else {
-                            this.$emit('update:modelValue', this.getValue());
+                            this.$emit("update:modelValue", this.getValue());
                         }
                     },
                     internalYear() {
@@ -171,7 +171,7 @@ System.register(["vue", "../Rules/index", "@Obsidian/Services/dateKey", "@Obsidi
                             this.internalDay = this.days.length.toString();
                         }
                         else {
-                            this.$emit('update:modelValue', this.getValue());
+                            this.$emit("update:modelValue", this.getValue());
                         }
                     },
                 },

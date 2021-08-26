@@ -14,20 +14,18 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
+import { defineComponent } from "vue";
 
 /** Provides a generic Rock Block structure */
 const PaneledBlockTemplate = defineComponent( {
-    name: 'PaneledBlockTemplate',
-    data()
-    {
+    name: "PaneledBlockTemplate",
+    data() {
         return {
             isDrawerOpen: false
         };
     },
     methods: {
-        onDrawerPullClick()
-        {
+        onDrawerPullClick() {
             this.isDrawerOpen = !this.isDrawerOpen;
         }
     },

@@ -16,7 +16,7 @@ System.register(["vue", "./index", "../Controls/addressControl"], function (expo
         ],
         execute: function () {
             exports_1("EditComponent", EditComponent = vue_1.defineComponent({
-                name: 'AddressField.Edit',
+                name: "AddressField.Edit",
                 components: {
                     AddressControl: addressControl_1.default
                 },
@@ -25,14 +25,14 @@ System.register(["vue", "./index", "../Controls/addressControl"], function (expo
                     const internalValue = vue_1.ref({});
                     vue_1.watch(() => props.modelValue, () => {
                         try {
-                            internalValue.value = JSON.parse(props.modelValue || '{}');
+                            internalValue.value = JSON.parse(props.modelValue || "{}");
                         }
                         catch (_a) {
                             internalValue.value = {};
                         }
                     }, { immediate: true });
                     vue_1.watch(() => internalValue.value, () => {
-                        emit('update:modelValue', JSON.stringify(internalValue.value));
+                        emit("update:modelValue", JSON.stringify(internalValue.value));
                     }, { deep: true });
                     return {
                         internalValue

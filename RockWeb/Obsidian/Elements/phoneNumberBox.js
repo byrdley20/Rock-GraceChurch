@@ -19,23 +19,23 @@ System.register(["vue", "../Util/guid", "./rockFormField", "@Obsidian/Services/s
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'PhoneNumberBox',
+                name: "PhoneNumberBox",
                 components: {
                     RockFormField: rockFormField_1.default
                 },
                 props: {
                     modelValue: {
                         type: String,
-                        default: ''
+                        default: ""
                     }
                 },
                 emits: [
-                    'update:modelValue'
+                    "update:modelValue"
                 ],
                 data: function () {
                     return {
                         uniqueId: `rock-phonenumberbox-${guid_1.newGuid()}`,
-                        internalValue: ''
+                        internalValue: ""
                     };
                 },
                 methods: {
@@ -53,7 +53,7 @@ System.register(["vue", "../Util/guid", "./rockFormField", "@Obsidian/Services/s
                 },
                 watch: {
                     formattedValue() {
-                        this.$emit('update:modelValue', this.formattedValue);
+                        this.$emit("update:modelValue", this.formattedValue);
                     },
                     modelValue: {
                         immediate: true,

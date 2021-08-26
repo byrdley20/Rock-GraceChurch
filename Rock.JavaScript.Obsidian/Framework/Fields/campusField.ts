@@ -14,18 +14,18 @@
 // limitations under the License.
 // </copyright>
 //
-import { Component, defineAsyncComponent } from 'vue';
-import { FieldTypeBase } from './fieldType';
-import { ClientAttributeValue, ClientEditableAttributeValue, ListItem } from '@Obsidian/ViewModels';
+import { Component, defineAsyncComponent } from "vue";
+import { FieldTypeBase } from "./fieldType";
+import { ClientAttributeValue, ClientEditableAttributeValue, ListItem } from "@Obsidian/ViewModels";
 
 export const enum ConfigurationValueKey {
-    Values = 'values'
+    Values = "values"
 }
 
 
 // The edit component can be quite large, so load it only as needed.
 const editComponent = defineAsyncComponent(async () => {
-    return (await import('./campusFieldComponents')).EditComponent;
+    return (await import("./campusFieldComponents")).EditComponent;
 });
 
 /**
@@ -33,16 +33,16 @@ const editComponent = defineAsyncComponent(async () => {
  */
 export class CampusFieldType extends FieldTypeBase {
     public override updateTextValue(value: ClientEditableAttributeValue): void {
-        if (value.value === undefined || value.value === null || value.value === '') {
-            value.textValue = '';
+        if (value.value === undefined || value.value === null || value.value === "") {
+            value.textValue = "";
             return;
         }
 
         try {
-            const values = JSON.parse(value.configurationValues?.[ConfigurationValueKey.Values] ?? '[]') as ListItem[];
+            const values = JSON.parse(value.configurationValues?.[ConfigurationValueKey.Values] ?? "[]") as ListItem[];
             const selectedValues = values.filter(o => o.value === value.value);
 
-            value.textValue = selectedValues.map(o => o.text).join(', ');
+            value.textValue = selectedValues.map(o => o.text).join(", ");
         }
         catch {
             value.textValue = value.value;

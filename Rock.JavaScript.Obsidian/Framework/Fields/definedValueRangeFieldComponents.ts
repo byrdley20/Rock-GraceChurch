@@ -14,26 +14,26 @@
 // limitations under the License.
 // </copyright>
 //
-import { computed, defineComponent, inject, ref, watch } from 'vue';
-import { getFieldEditorProps } from './index';
-import RockFormField from '../Elements/rockFormField';
-import { ClientValue, ConfigurationValueKey, ValueItem } from './definedValueRangeField';
-import { ListItem } from '@Obsidian/ViewModels';
-import { asBoolean } from '@Obsidian/Services/boolean';
+import { computed, defineComponent, inject, ref, watch } from "vue";
+import { getFieldEditorProps } from "./index";
+import RockFormField from "../Elements/rockFormField";
+import { ClientValue, ConfigurationValueKey, ValueItem } from "./definedValueRangeField";
+import { ListItem } from "@Obsidian/ViewModels";
+import { asBoolean } from "@Obsidian/Services/boolean";
 
 function parseModelValue(modelValue: string | undefined): string[] {
     try {
-        const clientValue = JSON.parse(modelValue ?? '') as ClientValue;
-        const splitValue = (clientValue.value ?? '').split(',');
+        const clientValue = JSON.parse(modelValue ?? "") as ClientValue;
+        const splitValue = (clientValue.value ?? "").split(",");
 
         if (splitValue.length === 1) {
-            return [splitValue[0], ''];
+            return [splitValue[0], ""];
         }
 
         return splitValue;
     }
     catch {
-        return ['', ''];
+        return ["", ""];
     }
 }
 
@@ -49,21 +49,21 @@ function getClientValue(lowerValue: string, upperValue: string, valueOptions: Va
 
     if (!lv && !uv) {
         return {
-            value: '',
-            text: '',
-            description: ''
+            value: "",
+            text: "",
+            description: ""
         };
     }
 
     return {
-        value: `${lv?.value ?? ''},${uv?.value ?? ''}`,
-        text: `${lv?.text ?? ''} to ${uv?.text ?? ''}`,
-        description: showDescription ? `${lv?.description ?? ''} to ${uv?.description ?? ''}` : ''
+        value: `${lv?.value ?? ""},${uv?.value ?? ""}`,
+        text: `${lv?.text ?? ""} to ${uv?.text ?? ""}`,
+        description: showDescription ? `${lv?.description ?? ""} to ${uv?.description ?? ""}` : ""
     };
 }
 
 export const EditComponent = defineComponent({
-    name: 'DefinedValueRangeField.Edit',
+    name: "DefinedValueRangeField.Edit",
 
     components: {
         RockFormField
@@ -79,7 +79,7 @@ export const EditComponent = defineComponent({
 
         const valueOptions = computed((): ValueItem[] => {
             try {
-                return JSON.parse(props.configurationValues[ConfigurationValueKey.Values] ?? '[]') as ValueItem[];
+                return JSON.parse(props.configurationValues[ConfigurationValueKey.Values] ?? "[]") as ValueItem[];
             }
             catch {
                 return [];
@@ -112,14 +112,14 @@ export const EditComponent = defineComponent({
         watch(() => [lowerValue.value, upperValue.value], () => {
             const clientValue = getClientValue(lowerValue.value, upperValue.value, valueOptions.value, showDescription.value);
 
-            emit('update:modelValue', JSON.stringify(clientValue));
+            emit("update:modelValue", JSON.stringify(clientValue));
         });
 
         return {
             internalValue,
             lowerValue,
             upperValue,
-            isRequired: inject('isRequired') as boolean,
+            isRequired: inject("isRequired") as boolean,
             options,
             getKeyForOption(option: ListItem): string {
                 return option.value;

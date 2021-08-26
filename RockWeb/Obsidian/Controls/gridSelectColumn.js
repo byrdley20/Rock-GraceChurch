@@ -13,13 +13,13 @@ System.register(["vue", "./gridColumn"], function (exports_1, context_1) {
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'GridSelectColumn',
+                name: "GridSelectColumn",
                 components: {
                     GridColumn: gridColumn_1.default
                 },
                 setup() {
-                    const gridContext = vue_1.inject('gridContext');
-                    const rowContext = vue_1.inject('rowContext');
+                    const gridContext = vue_1.inject("gridContext");
+                    const rowContext = vue_1.inject("rowContext");
                     const selectAllRows = gridContext.selectAllRows;
                     const isThisRowSelected = gridContext.selectedRowIds[rowContext.rowId];
                     const isSelected = vue_1.ref(selectAllRows || isThisRowSelected);
@@ -38,13 +38,13 @@ System.register(["vue", "./gridColumn"], function (exports_1, context_1) {
                     }
                 },
                 watch: {
-                    'gridContext.selectAllRows'() {
+                    "gridContext.selectAllRows"() {
                         if (!this.isHeader) {
                             this.isSelected = this.gridContext.selectAllRows;
                             this.gridContext.selectedRowIds[this.rowId] = this.isSelected;
                         }
                     },
-                    'gridContext.selectedRowIds'() {
+                    "gridContext.selectedRowIds"() {
                         if (!this.isHeader) {
                             this.isSelected = this.gridContext.selectedRowIds[this.rowId];
                         }

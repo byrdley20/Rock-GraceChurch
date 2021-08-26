@@ -11,10 +11,10 @@ System.register([], function (exports_1, context_1) {
                 pageParameters: {},
                 contextEntities: {},
                 pageId: 0,
-                pageGuid: '',
+                pageGuid: "",
                 executionStartTime: new Date(),
                 debugTimings: [],
-                loginUrlWithReturnUrl: ''
+                loginUrlWithReturnUrl: ""
             });
         }
     };

@@ -79,8 +79,8 @@ System.register(["./number"], function (exports_1, context_1) {
             }
         ],
         execute: function () {
-            dateKeyLength = 'YYYYMMDD'.length;
-            dateKeyNoYearLength = 'MMDD'.length;
+            dateKeyLength = "YYYYMMDD".length;
+            dateKeyNoYearLength = "MMDD".length;
             exports_1("default", {
                 getYear,
                 getMonth,

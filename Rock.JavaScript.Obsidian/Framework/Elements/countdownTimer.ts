@@ -15,22 +15,22 @@
 // </copyright>
 //
 
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType } from "vue";
 
 /** The type of the alert box to display. Ex: 'success' will appear green and as if something good happened. */
 export enum AlertType {
-    default = 'default',
-    success = 'success',
-    info = 'info',
-    danger = 'danger',
-    warning = 'warning',
-    primary = 'primary',
-    validation = 'validation'
+    Default = "default",
+    Success = "success",
+    Info = "info",
+    Danger = "danger",
+    Warning = "warning",
+    Primary = "primary",
+    Validation = "validation"
 }
 
 /** Displays a countdown and decremements the seconds. */
 const CountdownTimer = defineComponent( {
-    name: 'CountdownTimer',
+    name: "CountdownTimer",
     props: {
         /** Seconds until 0:00 */
         modelValue: {
@@ -38,45 +38,37 @@ const CountdownTimer = defineComponent( {
             required: true
         }
     },
-    data ()
-    {
+    data () {
         return {
             handle: null as null | number
         };
     },
     computed: {
-        timeString (): string
-        {
+        timeString (): string {
             const minutes = Math.floor( this.modelValue / 60 );
             const seconds = Math.floor( this.modelValue % 60 );
-            return `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+            return `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
         },
     },
     methods: {
-        onInterval ()
-        {
-            if ( this.modelValue <= 0 )
-            {
-                this.$emit( 'update:modelValue', 0 );
+        onInterval () {
+            if ( this.modelValue <= 0 ) {
+                this.$emit( "update:modelValue", 0 );
                 return;
             }
 
-            this.$emit( 'update:modelValue', Math.floor( this.modelValue - 1 ) );
+            this.$emit( "update:modelValue", Math.floor( this.modelValue - 1 ) );
         }
     },
-    mounted ()
-    {
-        if ( this.handle )
-        {
+    mounted () {
+        if ( this.handle ) {
             clearInterval( this.handle );
         }
 
         this.handle = setInterval( () => this.onInterval(), 1000 ) as unknown as number;
     },
-    unmounted ()
-    {
-        if ( this.handle )
-        {
+    unmounted () {
+        if ( this.handle ) {
             clearInterval( this.handle );
             this.handle = null;
         }

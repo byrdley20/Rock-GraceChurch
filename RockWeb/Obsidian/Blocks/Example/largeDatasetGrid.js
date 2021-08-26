@@ -28,7 +28,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Controls/
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'Example.LargeDatasetGrid',
+                name: "Example.LargeDatasetGrid",
                 components: {
                     PaneledBlockTemplate: paneledBlockTemplate_1.default,
                     BlockActionSourcedGrid: blockActionSourcedGrid_1.default,

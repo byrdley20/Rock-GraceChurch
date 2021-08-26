@@ -33,9 +33,8 @@ System.register(["vue", "../Elements/alert", "../Elements/checkBox", "../Element
             }
         ],
         execute: function () {
-            ;
             SaveFinancialAccountForm = vue_1.defineComponent({
-                name: 'SaveFinancialAccountForm',
+                name: "SaveFinancialAccountForm",
                 components: {
                     CheckBox: checkBox_1.default,
                     TextBox: textBox_1.default,
@@ -59,21 +58,21 @@ System.register(["vue", "../Elements/alert", "../Elements/checkBox", "../Element
                 },
                 setup() {
                     return {
-                        http: vue_1.inject('http')
+                        http: vue_1.inject("http")
                     };
                 },
                 data() {
                     return {
                         doSave: false,
-                        username: '',
-                        password: '',
-                        confirmPassword: '',
-                        savedAccountName: '',
+                        username: "",
+                        password: "",
+                        confirmPassword: "",
+                        savedAccountName: "",
                         isLoading: false,
-                        successTitle: '',
-                        successMessage: '',
-                        errorTitle: '',
-                        errorMessage: ''
+                        successTitle: "",
+                        successMessage: "",
+                        errorTitle: "",
+                        errorMessage: ""
                     };
                 },
                 computed: {
@@ -88,11 +87,11 @@ System.register(["vue", "../Elements/alert", "../Elements/checkBox", "../Element
                     onSubmit() {
                         var _a, _b, _c;
                         return __awaiter(this, void 0, void 0, function* () {
-                            this.errorTitle = '';
-                            this.errorMessage = '';
+                            this.errorTitle = "";
+                            this.errorMessage = "";
                             if (this.password !== this.confirmPassword) {
-                                this.errorTitle = 'Password';
-                                this.errorMessage = 'The password fields do not match.';
+                                this.errorTitle = "Password";
+                                this.errorMessage = "The password fields do not match.";
                                 return;
                             }
                             this.isLoading = true;
@@ -105,11 +104,11 @@ System.register(["vue", "../Elements/alert", "../Elements/checkBox", "../Element
                             });
                             if ((_a = result === null || result === void 0 ? void 0 : result.data) === null || _a === void 0 ? void 0 : _a.isSuccess) {
                                 this.successTitle = result.data.title;
-                                this.successMessage = result.data.detail || 'Success';
+                                this.successMessage = result.data.detail || "Success";
                             }
                             else {
-                                this.errorTitle = ((_b = result.data) === null || _b === void 0 ? void 0 : _b.title) || '';
-                                this.errorMessage = ((_c = result.data) === null || _c === void 0 ? void 0 : _c.detail) || 'Error';
+                                this.errorTitle = ((_b = result.data) === null || _b === void 0 ? void 0 : _b.title) || "";
+                                this.errorMessage = ((_c = result.data) === null || _c === void 0 ? void 0 : _c.detail) || "Error";
                             }
                             this.isLoading = false;
                         });

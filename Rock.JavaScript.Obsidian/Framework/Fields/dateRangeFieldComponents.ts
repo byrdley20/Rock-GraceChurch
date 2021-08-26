@@ -14,12 +14,12 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { getFieldEditorProps } from './index';
-import DateRangePicker, { DateRangeParts } from '../Elements/dateRangePicker';
+import { defineComponent } from "vue";
+import { getFieldEditorProps } from "./index";
+import DateRangePicker, { DateRangeParts } from "../Elements/dateRangePicker";
 
 export const EditComponent = defineComponent({
-    name: 'DateRangeField.Edit',
+    name: "DateRangeField.Edit",
 
     components: {
         DateRangePicker
@@ -41,17 +41,17 @@ export const EditComponent = defineComponent({
     watch: {
         internalValue(): void {
             if (!this.internalValue.lowerValue && !this.internalValue.upperValue) {
-                this.$emit('update:modelValue', '');
+                this.$emit("update:modelValue", "");
             }
             else {
-                this.$emit('update:modelValue', `${this.internalValue.lowerValue ?? ''},${this.internalValue.upperValue ?? ''}`);
+                this.$emit("update:modelValue", `${this.internalValue.lowerValue ?? ""},${this.internalValue.upperValue ?? ""}`);
             }
         },
 
         modelValue: {
             immediate: true,
             handler(): void {
-                const components = (this.modelValue ?? '').split(',');
+                const components = (this.modelValue ?? "").split(",");
 
                 if (components.length === 2) {
                     this.internalValue = {

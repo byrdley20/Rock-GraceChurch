@@ -14,19 +14,19 @@
 // limitations under the License.
 // </copyright>
 
-import { defineComponent, PropType } from 'vue';
-import { ruleArrayToString, ruleStringToArray } from '../Rules/index';
-import RockFormField from './rockFormField';
+import { defineComponent, PropType } from "vue";
+import { ruleArrayToString, ruleStringToArray } from "../Rules/index";
+import RockFormField from "./rockFormField";
 
 export default defineComponent({
-    name: 'SocialSecurityNumberBox',
+    name: "SocialSecurityNumberBox",
     components: {
         RockFormField
     },
     props: {
         rules: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         },
         modelValue: {
             type: String as PropType<string>,
@@ -100,12 +100,12 @@ export default defineComponent({
         modelValue: {
             immediate: true,
             handler() {
-                const strippedValue = this.modelValue.replace(/[^0-9]/g, '');
+                const strippedValue = this.modelValue.replace(/[^0-9]/g, "");
 
                 if (strippedValue.length !== 9) {
-                    this.internalArea = '';
-                    this.internalGroup = '';
-                    this.internalSerial = '';
+                    this.internalArea = "";
+                    this.internalGroup = "";
+                    this.internalSerial = "";
                 }
                 else {
                     this.internalArea = strippedValue.substr(0, 3);
@@ -121,7 +121,7 @@ export default defineComponent({
             this.internalValue = this.getValue();
 
             if (this.internalValue.length === 0 || this.internalValue.length === 9) {
-                this.$emit('update:modelValue', this.internalValue);
+                this.$emit("update:modelValue", this.internalValue);
             }
         },
 
@@ -129,7 +129,7 @@ export default defineComponent({
             this.internalValue = this.getValue();
 
             if (this.internalValue.length === 0 || this.internalValue.length === 9) {
-                this.$emit('update:modelValue', this.internalValue);
+                this.$emit("update:modelValue", this.internalValue);
             }
         },
 
@@ -137,7 +137,7 @@ export default defineComponent({
             this.internalValue = this.getValue();
 
             if (this.internalValue.length === 0 || this.internalValue.length === 9) {
-                this.$emit('update:modelValue', this.internalValue);
+                this.$emit("update:modelValue", this.internalValue);
             }
         },
     },

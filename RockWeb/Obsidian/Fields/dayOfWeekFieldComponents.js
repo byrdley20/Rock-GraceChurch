@@ -16,37 +16,37 @@ System.register(["vue", "./index", "../Elements/dropDownList"], function (export
         ],
         execute: function () {
             exports_1("EditComponent", EditComponent = vue_1.defineComponent({
-                name: 'DayOfWeekField.Edit',
+                name: "DayOfWeekField.Edit",
                 components: {
                     DropDownList: dropDownList_1.default
                 },
                 props: index_1.getFieldEditorProps(),
                 data() {
                     return {
-                        internalValue: ''
+                        internalValue: ""
                     };
                 },
                 methods: {
                     options() {
                         return [
-                            { text: 'Sunday', value: 0..toString() },
-                            { text: 'Monday', value: 1..toString() },
-                            { text: 'Tuesday', value: 2..toString() },
-                            { text: 'Wednesday', value: 3..toString() },
-                            { text: 'Thursday', value: 4..toString() },
-                            { text: 'Friday', value: 5..toString() },
-                            { text: 'Saturday', value: 6..toString() }
+                            { text: "Sunday", value: 0..toString() },
+                            { text: "Monday", value: 1..toString() },
+                            { text: "Tuesday", value: 2..toString() },
+                            { text: "Wednesday", value: 3..toString() },
+                            { text: "Thursday", value: 4..toString() },
+                            { text: "Friday", value: 5..toString() },
+                            { text: "Saturday", value: 6..toString() }
                         ];
                     },
                 },
                 watch: {
                     internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
+                        this.$emit("update:modelValue", this.internalValue);
                     },
                     modelValue: {
                         immediate: true,
                         handler() {
-                            this.internalValue = this.modelValue || '';
+                            this.internalValue = this.modelValue || "";
                         }
                     }
                 },

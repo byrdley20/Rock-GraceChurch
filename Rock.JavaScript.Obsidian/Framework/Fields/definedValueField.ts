@@ -14,19 +14,19 @@
 // limitations under the License.
 // </copyright>
 //
-import { Component, defineAsyncComponent } from 'vue';
-import { FieldTypeBase } from './fieldType';
-import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
-import { asBoolean } from '@Obsidian/Services/boolean';
+import { Component, defineAsyncComponent } from "vue";
+import { FieldTypeBase } from "./fieldType";
+import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
+import { asBoolean } from "@Obsidian/Services/boolean";
 
 export const enum ConfigurationValueKey {
-    Values = 'values',
-    AllowMultiple = 'allowmultiple',
-    DisplayDescription = 'displaydescription',
-    EnhancedSelection = 'enhancedselection',
-    IncludeInactive = 'includeInactive',
-    AllowAddingNewValues = 'AllowAddingNewValues',
-    RepeatColumns = 'RepeatColumns'
+    Values = "values",
+    AllowMultiple = "allowmultiple",
+    DisplayDescription = "displaydescription",
+    EnhancedSelection = "enhancedselection",
+    IncludeInactive = "includeInactive",
+    AllowAddingNewValues = "AllowAddingNewValues",
+    RepeatColumns = "RepeatColumns"
 }
 
 export interface ValueItem {
@@ -39,12 +39,12 @@ export type ClientValue = {
     value: string,
     text: string,
     description: string
-}
+};
 
 
 // The edit component can be quite large, so load it only as needed.
 const editComponent = defineAsyncComponent(async () => {
-    return (await import('./definedValueFieldComponents')).EditComponent;
+    return (await import("./definedValueFieldComponents")).EditComponent;
 });
 
 /**
@@ -53,23 +53,23 @@ const editComponent = defineAsyncComponent(async () => {
 export class DefinedValueFieldType extends FieldTypeBase {
     public override updateTextValue(value: ClientEditableAttributeValue): void {
         try {
-            const clientValue = JSON.parse(value.value ?? '') as ClientValue;
+            const clientValue = JSON.parse(value.value ?? "") as ClientValue;
 
             try {
-                const values = JSON.parse(value.configurationValues?.[ConfigurationValueKey.Values] ?? '[]') as ValueItem[];
+                const values = JSON.parse(value.configurationValues?.[ConfigurationValueKey.Values] ?? "[]") as ValueItem[];
                 const displayDescription = asBoolean(value.configurationValues?.[ConfigurationValueKey.DisplayDescription]);
-                const rawValues = clientValue.value.split(',');
+                const rawValues = clientValue.value.split(",");
 
                 value.textValue = values.filter(v => rawValues.includes(v.value))
                     .map(v => displayDescription ? v.description : v.text)
-                    .join(', ');
+                    .join(", ");
             }
             catch {
                 value.textValue = clientValue.value;
             }
         }
         catch {
-            value.textValue = '';
+            value.textValue = "";
         }
     }
 

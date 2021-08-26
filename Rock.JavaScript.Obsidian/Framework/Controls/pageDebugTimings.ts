@@ -14,9 +14,9 @@
 // limitations under the License.
 // </copyright>
 //
-import { asFormattedString } from '@Obsidian/Services/number';
-import { defineComponent, PropType } from 'vue';
-import store from '../Store/index';
+import { asFormattedString } from "@Obsidian/Services/number";
+import { defineComponent, PropType } from "vue";
+import store from "../Store/index";
 
 export type DebugTimingViewModel = {
     TimestampMs: number;
@@ -28,7 +28,7 @@ export type DebugTimingViewModel = {
 };
 
 const PageDebugTimingRow = defineComponent({
-    name: 'PageDebugTimingRow',
+    name: "PageDebugTimingRow",
     props: {
         viewModel: {
             type: Object as PropType<DebugTimingViewModel>,
@@ -49,7 +49,7 @@ const PageDebugTimingRow = defineComponent({
     computed: {
         indentStyle(): string {
             if (!this.viewModel.IndentLevel) {
-                return '';
+                return "";
             }
 
             const pixels = this.viewModel.IndentLevel * 24;
@@ -98,7 +98,7 @@ const PageDebugTimingRow = defineComponent({
 });
 
 export default defineComponent({
-    name: 'PageDebugTimings',
+    name: "PageDebugTimings",
     components: {
         PageDebugTimingRow
     },
@@ -160,9 +160,9 @@ export default defineComponent({
                 DurationMs: this.firstClientRelativeStartTimeMs - this.serverEndTimeMs,
                 IndentLevel: 0,
                 IsTitleBold: true,
-                Title: 'Client Mount Blocks',
+                Title: "Client Mount Blocks",
                 TimestampMs: this.serverEndTimeMs,
-                SubTitle: ''
+                SubTitle: ""
             };
         }
     },

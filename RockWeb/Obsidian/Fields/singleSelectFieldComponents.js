@@ -22,7 +22,7 @@ System.register(["vue", "./index", "../Elements/dropDownList", "../Elements/radi
         ],
         execute: function () {
             exports_1("EditComponent", EditComponent = vue_1.defineComponent({
-                name: 'SingleSelectField.Edit',
+                name: "SingleSelectField.Edit",
                 components: {
                     DropDownList: dropDownList_1.default,
                     RadioButtonList: radioButtonList_1.default
@@ -30,19 +30,19 @@ System.register(["vue", "./index", "../Elements/dropDownList", "../Elements/radi
                 props: index_1.getFieldEditorProps(),
                 setup() {
                     return {
-                        isRequired: vue_1.inject('isRequired')
+                        isRequired: vue_1.inject("isRequired")
                     };
                 },
                 data() {
                     return {
-                        internalValue: ''
+                        internalValue: ""
                     };
                 },
                 computed: {
                     options() {
                         var _a;
                         try {
-                            const valuesConfig = JSON.parse((_a = this.configurationValues["values"]) !== null && _a !== void 0 ? _a : '[]');
+                            const valuesConfig = JSON.parse((_a = this.configurationValues["values"]) !== null && _a !== void 0 ? _a : "[]");
                             const providedOptions = valuesConfig.map(v => {
                                 return {
                                     text: v.text,
@@ -51,8 +51,8 @@ System.register(["vue", "./index", "../Elements/dropDownList", "../Elements/radi
                             });
                             if (this.isRadioButtons && !this.isRequired) {
                                 providedOptions.unshift({
-                                    text: 'None',
-                                    value: ''
+                                    text: "None",
+                                    value: ""
                                 });
                             }
                             return providedOptions;
@@ -64,7 +64,7 @@ System.register(["vue", "./index", "../Elements/dropDownList", "../Elements/radi
                     ddlConfigAttributes() {
                         const attributes = {};
                         const fieldTypeConfig = this.configurationValues["fieldtype"];
-                        if (fieldTypeConfig === 'ddl_enhanced') {
+                        if (fieldTypeConfig === "ddl_enhanced") {
                             attributes.enhanceForLongLists = true;
                         }
                         return attributes;
@@ -73,23 +73,23 @@ System.register(["vue", "./index", "../Elements/dropDownList", "../Elements/radi
                         const attributes = {};
                         const repeatColumnsConfig = this.configurationValues["repeatColumns"];
                         if (repeatColumnsConfig) {
-                            attributes['repeatColumns'] = number_1.toNumberOrNull(repeatColumnsConfig) || 0;
+                            attributes["repeatColumns"] = number_1.toNumberOrNull(repeatColumnsConfig) || 0;
                         }
                         return attributes;
                     },
                     isRadioButtons() {
                         const fieldTypeConfig = this.configurationValues["fieldtype"];
-                        return fieldTypeConfig === 'rb';
+                        return fieldTypeConfig === "rb";
                     }
                 },
                 watch: {
                     internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
+                        this.$emit("update:modelValue", this.internalValue);
                     },
                     modelValue: {
                         immediate: true,
                         handler() {
-                            this.internalValue = this.modelValue || '';
+                            this.internalValue = this.modelValue || "";
                         }
                     }
                 },

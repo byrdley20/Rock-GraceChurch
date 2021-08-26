@@ -14,12 +14,12 @@
 // limitations under the License.
 // </copyright>
 //
-import TextBox from '../../Elements/textBox';
-import CheckBox from '../../Elements/checkBox';
-import RockButton from '../../Elements/rockButton';
-import { defineComponent, inject } from 'vue';
-import { InvokeBlockActionFunc } from '../../Controls/rockBlock';
-import Alert from '../../Elements/alert';
+import TextBox from "../../Elements/textBox";
+import CheckBox from "../../Elements/checkBox";
+import RockButton from "../../Elements/rockButton";
+import { defineComponent, inject } from "vue";
+import { InvokeBlockActionFunc } from "../../Controls/rockBlock";
+import Alert from "../../Elements/alert";
 
 type AuthCookie = {
     expires: string;
@@ -32,131 +32,109 @@ type LoginResponse = {
 };
 
 export default defineComponent( {
-    name: 'Security.Login',
+    name: "Security.Login",
     components: {
         TextBox,
         CheckBox,
         RockButton,
         Alert
     },
-    setup ()
-    {
+    setup () {
         return {
-            invokeBlockAction: inject( 'invokeBlockAction' ) as InvokeBlockActionFunc
+            invokeBlockAction: inject( "invokeBlockAction" ) as InvokeBlockActionFunc
         };
     },
-    data ()
-    {
+    data () {
         return {
-            username: '',
-            password: '',
+            username: "",
+            password: "",
             rememberMe: false,
             isLoading: false,
-            errorMessage: ''
+            errorMessage: ""
         };
     },
     methods: {
-        setCookie ( cookie: AuthCookie ): void
-        {
-            let expires = '';
+        setCookie ( cookie: AuthCookie ): void {
+            let expires = "";
 
-            if ( cookie.expires )
-            {
+            if ( cookie.expires ) {
                 const date = new Date( cookie.expires );
 
-                if ( date < new Date() )
-                {
-                    expires = '';
+                if ( date < new Date() ) {
+                    expires = "";
                 }
-                else
-                {
+                else {
                     expires = `; expires=${date.toUTCString()}`;
                 }
             }
-            else
-            {
-                expires = '';
+            else {
+                expires = "";
             }
 
             document.cookie = `${cookie.name}=${cookie.value}${expires}; path=/`;
         },
-        redirectAfterLogin (): void
-        {
+        redirectAfterLogin (): void {
             const urlParams = new URLSearchParams( window.location.search );
-            const returnUrl = urlParams.get( 'returnurl' );
+            const returnUrl = urlParams.get( "returnurl" );
 
-            if ( returnUrl )
-            {
+            if ( returnUrl ) {
                 // TODO make this force relative URLs (no absolute URLs)
                 window.location.href = decodeURIComponent( returnUrl );
             }
         },
-        async onHelpClick (): Promise<void>
-        {
+        async onHelpClick (): Promise<void> {
             this.isLoading = true;
-            this.errorMessage = '';
+            this.errorMessage = "";
 
-            try
-            {
-                const result = await this.invokeBlockAction<string>( 'help', undefined );
+            try {
+                const result = await this.invokeBlockAction<string>( "help", undefined );
 
-                if ( result.isError )
-                {
-                    this.errorMessage = result.errorMessage || 'An unknown error occurred communicating with the server';
+                if ( result.isError ) {
+                    this.errorMessage = result.errorMessage || "An unknown error occurred communicating with the server";
                 }
-                else if ( result.data )
-                {
+                else if ( result.data ) {
                     // TODO make this force relative URLs (no absolute URLs)
                     window.location.href = result.data;
                 }
             }
-            catch ( e )
-            {
+            catch ( e ) {
                 this.errorMessage = `An exception occurred: ${e}`;
             }
-            finally
-            {
+            finally {
                 this.isLoading = false;
             }
         },
-        async submitLogin (): Promise<void>
-        {
-            if ( this.isLoading )
-            {
+        async submitLogin (): Promise<void> {
+            if ( this.isLoading ) {
                 return;
             }
 
             this.isLoading = true;
 
-            try
-            {
-                const result = await this.invokeBlockAction<LoginResponse>( 'DoLogin', {
+            try {
+                const result = await this.invokeBlockAction<LoginResponse>( "DoLogin", {
                     username: this.username,
                     password: this.password,
                     rememberMe: this.rememberMe
                 } );
 
-                if ( result && !result.isError && result.data && result.data.authCookie )
-                {
+                if ( result && !result.isError && result.data && result.data.authCookie ) {
                     this.setCookie( result.data.authCookie );
                     this.redirectAfterLogin();
                     return;
                 }
 
                 this.isLoading = false;
-                this.errorMessage = result.errorMessage || 'An unknown error occurred communicating with the server';
+                this.errorMessage = result.errorMessage || "An unknown error occurred communicating with the server";
             }
-            catch ( e )
-            {
+            catch ( e ) {
                 // ts-ignore-line
                 console.log( JSON.stringify( e.response, null, 2 ) );
 
-                if ( typeof e === 'string' )
-                {
+                if ( typeof e === "string" ) {
                     this.errorMessage = e;
                 }
-                else
-                {
+                else {
                     this.errorMessage = `An exception occurred: ${e}`;
                 }
 

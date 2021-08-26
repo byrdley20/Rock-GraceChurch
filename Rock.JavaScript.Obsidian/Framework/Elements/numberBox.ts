@@ -14,13 +14,13 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
-import { ruleArrayToString, ruleStringToArray } from '../Rules/index';
-import { asFormattedString, toNumberOrNull } from '@Obsidian/Services/number';
-import RockFormField from './rockFormField';
+import { defineComponent, PropType } from "vue";
+import { ruleArrayToString, ruleStringToArray } from "../Rules/index";
+import { asFormattedString, toNumberOrNull } from "@Obsidian/Services/number";
+import RockFormField from "./rockFormField";
 
 export default defineComponent({
-    name: 'NumberBox',
+    name: "NumberBox",
     components: {
         RockFormField
     },
@@ -31,7 +31,7 @@ export default defineComponent({
         },
         placeholder: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         },
         /** The minimum allowed value to be entered. */
         minimumValue: {
@@ -47,19 +47,19 @@ export default defineComponent({
         },
         inputClasses: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         },
         rules: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         }
     },
     emits: [
-        'update:modelValue'
+        "update:modelValue"
     ],
     data: function () {
         return {
-            internalValue: '',
+            internalValue: "",
         };
     },
     methods: {
@@ -97,7 +97,7 @@ export default defineComponent({
     },
     watch: {
         internalNumberValue(): void {
-            this.$emit('update:modelValue', this.internalNumberValue);
+            this.$emit("update:modelValue", this.internalNumberValue);
         },
         modelValue: {
             immediate: true,

@@ -34,7 +34,7 @@ System.register(["vue", "./index", "../Elements/datePicker", "@Obsidian/Services
         ],
         execute: function () {
             exports_1("EditComponent", EditComponent = vue_1.defineComponent({
-                name: 'DateField.Edit',
+                name: "DateField.Edit",
                 components: {
                     DatePicker: datePicker_1.default,
                     DatePartsPicker: datePartsPicker_1.default
@@ -42,9 +42,9 @@ System.register(["vue", "./index", "../Elements/datePicker", "@Obsidian/Services
                 props: index_1.getFieldEditorProps(),
                 data() {
                     return {
-                        internalValue: '',
+                        internalValue: "",
                         internalDateParts: datePartsPicker_1.getDefaultDatePartsPickerModel(),
-                        formattedString: ''
+                        formattedString: ""
                     };
                 },
                 setup() {
@@ -60,7 +60,7 @@ System.register(["vue", "./index", "../Elements/datePicker", "@Obsidian/Services
                     },
                     isDatePartsPicker() {
                         const config = this.configurationValues["datePickerControlType"];
-                        return (config === null || config === void 0 ? void 0 : config.toLowerCase()) === 'date parts picker';
+                        return (config === null || config === void 0 ? void 0 : config.toLowerCase()) === "date parts picker";
                     },
                     configAttributes() {
                         const attributes = {};
@@ -79,8 +79,8 @@ System.register(["vue", "./index", "../Elements/datePicker", "@Obsidian/Services
                 methods: {
                     syncModelValue() {
                         var _a, _b;
-                        this.internalValue = (_a = this.modelValue) !== null && _a !== void 0 ? _a : '';
-                        const dateParts = /^(\d{4})-(\d{1,2})-(\d{1,2})/.exec((_b = this.modelValue) !== null && _b !== void 0 ? _b : '');
+                        this.internalValue = (_a = this.modelValue) !== null && _a !== void 0 ? _a : "";
+                        const dateParts = /^(\d{4})-(\d{1,2})-(\d{1,2})/.exec((_b = this.modelValue) !== null && _b !== void 0 ? _b : "");
                         if (dateParts != null) {
                             this.internalDateParts.year = number_1.toNumber(dateParts[1]);
                             this.internalDateParts.month = number_1.toNumber(dateParts[2]);
@@ -98,9 +98,9 @@ System.register(["vue", "./index", "../Elements/datePicker", "@Obsidian/Services
                         var _a;
                         if (this.isDatePartsPicker) {
                             const d1 = this.datePartsAsDate;
-                            const d2 = Date.parse((_a = this.modelValue) !== null && _a !== void 0 ? _a : '');
+                            const d2 = Date.parse((_a = this.modelValue) !== null && _a !== void 0 ? _a : "");
                             if (d1 === null || isNaN(d2) || d1.getTime() !== d2) {
-                                this.$emit('update:modelValue', d1 !== null ? d1.toISOString().split('T')[0] : '');
+                                this.$emit("update:modelValue", d1 !== null ? d1.toISOString().split("T")[0] : "");
                             }
                         }
                     },
@@ -108,9 +108,9 @@ System.register(["vue", "./index", "../Elements/datePicker", "@Obsidian/Services
                         var _a;
                         if (!this.isDatePartsPicker) {
                             const d1 = Date.parse(this.internalValue);
-                            const d2 = Date.parse((_a = this.modelValue) !== null && _a !== void 0 ? _a : '');
+                            const d2 = Date.parse((_a = this.modelValue) !== null && _a !== void 0 ? _a : "");
                             if (isNaN(d1) || isNaN(d2) || d1 !== d2) {
-                                this.$emit('update:modelValue', this.internalValue);
+                                this.$emit("update:modelValue", this.internalValue);
                             }
                         }
                     },

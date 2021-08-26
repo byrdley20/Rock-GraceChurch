@@ -14,15 +14,15 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { getFieldEditorProps } from './index';
-import { DayOfWeek } from './dayOfWeekField';
-import CheckBoxList from '../Elements/checkBoxList';
-import { toNumber } from '@Obsidian/Services/number';
-import { ListItem } from '@Obsidian/ViewModels';
+import { defineComponent } from "vue";
+import { getFieldEditorProps } from "./index";
+import { DayOfWeek } from "./dayOfWeekField";
+import CheckBoxList from "../Elements/checkBoxList";
+import { toNumber } from "@Obsidian/Services/number";
+import { ListItem } from "@Obsidian/ViewModels";
 
 export const EditComponent = defineComponent({
-    name: 'DaysOfWeekField.Edit',
+    name: "DaysOfWeekField.Edit",
     components: {
         CheckBoxList
     },
@@ -42,13 +42,13 @@ export const EditComponent = defineComponent({
          */
         options(): Array<ListItem> {
             return [
-                { text: 'Sunday', value: DayOfWeek.Sunday.toString() },
-                { text: 'Monday', value: DayOfWeek.Monday.toString() },
-                { text: 'Tuesday', value: DayOfWeek.Tuesday.toString() },
-                { text: 'Wednesday', value: DayOfWeek.Wednesday.toString() },
-                { text: 'Thursday', value: DayOfWeek.Thursday.toString() },
-                { text: 'Friday', value: DayOfWeek.Friday.toString() },
-                { text: 'Saturday', value: DayOfWeek.Saturday.toString() }
+                { text: "Sunday", value: DayOfWeek.Sunday.toString() },
+                { text: "Monday", value: DayOfWeek.Monday.toString() },
+                { text: "Tuesday", value: DayOfWeek.Tuesday.toString() },
+                { text: "Wednesday", value: DayOfWeek.Wednesday.toString() },
+                { text: "Thursday", value: DayOfWeek.Thursday.toString() },
+                { text: "Friday", value: DayOfWeek.Friday.toString() },
+                { text: "Saturday", value: DayOfWeek.Saturday.toString() }
             ];
         },
     },
@@ -59,7 +59,7 @@ export const EditComponent = defineComponent({
          * the consuming component.
          */
         internalValue(): void {
-            this.$emit('update:modelValue', this.internalValue.sort((a, b) => toNumber(a) - toNumber(b)).join(","));
+            this.$emit("update:modelValue", this.internalValue.sort((a, b) => toNumber(a) - toNumber(b)).join(","));
         },
 
         /**

@@ -14,9 +14,9 @@
 // limitations under the License.
 // </copyright>
 //
-import { Component, defineAsyncComponent } from 'vue';
-import { FieldTypeBase } from './fieldType';
-import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
+import { Component, defineAsyncComponent } from "vue";
+import { FieldTypeBase } from "./fieldType";
+import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
 
 
 export interface AddressFieldValue {
@@ -30,7 +30,7 @@ export interface AddressFieldValue {
 
 // The edit component can be quite large, so load it only as needed.
 const editComponent = defineAsyncComponent(async () => {
-    return (await import('./addressFieldComponents')).EditComponent;
+    return (await import("./addressFieldComponents")).EditComponent;
 });
 
 /**
@@ -39,15 +39,15 @@ const editComponent = defineAsyncComponent(async () => {
 export class AddressFieldType extends FieldTypeBase {
     public override updateTextValue(value: ClientEditableAttributeValue): void {
         try {
-            const addressValue = JSON.parse(value.value || '{}') as AddressFieldValue;
-            let textValue = `${addressValue.street1 ?? ''} ${addressValue.street2 ?? ''} ${addressValue.city ?? ''}, ${addressValue.state ?? ''} ${addressValue.postalCode ?? ''}`;
+            const addressValue = JSON.parse(value.value || "{}") as AddressFieldValue;
+            let textValue = `${addressValue.street1 ?? ""} ${addressValue.street2 ?? ""} ${addressValue.city ?? ""}, ${addressValue.state ?? ""} ${addressValue.postalCode ?? ""}`;
 
-            textValue = textValue.replace(/  +/, ' ');
-            textValue = textValue.replace(/^ +/, '');
-            textValue = textValue.replace(/ +$/, '');
+            textValue = textValue.replace(/  +/, " ");
+            textValue = textValue.replace(/^ +/, "");
+            textValue = textValue.replace(/ +$/, "");
 
-            if (textValue === ',') {
-                value.textValue = '';
+            if (textValue === ",") {
+                value.textValue = "";
             }
             else {
                 value.textValue = textValue;

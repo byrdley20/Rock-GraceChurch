@@ -13,7 +13,7 @@ System.register(["vue", "../Store/index"], function (exports_1, context_1) {
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'PrimaryBlock',
+                name: "PrimaryBlock",
                 props: {
                     hideSecondaryBlocks: {
                         type: Boolean,

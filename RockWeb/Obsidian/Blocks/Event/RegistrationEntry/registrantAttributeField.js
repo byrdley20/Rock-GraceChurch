@@ -3,8 +3,8 @@ System.register(["vue", "../../../Controls/rockField", "../../../Elements/alert"
     var vue_1, rockField_1, alert_1, registrationEntryBlockViewModel_1;
     var __moduleName = context_1 && context_1.id;
     function isRuleMet(rule, fieldValues) {
-        const value = fieldValues[rule.comparedToRegistrationTemplateFormFieldGuid] || '';
-        if (typeof value !== 'string') {
+        const value = fieldValues[rule.comparedToRegistrationTemplateFormFieldGuid] || "";
+        if (typeof value !== "string") {
             return false;
         }
         const strVal = value.toLowerCase().trim();
@@ -41,7 +41,7 @@ System.register(["vue", "../../../Controls/rockField", "../../../Elements/alert"
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'Event.RegistrationEntry.RegistrantAttributeField',
+                name: "Event.RegistrationEntry.RegistrantAttributeField",
                 components: {
                     Alert: alert_1.default,
                     RockField: rockField_1.default
@@ -71,7 +71,7 @@ System.register(["vue", "../../../Controls/rockField", "../../../Elements/alert"
                         }
                         return true;
                     });
-                    const attribute = vue_1.reactive(Object.assign(Object.assign({}, props.field.attribute), { value: (_c = (_a = props.fieldValues[props.field.guid]) !== null && _a !== void 0 ? _a : (_b = props.field.attribute) === null || _b === void 0 ? void 0 : _b.value) !== null && _c !== void 0 ? _c : '' }));
+                    const attribute = vue_1.reactive(Object.assign(Object.assign({}, props.field.attribute), { value: (_c = (_a = props.fieldValues[props.field.guid]) !== null && _a !== void 0 ? _a : (_b = props.field.attribute) === null || _b === void 0 ? void 0 : _b.value) !== null && _c !== void 0 ? _c : "" }));
                     vue_1.watch(() => attribute.value, (value) => {
                         props.fieldValues[props.field.guid] = value;
                     });

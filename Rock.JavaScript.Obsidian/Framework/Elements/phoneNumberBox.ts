@@ -15,29 +15,29 @@
 // </copyright>
 //
 
-import { defineComponent, PropType } from 'vue';
-import { newGuid } from '../Util/guid';
-import RockFormField from './rockFormField';
-import { formatPhoneNumber, stripPhoneNumber } from '@Obsidian/Services/string';
+import { defineComponent, PropType } from "vue";
+import { newGuid } from "../Util/guid";
+import RockFormField from "./rockFormField";
+import { formatPhoneNumber, stripPhoneNumber } from "@Obsidian/Services/string";
 
 export default defineComponent({
-    name: 'PhoneNumberBox',
+    name: "PhoneNumberBox",
     components: {
         RockFormField
     },
     props: {
         modelValue: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         }
     },
     emits: [
-        'update:modelValue'
+        "update:modelValue"
     ],
     data: function () {
         return {
             uniqueId: `rock-phonenumberbox-${newGuid()}`,
-            internalValue: ''
+            internalValue: ""
         };
     },
     methods: {
@@ -57,7 +57,7 @@ export default defineComponent({
         formattedValue(): void {
             // The value that should be stored for phone number attribute values is the formatted version.
             // This seems backwards, but actually keeps parity with the web forms functionality.
-            this.$emit('update:modelValue', this.formattedValue);
+            this.$emit("update:modelValue", this.formattedValue);
         },
         modelValue: {
             immediate: true,

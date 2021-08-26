@@ -61,7 +61,7 @@ System.register(["vue", "../../Templates/paneledBlockTemplate", "../../Controls/
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'Crm.AttributeValues',
+                name: "Crm.AttributeValues",
                 components: {
                     PaneledBlockTemplate: paneledBlockTemplate_1.default,
                     Loading: loading_1.default,
@@ -81,7 +81,7 @@ System.register(["vue", "../../Templates/paneledBlockTemplate", "../../Controls/
                     const goToViewMode = () => isEditMode.value = false;
                     const goToEditMode = () => __awaiter(this, void 0, void 0, function* () {
                         var _a;
-                        const result = yield invokeBlockAction('GetAttributeValuesForEdit');
+                        const result = yield invokeBlockAction("GetAttributeValuesForEdit");
                         if (result.isSuccess) {
                             attributeValues.value = sortedAttributeValues((_a = result.data) !== null && _a !== void 0 ? _a : []);
                             isEditMode.value = true;
@@ -92,9 +92,9 @@ System.register(["vue", "../../Templates/paneledBlockTemplate", "../../Controls/
                         isLoading.value = true;
                         const keyValueMap = {};
                         for (const a of attributeValues.value) {
-                            keyValueMap[a.key] = a.value || '';
+                            keyValueMap[a.key] = a.value || "";
                         }
-                        const result = yield invokeBlockAction('SaveAttributeValues', {
+                        const result = yield invokeBlockAction("SaveAttributeValues", {
                             personGuid: personGuid.value,
                             keyValueMap
                         });

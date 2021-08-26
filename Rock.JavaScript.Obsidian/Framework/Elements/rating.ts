@@ -14,15 +14,15 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
-import RockFormField from './rockFormField';
+import { defineComponent, PropType } from "vue";
+import RockFormField from "./rockFormField";
 
 /**
  * A component that provides a rating picker for the user to specify their
  * rating of something.
  */
 export default defineComponent({
-    name: 'Rating',
+    name: "Rating",
 
     components: {
         RockFormField
@@ -127,7 +127,7 @@ export default defineComponent({
          * The internal user value has changed, notify the parent component.
          */
         internalValue() {
-            this.$emit('update:modelValue', this.internalValue);
+            this.$emit("update:modelValue", this.internalValue);
         },
     },
 

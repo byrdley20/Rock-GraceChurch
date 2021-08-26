@@ -14,9 +14,9 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
-import JavaScriptAnchor from '../Elements/javaScriptAnchor';
-import ComponentFromUrl from './componentFromUrl';
+import { defineComponent, PropType } from "vue";
+import JavaScriptAnchor from "../Elements/javaScriptAnchor";
+import ComponentFromUrl from "./componentFromUrl";
 
 export interface GatewayControlModel {
     FileUrl: string;
@@ -30,7 +30,7 @@ export enum ValidationField {
 }
 
 export default defineComponent({
-    name: 'GatewayControl',
+    name: "GatewayControl",
     components: {
         ComponentFromUrl,
         JavaScriptAnchor
@@ -56,16 +56,14 @@ export default defineComponent({
     },
     methods: {
         /** Reset the component */
-        reset ()
-        {
+        reset () {
             // Remove the component from the DOM
             this.isSuccess = true;
 
             // Add the component back to the DOM on the next DOM update cycle
-            this.$nextTick( () =>
-            {
+            this.$nextTick( () => {
                 this.isSuccess = false;
-                this.$emit( 'reset' );
+                this.$emit( "reset" );
             } );
         },
 
@@ -73,10 +71,9 @@ export default defineComponent({
          * Intercept the success event, so that local state can reflect it.
          * @param token
          */
-        async onSuccess ( token: string )
-        {
+        async onSuccess ( token: string ) {
             this.isSuccess = true;
-            this.$emit( 'success', token );
+            this.$emit( "success", token );
         },
 
         /**
@@ -88,25 +85,25 @@ export default defineComponent({
             let foundError = false;
 
             if (validationFields?.includes(ValidationField.CardNumber)) {
-                errors['Card Number'] = 'is not valid.';
+                errors["Card Number"] = "is not valid.";
                 foundError = true;
             }
 
             if (validationFields?.includes(ValidationField.Expiry)) {
-                errors['Expiration Date'] = 'is not valid.';
+                errors["Expiration Date"] = "is not valid.";
                 foundError = true;
             }
 
             if (validationFields?.includes(ValidationField.SecurityCode)) {
-                errors['Security Code'] = 'is not valid.';
+                errors["Security Code"] = "is not valid.";
                 foundError = true;
             }
 
             if (!foundError) {
-                errors['Payment Info'] = 'is not valid.';
+                errors["Payment Info"] = "is not valid.";
             }
 
-            this.$emit('validation', errors);
+            this.$emit("validation", errors);
             return;
         }
     },

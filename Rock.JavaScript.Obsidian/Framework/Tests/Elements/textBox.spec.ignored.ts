@@ -14,51 +14,51 @@
 // limitations under the License.
 // </copyright>
 //
-import { mount } from '@vue/test-utils';
-import assert = require('assert');
-import TextBox from '../../Elements/TextBox';
+import { mount } from "@vue/test-utils";
+import assert = require("assert");
+import TextBox from "../../Elements/TextBox";
 
-describe('TextBox', () => {
-    it('Does not render label when not passed', async () => {
+describe("TextBox", () => {
+    it("Does not render label when not passed", async () => {
         const wrapper = mount(TextBox);
         await wrapper.setProps({
-            modelValue: '',
-            label: ''
+            modelValue: "",
+            label: ""
         });
 
-        const labels = wrapper.findAll('label');
+        const labels = wrapper.findAll("label");
 
         assert.equal(labels.length, 0);
     });
 
-    it('Renders label when passed', async () => {
-        const labelText = 'This is the label';
+    it("Renders label when passed", async () => {
+        const labelText = "This is the label";
 
         const wrapper = mount(TextBox);
         await wrapper.setProps({
-            modelValue: '',
+            modelValue: "",
             label: labelText
         });
 
-        const labels = wrapper.findAll('label');
+        const labels = wrapper.findAll("label");
         assert.equal(labels.length, 1);
         assert.equal(labels[0].text(), labelText);
     });
 
-    it('Shows a countdown', async () => {
-        const text = 'This is some text';
+    it("Shows a countdown", async () => {
+        const text = "This is some text";
         const maxLength = 20;
         const charsRemaining = maxLength - text.length;
 
         const wrapper = mount(TextBox);
         await wrapper.setProps({
           modelValue: text,
-          label: '',
+          label: "",
           showCountDown: true,
           maxLength
         });
 
-        const countdownElements = wrapper.findAll('em.badge');
+        const countdownElements = wrapper.findAll("em.badge");
         assert.equal(countdownElements.length, 1);
         assert.equal(countdownElements[0].text(), charsRemaining.toString());
     });

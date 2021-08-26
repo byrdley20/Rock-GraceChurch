@@ -61,7 +61,7 @@ System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../.
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'Example.PersonDetail',
+                name: "Example.PersonDetail",
                 components: {
                     PaneledBlockTemplate: paneledBlockTemplate_1.default,
                     RockButton: rockButton_1.default,
@@ -76,7 +76,7 @@ System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../.
                 },
                 setup() {
                     return {
-                        invokeBlockAction: vue_1.inject('invokeBlockAction')
+                        invokeBlockAction: vue_1.inject("invokeBlockAction")
                     };
                 },
                 data() {
@@ -84,8 +84,8 @@ System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../.
                         person: null,
                         personForEditing: null,
                         isEditMode: false,
-                        messageToPublish: '',
-                        receivedMessage: '',
+                        messageToPublish: "",
+                        receivedMessage: "",
                         isLoading: false,
                         birthdate: null,
                         address: addressControl_1.getDefaultAddressControlModel()
@@ -97,7 +97,7 @@ System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../.
                     },
                     doEdit() {
                         this.personForEditing = this.person ? Object.assign({}, this.person) : null;
-                        this.birthdate = this.birthdateOrNull ? date_1.formatAspDate(this.birthdateOrNull, 'yyyy-MM-dd') : null;
+                        this.birthdate = this.birthdateOrNull ? date_1.formatAspDate(this.birthdateOrNull, "yyyy-MM-dd") : null;
                         this.setIsEditMode(true);
                     },
                     doCancel() {
@@ -107,7 +107,7 @@ System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../.
                         var _a;
                         return __awaiter(this, void 0, void 0, function* () {
                             if (this.personForEditing) {
-                                const match = /^(\d+)-(\d+)-(\d+)/.exec((_a = this.birthdate) !== null && _a !== void 0 ? _a : '');
+                                const match = /^(\d+)-(\d+)-(\d+)/.exec((_a = this.birthdate) !== null && _a !== void 0 ? _a : "");
                                 let birthDay = null;
                                 let birthMonth = null;
                                 let birthYear = null;
@@ -118,7 +118,7 @@ System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../.
                                 }
                                 this.person = Object.assign(Object.assign({}, this.personForEditing), { birthDay: birthDay, birthMonth: birthMonth, birthYear: birthYear });
                                 this.isLoading = true;
-                                yield this.invokeBlockAction('EditPerson', {
+                                yield this.invokeBlockAction("EditPerson", {
                                     personArgs: this.person
                                 });
                                 this.isLoading = false;
@@ -127,8 +127,8 @@ System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../.
                         });
                     },
                     doPublish() {
-                        bus_1.default.publish('PersonDetail:Message', this.messageToPublish);
-                        this.messageToPublish = '';
+                        bus_1.default.publish("PersonDetail:Message", this.messageToPublish);
+                        this.messageToPublish = "";
                     },
                     receiveMessage(message) {
                         this.receivedMessage = message;
@@ -144,14 +144,14 @@ System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../.
                     },
                     birthdateFormatted() {
                         if (!this.birthdateOrNull) {
-                            return 'Not Completed';
+                            return "Not Completed";
                         }
                         return date_1.asDateString(this.birthdateOrNull);
                     },
                     blockTitle() {
                         return this.person ?
                             `: ${this.person.nickName || this.person.firstName} ${this.person.lastName}` :
-                            '';
+                            "";
                     },
                     currentPerson() {
                         return index_1.default.state.currentPerson;
@@ -173,14 +173,14 @@ System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../.
                                     return;
                                 }
                                 this.isLoading = true;
-                                this.person = (yield this.invokeBlockAction('GetPersonViewModel')).data;
+                                this.person = (yield this.invokeBlockAction("GetPersonViewModel")).data;
                                 this.isLoading = false;
                             });
                         }
                     }
                 },
                 created() {
-                    bus_1.default.subscribe('PersonSecondary:Message', this.receiveMessage);
+                    bus_1.default.subscribe("PersonSecondary:Message", this.receiveMessage);
                 },
                 template: `
 <PrimaryBlock :hideSecondaryBlocks="isEditMode">

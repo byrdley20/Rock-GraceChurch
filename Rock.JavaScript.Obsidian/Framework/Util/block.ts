@@ -15,8 +15,8 @@
 // </copyright>
 //
 
-import { InvokeBlockActionFunc } from 'Controls/rockBlock';
-import { inject } from 'vue';
+import { InvokeBlockActionFunc } from "Controls/rockBlock";
+import { inject } from "vue";
 
 /**
  * Maps the block configuration values to the expected type.
@@ -24,7 +24,7 @@ import { inject } from 'vue';
  * @returns The configuration values for the block.
  */
 export function useConfigurationValues<T>(): T {
-    return inject('configurationValues') as T;
+    return inject("configurationValues") as T;
 }
 
 /**
@@ -33,5 +33,5 @@ export function useConfigurationValues<T>(): T {
  * @returns An instance of @see {@link InvokeBlockActionFunc}.
  */
 export function useInvokeBlockAction(): InvokeBlockActionFunc {
-    return inject('invokeBlockAction') as InvokeBlockActionFunc;
+    return inject("invokeBlockAction") as InvokeBlockActionFunc;
 }

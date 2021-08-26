@@ -112,7 +112,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
         ],
         execute: function () {
             GalleryAndResult = vue_1.defineComponent({
-                name: 'GalleryAndResult',
+                name: "GalleryAndResult",
                 components: {
                     PanelWidget: panelWidget_1.default
                 },
@@ -144,14 +144,14 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
 </PanelWidget>`
             });
             PhoneNumberBoxGallery = vue_1.defineComponent({
-                name: 'PhoneNumberBoxGallery',
+                name: "PhoneNumberBoxGallery",
                 components: {
                     GalleryAndResult,
                     PhoneNumberBox: phoneNumberBox_1.default
                 },
                 data() {
                     return {
-                        phoneNumber: ''
+                        phoneNumber: ""
                     };
                 },
                 template: `
@@ -169,7 +169,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
 </GalleryAndResult>`
             });
             HelpBlockGallery = vue_1.defineComponent({
-                name: 'HelpBlockGallery',
+                name: "HelpBlockGallery",
                 components: {
                     GalleryAndResult,
                     HelpBlock: helpBlock_1.default
@@ -185,19 +185,19 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
 </GalleryAndResult>`
             });
             DropDownListGallery = vue_1.defineComponent({
-                name: 'DropDownListGallery',
+                name: "DropDownListGallery",
                 components: {
                     GalleryAndResult,
                     DropDownList: dropDownList_1.default
                 },
                 data() {
                     return {
-                        value: 'a',
+                        value: "a",
                         options: [
-                            { text: 'A Text', value: 'a' },
-                            { text: 'B Text', value: 'b' },
-                            { text: 'C Text', value: 'c' },
-                            { text: 'D Text', value: 'd' }
+                            { text: "A Text", value: "a" },
+                            { text: "B Text", value: "b" },
+                            { text: "C Text", value: "c" },
+                            { text: "D Text", value: "d" }
                         ]
                     };
                 },
@@ -218,7 +218,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
 </GalleryAndResult>`
             });
             RadioButtonListGallery = vue_1.defineComponent({
-                name: 'RadioButtonListGallery',
+                name: "RadioButtonListGallery",
                 components: {
                     GalleryAndResult,
                     RadioButtonList: radioButtonList_1.default,
@@ -227,17 +227,17 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
                 },
                 data() {
                     return {
-                        value: 'a',
+                        value: "a",
                         isHorizontal: true,
                         repeatColumns: 0,
                         options: [
-                            { text: 'A Text', value: 'a' },
-                            { text: 'B Text', value: 'b' },
-                            { text: 'C Text', value: 'c' },
-                            { text: 'D Text', value: 'd' },
-                            { text: 'E Text', value: 'e' },
-                            { text: 'F Text', value: 'f' },
-                            { text: 'G Text', value: 'g' }
+                            { text: "A Text", value: "a" },
+                            { text: "B Text", value: "b" },
+                            { text: "C Text", value: "c" },
+                            { text: "D Text", value: "d" },
+                            { text: "E Text", value: "e" },
+                            { text: "F Text", value: "f" },
+                            { text: "G Text", value: "g" }
                         ]
                     };
                 },
@@ -258,7 +258,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
 </GalleryAndResult>`
             });
             CheckBoxGallery = vue_1.defineComponent({
-                name: 'CheckBoxGallery',
+                name: "CheckBoxGallery",
                 components: {
                     GalleryAndResult,
                     CheckBox: checkBox_1.default,
@@ -286,7 +286,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
 </GalleryAndResult>`
             });
             DialogGallery = vue_1.defineComponent({
-                name: 'DialogGallery',
+                name: "DialogGallery",
                 components: {
                     GalleryAndResult,
                     RockButton: rockButton_1.default,
@@ -337,7 +337,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
 </GalleryAndResult>`
             });
             FormRulesGallery = vue_1.defineComponent({
-                name: 'FormRulesGallery',
+                name: "FormRulesGallery",
                 components: {
                     GalleryAndResult,
                     RockForm: rockForm_1.default,
@@ -348,8 +348,8 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
                 data() {
                     return {
                         ruleTestCurrency: 1,
-                        ruleTestText: '',
-                        rules: 'required'
+                        ruleTestText: "",
+                        rules: "required"
                     };
                 },
                 template: `
@@ -369,7 +369,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
 </GalleryAndResult>`
             });
             CheckBoxListGallery = vue_1.defineComponent({
-                name: 'CheckBoxListGallery',
+                name: "CheckBoxListGallery",
                 components: {
                     GalleryAndResult,
                     CheckBoxList: checkBoxList_1.default
@@ -399,19 +399,19 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
 </GalleryAndResult>`
             });
             ListBoxGallery = vue_1.defineComponent({
-                name: 'ListBoxGallery',
+                name: "ListBoxGallery",
                 components: {
                     GalleryAndResult,
                     ListBox: listBox_1.default
                 },
                 data() {
                     return {
-                        value: ['a'],
+                        value: ["a"],
                         options: [
-                            { text: 'A Text', value: 'a' },
-                            { text: 'B Text', value: 'b' },
-                            { text: 'C Text', value: 'c' },
-                            { text: 'D Text', value: 'd' }
+                            { text: "A Text", value: "a" },
+                            { text: "B Text", value: "b" },
+                            { text: "C Text", value: "c" },
+                            { text: "D Text", value: "d" }
                         ]
                     };
                 },
@@ -432,7 +432,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
 </GalleryAndResult>`
             });
             DatePickerGallery = vue_1.defineComponent({
-                name: 'DatePickerGallery',
+                name: "DatePickerGallery",
                 components: {
                     GalleryAndResult,
                     DatePicker: datePicker_1.default
@@ -440,7 +440,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
                 data() {
                     return {
                         date: null,
-                        currentDate: 'CURRENT:1'
+                        currentDate: "CURRENT:1"
                     };
                 },
                 template: `
@@ -462,7 +462,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
 </GalleryAndResult>`
             });
             DateRangePickerGallery = vue_1.defineComponent({
-                name: 'DateRangePickerGallery',
+                name: "DateRangePickerGallery",
                 components: {
                     GalleryAndResult,
                     DateRangePicker: dateRangePicker_1.default
@@ -487,7 +487,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
 </GalleryAndResult>`
             });
             DateTimePickerGallery = vue_1.defineComponent({
-                name: 'DatePickerGallery',
+                name: "DatePickerGallery",
                 components: {
                     GalleryAndResult,
                     DateTimePicker: dateTimePicker_1.default
@@ -512,7 +512,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
 </GalleryAndResult>`
             });
             DatePartsPickerGallery = vue_1.defineComponent({
-                name: 'DatePartsPickerGallery',
+                name: "DatePartsPickerGallery",
                 components: {
                     GalleryAndResult,
                     Toggle: toggle_1.default,
@@ -545,14 +545,14 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
 </GalleryAndResult>`
             });
             TextBoxGallery = vue_1.defineComponent({
-                name: 'TextBoxGallery',
+                name: "TextBoxGallery",
                 components: {
                     GalleryAndResult,
                     TextBox: textBox_1.default
                 },
                 data() {
                     return {
-                        text: 'Some two-way bound text',
+                        text: "Some two-way bound text",
                     };
                 },
                 template: `
@@ -571,14 +571,14 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
 </GalleryAndResult>`
             });
             ColorPickerGallery = vue_1.defineComponent({
-                name: 'ColorPickerGallery',
+                name: "ColorPickerGallery",
                 components: {
                     GalleryAndResult,
                     ColorPicker: colorPicker_1.default
                 },
                 data() {
                     return {
-                        value: '#ee7725',
+                        value: "#ee7725",
                     };
                 },
                 template: `
@@ -595,7 +595,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
 </GalleryAndResult>`
             });
             NumberBoxGallery = vue_1.defineComponent({
-                name: 'NumberBoxGallery',
+                name: "NumberBoxGallery",
                 components: {
                     GalleryAndResult,
                     RockForm: rockForm_1.default,
@@ -605,8 +605,8 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
                 },
                 data() {
                     return {
-                        minimumValue: '0',
-                        maximumValue: '100',
+                        minimumValue: "0",
+                        maximumValue: "100",
                         value: 42,
                     };
                 },
@@ -637,7 +637,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
 </GalleryAndResult>`
             });
             NumberRangeBoxGallery = vue_1.defineComponent({
-                name: 'NumberRangeBoxGallery',
+                name: "NumberRangeBoxGallery",
                 components: {
                     GalleryAndResult,
                     RockForm: rockForm_1.default,
@@ -667,7 +667,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
 </GalleryAndResult>`
             });
             GenderDropDownListGallery = vue_1.defineComponent({
-                name: 'GenderDropDownListGallery',
+                name: "GenderDropDownListGallery",
                 components: {
                     GalleryAndResult,
                     RockForm: rockForm_1.default,
@@ -677,7 +677,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
                 },
                 data() {
                     return {
-                        value: '1',
+                        value: "1",
                     };
                 },
                 template: `
@@ -697,7 +697,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
 </GalleryAndResult>`
             });
             SocialSecurityNumberBoxGallery = vue_1.defineComponent({
-                name: 'SocialSecurityNumberBoxGallery',
+                name: "SocialSecurityNumberBoxGallery",
                 components: {
                     GalleryAndResult,
                     RockForm: rockForm_1.default,
@@ -707,7 +707,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
                 },
                 data() {
                     return {
-                        value: '123-45-6789',
+                        value: "123-45-6789",
                     };
                 },
                 template: `
@@ -727,7 +727,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
 </GalleryAndResult>`
             });
             TimePickerGallery = vue_1.defineComponent({
-                name: 'TimePickerGallery',
+                name: "TimePickerGallery",
                 components: {
                     GalleryAndResult,
                     RockForm: rockForm_1.default,
@@ -757,7 +757,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
 </GalleryAndResult>`
             });
             RatingGallery = vue_1.defineComponent({
-                name: 'RatingGallery',
+                name: "RatingGallery",
                 components: {
                     GalleryAndResult,
                     RockForm: rockForm_1.default,
@@ -787,7 +787,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
 </GalleryAndResult>`
             });
             exports_1("default", vue_1.defineComponent({
-                name: 'Example.ControlGallery',
+                name: "Example.ControlGallery",
                 components: {
                     PaneledBlockTemplate: paneledBlockTemplate_1.default,
                     GalleryAndResult,
@@ -827,26 +827,26 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
                 data() {
                     return {
                         currency: 1.234,
-                        email: 'joe@joes.co',
+                        email: "joe@joes.co",
                         numberUpDown: 1,
                         address: addressControl_1.getDefaultAddressControlModel(),
                         toggle: false,
                         prePostHtmlItems: [
-                            { preHtml: '<div class="row"><div class="col-sm-6">', postHtml: '</div>', slotName: 'item1' },
-                            { preHtml: '<div class="col-sm-6">', postHtml: '</div></div>', slotName: 'item2' }
+                            { preHtml: '<div class="row"><div class="col-sm-6">', postHtml: "</div>", slotName: "item1" },
+                            { preHtml: '<div class="col-sm-6">', postHtml: "</div></div>", slotName: "item2" }
                         ],
                         progressTrackerIndex: 0,
                         progressTrackerItems: [
-                            { key: 'S', title: 'Start', subtitle: 'The beginning' },
-                            { key: '1', title: 'Step 1', subtitle: 'The first step' },
-                            { key: '2', title: 'Step 2', subtitle: 'The second step' },
-                            { key: '3', title: 'Step 3', subtitle: 'The third step' },
-                            { key: '4', title: 'Step 4', subtitle: 'The fourth step' },
-                            { key: '5', title: 'Step 5', subtitle: 'The fifth step' },
-                            { key: '6', title: 'Step 6', subtitle: 'The sixth step' },
-                            { key: '7', title: 'Step 7', subtitle: 'The seventh step' },
-                            { key: '8', title: 'Step 8', subtitle: 'The eighth step' },
-                            { key: 'F', title: 'Finish', subtitle: 'The finish' }
+                            { key: "S", title: "Start", subtitle: "The beginning" },
+                            { key: "1", title: "Step 1", subtitle: "The first step" },
+                            { key: "2", title: "Step 2", subtitle: "The second step" },
+                            { key: "3", title: "Step 3", subtitle: "The third step" },
+                            { key: "4", title: "Step 4", subtitle: "The fourth step" },
+                            { key: "5", title: "Step 5", subtitle: "The fifth step" },
+                            { key: "6", title: "Step 6", subtitle: "The sixth step" },
+                            { key: "7", title: "Step 7", subtitle: "The seventh step" },
+                            { key: "8", title: "Step 8", subtitle: "The eighth step" },
+                            { key: "F", title: "Finish", subtitle: "The finish" }
                         ]
                     };
                 },

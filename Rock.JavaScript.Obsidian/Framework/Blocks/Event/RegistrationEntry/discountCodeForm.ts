@@ -15,14 +15,14 @@
 // </copyright>
 //
 
-import { defineComponent, inject } from 'vue';
-import { InvokeBlockActionFunc } from '../../../Controls/rockBlock';
-import Alert from '../../../Elements/alert';
-import RockButton from '../../../Elements/rockButton';
-import TextBox from '../../../Elements/textBox';
-import { asFormattedString } from '@Obsidian/Services/number';
-import { RegistrationEntryState } from '../registrationEntry';
-import {  RegistrationEntryBlockViewModel } from './registrationEntryBlockViewModel';
+import { defineComponent, inject } from "vue";
+import { InvokeBlockActionFunc } from "../../../Controls/rockBlock";
+import Alert from "../../../Elements/alert";
+import RockButton from "../../../Elements/rockButton";
+import TextBox from "../../../Elements/textBox";
+import { asFormattedString } from "@Obsidian/Services/number";
+import { RegistrationEntryState } from "../registrationEntry";
+import {  RegistrationEntryBlockViewModel } from "./registrationEntryBlockViewModel";
 
 type CheckDiscountCodeResult = {
     discountCode: string;
@@ -32,42 +32,38 @@ type CheckDiscountCodeResult = {
 };
 
 export default defineComponent( {
-    name: 'Event.RegistrationEntry.DiscountCodeForm',
+    name: "Event.RegistrationEntry.DiscountCodeForm",
     components: {
         RockButton,
         TextBox,
         Alert
     },
-    setup ()
-    {
+    setup () {
         return {
-            invokeBlockAction: inject( 'invokeBlockAction' ) as InvokeBlockActionFunc,
-            registrationEntryState: inject( 'registrationEntryState' ) as RegistrationEntryState
+            invokeBlockAction: inject( "invokeBlockAction" ) as InvokeBlockActionFunc,
+            registrationEntryState: inject( "registrationEntryState" ) as RegistrationEntryState
         };
     },
-    data ()
-    {
+    data () {
         return {
             /** Is there an AJAX call in-flight? */
             loading: false,
 
             /** The bound value to the discount code input */
-            discountCodeInput: '',
+            discountCodeInput: "",
 
             /** A warning message about the discount code that is a result of a failed AJAX call */
-            discountCodeWarningMessage: ''
+            discountCodeWarningMessage: ""
         };
     },
     computed: {
         /** The success message displayed once a discount code has been applied */
-        discountCodeSuccessMessage (): string
-        {
+        discountCodeSuccessMessage (): string {
             const discountAmount = this.registrationEntryState.discountAmount;
             const discountPercent = this.registrationEntryState.discountPercentage;
 
-            if ( !discountPercent && !discountAmount )
-            {
-                return '';
+            if ( !discountPercent && !discountAmount ) {
+                return "";
             }
 
             const discountText = discountPercent ?
@@ -78,50 +74,43 @@ export default defineComponent( {
         },
 
         /** Should the discount panel be shown? */
-        isDiscountPanelVisible (): boolean
-        {
+        isDiscountPanelVisible (): boolean {
             return this.viewModel.hasDiscountsAvailable;
         },
 
         /** This is the data sent from the C# code behind when the block initialized. */
-        viewModel (): RegistrationEntryBlockViewModel
-        {
+        viewModel (): RegistrationEntryBlockViewModel {
             return this.registrationEntryState.viewModel;
         }
     },
     methods: {
         /** Send a user input discount code to the server so the server can check and send back
          *  the discount amount. */
-        async tryDiscountCode (): Promise<void>
-        {
+        async tryDiscountCode (): Promise<void> {
             this.loading = true;
 
-            try
-            {
-                const result = await this.invokeBlockAction<CheckDiscountCodeResult>( 'CheckDiscountCode', {
+            try {
+                const result = await this.invokeBlockAction<CheckDiscountCodeResult>( "CheckDiscountCode", {
                     code: this.discountCodeInput
                 } );
 
-                if ( result.isError || !result.data )
-                {
+                if ( result.isError || !result.data ) {
                     this.discountCodeWarningMessage = `'${this.discountCodeInput}' is not a valid Discount Code.`;
                 }
-                else
-                {
-                    this.discountCodeWarningMessage = '';
+                else {
+                    this.discountCodeWarningMessage = "";
                     this.registrationEntryState.discountAmount = result.data.discountAmount;
                     this.registrationEntryState.discountPercentage = result.data.discountPercentage;
                     this.registrationEntryState.discountCode = result.data.discountCode;
                 }
             }
-            finally
-            {
+            finally {
                 this.loading = false;
             }
         }
     },
     watch: {
-        'registrationEntryState.DiscountCode': {
+        "registrationEntryState.DiscountCode": {
             immediate: true,
             handler(): void {
                 this.discountCodeInput = this.registrationEntryState.discountCode;

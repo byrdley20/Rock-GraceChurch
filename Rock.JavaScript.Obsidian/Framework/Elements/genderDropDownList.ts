@@ -14,9 +14,9 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
-import { ruleArrayToString, ruleStringToArray } from '../Rules/index';
-import DropDownList, { DropDownListOption } from './dropDownList';
+import { defineComponent, PropType } from "vue";
+import { ruleArrayToString, ruleStringToArray } from "../Rules/index";
+import DropDownList, { DropDownListOption } from "./dropDownList";
 
 export const enum Gender {
     Unknown = 0,
@@ -25,14 +25,14 @@ export const enum Gender {
 }
 
 export default defineComponent({
-    name: 'GenderDropDownList',
+    name: "GenderDropDownList",
     components: {
         DropDownList
     },
     props: {
         rules: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         }
     },
     data() {
@@ -43,15 +43,15 @@ export default defineComponent({
     computed: {
         options(): DropDownListOption[] {
             return [
-                { text: 'Male', value: Gender.Male.toString() },
-                { text: 'Female', value: Gender.Female.toString() }
+                { text: "Male", value: Gender.Male.toString() },
+                { text: "Female", value: Gender.Female.toString() }
             ];
         },
         computedRules(): string {
             const rules = ruleStringToArray(this.rules);
             const notEqualRule = `notequal:${Gender.Unknown}`;
 
-            if (rules.indexOf('required') !== -1 && rules.indexOf(notEqualRule) === -1) {
+            if (rules.indexOf("required") !== -1 && rules.indexOf(notEqualRule) === -1) {
                 rules.push(notEqualRule);
             }
 

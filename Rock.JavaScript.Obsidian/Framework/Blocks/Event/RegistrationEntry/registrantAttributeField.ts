@@ -15,16 +15,16 @@
 // </copyright>
 //
 
-import { computed, defineComponent, PropType, reactive, watch } from 'vue';
-import RockField from '../../../Controls/rockField';
-import Alert from '../../../Elements/alert';
-import { Guid } from '../../../Util/guid';
-import { ComparisonType, FilterExpressionType, RegistrationEntryBlockFormFieldRuleViewModel, RegistrationEntryBlockFormFieldViewModel } from './registrationEntryBlockViewModel';
+import { computed, defineComponent, PropType, reactive, watch } from "vue";
+import RockField from "../../../Controls/rockField";
+import Alert from "../../../Elements/alert";
+import { Guid } from "../../../Util/guid";
+import { ComparisonType, FilterExpressionType, RegistrationEntryBlockFormFieldRuleViewModel, RegistrationEntryBlockFormFieldViewModel } from "./registrationEntryBlockViewModel";
 
 function isRuleMet(rule: RegistrationEntryBlockFormFieldRuleViewModel, fieldValues: Record<Guid, unknown>) {
-    const value = fieldValues[rule.comparedToRegistrationTemplateFormFieldGuid] || '';
+    const value = fieldValues[rule.comparedToRegistrationTemplateFormFieldGuid] || "";
 
-    if (typeof value !== 'string') {
+    if (typeof value !== "string") {
         return false;
     }
 
@@ -50,7 +50,7 @@ function isRuleMet(rule: RegistrationEntryBlockFormFieldRuleViewModel, fieldValu
 }
 
 export default defineComponent( {
-    name: 'Event.RegistrationEntry.RegistrantAttributeField',
+    name: "Event.RegistrationEntry.RegistrantAttributeField",
 
     components: {
         Alert,
@@ -90,7 +90,7 @@ export default defineComponent( {
 
         const attribute = reactive({
             ...props.field.attribute,
-            value: props.fieldValues[props.field.guid] ?? props.field.attribute?.value ?? ''
+            value: props.fieldValues[props.field.guid] ?? props.field.attribute?.value ?? ""
         });
 
         watch(() => attribute.value, (value) => {

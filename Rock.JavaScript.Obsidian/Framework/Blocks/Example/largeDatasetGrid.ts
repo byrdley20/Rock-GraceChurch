@@ -14,17 +14,17 @@
 // limitations under the License.
 // </copyright>
 //
-import PaneledBlockTemplate from '../../Templates/paneledBlockTemplate';
-import { defineComponent } from 'vue';
-import GridRow from '../../Controls/gridRow';
-import GridColumn from '../../Controls/gridColumn';
-import GridProfileLinkColumn from '../../Controls/gridProfileLinkColumn';
-import BlockActionSourcedGrid from '../../Controls/blockActionSourcedGrid';
-import Dialog from '../../Controls/dialog';
-import { RowContext } from '../../Controls/grid';
+import PaneledBlockTemplate from "../../Templates/paneledBlockTemplate";
+import { defineComponent } from "vue";
+import GridRow from "../../Controls/gridRow";
+import GridColumn from "../../Controls/gridColumn";
+import GridProfileLinkColumn from "../../Controls/gridProfileLinkColumn";
+import BlockActionSourcedGrid from "../../Controls/blockActionSourcedGrid";
+import Dialog from "../../Controls/dialog";
+import { RowContext } from "../../Controls/grid";
 
 export default defineComponent({
-    name: 'Example.LargeDatasetGrid',
+    name: "Example.LargeDatasetGrid",
     components: {
         PaneledBlockTemplate,
         BlockActionSourcedGrid,
@@ -33,16 +33,14 @@ export default defineComponent({
         GridProfileLinkColumn,
         Dialog
     },
-    data ()
-    {
+    data () {
         return {
             rowContextClicked: null as RowContext | null,
             isRowClickedDialogOpen: false
         };
     },
     methods: {
-        onRowClick ( rowContext: RowContext ): void
-        {
+        onRowClick ( rowContext: RowContext ): void {
             this.rowContextClicked = rowContext;
             this.isRowClickedDialogOpen = true;
         }

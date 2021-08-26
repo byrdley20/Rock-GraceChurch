@@ -13,7 +13,7 @@ System.register(["vue", "./rockButton"], function (exports_1, context_1) {
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'PanelWidget',
+                name: "PanelWidget",
                 components: {
                     RockButton: rockButton_1.default
                 },

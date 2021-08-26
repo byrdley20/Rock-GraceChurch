@@ -14,17 +14,17 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, inject } from 'vue';
-import { getFieldEditorProps } from './index';
-import ListBox from '../Elements/listBox';
-import CheckBoxList from '../Elements/checkBoxList';
-import { toNumberOrNull } from '@Obsidian/Services/number';
-import { ConfigurationValueKey } from './multiSelectField';
-import { ListItem } from '@Obsidian/ViewModels';
-import { asBoolean } from '@Obsidian/Services/boolean';
+import { defineComponent, inject } from "vue";
+import { getFieldEditorProps } from "./index";
+import ListBox from "../Elements/listBox";
+import CheckBoxList from "../Elements/checkBoxList";
+import { toNumberOrNull } from "@Obsidian/Services/number";
+import { ConfigurationValueKey } from "./multiSelectField";
+import { ListItem } from "@Obsidian/ViewModels";
+import { asBoolean } from "@Obsidian/Services/boolean";
 
 export const EditComponent = defineComponent({
-    name: 'MultiSelectField.Edit',
+    name: "MultiSelectField.Edit",
 
     components: {
         ListBox,
@@ -35,7 +35,7 @@ export const EditComponent = defineComponent({
 
     setup() {
         return {
-            isRequired: inject('isRequired') as boolean
+            isRequired: inject("isRequired") as boolean
         };
     },
 
@@ -49,7 +49,7 @@ export const EditComponent = defineComponent({
         /** The options to choose from */
         options(): ListItem[] {
             try {
-                const valuesConfig = JSON.parse(this.configurationValues[ConfigurationValueKey.Values] ?? '[]') as ListItem[];
+                const valuesConfig = JSON.parse(this.configurationValues[ConfigurationValueKey.Values] ?? "[]") as ListItem[];
 
                 return valuesConfig.map(v => {
                     return {
@@ -82,11 +82,11 @@ export const EditComponent = defineComponent({
             const repeatDirection = this.configurationValues[ConfigurationValueKey.RepeatDirection];
 
             if (repeatColumnsConfig) {
-                attributes['repeatColumns'] = toNumberOrNull(repeatColumnsConfig) || 0;
+                attributes["repeatColumns"] = toNumberOrNull(repeatColumnsConfig) || 0;
             }
 
-            if (repeatDirection !== 'Vertical') {
-                attributes['horizontal'] = true;
+            if (repeatDirection !== "Vertical") {
+                attributes["horizontal"] = true;
             }
 
             return attributes;
@@ -102,15 +102,15 @@ export const EditComponent = defineComponent({
 
     watch: {
         internalValue() {
-            this.$emit('update:modelValue', this.internalValue.join(','));
+            this.$emit("update:modelValue", this.internalValue.join(","));
         },
 
         modelValue: {
             immediate: true,
             handler() {
-                const value = this.modelValue || '';
+                const value = this.modelValue || "";
 
-                this.internalValue = value !== '' ? value.split(',') : [];
+                this.internalValue = value !== "" ? value.split(",") : [];
             }
         }
     },

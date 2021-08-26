@@ -14,27 +14,27 @@
 // limitations under the License.
 // </copyright>
 //
-import bus from '../../Util/bus';
-import PaneledBlockTemplate from '../../Templates/paneledBlockTemplate';
-import RockButton from '../../Elements/rockButton';
-import TextBox from '../../Elements/textBox';
-import { defineComponent, inject } from 'vue';
-import store from '../../Store/index';
-import EmailBox from '../../Elements/emailBox';
-import RockValidation from '../../Controls/rockValidation';
-import RockForm from '../../Controls/rockForm';
-import { Guid } from '../../Util/guid';
-import Loading from '../../Controls/loading';
-import PrimaryBlock from '../../Controls/primaryBlock';
-import { InvokeBlockActionFunc } from '../../Controls/rockBlock';
-import { Person } from '@Obsidian/ViewModels';
-import { asDateString, formatAspDate } from '@Obsidian/Services/date';
-import DatePicker from '../../Elements/datePicker';
-import AddressControl, { getDefaultAddressControlModel } from '../../Controls/addressControl';
-import { toNumber } from '@Obsidian/Services/number';
+import bus from "../../Util/bus";
+import PaneledBlockTemplate from "../../Templates/paneledBlockTemplate";
+import RockButton from "../../Elements/rockButton";
+import TextBox from "../../Elements/textBox";
+import { defineComponent, inject } from "vue";
+import store from "../../Store/index";
+import EmailBox from "../../Elements/emailBox";
+import RockValidation from "../../Controls/rockValidation";
+import RockForm from "../../Controls/rockForm";
+import { Guid } from "../../Util/guid";
+import Loading from "../../Controls/loading";
+import PrimaryBlock from "../../Controls/primaryBlock";
+import { InvokeBlockActionFunc } from "../../Controls/rockBlock";
+import { Person } from "@Obsidian/ViewModels";
+import { asDateString, formatAspDate } from "@Obsidian/Services/date";
+import DatePicker from "../../Elements/datePicker";
+import AddressControl, { getDefaultAddressControlModel } from "../../Controls/addressControl";
+import { toNumber } from "@Obsidian/Services/number";
 
 export default defineComponent({
-    name: 'Example.PersonDetail',
+    name: "Example.PersonDetail",
 
     components: {
         PaneledBlockTemplate,
@@ -51,7 +51,7 @@ export default defineComponent({
 
     setup() {
         return {
-            invokeBlockAction: inject('invokeBlockAction') as InvokeBlockActionFunc
+            invokeBlockAction: inject("invokeBlockAction") as InvokeBlockActionFunc
         };
     },
 
@@ -60,8 +60,8 @@ export default defineComponent({
             person: null as Person | null,
             personForEditing: null as Person | null,
             isEditMode: false,
-            messageToPublish: '',
-            receivedMessage: '',
+            messageToPublish: "",
+            receivedMessage: "",
             isLoading: false,
             birthdate: null as string | null,
             address: getDefaultAddressControlModel()
@@ -75,7 +75,7 @@ export default defineComponent({
 
         doEdit(): void {
             this.personForEditing = this.person ? { ...this.person } : null;
-            this.birthdate = this.birthdateOrNull ? formatAspDate(this.birthdateOrNull, 'yyyy-MM-dd') : null;
+            this.birthdate = this.birthdateOrNull ? formatAspDate(this.birthdateOrNull, "yyyy-MM-dd") : null;
             this.setIsEditMode(true);
         },
 
@@ -85,7 +85,7 @@ export default defineComponent({
 
         async doSave(): Promise<void> {
             if (this.personForEditing) {
-                const match = /^(\d+)-(\d+)-(\d+)/.exec(this.birthdate ?? '');
+                const match = /^(\d+)-(\d+)-(\d+)/.exec(this.birthdate ?? "");
                 let birthDay: number | null = null;
                 let birthMonth: number | null = null;
                 let birthYear: number | null = null;
@@ -104,7 +104,7 @@ export default defineComponent({
                 };
                 this.isLoading = true;
 
-                await this.invokeBlockAction('EditPerson', {
+                await this.invokeBlockAction("EditPerson", {
                     personArgs: this.person
                 });
 
@@ -115,8 +115,8 @@ export default defineComponent({
         },
 
         doPublish(): void {
-            bus.publish('PersonDetail:Message', this.messageToPublish);
-            this.messageToPublish = '';
+            bus.publish("PersonDetail:Message", this.messageToPublish);
+            this.messageToPublish = "";
         },
 
         receiveMessage(message: string): void {
@@ -135,7 +135,7 @@ export default defineComponent({
 
         birthdateFormatted(): string {
             if (!this.birthdateOrNull) {
-                return 'Not Completed';
+                return "Not Completed";
             }
 
             return asDateString(this.birthdateOrNull);
@@ -144,7 +144,7 @@ export default defineComponent({
         blockTitle(): string {
             return this.person ?
                 `: ${this.person.nickName || this.person.firstName} ${this.person.lastName}` :
-                '';
+                "";
         },
 
         currentPerson(): Person | null {
@@ -172,14 +172,14 @@ export default defineComponent({
 
                 // Sync the person with the guid
                 this.isLoading = true;
-                this.person = (await this.invokeBlockAction<Person>('GetPersonViewModel')).data;
+                this.person = (await this.invokeBlockAction<Person>("GetPersonViewModel")).data;
                 this.isLoading = false;
             }
         }
     },
 
     created(): void {
-        bus.subscribe<string>('PersonSecondary:Message', this.receiveMessage);
+        bus.subscribe<string>("PersonSecondary:Message", this.receiveMessage);
     },
 
     template: `

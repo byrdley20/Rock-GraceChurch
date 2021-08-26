@@ -14,13 +14,13 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
-import { toNumber } from '@Obsidian/Services/number';
-import RockFormField from './rockFormField';
-import TextBox from './textBox';
-import BasicTimePicker from './basicTimePicker';
-import { TimePickerModelValue } from './timePicker';
-import { padLeft } from '@Obsidian/Services/string';
+import { defineComponent, PropType } from "vue";
+import { toNumber } from "@Obsidian/Services/number";
+import RockFormField from "./rockFormField";
+import TextBox from "./textBox";
+import BasicTimePicker from "./basicTimePicker";
+import { TimePickerModelValue } from "./timePicker";
+import { padLeft } from "@Obsidian/Services/string";
 
 type Rock = {
     controls: {
@@ -37,7 +37,7 @@ declare global {
 }
 
 export default defineComponent({
-    name: 'DateTimePicker',
+    name: "DateTimePicker",
 
     components: {
         RockFormField,
@@ -61,7 +61,7 @@ export default defineComponent({
     },
 
     emits: [
-        'update:modelValue'
+        "update:modelValue"
     ],
 
     data: function () {
@@ -69,8 +69,8 @@ export default defineComponent({
             internalDateValue: null as string | null,
             internalTimeValue: {} as TimePickerModelValue,
             isCurrent: false,
-            currentDiff: '0',
-            validationValue: '',
+            currentDiff: "0",
+            validationValue: "",
             skipEmit: false
         };
     },
@@ -102,7 +102,7 @@ export default defineComponent({
         },
 
         asCurrentDateValue(): string {
-            const plusMinus = `${toNumber(this.currentDiff)}`
+            const plusMinus = `${toNumber(this.currentDiff)}`;
             return `CURRENT:${plusMinus}`;
         },
 
@@ -111,7 +111,7 @@ export default defineComponent({
                 return this.asCurrentDateValue;
             }
 
-            return this.asRockDateTimeOrNull ?? '';
+            return this.asRockDateTimeOrNull ?? "";
         }
     },
 
@@ -120,14 +120,14 @@ export default defineComponent({
             immediate: true,
             handler(): void {
                 if (!this.isCurrentDateOffset) {
-                    this.currentDiff = '0';
+                    this.currentDiff = "0";
                 }
             }
         },
 
         valueToEmit(): void {
             if (!this.skipEmit) {
-                this.$emit('update:modelValue', this.valueToEmit);
+                this.$emit("update:modelValue", this.valueToEmit);
             }
         },
 
@@ -138,13 +138,13 @@ export default defineComponent({
                     this.internalDateValue = null;
                     this.internalTimeValue = {};
                     this.isCurrent = false;
-                    this.currentDiff = '0';
+                    this.currentDiff = "0";
                     return;
                 }
 
-                if (this.modelValue.indexOf('CURRENT') === 0) {
+                if (this.modelValue.indexOf("CURRENT") === 0) {
                     this.isCurrent = true;
-                    const parts = this.modelValue.split(':');
+                    const parts = this.modelValue.split(":");
 
                     if (parts.length === 2) {
                         this.currentDiff = `${toNumber(parts[1])}`;
@@ -176,7 +176,7 @@ export default defineComponent({
     },
 
     mounted() {
-        const input = this.$refs['input'] as HTMLInputElement;
+        const input = this.$refs["input"] as HTMLInputElement;
         const inputId = input.id;
         const Rock = window.Rock;
 
@@ -184,7 +184,7 @@ export default defineComponent({
             id: inputId,
             startView: 0,
             showOnFocus: true,
-            format: 'mm/dd/yyyy',
+            format: "mm/dd/yyyy",
             todayHighlight: true,
             forceParse: true,
             onChangeScript: () => {

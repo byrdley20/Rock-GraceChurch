@@ -43,7 +43,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Store/ind
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'Groups.GroupMemberList',
+                name: "Groups.GroupMemberList",
                 components: {
                     PaneledBlockTemplate: paneledBlockTemplate_1.default,
                     Alert: alert_1.default,
@@ -55,17 +55,17 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Store/ind
                 },
                 setup() {
                     return {
-                        invokeBlockAction: vue_1.inject('invokeBlockAction')
+                        invokeBlockAction: vue_1.inject("invokeBlockAction")
                     };
                 },
                 data() {
                     return {
                         isLoading: false,
-                        errorMessage: '',
+                        errorMessage: "",
                         members: [],
                         sortProperty: {
                             direction: grid_1.SortDirection.Ascending,
-                            property: ''
+                            property: ""
                         }
                     };
                 },
@@ -81,9 +81,9 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Store/ind
                                 return;
                             }
                             this.isLoading = true;
-                            this.errorMessage = '';
+                            this.errorMessage = "";
                             try {
-                                const result = yield this.invokeBlockAction('GetGroupMemberList', {
+                                const result = yield this.invokeBlockAction("GetGroupMemberList", {
                                     groupId: this.groupId,
                                     filterOptions: {
                                         take: 50,
@@ -108,7 +108,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Store/ind
                     },
                     onRowClick(rowContext) {
                         const groupMemberId = rowContext.rowId;
-                        location.href = '/GroupMember/' + groupMemberId;
+                        location.href = "/GroupMember/" + groupMemberId;
                     }
                 },
                 watch: {

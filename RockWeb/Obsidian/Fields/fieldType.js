@@ -18,7 +18,7 @@ System.register(["@Obsidian/Services/string", "vue", "./textFieldComponents"], f
             FieldTypeBase = class FieldTypeBase {
                 getTextValue(value) {
                     var _a;
-                    return (_a = value.textValue) !== null && _a !== void 0 ? _a : '';
+                    return (_a = value.textValue) !== null && _a !== void 0 ? _a : "";
                 }
                 getHtmlValue(value) {
                     return `<span>${string_1.escapeHtml(this.getTextValue(value))}</span>`;
@@ -28,7 +28,7 @@ System.register(["@Obsidian/Services/string", "vue", "./textFieldComponents"], f
                 }
                 getCondensedTextValue(value) {
                     var _a;
-                    return string_1.truncate((_a = value.textValue) !== null && _a !== void 0 ? _a : '', 10);
+                    return string_1.truncate((_a = value.textValue) !== null && _a !== void 0 ? _a : "", 10);
                 }
                 getCondensedHtmlValue(value) {
                     return `<span>${this.getHtmlValue(value)}</span>`;

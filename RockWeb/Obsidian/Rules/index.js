@@ -3,29 +3,29 @@ System.register(["@Obsidian/Services/dateKey", "@Obsidian/Services/email", "@Obs
     var dateKey_1, email_1, string_1, vee_validate_1, number_1;
     var __moduleName = context_1 && context_1.id;
     function convertToNumber(value) {
-        if (typeof value === 'number') {
+        if (typeof value === "number") {
             return value;
         }
-        if (typeof value === 'string') {
+        if (typeof value === "string") {
             return number_1.toNumberOrNull(value) || 0;
         }
         return 0;
     }
     function isNumeric(value) {
-        if (typeof value === 'number') {
+        if (typeof value === "number") {
             return true;
         }
-        if (typeof value === 'string') {
+        if (typeof value === "string") {
             return number_1.toNumberOrNull(value) !== null;
         }
         return false;
     }
     function ruleStringToArray(rulesString) {
-        return rulesString.split('|');
+        return rulesString.split("|");
     }
     exports_1("ruleStringToArray", ruleStringToArray);
     function ruleArrayToString(rulesArray) {
-        return rulesArray.join('|');
+        return rulesArray.join("|");
     }
     exports_1("ruleArrayToString", ruleArrayToString);
     return {
@@ -47,33 +47,33 @@ System.register(["@Obsidian/Services/dateKey", "@Obsidian/Services/email", "@Obs
             }
         ],
         execute: function () {
-            vee_validate_1.defineRule('required', ((value, [optionsJson]) => {
-                const options = typeof optionsJson === 'string' ? JSON.parse(optionsJson) : {};
-                if (typeof value === 'string') {
+            vee_validate_1.defineRule("required", ((value, [optionsJson]) => {
+                const options = typeof optionsJson === "string" ? JSON.parse(optionsJson) : {};
+                if (typeof value === "string") {
                     const allowEmptyString = !!(options.allowEmptyString);
                     if (!allowEmptyString && string_1.isNullOrWhiteSpace(value)) {
-                        return 'is required';
+                        return "is required";
                     }
                     return true;
                 }
-                if (typeof value === 'number' && value === 0) {
-                    return 'is required';
+                if (typeof value === "number" && value === 0) {
+                    return "is required";
                 }
                 if (!value) {
-                    return 'is required';
+                    return "is required";
                 }
                 return true;
             }));
-            vee_validate_1.defineRule('email', (value => {
+            vee_validate_1.defineRule("email", (value => {
                 if (string_1.isNullOrWhiteSpace(value)) {
                     return true;
                 }
                 if (!email_1.isEmail(value)) {
-                    return 'must be a valid email';
+                    return "must be a valid email";
                 }
                 return true;
             }));
-            vee_validate_1.defineRule('notequal', ((value, [compare]) => {
+            vee_validate_1.defineRule("notequal", ((value, [compare]) => {
                 if (isNumeric(value) && isNumeric(compare)) {
                     if (convertToNumber(value) !== convertToNumber(compare)) {
                         return true;
@@ -84,7 +84,7 @@ System.register(["@Obsidian/Services/dateKey", "@Obsidian/Services/email", "@Obs
                 }
                 return `must not equal ${compare}`;
             }));
-            vee_validate_1.defineRule('equal', ((value, [compare]) => {
+            vee_validate_1.defineRule("equal", ((value, [compare]) => {
                 if (isNumeric(value) && isNumeric(compare)) {
                     if (convertToNumber(value) === convertToNumber(compare)) {
                         return true;
@@ -95,7 +95,7 @@ System.register(["@Obsidian/Services/dateKey", "@Obsidian/Services/email", "@Obs
                 }
                 return `must equal ${compare}`;
             }));
-            vee_validate_1.defineRule('gt', ((value, [compare]) => {
+            vee_validate_1.defineRule("gt", ((value, [compare]) => {
                 if (string_1.isNullOrWhiteSpace(value)) {
                     return true;
                 }
@@ -106,7 +106,7 @@ System.register(["@Obsidian/Services/dateKey", "@Obsidian/Services/email", "@Obs
                 }
                 return `must be greater than ${compare}`;
             }));
-            vee_validate_1.defineRule('gte', ((value, [compare]) => {
+            vee_validate_1.defineRule("gte", ((value, [compare]) => {
                 if (string_1.isNullOrWhiteSpace(value)) {
                     return true;
                 }
@@ -117,7 +117,7 @@ System.register(["@Obsidian/Services/dateKey", "@Obsidian/Services/email", "@Obs
                 }
                 return `must not be less than ${compare}`;
             }));
-            vee_validate_1.defineRule('lt', ((value, [compare]) => {
+            vee_validate_1.defineRule("lt", ((value, [compare]) => {
                 if (string_1.isNullOrWhiteSpace(value)) {
                     return true;
                 }
@@ -128,7 +128,7 @@ System.register(["@Obsidian/Services/dateKey", "@Obsidian/Services/email", "@Obs
                 }
                 return `must be less than ${compare}`;
             }));
-            vee_validate_1.defineRule('lte', ((value, [compare]) => {
+            vee_validate_1.defineRule("lte", ((value, [compare]) => {
                 if (string_1.isNullOrWhiteSpace(value)) {
                     return true;
                 }
@@ -139,16 +139,16 @@ System.register(["@Obsidian/Services/dateKey", "@Obsidian/Services/email", "@Obs
                 }
                 return `must not be more than ${compare}`;
             }));
-            vee_validate_1.defineRule('datekey', (value => {
+            vee_validate_1.defineRule("datekey", (value => {
                 const asString = value;
                 if (!dateKey_1.default.getYear(asString)) {
-                    return 'must have a year';
+                    return "must have a year";
                 }
                 if (!dateKey_1.default.getMonth(asString)) {
-                    return 'must have a month';
+                    return "must have a month";
                 }
                 if (!dateKey_1.default.getDay(asString)) {
-                    return 'must have a day';
+                    return "must have a day";
                 }
                 return true;
             }));

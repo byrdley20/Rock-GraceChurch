@@ -22,21 +22,21 @@ System.register(["vue", "./fieldType"], function (exports_1, context_1) {
         ],
         execute: function () {
             editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
-                return (yield context_1.import('./ratingFieldComponents')).EditComponent;
+                return (yield context_1.import("./ratingFieldComponents")).EditComponent;
             }));
             RatingFieldType = class RatingFieldType extends fieldType_1.FieldTypeBase {
                 getHtmlValue(value) {
                     var _a, _b, _c;
                     let ratingValue;
                     try {
-                        ratingValue = JSON.parse((_a = value.value) !== null && _a !== void 0 ? _a : '');
+                        ratingValue = JSON.parse((_a = value.value) !== null && _a !== void 0 ? _a : "");
                     }
                     catch (_d) {
                         ratingValue = null;
                     }
                     const rating = (_b = ratingValue === null || ratingValue === void 0 ? void 0 : ratingValue.value) !== null && _b !== void 0 ? _b : 0;
                     const maxRating = (_c = ratingValue === null || ratingValue === void 0 ? void 0 : ratingValue.maxValue) !== null && _c !== void 0 ? _c : 5;
-                    let html = '';
+                    let html = "";
                     for (let i = 0; i < rating && i < maxRating; i++) {
                         html += `<i class="fa fa-rating-selected"></i>`;
                     }
@@ -48,11 +48,11 @@ System.register(["vue", "./fieldType"], function (exports_1, context_1) {
                 updateTextValue(value) {
                     var _a, _b, _c;
                     try {
-                        const ratingValue = JSON.parse((_a = value.value) !== null && _a !== void 0 ? _a : '');
-                        value.textValue = (_c = (_b = ratingValue === null || ratingValue === void 0 ? void 0 : ratingValue.value) === null || _b === void 0 ? void 0 : _b.toString()) !== null && _c !== void 0 ? _c : '';
+                        const ratingValue = JSON.parse((_a = value.value) !== null && _a !== void 0 ? _a : "");
+                        value.textValue = (_c = (_b = ratingValue === null || ratingValue === void 0 ? void 0 : ratingValue.value) === null || _b === void 0 ? void 0 : _b.toString()) !== null && _c !== void 0 ? _c : "";
                     }
                     catch (_d) {
-                        value.textValue = '';
+                        value.textValue = "";
                     }
                 }
                 getEditComponent(_value) {

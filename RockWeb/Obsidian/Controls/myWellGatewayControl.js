@@ -25,7 +25,7 @@ System.register(["vue", "../Elements/loadingIndicator", "./gatewayControl"], fun
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'MyWellGatewayControl',
+                name: "MyWellGatewayControl",
                 components: {
                     LoadingIndicator: loadingIndicator_1.default
                 },
@@ -48,12 +48,12 @@ System.register(["vue", "../Elements/loadingIndicator", "./gatewayControl"], fun
                 methods: {
                     mountControl() {
                         return __awaiter(this, void 0, void 0, function* () {
-                            const globalVarName = 'Tokenizer';
+                            const globalVarName = "Tokenizer";
                             if (!window[globalVarName]) {
-                                const script = document.createElement('script');
-                                script.type = 'text/javascript';
-                                script.src = 'https://sandbox.gotnpgateway.com/tokenizer/tokenizer.js';
-                                document.getElementsByTagName('head')[0].appendChild(script);
+                                const script = document.createElement("script");
+                                script.type = "text/javascript";
+                                script.src = "https://sandbox.gotnpgateway.com/tokenizer/tokenizer.js";
+                                document.getElementsByTagName("head")[0].appendChild(script);
                                 const sleep = () => new Promise((resolve) => setTimeout(resolve, 20));
                                 while (!window[globalVarName]) {
                                     yield sleep();
@@ -67,106 +67,108 @@ System.register(["vue", "../Elements/loadingIndicator", "./gatewayControl"], fun
                     handleResponse(response) {
                         var _a;
                         this.loading = false;
-                        if (!(response === null || response === void 0 ? void 0 : response.status) || response.status === 'error') {
+                        if (!(response === null || response === void 0 ? void 0 : response.status) || response.status === "error") {
                             const errorResponse = response || null;
-                            this.$emit('error', (errorResponse === null || errorResponse === void 0 ? void 0 : errorResponse.message) || 'There was an unexpected problem communicating with the gateway.');
-                            console.error('MyWell response was errored:', JSON.stringify(response));
+                            this.$emit("error", (errorResponse === null || errorResponse === void 0 ? void 0 : errorResponse.message) || "There was an unexpected problem communicating with the gateway.");
+                            console.error("MyWell response was errored:", JSON.stringify(response));
                             return;
                         }
-                        if (response.status === 'validation') {
+                        if (response.status === "validation") {
                             const validationResponse = response || null;
                             if (!((_a = validationResponse === null || validationResponse === void 0 ? void 0 : validationResponse.invalid) === null || _a === void 0 ? void 0 : _a.length)) {
-                                this.$emit('error', 'There was a validation issue, but the invalid field was not specified.');
-                                console.error('MyWell response was errored:', JSON.stringify(response));
+                                this.$emit("error", "There was a validation issue, but the invalid field was not specified.");
+                                console.error("MyWell response was errored:", JSON.stringify(response));
                                 return;
                             }
                             const validationFields = [];
                             for (const myWellField of validationResponse.invalid) {
                                 switch (myWellField) {
-                                    case 'cc':
+                                    case "cc":
                                         validationFields.push(gatewayControl_1.ValidationField.CardNumber);
                                         break;
-                                    case 'exp':
+                                    case "exp":
                                         validationFields.push(gatewayControl_1.ValidationField.Expiry);
                                         break;
                                     default:
-                                        console.error('Unknown MyWell validation field', myWellField);
+                                        console.error("Unknown MyWell validation field", myWellField);
                                         break;
                                 }
                             }
                             if (!validationFields.length) {
-                                this.$emit('error', 'There was a validation issue, but the invalid field could not be inferred.');
-                                console.error('MyWell response contained unexpected values:', JSON.stringify(response));
+                                this.$emit("error", "There was a validation issue, but the invalid field could not be inferred.");
+                                console.error("MyWell response contained unexpected values:", JSON.stringify(response));
                                 return;
                             }
-                            this.$emit('validationRaw', validationFields);
+                            this.$emit("validationRaw", validationFields);
                             return;
                         }
-                        if (response.status === 'success') {
+                        if (response.status === "success") {
                             const successResponse = response || null;
                             if (!(successResponse === null || successResponse === void 0 ? void 0 : successResponse.token)) {
-                                this.$emit('error', 'There was an unexpected problem communicating with the gateway.');
-                                console.error('MyWell response does not have the expected token:', JSON.stringify(response));
+                                this.$emit("error", "There was an unexpected problem communicating with the gateway.");
+                                console.error("MyWell response does not have the expected token:", JSON.stringify(response));
                                 return;
                             }
-                            this.$emit('successRaw', successResponse.token);
+                            this.$emit("successRaw", successResponse.token);
                             return;
                         }
-                        this.$emit('error', 'There was an unexpected problem communicating with the gateway.');
-                        console.error('MyWell response has invalid status:', JSON.stringify(response));
+                        this.$emit("error", "There was an unexpected problem communicating with the gateway.");
+                        console.error("MyWell response has invalid status:", JSON.stringify(response));
                     },
                     getTokenizerSettings() {
                         return {
-                            onLoad: () => { this.loading = false; },
+                            onLoad: () => {
+                                this.loading = false;
+                            },
                             apikey: this.publicApiKey,
                             url: this.gatewayUrl,
-                            container: this.$refs['container'],
+                            container: this.$refs["container"],
                             submission: (resp) => {
                                 this.handleResponse(resp);
                             },
                             settings: {
                                 payment: {
-                                    types: ['card'],
+                                    types: ["card"],
                                     ach: {
-                                        'sec_code': 'web'
+                                        "sec_code": "web"
                                     }
                                 },
                                 styles: {
                                     body: {
-                                        color: 'rgb(51, 51, 51)'
+                                        color: "rgb(51, 51, 51)"
                                     },
-                                    '#app': {
-                                        padding: '5px 15px'
+                                    "#app": {
+                                        padding: "5px 15px"
                                     },
-                                    'input,select': {
-                                        'color': 'rgb(85, 85, 85)',
-                                        'border-radius': '4px',
-                                        'background-color': 'rgb(255, 255, 255)',
-                                        'border': '1px solid rgb(204, 204, 204)',
-                                        'box-shadow': 'rgba(0, 0, 0, 0.075) 0px 1px 1px 0px inset',
-                                        'padding': '6px 12px',
-                                        'font-size': '14px',
-                                        'height': '34px',
-                                        'font-family': 'OpenSans, \'Helvetica Neue\', Helvetica, Arial, sans-serif'
+                                    "input,select": {
+                                        "color": "rgb(85, 85, 85)",
+                                        "border-radius": "4px",
+                                        "background-color": "rgb(255, 255, 255)",
+                                        "border": "1px solid rgb(204, 204, 204)",
+                                        "box-shadow": "rgba(0, 0, 0, 0.075) 0px 1px 1px 0px inset",
+                                        "padding": "6px 12px",
+                                        "font-size": "14px",
+                                        "height": "34px",
+                                        "font-family": "OpenSans, 'Helvetica Neue', Helvetica, Arial, sans-serif"
                                     },
-                                    'input:focus,select:focus': {
-                                        'border': '1px solid #66afe9',
-                                        'box-shadow': '0 0 0 3px rgba(102,175,233,0.6)'
+                                    "input:focus,select:focus": {
+                                        "border": "1px solid #66afe9",
+                                        "box-shadow": "0 0 0 3px rgba(102,175,233,0.6)"
                                     },
-                                    'select': {
-                                        'padding': '6px 4px'
+                                    "select": {
+                                        "padding": "6px 4px"
                                     },
-                                    '.fieldsetrow': {
-                                        'margin-left': '-2.5px',
-                                        'margin-right': '-2.5px'
+                                    ".fieldsetrow": {
+                                        "margin-left": "-2.5px",
+                                        "margin-right": "-2.5px"
                                     },
-                                    '.card > .fieldset': {
-                                        'padding': '0 !important',
-                                        'margin': '0 2.5px 5px !important'
+                                    ".card > .fieldset": {
+                                        "padding": "0 !important",
+                                        "margin": "0 2.5px 5px !important"
                                     },
-                                    'input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button': {
-                                        '-webkit-appearance': 'none',
-                                        'margin': '0'
+                                    "input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button": {
+                                        "-webkit-appearance": "none",
+                                        "margin": "0"
                                     }
                                 }
                             }

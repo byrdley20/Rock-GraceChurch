@@ -13,7 +13,7 @@ System.register(["vue", "./datePartsPicker"], function (exports_1, context_1) {
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'BirthdayPicker',
+                name: "BirthdayPicker",
                 components: {
                     DatePartsPicker: datePartsPicker_1.default
                 },

@@ -15,26 +15,25 @@
 // </copyright>
 //
 
-import { defineComponent, inject } from 'vue';
-import Alert from '../../../Elements/alert';
-import NumberUpDown from '../../../Elements/numberUpDown';
-import RockButton from '../../../Elements/rockButton';
-import { toTitleCase, pluralConditional } from '@Obsidian/Services/string';
-import { areEqual } from '../../../Util/guid';
-import { Person } from '@Obsidian/ViewModels';
-import { getDefaultRegistrantInfo, getForcedFamilyGuid, RegistrationEntryState } from '../registrationEntry';
-import { RegistrationEntryBlockViewModel } from './registrationEntryBlockViewModel';
+import { defineComponent, inject } from "vue";
+import Alert from "../../../Elements/alert";
+import NumberUpDown from "../../../Elements/numberUpDown";
+import RockButton from "../../../Elements/rockButton";
+import { toTitleCase, pluralConditional } from "@Obsidian/Services/string";
+import { areEqual } from "../../../Util/guid";
+import { Person } from "@Obsidian/ViewModels";
+import { getDefaultRegistrantInfo, getForcedFamilyGuid, RegistrationEntryState } from "../registrationEntry";
+import { RegistrationEntryBlockViewModel } from "./registrationEntryBlockViewModel";
 
 export default defineComponent( {
-    name: 'Event.RegistrationEntry.Intro',
+    name: "Event.RegistrationEntry.Intro",
     components: {
         NumberUpDown,
         RockButton,
         Alert
     },
-    data ()
-    {
-        const registrationEntryState = inject( 'registrationEntryState' ) as RegistrationEntryState;
+    data () {
+        const registrationEntryState = inject( "registrationEntryState" ) as RegistrationEntryState;
 
         return {
             /** The number of registrants that this registrar is going to input */
@@ -49,28 +48,23 @@ export default defineComponent( {
     },
     computed: {
         /** The currently authenticated person */
-        currentPerson (): Person | null
-        {
+        currentPerson (): Person | null {
             return this.$store.state.currentPerson;
         },
 
         /** The view model sent by the C# code behind. This is just a convenient shortcut to the shared object. */
-        viewModel (): RegistrationEntryBlockViewModel
-        {
+        viewModel (): RegistrationEntryBlockViewModel {
             return this.registrationEntryState.viewModel;
         },
 
         /** The number of these registrants that will be placed on a waitlist because of capacity rules */
-        numberToAddToWaitlist (): number
-        {
-            if ( this.viewModel.spotsRemaining === null || !this.viewModel.waitListEnabled )
-            {
+        numberToAddToWaitlist (): number {
+            if ( this.viewModel.spotsRemaining === null || !this.viewModel.waitListEnabled ) {
                 // There is no waitlist or no cap on number of attendees
                 return 0;
             }
 
-            if ( this.viewModel.spotsRemaining >= this.numberOfRegistrants )
-            {
+            if ( this.viewModel.spotsRemaining >= this.numberOfRegistrants ) {
                 // There is enough capacity left for all of these registrants
                 return 0;
             }
@@ -80,48 +74,39 @@ export default defineComponent( {
         },
 
         /** The capacity left phrase: Ex: 1 more camper */
-        remainingCapacityPhrase (): string
-        {
+        remainingCapacityPhrase (): string {
             const spots = this.viewModel.spotsRemaining;
 
-            if ( spots === null )
-            {
-                return '';
+            if ( spots === null ) {
+                return "";
             }
 
             return pluralConditional( spots, `1 more ${this.registrantTerm}`, `${spots} more ${this.registrantTermPlural}` );
         },
 
         /** Is this instance full and no one else can register? */
-        isFull (): boolean
-        {
-            if ( this.viewModel.spotsRemaining === null )
-            {
+        isFull (): boolean {
+            if ( this.viewModel.spotsRemaining === null ) {
                 return false;
             }
 
             return this.viewModel.spotsRemaining < 1;
         },
 
-        registrantTerm (): string
-        {
+        registrantTerm (): string {
             this.viewModel.instanceName;
-            return ( this.viewModel.registrantTerm || 'registrant' ).toLowerCase();
+            return ( this.viewModel.registrantTerm || "registrant" ).toLowerCase();
         },
-        registrantTermPlural (): string
-        {
-            return ( this.viewModel.pluralRegistrantTerm || 'registrants' ).toLowerCase();
+        registrantTermPlural (): string {
+            return ( this.viewModel.pluralRegistrantTerm || "registrants" ).toLowerCase();
         },
-        registrationTerm (): string
-        {
-            return ( this.viewModel.registrationTerm || 'registration' ).toLowerCase();
+        registrationTerm (): string {
+            return ( this.viewModel.registrationTerm || "registration" ).toLowerCase();
         },
-        registrationTermPlural (): string
-        {
-            return ( this.viewModel.pluralRegistrationTerm || 'registrations' ).toLowerCase();
+        registrationTermPlural (): string {
+            return ( this.viewModel.pluralRegistrationTerm || "registrations" ).toLowerCase();
         },
-        registrationTermTitleCase (): string
-        {
+        registrationTermTitleCase (): string {
             return toTitleCase( this.registrationTerm );
         }
     },
@@ -162,7 +147,7 @@ export default defineComponent( {
                 registrant.personGuid = familyMember.guid;
             }
 
-            this.$emit('next');
+            this.$emit("next");
         },
     },
     watch: {

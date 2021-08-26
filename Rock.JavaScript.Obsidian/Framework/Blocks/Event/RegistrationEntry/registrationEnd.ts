@@ -15,40 +15,36 @@
 // </copyright>
 //
 
-import { defineComponent, inject } from 'vue';
-import AttributeValuesContainer from '../../../Controls/attributeValuesContainer';
-import RockForm from '../../../Controls/rockForm';
-import RockButton from '../../../Elements/rockButton';
-import { ClientEditableAttributeValue } from '@Obsidian/ViewModels';
-import { RegistrationEntryState } from '../registrationEntry';
+import { defineComponent, inject } from "vue";
+import AttributeValuesContainer from "../../../Controls/attributeValuesContainer";
+import RockForm from "../../../Controls/rockForm";
+import RockButton from "../../../Elements/rockButton";
+import { ClientEditableAttributeValue } from "@Obsidian/ViewModels";
+import { RegistrationEntryState } from "../registrationEntry";
 
 export default defineComponent( {
-    name: 'Event.RegistrationEntry.RegistrationEnd',
+    name: "Event.RegistrationEntry.RegistrationEnd",
     components: {
         RockButton,
         AttributeValuesContainer,
         RockForm
     },
-    setup()
-    {
+    setup() {
         return {
-            registrationEntryState: inject( 'registrationEntryState' ) as RegistrationEntryState
+            registrationEntryState: inject( "registrationEntryState" ) as RegistrationEntryState
         };
     },
-    data()
-    {
+    data() {
         return {
             attributeValues: [] as ClientEditableAttributeValue[]
         };
     },
     methods: {
-        onPrevious()
-        {
-            this.$emit( 'previous' );
+        onPrevious() {
+            this.$emit( "previous" );
         },
-        onNext()
-        {
-            this.$emit( 'next' );
+        onNext() {
+            this.$emit( "next" );
         }
     },
     watch: {
@@ -56,7 +52,7 @@ export default defineComponent( {
             immediate: true,
             handler() {
                 this.attributeValues = this.registrationEntryState.viewModel.registrationAttributesEnd.map(a => {
-                    const currentValue = this.registrationEntryState.registrationFieldValues[a.attributeGuid] || '';
+                    const currentValue = this.registrationEntryState.registrationFieldValues[a.attributeGuid] || "";
 
                     return {
                         ...a,

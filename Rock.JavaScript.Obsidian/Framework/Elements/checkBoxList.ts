@@ -14,13 +14,13 @@
 // limitations under the License.
 // </copyright>
 //
-import { computed, defineComponent, PropType, ref, watch, watchEffect } from 'vue';
-import RockFormField from './rockFormField';
-import { ListItem } from '@Obsidian/ViewModels';
-import { Guid } from '../Util/guid';
+import { computed, defineComponent, PropType, ref, watch, watchEffect } from "vue";
+import RockFormField from "./rockFormField";
+import { ListItem } from "@Obsidian/ViewModels";
+import { Guid } from "../Util/guid";
 
 export default defineComponent({
-    name: 'CheckBoxList',
+    name: "CheckBoxList",
 
     components: {
         RockFormField
@@ -52,28 +52,28 @@ export default defineComponent({
         const internalValue = ref([...props.modelValue]);
 
         watch(() => props.modelValue, () => internalValue.value = props.modelValue);
-        watchEffect(() => emit('update:modelValue', internalValue.value));
+        watchEffect(() => emit("update:modelValue", internalValue.value));
 
         const valueForOption = (option: ListItem): string => option.value;
         const textForOption = (option: ListItem): string => option.text;
 
-        const uniqueIdForOption = (uniqueId: Guid, option: ListItem): string => `${uniqueId}-${option.value.replace(' ', '-')}`;
+        const uniqueIdForOption = (uniqueId: Guid, option: ListItem): string => `${uniqueId}-${option.value.replace(" ", "-")}`;
 
         const containerClasses = computed(() => {
             const classes: string[] = [];
 
             if (props.horizontal) {
-                classes.push('rockcheckboxlist-horizontal');
+                classes.push("rockcheckboxlist-horizontal");
 
                 if (props.repeatColumns > 0) {
                     classes.push(`in-columns in-columns-${props.repeatColumns}`);
                 }
             }
             else {
-                classes.push('rockcheckboxlist-vertical');
+                classes.push("rockcheckboxlist-vertical");
             }
 
-            return classes.join(' ');
+            return classes.join(" ");
         });
 
         return {

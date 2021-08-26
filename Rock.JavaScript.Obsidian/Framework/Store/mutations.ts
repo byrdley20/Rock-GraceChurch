@@ -15,9 +15,9 @@
 // </copyright>
 //
 
-import { MutationTree } from 'vuex';
-import { PageConfig } from '../index';
-import { State } from './state';
+import { MutationTree } from "vuex";
+import { PageConfig } from "../index";
+import { State } from "./state";
 
 export type PageDebugTiming = {
     title: string;
@@ -30,11 +30,11 @@ export type PageDebugTiming = {
  * The types of mutations that can be performed in the commit functions.
  */
 export const enum MutationType {
-    SetAreSecondaryBlocksShown = 'setAreSecondaryBlocksShown',
+    SetAreSecondaryBlocksShown = "setAreSecondaryBlocksShown",
 
-    SetPageInitializationData = 'setPageInitializationData',
+    SetPageInitializationData = "setPageInitializationData",
 
-    AddPageDebugTiming = 'addPageDebugTiming'
+    AddPageDebugTiming = "addPageDebugTiming"
 }
 
 /**
@@ -46,7 +46,7 @@ export type Mutations = {
     [MutationType.SetPageInitializationData](state: State, value: { pageConfig: PageConfig }): void;
 
     [MutationType.AddPageDebugTiming](state: State, value: PageDebugTiming): void;
-}
+};
 
 /**
  * The implementation of the various mutations that can be performed.
@@ -61,7 +61,7 @@ export const mutations: MutationTree<State> & Mutations = {
         state.pageParameters = value.pageConfig.pageParameters || {};
         state.contextEntities = value.pageConfig.contextEntities || {};
         state.pageId = value.pageConfig.pageId || 0;
-        state.pageGuid = value.pageConfig.pageGuid || '';
+        state.pageGuid = value.pageConfig.pageGuid || "";
         state.executionStartTime = value.pageConfig.executionStartTime;
         state.loginUrlWithReturnUrl = value.pageConfig.loginUrlWithReturnUrl;
     },

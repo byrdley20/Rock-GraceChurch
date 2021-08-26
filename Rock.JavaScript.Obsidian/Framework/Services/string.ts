@@ -18,10 +18,8 @@
  * Is the value an empty string?
  * @param val
  */
-export function isEmpty( val: unknown )
-{
-    if ( typeof val === 'string' )
-    {
+export function isEmpty( val: unknown ) {
+    if ( typeof val === "string" ) {
         return val.length === 0;
     }
 
@@ -32,10 +30,8 @@ export function isEmpty( val: unknown )
  * Is the value an empty string?
  * @param val
  */
-export function isWhiteSpace( val: unknown )
-{
-    if ( typeof val === 'string' )
-    {
+export function isWhiteSpace( val: unknown ) {
+    if ( typeof val === "string" ) {
         return val.trim().length === 0;
     }
 
@@ -46,8 +42,7 @@ export function isWhiteSpace( val: unknown )
  * Is the value null, undefined or whitespace?
  * @param val
  */
-export function isNullOrWhiteSpace( val: unknown )
-{
+export function isNullOrWhiteSpace( val: unknown ) {
     return isWhiteSpace( val ) || val === undefined || val === null;
 }
 
@@ -55,11 +50,9 @@ export function isNullOrWhiteSpace( val: unknown )
  * Turns "MyCamelCaseString" into "My Camel Case String"
  * @param val
  */
-export function splitCamelCase( val: unknown )
-{
-    if ( typeof val === 'string' )
-    {
-        return val.replace( /([a-z])([A-Z])/g, '$1 $2' );
+export function splitCamelCase( val: unknown ) {
+    if ( typeof val === "string" ) {
+        return val.replace( /([a-z])([A-Z])/g, "$1 $2" );
     }
 
     return val;
@@ -70,25 +63,21 @@ export function splitCamelCase( val: unknown )
  * Ex: ['a', 'b', 'c'] => 'a, b, and c'
  * @param strs
  */
-export function asCommaAnd( strs: string[] )
-{
-    if ( strs.length === 0 )
-    {
-        return '';
+export function asCommaAnd( strs: string[] ) {
+    if ( strs.length === 0 ) {
+        return "";
     }
 
-    if ( strs.length === 1 )
-    {
+    if ( strs.length === 1 ) {
         return strs[ 0 ];
     }
 
-    if ( strs.length === 2 )
-    {
+    if ( strs.length === 2 ) {
         return `${strs[ 0 ]} and ${strs[ 1 ]}`;
     }
 
     const last = strs.pop();
-    return `${strs.join( ', ' )}, and ${last}`;
+    return `${strs.join( ", " )}, and ${last}`;
 }
 
 /**
@@ -96,15 +85,12 @@ export function asCommaAnd( strs: string[] )
  * hellO worlD => Hello World
  * @param str
  */
-export function toTitleCase( str: string | null )
-{
-    if ( !str )
-    {
-        return '';
+export function toTitleCase( str: string | null ) {
+    if ( !str ) {
+        return "";
     }
 
-    return str.replace( /\w\S*/g, ( word ) =>
-    {
+    return str.replace( /\w\S*/g, ( word ) => {
         return word.charAt( 0 ).toUpperCase() + word.substr( 1 ).toLowerCase();
     } );
 }
@@ -118,8 +104,7 @@ export function toTitleCase( str: string | null )
  * @param singular
  * @param plural
  */
-export function pluralConditional( num: number, singular: string, plural: string )
-{
+export function pluralConditional( num: number, singular: string, plural: string ) {
     return num === 1 ? singular : plural;
 }
 
@@ -129,17 +114,14 @@ export function pluralConditional( num: number, singular: string, plural: string
  * 3214567890 => (321) 456-7890
  * @param str
  */
-export function formatPhoneNumber ( str: string )
-{
+export function formatPhoneNumber ( str: string ) {
     str = stripPhoneNumber( str );
 
-    if ( str.length === 7 )
-    {
+    if ( str.length === 7 ) {
         return `${str.substring( 0, 3 )}-${str.substring( 3, 7 )}`;
     }
 
-    if ( str.length === 10 )
-    {
+    if ( str.length === 10 ) {
         return `(${str.substring( 0, 3 )}) ${str.substring( 3, 6 )}-${str.substring( 6, 10 )}`;
     }
 
@@ -151,14 +133,12 @@ export function formatPhoneNumber ( str: string )
  * (321) 456-7890 => 3214567890
  * @param str
  */
-export function stripPhoneNumber ( str: string )
-{
-    if ( !str )
-    {
-        return '';
+export function stripPhoneNumber ( str: string ) {
+    if ( !str ) {
+        return "";
     }
 
-    return str.replace( /\D/g, '' );
+    return str.replace( /\D/g, "" );
 }
 
 /**
@@ -234,7 +214,7 @@ export function truncate(str: string, limit: number, options?: TruncateOptions):
     }
 
     // All the whitespace characters that we can split on.
-    const trimmable = '\u0009\u000A\u000B\u000C\u000D\u0020\u00A0\u1680\u180E\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u2028\u2029\u3000\uFEFF';
+    const trimmable = "\u0009\u000A\u000B\u000C\u000D\u0020\u00A0\u1680\u180E\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u2028\u2029\u3000\uFEFF";
     const reg = new RegExp(`(?=[${trimmable}])`);
     const words = str.split(reg);
     let count = 0;
@@ -250,7 +230,7 @@ export function truncate(str: string, limit: number, options?: TruncateOptions):
         return count <= limit;
     });
 
-    return `${visibleWords.join('')}...`;
+    return `${visibleWords.join("")}...`;
 }
 
 /** The regular expression that contains the characters to be escaped. */
@@ -258,11 +238,11 @@ const escapeHtmlRegExp = /["'&<>]/g;
 
 /** The character map of the characters to be replaced and the strings to replace them with. */
 const escapeHtmlMap: Record<string, string> = {
-    '"': '&quot;',
-    '&': '&amp;',
-    '\'': '&#39;',
-    '<': '&lt;',
-    '>': '&gt;'
+    '"': "&quot;",
+    "&": "&amp;",
+    "'": "&#39;",
+    "<": "&lt;",
+    ">": "&gt;"
 };
 
 /**

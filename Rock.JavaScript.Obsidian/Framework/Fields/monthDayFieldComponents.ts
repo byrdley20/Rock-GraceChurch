@@ -14,13 +14,13 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { getFieldEditorProps } from './index';
-import { toNumber } from '@Obsidian/Services/number';
-import DatePartsPicker, { DatePartsPickerModel } from '../Elements/datePartsPicker';
+import { defineComponent } from "vue";
+import { getFieldEditorProps } from "./index";
+import { toNumber } from "@Obsidian/Services/number";
+import DatePartsPicker, { DatePartsPickerModel } from "../Elements/datePartsPicker";
 
 export const EditComponent = defineComponent({
-    name: 'MonthDayField.Edit',
+    name: "MonthDayField.Edit",
 
     components: {
         DatePartsPicker
@@ -49,7 +49,7 @@ export const EditComponent = defineComponent({
                 ? `${this.internalValue.month}/${this.internalValue.day}`
                 : "";
 
-            this.$emit('update:modelValue', value);
+            this.$emit("update:modelValue", value);
         },
 
         /**

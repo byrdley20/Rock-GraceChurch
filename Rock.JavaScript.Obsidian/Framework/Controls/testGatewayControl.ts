@@ -14,17 +14,17 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
-import LoadingIndicator from '../Elements/loadingIndicator';
-import TextBox from '../Elements/textBox';
-import { newGuid } from '../Util/guid';
-import { ValidationField } from './gatewayControl';
+import { defineComponent, PropType } from "vue";
+import LoadingIndicator from "../Elements/loadingIndicator";
+import TextBox from "../Elements/textBox";
+import { newGuid } from "../Util/guid";
+import { ValidationField } from "./gatewayControl";
 
 type Settings = {
 };
 
 export default defineComponent( {
-    name: 'TestGatewayControl',
+    name: "TestGatewayControl",
     components: {
         LoadingIndicator,
         TextBox
@@ -39,18 +39,15 @@ export default defineComponent( {
             required: true
         }
     },
-    data ()
-    {
+    data () {
         return {
             loading: false,
-            cardNumber: ''
+            cardNumber: ""
         };
     },
     watch: {
-        async submit ()
-        {
-            if ( !this.submit || this.loading )
-            {
+        async submit () {
+            if ( !this.submit || this.loading ) {
                 return;
             }
 
@@ -60,24 +57,22 @@ export default defineComponent( {
             await new Promise( resolve => setTimeout( resolve, 500 ) );
 
             // Throw an error for a '0000'
-            if ( this.cardNumber === '0000' )
-            {
-                this.$emit( 'error', 'This is a serious problem with the gateway.' );
+            if ( this.cardNumber === "0000" ) {
+                this.$emit( "error", "This is a serious problem with the gateway." );
                 this.loading = false;
                 return;
             }
 
             // Validate the card number is greater than 10 digits
-            if ( this.cardNumber.length <= 10 )
-            {
+            if ( this.cardNumber.length <= 10 ) {
                 const validationFields: ValidationField[] = [ ValidationField.CardNumber ];
-                this.$emit( 'validationRaw', validationFields );
+                this.$emit( "validationRaw", validationFields );
                 this.loading = false;
                 return;
             }
 
-            const token = newGuid().replace( /-/g, '' );
-            this.$emit( 'successRaw', token );
+            const token = newGuid().replace( /-/g, "" );
+            this.$emit( "successRaw", token );
             this.loading = false;
         }
     },

@@ -1,6 +1,6 @@
-import { Entity, Group, Person } from '@Obsidian/ViewModels';
-import { GetterTree } from 'vuex';
-import { State } from './state';
+import { Entity, Group, Person } from "@Obsidian/ViewModels";
+import { GetterTree } from "vuex";
+import { State } from "./state";
 
 export type Getters = {
     isAuthenticated(state: State): boolean;
@@ -12,11 +12,11 @@ export type Getters = {
     groupContext(state: State): Group | null;
 
     pageParameter(state: State): (key: string) => unknown;
-}
+};
 
 type InternalGetters = {
     [K in keyof Getters]: ReturnType<Getters[K]>
-}
+};
 
 export const getters: GetterTree<State, State> = {
     isAuthenticated(state: State) {
@@ -28,11 +28,11 @@ export const getters: GetterTree<State, State> = {
     },
 
     personContext(state: State, getters: InternalGetters): Person | null {
-        return <Person | null><unknown>getters.contextEntity('person');
+        return <Person | null><unknown>getters.contextEntity("person");
     },
 
     groupContext(state: State, getters: InternalGetters): Group | null {
-        return <Group | null><unknown>getters.contextEntity('group');
+        return <Group | null><unknown>getters.contextEntity("group");
     },
 
     pageParameter(state: State): (key: string) => unknown {

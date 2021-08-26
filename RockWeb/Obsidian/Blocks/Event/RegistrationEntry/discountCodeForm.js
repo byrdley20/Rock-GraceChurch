@@ -31,7 +31,7 @@ System.register(["vue", "../../../Elements/alert", "../../../Elements/rockButton
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'Event.RegistrationEntry.DiscountCodeForm',
+                name: "Event.RegistrationEntry.DiscountCodeForm",
                 components: {
                     RockButton: rockButton_1.default,
                     TextBox: textBox_1.default,
@@ -39,15 +39,15 @@ System.register(["vue", "../../../Elements/alert", "../../../Elements/rockButton
                 },
                 setup() {
                     return {
-                        invokeBlockAction: vue_1.inject('invokeBlockAction'),
-                        registrationEntryState: vue_1.inject('registrationEntryState')
+                        invokeBlockAction: vue_1.inject("invokeBlockAction"),
+                        registrationEntryState: vue_1.inject("registrationEntryState")
                     };
                 },
                 data() {
                     return {
                         loading: false,
-                        discountCodeInput: '',
-                        discountCodeWarningMessage: ''
+                        discountCodeInput: "",
+                        discountCodeWarningMessage: ""
                     };
                 },
                 computed: {
@@ -55,7 +55,7 @@ System.register(["vue", "../../../Elements/alert", "../../../Elements/rockButton
                         const discountAmount = this.registrationEntryState.discountAmount;
                         const discountPercent = this.registrationEntryState.discountPercentage;
                         if (!discountPercent && !discountAmount) {
-                            return '';
+                            return "";
                         }
                         const discountText = discountPercent ?
                             `${number_1.asFormattedString(discountPercent * 100, 0)}%` :
@@ -74,14 +74,14 @@ System.register(["vue", "../../../Elements/alert", "../../../Elements/rockButton
                         return __awaiter(this, void 0, void 0, function* () {
                             this.loading = true;
                             try {
-                                const result = yield this.invokeBlockAction('CheckDiscountCode', {
+                                const result = yield this.invokeBlockAction("CheckDiscountCode", {
                                     code: this.discountCodeInput
                                 });
                                 if (result.isError || !result.data) {
                                     this.discountCodeWarningMessage = `'${this.discountCodeInput}' is not a valid Discount Code.`;
                                 }
                                 else {
-                                    this.discountCodeWarningMessage = '';
+                                    this.discountCodeWarningMessage = "";
                                     this.registrationEntryState.discountAmount = result.data.discountAmount;
                                     this.registrationEntryState.discountPercentage = result.data.discountPercentage;
                                     this.registrationEntryState.discountCode = result.data.discountCode;
@@ -94,7 +94,7 @@ System.register(["vue", "../../../Elements/alert", "../../../Elements/rockButton
                     }
                 },
                 watch: {
-                    'registrationEntryState.DiscountCode': {
+                    "registrationEntryState.DiscountCode": {
                         immediate: true,
                         handler() {
                             this.discountCodeInput = this.registrationEntryState.discountCode;

@@ -13,7 +13,7 @@ System.register(["vue", "./rockFormField"], function (exports_1, context_1) {
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'Rating',
+                name: "Rating",
                 components: {
                     RockFormField: rockFormField_1.default
                 },
@@ -60,7 +60,7 @@ System.register(["vue", "./rockFormField"], function (exports_1, context_1) {
                         this.internalValue = this.modelValue;
                     },
                     internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
+                        this.$emit("update:modelValue", this.internalValue);
                     },
                 },
                 template: `

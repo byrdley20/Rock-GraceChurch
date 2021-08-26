@@ -16,7 +16,7 @@ System.register(["vue", "vee-validate", "./rockValidation"], function (exports_1
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'RockForm',
+                name: "RockForm",
                 components: {
                     Form: vee_validate_1.Form,
                     RockValidation: rockValidation_1.default
@@ -25,7 +25,7 @@ System.register(["vue", "vee-validate", "./rockValidation"], function (exports_1
                     const formState = {
                         submitCount: 0
                     };
-                    vue_1.provide('formState', formState);
+                    vue_1.provide("formState", formState);
                     return {
                         formState
                     };
@@ -41,7 +41,7 @@ System.register(["vue", "vee-validate", "./rockValidation"], function (exports_1
                         return handleSubmit($event, this.emitSubmit);
                     },
                     emitSubmit(payload) {
-                        this.$emit('submit', payload);
+                        this.$emit("submit", payload);
                     }
                 },
                 template: `

@@ -14,16 +14,16 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, provide } from 'vue';
-import { Form } from 'vee-validate';
-import RockValidation from './rockValidation';
+import { defineComponent, provide } from "vue";
+import { Form } from "vee-validate";
+import RockValidation from "./rockValidation";
 
 export type FormState = {
     submitCount: number;
 };
 
 export default defineComponent({
-    name: 'RockForm',
+    name: "RockForm",
     components: {
         Form,
         RockValidation
@@ -33,7 +33,7 @@ export default defineComponent({
             submitCount: 0
         } as FormState;
 
-        provide('formState', formState);
+        provide("formState", formState);
 
         return {
             formState
@@ -51,7 +51,7 @@ export default defineComponent({
         },
 
         emitSubmit(payload: any) {
-            this.$emit('submit', payload);
+            this.$emit("submit", payload);
         }
     },
     template: `

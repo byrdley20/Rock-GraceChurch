@@ -28,23 +28,23 @@ System.register(["vue", "./fieldType", "@Obsidian/Services/number", "@Obsidian/S
         ],
         execute: function () {
             editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
-                return (yield context_1.import('./timeFieldComponents')).EditComponent;
+                return (yield context_1.import("./timeFieldComponents")).EditComponent;
             }));
             TimeFieldType = class TimeFieldType extends fieldType_1.FieldTypeBase {
                 updateTextValue(value) {
                     var _a;
-                    const values = /^(\d+):(\d+)/.exec((_a = value.value) !== null && _a !== void 0 ? _a : '');
+                    const values = /^(\d+):(\d+)/.exec((_a = value.value) !== null && _a !== void 0 ? _a : "");
                     if (values === null || values.length < 3) {
-                        value.textValue = '';
+                        value.textValue = "";
                         return;
                     }
                     let hour = number_1.toNumber(values[1]);
                     const minute = number_1.toNumber(values[2]);
-                    const meridiem = hour >= 12 ? 'PM' : 'AM';
+                    const meridiem = hour >= 12 ? "PM" : "AM";
                     if (hour > 12) {
                         hour -= 12;
                     }
-                    value.textValue = `${hour}:${string_1.padLeft(minute.toString(), 2, '0')} ${meridiem}`;
+                    value.textValue = `${hour}:${string_1.padLeft(minute.toString(), 2, "0")} ${meridiem}`;
                 }
                 getEditComponent(_value) {
                     return editComponent;

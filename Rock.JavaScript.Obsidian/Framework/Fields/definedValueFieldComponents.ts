@@ -14,22 +14,22 @@
 // limitations under the License.
 // </copyright>
 //
-import { computed, defineComponent, inject, ref, watch } from 'vue';
-import { getFieldEditorProps } from './index';
-import CheckBoxList from '../Elements/checkBoxList';
-import DropDownList, { DropDownListOption } from '../Elements/dropDownList';
-import { asBoolean } from '@Obsidian/Services/boolean';
-import { ClientValue, ConfigurationValueKey, ValueItem } from './definedValueField';
-import { ListItem } from '@Obsidian/ViewModels';
+import { computed, defineComponent, inject, ref, watch } from "vue";
+import { getFieldEditorProps } from "./index";
+import CheckBoxList from "../Elements/checkBoxList";
+import DropDownList, { DropDownListOption } from "../Elements/dropDownList";
+import { asBoolean } from "@Obsidian/Services/boolean";
+import { ClientValue, ConfigurationValueKey, ValueItem } from "./definedValueField";
+import { ListItem } from "@Obsidian/ViewModels";
 
 function parseModelValue(modelValue: string | undefined): string {
     try {
-        const clientValue = JSON.parse(modelValue ?? '') as ClientValue;
+        const clientValue = JSON.parse(modelValue ?? "") as ClientValue;
 
         return clientValue.value;
     }
     catch {
-        return '';
+        return "";
     }
 }
 
@@ -39,22 +39,22 @@ function getClientValue(value: string | string[], valueOptions: ValueItem[]): Cl
 
     if (selectedValues.length >= 1) {
         return {
-            value: selectedValues.map(v => v.value).join(','),
-            text: selectedValues.map(v => v.text).join(', '),
-            description: selectedValues.map(v => v.description).join(', ')
+            value: selectedValues.map(v => v.value).join(","),
+            text: selectedValues.map(v => v.text).join(", "),
+            description: selectedValues.map(v => v.description).join(", ")
         };
     }
     else {
         return {
-            value: '',
-            text: '',
-            description: ''
+            value: "",
+            text: "",
+            description: ""
         };
     }
 }
 
 export const EditComponent = defineComponent({
-    name: 'DefinedValueField.Edit',
+    name: "DefinedValueField.Edit",
 
     components: {
         DropDownList,
@@ -65,11 +65,11 @@ export const EditComponent = defineComponent({
 
     setup(props, { emit }) {
         const internalValue = ref(parseModelValue(props.modelValue));
-        const internalValues = ref(parseModelValue(props.modelValue).split(',').filter(v => v !== ''));
+        const internalValues = ref(parseModelValue(props.modelValue).split(",").filter(v => v !== ""));
 
         const valueOptions = computed((): ValueItem[] => {
             try {
-                return JSON.parse(props.configurationValues[ConfigurationValueKey.Values] ?? '[]') as ValueItem[];
+                return JSON.parse(props.configurationValues[ConfigurationValueKey.Values] ?? "[]") as ValueItem[];
             }
             catch {
                 return [];
@@ -113,14 +113,14 @@ export const EditComponent = defineComponent({
 
         watch(() => props.modelValue, () => {
             internalValue.value = parseModelValue(props.modelValue);
-            internalValues.value = parseModelValue(props.modelValue).split(',').filter(v => v !== '');
+            internalValues.value = parseModelValue(props.modelValue).split(",").filter(v => v !== "");
         });
 
         watch(() => internalValue.value, () => {
             if (!isMultiple.value) {
                 const clientValue = getClientValue(internalValue.value, valueOptions.value);
 
-                emit('update:modelValue', JSON.stringify(clientValue));
+                emit("update:modelValue", JSON.stringify(clientValue));
             }
         });
 
@@ -128,7 +128,7 @@ export const EditComponent = defineComponent({
             if (isMultiple.value) {
                 const clientValue = getClientValue(internalValues.value, valueOptions.value);
 
-                emit('update:modelValue', JSON.stringify(clientValue));
+                emit("update:modelValue", JSON.stringify(clientValue));
             }
         });
 
@@ -137,7 +137,7 @@ export const EditComponent = defineComponent({
             internalValue,
             internalValues,
             isMultiple,
-            isRequired: inject('isRequired') as boolean,
+            isRequired: inject("isRequired") as boolean,
             options,
             optionsMultiple
         };

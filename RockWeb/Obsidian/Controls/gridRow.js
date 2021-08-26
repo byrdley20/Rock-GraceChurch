@@ -10,7 +10,7 @@ System.register(["vue"], function (exports_1, context_1) {
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'GridRow',
+                name: "GridRow",
                 props: {
                     rowContext: {
                         type: Object,
@@ -25,10 +25,10 @@ System.register(["vue"], function (exports_1, context_1) {
                 methods: {
                     onRowClick() {
                         if (!this.rowContext.isHeader) {
-                            this.$emit('click:body', this.rowContext);
+                            this.$emit("click:body", this.rowContext);
                         }
                         else {
-                            this.$emit('click:header', this.rowContext);
+                            this.$emit("click:header", this.rowContext);
                         }
                     }
                 },

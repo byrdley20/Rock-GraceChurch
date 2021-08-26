@@ -16,14 +16,14 @@ System.register(["vue", "../Rules/index", "./dropDownList"], function (exports_1
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'GenderDropDownList',
+                name: "GenderDropDownList",
                 components: {
                     DropDownList: dropDownList_1.default
                 },
                 props: {
                     rules: {
                         type: String,
-                        default: ''
+                        default: ""
                     }
                 },
                 data() {
@@ -34,14 +34,14 @@ System.register(["vue", "../Rules/index", "./dropDownList"], function (exports_1
                 computed: {
                     options() {
                         return [
-                            { text: 'Male', value: 1..toString() },
-                            { text: 'Female', value: 2..toString() }
+                            { text: "Male", value: 1..toString() },
+                            { text: "Female", value: 2..toString() }
                         ];
                     },
                     computedRules() {
                         const rules = index_1.ruleStringToArray(this.rules);
                         const notEqualRule = `notequal:${0}`;
-                        if (rules.indexOf('required') !== -1 && rules.indexOf(notEqualRule) === -1) {
+                        if (rules.indexOf("required") !== -1 && rules.indexOf(notEqualRule) === -1) {
                             rules.push(notEqualRule);
                         }
                         return index_1.ruleArrayToString(rules);

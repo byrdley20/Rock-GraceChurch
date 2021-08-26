@@ -14,21 +14,21 @@
 // limitations under the License.
 // </copyright>
 //
-import { Component, defineAsyncComponent } from 'vue';
-import { FieldTypeBase } from './fieldType';
-import { ClientAttributeValue } from '@Obsidian/ViewModels';
+import { Component, defineAsyncComponent } from "vue";
+import { FieldTypeBase } from "./fieldType";
+import { ClientAttributeValue } from "@Obsidian/ViewModels";
 
 export const enum ConfigurationValueKey {
-    NumberOfRows = 'numberofrows',
-    AllowHtml = 'allowhtml',
-    MaxCharacters = 'maxcharacters',
-    ShowCountDown = 'showcountdown'
+    NumberOfRows = "numberofrows",
+    AllowHtml = "allowhtml",
+    MaxCharacters = "maxcharacters",
+    ShowCountDown = "showcountdown"
 }
 
 
 // The edit component can be quite large, so load it only as needed.
 const editComponent = defineAsyncComponent(async () => {
-    return (await import('./memoFieldComponents')).EditComponent;
+    return (await import("./memoFieldComponents")).EditComponent;
 });
 
 /**

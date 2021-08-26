@@ -14,9 +14,9 @@
 // limitations under the License.
 // </copyright>
 
-import { defineComponent, PropType } from 'vue';
-import { toNumber } from '@Obsidian/Services/number';
-import { padLeft } from '@Obsidian/Services/string';
+import { defineComponent, PropType } from "vue";
+import { toNumber } from "@Obsidian/Services/number";
+import { padLeft } from "@Obsidian/Services/string";
 
 /** The value expected by the TimePicker. */
 export interface BasicTimePickerModelValue {
@@ -28,7 +28,7 @@ export interface BasicTimePickerModelValue {
 }
 
 export default defineComponent({
-    name: 'BasicTimePicker',
+    name: "BasicTimePicker",
 
     components: {
     },
@@ -106,7 +106,7 @@ export default defineComponent({
                 value.minute = toNumber(values[2]);
             }
 
-            this.$emit('update:modelValue', value);
+            this.$emit("update:modelValue", value);
         },
 
         maybeUpdateValue(): void {

@@ -16,7 +16,7 @@ System.register(["../Rules/index", "vue", "./rockFormField"], function (exports_
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'EmailBox',
+                name: "EmailBox",
                 components: {
                     RockFormField: rockFormField_1.default
                 },
@@ -35,11 +35,11 @@ System.register(["../Rules/index", "vue", "./rockFormField"], function (exports_
                     },
                     rules: {
                         type: String,
-                        default: ''
+                        default: ""
                     }
                 },
                 emits: [
-                    'update:modelValue'
+                    "update:modelValue"
                 ],
                 data: function () {
                     return {
@@ -49,8 +49,8 @@ System.register(["../Rules/index", "vue", "./rockFormField"], function (exports_
                 computed: {
                     computedRules() {
                         const rules = index_1.ruleStringToArray(this.rules);
-                        if (rules.indexOf('email') === -1 && !this.allowLava && !this.allowMultiple) {
-                            rules.push('email');
+                        if (rules.indexOf("email") === -1 && !this.allowLava && !this.allowMultiple) {
+                            rules.push("email");
                         }
                         return index_1.ruleArrayToString(rules);
                     },
@@ -60,7 +60,7 @@ System.register(["../Rules/index", "vue", "./rockFormField"], function (exports_
                 },
                 watch: {
                     internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
+                        this.$emit("update:modelValue", this.internalValue);
                     },
                     modelValue() {
                         this.internalValue = this.modelValue;

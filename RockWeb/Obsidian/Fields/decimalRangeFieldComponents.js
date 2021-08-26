@@ -19,7 +19,7 @@ System.register(["vue", "./index", "@Obsidian/Services/number", "../Elements/num
         ],
         execute: function () {
             exports_1("EditComponent", EditComponent = vue_1.defineComponent({
-                name: 'IntegerRangeField.Edit',
+                name: "IntegerRangeField.Edit",
                 components: {
                     NumberRangeBox: numberRangeBox_1.default
                 },
@@ -33,7 +33,7 @@ System.register(["vue", "./index", "@Obsidian/Services/number", "../Elements/num
                     internalValue() {
                         var _a, _b;
                         const value = `${(_a = this.internalValue.lower) !== null && _a !== void 0 ? _a : ""},${(_b = this.internalValue.upper) !== null && _b !== void 0 ? _b : ""}`;
-                        this.$emit('update:modelValue', value !== "," ? value : "");
+                        this.$emit("update:modelValue", value !== "," ? value : "");
                     },
                     modelValue: {
                         immediate: true,

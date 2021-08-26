@@ -14,8 +14,8 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
-import JavaScriptAnchor from '../Elements/javaScriptAnchor';
+import { defineComponent, PropType } from "vue";
+import JavaScriptAnchor from "../Elements/javaScriptAnchor";
 
 export type FilterOptions = {
     take: number;
@@ -47,13 +47,12 @@ export type RowContext = {
     rowId: RowId;
 };
 
-export function getRowId ( rowData: RowData, rowIdKey: string ): RowId
-{
+export function getRowId ( rowData: RowData, rowIdKey: string ): RowId {
     return `${rowData[ rowIdKey ]}`;
 }
 
 export default defineComponent( {
-    name: 'Grid',
+    name: "Grid",
     components: {
         JavaScriptAnchor
     },
@@ -80,15 +79,14 @@ export default defineComponent( {
         },
         rowItemText: {
             type: String as PropType<string>,
-            default: 'Entity'
+            default: "Entity"
         },
         rowCountOverride: {
             type: Number as PropType<number>,
             default: 0
         }
     },
-    data ()
-    {
+    data () {
         return {
             gridContext: {
                 selectedRowIds: {},
@@ -99,10 +97,8 @@ export default defineComponent( {
     },
     computed: {
         /** The number of rows in the dataset */
-        rowCount (): number
-        {
-            if ( this.rowCountOverride )
-            {
+        rowCount (): number {
+            if ( this.rowCountOverride ) {
                 return this.rowCountOverride;
             }
 
@@ -110,23 +106,19 @@ export default defineComponent( {
         },
 
         /** How many pages are needed to display all of the rows */
-        pageCount (): number
-        {
+        pageCount (): number {
             return Math.ceil( this.rowCount / this.pageSize );
         },
 
-        currentPageSet (): number[]
-        {
+        currentPageSet (): number[] {
             const pagesPerSet = 10;
             const firstNumber = Math.floor( this.currentPageIndex / pagesPerSet ) * pagesPerSet + 1;
             const set: number[] = [];
 
-            for ( let i = 0; i < pagesPerSet; i++ )
-            {
+            for ( let i = 0; i < pagesPerSet; i++ ) {
                 const pageIndex = firstNumber + i;
 
-                if ( pageIndex <= this.pageCount )
-                {
+                if ( pageIndex <= this.pageCount ) {
                     set.push( pageIndex );
                 }
             }
@@ -135,29 +127,25 @@ export default defineComponent( {
         }
     },
     watch: {
-        gridData ()
-        {
+        gridData () {
             this.gridContext.selectedRowIds = {};
 
-            for ( const rowData of this.gridData )
-            {
+            for ( const rowData of this.gridData ) {
                 const rowId = getRowId( rowData, this.rowIdKey );
                 this.gridContext.selectedRowIds[ rowId ] = false;
             }
         },
-        'gridContext.sortProperty': {
+        "gridContext.sortProperty": {
             deep: true,
-            handler ()
-            {
-                this.$emit( 'update:sortProperty', this.gridContext.sortProperty );
+            handler () {
+                this.$emit( "update:sortProperty", this.gridContext.sortProperty );
             }
         },
     },
     methods: {
         getRowId,
 
-        getRowContext ( rowData: RowData, isHeader: boolean ): RowContext
-        {
+        getRowContext ( rowData: RowData, isHeader: boolean ): RowContext {
             const rowId = getRowId( rowData, this.rowIdKey );
 
             return {
@@ -171,27 +159,23 @@ export default defineComponent( {
          * Set the number of rows per page
          * @param pageSize
          */
-        setPageSize ( pageSize: number )
-        {
-            this.$emit( 'update:pageSize', pageSize );
+        setPageSize ( pageSize: number ) {
+            this.$emit( "update:pageSize", pageSize );
         },
 
         /**
          * Set the current page index
          * @param pageIndex
          */
-        setPageIndex ( pageIndex: number )
-        {
-            this.$emit( 'update:currentPageIndex', pageIndex );
+        setPageIndex ( pageIndex: number ) {
+            this.$emit( "update:currentPageIndex", pageIndex );
         },
 
         /** Go to the previous page set */
-        goToPreviousPageSet ()
-        {
+        goToPreviousPageSet () {
             const lowestPageInCurrentSet = this.currentPageSet[ 0 ] || 0;
 
-            if ( lowestPageInCurrentSet <= 1 )
-            {
+            if ( lowestPageInCurrentSet <= 1 ) {
                 return;
             }
 
@@ -199,26 +183,22 @@ export default defineComponent( {
         },
 
         /** Go to the next page set */
-        goToNextPageSet ()
-        {
+        goToNextPageSet () {
             const lastIndex = this.currentPageSet.length - 1;
             const highestPageInCurrentSet = this.currentPageSet[ lastIndex ] || 0;
 
-            if ( highestPageInCurrentSet <= 1 )
-            {
+            if ( highestPageInCurrentSet <= 1 ) {
                 return;
             }
 
-            if ( highestPageInCurrentSet >= this.pageCount )
-            {
+            if ( highestPageInCurrentSet >= this.pageCount ) {
                 return;
             }
 
             this.setPageIndex( highestPageInCurrentSet + 1 );
         }
     },
-    provide ()
-    {
+    provide () {
         return {
             gridContext: this.gridContext
         };

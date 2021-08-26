@@ -15,18 +15,18 @@
 // </copyright>
 //
 
-import { defineComponent, inject, PropType } from 'vue';
-import Dialog from '../../../Controls/dialog';
-import { InvokeBlockActionFunc } from '../../../Controls/rockBlock';
-import LoadingIndicator from '../../../Elements/loadingIndicator';
-import RockButton from '../../../Elements/rockButton';
-import { toWord } from '@Obsidian/Services/number';
-import { pluralConditional } from '@Obsidian/Services/string';
-import { RegistrationEntryState } from '../registrationEntry';
-import { SessionRenewalResult } from './registrationEntryBlockViewModel';
+import { defineComponent, inject, PropType } from "vue";
+import Dialog from "../../../Controls/dialog";
+import { InvokeBlockActionFunc } from "../../../Controls/rockBlock";
+import LoadingIndicator from "../../../Elements/loadingIndicator";
+import RockButton from "../../../Elements/rockButton";
+import { toWord } from "@Obsidian/Services/number";
+import { pluralConditional } from "@Obsidian/Services/string";
+import { RegistrationEntryState } from "../registrationEntry";
+import { SessionRenewalResult } from "./registrationEntryBlockViewModel";
 
 export default defineComponent( {
-    name: 'Event.RegistrationEntry.SessionRenewal',
+    name: "Event.RegistrationEntry.SessionRenewal",
     components: {
         Dialog,
         LoadingIndicator,
@@ -38,15 +38,13 @@ export default defineComponent( {
             required: true
         }
     },
-    setup ()
-    {
+    setup () {
         return {
-            registrationEntryState: inject( 'registrationEntryState' ) as RegistrationEntryState,
-            invokeBlockAction: inject( 'invokeBlockAction' ) as InvokeBlockActionFunc
+            registrationEntryState: inject( "registrationEntryState" ) as RegistrationEntryState,
+            invokeBlockAction: inject( "invokeBlockAction" ) as InvokeBlockActionFunc
         };
     },
-    data ()
-    {
+    data () {
         return {
             spotsSecured: null as number | null,
             isLoading: false,
@@ -55,38 +53,32 @@ export default defineComponent( {
     },
     computed: {
         /** Does this registration instance have a waitlist? */
-        hasWaitlist (): boolean
-        {
+        hasWaitlist (): boolean {
             return this.registrationEntryState.viewModel.waitListEnabled;
         },
 
         /** The number of registrants being registered */
-        allRegistrantCount (): number
-        {
+        allRegistrantCount (): number {
             return this.registrationEntryState.registrants.length;
         },
 
         /** The number of registrants pushed to the waitlist */
-        waitlistRegistrantCount (): number
-        {
+        waitlistRegistrantCount (): number {
             return this.registrationEntryState.registrants.filter( r => r.isOnWaitList ).length;
         },
 
         /** The number of registrants pushed to the waitlist as a word (eg "one") */
-        waitlistRegistrantCountWord (): string
-        {
+        waitlistRegistrantCountWord (): string {
             return toWord( this.waitlistRegistrantCount );
         },
 
         /** The number of registrants not on a waitlist */
-        nonWaitlistRegistrantCount (): number
-        {
+        nonWaitlistRegistrantCount (): number {
             return this.registrationEntryState.registrants.filter( r => !r.isOnWaitList ).length;
         },
 
         /** The number of registrants not on a waitlist as a word (eg "one") */
-        nonWaitlistRegistrantCountWord (): string
-        {
+        nonWaitlistRegistrantCountWord (): string {
             return toWord( this.nonWaitlistRegistrantCount );
         }
     },
@@ -115,7 +107,7 @@ export default defineComponent( {
             this.isLoading = true;
 
             try {
-                const response = await this.invokeBlockAction<SessionRenewalResult>('TryToRenewSession', {
+                const response = await this.invokeBlockAction<SessionRenewalResult>("TryToRenewSession", {
                     registrationSessionGuid: this.registrationEntryState.registrationSessionGuid
                 });
 
@@ -128,7 +120,7 @@ export default defineComponent( {
                     let deficiency = this.nonWaitlistRegistrantCount - this.spotsSecured;
 
                     if (!deficiency) {
-                        this.$emit('success');
+                        this.$emit("success");
                         this.close();
                         return;
                     }

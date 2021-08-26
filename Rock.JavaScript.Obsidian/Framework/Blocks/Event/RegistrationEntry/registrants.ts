@@ -15,38 +15,34 @@
 // </copyright>
 //
 
-import { defineComponent, inject } from 'vue';
-import Registrant from './registrant';
-import { RegistrationEntryState } from '../registrationEntry';
-import Alert from '../../../Elements/alert';
-import { RegistrantInfo } from './registrationEntryBlockViewModel';
+import { defineComponent, inject } from "vue";
+import Registrant from "./registrant";
+import { RegistrationEntryState } from "../registrationEntry";
+import Alert from "../../../Elements/alert";
+import { RegistrantInfo } from "./registrationEntryBlockViewModel";
 
 export default defineComponent( {
-    name: 'Event.RegistrationEntry.Registrants',
+    name: "Event.RegistrationEntry.Registrants",
     components: {
         Registrant,
         Alert
     },
-    setup()
-    {
+    setup() {
         return {
-            registrationEntryState: inject( 'registrationEntryState' ) as RegistrationEntryState,
-            persistSession: inject( 'persistSession' ) as () => Promise<void>
+            registrationEntryState: inject( "registrationEntryState" ) as RegistrationEntryState,
+            persistSession: inject( "persistSession" ) as () => Promise<void>
         };
     },
-    data ()
-    {
+    data () {
         return {
             hasCopiedCommonValues: false
         };
     },
     methods: {
         /** The event that handles when the user clicks to move to the previous registrant */
-        async onPrevious()
-        {
-            if ( this.registrationEntryState.currentRegistrantIndex <= 0 )
-            {
-                this.$emit( 'previous' );
+        async onPrevious() {
+            if ( this.registrationEntryState.currentRegistrantIndex <= 0 ) {
+                this.$emit( "previous" );
                 return;
             }
 
@@ -57,19 +53,16 @@ export default defineComponent( {
         },
 
         /** The event that handles when the user clicks to move to the next registrant */
-        async onNext()
-        {
+        async onNext() {
             const lastIndex = this.registrationEntryState.registrants.length - 1;
 
-            if ( this.registrationEntryState.currentRegistrantIndex >= lastIndex )
-            {
-                this.$emit( 'next' );
+            if ( this.registrationEntryState.currentRegistrantIndex >= lastIndex ) {
+                this.$emit( "next" );
                 return;
             }
 
             // If the first registrant was just completed, then copy the common/shared values to other registrants
-            if ( this.registrationEntryState.currentRegistrantIndex === 0 )
-            {
+            if ( this.registrationEntryState.currentRegistrantIndex === 0 ) {
                 this.copyCommonValuesFromFirstRegistrant();
             }
 
@@ -79,38 +72,30 @@ export default defineComponent( {
         },
 
         /** Copy the common values from the first registrant to the others */
-        copyCommonValuesFromFirstRegistrant ()
-        {
+        copyCommonValuesFromFirstRegistrant () {
             // Only copy one time
-            if ( this.hasCopiedCommonValues )
-            {
+            if ( this.hasCopiedCommonValues ) {
                 return;
             }
 
             this.hasCopiedCommonValues = true;
             const firstRegistrant = this.registrants[ 0 ];
 
-            for ( let i = 1; i < this.registrants.length; i++ )
-            {
+            for ( let i = 1; i < this.registrants.length; i++ ) {
                 const currentRegistrant = this.registrants[ i ];
 
-                for ( const form of this.registrationEntryState.viewModel.registrantForms )
-                {
-                    for ( const field of form.fields )
-                    {
-                        if ( !field.isSharedValue )
-                        {
+                for ( const form of this.registrationEntryState.viewModel.registrantForms ) {
+                    for ( const field of form.fields ) {
+                        if ( !field.isSharedValue ) {
                             continue;
                         }
 
                         const valueToShare = firstRegistrant.fieldValues[ field.guid ];
 
-                        if ( valueToShare && typeof valueToShare === 'object' )
-                        {
+                        if ( valueToShare && typeof valueToShare === "object" ) {
                             currentRegistrant.fieldValues[ field.guid ] = { ...valueToShare };
                         }
-                        else
-                        {
+                        else {
                             currentRegistrant.fieldValues[ field.guid ] = valueToShare;
                         }
                     }
@@ -120,30 +105,25 @@ export default defineComponent( {
     },
     computed: {
         /** Will some of the registrants have to be added to a waitlist */
-        hasWaitlist(): boolean
-        {
+        hasWaitlist(): boolean {
             return this.registrationEntryState.registrants.some( r => r.isOnWaitList );
         },
 
         /** Will this registrant be added to the waitlist? */
-        isOnWaitlist(): boolean
-        {
+        isOnWaitlist(): boolean {
             const currentRegistrant = this.registrationEntryState.registrants[ this.registrationEntryState.currentRegistrantIndex ];
             return currentRegistrant.isOnWaitList;
         },
 
         /** What are the registrants called? */
-        registrantTerm(): string
-        {
-            return ( this.registrationEntryState.viewModel.registrantTerm || 'registrant' ).toLowerCase();
+        registrantTerm(): string {
+            return ( this.registrationEntryState.viewModel.registrantTerm || "registrant" ).toLowerCase();
         },
 
-        registrants(): RegistrantInfo[]
-        {
+        registrants(): RegistrantInfo[] {
             return this.registrationEntryState.registrants;
         },
-        currentRegistrantIndex(): number
-        {
+        currentRegistrantIndex(): number {
             return this.registrationEntryState.currentRegistrantIndex;
         }
     },

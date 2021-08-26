@@ -19,7 +19,7 @@ System.register(["vue", "./index", "@Obsidian/Services/number", "../Elements/rat
         ],
         execute: function () {
             exports_1("EditComponent", EditComponent = vue_1.defineComponent({
-                name: 'RatingField.Edit',
+                name: "RatingField.Edit",
                 components: {
                     Rating: rating_1.default
                 },
@@ -41,14 +41,14 @@ System.register(["vue", "./index", "@Obsidian/Services/number", "../Elements/rat
                             value: this.internalValue,
                             maxValue: this.maxRating
                         };
-                        this.$emit('update:modelValue', JSON.stringify(ratingValue));
+                        this.$emit("update:modelValue", JSON.stringify(ratingValue));
                     },
                     modelValue: {
                         immediate: true,
                         handler() {
                             var _a, _b;
                             try {
-                                const ratingValue = JSON.parse((_a = this.modelValue) !== null && _a !== void 0 ? _a : '');
+                                const ratingValue = JSON.parse((_a = this.modelValue) !== null && _a !== void 0 ? _a : "");
                                 this.internalValue = (_b = ratingValue.value) !== null && _b !== void 0 ? _b : 0;
                             }
                             catch (_c) {

@@ -25,12 +25,12 @@ System.register(["vue", "./fieldType", "@Obsidian/Services/number"], function (e
         ],
         execute: function () {
             editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
-                return (yield context_1.import('./currencyFieldComponents')).EditComponent;
+                return (yield context_1.import("./currencyFieldComponents")).EditComponent;
             }));
             CurrencyFieldType = class CurrencyFieldType extends fieldType_1.FieldTypeBase {
                 updateTextValue(value) {
                     var _a;
-                    value.textValue = (_a = number_1.toCurrencyOrNull(value.value)) !== null && _a !== void 0 ? _a : '';
+                    value.textValue = (_a = number_1.toCurrencyOrNull(value.value)) !== null && _a !== void 0 ? _a : "";
                 }
                 getEditComponent(_value) {
                     return editComponent;

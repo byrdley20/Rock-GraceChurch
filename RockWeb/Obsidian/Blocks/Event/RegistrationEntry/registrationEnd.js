@@ -19,7 +19,7 @@ System.register(["vue", "../../../Controls/attributeValuesContainer", "../../../
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'Event.RegistrationEntry.RegistrationEnd',
+                name: "Event.RegistrationEntry.RegistrationEnd",
                 components: {
                     RockButton: rockButton_1.default,
                     AttributeValuesContainer: attributeValuesContainer_1.default,
@@ -27,7 +27,7 @@ System.register(["vue", "../../../Controls/attributeValuesContainer", "../../../
                 },
                 setup() {
                     return {
-                        registrationEntryState: vue_1.inject('registrationEntryState')
+                        registrationEntryState: vue_1.inject("registrationEntryState")
                     };
                 },
                 data() {
@@ -37,10 +37,10 @@ System.register(["vue", "../../../Controls/attributeValuesContainer", "../../../
                 },
                 methods: {
                     onPrevious() {
-                        this.$emit('previous');
+                        this.$emit("previous");
                     },
                     onNext() {
-                        this.$emit('next');
+                        this.$emit("next");
                     }
                 },
                 watch: {
@@ -48,7 +48,7 @@ System.register(["vue", "../../../Controls/attributeValuesContainer", "../../../
                         immediate: true,
                         handler() {
                             this.attributeValues = this.registrationEntryState.viewModel.registrationAttributesEnd.map(a => {
-                                const currentValue = this.registrationEntryState.registrationFieldValues[a.attributeGuid] || '';
+                                const currentValue = this.registrationEntryState.registrationFieldValues[a.attributeGuid] || "";
                                 return Object.assign(Object.assign({}, a), { value: currentValue });
                             });
                         }

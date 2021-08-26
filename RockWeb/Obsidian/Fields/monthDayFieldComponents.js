@@ -19,7 +19,7 @@ System.register(["vue", "./index", "@Obsidian/Services/number", "../Elements/dat
         ],
         execute: function () {
             exports_1("EditComponent", EditComponent = vue_1.defineComponent({
-                name: 'MonthDayField.Edit',
+                name: "MonthDayField.Edit",
                 components: {
                     DatePartsPicker: datePartsPicker_1.default
                 },
@@ -38,7 +38,7 @@ System.register(["vue", "./index", "@Obsidian/Services/number", "../Elements/dat
                         const value = this.internalValue.month !== 0 && this.internalValue.day !== 0
                             ? `${this.internalValue.month}/${this.internalValue.day}`
                             : "";
-                        this.$emit('update:modelValue', value);
+                        this.$emit("update:modelValue", value);
                     },
                     modelValue: {
                         immediate: true,

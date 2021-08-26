@@ -15,7 +15,7 @@
 // </copyright>
 //
 
-import { FieldTypeBase } from './fieldType';
+import { FieldTypeBase } from "./fieldType";
 
 export class TextFieldType extends FieldTypeBase {
 }

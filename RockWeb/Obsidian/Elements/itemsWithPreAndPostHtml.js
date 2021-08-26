@@ -10,7 +10,7 @@ System.register(["vue"], function (exports_1, context_1) {
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'ItemsWithPreAndPostHtml',
+                name: "ItemsWithPreAndPostHtml",
                 props: {
                     items: {
                         type: Array,
@@ -19,7 +19,7 @@ System.register(["vue"], function (exports_1, context_1) {
                 },
                 methods: {
                     onDismiss: function () {
-                        this.$emit('dismiss');
+                        this.$emit("dismiss");
                     }
                 },
                 computed: {
@@ -28,14 +28,14 @@ System.register(["vue"], function (exports_1, context_1) {
                     },
                     innerTemplate() {
                         if (!this.items.length) {
-                            return '<slot />';
+                            return "<slot />";
                         }
                         const templateParts = this.items.map(i => `${i.preHtml}<slot name="inner-${i.slotName}" />${i.postHtml}`);
-                        return templateParts.join('');
+                        return templateParts.join("");
                     },
                     innerComponent() {
                         return {
-                            name: 'InnerItemsWithPreAndPostHtml',
+                            name: "InnerItemsWithPreAndPostHtml",
                             template: this.innerTemplate
                         };
                     }

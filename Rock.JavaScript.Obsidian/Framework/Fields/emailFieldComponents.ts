@@ -14,12 +14,12 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { getFieldEditorProps } from './index';
-import EmailBox from '../Elements/emailBox';
+import { defineComponent } from "vue";
+import { getFieldEditorProps } from "./index";
+import EmailBox from "../Elements/emailBox";
 
 export const EditComponent = defineComponent({
-    name: 'EmailField.Edit',
+    name: "EmailField.Edit",
 
     components: {
         EmailBox
@@ -29,18 +29,18 @@ export const EditComponent = defineComponent({
 
     data() {
         return {
-            internalValue: ''
+            internalValue: ""
         };
     },
 
     watch: {
         internalValue() {
-            this.$emit('update:modelValue', this.internalValue);
+            this.$emit("update:modelValue", this.internalValue);
         },
         modelValue: {
             immediate: true,
             handler() {
-                this.internalValue = this.modelValue || '';
+                this.internalValue = this.modelValue || "";
             }
         }
     },

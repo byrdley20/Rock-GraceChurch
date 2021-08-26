@@ -22,19 +22,19 @@ System.register(["vue", "./fieldType"], function (exports_1, context_1) {
         ],
         execute: function () {
             editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
-                return (yield context_1.import('./campusFieldComponents')).EditComponent;
+                return (yield context_1.import("./campusFieldComponents")).EditComponent;
             }));
             CampusFieldType = class CampusFieldType extends fieldType_1.FieldTypeBase {
                 updateTextValue(value) {
                     var _a, _b;
-                    if (value.value === undefined || value.value === null || value.value === '') {
-                        value.textValue = '';
+                    if (value.value === undefined || value.value === null || value.value === "") {
+                        value.textValue = "";
                         return;
                     }
                     try {
-                        const values = JSON.parse((_b = (_a = value.configurationValues) === null || _a === void 0 ? void 0 : _a["values"]) !== null && _b !== void 0 ? _b : '[]');
+                        const values = JSON.parse((_b = (_a = value.configurationValues) === null || _a === void 0 ? void 0 : _a["values"]) !== null && _b !== void 0 ? _b : "[]");
                         const selectedValues = values.filter(o => o.value === value.value);
-                        value.textValue = selectedValues.map(o => o.text).join(', ');
+                        value.textValue = selectedValues.map(o => o.text).join(", ");
                     }
                     catch (_c) {
                         value.textValue = value.value;

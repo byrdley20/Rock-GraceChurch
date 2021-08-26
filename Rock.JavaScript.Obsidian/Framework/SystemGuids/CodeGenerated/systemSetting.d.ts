@@ -23,10 +23,10 @@
 
 export const enum SystemSetting {
     /** Do Not Disturb Start Setting */
-    DoNotDisturbStart = '4A558666-32C7-4490-B860-0F41358E14CA',
+    DoNotDisturbStart = "4A558666-32C7-4490-B860-0F41358E14CA",
     /** Do Not Disturb End Setting */
-    DoNotDisturbEnd = '661802FC-E636-4CE2-B75A-4AC05595A347',
+    DoNotDisturbEnd = "661802FC-E636-4CE2-B75A-4AC05595A347",
     /** Do Not Disturb Active Setting */
-    DoNotDisturbActive = '1BE30413-5C90-4B78-B324-BD31AA83C002',
+    DoNotDisturbActive = "1BE30413-5C90-4B78-B324-BD31AA83C002",
 }
 

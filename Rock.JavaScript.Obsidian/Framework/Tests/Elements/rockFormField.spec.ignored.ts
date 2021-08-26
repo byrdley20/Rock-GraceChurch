@@ -14,35 +14,35 @@
 // limitations under the License.
 // </copyright>
 //
-import { mount } from '@vue/test-utils';
-import TextBox from '../../Elements/textBox';
-import DatePicker from '../../Elements/datePicker';
+import { mount } from "@vue/test-utils";
+import TextBox from "../../Elements/textBox";
+import DatePicker from "../../Elements/datePicker";
 
 const elements = [TextBox, DatePicker];
 
 for(const element of elements) {
     describe(element.name, () => {
-        it('Does not render label when not passed', async () => {
+        it("Does not render label when not passed", async () => {
             const wrapper = mount(element);
             await wrapper.setProps({
-                modelValue: '',
-                label: ''
+                modelValue: "",
+                label: ""
             });
 
-            const labels = wrapper.findAll('label');
+            const labels = wrapper.findAll("label");
             expect(labels.length).toBe(0);
         });
 
-        it('Renders label when passed', async () => {
-            const labelText = 'This is the label';
+        it("Renders label when passed", async () => {
+            const labelText = "This is the label";
 
             const wrapper = mount(element);
             await wrapper.setProps({
-                modelValue: '',
+                modelValue: "",
                 label: labelText
             });
 
-            const labels = wrapper.findAll('label');
+            const labels = wrapper.findAll("label");
             expect(labels.length).toBe(1);
             expect(labels[0].text()).toBe(labelText);
         });

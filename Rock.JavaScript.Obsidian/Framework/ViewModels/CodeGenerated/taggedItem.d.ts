@@ -22,7 +22,7 @@
 //
 
 import { Entity } from "../entity";
-import { Guid } from '../../Util/guid';
+import { Guid } from "../../Util/guid";
 
 export interface TaggedItem extends Entity {
     entityGuid?: Guid;

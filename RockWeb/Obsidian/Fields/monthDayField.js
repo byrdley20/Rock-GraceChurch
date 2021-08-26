@@ -25,13 +25,13 @@ System.register(["vue", "./fieldType", "@Obsidian/Services/number"], function (e
         ],
         execute: function () {
             editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
-                return (yield context_1.import('./monthDayFieldComponents')).EditComponent;
+                return (yield context_1.import("./monthDayFieldComponents")).EditComponent;
             }));
             MonthDayFieldType = class MonthDayFieldType extends fieldType_1.FieldTypeBase {
                 updateTextValue(value) {
-                    const components = (value.value || '').split('/');
+                    const components = (value.value || "").split("/");
                     if (components.length !== 2) {
-                        value.textValue = '';
+                        value.textValue = "";
                         return;
                     }
                     const month = number_1.toNumber(components[0]);
@@ -41,7 +41,7 @@ System.register(["vue", "./fieldType", "@Obsidian/Services/number"], function (e
                         value.textValue = `${months[month - 1]} ${day}`;
                     }
                     else {
-                        value.textValue = '';
+                        value.textValue = "";
                     }
                 }
                 getEditComponent(_value) {

@@ -31,33 +31,33 @@ System.register(["vue", "./fieldType", "@Obsidian/Services/boolean", "@Obsidian/
         ],
         execute: function () {
             editComponent = vue_1.defineAsyncComponent(() => __awaiter(void 0, void 0, void 0, function* () {
-                return (yield context_1.import('./dateFieldComponents')).EditComponent;
+                return (yield context_1.import("./dateFieldComponents")).EditComponent;
             }));
             DateFieldType = class DateFieldType extends fieldType_1.FieldTypeBase {
                 updateTextValue(value) {
                     var _a, _b, _c;
                     if (this.isCurrentDateValue(value)) {
-                        const parts = ((_a = value.value) !== null && _a !== void 0 ? _a : '').split(':');
+                        const parts = ((_a = value.value) !== null && _a !== void 0 ? _a : "").split(":");
                         const diff = parts.length === 2 ? number_1.toNumber(parts[1]) : 0;
                         if (diff === 1) {
-                            value.textValue = 'Current Date plus 1 day';
+                            value.textValue = "Current Date plus 1 day";
                         }
                         else if (diff > 0) {
                             value.textValue = `Current Date plus ${diff} days`;
                         }
                         else if (diff === -1) {
-                            value.textValue = 'Current Date minus 1 day';
+                            value.textValue = "Current Date minus 1 day";
                         }
                         else if (diff < 0) {
                             value.textValue = `Current Date minus ${Math.abs(diff)} days`;
                         }
                         else {
-                            value.textValue = 'Current Date';
+                            value.textValue = "Current Date";
                         }
                     }
                     else {
                         const dateValue = date_1.parseDirtyRoundTripDateOrNull(value.value);
-                        const dateFormatTemplate = ((_b = value.configurationValues) === null || _b === void 0 ? void 0 : _b["format"]) || 'MM/dd/yyy';
+                        const dateFormatTemplate = ((_b = value.configurationValues) === null || _b === void 0 ? void 0 : _b["format"]) || "MM/dd/yyy";
                         if (dateValue !== null) {
                             let textValue = date_1.formatAspDate(dateValue, dateFormatTemplate);
                             const displayDiff = boolean_1.asBoolean((_c = value.configurationValues) === null || _c === void 0 ? void 0 : _c["displayDiff"]);
@@ -67,7 +67,7 @@ System.register(["vue", "./fieldType", "@Obsidian/Services/boolean", "@Obsidian/
                             value.textValue = textValue;
                         }
                         else {
-                            value.textValue = '';
+                            value.textValue = "";
                         }
                     }
                 }
@@ -76,7 +76,7 @@ System.register(["vue", "./fieldType", "@Obsidian/Services/boolean", "@Obsidian/
                 }
                 isCurrentDateValue(value) {
                     var _a;
-                    return ((_a = value.value) === null || _a === void 0 ? void 0 : _a.indexOf('CURRENT')) === 0;
+                    return ((_a = value.value) === null || _a === void 0 ? void 0 : _a.indexOf("CURRENT")) === 0;
                 }
             };
             exports_1("DateFieldType", DateFieldType);

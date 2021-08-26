@@ -19,7 +19,7 @@ System.register(["vue", "../Rules/index", "@Obsidian/Services/number", "./rockFo
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'NumberBox',
+                name: "NumberBox",
                 components: {
                     RockFormField: rockFormField_1.default
                 },
@@ -30,7 +30,7 @@ System.register(["vue", "../Rules/index", "@Obsidian/Services/number", "./rockFo
                     },
                     placeholder: {
                         type: String,
-                        default: ''
+                        default: ""
                     },
                     minimumValue: {
                         type: Number
@@ -44,19 +44,19 @@ System.register(["vue", "../Rules/index", "@Obsidian/Services/number", "./rockFo
                     },
                     inputClasses: {
                         type: String,
-                        default: ''
+                        default: ""
                     },
                     rules: {
                         type: String,
-                        default: ''
+                        default: ""
                     }
                 },
                 emits: [
-                    'update:modelValue'
+                    "update:modelValue"
                 ],
                 data: function () {
                     return {
-                        internalValue: '',
+                        internalValue: "",
                     };
                 },
                 methods: {
@@ -91,7 +91,7 @@ System.register(["vue", "../Rules/index", "@Obsidian/Services/number", "./rockFo
                 },
                 watch: {
                     internalNumberValue() {
-                        this.$emit('update:modelValue', this.internalNumberValue);
+                        this.$emit("update:modelValue", this.internalNumberValue);
                     },
                     modelValue: {
                         immediate: true,

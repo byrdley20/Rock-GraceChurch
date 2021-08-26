@@ -22,7 +22,7 @@ System.register(["vue", "./grid"], function (exports_1, context_1) {
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'BlockActionSourcedGrid',
+                name: "BlockActionSourcedGrid",
                 components: {
                     Grid: grid_1.default
                 },
@@ -38,7 +38,7 @@ System.register(["vue", "./grid"], function (exports_1, context_1) {
                 },
                 setup() {
                     return {
-                        invokeBlockAction: vue_1.inject('invokeBlockAction')
+                        invokeBlockAction: vue_1.inject("invokeBlockAction")
                     };
                 },
                 data() {
@@ -47,7 +47,7 @@ System.register(["vue", "./grid"], function (exports_1, context_1) {
                         totalRowCount: 0,
                         currentPageIndex: 1,
                         isLoading: false,
-                        errorMessage: '',
+                        errorMessage: "",
                         sortProperty: {
                             direction: grid_1.SortDirection.Ascending,
                             property: this.rowIdKey
@@ -67,7 +67,7 @@ System.register(["vue", "./grid"], function (exports_1, context_1) {
                                 return;
                             }
                             this.isLoading = true;
-                            this.errorMessage = '';
+                            this.errorMessage = "";
                             try {
                                 const result = yield this.invokeBlockAction(this.blockActionName, {
                                     filterOptions: {
@@ -109,7 +109,7 @@ System.register(["vue", "./grid"], function (exports_1, context_1) {
                             yield this.fetchData();
                         });
                     },
-                    'sortString'() {
+                    "sortString"() {
                         return __awaiter(this, void 0, void 0, function* () {
                             yield this.fetchData();
                         });

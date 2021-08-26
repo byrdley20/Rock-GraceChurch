@@ -14,44 +14,40 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType, inject } from 'vue';
-import { RowContext } from './grid';
-import GridColumn from './gridColumn';
+import { defineComponent, PropType, inject } from "vue";
+import { RowContext } from "./grid";
+import GridColumn from "./gridColumn";
 
 export default defineComponent( {
-    name: 'GridProfileLinkColumn',
+    name: "GridProfileLinkColumn",
     components: {
         GridColumn
     },
-    setup ()
-    {
+    setup () {
         return {
-            rowContext: inject( 'rowContext' ) as RowContext
+            rowContext: inject( "rowContext" ) as RowContext
         };
     },
     props: {
         property: {
             type: String as PropType<string>,
-            default: 'PersonId'
+            default: "PersonId"
         },
         urlTemplate: {
             type: String as PropType<string>,
-            default: '/person/{id}'
+            default: "/person/{id}"
         }
     },
     computed: {
-        personId (): number | null
-        {
+        personId (): number | null {
             return ( this.rowContext.rowData[ this.property ] as number ) || null;
         },
-        url (): string
-        {
-            if ( this.personId )
-            {
-                return this.urlTemplate.replace( '{id}', this.personId.toString() );
+        url (): string {
+            if ( this.personId ) {
+                return this.urlTemplate.replace( "{id}", this.personId.toString() );
             }
 
-            return '';
+            return "";
         }
     },
     template: `

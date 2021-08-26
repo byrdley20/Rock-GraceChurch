@@ -57,13 +57,13 @@ System.register(["axios"], function (exports_1, context_1) {
     exports_1("doApiCall", doApiCall);
     function get(url, params = undefined) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield doApiCall('GET', url, params, undefined);
+            return yield doApiCall("GET", url, params, undefined);
         });
     }
     exports_1("get", get);
     function post(url, params = undefined, data = undefined) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield doApiCall('POST', url, params, data);
+            return yield doApiCall("POST", url, params, data);
         });
     }
     exports_1("post", post);

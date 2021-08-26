@@ -16,18 +16,18 @@ System.register(["vue", "./index", "../Elements/dropDownList"], function (export
         ],
         execute: function () {
             exports_1("EditComponent", EditComponent = vue_1.defineComponent({
-                name: 'CampusField.Edit',
+                name: "CampusField.Edit",
                 components: {
                     DropDownList: dropDownList_1.default
                 },
                 props: index_1.getFieldEditorProps(),
                 setup(props, context) {
                     var _a;
-                    const internalValue = vue_1.ref((_a = props.modelValue) !== null && _a !== void 0 ? _a : '');
+                    const internalValue = vue_1.ref((_a = props.modelValue) !== null && _a !== void 0 ? _a : "");
                     const options = vue_1.computed(() => {
                         var _a;
                         try {
-                            const valueOptions = JSON.parse((_a = props.configurationValues["values"]) !== null && _a !== void 0 ? _a : '[]');
+                            const valueOptions = JSON.parse((_a = props.configurationValues["values"]) !== null && _a !== void 0 ? _a : "[]");
                             return valueOptions.map(o => {
                                 return {
                                     value: o.value,
@@ -39,8 +39,8 @@ System.register(["vue", "./index", "../Elements/dropDownList"], function (export
                             return [];
                         }
                     });
-                    vue_1.watch(() => props.modelValue, () => { var _a; return internalValue.value = (_a = props.modelValue) !== null && _a !== void 0 ? _a : ''; });
-                    vue_1.watchEffect(() => context.emit('update:modelValue', internalValue.value));
+                    vue_1.watch(() => props.modelValue, () => { var _a; return internalValue.value = (_a = props.modelValue) !== null && _a !== void 0 ? _a : ""; });
+                    vue_1.watchEffect(() => context.emit("update:modelValue", internalValue.value));
                     return {
                         internalValue,
                         options

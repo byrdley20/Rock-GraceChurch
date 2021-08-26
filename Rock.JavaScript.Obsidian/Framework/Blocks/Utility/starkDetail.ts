@@ -15,17 +15,17 @@
 // </copyright>
 //
 
-import { defineComponent } from 'vue';
-import { standardBlockSetup } from '../../Controls/rockBlock';
-import Alert from '../../Elements/alert';
-import RockButton from '../../Elements/rockButton';
-import PaneledBlockTemplate from '../../Templates/paneledBlockTemplate';
+import { defineComponent } from "vue";
+import { standardBlockSetup } from "../../Controls/rockBlock";
+import Alert from "../../Elements/alert";
+import RockButton from "../../Elements/rockButton";
+import PaneledBlockTemplate from "../../Templates/paneledBlockTemplate";
 
 /** An example block */
 const StarkDetailOptions = defineComponent( {
     /** This is the name that will appear in the browser debug tools. This is mostly for organization and
      *  doesn't affect function. */
-    name: 'Utility.StarkDetailOptions',
+    name: "Utility.StarkDetailOptions",
 
     /** This allows for standard block tools, such as invokeBlockAction, to be available to this block */
     setup: standardBlockSetup,
@@ -39,11 +39,10 @@ const StarkDetailOptions = defineComponent( {
 
     /** This method returns the zero-state of the component's local state object. All reactive data must
      *  be declared here (even if it only might be used at some point). */
-    data()
-    {
+    data() {
         return {
-            configMessage: '',
-            blockActionMessage: ''
+            configMessage: "",
+            blockActionMessage: ""
         };
     },
 
@@ -51,34 +50,29 @@ const StarkDetailOptions = defineComponent( {
     methods: {
 
         /** Fetch a message from the C# block action named "GetMessage". */
-        async loadBlockActionMessage()
-        {
-            const response = await this.invokeBlockAction<{ message: string; }>( 'GetMessage', {
-                paramFromClient: 'This is a value sent to the server from the client.'
+        async loadBlockActionMessage() {
+            const response = await this.invokeBlockAction<{ message: string; }>( "GetMessage", {
+                paramFromClient: "This is a value sent to the server from the client."
             } );
 
-            if ( response.data )
-            {
+            if ( response.data ) {
                 this.blockActionMessage = response.data.message;
             }
-            else
-            {
-                this.blockActionMessage = response.errorMessage || 'An error occurred';
+            else {
+                this.blockActionMessage = response.errorMessage || "An error occurred";
             }
         }
     },
 
     /** This method is a lifecycle hook called when the component is created (initializing and not yet in
      *  the DOM) */
-    created()
-    {
+    created() {
         // Set the local state "configMessage" to the value sent by C#'s GetObsidianConfigurationValues
         this.configMessage = <string>this.configurationValues.message;
     },
 
     /** This method is another lifecycle hook called when the component is mounted (put in the DOM) */
-    mounted()
-    {
+    mounted() {
         // Do something when the component's elements are now in the DOM
     },
 

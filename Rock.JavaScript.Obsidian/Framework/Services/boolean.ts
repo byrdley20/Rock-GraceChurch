@@ -24,21 +24,21 @@ export function asBooleanOrNull(val: unknown) {
         return null;
     }
 
-    if (typeof val === 'boolean') {
+    if (typeof val === "boolean") {
         return val;
     }
 
-    if (typeof val === 'string') {
-        const asString = (val || '').trim().toLowerCase();
+    if (typeof val === "string") {
+        const asString = (val || "").trim().toLowerCase();
 
         if (!asString) {
             return null;
         }
 
-        return ['true', 'yes', 't', 'y', '1'].indexOf(asString) !== -1;
+        return ["true", "yes", "t", "y", "1"].indexOf(asString) !== -1;
     }
 
-    if (typeof val === 'number') {
+    if (typeof val === "number") {
         return !!val;
     }
 
@@ -61,7 +61,7 @@ export function asYesNoOrNull(val: unknown) {
         return null;
     }
 
-    return boolOrNull ? 'Yes' : 'No';
+    return boolOrNull ? "Yes" : "No";
 }
 
 /** Transform the value into the strings "True", "False", or null */
@@ -72,5 +72,5 @@ export function asTrueFalseOrNull(val: unknown) {
         return null;
     }
 
-    return boolOrNull ? 'True' : 'False';
+    return boolOrNull ? "True" : "False";
 }

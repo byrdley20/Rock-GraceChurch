@@ -14,14 +14,14 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { getFieldEditorProps } from './index';
-import TimePicker, { TimePickerModelValue } from '../Elements/timePicker';
-import { toNumber } from '@Obsidian/Services/number';
-import { padLeft } from '@Obsidian/Services/string';
+import { defineComponent } from "vue";
+import { getFieldEditorProps } from "./index";
+import TimePicker, { TimePickerModelValue } from "../Elements/timePicker";
+import { toNumber } from "@Obsidian/Services/number";
+import { padLeft } from "@Obsidian/Services/string";
 
 export const EditComponent = defineComponent({
-    name: 'TimeField.Edit',
+    name: "TimeField.Edit",
 
     components: {
         TimePicker
@@ -32,7 +32,7 @@ export const EditComponent = defineComponent({
     data() {
         return {
             internalTimeValue: {} as TimePickerModelValue,
-            internalValue: ''
+            internalValue: ""
         };
     },
 
@@ -56,7 +56,7 @@ export const EditComponent = defineComponent({
 
     watch: {
         internalValue(): void {
-            this.$emit('update:modelValue', this.internalValue);
+            this.$emit("update:modelValue", this.internalValue);
         },
 
         internalTimeValue(): void {

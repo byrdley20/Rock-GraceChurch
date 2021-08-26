@@ -14,12 +14,12 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { getFieldEditorProps } from './index';
-import DropDownList, { DropDownListOption } from '../Elements/dropDownList';
+import { defineComponent } from "vue";
+import { getFieldEditorProps } from "./index";
+import DropDownList, { DropDownListOption } from "../Elements/dropDownList";
 
 export const EditComponent = defineComponent({
-    name: 'GenderField.Edit',
+    name: "GenderField.Edit",
 
     components: {
         DropDownList
@@ -29,28 +29,28 @@ export const EditComponent = defineComponent({
 
     data() {
         return {
-            internalValue: ''
+            internalValue: ""
         };
     },
 
     computed: {
         dropDownListOptions(): DropDownListOption[] {
             return [
-                { text: 'Unknown', value: '0' },
-                { text: 'Male', value: '1' },
-                { text: 'Female', value: '2' }
+                { text: "Unknown", value: "0" },
+                { text: "Male", value: "1" },
+                { text: "Female", value: "2" }
             ] as DropDownListOption[];
         }
     },
 
     watch: {
         internalValue() {
-            this.$emit('update:modelValue', this.internalValue);
+            this.$emit("update:modelValue", this.internalValue);
         },
         modelValue: {
             immediate: true,
             handler() {
-                this.internalValue = this.modelValue || '';
+                this.internalValue = this.modelValue || "";
             }
         }
     },

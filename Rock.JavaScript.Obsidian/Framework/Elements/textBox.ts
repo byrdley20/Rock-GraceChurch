@@ -14,11 +14,11 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
-import RockFormField from './rockFormField';
+import { defineComponent, PropType } from "vue";
+import RockFormField from "./rockFormField";
 
 export default defineComponent( {
-    name: 'TextBox',
+    name: "TextBox",
     components: {
         RockFormField
     },
@@ -29,7 +29,7 @@ export default defineComponent( {
         },
         type: {
             type: String as PropType<string>,
-            default: 'text'
+            default: "text"
         },
         maxLength: {
             type: Number as PropType<number>,
@@ -41,11 +41,11 @@ export default defineComponent( {
         },
         placeholder: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         },
         inputClasses: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         },
         rows: {
             type: Number as PropType<number>,
@@ -53,49 +53,41 @@ export default defineComponent( {
         },
         textMode: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         }
     },
     emits: [
-        'update:modelValue'
+        "update:modelValue"
     ],
-    data: function ()
-    {
+    data: function () {
         return {
             internalValue: this.modelValue
         };
     },
     computed: {
-        isTextarea (): boolean
-        {
-            return this.textMode?.toLowerCase() === 'multiline';
+        isTextarea (): boolean {
+            return this.textMode?.toLowerCase() === "multiline";
         },
-        charsRemaining (): number
-        {
+        charsRemaining (): number {
             return this.maxLength - this.modelValue.length;
         },
-        countdownClass (): string
-        {
-            if ( this.charsRemaining >= 10 )
-            {
-                return 'badge-default';
+        countdownClass (): string {
+            if ( this.charsRemaining >= 10 ) {
+                return "badge-default";
             }
 
-            if ( this.charsRemaining >= 0 )
-            {
-                return 'badge-warning';
+            if ( this.charsRemaining >= 0 ) {
+                return "badge-warning";
             }
 
-            return 'badge-danger';
+            return "badge-danger";
         }
     },
     watch: {
-        internalValue ()
-        {
-            this.$emit( 'update:modelValue', this.internalValue );
+        internalValue () {
+            this.$emit( "update:modelValue", this.internalValue );
         },
-        modelValue ()
-        {
+        modelValue () {
             this.internalValue = this.modelValue;
         }
     },

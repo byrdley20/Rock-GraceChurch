@@ -23,22 +23,22 @@
 
 export const enum PageRoute {
     /** The CheckinManager route guid */
-    CheckInManager = 'A2B6EA1C-9E46-42C8-ABE4-0FD32D562B48',
+    CheckInManager = "A2B6EA1C-9E46-42C8-ABE4-0FD32D562B48",
     /** Gets the Campus Detail &gt; Group Member Detail page route guid */
-    GroupMemberDetailCampusDetail = '9660B9FB-C90F-4AFE-9D58-C0EC271C1377',
+    GroupMemberDetailCampusDetail = "9660B9FB-C90F-4AFE-9D58-C0EC271C1377",
     /** Gets the Text To Give Setup page route guid */
-    TextToGiveSetup = '58592279-6CD7-47FD-BD0C-E35784FF69FF',
+    TextToGiveSetup = "58592279-6CD7-47FD-BD0C-E35784FF69FF",
     /** Gets the Registration Template Placement page route guid */
-    RegistrationTemplatePlacement = '1F51EC08-7287-4A4C-BF36-2CCB57A02EE4',
+    RegistrationTemplatePlacement = "1F51EC08-7287-4A4C-BF36-2CCB57A02EE4",
     /** Gets the RSVP Response page route guid. */
-    Rsvp = '6BE4EE11-694A-4D3E-B3A7-F6B2946012B9',
+    Rsvp = "6BE4EE11-694A-4D3E-B3A7-F6B2946012B9",
     /** The phone number lookup */
-    PhoneNumberLookup = '1FB5A224-9E26-47E6-9A20-5B5A59B5C7CF',
+    PhoneNumberLookup = "1FB5A224-9E26-47E6-9A20-5B5A59B5C7CF",
     /** The oidc authorize route. */
-    OidcAuthorize = 'E35CD82E-C162-444E-AC5F-E42F20DA79F3',
+    OidcAuthorize = "E35CD82E-C162-444E-AC5F-E42F20DA79F3",
     /** The oidc logout route. */
-    OidcLogout = '5137F15D-61EA-4935-A9E1-16534959AEFA',
+    OidcLogout = "5137F15D-61EA-4935-A9E1-16534959AEFA",
     /** The edit person route '/Person/{PersonId}/Edit' */
-    EditPersonRoute = 'FCC0CCFF-8E18-48D8-A5EB-3D0F81D68280',
+    EditPersonRoute = "FCC0CCFF-8E18-48D8-A5EB-3D0F81D68280",
 }
 

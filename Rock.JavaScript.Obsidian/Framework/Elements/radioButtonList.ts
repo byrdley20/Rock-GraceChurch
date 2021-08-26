@@ -15,13 +15,13 @@
 // </copyright>
 //
 
-import { defineComponent, PropType } from 'vue';
-import { Guid } from '../Util/guid';
-import { DropDownListOption } from './dropDownList';
-import RockFormField from './rockFormField';
+import { defineComponent, PropType } from "vue";
+import { Guid } from "../Util/guid";
+import { DropDownListOption } from "./dropDownList";
+import RockFormField from "./rockFormField";
 
 export default defineComponent({
-    name: 'RadioButtonList',
+    name: "RadioButtonList",
     components: {
         RockFormField
     },
@@ -32,7 +32,7 @@ export default defineComponent({
         },
         modelValue: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         },
         repeatColumns: {
             type: Number as PropType<number>,
@@ -44,45 +44,41 @@ export default defineComponent({
         }
     },
     emits: [
-        'update:modelValue'
+        "update:modelValue"
     ],
     data() {
         return {
-            internalValue: ''
+            internalValue: ""
         };
     },
     computed: {
-        containerClasses (): string
-        {
+        containerClasses (): string {
             const classes: string[] = [];
 
-            if ( this.repeatColumns > 0 )
-            {
+            if ( this.repeatColumns > 0 ) {
                 classes.push(`in-columns in-columns-${this.repeatColumns}`);
             }
 
-            if ( this.horizontal )
-            {
-                classes.push( 'rockradiobuttonlist-horizontal' );
+            if ( this.horizontal ) {
+                classes.push( "rockradiobuttonlist-horizontal" );
             }
-            else
-            {
-                classes.push( 'rockradiobuttonlist-vertical' );
+            else {
+                classes.push( "rockradiobuttonlist-vertical" );
             }
 
-            return classes.join( ' ' );
+            return classes.join( " " );
         }
     },
     methods: {
         getOptionUniqueId(uniqueId: Guid, option: DropDownListOption): string {
-            const key = option.value.replace(' ', '-');
+            const key = option.value.replace(" ", "-");
 
             return `${uniqueId}-${key}`;
         }
     },
     watch: {
         internalValue() {
-            this.$emit('update:modelValue', this.internalValue);
+            this.$emit("update:modelValue", this.internalValue);
         },
         modelValue: {
             immediate: true,

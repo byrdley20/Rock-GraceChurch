@@ -5,17 +5,17 @@ System.register([], function (exports_1, context_1) {
         if (val === undefined || val === null) {
             return null;
         }
-        if (typeof val === 'boolean') {
+        if (typeof val === "boolean") {
             return val;
         }
-        if (typeof val === 'string') {
-            const asString = (val || '').trim().toLowerCase();
+        if (typeof val === "string") {
+            const asString = (val || "").trim().toLowerCase();
             if (!asString) {
                 return null;
             }
-            return ['true', 'yes', 't', 'y', '1'].indexOf(asString) !== -1;
+            return ["true", "yes", "t", "y", "1"].indexOf(asString) !== -1;
         }
-        if (typeof val === 'number') {
+        if (typeof val === "number") {
             return !!val;
         }
         return null;
@@ -30,7 +30,7 @@ System.register([], function (exports_1, context_1) {
         if (boolOrNull === null) {
             return null;
         }
-        return boolOrNull ? 'Yes' : 'No';
+        return boolOrNull ? "Yes" : "No";
     }
     exports_1("asYesNoOrNull", asYesNoOrNull);
     function asTrueFalseOrNull(val) {
@@ -38,7 +38,7 @@ System.register([], function (exports_1, context_1) {
         if (boolOrNull === null) {
             return null;
         }
-        return boolOrNull ? 'True' : 'False';
+        return boolOrNull ? "True" : "False";
     }
     exports_1("asTrueFalseOrNull", asTrueFalseOrNull);
     return {

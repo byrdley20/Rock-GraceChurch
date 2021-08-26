@@ -21,20 +21,19 @@ import CheckBox from "../Elements/checkBox";
 import RockButton from "../Elements/rockButton";
 import TextBox from "../Elements/textBox";
 import { Guid } from "../Util/guid";
-import { Person } from '@Obsidian/ViewModels';
+import { Person } from "@Obsidian/ViewModels";
 import { BlockHttp } from "./rockBlock";
 import RockForm from "./rockForm";
 
-interface SaveFinancialAccountFormResult
-{
+interface SaveFinancialAccountFormResult {
     title: string;
     detail: string;
     isSuccess: boolean;
-};
+}
 
 /** A form to save a payment token for later use as a Financial Person Saved Account */
 const SaveFinancialAccountForm = defineComponent( {
-    name: 'SaveFinancialAccountForm',
+    name: "SaveFinancialAccountForm",
     components: {
         CheckBox,
         TextBox,
@@ -56,62 +55,56 @@ const SaveFinancialAccountForm = defineComponent( {
             required: true
         }
     },
-    setup ()
-    {
+    setup () {
         return {
-            http: inject( 'http' ) as BlockHttp
+            http: inject( "http" ) as BlockHttp
         };
     },
-    data ()
-    {
+    data () {
         return {
             /** Will the payment token be saved for future use? */
             doSave: false,
 
             /** The username to create a login with */
-            username: '',
+            username: "",
 
             /** The password to create a login with */
-            password: '',
+            password: "",
 
             /** The confirmed password to create a login with */
-            confirmPassword: '',
+            confirmPassword: "",
 
             /** What the account will be named once created */
-            savedAccountName: '',
+            savedAccountName: "",
 
             /** Is an AJAX call currently in-flight? */
             isLoading: false,
 
-            successTitle: '',
-            successMessage: '',
-            errorTitle: '',
-            errorMessage: ''
+            successTitle: "",
+            successMessage: "",
+            errorTitle: "",
+            errorMessage: ""
         };
     },
     computed: {
         /** The person currently authenticated */
-        currentPerson (): Person | null
-        {
+        currentPerson (): Person | null {
             return this.$store.state.currentPerson;
         },
 
         /** Is a new login account needed to attach the new saved financial account to? */
-        isLoginCreationNeeded () : boolean
-        {
+        isLoginCreationNeeded () : boolean {
             return !this.currentPerson;
         },
     },
     methods: {
-        async onSubmit ()
-        {
-            this.errorTitle = '';
-            this.errorMessage = '';
+        async onSubmit () {
+            this.errorTitle = "";
+            this.errorMessage = "";
 
-            if ( this.password !== this.confirmPassword )
-            {
-                this.errorTitle = 'Password';
-                this.errorMessage = 'The password fields do not match.'
+            if ( this.password !== this.confirmPassword ) {
+                this.errorTitle = "Password";
+                this.errorMessage = "The password fields do not match.";
                 return;
             }
 
@@ -125,15 +118,13 @@ const SaveFinancialAccountForm = defineComponent( {
                 GatewayPersonIdentifier: this.gatewayPersonIdentifier
             } );
 
-            if ( result?.data?.isSuccess )
-            {
+            if ( result?.data?.isSuccess ) {
                 this.successTitle = result.data.title;
-                this.successMessage = result.data.detail || 'Success';
+                this.successMessage = result.data.detail || "Success";
             }
-            else
-            {
-                this.errorTitle = result.data?.title || '';
-                this.errorMessage = result.data?.detail || 'Error';
+            else {
+                this.errorTitle = result.data?.title || "";
+                this.errorMessage = result.data?.detail || "Error";
             }
 
             this.isLoading = false;

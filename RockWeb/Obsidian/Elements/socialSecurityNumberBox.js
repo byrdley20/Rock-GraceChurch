@@ -16,14 +16,14 @@ System.register(["vue", "../Rules/index", "./rockFormField"], function (exports_
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'SocialSecurityNumberBox',
+                name: "SocialSecurityNumberBox",
                 components: {
                     RockFormField: rockFormField_1.default
                 },
                 props: {
                     rules: {
                         type: String,
-                        default: ''
+                        default: ""
                     },
                     modelValue: {
                         type: String,
@@ -83,11 +83,11 @@ System.register(["vue", "../Rules/index", "./rockFormField"], function (exports_
                     modelValue: {
                         immediate: true,
                         handler() {
-                            const strippedValue = this.modelValue.replace(/[^0-9]/g, '');
+                            const strippedValue = this.modelValue.replace(/[^0-9]/g, "");
                             if (strippedValue.length !== 9) {
-                                this.internalArea = '';
-                                this.internalGroup = '';
-                                this.internalSerial = '';
+                                this.internalArea = "";
+                                this.internalGroup = "";
+                                this.internalSerial = "";
                             }
                             else {
                                 this.internalArea = strippedValue.substr(0, 3);
@@ -100,19 +100,19 @@ System.register(["vue", "../Rules/index", "./rockFormField"], function (exports_
                     internalArea() {
                         this.internalValue = this.getValue();
                         if (this.internalValue.length === 0 || this.internalValue.length === 9) {
-                            this.$emit('update:modelValue', this.internalValue);
+                            this.$emit("update:modelValue", this.internalValue);
                         }
                     },
                     internalGroup() {
                         this.internalValue = this.getValue();
                         if (this.internalValue.length === 0 || this.internalValue.length === 9) {
-                            this.$emit('update:modelValue', this.internalValue);
+                            this.$emit("update:modelValue", this.internalValue);
                         }
                     },
                     internalSerial() {
                         this.internalValue = this.getValue();
                         if (this.internalValue.length === 0 || this.internalValue.length === 9) {
-                            this.$emit('update:modelValue', this.internalValue);
+                            this.$emit("update:modelValue", this.internalValue);
                         }
                     },
                 },

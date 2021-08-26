@@ -13,7 +13,7 @@ System.register(["vue", "./rockFormField"], function (exports_1, context_1) {
         ],
         execute: function () {
             exports_1("NumberUpDownInternal", NumberUpDownInternal = vue_1.defineComponent({
-                name: 'NumberUpDownInternal',
+                name: "NumberUpDownInternal",
                 props: {
                     modelValue: {
                         type: Number,
@@ -65,7 +65,7 @@ System.register(["vue", "./rockFormField"], function (exports_1, context_1) {
                         }
                     },
                     internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
+                        this.$emit("update:modelValue", this.internalValue);
                     }
                 },
                 template: `
@@ -80,7 +80,7 @@ System.register(["vue", "./rockFormField"], function (exports_1, context_1) {
 </div>`
             }));
             exports_1("default", vue_1.defineComponent({
-                name: 'NumberUpDown',
+                name: "NumberUpDown",
                 components: {
                     RockFormField: rockFormField_1.default,
                     NumberUpDownInternal
@@ -100,7 +100,7 @@ System.register(["vue", "./rockFormField"], function (exports_1, context_1) {
                     },
                     numberIncrementClasses: {
                         type: String,
-                        default: ''
+                        default: ""
                     }
                 },
                 data() {
@@ -116,7 +116,7 @@ System.register(["vue", "./rockFormField"], function (exports_1, context_1) {
                         }
                     },
                     internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
+                        this.$emit("update:modelValue", this.internalValue);
                     }
                 },
                 template: `

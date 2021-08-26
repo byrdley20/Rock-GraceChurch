@@ -14,13 +14,13 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { getFieldEditorProps } from './index';
-import { toNumberOrNull } from '@Obsidian/Services/number';
-import NumberRangeBox, { NumberRangeModelValue } from '../Elements/numberRangeBox';
+import { defineComponent } from "vue";
+import { getFieldEditorProps } from "./index";
+import { toNumberOrNull } from "@Obsidian/Services/number";
+import NumberRangeBox, { NumberRangeModelValue } from "../Elements/numberRangeBox";
 
 export const EditComponent = defineComponent({
-    name: 'IntegerRangeField.Edit',
+    name: "IntegerRangeField.Edit",
 
     components: {
         NumberRangeBox
@@ -43,7 +43,7 @@ export const EditComponent = defineComponent({
         internalValue(): void {
             const value = `${this.internalValue.lower ?? ""},${this.internalValue.upper ?? ""}`;
 
-            this.$emit('update:modelValue', value !== "," ? value : "");
+            this.$emit("update:modelValue", value !== "," ? value : "");
         },
 
         /**

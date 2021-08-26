@@ -15,11 +15,10 @@
 // </copyright>
 //
 
-import { Guid } from '../../../Util/guid';
-import { RegistrantInfo, RegistrarInfo } from './registrationEntryBlockViewModel';
+import { Guid } from "../../../Util/guid";
+import { RegistrantInfo, RegistrarInfo } from "./registrationEntryBlockViewModel";
 
-export interface RegistrationEntryBlockArgs
-{
+export interface RegistrationEntryBlockArgs {
     registrationGuid: Guid | null;
     registrationSessionGuid: Guid | null;
     registrants: RegistrantInfo[];
@@ -30,8 +29,7 @@ export interface RegistrationEntryBlockArgs
     amountToPayNow: number;
 }
 
-export interface RegistrationEntryBlockSession extends RegistrationEntryBlockArgs
-{
+export interface RegistrationEntryBlockSession extends RegistrationEntryBlockArgs {
     discountAmount: number;
     discountPercentage: number;
     previouslyPaid: number;

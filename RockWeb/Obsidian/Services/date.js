@@ -20,12 +20,12 @@ System.register(["linqts", "./string"], function (exports_1, context_1) {
             let second = 0;
             let millisecond = 0;
             if (components.length >= 7) {
-                hour = Math.min(23, parseInt((_a = components[4]) !== null && _a !== void 0 ? _a : '0'));
-                minute = Math.min(59, parseInt((_b = components[5]) !== null && _b !== void 0 ? _b : '0'));
-                second = Math.min(59, parseInt((_c = components[6]) !== null && _c !== void 0 ? _c : '0'));
+                hour = Math.min(23, parseInt((_a = components[4]) !== null && _a !== void 0 ? _a : "0"));
+                minute = Math.min(59, parseInt((_b = components[5]) !== null && _b !== void 0 ? _b : "0"));
+                second = Math.min(59, parseInt((_c = components[6]) !== null && _c !== void 0 ? _c : "0"));
             }
             if (components.length == 8) {
-                millisecond = parseInt((_d = components[7]) !== null && _d !== void 0 ? _d : '0');
+                millisecond = parseInt((_d = components[7]) !== null && _d !== void 0 ? _d : "0");
             }
             return new Date(year, month - 1, day, hour, minute, second, millisecond);
         }
@@ -41,7 +41,7 @@ System.register(["linqts", "./string"], function (exports_1, context_1) {
         if (val instanceof Date) {
             return val;
         }
-        if (typeof val === 'string') {
+        if (typeof val === "string") {
             const ms = Date.parse(val);
             if (isNaN(ms)) {
                 return null;
@@ -54,7 +54,7 @@ System.register(["linqts", "./string"], function (exports_1, context_1) {
     function asDateString(val) {
         const dateOrNull = asDateOrNull(val);
         if (!dateOrNull) {
-            return '';
+            return "";
         }
         return dateOrNull.toLocaleDateString();
     }
@@ -69,27 +69,27 @@ System.register(["linqts", "./string"], function (exports_1, context_1) {
         const totalHours = totalMs / msPerHour;
         const totalDays = totalHours / hoursPerDay;
         if (totalDays < 2) {
-            return '1day';
+            return "1day";
         }
         if (totalDays < 31) {
             return `${Math.floor(totalDays)}days`;
         }
         const totalMonths = totalDays / daysPerMonth;
         if (totalMonths <= 1) {
-            return '1mon';
+            return "1mon";
         }
         if (totalMonths <= 18) {
             return `${Math.round(totalMonths)}mon`;
         }
         const totalYears = totalDays / daysPerYear;
         if (totalYears <= 1) {
-            return '1yr';
+            return "1yr";
         }
         return `${Math.round(totalYears)}yrs`;
     }
     exports_1("asElapsedString", asElapsedString);
     function blankIfZero(value) {
-        return parseInt(value) === 0 ? '' : value;
+        return parseInt(value) === 0 ? "" : value;
     }
     function get12HourValue(hour) {
         if (hour == 0) {
@@ -103,7 +103,7 @@ System.register(["linqts", "./string"], function (exports_1, context_1) {
         }
     }
     function formatAspCustomDate(date, format) {
-        let result = '';
+        let result = "";
         for (let i = 0; i < format.length;) {
             let matchFound = false;
             for (const k of dateFormatterKeys) {
@@ -117,15 +117,15 @@ System.register(["linqts", "./string"], function (exports_1, context_1) {
             if (matchFound) {
                 continue;
             }
-            if (format[i] === '\\') {
+            if (format[i] === "\\") {
                 i++;
                 if (i < format.length) {
                     result += format[i++];
                 }
             }
-            else if (format[i] === '\'') {
+            else if (format[i] === "'") {
                 i++;
-                for (; i < format.length && format[i] !== '\''; i++) {
+                for (; i < format.length && format[i] !== "'"; i++) {
                     result += format[i];
                 }
                 i++;
@@ -153,7 +153,7 @@ System.register(["linqts", "./string"], function (exports_1, context_1) {
         if (format.length === 1) {
             return formatAspStandardDate(date, format);
         }
-        else if (format.length === 2 && format[0] === '%') {
+        else if (format.length === 2 && format[0] === "%") {
             return formatAspCustomDate(date, format[1]);
         }
         else {
@@ -171,96 +171,96 @@ System.register(["linqts", "./string"], function (exports_1, context_1) {
             }
         ],
         execute: function () {
-            englishDayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            englishMonthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            englishDayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            englishMonthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
             dateFormatters = {
-                'yyyyy': date => string_1.padLeft(date.getFullYear().toString(), 5, '0'),
-                'yyyy': date => string_1.padLeft(date.getFullYear().toString(), 4, '0'),
-                'yyy': date => string_1.padLeft(date.getFullYear().toString(), 3, '0'),
-                'yy': date => string_1.padLeft((date.getFullYear() % 100).toString(), 2, '0'),
-                'y': date => (date.getFullYear() % 100).toString(),
-                'MMMM': date => englishMonthNames[date.getMonth()],
-                'MMM': date => englishMonthNames[date.getMonth()].substr(0, 3),
-                'MM': date => string_1.padLeft((date.getMonth() + 1).toString(), 2, '0'),
-                'M': date => (date.getMonth() + 1).toString(),
-                'dddd': date => englishDayNames[date.getDay()],
-                'ddd': date => englishDayNames[date.getDay()].substr(0, 3),
-                'dd': date => string_1.padLeft(date.getDate().toString(), 2, '0'),
-                'd': date => date.getDate().toString(),
-                'fffffff': date => string_1.padRight((date.getMilliseconds() * 10000).toString(), 7, '0'),
-                'ffffff': date => string_1.padRight((date.getMilliseconds() * 1000).toString(), 6, '0'),
-                'fffff': date => string_1.padRight((date.getMilliseconds() * 100).toString(), 5, '0'),
-                'ffff': date => string_1.padRight((date.getMilliseconds() * 10).toString(), 4, '0'),
-                'fff': date => string_1.padRight(date.getMilliseconds().toString(), 3, '0'),
-                'ff': date => string_1.padRight(Math.floor(date.getMilliseconds() / 10).toString(), 2, '0'),
-                'f': date => string_1.padRight(Math.floor(date.getMilliseconds() / 100).toString(), 1, '0'),
-                'FFFFFFF': date => blankIfZero(string_1.padRight((date.getMilliseconds() * 10000).toString(), 7, '0')),
-                'FFFFFF': date => blankIfZero(string_1.padRight((date.getMilliseconds() * 1000).toString(), 6, '0')),
-                'FFFFF': date => blankIfZero(string_1.padRight((date.getMilliseconds() * 100).toString(), 5, '0')),
-                'FFFF': date => blankIfZero(string_1.padRight((date.getMilliseconds() * 10).toString(), 4, '0')),
-                'FFF': date => blankIfZero(string_1.padRight(date.getMilliseconds().toString(), 3, '0')),
-                'FF': date => blankIfZero(string_1.padRight(Math.floor(date.getMilliseconds() / 10).toString(), 2, '0')),
-                'F': date => blankIfZero(string_1.padRight(Math.floor(date.getMilliseconds() / 100).toString(), 1, '0')),
-                'g': date => date.getFullYear() < 0 ? 'B.C.' : 'A.D.',
-                'gg': date => date.getFullYear() < 0 ? 'B.C.' : 'A.D.',
-                'hh': date => string_1.padLeft(get12HourValue(date.getHours()).toString(), 2, '0'),
-                'h': date => get12HourValue(date.getHours()).toString(),
-                'HH': date => string_1.padLeft(date.getHours().toString(), 2, '0'),
-                'H': date => date.getHours().toString(),
-                'mm': date => string_1.padLeft(date.getMinutes().toString(), 2, '0'),
-                'm': date => date.getMinutes().toString(),
-                'ss': date => string_1.padLeft(date.getSeconds().toString(), 2, '0'),
-                's': date => date.getSeconds().toString(),
-                'K': date => {
+                "yyyyy": date => string_1.padLeft(date.getFullYear().toString(), 5, "0"),
+                "yyyy": date => string_1.padLeft(date.getFullYear().toString(), 4, "0"),
+                "yyy": date => string_1.padLeft(date.getFullYear().toString(), 3, "0"),
+                "yy": date => string_1.padLeft((date.getFullYear() % 100).toString(), 2, "0"),
+                "y": date => (date.getFullYear() % 100).toString(),
+                "MMMM": date => englishMonthNames[date.getMonth()],
+                "MMM": date => englishMonthNames[date.getMonth()].substr(0, 3),
+                "MM": date => string_1.padLeft((date.getMonth() + 1).toString(), 2, "0"),
+                "M": date => (date.getMonth() + 1).toString(),
+                "dddd": date => englishDayNames[date.getDay()],
+                "ddd": date => englishDayNames[date.getDay()].substr(0, 3),
+                "dd": date => string_1.padLeft(date.getDate().toString(), 2, "0"),
+                "d": date => date.getDate().toString(),
+                "fffffff": date => string_1.padRight((date.getMilliseconds() * 10000).toString(), 7, "0"),
+                "ffffff": date => string_1.padRight((date.getMilliseconds() * 1000).toString(), 6, "0"),
+                "fffff": date => string_1.padRight((date.getMilliseconds() * 100).toString(), 5, "0"),
+                "ffff": date => string_1.padRight((date.getMilliseconds() * 10).toString(), 4, "0"),
+                "fff": date => string_1.padRight(date.getMilliseconds().toString(), 3, "0"),
+                "ff": date => string_1.padRight(Math.floor(date.getMilliseconds() / 10).toString(), 2, "0"),
+                "f": date => string_1.padRight(Math.floor(date.getMilliseconds() / 100).toString(), 1, "0"),
+                "FFFFFFF": date => blankIfZero(string_1.padRight((date.getMilliseconds() * 10000).toString(), 7, "0")),
+                "FFFFFF": date => blankIfZero(string_1.padRight((date.getMilliseconds() * 1000).toString(), 6, "0")),
+                "FFFFF": date => blankIfZero(string_1.padRight((date.getMilliseconds() * 100).toString(), 5, "0")),
+                "FFFF": date => blankIfZero(string_1.padRight((date.getMilliseconds() * 10).toString(), 4, "0")),
+                "FFF": date => blankIfZero(string_1.padRight(date.getMilliseconds().toString(), 3, "0")),
+                "FF": date => blankIfZero(string_1.padRight(Math.floor(date.getMilliseconds() / 10).toString(), 2, "0")),
+                "F": date => blankIfZero(string_1.padRight(Math.floor(date.getMilliseconds() / 100).toString(), 1, "0")),
+                "g": date => date.getFullYear() < 0 ? "B.C." : "A.D.",
+                "gg": date => date.getFullYear() < 0 ? "B.C." : "A.D.",
+                "hh": date => string_1.padLeft(get12HourValue(date.getHours()).toString(), 2, "0"),
+                "h": date => get12HourValue(date.getHours()).toString(),
+                "HH": date => string_1.padLeft(date.getHours().toString(), 2, "0"),
+                "H": date => date.getHours().toString(),
+                "mm": date => string_1.padLeft(date.getMinutes().toString(), 2, "0"),
+                "m": date => date.getMinutes().toString(),
+                "ss": date => string_1.padLeft(date.getSeconds().toString(), 2, "0"),
+                "s": date => date.getSeconds().toString(),
+                "K": date => {
                     const offset = date.getTimezoneOffset();
                     const offsetHour = Math.abs(Math.floor(offset / 60));
                     const offsetMinute = Math.abs(offset % 60);
-                    return `${offset > 0 ? '-' : '+'}${string_1.padLeft(offsetHour.toString(), 2, '0')}:${string_1.padLeft(offsetMinute.toString(), 2, '0')}`;
+                    return `${offset > 0 ? "-" : "+"}${string_1.padLeft(offsetHour.toString(), 2, "0")}:${string_1.padLeft(offsetMinute.toString(), 2, "0")}`;
                 },
-                'tt': date => date.getHours() >= 12 ? 'PM' : 'AM',
-                't': date => date.getHours() >= 12 ? 'P' : 'A',
-                'zzz': date => {
+                "tt": date => date.getHours() >= 12 ? "PM" : "AM",
+                "t": date => date.getHours() >= 12 ? "P" : "A",
+                "zzz": date => {
                     const offset = date.getTimezoneOffset();
                     const offsetHour = Math.abs(Math.floor(offset / 60));
                     const offsetMinute = Math.abs(offset % 60);
-                    return `${offset > 0 ? '-' : '+'}${string_1.padLeft(offsetHour.toString(), 2, '0')}:${string_1.padLeft(offsetMinute.toString(), 2, '0')}`;
+                    return `${offset > 0 ? "-" : "+"}${string_1.padLeft(offsetHour.toString(), 2, "0")}:${string_1.padLeft(offsetMinute.toString(), 2, "0")}`;
                 },
-                'zz': date => {
+                "zz": date => {
                     const offset = date.getTimezoneOffset();
                     const offsetHour = Math.abs(Math.floor(offset / 60));
-                    return `${offset > 0 ? '-' : '+'}${string_1.padLeft(offsetHour.toString(), 2, '0')}`;
+                    return `${offset > 0 ? "-" : "+"}${string_1.padLeft(offsetHour.toString(), 2, "0")}`;
                 },
-                'z': date => {
+                "z": date => {
                     const offset = date.getTimezoneOffset();
                     const offsetHour = Math.abs(Math.floor(offset / 60));
-                    return `${offset > 0 ? '-' : '+'}${offsetHour}`;
+                    return `${offset > 0 ? "-" : "+"}${offsetHour}`;
                 },
-                ':': () => ':',
-                '/': () => '/'
+                ":": () => ":",
+                "/": () => "/"
             };
             dateFormatterKeys = new linqts_1.List(Object.keys(dateFormatters))
                 .OrderByDescending(k => k.length)
                 .ToArray();
             standardDateFormats = {
-                'd': date => formatAspDate(date, 'M/dd/yyyy'),
-                'D': date => formatAspDate(date, 'dddd, MMMM dd, yyyy'),
-                't': date => formatAspDate(date, 'h:mm tt'),
-                'T': date => formatAspDate(date, 'h:mm:ss tt'),
-                'M': date => formatAspDate(date, 'MMMM dd'),
-                'm': date => formatAspDate(date, 'MMMM dd'),
-                'Y': date => formatAspDate(date, 'yyyy MMMM'),
-                'y': date => formatAspDate(date, 'yyyy MMMM'),
-                'f': date => `${formatAspDate(date, 'D')} ${formatAspDate(date, 't')}`,
-                'F': date => `${formatAspDate(date, 'D')} ${formatAspDate(date, 'T')}`,
-                'g': date => `${formatAspDate(date, 'd')} ${formatAspDate(date, 't')}`,
-                'G': date => `${formatAspDate(date, 'd')} ${formatAspDate(date, 'T')}`,
-                'o': date => formatAspDate(date, `yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffzzz`),
-                'O': date => formatAspDate(date, `yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffzzz`),
-                'r': date => formatAspDate(date, `ddd, dd MMM yyyy HH':'mm':'ss 'GMT'`),
-                'R': date => formatAspDate(date, `ddd, dd MMM yyyy HH':'mm':'ss 'GMT'`),
-                's': date => formatAspDate(date, `yyyy'-'MM'-'dd'T'HH':'mm':'ss`),
-                'u': date => formatAspDate(date, `yyyy'-'MM'-'dd HH':'mm':'ss'Z'`),
-                'U': date => {
+                "d": date => formatAspDate(date, "M/dd/yyyy"),
+                "D": date => formatAspDate(date, "dddd, MMMM dd, yyyy"),
+                "t": date => formatAspDate(date, "h:mm tt"),
+                "T": date => formatAspDate(date, "h:mm:ss tt"),
+                "M": date => formatAspDate(date, "MMMM dd"),
+                "m": date => formatAspDate(date, "MMMM dd"),
+                "Y": date => formatAspDate(date, "yyyy MMMM"),
+                "y": date => formatAspDate(date, "yyyy MMMM"),
+                "f": date => `${formatAspDate(date, "D")} ${formatAspDate(date, "t")}`,
+                "F": date => `${formatAspDate(date, "D")} ${formatAspDate(date, "T")}`,
+                "g": date => `${formatAspDate(date, "d")} ${formatAspDate(date, "t")}`,
+                "G": date => `${formatAspDate(date, "d")} ${formatAspDate(date, "T")}`,
+                "o": date => formatAspDate(date, `yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffzzz`),
+                "O": date => formatAspDate(date, `yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffzzz`),
+                "r": date => formatAspDate(date, `ddd, dd MMM yyyy HH':'mm':'ss 'GMT'`),
+                "R": date => formatAspDate(date, `ddd, dd MMM yyyy HH':'mm':'ss 'GMT'`),
+                "s": date => formatAspDate(date, `yyyy'-'MM'-'dd'T'HH':'mm':'ss`),
+                "u": date => formatAspDate(date, `yyyy'-'MM'-'dd HH':'mm':'ss'Z'`),
+                "U": date => {
                     const utcDate = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds(), date.getUTCMilliseconds());
                     return formatAspDate(utcDate, `F`);
                 },

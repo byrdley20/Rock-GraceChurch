@@ -14,15 +14,15 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { getFieldEditorProps } from './index';
-import TextBox from '../Elements/textBox';
-import { asBooleanOrNull } from '@Obsidian/Services/boolean';
-import { toNumber } from '@Obsidian/Services/number';
-import { ConfigurationValueKey } from './memoField';
+import { defineComponent } from "vue";
+import { getFieldEditorProps } from "./index";
+import TextBox from "../Elements/textBox";
+import { asBooleanOrNull } from "@Obsidian/Services/boolean";
+import { toNumber } from "@Obsidian/Services/number";
+import { ConfigurationValueKey } from "./memoField";
 
 export const EditComponent = defineComponent({
-    name: 'MemoField.Edit',
+    name: "MemoField.Edit",
 
     components: {
         TextBox
@@ -32,7 +32,7 @@ export const EditComponent = defineComponent({
 
     data() {
         return {
-            internalValue: ''
+            internalValue: ""
         };
     },
 
@@ -67,13 +67,13 @@ export const EditComponent = defineComponent({
 
     watch: {
         internalValue(): void {
-            this.$emit('update:modelValue', this.internalValue);
+            this.$emit("update:modelValue", this.internalValue);
         },
 
         modelValue: {
             immediate: true,
             handler(): void {
-                this.internalValue = this.modelValue || '';
+                this.internalValue = this.modelValue || "";
             }
         }
     },

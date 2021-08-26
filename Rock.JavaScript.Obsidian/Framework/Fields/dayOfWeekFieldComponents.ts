@@ -14,13 +14,13 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { getFieldEditorProps } from './index';
-import { DayOfWeek } from './dayOfWeekField';
-import DropDownList, { DropDownListOption } from '../Elements/dropDownList';
+import { defineComponent } from "vue";
+import { getFieldEditorProps } from "./index";
+import { DayOfWeek } from "./dayOfWeekField";
+import DropDownList, { DropDownListOption } from "../Elements/dropDownList";
 
 export const EditComponent = defineComponent({
-    name: 'DayOfWeekField.Edit',
+    name: "DayOfWeekField.Edit",
     components: {
         DropDownList
     },
@@ -29,7 +29,7 @@ export const EditComponent = defineComponent({
     data() {
         return {
             /** The currently selected value. */
-            internalValue: ''
+            internalValue: ""
         };
     },
 
@@ -40,13 +40,13 @@ export const EditComponent = defineComponent({
          */
         options(): Array<DropDownListOption> {
             return [
-                { text: 'Sunday', value: DayOfWeek.Sunday.toString() },
-                { text: 'Monday', value: DayOfWeek.Monday.toString() },
-                { text: 'Tuesday', value: DayOfWeek.Tuesday.toString() },
-                { text: 'Wednesday', value: DayOfWeek.Wednesday.toString() },
-                { text: 'Thursday', value: DayOfWeek.Thursday.toString() },
-                { text: 'Friday', value: DayOfWeek.Friday.toString() },
-                { text: 'Saturday', value: DayOfWeek.Saturday.toString() }
+                { text: "Sunday", value: DayOfWeek.Sunday.toString() },
+                { text: "Monday", value: DayOfWeek.Monday.toString() },
+                { text: "Tuesday", value: DayOfWeek.Tuesday.toString() },
+                { text: "Wednesday", value: DayOfWeek.Wednesday.toString() },
+                { text: "Thursday", value: DayOfWeek.Thursday.toString() },
+                { text: "Friday", value: DayOfWeek.Friday.toString() },
+                { text: "Saturday", value: DayOfWeek.Saturday.toString() }
             ];
         },
     },
@@ -57,7 +57,7 @@ export const EditComponent = defineComponent({
          * the consuming component.
          */
         internalValue() {
-            this.$emit('update:modelValue', this.internalValue);
+            this.$emit("update:modelValue", this.internalValue);
         },
 
         /**
@@ -67,7 +67,7 @@ export const EditComponent = defineComponent({
         modelValue: {
             immediate: true,
             handler() {
-                this.internalValue = this.modelValue || '';
+                this.internalValue = this.modelValue || "";
             }
         }
     },

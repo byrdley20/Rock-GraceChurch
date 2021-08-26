@@ -15,53 +15,47 @@
 // </copyright>
 //
 
-import { defineComponent, inject } from 'vue';
-import SaveFinancialAccountForm from '../../../Controls/saveFinancialAccountForm';
-import { Guid } from '../../../Util/guid';
-import { RegistrationEntryState } from '../registrationEntry';
+import { defineComponent, inject } from "vue";
+import SaveFinancialAccountForm from "../../../Controls/saveFinancialAccountForm";
+import { Guid } from "../../../Util/guid";
+import { RegistrationEntryState } from "../registrationEntry";
 
 export default defineComponent( {
-    name: 'Event.RegistrationEntry.Success',
+    name: "Event.RegistrationEntry.Success",
     components: {
         SaveFinancialAccountForm
     },
-    setup ()
-    {
+    setup () {
         return {
-            registrationEntryState: inject( 'registrationEntryState' ) as RegistrationEntryState
+            registrationEntryState: inject( "registrationEntryState" ) as RegistrationEntryState
         };
     },
     computed: {
         /** The term to refer to a registrant */
-        registrationTerm (): string
-        {
+        registrationTerm (): string {
             return this.registrationEntryState.viewModel.registrationTerm.toLowerCase();
         },
 
         /** The success lava markup */
-        messageHtml (): string
-        {
+        messageHtml (): string {
             return this.registrationEntryState.successViewModel?.messageHtml || `You have successfully completed this ${this.registrationTerm}`;
         },
 
         /** The financial gateway record's guid */
-        gatewayGuid (): Guid | null
-        {
+        gatewayGuid (): Guid | null {
             return this.registrationEntryState.viewModel.gatewayGuid;
         },
 
         /** The transaction code that can be used to create a saved account */
-        transactionCode (): string
-        {
+        transactionCode (): string {
             return this.registrationEntryState.viewModel.isRedirectGateway ?
-                '' :
-                this.registrationEntryState.successViewModel?.transactionCode || '';
+                "" :
+                this.registrationEntryState.successViewModel?.transactionCode || "";
         },
 
         /** The token returned for the payment method */
-        gatewayPersonIdentifier (): string
-        {
-            return this.registrationEntryState.successViewModel?.gatewayPersonIdentifier || '';
+        gatewayPersonIdentifier (): string {
+            return this.registrationEntryState.successViewModel?.gatewayPersonIdentifier || "";
         }
     },
     template: `

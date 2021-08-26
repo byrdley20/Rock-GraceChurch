@@ -14,14 +14,14 @@
 // limitations under the License.
 // </copyright>
 //
-import { Component, defineAsyncComponent } from 'vue';
-import { FieldTypeBase } from './fieldType';
-import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
-import { formatPhoneNumber } from '@Obsidian/Services/string';
+import { Component, defineAsyncComponent } from "vue";
+import { FieldTypeBase } from "./fieldType";
+import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
+import { formatPhoneNumber } from "@Obsidian/Services/string";
 
 // The edit component can be quite large, so load it only as needed.
 const editComponent = defineAsyncComponent(async () => {
-    return (await import('./phoneNumberFieldComponents')).EditComponent;
+    return (await import("./phoneNumberFieldComponents")).EditComponent;
 });
 
 /**
@@ -29,7 +29,7 @@ const editComponent = defineAsyncComponent(async () => {
  */
 export class PhoneNumberFieldType extends FieldTypeBase {
     public override updateTextValue(value: ClientEditableAttributeValue): void {
-        value.textValue = formatPhoneNumber(value.value || '');
+        value.textValue = formatPhoneNumber(value.value || "");
     }
 
     public override getEditComponent(_value: ClientAttributeValue): Component {

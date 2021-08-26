@@ -18,10 +18,10 @@ System.register(["../Util/guid", "./addressField", "./booleanField", "./campusFi
     function registerFieldType(fieldTypeGuid, fieldType) {
         const normalizedGuid = guid_1.normalize(fieldTypeGuid);
         if (!guid_1.isValidGuid(fieldTypeGuid) || normalizedGuid === null) {
-            throw 'Invalid guid specified when registering field type.';
+            throw "Invalid guid specified when registering field type.";
         }
         if (fieldTypeTable[normalizedGuid] !== undefined) {
-            throw 'Invalid attempt to replace existing field type.';
+            throw "Invalid attempt to replace existing field type.";
         }
         fieldTypeTable[normalizedGuid] = fieldType;
     }

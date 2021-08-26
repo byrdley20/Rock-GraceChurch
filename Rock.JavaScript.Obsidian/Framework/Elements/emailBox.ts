@@ -14,12 +14,12 @@
 // limitations under the License.
 // </copyright>
 //
-import { ruleStringToArray, ruleArrayToString } from '../Rules/index';
-import { defineComponent, PropType } from 'vue';
-import RockFormField from './rockFormField';
+import { ruleStringToArray, ruleArrayToString } from "../Rules/index";
+import { defineComponent, PropType } from "vue";
+import RockFormField from "./rockFormField";
 
 export default defineComponent({
-    name: 'EmailBox',
+    name: "EmailBox",
     components: {
         RockFormField
     },
@@ -38,11 +38,11 @@ export default defineComponent({
         },
         rules: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         }
     },
     emits: [
-        'update:modelValue'
+        "update:modelValue"
     ],
     data: function () {
         return {
@@ -53,8 +53,8 @@ export default defineComponent({
         computedRules() {
             const rules = ruleStringToArray(this.rules);
 
-            if (rules.indexOf('email') === -1 && !this.allowLava && !this.allowMultiple) {
-                rules.push('email');
+            if (rules.indexOf("email") === -1 && !this.allowLava && !this.allowMultiple) {
+                rules.push("email");
             }
 
             return ruleArrayToString(rules);
@@ -65,7 +65,7 @@ export default defineComponent({
     },
     watch: {
         internalValue() {
-            this.$emit('update:modelValue', this.internalValue);
+            this.$emit("update:modelValue", this.internalValue);
         },
         modelValue () {
             this.internalValue = this.modelValue;

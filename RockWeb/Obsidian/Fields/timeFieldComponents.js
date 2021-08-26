@@ -22,7 +22,7 @@ System.register(["vue", "./index", "../Elements/timePicker", "@Obsidian/Services
         ],
         execute: function () {
             exports_1("EditComponent", EditComponent = vue_1.defineComponent({
-                name: 'TimeField.Edit',
+                name: "TimeField.Edit",
                 components: {
                     TimePicker: timePicker_1.default
                 },
@@ -30,7 +30,7 @@ System.register(["vue", "./index", "../Elements/timePicker", "@Obsidian/Services
                 data() {
                     return {
                         internalTimeValue: {},
-                        internalValue: ''
+                        internalValue: ""
                     };
                 },
                 computed: {
@@ -49,7 +49,7 @@ System.register(["vue", "./index", "../Elements/timePicker", "@Obsidian/Services
                 },
                 watch: {
                     internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
+                        this.$emit("update:modelValue", this.internalValue);
                     },
                     internalTimeValue() {
                         if (this.internalTimeValue.hour === undefined || this.internalTimeValue.minute === undefined) {

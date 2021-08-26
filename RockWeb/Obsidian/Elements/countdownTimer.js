@@ -10,17 +10,17 @@ System.register(["vue"], function (exports_1, context_1) {
         ],
         execute: function () {
             (function (AlertType) {
-                AlertType["default"] = "default";
-                AlertType["success"] = "success";
-                AlertType["info"] = "info";
-                AlertType["danger"] = "danger";
-                AlertType["warning"] = "warning";
-                AlertType["primary"] = "primary";
-                AlertType["validation"] = "validation";
+                AlertType["Default"] = "default";
+                AlertType["Success"] = "success";
+                AlertType["Info"] = "info";
+                AlertType["Danger"] = "danger";
+                AlertType["Warning"] = "warning";
+                AlertType["Primary"] = "primary";
+                AlertType["Validation"] = "validation";
             })(AlertType || (AlertType = {}));
             exports_1("AlertType", AlertType);
             CountdownTimer = vue_1.defineComponent({
-                name: 'CountdownTimer',
+                name: "CountdownTimer",
                 props: {
                     modelValue: {
                         type: Number,
@@ -36,16 +36,16 @@ System.register(["vue"], function (exports_1, context_1) {
                     timeString() {
                         const minutes = Math.floor(this.modelValue / 60);
                         const seconds = Math.floor(this.modelValue % 60);
-                        return `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                        return `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
                     },
                 },
                 methods: {
                     onInterval() {
                         if (this.modelValue <= 0) {
-                            this.$emit('update:modelValue', 0);
+                            this.$emit("update:modelValue", 0);
                             return;
                         }
-                        this.$emit('update:modelValue', Math.floor(this.modelValue - 1));
+                        this.$emit("update:modelValue", Math.floor(this.modelValue - 1));
                     }
                 },
                 mounted() {

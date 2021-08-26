@@ -14,16 +14,16 @@
 // limitations under the License.
 // </copyright>
 //
-import { Component, defineAsyncComponent } from 'vue';
-import { FieldTypeBase } from './fieldType';
-import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
-import { formatAspDate } from '@Obsidian/Services/date';
-import { toNumber } from '@Obsidian/Services/number';
+import { Component, defineAsyncComponent } from "vue";
+import { FieldTypeBase } from "./fieldType";
+import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
+import { formatAspDate } from "@Obsidian/Services/date";
+import { toNumber } from "@Obsidian/Services/number";
 
 
 // The edit component can be quite large, so load it only as needed.
 const editComponent = defineAsyncComponent(async () => {
-    return (await import('./dateRangeFieldComponents')).EditComponent;
+    return (await import("./dateRangeFieldComponents")).EditComponent;
 });
 
 /**
@@ -31,10 +31,10 @@ const editComponent = defineAsyncComponent(async () => {
  */
 export class DateRangeFieldType extends FieldTypeBase {
     public override updateTextValue(value: ClientEditableAttributeValue): void {
-        const dateParts = (value.value ?? '').split(',');
+        const dateParts = (value.value ?? "").split(",");
 
         if (dateParts.length !== 2) {
-            value.textValue = '';
+            value.textValue = "";
             return;
         }
 
@@ -45,16 +45,16 @@ export class DateRangeFieldType extends FieldTypeBase {
         const upperDate = upperDateParts !== null ? new Date(toNumber(upperDateParts[1]), toNumber(upperDateParts[2]) - 1, toNumber(upperDateParts[3])) : null;
 
         if (lowerDate !== null && upperDate !== null) {
-            value.textValue = `${formatAspDate(lowerDate, 'd')} to ${formatAspDate(upperDate, 'd')}`;
+            value.textValue = `${formatAspDate(lowerDate, "d")} to ${formatAspDate(upperDate, "d")}`;
         }
         else if (lowerDate !== null) {
-            value.textValue = `from ${formatAspDate(lowerDate, 'd')}`;
+            value.textValue = `from ${formatAspDate(lowerDate, "d")}`;
         }
         else if (upperDate !== null) {
-            value.textValue = `through ${formatAspDate(upperDate, 'd')}`;
+            value.textValue = `through ${formatAspDate(upperDate, "d")}`;
         }
         else {
-            value.textValue = '';
+            value.textValue = "";
         }
     }
 

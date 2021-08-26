@@ -25,7 +25,7 @@ System.register(["vue", "../Elements/alert", "../Elements/loadingIndicator"], fu
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'ComponentFromUrl',
+                name: "ComponentFromUrl",
                 components: {
                     LoadingIndicator: loadingIndicator_1.default,
                     Alert: alert_1.default
@@ -40,7 +40,7 @@ System.register(["vue", "../Elements/alert", "../Elements/loadingIndicator"], fu
                     return {
                         control: null,
                         loading: true,
-                        error: ''
+                        error: ""
                     };
                 },
                 created() {

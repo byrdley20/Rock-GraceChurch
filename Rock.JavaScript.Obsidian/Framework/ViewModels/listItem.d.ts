@@ -27,4 +27,4 @@ export declare type ListItem = {
 
     /** The name of the category this item belongs to. */
     category?: string | null;
-}
+};

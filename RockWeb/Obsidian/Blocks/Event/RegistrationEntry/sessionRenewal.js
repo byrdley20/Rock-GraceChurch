@@ -34,7 +34,7 @@ System.register(["vue", "../../../Controls/dialog", "../../../Elements/loadingIn
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'Event.RegistrationEntry.SessionRenewal',
+                name: "Event.RegistrationEntry.SessionRenewal",
                 components: {
                     Dialog: dialog_1.default,
                     LoadingIndicator: loadingIndicator_1.default,
@@ -48,8 +48,8 @@ System.register(["vue", "../../../Controls/dialog", "../../../Elements/loadingIn
                 },
                 setup() {
                     return {
-                        registrationEntryState: vue_1.inject('registrationEntryState'),
-                        invokeBlockAction: vue_1.inject('invokeBlockAction')
+                        registrationEntryState: vue_1.inject("registrationEntryState"),
+                        invokeBlockAction: vue_1.inject("invokeBlockAction")
                     };
                 },
                 data() {
@@ -97,7 +97,7 @@ System.register(["vue", "../../../Controls/dialog", "../../../Elements/loadingIn
                             this.spotsSecured = 0;
                             this.isLoading = true;
                             try {
-                                const response = yield this.invokeBlockAction('TryToRenewSession', {
+                                const response = yield this.invokeBlockAction("TryToRenewSession", {
                                     registrationSessionGuid: this.registrationEntryState.registrationSessionGuid
                                 });
                                 if (response.data) {
@@ -106,7 +106,7 @@ System.register(["vue", "../../../Controls/dialog", "../../../Elements/loadingIn
                                     this.spotsSecured = response.data.spotsSecured;
                                     let deficiency = this.nonWaitlistRegistrantCount - this.spotsSecured;
                                     if (!deficiency) {
-                                        this.$emit('success');
+                                        this.$emit("success");
                                         this.close();
                                         return;
                                     }

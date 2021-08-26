@@ -14,12 +14,12 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
-import RockFormField from './rockFormField';
+import { defineComponent, PropType } from "vue";
+import RockFormField from "./rockFormField";
 
 // TODO: This should be replaced with a version that does not require jQuery.
 export default defineComponent({
-    name: 'ColorPicker',
+    name: "ColorPicker",
     components: {
         RockFormField
     },
@@ -30,11 +30,11 @@ export default defineComponent({
         },
         placeholder: {
             type: String as PropType<string>,
-            default: ''
+            default: ""
         }
     },
     emits: [
-        'update:modelValue'
+        "update:modelValue"
     ],
     data: function () {
         return {
@@ -42,21 +42,21 @@ export default defineComponent({
         };
     },
     mounted(): void {
-        const $colorPicker = (<any>window[<any>'$'])(this.$refs.colorPicker);
+        const $colorPicker = (<any>window[<any>"$"])(this.$refs.colorPicker);
 
         $colorPicker.colorpicker();
 
         // Vue will not detect the change if it happens from jQuery, so we need
         // to detect the change and make sure Vue knows.
-        $colorPicker.find('> input').on('change', () => {
-            this.internalValue = <string>$colorPicker.find('> input').val();
+        $colorPicker.find("> input").on("change", () => {
+            this.internalValue = <string>$colorPicker.find("> input").val();
         });
     },
     computed: {
     },
     watch: {
         internalValue() {
-            this.$emit('update:modelValue', this.internalValue);
+            this.$emit("update:modelValue", this.internalValue);
         },
         modelValue() {
             this.internalValue = this.modelValue;

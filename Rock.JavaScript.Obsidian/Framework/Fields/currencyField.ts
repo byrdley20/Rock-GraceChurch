@@ -14,14 +14,14 @@
 // limitations under the License.
 // </copyright>
 //
-import { Component, defineAsyncComponent } from 'vue';
-import { FieldTypeBase } from './fieldType';
-import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
-import { toCurrencyOrNull } from '@Obsidian/Services/number';
+import { Component, defineAsyncComponent } from "vue";
+import { FieldTypeBase } from "./fieldType";
+import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
+import { toCurrencyOrNull } from "@Obsidian/Services/number";
 
 // The components can be quite large, so load only as needed.
 const editComponent = defineAsyncComponent(async () => {
-    return (await import('./currencyFieldComponents')).EditComponent;
+    return (await import("./currencyFieldComponents")).EditComponent;
 });
 
 /**
@@ -29,7 +29,7 @@ const editComponent = defineAsyncComponent(async () => {
  */
 export class CurrencyFieldType extends FieldTypeBase {
     public override updateTextValue(value: ClientEditableAttributeValue): void {
-        value.textValue = toCurrencyOrNull(value.value) ?? '';
+        value.textValue = toCurrencyOrNull(value.value) ?? "";
     }
 
     public override getEditComponent(_value: ClientAttributeValue): Component {

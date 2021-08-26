@@ -19,15 +19,13 @@
  * Ex: 10001.2 => 10,001.2
  * @param num
  */
-export function asFormattedString ( num: number | null, digits?: number )
-{
-    if ( num === null )
-    {
-        return '';
+export function asFormattedString ( num: number | null, digits?: number ) {
+    if ( num === null ) {
+        return "";
     }
 
     return num.toLocaleString(
-        'en-US',
+        "en-US",
         {
             minimumFractionDigits: digits,
             maximumFractionDigits: digits ?? 9
@@ -40,8 +38,7 @@ export function asFormattedString ( num: number | null, digits?: number )
  * Ex: $1,000.20 => 1000.2
  * @param str
  */
-export function toNumber ( str?: string | null )
-{
+export function toNumber ( str?: string | null ) {
     return toNumberOrNull( str ) || 0;
 }
 
@@ -50,13 +47,12 @@ export function toNumber ( str?: string | null )
  * Ex: $1,000.20 => 1000.2
  * @param str
  */
-export function toNumberOrNull ( str?: string | null )
-{
+export function toNumberOrNull ( str?: string | null ) {
     if (str === null || str === undefined || str == "") {
         return null;
     }
 
-    const replaced = str.replace( /[$,]/g, '' );
+    const replaced = str.replace( /[$,]/g, "" );
     const num = Number(replaced);
 
     return !isNaN(num) ? num : null;
@@ -84,29 +80,24 @@ export function toCurrencyOrNull(value?: string | number | null) {
  * Ex: 1 => 1st
  * @param num
  */
-export function toOrdinalSuffix ( num?: number | null )
-{
-    if ( !num )
-    {
-        return '';
+export function toOrdinalSuffix ( num?: number | null ) {
+    if ( !num ) {
+        return "";
     }
 
     const j = num % 10;
     const k = num % 100;
 
-    if ( j == 1 && k != 11 )
-    {
-        return num + 'st';
+    if ( j == 1 && k != 11 ) {
+        return num + "st";
     }
-    if ( j == 2 && k != 12 )
-    {
-        return num + 'nd';
+    if ( j == 2 && k != 12 ) {
+        return num + "nd";
     }
-    if ( j == 3 && k != 13 )
-    {
-        return num + 'rd';
+    if ( j == 3 && k != 13 ) {
+        return num + "rd";
     }
-    return num + 'th';
+    return num + "th";
 }
 
 /**
@@ -114,25 +105,22 @@ export function toOrdinalSuffix ( num?: number | null )
  * Ex: 1 => first
  * @param num
  */
-export function toOrdinal ( num?: number | null )
-{
-    if ( !num )
-    {
-        return '';
+export function toOrdinal ( num?: number | null ) {
+    if ( !num ) {
+        return "";
     }
 
-    switch ( num )
-    {
-        case 1: return 'first';
-        case 2: return 'second';
-        case 3: return 'third';
-        case 4: return 'fourth';
-        case 5: return 'fifth';
-        case 6: return 'sixth';
-        case 7: return 'seventh';
-        case 8: return 'eighth';
-        case 9: return 'ninth';
-        case 10: return 'tenth';
+    switch ( num ) {
+        case 1: return "first";
+        case 2: return "second";
+        case 3: return "third";
+        case 4: return "fourth";
+        case 5: return "fifth";
+        case 6: return "sixth";
+        case 7: return "seventh";
+        case 8: return "eighth";
+        case 9: return "ninth";
+        case 10: return "tenth";
         default: return toOrdinalSuffix( num );
     }
 }
@@ -142,24 +130,22 @@ export function toOrdinal ( num?: number | null )
  * Ex: 1 => one
  * @param num
  */
-export function toWord ( num?: number | null )
-{
+export function toWord ( num?: number | null ) {
     if (num === null || num === undefined) {
-        return '';
+        return "";
     }
 
-    switch ( num )
-    {
-        case 1: return 'one';
-        case 2: return 'two';
-        case 3: return 'three';
-        case 4: return 'four';
-        case 5: return 'five';
-        case 6: return 'six';
-        case 7: return 'seven';
-        case 8: return 'eight';
-        case 9: return 'nine';
-        case 10: return 'ten';
+    switch ( num ) {
+        case 1: return "one";
+        case 2: return "two";
+        case 3: return "three";
+        case 4: return "four";
+        case 5: return "five";
+        case 6: return "six";
+        case 7: return "seven";
+        case 8: return "eight";
+        case 9: return "nine";
+        case 10: return "ten";
         default: return `${num}`;
     }
 }
@@ -168,7 +154,7 @@ export function zeroPad(num: number, length: number) {
     let str = num.toString();
 
     while (str.length < length) {
-        str = '0' + str;
+        str = "0" + str;
     }
 
     return str;

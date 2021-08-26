@@ -10,7 +10,7 @@ System.register(["vue"], function (exports_1, context_1) {
         ],
         execute: function () {
             PaneledBlockTemplate = vue_1.defineComponent({
-                name: 'PaneledBlockTemplate',
+                name: "PaneledBlockTemplate",
                 data() {
                     return {
                         isDrawerOpen: false

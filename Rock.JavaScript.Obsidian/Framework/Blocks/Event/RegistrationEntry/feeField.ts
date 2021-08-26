@@ -15,18 +15,18 @@
 // </copyright>
 //
 
-import { defineComponent, PropType } from 'vue';
-import Alert from '../../../Elements/alert';
-import CheckBox from '../../../Elements/checkBox';
-import DropDownList, { DropDownListOption } from '../../../Elements/dropDownList';
-import NumberUpDown from '../../../Elements/numberUpDown';
-import NumberUpDownGroup, { NumberUpDownGroupOption } from '../../../Elements/numberUpDownGroup';
-import Number from '@Obsidian/Services/number';
-import GuidHelper, { Guid } from '../../../Util/guid';
-import { RegistrationEntryBlockFeeViewModel, RegistrationEntryBlockFeeItemViewModel } from './registrationEntryBlockViewModel';
+import { defineComponent, PropType } from "vue";
+import Alert from "../../../Elements/alert";
+import CheckBox from "../../../Elements/checkBox";
+import DropDownList, { DropDownListOption } from "../../../Elements/dropDownList";
+import NumberUpDown from "../../../Elements/numberUpDown";
+import NumberUpDownGroup, { NumberUpDownGroupOption } from "../../../Elements/numberUpDownGroup";
+import Number from "@Obsidian/Services/number";
+import GuidHelper, { Guid } from "../../../Util/guid";
+import { RegistrationEntryBlockFeeViewModel, RegistrationEntryBlockFeeItemViewModel } from "./registrationEntryBlockViewModel";
 
 export default defineComponent( {
-    name: 'Event.RegistrationEntry.FeeField',
+    name: "Event.RegistrationEntry.FeeField",
     components: {
         NumberUpDown,
         NumberUpDownGroup,
@@ -44,20 +44,17 @@ export default defineComponent( {
             required: true
         }
     },
-    data()
-    {
+    data() {
         return {
-            dropDownValue: '',
+            dropDownValue: "",
             checkboxValue: false
         };
     },
     methods: {
-        getItemLabel( item: RegistrationEntryBlockFeeItemViewModel ): string
-        {
+        getItemLabel( item: RegistrationEntryBlockFeeItemViewModel ): string {
             const formattedCost = Number.asFormattedString( item.cost, 2 );
 
-            if ( item.countRemaining )
-            {
+            if ( item.countRemaining ) {
                 const formattedRemaining = Number.asFormattedString( item.countRemaining, 0 );
                 return `${item.name} ($${formattedCost}) (${formattedRemaining} remaining)`;
             }
@@ -66,54 +63,43 @@ export default defineComponent( {
         }
     },
     computed: {
-        label(): string
-        {
-            if ( this.singleItem )
-            {
+        label(): string {
+            if ( this.singleItem ) {
                 const formattedCost = Number.asFormattedString( this.singleItem.cost, 2 );
                 return `${this.fee.name} ($${formattedCost})`;
             }
 
             return this.fee.name;
         },
-        singleItem(): RegistrationEntryBlockFeeItemViewModel | null
-        {
-            if ( this.fee.items.length !== 1 )
-            {
+        singleItem(): RegistrationEntryBlockFeeItemViewModel | null {
+            if ( this.fee.items.length !== 1 ) {
                 return null;
             }
 
             return this.fee.items[ 0 ];
         },
-        isHidden(): boolean
-        {
+        isHidden(): boolean {
             return !this.fee.items.length;
         },
-        isCheckbox(): boolean
-        {
+        isCheckbox(): boolean {
             return !!this.singleItem && !this.fee.allowMultiple;
         },
-        isNumberUpDown(): boolean
-        {
+        isNumberUpDown(): boolean {
             return !!this.singleItem && this.fee.allowMultiple;
         },
-        isNumberUpDownGroup(): boolean
-        {
+        isNumberUpDownGroup(): boolean {
             return this.fee.items.length > 1 && this.fee.allowMultiple;
         },
-        isDropDown(): boolean
-        {
+        isDropDown(): boolean {
             return this.fee.items.length > 1 && !this.fee.allowMultiple;
         },
-        dropDownListOptions(): DropDownListOption[]
-        {
+        dropDownListOptions(): DropDownListOption[] {
             return this.fee.items.map( i => ( {
                 text: this.getItemLabel( i ),
                 value: i.guid
             } ) );
         },
-        numberUpDownGroupOptions(): NumberUpDownGroupOption[]
-        {
+        numberUpDownGroupOptions(): NumberUpDownGroupOption[] {
             return this.fee.items.map( i => ( {
                 key: i.guid,
                 label: this.getItemLabel( i ),
@@ -121,9 +107,8 @@ export default defineComponent( {
                 min: 0
             } ) );
         },
-        rules(): string
-        {
-            return this.fee.isRequired ? 'required' : '';
+        rules(): string {
+            return this.fee.isRequired ? "required" : "";
         }
     },
     watch: {
@@ -133,7 +118,7 @@ export default defineComponent( {
             handler(): void {
                 // Set the drop down selecton
                 if (this.isDropDown) {
-                    this.dropDownValue = '';
+                    this.dropDownValue = "";
 
                     for (const item of this.fee.items) {
                         if (!this.dropDownValue && this.modelValue[item.guid]) {

@@ -14,17 +14,17 @@
 // limitations under the License.
 // </copyright>
 //
-import { computed, defineComponent, PropType, ref, watch } from 'vue';
-import RockFormField from './rockFormField';
-import { DatePickerBase } from './datePicker';
+import { computed, defineComponent, PropType, ref, watch } from "vue";
+import RockFormField from "./rockFormField";
+import { DatePickerBase } from "./datePicker";
 
 export type DateRangeParts = {
     lowerValue?: string | null,
     upperValue?: string | null
-}
+};
 
 export default defineComponent({
-    name: 'DateRangePicker',
+    name: "DateRangePicker",
     components: {
         RockFormField,
         DatePickerBase
@@ -38,24 +38,24 @@ export default defineComponent({
     },
 
     setup(props, { emit }) {
-        const lowerValue = ref(props.modelValue.lowerValue ?? '');
-        const upperValue = ref(props.modelValue.upperValue ?? '');
+        const lowerValue = ref(props.modelValue.lowerValue ?? "");
+        const upperValue = ref(props.modelValue.upperValue ?? "");
 
         const internalValue = computed(() => {
-            if (lowerValue.value === '' && upperValue.value === '') {
-                return '';
+            if (lowerValue.value === "" && upperValue.value === "") {
+                return "";
             }
 
             return `{lowerValue.value},{upperValue.value}`;
         });
 
         watch(() => props.modelValue, () => {
-            lowerValue.value = props.modelValue.lowerValue ?? '';
-            upperValue.value = props.modelValue.upperValue ?? '';
+            lowerValue.value = props.modelValue.lowerValue ?? "";
+            upperValue.value = props.modelValue.upperValue ?? "";
         });
 
         watch(() => [lowerValue.value, upperValue.value], () => {
-            emit('update:modelValue', {
+            emit("update:modelValue", {
                 lowerValue: lowerValue.value,
                 upperValue: upperValue.value
             } as DateRangeParts);

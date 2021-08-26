@@ -15,14 +15,13 @@
 // </copyright>
 //
 
-import { GatewayControlModel } from '../../../Controls/gatewayControl';
-import { Guid } from '../../../Util/guid';
-import { ClientEditableAttributeValue } from '@Obsidian/ViewModels';
-import { RegistrationEntryBlockSession } from './registrationEntryBlockArgs';
-import { DropDownListOption } from '../../../Elements/dropDownList';
+import { GatewayControlModel } from "../../../Controls/gatewayControl";
+import { Guid } from "../../../Util/guid";
+import { ClientEditableAttributeValue } from "@Obsidian/ViewModels";
+import { RegistrationEntryBlockSession } from "./registrationEntryBlockArgs";
+import { DropDownListOption } from "../../../Elements/dropDownList";
 
-export enum RegistrationPersonFieldType
-{
+export enum RegistrationPersonFieldType {
     FirstName = 0,
     LastName = 1,
     Campus = 2,
@@ -40,16 +39,14 @@ export enum RegistrationPersonFieldType
     AnniversaryDate = 14
 }
 
-export enum RegistrationFieldSource
-{
+export enum RegistrationFieldSource {
     PersonField = 0,
     PersonAttribute = 1,
     GroupMemberAttribute = 2,
     RegistrantAttribute = 4
 }
 
-export enum FilterExpressionType
-{
+export enum FilterExpressionType {
     Filter = 0,
     GroupAll = 1,
     GroupAny = 2,
@@ -57,8 +54,7 @@ export enum FilterExpressionType
     GroupAnyFalse = 4
 }
 
-export enum ComparisonType
-{
+export enum ComparisonType {
     EqualTo = 0x1,
     NotEqualTo = 0x2,
     StartsWith = 0x4,
@@ -75,29 +71,25 @@ export enum ComparisonType
     RegularExpression = 0x2000
 }
 
-export enum RegistrarOption
-{
+export enum RegistrarOption {
     PromptForRegistrar = 0,
     PrefillFirstRegistrant = 1,
     UseFirstRegistrant = 2,
     UseLoggedInPerson = 3
 }
 
-export enum RegistrantsSameFamily
-{
+export enum RegistrantsSameFamily {
     No = 0,
     Yes = 1,
     Ask = 2
 }
 
-export interface SessionRenewalResult
-{
+export interface SessionRenewalResult {
     spotsSecured: number;
     expirationDateTime: string;
 }
 
-export interface RegistrationEntryBlockViewModel
-{
+export interface RegistrationEntryBlockViewModel {
     timeoutMinutes: number | null;
     registrantsSameFamily: RegistrantsSameFamily;
     maxRegistrants: number;
@@ -137,16 +129,14 @@ export interface RegistrationEntryBlockViewModel
     campuses: DropDownListOption[];
 }
 
-export interface RegistrationEntryBlockFamilyMemberViewModel
-{
+export interface RegistrationEntryBlockFamilyMemberViewModel {
     guid: Guid;
     familyGuid: Guid;
     fullName: string;
     fieldValues: Record<Guid, unknown>;
 }
 
-export interface RegistrationEntryBlockFeeViewModel
-{
+export interface RegistrationEntryBlockFeeViewModel {
     name: string;
     guid: Guid;
     allowMultiple: boolean;
@@ -155,21 +145,18 @@ export interface RegistrationEntryBlockFeeViewModel
     discountApplies: boolean;
 }
 
-export interface RegistrationEntryBlockFeeItemViewModel
-{
+export interface RegistrationEntryBlockFeeItemViewModel {
     name: string;
     guid: Guid;
     cost: number;
     countRemaining: number | null;
 }
 
-export interface RegistrationEntryBlockFormViewModel
-{
+export interface RegistrationEntryBlockFormViewModel {
     fields: RegistrationEntryBlockFormFieldViewModel[];
 }
 
-export interface RegistrationEntryBlockFormFieldViewModel
-{
+export interface RegistrationEntryBlockFormFieldViewModel {
     fieldSource: RegistrationFieldSource;
     personFieldType: RegistrationPersonFieldType;
     isRequired: boolean;
@@ -183,8 +170,7 @@ export interface RegistrationEntryBlockFormFieldViewModel
     guid: Guid;
 }
 
-export interface RegistrationEntryBlockFormFieldRuleViewModel
-{
+export interface RegistrationEntryBlockFormFieldRuleViewModel {
     comparedToRegistrationTemplateFormFieldGuid: Guid;
     comparisonType: ComparisonType;
     comparedToValue: string;

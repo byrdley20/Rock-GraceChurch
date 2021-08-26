@@ -14,18 +14,17 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
-import RockButton from '../Elements/rockButton';
+import { defineComponent, PropType } from "vue";
+import RockButton from "../Elements/rockButton";
 
-export enum ValidationField
-{
+export enum ValidationField {
     CardNumber,
     Expiry,
     SecurityCode
 }
 
 export default defineComponent( {
-    name: 'Dialog',
+    name: "Dialog",
     components: {
         RockButton
     },
@@ -39,39 +38,31 @@ export default defineComponent( {
             default: true
         }
     },
-    data ()
-    {
+    data () {
         return {
             doShake: false
         };
     },
     computed: {
-        hasHeader (): boolean
-        {
-            return !!this.$slots[ 'header' ];
+        hasHeader (): boolean {
+            return !!this.$slots[ "header" ];
         }
     },
     methods: {
-        close ()
-        {
-            this.$emit( 'update:modelValue', false );
+        close () {
+            this.$emit( "update:modelValue", false );
         },
-        shake ()
-        {
-            if ( !this.doShake )
-            {
+        shake () {
+            if ( !this.doShake ) {
                 this.doShake = true;
                 setTimeout( () => this.doShake = false, 1000 );
             }
         },
-        centerOnScreen ()
-        {
-            this.$nextTick( () =>
-            {
-                const div = this.$refs[ 'modalDiv' ] as HTMLElement | null;
+        centerOnScreen () {
+            this.$nextTick( () => {
+                const div = this.$refs[ "modalDiv" ] as HTMLElement | null;
 
-                if ( !div )
-                {
+                if ( !div ) {
                     return;
                 }
 
@@ -84,24 +75,19 @@ export default defineComponent( {
     watch: {
         modelValue: {
             immediate: true,
-            handler ()
-            {
+            handler () {
                 const body = document.body;
-                const cssClasses = [ 'modal-open', 'page-overflow' ];
+                const cssClasses = [ "modal-open", "page-overflow" ];
 
-                if ( this.modelValue )
-                {
-                    for ( const cssClass of cssClasses )
-                    {
+                if ( this.modelValue ) {
+                    for ( const cssClass of cssClasses ) {
                         body.classList.add( cssClass );
                     }
 
                     this.centerOnScreen();
                 }
-                else
-                {
-                    for ( const cssClass of cssClasses )
-                    {
+                else {
+                    for ( const cssClass of cssClasses ) {
                         body.classList.remove( cssClass );
                     }
                 }

@@ -19,7 +19,7 @@ System.register(["vue", "./index", "../Elements/checkBoxList", "@Obsidian/Servic
         ],
         execute: function () {
             exports_1("EditComponent", EditComponent = vue_1.defineComponent({
-                name: 'DaysOfWeekField.Edit',
+                name: "DaysOfWeekField.Edit",
                 components: {
                     CheckBoxList: checkBoxList_1.default
                 },
@@ -32,19 +32,19 @@ System.register(["vue", "./index", "../Elements/checkBoxList", "@Obsidian/Servic
                 methods: {
                     options() {
                         return [
-                            { text: 'Sunday', value: 0..toString() },
-                            { text: 'Monday', value: 1..toString() },
-                            { text: 'Tuesday', value: 2..toString() },
-                            { text: 'Wednesday', value: 3..toString() },
-                            { text: 'Thursday', value: 4..toString() },
-                            { text: 'Friday', value: 5..toString() },
-                            { text: 'Saturday', value: 6..toString() }
+                            { text: "Sunday", value: 0..toString() },
+                            { text: "Monday", value: 1..toString() },
+                            { text: "Tuesday", value: 2..toString() },
+                            { text: "Wednesday", value: 3..toString() },
+                            { text: "Thursday", value: 4..toString() },
+                            { text: "Friday", value: 5..toString() },
+                            { text: "Saturday", value: 6..toString() }
                         ];
                     },
                 },
                 watch: {
                     internalValue() {
-                        this.$emit('update:modelValue', this.internalValue.sort((a, b) => number_1.toNumber(a) - number_1.toNumber(b)).join(","));
+                        this.$emit("update:modelValue", this.internalValue.sort((a, b) => number_1.toNumber(a) - number_1.toNumber(b)).join(","));
                     },
                     modelValue: {
                         immediate: true,

@@ -14,11 +14,11 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import store from '../Store/index';
+import { defineComponent } from "vue";
+import store from "../Store/index";
 
 export default defineComponent({
-    name: 'SecondaryBlock',
+    name: "SecondaryBlock",
     computed: {
         isVisible() {
             return store.state.areSecondaryBlocksShown;

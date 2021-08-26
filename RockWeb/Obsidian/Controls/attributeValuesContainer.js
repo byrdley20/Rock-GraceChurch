@@ -13,7 +13,7 @@ System.register(["vue", "./rockField"], function (exports_1, context_1) {
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'AttributeValuesContainer',
+                name: "AttributeValuesContainer",
                 components: {
                     RockField: rockField_1.default
                 },

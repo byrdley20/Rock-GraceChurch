@@ -49,7 +49,7 @@ System.register(["vue", "../../../Elements/dropDownList", "../../../Elements/rad
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'Event.RegistrationEntry.Registrant',
+                name: "Event.RegistrationEntry.Registrant",
                 components: {
                     RadioButtonList: radioButtonList_1.default,
                     RockButton: rockButton_1.default,
@@ -72,7 +72,7 @@ System.register(["vue", "../../../Elements/dropDownList", "../../../Elements/rad
                     }
                 },
                 setup() {
-                    const registrationEntryState = vue_1.inject('registrationEntryState');
+                    const registrationEntryState = vue_1.inject("registrationEntryState");
                     return {
                         registrationEntryState
                     };
@@ -126,7 +126,7 @@ System.register(["vue", "../../../Elements/dropDownList", "../../../Elements/rad
                         return this.$store.state.currentPerson;
                     },
                     pluralFeeTerm() {
-                        return string_1.default.toTitleCase(this.viewModel.pluralFeeTerm || 'fees');
+                        return string_1.default.toTitleCase(this.viewModel.pluralFeeTerm || "fees");
                     },
                     familyOptions() {
                         var _a;
@@ -153,7 +153,7 @@ System.register(["vue", "../../../Elements/dropDownList", "../../../Elements/rad
                             });
                         }
                         options.push({
-                            text: 'None of the above',
+                            text: "None of the above",
                             value: this.currentRegistrant.ownFamilyGuid
                         });
                         return options;
@@ -191,7 +191,7 @@ System.register(["vue", "../../../Elements/dropDownList", "../../../Elements/rad
                 methods: {
                     onPrevious() {
                         if (this.currentFormIndex <= 0) {
-                            this.$emit('previous');
+                            this.$emit("previous");
                             return;
                         }
                         this.registrationEntryState.currentRegistrantFormIndex--;
@@ -199,7 +199,7 @@ System.register(["vue", "../../../Elements/dropDownList", "../../../Elements/rad
                     onNext() {
                         const lastFormIndex = this.formsToShow.length - 1;
                         if (this.currentFormIndex >= lastFormIndex) {
-                            this.$emit('next');
+                            this.$emit("next");
                             return;
                         }
                         this.registrationEntryState.currentRegistrantFormIndex++;
@@ -215,7 +215,7 @@ System.register(["vue", "../../../Elements/dropDownList", "../../../Elements/rad
                                     if (!familyMemberValue) {
                                         delete this.currentRegistrant.fieldValues[field.guid];
                                     }
-                                    else if (typeof familyMemberValue === 'object') {
+                                    else if (typeof familyMemberValue === "object") {
                                         this.currentRegistrant.fieldValues[field.guid] = Object.assign({}, familyMemberValue);
                                     }
                                     else {
@@ -227,8 +227,8 @@ System.register(["vue", "../../../Elements/dropDownList", "../../../Elements/rad
                     }
                 },
                 watch: {
-                    'currentRegistrant.FamilyGuid'() {
-                        this.currentRegistrant.personGuid = '';
+                    "currentRegistrant.FamilyGuid"() {
+                        this.currentRegistrant.personGuid = "";
                     },
                     familyMember: {
                         handler() {

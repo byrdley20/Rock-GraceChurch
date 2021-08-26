@@ -14,15 +14,15 @@
 // limitations under the License.
 // </copyright>
 //
-import { Component, defineAsyncComponent } from 'vue';
-import { FieldTypeBase } from './fieldType';
-import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
-import { toNumberOrNull } from '@Obsidian/Services/number';
+import { Component, defineAsyncComponent } from "vue";
+import { FieldTypeBase } from "./fieldType";
+import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
+import { toNumberOrNull } from "@Obsidian/Services/number";
 
 
 // The edit component can be quite large, so load it only as needed.
 const editComponent = defineAsyncComponent(async () => {
-    return (await import('./decimalFieldComponents')).EditComponent;
+    return (await import("./decimalFieldComponents")).EditComponent;
 });
 
 /**
@@ -30,7 +30,7 @@ const editComponent = defineAsyncComponent(async () => {
  */
 export class DecimalFieldType extends FieldTypeBase {
     public override updateTextValue(value: ClientEditableAttributeValue): void {
-        value.textValue = toNumberOrNull(value.value)?.toString() ?? '';
+        value.textValue = toNumberOrNull(value.value)?.toString() ?? "";
     }
 
     public override getEditComponent(_value: ClientAttributeValue): Component {

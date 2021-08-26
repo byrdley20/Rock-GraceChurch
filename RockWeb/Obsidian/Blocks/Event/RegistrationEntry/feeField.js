@@ -31,7 +31,7 @@ System.register(["vue", "../../../Elements/alert", "../../../Elements/checkBox",
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'Event.RegistrationEntry.FeeField',
+                name: "Event.RegistrationEntry.FeeField",
                 components: {
                     NumberUpDown: numberUpDown_1.default,
                     NumberUpDownGroup: numberUpDownGroup_1.default,
@@ -51,7 +51,7 @@ System.register(["vue", "../../../Elements/alert", "../../../Elements/checkBox",
                 },
                 data() {
                     return {
-                        dropDownValue: '',
+                        dropDownValue: "",
                         checkboxValue: false
                     };
                 },
@@ -109,7 +109,7 @@ System.register(["vue", "../../../Elements/alert", "../../../Elements/checkBox",
                         }));
                     },
                     rules() {
-                        return this.fee.isRequired ? 'required' : '';
+                        return this.fee.isRequired ? "required" : "";
                     }
                 },
                 watch: {
@@ -118,7 +118,7 @@ System.register(["vue", "../../../Elements/alert", "../../../Elements/checkBox",
                         deep: true,
                         handler() {
                             if (this.isDropDown) {
-                                this.dropDownValue = '';
+                                this.dropDownValue = "";
                                 for (const item of this.fee.items) {
                                     if (!this.dropDownValue && this.modelValue[item.guid]) {
                                         this.modelValue[item.guid] = 1;

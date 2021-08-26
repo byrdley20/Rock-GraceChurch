@@ -14,33 +14,29 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from 'vue';
-import { RowContext } from './grid';
+import { defineComponent, PropType } from "vue";
+import { RowContext } from "./grid";
 
 export default defineComponent( {
-    name: 'GridRow',
+    name: "GridRow",
     props: {
         rowContext: {
             type: Object as PropType<RowContext>,
             required: true
         }
     },
-    provide ()
-    {
+    provide () {
         return {
             rowContext: this.rowContext
         };
     },
     methods: {
-        onRowClick ()
-        {
-            if ( !this.rowContext.isHeader )
-            {
-                this.$emit( 'click:body', this.rowContext );
+        onRowClick () {
+            if ( !this.rowContext.isHeader ) {
+                this.$emit( "click:body", this.rowContext );
             }
-            else
-            {
-                this.$emit( 'click:header', this.rowContext );
+            else {
+                this.$emit( "click:header", this.rowContext );
             }
         }
     },

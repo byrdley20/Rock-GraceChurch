@@ -15,19 +15,18 @@
 // </copyright>
 //
 
-import { defineComponent, PropType } from 'vue';
-import { newGuid } from '../Util/guid';
+import { defineComponent, PropType } from "vue";
+import { newGuid } from "../Util/guid";
 
 /** The data needed to represent an item in a ProgressTracker */
-export interface ProgressTrackerItem
-{
+export interface ProgressTrackerItem {
     title: string;
     subtitle: string;
     key: string;
 }
 
 const ProgressTrackerItem = defineComponent( {
-    name: 'ProgressTrackerItem',
+    name: "ProgressTrackerItem",
     props: {
         isPast: {
             type: Boolean as PropType<boolean>,
@@ -87,7 +86,7 @@ const ProgressTrackerItem = defineComponent( {
 /** Displays a roadmap of successive steps that help the user understand where in a
  *  series of forms they currently are working. */
 const ProgressTracker = defineComponent( {
-    name: 'ProgressTracker',
+    name: "ProgressTracker",
     components: {
         ProgressTrackerItem
     },
@@ -101,8 +100,7 @@ const ProgressTracker = defineComponent( {
             required: true
         }
     },
-    data ()
-    {
+    data () {
         return {
             guid: newGuid(),
             collapsedIndexes: [] as number[]
@@ -110,47 +108,40 @@ const ProgressTracker = defineComponent( {
     },
     computed: {
         /** Is the given index collapsed? */
-        isCollapsed (): (index: number) => boolean
-        {
+        isCollapsed (): (index: number) => boolean {
             return ( index: number ) => this.collapsedIndexes.indexOf( index ) !== -1;
         },
 
         /** A list of indexes that should not be collapsed. These are not guaranteed to be valid or unique
          *  indexes, but rather a collection to check existance before collapsing a particular index. */
-        doNotCollapseIndexes (): number[]
-        {
+        doNotCollapseIndexes (): number[] {
             return [ 0, this.currentIndex - 1, this.currentIndex, this.currentIndex + 1, this.lastIndex ];
         },
 
         /** The last index of the items (prop) */
-        lastIndex (): number
-        {
+        lastIndex (): number {
             return this.items.length - 1;
         },
 
         /** The element id of the progress tracker (child) */
-        progressTrackerElementId (): string
-        {
+        progressTrackerElementId (): string {
             return `progress-tracker-${this.guid}`;
         },
 
         /** The element id of the progress tracker container (parent) */
-        progressTrackerContainerElementId (): string
-        {
+        progressTrackerContainerElementId (): string {
             return `progress-tracker-container-${this.guid}`;
         },
     },
     methods: {
         /** Expand all items and then collapse some to fit if needed */
-        expandAndCollapseItemsBecauseOfWidth ()
-        {
+        expandAndCollapseItemsBecauseOfWidth () {
             this.collapsedIndexes = [];
             this.$nextTick( () => this.collapseItemsBecauseOfWidth() );
         },
 
         /** Collapse some items if needed to make fit */
-        collapseItemsBecauseOfWidth ()
-        {
+        collapseItemsBecauseOfWidth () {
             // Using the DOM query getElementById because Vue refs were not conveying the changing width
             const progressTracker = document.getElementById( this.progressTrackerElementId );
             const progressTrackerContainer = document.getElementById( this.progressTrackerContainerElementId );
@@ -158,25 +149,20 @@ const ProgressTracker = defineComponent( {
             const containerWidth = progressTrackerContainer?.clientWidth;
             const childWidth = progressTracker?.scrollWidth;
 
-            if ( !containerWidth || !childWidth || childWidth <= containerWidth )
-            {
+            if ( !containerWidth || !childWidth || childWidth <= containerWidth ) {
                 return;
             }
 
             // Collapse the furthest away index that can be collapsed
             const midPoint = this.lastIndex / 2;
 
-            if ( this.currentIndex > midPoint )
-            {
-                for ( let i = 0; i <= this.lastIndex; i++ )
-                {
-                    if ( this.doNotCollapseIndexes.indexOf( i ) !== -1 )
-                    {
+            if ( this.currentIndex > midPoint ) {
+                for ( let i = 0; i <= this.lastIndex; i++ ) {
+                    if ( this.doNotCollapseIndexes.indexOf( i ) !== -1 ) {
                         continue;
                     }
 
-                    if ( this.isCollapsed( i ) )
-                    {
+                    if ( this.isCollapsed( i ) ) {
                         continue;
                     }
 
@@ -187,17 +173,13 @@ const ProgressTracker = defineComponent( {
                     return;
                 }
             }
-            else
-            {
-                for ( let i = this.lastIndex; i >= 0; i-- )
-                {
-                    if ( this.doNotCollapseIndexes.indexOf( i ) !== -1 )
-                    {
+            else {
+                for ( let i = this.lastIndex; i >= 0; i-- ) {
+                    if ( this.doNotCollapseIndexes.indexOf( i ) !== -1 ) {
                         continue;
                     }
 
-                    if ( this.isCollapsed( i ) )
-                    {
+                    if ( this.isCollapsed( i ) ) {
                         continue;
                     }
 
@@ -213,8 +195,7 @@ const ProgressTracker = defineComponent( {
     watch: {
         currentIndex: {
             immediate: true,
-            handler ()
-            {
+            handler () {
                 this.expandAndCollapseItemsBecauseOfWidth();
             }
         }

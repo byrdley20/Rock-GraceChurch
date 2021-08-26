@@ -930,7 +930,7 @@ namespace Rock.ViewModel
                         sb.AppendLine( $"    /** {xdoc} */" );
                     }
 
-                    sb.AppendLine( $"    {name} = '{value.Value}'," );
+                    sb.AppendLine( $"    {name} = \"{value.Value}\"," );
                 }
 
                 sb.AppendLine( "}" );
@@ -1198,7 +1198,7 @@ namespace Rock.ViewModel
                     if ( type == typeof( Guid ) )
                     {
                         tsType = "Guid";
-                        imports.Add( "import { Guid } from '../../Util/guid';" );
+                        imports.Add( "import { Guid } from \"../../Util/guid\";" );
                     }
                     else if ( type.IsArray )
                     {

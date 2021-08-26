@@ -19,7 +19,7 @@ System.register(["vue", "./index", "@Obsidian/Services/number", "../Elements/cur
         ],
         execute: function () {
             exports_1("EditComponent", EditComponent = vue_1.defineComponent({
-                name: 'CurrencyField.Edit',
+                name: "CurrencyField.Edit",
                 components: {
                     CurrencyBox: currencyBox_1.default
                 },
@@ -31,12 +31,12 @@ System.register(["vue", "./index", "@Obsidian/Services/number", "../Elements/cur
                 },
                 watch: {
                     internalValue() {
-                        this.$emit('update:modelValue', this.internalValue !== null ? this.internalValue.toString() : '');
+                        this.$emit("update:modelValue", this.internalValue !== null ? this.internalValue.toString() : "");
                     },
                     modelValue: {
                         immediate: true,
                         handler() {
-                            this.internalValue = number_1.toNumberOrNull(this.modelValue || '');
+                            this.internalValue = number_1.toNumberOrNull(this.modelValue || "");
                         }
                     }
                 },

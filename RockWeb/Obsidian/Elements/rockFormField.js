@@ -19,13 +19,13 @@ System.register(["vue", "../Util/guid", "vee-validate", "./rockLabel"], function
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'RockFormField',
+                name: "RockFormField",
                 components: {
                     Field: vee_validate_1.Field,
                     RockLabel: rockLabel_1.default
                 },
                 setup() {
-                    const formState = vue_1.inject('formState', null);
+                    const formState = vue_1.inject("formState", null);
                     return {
                         formState
                     };
@@ -40,15 +40,15 @@ System.register(["vue", "../Util/guid", "vee-validate", "./rockLabel"], function
                     },
                     label: {
                         type: String,
-                        default: ''
+                        default: ""
                     },
                     help: {
                         type: String,
-                        default: ''
+                        default: ""
                     },
                     rules: {
                         type: String,
-                        default: ''
+                        default: ""
                     },
                     disabled: {
                         type: Boolean,
@@ -56,27 +56,27 @@ System.register(["vue", "../Util/guid", "vee-validate", "./rockLabel"], function
                     },
                     formGroupClasses: {
                         type: String,
-                        default: ''
+                        default: ""
                     },
                     inputGroupClasses: {
                         type: String,
-                        default: ''
+                        default: ""
                     },
                     validationTitle: {
                         type: String,
-                        default: ''
+                        default: ""
                     },
-                    'class': {
+                    "class": {
                         type: String,
-                        default: ''
+                        default: ""
                     },
                     tabIndex: {
                         type: String,
-                        default: ''
+                        default: ""
                     }
                 },
                 emits: [
-                    'update:modelValue'
+                    "update:modelValue"
                 ],
                 data: function () {
                     return {
@@ -86,7 +86,7 @@ System.register(["vue", "../Util/guid", "vee-validate", "./rockLabel"], function
                 },
                 computed: {
                     isRequired() {
-                        return this.rules.includes('required');
+                        return this.rules.includes("required");
                     },
                     classAttr() {
                         return this.class;
@@ -94,15 +94,15 @@ System.register(["vue", "../Util/guid", "vee-validate", "./rockLabel"], function
                     errorClasses() {
                         return (formState, errors) => {
                             if (!formState || formState.submitCount < 1) {
-                                return '';
+                                return "";
                             }
-                            return Object.keys(errors).length ? 'has-error' : '';
+                            return Object.keys(errors).length ? "has-error" : "";
                         };
                     }
                 },
                 watch: {
                     internalValue() {
-                        this.$emit('update:modelValue', this.internalValue);
+                        this.$emit("update:modelValue", this.internalValue);
                     },
                     modelValue() {
                         this.internalValue = this.modelValue;

@@ -14,12 +14,12 @@
 // limitations under the License.
 // </copyright>
 //
-import { doApiCall, HttpBodyData, HttpMethod, HttpResult, HttpUrlParams } from '../Util/http';
-import { Component, defineComponent, inject, PropType, provide, reactive } from 'vue';
-import { BlockConfig, ConfigurationValues } from '../index';
-import store, { MutationType, PageDebugTiming } from '../Store/index';
-import { Guid } from '../Util/guid';
-import Alert from '../Elements/alert';
+import { doApiCall, HttpBodyData, HttpMethod, HttpResult, HttpUrlParams } from "../Util/http";
+import { Component, defineComponent, inject, PropType, provide, reactive } from "vue";
+import { BlockConfig, ConfigurationValues } from "../index";
+import store, { MutationType, PageDebugTiming } from "../Store/index";
+import { Guid } from "../Util/guid";
+import Alert from "../Elements/alert";
 
 export type InvokeBlockActionFunc = <T>(actionName: string, data?: HttpBodyData) => Promise<HttpResult<T>>;
 export type BlockHttpGet = <T>( url: string, params?: HttpUrlParams ) => Promise<HttpResult<T>>;
@@ -36,16 +36,15 @@ type LogItem = {
     url: string;
 };
 
-export function standardBlockSetup()
-{
+export function standardBlockSetup() {
     return {
-        configurationValues: inject( 'configurationValues' ) as ConfigurationValues,
-        invokeBlockAction: inject( 'invokeBlockAction' ) as InvokeBlockActionFunc
+        configurationValues: inject( "configurationValues" ) as ConfigurationValues,
+        invokeBlockAction: inject( "invokeBlockAction" ) as InvokeBlockActionFunc
     };
 }
 
 export default defineComponent( {
-    name: 'RockBlock',
+    name: "RockBlock",
     components: {
         Alert
     },
@@ -63,12 +62,10 @@ export default defineComponent( {
             required: true
         }
     },
-    setup( props )
-    {
+    setup( props ) {
         const log: LogItem[] = reactive( [] );
 
-        const writeLog = ( method: HttpMethod, url: string ) =>
-        {
+        const writeLog = ( method: HttpMethod, url: string ) => {
             log.push( {
                 date: new Date(),
                 method,
@@ -76,24 +73,20 @@ export default defineComponent( {
             } );
         };
 
-        const httpCall = async <T>( method: HttpMethod, url: string, params: HttpUrlParams = undefined, data: HttpBodyData = undefined ) =>
-        {
+        const httpCall = async <T>( method: HttpMethod, url: string, params: HttpUrlParams = undefined, data: HttpBodyData = undefined ) => {
             writeLog( method, url );
             return await doApiCall<T>( method, url, params, data );
         };
 
-        const get = async <T>( url: string, params: HttpUrlParams = undefined ) =>
-        {
-            return await httpCall<T>( 'GET', url, params );
+        const get = async <T>( url: string, params: HttpUrlParams = undefined ) => {
+            return await httpCall<T>( "GET", url, params );
         };
 
-        const post = async <T>( url: string, params: HttpUrlParams = undefined, data: HttpBodyData = undefined ) =>
-        {
-            return await httpCall<T>( 'POST', url, params, data );
+        const post = async <T>( url: string, params: HttpUrlParams = undefined, data: HttpBodyData = undefined ) => {
+            return await httpCall<T>( "POST", url, params, data );
         };
 
-        const invokeBlockAction: InvokeBlockActionFunc = async <T>( actionName: string, data: HttpBodyData = undefined ) =>
-        {
+        const invokeBlockAction: InvokeBlockActionFunc = async <T>( actionName: string, data: HttpBodyData = undefined ) => {
             return await post<T>( `/api/v2/BlockActions/${props.config.blockGuid}/${actionName}`, undefined, {
                 __context: {
                     pageParameters: store.state.pageParameters
@@ -104,72 +97,60 @@ export default defineComponent( {
 
         const blockHttp: BlockHttp = { get, post };
 
-        provide( 'http', blockHttp );
-        provide( 'invokeBlockAction', invokeBlockAction );
-        provide( 'configurationValues', props.config.configurationValues );
+        provide( "http", blockHttp );
+        provide( "invokeBlockAction", invokeBlockAction );
+        provide( "configurationValues", props.config.configurationValues );
     },
-    data()
-    {
+    data() {
         return {
             blockGuid: this.config.blockGuid,
-            error: '',
+            error: "",
             finishTimeMs: null as null | number
         };
     },
     methods: {
-        clearError()
-        {
-            this.error = '';
+        clearError() {
+            this.error = "";
         }
     },
     computed: {
-        renderTimeMs(): number | null
-        {
-            if ( !this.finishTimeMs || !this.startTimeMs )
-            {
+        renderTimeMs(): number | null {
+            if ( !this.finishTimeMs || !this.startTimeMs ) {
                 return null;
             }
 
             return this.finishTimeMs - this.startTimeMs;
         },
-        pageGuid(): Guid
-        {
+        pageGuid(): Guid {
             return store.state.pageGuid;
         }
     },
-    errorCaptured( err: unknown )
-    {
-        const defaultMessage = 'An unknown error was caught from the block.';
+    errorCaptured( err: unknown ) {
+        const defaultMessage = "An unknown error was caught from the block.";
 
-        if ( err instanceof Error )
-        {
+        if ( err instanceof Error ) {
             this.error = err.message || defaultMessage;
         }
-        else if ( err )
-        {
+        else if ( err ) {
             this.error = JSON.stringify( err ) || defaultMessage;
         }
-        else
-        {
+        else {
             this.error = defaultMessage;
         }
     },
-    mounted()
-    {
+    mounted() {
         this.finishTimeMs = ( new Date() ).getTime();
-        const componentName = this.blockComponent?.name || '';
-        const nameParts = componentName.split( '.' );
-        let subtitle = nameParts[ 0 ] || '';
+        const componentName = this.blockComponent?.name || "";
+        const nameParts = componentName.split( "." );
+        let subtitle = nameParts[ 0 ] || "";
 
-        if ( subtitle && subtitle.indexOf( '(' ) !== 0 )
-        {
+        if ( subtitle && subtitle.indexOf( "(" ) !== 0 ) {
             subtitle = `(${subtitle})`;
         }
 
-        if ( nameParts.length )
-        {
+        if ( nameParts.length ) {
             store.commit( MutationType.AddPageDebugTiming, {
-                title: nameParts[ 1 ] || '<Unnamed>',
+                title: nameParts[ 1 ] || "<Unnamed>",
                 subtitle: subtitle,
                 startTimeMs: this.startTimeMs,
                 finishTimeMs: this.finishTimeMs

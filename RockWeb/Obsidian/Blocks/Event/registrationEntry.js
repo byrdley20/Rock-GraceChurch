@@ -32,7 +32,7 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
             fieldValues: {},
             feeItemQuantities: {},
             guid: guid_1.newGuid(),
-            personGuid: '',
+            personGuid: "",
             ownFamilyGuid: ownFamilyGuid
         };
     }
@@ -40,13 +40,13 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
     function getRegistrantBasicInfo(registrant, registrantForms) {
         var _a, _b, _c;
         const fields = (registrantForms === null || registrantForms === void 0 ? void 0 : registrantForms.reduce((acc, f) => acc.concat(f.fields), [])) || [];
-        const firstNameGuid = ((_a = fields.find(f => f.personFieldType === registrationEntryBlockViewModel_1.RegistrationPersonFieldType.FirstName)) === null || _a === void 0 ? void 0 : _a.guid) || '';
-        const lastNameGuid = ((_b = fields.find(f => f.personFieldType === registrationEntryBlockViewModel_1.RegistrationPersonFieldType.LastName)) === null || _b === void 0 ? void 0 : _b.guid) || '';
-        const emailGuid = ((_c = fields.find(f => f.personFieldType === registrationEntryBlockViewModel_1.RegistrationPersonFieldType.Email)) === null || _c === void 0 ? void 0 : _c.guid) || '';
+        const firstNameGuid = ((_a = fields.find(f => f.personFieldType === registrationEntryBlockViewModel_1.RegistrationPersonFieldType.FirstName)) === null || _a === void 0 ? void 0 : _a.guid) || "";
+        const lastNameGuid = ((_b = fields.find(f => f.personFieldType === registrationEntryBlockViewModel_1.RegistrationPersonFieldType.LastName)) === null || _b === void 0 ? void 0 : _b.guid) || "";
+        const emailGuid = ((_c = fields.find(f => f.personFieldType === registrationEntryBlockViewModel_1.RegistrationPersonFieldType.Email)) === null || _c === void 0 ? void 0 : _c.guid) || "";
         return {
-            firstName: ((registrant === null || registrant === void 0 ? void 0 : registrant.fieldValues[firstNameGuid]) || ''),
-            lastName: ((registrant === null || registrant === void 0 ? void 0 : registrant.fieldValues[lastNameGuid]) || ''),
-            email: ((registrant === null || registrant === void 0 ? void 0 : registrant.fieldValues[emailGuid]) || ''),
+            firstName: ((registrant === null || registrant === void 0 ? void 0 : registrant.fieldValues[firstNameGuid]) || ""),
+            lastName: ((registrant === null || registrant === void 0 ? void 0 : registrant.fieldValues[lastNameGuid]) || ""),
+            email: ((registrant === null || registrant === void 0 ? void 0 : registrant.fieldValues[emailGuid]) || ""),
             guid: registrant === null || registrant === void 0 ? void 0 : registrant.guid
         };
     }
@@ -121,7 +121,7 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
             exports_1("Step", Step);
             unknownSingleFamilyGuid = guid_1.newGuid();
             exports_1("default", vue_1.defineComponent({
-                name: 'Event.RegistrationEntry',
+                name: "Event.RegistrationEntry",
                 components: {
                     RockButton: rockButton_1.default,
                     Registrants: registrants_2.default,
@@ -148,8 +148,8 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                         [Step.success]: Step.success
                     };
                     const notFound = vue_1.ref(false);
-                    const viewModel = vue_1.inject('configurationValues');
-                    const invokeBlockAction = vue_1.inject('invokeBlockAction');
+                    const viewModel = vue_1.inject("configurationValues");
+                    const invokeBlockAction = vue_1.inject("invokeBlockAction");
                     if (viewModel === null) {
                         notFound.value = true;
                         return {
@@ -181,15 +181,15 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                         registrants: ((_b = viewModel.session) === null || _b === void 0 ? void 0 : _b.registrants) || [getDefaultRegistrantInfo(null, viewModel, null)],
                         registrationFieldValues: ((_c = viewModel.session) === null || _c === void 0 ? void 0 : _c.fieldValues) || {},
                         registrar: ((_d = viewModel.session) === null || _d === void 0 ? void 0 : _d.registrar) || {
-                            nickName: '',
-                            lastName: '',
-                            email: '',
+                            nickName: "",
+                            lastName: "",
+                            email: "",
                             updateEmail: true,
                             ownFamilyGuid: guid_1.newGuid(),
                             familyGuid: null
                         },
-                        gatewayToken: '',
-                        discountCode: ((_e = viewModel.session) === null || _e === void 0 ? void 0 : _e.discountCode) || '',
+                        gatewayToken: "",
+                        discountCode: ((_e = viewModel.session) === null || _e === void 0 ? void 0 : _e.discountCode) || "",
                         discountAmount: ((_f = viewModel.session) === null || _f === void 0 ? void 0 : _f.discountAmount) || 0,
                         discountPercentage: ((_g = viewModel.session) === null || _g === void 0 ? void 0 : _g.discountPercentage) || 0,
                         successViewModel: viewModel.successViewModel,
@@ -197,7 +197,7 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                         sessionExpirationDate: null,
                         registrationSessionGuid: ((_h = viewModel.session) === null || _h === void 0 ? void 0 : _h.registrationSessionGuid) || guid_1.newGuid()
                     });
-                    vue_1.provide('registrationEntryState', registrationEntryState);
+                    vue_1.provide("registrationEntryState", registrationEntryState);
                     const getRegistrationEntryBlockArgs = () => {
                         var _a;
                         return {
@@ -211,12 +211,12 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                             registrationGuid: ((_a = viewModel.session) === null || _a === void 0 ? void 0 : _a.registrationGuid) || null
                         };
                     };
-                    vue_1.provide('getRegistrationEntryBlockArgs', getRegistrationEntryBlockArgs);
+                    vue_1.provide("getRegistrationEntryBlockArgs", getRegistrationEntryBlockArgs);
                     const persistSession = (force = false) => __awaiter(this, void 0, void 0, function* () {
                         if (!force && !viewModel.timeoutMinutes) {
                             return;
                         }
-                        const response = yield invokeBlockAction('PersistSession', {
+                        const response = yield invokeBlockAction("PersistSession", {
                             args: getRegistrationEntryBlockArgs()
                         });
                         if (response.data) {
@@ -224,7 +224,7 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                             registrationEntryState.sessionExpirationDate = asDate;
                         }
                     });
-                    vue_1.provide('persistSession', persistSession);
+                    vue_1.provide("persistSession", persistSession);
                     return {
                         viewModel,
                         steps,
@@ -302,9 +302,9 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                         const ordinal = number_1.default.toOrdinal(this.registrationEntryState.currentRegistrantIndex + 1);
                         let title = string_1.default.toTitleCase(this.registrants.length <= 1 ?
                             this.uppercaseRegistrantTerm :
-                            ordinal + ' ' + this.uppercaseRegistrantTerm);
+                            ordinal + " " + this.uppercaseRegistrantTerm);
                         if (this.registrationEntryState.currentRegistrantFormIndex > 0) {
-                            title += ' (cont)';
+                            title += " (cont)";
                         }
                         return title;
                     },
@@ -320,12 +320,12 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                             return (_d = (_c = this.viewModel) === null || _c === void 0 ? void 0 : _c.registrationAttributeTitleEnd) !== null && _d !== void 0 ? _d : "";
                         }
                         if (this.currentStep === Step.reviewAndPayment) {
-                            return 'Review Registration';
+                            return "Review Registration";
                         }
                         if (this.currentStep === Step.success) {
-                            return ((_f = (_e = this.registrationEntryState) === null || _e === void 0 ? void 0 : _e.successViewModel) === null || _f === void 0 ? void 0 : _f.titleHtml) || 'Congratulations';
+                            return ((_f = (_e = this.registrationEntryState) === null || _e === void 0 ? void 0 : _e.successViewModel) === null || _f === void 0 ? void 0 : _f.titleHtml) || "Congratulations";
                         }
-                        return '';
+                        return "";
                     },
                     progressTrackerItems() {
                         const items = [];
@@ -334,21 +334,21 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                         }
                         if (this.registrationEntryState.firstStep === Step.intro) {
                             items.push({
-                                key: 'Start',
-                                title: 'Start',
+                                key: "Start",
+                                title: "Start",
                                 subtitle: this.viewModel.registrationTerm
                             });
                         }
                         if (this.hasPreAttributes) {
                             items.push({
-                                key: 'Pre',
+                                key: "Pre",
                                 title: this.viewModel.registrationAttributeTitleStart,
                                 subtitle: this.viewModel.registrationTerm
                             });
                         }
                         if (!this.registrationEntryState.registrants.length) {
                             items.push({
-                                key: 'Registrant',
+                                key: "Registrant",
                                 title: string_1.toTitleCase(this.viewModel.registrantTerm),
                                 subtitle: this.viewModel.registrationTerm
                             });
@@ -373,14 +373,14 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                         }
                         if (this.hasPostAttributes) {
                             items.push({
-                                key: 'Post',
+                                key: "Post",
                                 title: this.viewModel.registrationAttributeTitleEnd,
                                 subtitle: this.viewModel.registrationTerm
                             });
                         }
                         items.push({
-                            key: 'Finalize',
-                            title: 'Finalize',
+                            key: "Finalize",
+                            title: "Finalize",
                             subtitle: this.viewModel.registrationTerm
                         });
                         return items;
@@ -486,7 +486,7 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                             }
                         }
                     },
-                    'registrationEntryState.sessionExpirationDate': {
+                    "registrationEntryState.sessionExpirationDate": {
                         immediate: true,
                         handler() {
                             var _a;
@@ -504,7 +504,7 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                 mounted() {
                     var _a;
                     if (((_a = this.viewModel) === null || _a === void 0 ? void 0 : _a.loginRequiredToRegister) && !this.$store.state.currentPerson) {
-                        this.$store.dispatch('redirectToLogin');
+                        this.$store.dispatch("redirectToLogin");
                     }
                 },
                 template: `

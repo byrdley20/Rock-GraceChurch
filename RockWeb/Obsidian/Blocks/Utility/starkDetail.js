@@ -31,7 +31,7 @@ System.register(["vue", "../../Controls/rockBlock", "../../Elements/alert", "../
         ],
         execute: function () {
             StarkDetailOptions = vue_1.defineComponent({
-                name: 'Utility.StarkDetailOptions',
+                name: "Utility.StarkDetailOptions",
                 setup: rockBlock_1.standardBlockSetup,
                 components: {
                     PaneledBlockTemplate: paneledBlockTemplate_1.default,
@@ -40,21 +40,21 @@ System.register(["vue", "../../Controls/rockBlock", "../../Elements/alert", "../
                 },
                 data() {
                     return {
-                        configMessage: '',
-                        blockActionMessage: ''
+                        configMessage: "",
+                        blockActionMessage: ""
                     };
                 },
                 methods: {
                     loadBlockActionMessage() {
                         return __awaiter(this, void 0, void 0, function* () {
-                            const response = yield this.invokeBlockAction('GetMessage', {
-                                paramFromClient: 'This is a value sent to the server from the client.'
+                            const response = yield this.invokeBlockAction("GetMessage", {
+                                paramFromClient: "This is a value sent to the server from the client."
                             });
                             if (response.data) {
                                 this.blockActionMessage = response.data.message;
                             }
                             else {
-                                this.blockActionMessage = response.errorMessage || 'An error occurred';
+                                this.blockActionMessage = response.errorMessage || "An error occurred";
                             }
                         });
                     }

@@ -31,7 +31,7 @@ System.register(["vue", "../../../Elements/checkBox", "../../../Elements/emailBo
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'Event.RegistrationEntry.Registrar',
+                name: "Event.RegistrationEntry.Registrar",
                 components: {
                     TextBox: textBox_1.default,
                     CheckBox: checkBox_1.default,
@@ -41,8 +41,8 @@ System.register(["vue", "../../../Elements/checkBox", "../../../Elements/emailBo
                 },
                 setup() {
                     return {
-                        getRegistrationEntryBlockArgs: vue_1.inject('getRegistrationEntryBlockArgs'),
-                        registrationEntryState: vue_1.inject('registrationEntryState')
+                        getRegistrationEntryBlockArgs: vue_1.inject("getRegistrationEntryBlockArgs"),
+                        registrationEntryState: vue_1.inject("registrationEntryState")
                     };
                 },
                 data() {
@@ -104,7 +104,7 @@ System.register(["vue", "../../../Elements/checkBox", "../../../Elements/emailBo
                             });
                         }
                         options.push({
-                            text: 'None of the above',
+                            text: "None of the above",
                             value: this.registrar.ownFamilyGuid
                         });
                         return options;
@@ -115,9 +115,9 @@ System.register(["vue", "../../../Elements/checkBox", "../../../Elements/emailBo
                         this.isRegistrarPanelShown = true;
                         if (this.currentPerson &&
                             (this.viewModel.registrarOption === registrationEntryBlockViewModel_1.RegistrarOption.UseLoggedInPerson || this.viewModel.registrarOption === registrationEntryBlockViewModel_1.RegistrarOption.PromptForRegistrar)) {
-                            this.registrar.nickName = this.currentPerson.nickName || this.currentPerson.firstName || '';
-                            this.registrar.lastName = this.currentPerson.lastName || '';
-                            this.registrar.email = this.currentPerson.email || '';
+                            this.registrar.nickName = this.currentPerson.nickName || this.currentPerson.firstName || "";
+                            this.registrar.lastName = this.currentPerson.lastName || "";
+                            this.registrar.email = this.currentPerson.email || "";
                             this.registrar.familyGuid = this.currentPerson.primaryFamilyGuid || null;
                             return;
                         }

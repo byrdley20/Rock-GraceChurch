@@ -14,26 +14,26 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { getFieldEditorProps } from './index';
-import TextBox from '../Elements/textBox';
-import { asBooleanOrNull } from '@Obsidian/Services/boolean';
+import { defineComponent } from "vue";
+import { getFieldEditorProps } from "./index";
+import TextBox from "../Elements/textBox";
+import { asBooleanOrNull } from "@Obsidian/Services/boolean";
 
 enum ConfigurationValueKey {
-    IsPassword = 'ispassword',
-    MaxCharacters = 'maxcharacters',
-    ShowCountDown = 'showcountdown'
+    IsPassword = "ispassword",
+    MaxCharacters = "maxcharacters",
+    ShowCountDown = "showcountdown"
 }
 
 export const EditComponent = defineComponent({
-    name: 'TextField.Edit',
+    name: "TextField.Edit",
     components: {
         TextBox
     },
     props: getFieldEditorProps(),
     data() {
         return {
-            internalValue: ''
+            internalValue: ""
         };
     },
     computed: {
@@ -67,12 +67,12 @@ export const EditComponent = defineComponent({
     },
     watch: {
         internalValue(): void {
-            this.$emit('update:modelValue', this.internalValue);
+            this.$emit("update:modelValue", this.internalValue);
         },
         modelValue: {
             immediate: true,
             handler(): void {
-                this.internalValue = this.modelValue || '';
+                this.internalValue = this.modelValue || "";
             }
         }
     },

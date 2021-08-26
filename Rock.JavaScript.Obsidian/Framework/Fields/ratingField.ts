@@ -14,12 +14,12 @@
 // limitations under the License.
 // </copyright>
 //
-import { Component, defineAsyncComponent } from 'vue';
-import { FieldTypeBase } from './fieldType';
-import { ClientAttributeValue, ClientEditableAttributeValue } from '@Obsidian/ViewModels';
+import { Component, defineAsyncComponent } from "vue";
+import { FieldTypeBase } from "./fieldType";
+import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
 
 export const enum ConfigurationValueKey {
-    MaxRating = 'max'
+    MaxRating = "max"
 }
 
 export interface RatingValue {
@@ -31,7 +31,7 @@ export interface RatingValue {
 
 // The edit component can be quite large, so load it only as needed.
 const editComponent = defineAsyncComponent(async () => {
-    return (await import('./ratingFieldComponents')).EditComponent;
+    return (await import("./ratingFieldComponents")).EditComponent;
 });
 
 /**
@@ -42,7 +42,7 @@ export class RatingFieldType extends FieldTypeBase {
         let ratingValue: RatingValue | null;
 
         try {
-            ratingValue = JSON.parse(value.value ?? '') as RatingValue;
+            ratingValue = JSON.parse(value.value ?? "") as RatingValue;
         }
         catch {
             ratingValue = null;
@@ -50,7 +50,7 @@ export class RatingFieldType extends FieldTypeBase {
 
         const rating = ratingValue?.value ?? 0;
         const maxRating = ratingValue?.maxValue ?? 5;
-        let html = '';
+        let html = "";
 
         for (let i = 0; i < rating && i < maxRating; i++) {
             html += `<i class="fa fa-rating-selected"></i>`;
@@ -65,11 +65,11 @@ export class RatingFieldType extends FieldTypeBase {
 
     public override updateTextValue(value: ClientEditableAttributeValue): void {
         try {
-            const ratingValue = JSON.parse(value.value ?? '') as RatingValue;
-            value.textValue = ratingValue?.value?.toString() ?? '';
+            const ratingValue = JSON.parse(value.value ?? "") as RatingValue;
+            value.textValue = ratingValue?.value?.toString() ?? "";
         }
         catch {
-            value.textValue = '';
+            value.textValue = "";
         }
     }
 

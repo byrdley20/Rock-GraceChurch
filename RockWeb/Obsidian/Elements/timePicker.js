@@ -19,7 +19,7 @@ System.register(["vue", "../Rules/index", "./basicTimePicker", "./rockFormField"
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
-                name: 'TimePicker',
+                name: "TimePicker",
                 components: {
                     RockFormField: rockFormField_1.default,
                     BasicTimePicker: basicTimePicker_1.default
@@ -27,7 +27,7 @@ System.register(["vue", "../Rules/index", "./basicTimePicker", "./rockFormField"
                 props: {
                     rules: {
                         type: String,
-                        default: ''
+                        default: ""
                     },
                     modelValue: {
                         type: Object,

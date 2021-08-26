@@ -10,24 +10,24 @@ System.register(["vue"], function (exports_1, context_1) {
         ],
         execute: function () {
             (function (BtnType) {
-                BtnType["default"] = "default";
-                BtnType["primary"] = "primary";
-                BtnType["danger"] = "danger";
-                BtnType["warning"] = "warning";
-                BtnType["success"] = "success";
-                BtnType["info"] = "info";
-                BtnType["link"] = "link";
+                BtnType["Default"] = "default";
+                BtnType["Primary"] = "primary";
+                BtnType["Danger"] = "danger";
+                BtnType["Warning"] = "warning";
+                BtnType["Success"] = "success";
+                BtnType["Info"] = "info";
+                BtnType["Link"] = "link";
             })(BtnType || (BtnType = {}));
             exports_1("BtnType", BtnType);
             (function (BtnSize) {
-                BtnSize["default"] = "";
-                BtnSize["xs"] = "xs";
-                BtnSize["sm"] = "sm";
-                BtnSize["lg"] = "lg";
+                BtnSize["Default"] = "";
+                BtnSize["ExtraSmall"] = "xs";
+                BtnSize["Small"] = "sm";
+                BtnSize["Large"] = "lg";
             })(BtnSize || (BtnSize = {}));
             exports_1("BtnSize", BtnSize);
             exports_1("default", vue_1.defineComponent({
-                name: 'RockButton',
+                name: "RockButton",
                 props: {
                     isLoading: {
                         type: Boolean,
@@ -35,11 +35,11 @@ System.register(["vue"], function (exports_1, context_1) {
                     },
                     loadingText: {
                         type: String,
-                        default: 'Loading...'
+                        default: "Loading..."
                     },
                     type: {
                         type: String,
-                        default: 'button'
+                        default: "button"
                     },
                     disabled: {
                         type: Boolean,
@@ -47,20 +47,20 @@ System.register(["vue"], function (exports_1, context_1) {
                     },
                     btnType: {
                         type: String,
-                        default: BtnType.default
+                        default: BtnType.Default
                     },
                     btnSize: {
                         type: String,
-                        default: BtnSize.default
+                        default: BtnSize.Default
                     }
                 },
                 emits: [
-                    'click'
+                    "click"
                 ],
                 methods: {
                     handleClick: function (event) {
                         if (!this.isLoading) {
-                            this.$emit('click', event);
+                            this.$emit("click", event);
                         }
                     }
                 },
@@ -70,7 +70,7 @@ System.register(["vue"], function (exports_1, context_1) {
                     },
                     sizeClass() {
                         if (!this.btnSize) {
-                            return '';
+                            return "";
                         }
                         return `btn-${this.btnSize}`;
                     },

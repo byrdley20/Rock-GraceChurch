@@ -14,14 +14,14 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent } from 'vue';
-import { getFieldEditorProps } from './index';
-import DateTimePicker from '../Elements/dateTimePicker';
-import { asBoolean } from '@Obsidian/Services/boolean';
-import { ConfigurationValueKey } from './dateTimeField';
+import { defineComponent } from "vue";
+import { getFieldEditorProps } from "./index";
+import DateTimePicker from "../Elements/dateTimePicker";
+import { asBoolean } from "@Obsidian/Services/boolean";
+import { ConfigurationValueKey } from "./dateTimeField";
 
 export const EditComponent = defineComponent({
-    name: 'DateTimeField.Edit',
+    name: "DateTimeField.Edit",
 
     components: {
         DateTimePicker
@@ -36,21 +36,21 @@ export const EditComponent = defineComponent({
 
     data() {
         return {
-            internalValue: '',
-            formattedString: ''
+            internalValue: "",
+            formattedString: ""
         };
     },
 
     methods: {
         async syncModelValue(): Promise<void> {
-            this.internalValue = this.modelValue ?? '';
+            this.internalValue = this.modelValue ?? "";
         },
     },
 
     computed: {
         dateFormatTemplate(): string {
             const formatConfig = this.configurationValues[ConfigurationValueKey.Format];
-            return formatConfig || 'MM/dd/yyyy';
+            return formatConfig || "MM/dd/yyyy";
         },
 
         configAttributes(): Record<string, number | boolean> {
@@ -69,10 +69,10 @@ export const EditComponent = defineComponent({
         internalValue(): void {
             if (this.internalValue !== this.modelValue) {
                 const d1 = Date.parse(this.internalValue);
-                const d2 = Date.parse(this.modelValue ?? '');
+                const d2 = Date.parse(this.modelValue ?? "");
 
                 if (isNaN(d1) || isNaN(d2) || d1 !== d2) {
-                    this.$emit('update:modelValue', this.internalValue);
+                    this.$emit("update:modelValue", this.internalValue);
                 }
             }
         },

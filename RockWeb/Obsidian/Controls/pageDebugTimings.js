@@ -16,7 +16,7 @@ System.register(["@Obsidian/Services/number", "vue", "../Store/index"], function
         ],
         execute: function () {
             PageDebugTimingRow = vue_1.defineComponent({
-                name: 'PageDebugTimingRow',
+                name: "PageDebugTimingRow",
                 props: {
                     viewModel: {
                         type: Object,
@@ -37,7 +37,7 @@ System.register(["@Obsidian/Services/number", "vue", "../Store/index"], function
                 computed: {
                     indentStyle() {
                         if (!this.viewModel.IndentLevel) {
-                            return '';
+                            return "";
                         }
                         const pixels = this.viewModel.IndentLevel * 24;
                         return `padding-left: ${pixels}px`;
@@ -83,7 +83,7 @@ System.register(["@Obsidian/Services/number", "vue", "../Store/index"], function
 </tr>`
             });
             exports_1("default", vue_1.defineComponent({
-                name: 'PageDebugTimings',
+                name: "PageDebugTimings",
                 components: {
                     PageDebugTimingRow
                 },
@@ -137,9 +137,9 @@ System.register(["@Obsidian/Services/number", "vue", "../Store/index"], function
                             DurationMs: this.firstClientRelativeStartTimeMs - this.serverEndTimeMs,
                             IndentLevel: 0,
                             IsTitleBold: true,
-                            Title: 'Client Mount Blocks',
+                            Title: "Client Mount Blocks",
                             TimestampMs: this.serverEndTimeMs,
-                            SubTitle: ''
+                            SubTitle: ""
                         };
                     }
                 },

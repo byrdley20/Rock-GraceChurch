@@ -28,7 +28,7 @@ System.register(["vue", "./index", "../Elements/dateTimePicker", "@Obsidian/Serv
         ],
         execute: function () {
             exports_1("EditComponent", EditComponent = vue_1.defineComponent({
-                name: 'DateTimeField.Edit',
+                name: "DateTimeField.Edit",
                 components: {
                     DateTimePicker: dateTimePicker_1.default
                 },
@@ -38,22 +38,22 @@ System.register(["vue", "./index", "../Elements/dateTimePicker", "@Obsidian/Serv
                 },
                 data() {
                     return {
-                        internalValue: '',
-                        formattedString: ''
+                        internalValue: "",
+                        formattedString: ""
                     };
                 },
                 methods: {
                     syncModelValue() {
                         var _a;
                         return __awaiter(this, void 0, void 0, function* () {
-                            this.internalValue = (_a = this.modelValue) !== null && _a !== void 0 ? _a : '';
+                            this.internalValue = (_a = this.modelValue) !== null && _a !== void 0 ? _a : "";
                         });
                     },
                 },
                 computed: {
                     dateFormatTemplate() {
                         const formatConfig = this.configurationValues["format"];
-                        return formatConfig || 'MM/dd/yyyy';
+                        return formatConfig || "MM/dd/yyyy";
                     },
                     configAttributes() {
                         const attributes = {};
@@ -69,9 +69,9 @@ System.register(["vue", "./index", "../Elements/dateTimePicker", "@Obsidian/Serv
                         var _a;
                         if (this.internalValue !== this.modelValue) {
                             const d1 = Date.parse(this.internalValue);
-                            const d2 = Date.parse((_a = this.modelValue) !== null && _a !== void 0 ? _a : '');
+                            const d2 = Date.parse((_a = this.modelValue) !== null && _a !== void 0 ? _a : "");
                             if (isNaN(d1) || isNaN(d2) || d1 !== d2) {
-                                this.$emit('update:modelValue', this.internalValue);
+                                this.$emit("update:modelValue", this.internalValue);
                             }
                         }
                     },

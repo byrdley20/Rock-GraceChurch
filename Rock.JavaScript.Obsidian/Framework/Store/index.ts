@@ -14,18 +14,18 @@
 // limitations under the License.
 // </copyright>
 //
-import { createStore, Store as VuexStore } from 'vuex';
+import { createStore, Store as VuexStore } from "vuex";
 //import { commonEntityModules } from './CommonEntities';
-import { State, state } from './state';
-import { mutations } from './mutations';
-import { actions } from './actions';
-import { Getters, getters } from './getters';
+import { State, state } from "./state";
+import { mutations } from "./mutations";
+import { actions } from "./actions";
+import { Getters, getters } from "./getters";
 
-export { MutationType, PageDebugTiming } from './mutations';
-export { ActionType } from './actions';
+export { MutationType, PageDebugTiming } from "./mutations";
+export { ActionType } from "./actions";
 
 
-declare module '@vue/runtime-core' {
+declare module "@vue/runtime-core" {
     // provide typings for `this.$store`
     interface ComponentCustomProperties {
         $store: Store
@@ -52,14 +52,14 @@ export function useStore(): Store {
 
 export type Store = Omit<
     VuexStore<State>,
-    'getters' // | 'commit' | 'dispatch'
+    "getters" // | 'commit' | 'dispatch'
 > & {
     getters: {
         [K in keyof Getters]: ReturnType<Getters[K]>
     } & {
         [index: string]: unknown
     }
-}
+};
 // The following sets hard typescript bindings for what keys can be passed
 // to commit and dispatch. For now leave out until we decide if this is safe.
 //> & {

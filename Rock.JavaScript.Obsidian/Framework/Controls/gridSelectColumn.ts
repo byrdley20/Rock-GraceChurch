@@ -14,19 +14,18 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, inject, ref } from 'vue';
-import { GridContext, RowContext, RowId } from './grid';
-import GridColumn from './gridColumn';
+import { defineComponent, inject, ref } from "vue";
+import { GridContext, RowContext, RowId } from "./grid";
+import GridColumn from "./gridColumn";
 
 export default defineComponent( {
-    name: 'GridSelectColumn',
+    name: "GridSelectColumn",
     components: {
         GridColumn
     },
-    setup ()
-    {
-        const gridContext = inject( 'gridContext' ) as GridContext;
-        const rowContext = inject( 'rowContext' ) as RowContext;
+    setup () {
+        const gridContext = inject( "gridContext" ) as GridContext;
+        const rowContext = inject( "rowContext" ) as RowContext;
 
         const selectAllRows = gridContext.selectAllRows;
         const isThisRowSelected = gridContext.selectedRowIds[ rowContext.rowId ];
@@ -39,35 +38,27 @@ export default defineComponent( {
         };
     },
     computed: {
-        rowId (): RowId
-        {
+        rowId (): RowId {
             return this.rowContext.rowId;
         },
-        isHeader (): boolean
-        {
+        isHeader (): boolean {
             return this.rowContext.isHeader;
         }
     },
     watch: {
-        'gridContext.selectAllRows' (): void
-        {
-            if ( !this.isHeader )
-            {
+        "gridContext.selectAllRows" (): void {
+            if ( !this.isHeader ) {
                 this.isSelected = this.gridContext.selectAllRows;
                 this.gridContext.selectedRowIds[ this.rowId ] = this.isSelected;
             }
         },
-        'gridContext.selectedRowIds' (): void
-        {
-            if ( !this.isHeader )
-            {
+        "gridContext.selectedRowIds" (): void {
+            if ( !this.isHeader ) {
                 this.isSelected = this.gridContext.selectedRowIds[ this.rowId ];
             }
         },
-        isSelected (): void
-        {
-            if ( !this.isHeader )
-            {
+        isSelected (): void {
+            if ( !this.isHeader ) {
                 this.gridContext.selectedRowIds[ this.rowId ] = this.isSelected;
             }
         }

@@ -40,7 +40,7 @@ System.register(["vue", "../../../Controls/loading", "../../../Elements/currency
                 RegistrationCostSummaryType[RegistrationCostSummaryType["Total"] = 3] = "Total";
             })(RegistrationCostSummaryType || (RegistrationCostSummaryType = {}));
             exports_1("default", vue_1.defineComponent({
-                name: 'Event.RegistrationEntry.CostSummary',
+                name: "Event.RegistrationEntry.CostSummary",
                 components: {
                     Loading: loading_1.default,
                     CurrencyBox: currencyBox_1.default,
@@ -48,9 +48,9 @@ System.register(["vue", "../../../Controls/loading", "../../../Elements/currency
                 },
                 setup() {
                     return {
-                        getRegistrationEntryBlockArgs: vue_1.inject('getRegistrationEntryBlockArgs'),
-                        invokeBlockAction: vue_1.inject('invokeBlockAction'),
-                        registrationEntryState: vue_1.inject('registrationEntryState')
+                        getRegistrationEntryBlockArgs: vue_1.inject("getRegistrationEntryBlockArgs"),
+                        invokeBlockAction: vue_1.inject("invokeBlockAction"),
+                        registrationEntryState: vue_1.inject("registrationEntryState")
                     };
                 },
                 data() {
@@ -61,7 +61,7 @@ System.register(["vue", "../../../Controls/loading", "../../../Elements/currency
                 },
                 computed: {
                     augmentedLineItems() {
-                        return this.lineItems.map(li => (Object.assign(Object.assign({}, li), { isFee: li.type === RegistrationCostSummaryType.Fee, discountHelp: (this.hasDiscount && li.cost === li.discountedCost) ? 'This item is not eligible for the discount.' : '', amountFormatted: number_1.asFormattedString(li.cost, 2), discountedAmountFormatted: number_1.asFormattedString(li.discountedCost, 2) })));
+                        return this.lineItems.map(li => (Object.assign(Object.assign({}, li), { isFee: li.type === RegistrationCostSummaryType.Fee, discountHelp: (this.hasDiscount && li.cost === li.discountedCost) ? "This item is not eligible for the discount." : "", amountFormatted: number_1.asFormattedString(li.cost, 2), discountedAmountFormatted: number_1.asFormattedString(li.discountedCost, 2) })));
                     },
                     hasDiscount() {
                         return this.lineItems.some(li => li.discountedCost !== li.cost);
@@ -143,7 +143,7 @@ System.register(["vue", "../../../Controls/loading", "../../../Elements/currency
                         return `$${number_1.asFormattedString(this.amountRemaining, 2)}`;
                     },
                     amountToPayTodayRules() {
-                        const rules = ['required'];
+                        const rules = ["required"];
                         let min = this.amountDueToday;
                         const max = this.maxAmountCanBePaid;
                         if (min > max) {
@@ -160,7 +160,7 @@ System.register(["vue", "../../../Controls/loading", "../../../Elements/currency
                             this.isLoading = true;
                             this.lineItems = [];
                             try {
-                                const response = yield this.invokeBlockAction('CalculateCost', {
+                                const response = yield this.invokeBlockAction("CalculateCost", {
                                     args: this.getRegistrationEntryBlockArgs()
                                 });
                                 if (response.data) {
@@ -185,7 +185,7 @@ System.register(["vue", "../../../Controls/loading", "../../../Elements/currency
                             this.registrationEntryState.amountToPayToday = this.defaultPaymentAmount;
                         }
                     },
-                    'registrationEntryState.DiscountCode'() {
+                    "registrationEntryState.DiscountCode"() {
                         return __awaiter(this, void 0, void 0, function* () {
                             yield this.fetchData();
                         });

@@ -14,16 +14,16 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, inject } from 'vue';
-import { getFieldEditorProps } from './index';
-import DropDownList, { DropDownListOption } from '../Elements/dropDownList';
-import RadioButtonList from '../Elements/radioButtonList';
-import { toNumberOrNull } from '@Obsidian/Services/number';
-import { ConfigurationValueKey } from './singleSelectField';
-import { ListItem } from '@Obsidian/ViewModels';
+import { defineComponent, inject } from "vue";
+import { getFieldEditorProps } from "./index";
+import DropDownList, { DropDownListOption } from "../Elements/dropDownList";
+import RadioButtonList from "../Elements/radioButtonList";
+import { toNumberOrNull } from "@Obsidian/Services/number";
+import { ConfigurationValueKey } from "./singleSelectField";
+import { ListItem } from "@Obsidian/ViewModels";
 
 export const EditComponent = defineComponent({
-    name: 'SingleSelectField.Edit',
+    name: "SingleSelectField.Edit",
 
     components: {
         DropDownList,
@@ -34,13 +34,13 @@ export const EditComponent = defineComponent({
 
     setup() {
         return {
-            isRequired: inject('isRequired') as boolean
+            isRequired: inject("isRequired") as boolean
         };
     },
 
     data() {
         return {
-            internalValue: ''
+            internalValue: ""
         };
     },
 
@@ -48,7 +48,7 @@ export const EditComponent = defineComponent({
         /** The options to choose from in the drop down list */
         options(): DropDownListOption[] {
             try {
-                const valuesConfig = JSON.parse(this.configurationValues[ConfigurationValueKey.Values] ?? '[]') as ListItem[];
+                const valuesConfig = JSON.parse(this.configurationValues[ConfigurationValueKey.Values] ?? "[]") as ListItem[];
 
                 const providedOptions: DropDownListOption[] = valuesConfig.map(v => {
                     return {
@@ -59,8 +59,8 @@ export const EditComponent = defineComponent({
 
                 if (this.isRadioButtons && !this.isRequired) {
                     providedOptions.unshift({
-                        text: 'None',
-                        value: ''
+                        text: "None",
+                        value: ""
                     });
                 }
 
@@ -76,7 +76,7 @@ export const EditComponent = defineComponent({
             const attributes: Record<string, number | boolean> = {};
             const fieldTypeConfig = this.configurationValues[ConfigurationValueKey.FieldType];
 
-            if (fieldTypeConfig === 'ddl_enhanced') {
+            if (fieldTypeConfig === "ddl_enhanced") {
                 attributes.enhanceForLongLists = true;
             }
 
@@ -89,7 +89,7 @@ export const EditComponent = defineComponent({
             const repeatColumnsConfig = this.configurationValues[ConfigurationValueKey.RepeatColumns];
 
             if (repeatColumnsConfig) {
-                attributes['repeatColumns'] = toNumberOrNull(repeatColumnsConfig) || 0;
+                attributes["repeatColumns"] = toNumberOrNull(repeatColumnsConfig) || 0;
             }
 
             return attributes;
@@ -98,19 +98,19 @@ export const EditComponent = defineComponent({
         /** Is the control going to be radio buttons? */
         isRadioButtons(): boolean {
             const fieldTypeConfig = this.configurationValues[ConfigurationValueKey.FieldType];
-            return fieldTypeConfig === 'rb';
+            return fieldTypeConfig === "rb";
         }
     },
 
     watch: {
         internalValue() {
-            this.$emit('update:modelValue', this.internalValue);
+            this.$emit("update:modelValue", this.internalValue);
         },
 
         modelValue: {
             immediate: true,
             handler() {
-                this.internalValue = this.modelValue || '';
+                this.internalValue = this.modelValue || "";
             }
         }
     },

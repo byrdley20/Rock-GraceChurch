@@ -14,7 +14,7 @@ System.register([], function (exports_1, context_1) {
                     state.pageParameters = value.pageConfig.pageParameters || {};
                     state.contextEntities = value.pageConfig.contextEntities || {};
                     state.pageId = value.pageConfig.pageId || 0;
-                    state.pageGuid = value.pageConfig.pageGuid || '';
+                    state.pageGuid = value.pageConfig.pageGuid || "";
                     state.executionStartTime = value.pageConfig.executionStartTime;
                     state.loginUrlWithReturnUrl = value.pageConfig.loginUrlWithReturnUrl;
                 },

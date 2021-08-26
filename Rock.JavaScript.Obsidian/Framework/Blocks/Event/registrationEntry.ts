@@ -38,13 +38,13 @@ import JavaScriptAnchor from "../../Elements/javaScriptAnchor";
 import { Person } from "@Obsidian/ViewModels";
 import SessionRenewal from "./RegistrationEntry/sessionRenewal";
 
-export enum Step {
-    "intro" = "intro",
-    "registrationStartForm" = "registrationStartForm",
-    "perRegistrantForms" = "perRegistrantForms",
-    "registrationEndForm" = "registrationEndForm",
-    "reviewAndPayment" = "reviewAndPayment",
-    "success" = "success"
+const enum Step {
+    Intro = "intro",
+    RegistrationStartForm = "registrationStartForm",
+    PerRegistrantForms = "perRegistrantForms",
+    RegistrationEndForm = "registrationEndForm",
+    ReviewAndPayment = "reviewAndPayment",
+    Success = "success"
 }
 
 export type RegistrantBasicInfo = {
@@ -153,12 +153,12 @@ export default defineComponent( {
     },
     setup () {
         const steps: Record<Step, Step> = {
-            [ Step.intro ]: Step.intro,
-            [ Step.registrationStartForm ]: Step.registrationStartForm,
-            [ Step.perRegistrantForms ]: Step.perRegistrantForms,
-            [ Step.registrationEndForm ]: Step.registrationEndForm,
-            [ Step.reviewAndPayment ]: Step.reviewAndPayment,
-            [ Step.success ]: Step.success
+            [ Step.Intro ]: Step.Intro,
+            [ Step.RegistrationStartForm ]: Step.RegistrationStartForm,
+            [ Step.PerRegistrantForms ]: Step.PerRegistrantForms,
+            [ Step.RegistrationEndForm ]: Step.RegistrationEndForm,
+            [ Step.ReviewAndPayment ]: Step.ReviewAndPayment,
+            [ Step.Success ]: Step.Success
         };
 
         const notFound = ref( false );
@@ -280,7 +280,7 @@ export default defineComponent( {
 
         /** Is the session expired? */
         isSessionExpired (): boolean {
-            return this.secondsBeforeExpiration === 0 && this.currentStep !== Step.success;
+            return this.secondsBeforeExpiration === 0 && this.currentStep !== Step.Success;
         },
 
         mustLogin (): boolean {
@@ -302,29 +302,29 @@ export default defineComponent( {
             return (this.viewModel?.registrationAttributesEnd?.length ?? 0) > 0;
         },
         progressTrackerIndex (): number {
-            if ( this.currentStep === Step.intro || this.registrationEntryState == null) {
+            if ( this.currentStep === Step.Intro || this.registrationEntryState == null) {
                 return 0;
             }
 
-            const stepsBeforePre = this.registrationEntryState?.firstStep === Step.intro ? 1 : 0;
+            const stepsBeforePre = this.registrationEntryState?.firstStep === Step.Intro ? 1 : 0;
 
-            if ( this.currentStep === Step.registrationStartForm ) {
+            if ( this.currentStep === Step.RegistrationStartForm ) {
                 return stepsBeforePre;
             }
 
             const stepsBeforeRegistrants = stepsBeforePre + ( this.hasPreAttributes ? 1 : 0 );
 
-            if ( this.currentStep === Step.perRegistrantForms ) {
+            if ( this.currentStep === Step.PerRegistrantForms ) {
                 return this.registrationEntryState.currentRegistrantIndex + stepsBeforeRegistrants;
             }
 
             const stepsToCompleteRegistrants = this.registrationEntryState.registrants.length + stepsBeforeRegistrants;
 
-            if ( this.currentStep === Step.registrationEndForm ) {
+            if ( this.currentStep === Step.RegistrationEndForm ) {
                 return stepsToCompleteRegistrants;
             }
 
-            if ( this.currentStep === Step.reviewAndPayment ) {
+            if ( this.currentStep === Step.ReviewAndPayment ) {
                 return stepsToCompleteRegistrants + ( this.hasPostAttributes ? 1 : 0 );
             }
 
@@ -351,23 +351,23 @@ export default defineComponent( {
             return title;
         },
         stepTitleHtml (): string {
-            if ( this.currentStep === Step.registrationStartForm ) {
+            if ( this.currentStep === Step.RegistrationStartForm ) {
                 return this.viewModel?.registrationAttributeTitleStart ?? "";
             }
 
-            if ( this.currentStep === Step.perRegistrantForms ) {
+            if ( this.currentStep === Step.PerRegistrantForms ) {
                 return this.currentRegistrantTitle;
             }
 
-            if ( this.currentStep === Step.registrationEndForm ) {
+            if ( this.currentStep === Step.RegistrationEndForm ) {
                 return this.viewModel?.registrationAttributeTitleEnd ?? "";
             }
 
-            if ( this.currentStep === Step.reviewAndPayment ) {
+            if ( this.currentStep === Step.ReviewAndPayment ) {
                 return "Review Registration";
             }
 
-            if ( this.currentStep === Step.success ) {
+            if ( this.currentStep === Step.Success ) {
                 return this.registrationEntryState?.successViewModel?.titleHtml || "Congratulations";
             }
 
@@ -382,7 +382,7 @@ export default defineComponent( {
                 return items;
             }
 
-            if ( this.registrationEntryState.firstStep === Step.intro ) {
+            if ( this.registrationEntryState.firstStep === Step.Intro ) {
                 items.push( {
                     key: "Start",
                     title: "Start",
@@ -453,62 +453,62 @@ export default defineComponent( {
         async onIntroNext(): Promise<void> {
             if (this.persistSession && this.registrationEntryState) {
                 await this.persistSession(false);
-                this.registrationEntryState.currentStep = this.hasPreAttributes ? Step.registrationStartForm : Step.perRegistrantForms;
+                this.registrationEntryState.currentStep = this.hasPreAttributes ? Step.RegistrationStartForm : Step.PerRegistrantForms;
                 Page.smoothScrollToTop();
             }
         },
         async onRegistrationStartPrevious(): Promise<void> {
             if (this.persistSession && this.registrationEntryState) {
                 await this.persistSession(false);
-                this.registrationEntryState.currentStep = Step.intro;
+                this.registrationEntryState.currentStep = Step.Intro;
                 Page.smoothScrollToTop();
             }
         },
         async onRegistrationStartNext(): Promise<void> {
             if (this.persistSession && this.registrationEntryState) {
                 await this.persistSession(false);
-                this.registrationEntryState.currentStep = Step.perRegistrantForms;
+                this.registrationEntryState.currentStep = Step.PerRegistrantForms;
                 Page.smoothScrollToTop();
             }
         },
         async onRegistrantPrevious(): Promise<void> {
             if (this.persistSession && this.registrationEntryState) {
                 await this.persistSession(false);
-                this.registrationEntryState.currentStep = this.hasPreAttributes ? Step.registrationStartForm : Step.intro;
+                this.registrationEntryState.currentStep = this.hasPreAttributes ? Step.RegistrationStartForm : Step.Intro;
                 Page.smoothScrollToTop();
             }
         },
         async onRegistrantNext(): Promise<void> {
             if (this.persistSession && this.registrationEntryState) {
                 await this.persistSession(false);
-                this.registrationEntryState.currentStep = this.hasPostAttributes ? Step.registrationEndForm : Step.reviewAndPayment;
+                this.registrationEntryState.currentStep = this.hasPostAttributes ? Step.RegistrationEndForm : Step.ReviewAndPayment;
                 Page.smoothScrollToTop();
             }
         },
         async onRegistrationEndPrevious(): Promise<void> {
             if (this.persistSession && this.registrationEntryState) {
                 await this.persistSession(false);
-                this.registrationEntryState.currentStep = Step.perRegistrantForms;
+                this.registrationEntryState.currentStep = Step.PerRegistrantForms;
                 Page.smoothScrollToTop();
             }
         },
         async onRegistrationEndNext(): Promise<void> {
             if (this.persistSession && this.registrationEntryState) {
                 await this.persistSession(false);
-                this.registrationEntryState.currentStep = Step.reviewAndPayment;
+                this.registrationEntryState.currentStep = Step.ReviewAndPayment;
                 Page.smoothScrollToTop();
             }
         },
         async onSummaryPrevious(): Promise<void> {
             if (this.persistSession && this.registrationEntryState) {
                 await this.persistSession(false);
-                this.registrationEntryState.currentStep = this.hasPostAttributes ? Step.registrationEndForm : Step.perRegistrantForms;
+                this.registrationEntryState.currentStep = this.hasPostAttributes ? Step.RegistrationEndForm : Step.PerRegistrantForms;
                 Page.smoothScrollToTop();
             }
         },
         async onSummaryNext(): Promise<void> {
             if (this.persistSession && this.registrationEntryState) {
-                this.registrationEntryState.currentStep = Step.success;
+                this.registrationEntryState.currentStep = Step.Success;
                 Page.smoothScrollToTop();
             }
         }

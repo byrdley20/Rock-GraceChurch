@@ -19,7 +19,7 @@ import { computed, defineComponent, inject, PropType } from "vue";
 import AddressControl, { getDefaultAddressControlModel } from "../../../Controls/addressControl";
 import TextBox from "../../../Elements/textBox";
 import EmailBox from "../../../Elements/emailBox";
-import DropDownList, { DropDownListOption } from "../../../Elements/dropDownList";
+import DropDownList from "../../../Elements/dropDownList";
 import GenderDropDownList from "../../../Elements/genderDropDownList";
 import BirthdayPicker from "../../../Elements/birthdayPicker";
 import ComponentFromUrl from "../../../Controls/componentFromUrl";

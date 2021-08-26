@@ -957,7 +957,7 @@ const progressTrackerGallery = defineComponent({
                 { key: "7", title: "Step 7", subtitle: "The seventh step" },
                 { key: "8", title: "Step 8", subtitle: "The eighth step" },
                 { key: "F", title: "Finish", subtitle: "The finish" }
-            ]
+            ] as ProgressTrackerItem[]
         };
     },
     template: `

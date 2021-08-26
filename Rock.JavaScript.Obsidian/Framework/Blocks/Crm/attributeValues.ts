@@ -27,7 +27,7 @@ import RockButton from "../../Elements/rockButton";
 import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
 import AttributeValuesContainer from "../../Controls/attributeValuesContainer";
 
-interface ConfigurationValues {
+type ConfigurationValues = {
     blockIconCssClass: string;
 
     blockTitle: string;
@@ -39,7 +39,7 @@ interface ConfigurationValues {
     categoryGuids: Guid[];
 
     attributes: ClientAttributeValue[];
-}
+};
 
 function sortedAttributeValues(attributeValues: ClientAttributeValue[]): ClientAttributeValue[] {
     const sortedValues = [...attributeValues];

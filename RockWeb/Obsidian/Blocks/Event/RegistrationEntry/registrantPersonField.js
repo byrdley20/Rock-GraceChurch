@@ -1,6 +1,6 @@
-System.register(["vue", "../../../Controls/addressControl", "../../../Elements/textBox", "../../../Elements/emailBox", "../../../Elements/dropDownList", "../../../Elements/genderDropDownList", "../../../Elements/birthdayPicker", "../../../Controls/componentFromUrl", "../../../Elements/alert", "../../../Elements/datePartsPicker", "./registrationEntryBlockViewModel"], function (exports_1, context_1) {
+System.register(["vue", "../../../Controls/addressControl", "../../../Elements/textBox", "../../../Elements/emailBox", "../../../Elements/dropDownList", "../../../Elements/genderDropDownList", "../../../Elements/birthdayPicker", "../../../Controls/componentFromUrl", "../../../Elements/alert", "../../../Elements/datePartsPicker"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, addressControl_1, textBox_1, emailBox_1, dropDownList_1, genderDropDownList_1, birthdayPicker_1, componentFromUrl_1, alert_1, datePartsPicker_1, registrationEntryBlockViewModel_1;
+    var vue_1, addressControl_1, textBox_1, emailBox_1, dropDownList_1, genderDropDownList_1, birthdayPicker_1, componentFromUrl_1, alert_1, datePartsPicker_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -33,9 +33,6 @@ System.register(["vue", "../../../Controls/addressControl", "../../../Elements/t
             },
             function (datePartsPicker_1_1) {
                 datePartsPicker_1 = datePartsPicker_1_1;
-            },
-            function (registrationEntryBlockViewModel_1_1) {
-                registrationEntryBlockViewModel_1 = registrationEntryBlockViewModel_1_1;
             }
         ],
         execute: function () {
@@ -63,21 +60,21 @@ System.register(["vue", "../../../Controls/addressControl", "../../../Elements/t
                     const registrationEntryState = vue_1.inject("registrationEntryState");
                     const component = vue_1.computed(() => {
                         switch (props.field.personFieldType) {
-                            case registrationEntryBlockViewModel_1.RegistrationPersonFieldType.FirstName:
+                            case 0:
                                 return textBox_1.default;
-                            case registrationEntryBlockViewModel_1.RegistrationPersonFieldType.LastName:
+                            case 1:
                                 return textBox_1.default;
-                            case registrationEntryBlockViewModel_1.RegistrationPersonFieldType.MiddleName:
+                            case 13:
                                 return textBox_1.default;
-                            case registrationEntryBlockViewModel_1.RegistrationPersonFieldType.Campus:
+                            case 2:
                                 return dropDownList_1.default;
-                            case registrationEntryBlockViewModel_1.RegistrationPersonFieldType.Email:
+                            case 4:
                                 return emailBox_1.default;
-                            case registrationEntryBlockViewModel_1.RegistrationPersonFieldType.Gender:
+                            case 6:
                                 return genderDropDownList_1.default;
-                            case registrationEntryBlockViewModel_1.RegistrationPersonFieldType.Birthdate:
+                            case 5:
                                 return birthdayPicker_1.default;
-                            case registrationEntryBlockViewModel_1.RegistrationPersonFieldType.Address:
+                            case 3:
                                 return addressControl_1.default;
                         }
                         return null;
@@ -87,30 +84,30 @@ System.register(["vue", "../../../Controls/addressControl", "../../../Elements/t
                             rules: props.field.isRequired ? "required" : ""
                         };
                         switch (props.field.personFieldType) {
-                            case registrationEntryBlockViewModel_1.RegistrationPersonFieldType.FirstName:
+                            case 0:
                                 componentProps.label = "First Name";
                                 componentProps.disabled = props.isKnownFamilyMember;
                                 break;
-                            case registrationEntryBlockViewModel_1.RegistrationPersonFieldType.LastName:
+                            case 1:
                                 componentProps.label = "Last Name";
                                 componentProps.disabled = props.isKnownFamilyMember;
                                 break;
-                            case registrationEntryBlockViewModel_1.RegistrationPersonFieldType.MiddleName:
+                            case 13:
                                 componentProps.label = "Middle Name";
                                 break;
-                            case registrationEntryBlockViewModel_1.RegistrationPersonFieldType.Campus:
+                            case 2:
                                 componentProps.label = "Campus";
                                 componentProps.options = [...registrationEntryState.viewModel.campuses];
                                 break;
-                            case registrationEntryBlockViewModel_1.RegistrationPersonFieldType.Email:
+                            case 4:
                                 componentProps.label = "Email";
                                 break;
-                            case registrationEntryBlockViewModel_1.RegistrationPersonFieldType.Gender:
+                            case 6:
                                 break;
-                            case registrationEntryBlockViewModel_1.RegistrationPersonFieldType.Birthdate:
+                            case 5:
                                 componentProps.label = "Birthday";
                                 break;
-                            case registrationEntryBlockViewModel_1.RegistrationPersonFieldType.Address:
+                            case 3:
                                 break;
                         }
                         return componentProps;
@@ -118,10 +115,10 @@ System.register(["vue", "../../../Controls/addressControl", "../../../Elements/t
                     if (!(props.field.guid in props.fieldValues)) {
                         let defaultValue = "";
                         switch (props.field.personFieldType) {
-                            case registrationEntryBlockViewModel_1.RegistrationPersonFieldType.Birthdate:
+                            case 5:
                                 defaultValue = datePartsPicker_1.getDefaultDatePartsPickerModel();
                                 break;
-                            case registrationEntryBlockViewModel_1.RegistrationPersonFieldType.Address:
+                            case 3:
                                 defaultValue = addressControl_1.getDefaultAddressControlModel();
                                 break;
                         }

@@ -1,4 +1,4 @@
-System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./RegistrationEntry/intro", "./RegistrationEntry/registrants", "./RegistrationEntry/registrationEntryBlockViewModel", "./RegistrationEntry/registrationStart", "./RegistrationEntry/registrationEnd", "./RegistrationEntry/summary", "../../Elements/progressTracker", "@Obsidian/Services/number", "@Obsidian/Services/string", "../../Elements/alert", "../../Elements/countdownTimer", "./RegistrationEntry/success", "../../Util/page", "../../Elements/javaScriptAnchor", "./RegistrationEntry/sessionRenewal"], function (exports_1, context_1) {
+System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./RegistrationEntry/intro", "./RegistrationEntry/registrants", "./RegistrationEntry/registrationStart", "./RegistrationEntry/registrationEnd", "./RegistrationEntry/summary", "../../Elements/progressTracker", "@Obsidian/Services/number", "@Obsidian/Services/string", "../../Elements/alert", "../../Elements/countdownTimer", "./RegistrationEntry/success", "../../Util/page", "../../Elements/javaScriptAnchor", "./RegistrationEntry/sessionRenewal"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,10 +9,10 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var vue_1, rockButton_1, guid_1, intro_1, registrants_1, registrationEntryBlockViewModel_1, registrationStart_1, registrationEnd_1, summary_1, registrants_2, progressTracker_1, number_1, string_1, alert_1, countdownTimer_1, success_1, page_1, javaScriptAnchor_1, sessionRenewal_1, Step, unknownSingleFamilyGuid;
+    var vue_1, rockButton_1, guid_1, intro_1, registrants_1, registrationStart_1, registrationEnd_1, summary_1, registrants_2, progressTracker_1, number_1, string_1, alert_1, countdownTimer_1, success_1, page_1, javaScriptAnchor_1, sessionRenewal_1, unknownSingleFamilyGuid;
     var __moduleName = context_1 && context_1.id;
     function getForcedFamilyGuid(currentPerson, viewModel) {
-        return (currentPerson && viewModel.registrantsSameFamily === registrationEntryBlockViewModel_1.RegistrantsSameFamily.Yes) ?
+        return (currentPerson && viewModel.registrantsSameFamily === 1) ?
             (currentPerson.primaryFamilyGuid || unknownSingleFamilyGuid) :
             null;
     }
@@ -40,9 +40,9 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
     function getRegistrantBasicInfo(registrant, registrantForms) {
         var _a, _b, _c;
         const fields = (registrantForms === null || registrantForms === void 0 ? void 0 : registrantForms.reduce((acc, f) => acc.concat(f.fields), [])) || [];
-        const firstNameGuid = ((_a = fields.find(f => f.personFieldType === registrationEntryBlockViewModel_1.RegistrationPersonFieldType.FirstName)) === null || _a === void 0 ? void 0 : _a.guid) || "";
-        const lastNameGuid = ((_b = fields.find(f => f.personFieldType === registrationEntryBlockViewModel_1.RegistrationPersonFieldType.LastName)) === null || _b === void 0 ? void 0 : _b.guid) || "";
-        const emailGuid = ((_c = fields.find(f => f.personFieldType === registrationEntryBlockViewModel_1.RegistrationPersonFieldType.Email)) === null || _c === void 0 ? void 0 : _c.guid) || "";
+        const firstNameGuid = ((_a = fields.find(f => f.personFieldType === 0)) === null || _a === void 0 ? void 0 : _a.guid) || "";
+        const lastNameGuid = ((_b = fields.find(f => f.personFieldType === 1)) === null || _b === void 0 ? void 0 : _b.guid) || "";
+        const emailGuid = ((_c = fields.find(f => f.personFieldType === 4)) === null || _c === void 0 ? void 0 : _c.guid) || "";
         return {
             firstName: ((registrant === null || registrant === void 0 ? void 0 : registrant.fieldValues[firstNameGuid]) || ""),
             lastName: ((registrant === null || registrant === void 0 ? void 0 : registrant.fieldValues[lastNameGuid]) || ""),
@@ -68,9 +68,6 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
             function (registrants_1_1) {
                 registrants_1 = registrants_1_1;
                 registrants_2 = registrants_1_1;
-            },
-            function (registrationEntryBlockViewModel_1_1) {
-                registrationEntryBlockViewModel_1 = registrationEntryBlockViewModel_1_1;
             },
             function (registrationStart_1_1) {
                 registrationStart_1 = registrationStart_1_1;
@@ -110,15 +107,6 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
             }
         ],
         execute: function () {
-            (function (Step) {
-                Step["intro"] = "intro";
-                Step["registrationStartForm"] = "registrationStartForm";
-                Step["perRegistrantForms"] = "perRegistrantForms";
-                Step["registrationEndForm"] = "registrationEndForm";
-                Step["reviewAndPayment"] = "reviewAndPayment";
-                Step["success"] = "success";
-            })(Step || (Step = {}));
-            exports_1("Step", Step);
             unknownSingleFamilyGuid = guid_1.newGuid();
             exports_1("default", vue_1.defineComponent({
                 name: "Event.RegistrationEntry",
@@ -140,12 +128,12 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                 setup() {
                     var _a, _b, _c, _d, _e, _f, _g, _h;
                     const steps = {
-                        [Step.intro]: Step.intro,
-                        [Step.registrationStartForm]: Step.registrationStartForm,
-                        [Step.perRegistrantForms]: Step.perRegistrantForms,
-                        [Step.registrationEndForm]: Step.registrationEndForm,
-                        [Step.reviewAndPayment]: Step.reviewAndPayment,
-                        [Step.success]: Step.success
+                        ["intro"]: "intro",
+                        ["registrationStartForm"]: "registrationStartForm",
+                        ["perRegistrantForms"]: "perRegistrantForms",
+                        ["registrationEndForm"]: "registrationEndForm",
+                        ["reviewAndPayment"]: "reviewAndPayment",
+                        ["success"]: "success"
                     };
                     const notFound = vue_1.ref(false);
                     const viewModel = vue_1.inject("configurationValues");
@@ -244,7 +232,7 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                         return this.$store.state.currentPerson;
                     },
                     isSessionExpired() {
-                        return this.secondsBeforeExpiration === 0 && this.currentStep !== Step.success;
+                        return this.secondsBeforeExpiration === 0 && this.currentStep !== "success";
                     },
                     mustLogin() {
                         return !this.$store.state.currentPerson && this.viewModel != null && (this.viewModel.isUnauthorized || this.viewModel.loginRequiredToRegister);
@@ -271,22 +259,22 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                     },
                     progressTrackerIndex() {
                         var _a;
-                        if (this.currentStep === Step.intro || this.registrationEntryState == null) {
+                        if (this.currentStep === "intro" || this.registrationEntryState == null) {
                             return 0;
                         }
-                        const stepsBeforePre = ((_a = this.registrationEntryState) === null || _a === void 0 ? void 0 : _a.firstStep) === Step.intro ? 1 : 0;
-                        if (this.currentStep === Step.registrationStartForm) {
+                        const stepsBeforePre = ((_a = this.registrationEntryState) === null || _a === void 0 ? void 0 : _a.firstStep) === "intro" ? 1 : 0;
+                        if (this.currentStep === "registrationStartForm") {
                             return stepsBeforePre;
                         }
                         const stepsBeforeRegistrants = stepsBeforePre + (this.hasPreAttributes ? 1 : 0);
-                        if (this.currentStep === Step.perRegistrantForms) {
+                        if (this.currentStep === "perRegistrantForms") {
                             return this.registrationEntryState.currentRegistrantIndex + stepsBeforeRegistrants;
                         }
                         const stepsToCompleteRegistrants = this.registrationEntryState.registrants.length + stepsBeforeRegistrants;
-                        if (this.currentStep === Step.registrationEndForm) {
+                        if (this.currentStep === "registrationEndForm") {
                             return stepsToCompleteRegistrants;
                         }
-                        if (this.currentStep === Step.reviewAndPayment) {
+                        if (this.currentStep === "reviewAndPayment") {
                             return stepsToCompleteRegistrants + (this.hasPostAttributes ? 1 : 0);
                         }
                         return 0;
@@ -310,19 +298,19 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                     },
                     stepTitleHtml() {
                         var _a, _b, _c, _d, _e, _f;
-                        if (this.currentStep === Step.registrationStartForm) {
+                        if (this.currentStep === "registrationStartForm") {
                             return (_b = (_a = this.viewModel) === null || _a === void 0 ? void 0 : _a.registrationAttributeTitleStart) !== null && _b !== void 0 ? _b : "";
                         }
-                        if (this.currentStep === Step.perRegistrantForms) {
+                        if (this.currentStep === "perRegistrantForms") {
                             return this.currentRegistrantTitle;
                         }
-                        if (this.currentStep === Step.registrationEndForm) {
+                        if (this.currentStep === "registrationEndForm") {
                             return (_d = (_c = this.viewModel) === null || _c === void 0 ? void 0 : _c.registrationAttributeTitleEnd) !== null && _d !== void 0 ? _d : "";
                         }
-                        if (this.currentStep === Step.reviewAndPayment) {
+                        if (this.currentStep === "reviewAndPayment") {
                             return "Review Registration";
                         }
-                        if (this.currentStep === Step.success) {
+                        if (this.currentStep === "success") {
                             return ((_f = (_e = this.registrationEntryState) === null || _e === void 0 ? void 0 : _e.successViewModel) === null || _f === void 0 ? void 0 : _f.titleHtml) || "Congratulations";
                         }
                         return "";
@@ -332,7 +320,7 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                         if (this.registrationEntryState == null) {
                             return items;
                         }
-                        if (this.registrationEntryState.firstStep === Step.intro) {
+                        if (this.registrationEntryState.firstStep === "intro") {
                             items.push({
                                 key: "Start",
                                 title: "Start",
@@ -395,7 +383,7 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                         return __awaiter(this, void 0, void 0, function* () {
                             if (this.persistSession && this.registrationEntryState) {
                                 yield this.persistSession(false);
-                                this.registrationEntryState.currentStep = this.hasPreAttributes ? Step.registrationStartForm : Step.perRegistrantForms;
+                                this.registrationEntryState.currentStep = this.hasPreAttributes ? "registrationStartForm" : "perRegistrantForms";
                                 page_1.default.smoothScrollToTop();
                             }
                         });
@@ -404,7 +392,7 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                         return __awaiter(this, void 0, void 0, function* () {
                             if (this.persistSession && this.registrationEntryState) {
                                 yield this.persistSession(false);
-                                this.registrationEntryState.currentStep = Step.intro;
+                                this.registrationEntryState.currentStep = "intro";
                                 page_1.default.smoothScrollToTop();
                             }
                         });
@@ -413,7 +401,7 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                         return __awaiter(this, void 0, void 0, function* () {
                             if (this.persistSession && this.registrationEntryState) {
                                 yield this.persistSession(false);
-                                this.registrationEntryState.currentStep = Step.perRegistrantForms;
+                                this.registrationEntryState.currentStep = "perRegistrantForms";
                                 page_1.default.smoothScrollToTop();
                             }
                         });
@@ -422,7 +410,7 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                         return __awaiter(this, void 0, void 0, function* () {
                             if (this.persistSession && this.registrationEntryState) {
                                 yield this.persistSession(false);
-                                this.registrationEntryState.currentStep = this.hasPreAttributes ? Step.registrationStartForm : Step.intro;
+                                this.registrationEntryState.currentStep = this.hasPreAttributes ? "registrationStartForm" : "intro";
                                 page_1.default.smoothScrollToTop();
                             }
                         });
@@ -431,7 +419,7 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                         return __awaiter(this, void 0, void 0, function* () {
                             if (this.persistSession && this.registrationEntryState) {
                                 yield this.persistSession(false);
-                                this.registrationEntryState.currentStep = this.hasPostAttributes ? Step.registrationEndForm : Step.reviewAndPayment;
+                                this.registrationEntryState.currentStep = this.hasPostAttributes ? "registrationEndForm" : "reviewAndPayment";
                                 page_1.default.smoothScrollToTop();
                             }
                         });
@@ -440,7 +428,7 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                         return __awaiter(this, void 0, void 0, function* () {
                             if (this.persistSession && this.registrationEntryState) {
                                 yield this.persistSession(false);
-                                this.registrationEntryState.currentStep = Step.perRegistrantForms;
+                                this.registrationEntryState.currentStep = "perRegistrantForms";
                                 page_1.default.smoothScrollToTop();
                             }
                         });
@@ -449,7 +437,7 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                         return __awaiter(this, void 0, void 0, function* () {
                             if (this.persistSession && this.registrationEntryState) {
                                 yield this.persistSession(false);
-                                this.registrationEntryState.currentStep = Step.reviewAndPayment;
+                                this.registrationEntryState.currentStep = "reviewAndPayment";
                                 page_1.default.smoothScrollToTop();
                             }
                         });
@@ -458,7 +446,7 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                         return __awaiter(this, void 0, void 0, function* () {
                             if (this.persistSession && this.registrationEntryState) {
                                 yield this.persistSession(false);
-                                this.registrationEntryState.currentStep = this.hasPostAttributes ? Step.registrationEndForm : Step.perRegistrantForms;
+                                this.registrationEntryState.currentStep = this.hasPostAttributes ? "registrationEndForm" : "perRegistrantForms";
                                 page_1.default.smoothScrollToTop();
                             }
                         });
@@ -466,7 +454,7 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                     onSummaryNext() {
                         return __awaiter(this, void 0, void 0, function* () {
                             if (this.persistSession && this.registrationEntryState) {
-                                this.registrationEntryState.currentStep = Step.success;
+                                this.registrationEntryState.currentStep = "success";
                                 page_1.default.smoothScrollToTop();
                             }
                         });

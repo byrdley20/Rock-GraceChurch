@@ -18,7 +18,7 @@
 import { Guid } from "../../../Util/guid";
 import { RegistrantInfo, RegistrarInfo } from "./registrationEntryBlockViewModel";
 
-export interface RegistrationEntryBlockArgs {
+export type RegistrationEntryBlockArgs = {
     registrationGuid: Guid | null;
     registrationSessionGuid: Guid | null;
     registrants: RegistrantInfo[];
@@ -27,10 +27,10 @@ export interface RegistrationEntryBlockArgs {
     gatewayToken: string;
     discountCode: string;
     amountToPayNow: number;
-}
+};
 
-export interface RegistrationEntryBlockSession extends RegistrationEntryBlockArgs {
+export type RegistrationEntryBlockSession = RegistrationEntryBlockArgs & {
     discountAmount: number;
     discountPercentage: number;
     previouslyPaid: number;
-}
+};

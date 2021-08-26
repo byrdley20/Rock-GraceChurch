@@ -1,6 +1,6 @@
-System.register(["vue", "../../../Controls/rockField", "../../../Elements/alert", "./registrationEntryBlockViewModel"], function (exports_1, context_1) {
+System.register(["vue", "../../../Controls/rockField", "../../../Elements/alert"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, rockField_1, alert_1, registrationEntryBlockViewModel_1;
+    var vue_1, rockField_1, alert_1;
     var __moduleName = context_1 && context_1.id;
     function isRuleMet(rule, fieldValues) {
         const value = fieldValues[rule.comparedToRegistrationTemplateFormFieldGuid] || "";
@@ -13,13 +13,13 @@ System.register(["vue", "../../../Controls/rockField", "../../../Elements/alert"
             return false;
         }
         switch (rule.comparisonType) {
-            case registrationEntryBlockViewModel_1.ComparisonType.EqualTo:
+            case 1:
                 return strVal === comparison;
-            case registrationEntryBlockViewModel_1.ComparisonType.NotEqualTo:
+            case 2:
                 return strVal !== comparison;
-            case registrationEntryBlockViewModel_1.ComparisonType.Contains:
+            case 8:
                 return strVal.includes(comparison);
-            case registrationEntryBlockViewModel_1.ComparisonType.DoesNotContain:
+            case 16:
                 return !strVal.includes(comparison);
         }
         return false;
@@ -34,9 +34,6 @@ System.register(["vue", "../../../Controls/rockField", "../../../Elements/alert"
             },
             function (alert_1_1) {
                 alert_1 = alert_1_1;
-            },
-            function (registrationEntryBlockViewModel_1_1) {
-                registrationEntryBlockViewModel_1 = registrationEntryBlockViewModel_1_1;
             }
         ],
         execute: function () {
@@ -60,13 +57,13 @@ System.register(["vue", "../../../Controls/rockField", "../../../Elements/alert"
                     var _a, _b, _c;
                     const isVisible = vue_1.computed(() => {
                         switch (props.field.visibilityRuleType) {
-                            case registrationEntryBlockViewModel_1.FilterExpressionType.GroupAll:
+                            case 1:
                                 return props.field.visibilityRules.every(vr => isRuleMet(vr, props.fieldValues));
-                            case registrationEntryBlockViewModel_1.FilterExpressionType.GroupAllFalse:
+                            case 3:
                                 return props.field.visibilityRules.every(vr => !isRuleMet(vr, props.fieldValues));
-                            case registrationEntryBlockViewModel_1.FilterExpressionType.GroupAny:
+                            case 2:
                                 return props.field.visibilityRules.some(vr => isRuleMet(vr, props.fieldValues));
-                            case registrationEntryBlockViewModel_1.FilterExpressionType.GroupAnyFalse:
+                            case 4:
                                 return props.field.visibilityRules.some(vr => !isRuleMet(vr, props.fieldValues));
                         }
                         return true;

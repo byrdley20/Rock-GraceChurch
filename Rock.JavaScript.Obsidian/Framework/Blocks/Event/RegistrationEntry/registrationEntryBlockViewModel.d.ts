@@ -21,7 +21,7 @@ import { ClientEditableAttributeValue } from "@Obsidian/ViewModels";
 import { RegistrationEntryBlockSession } from "./registrationEntryBlockArgs";
 import { DropDownListOption } from "../../../Elements/dropDownList";
 
-export enum RegistrationPersonFieldType {
+export const enum RegistrationPersonFieldType {
     FirstName = 0,
     LastName = 1,
     Campus = 2,
@@ -39,14 +39,14 @@ export enum RegistrationPersonFieldType {
     AnniversaryDate = 14
 }
 
-export enum RegistrationFieldSource {
+export const enum RegistrationFieldSource {
     PersonField = 0,
     PersonAttribute = 1,
     GroupMemberAttribute = 2,
     RegistrantAttribute = 4
 }
 
-export enum FilterExpressionType {
+export const enum FilterExpressionType {
     Filter = 0,
     GroupAll = 1,
     GroupAny = 2,
@@ -54,7 +54,7 @@ export enum FilterExpressionType {
     GroupAnyFalse = 4
 }
 
-export enum ComparisonType {
+export const enum ComparisonType {
     EqualTo = 0x1,
     NotEqualTo = 0x2,
     StartsWith = 0x4,
@@ -71,25 +71,25 @@ export enum ComparisonType {
     RegularExpression = 0x2000
 }
 
-export enum RegistrarOption {
+export const enum RegistrarOption {
     PromptForRegistrar = 0,
     PrefillFirstRegistrant = 1,
     UseFirstRegistrant = 2,
     UseLoggedInPerson = 3
 }
 
-export enum RegistrantsSameFamily {
+export const enum RegistrantsSameFamily {
     No = 0,
     Yes = 1,
     Ask = 2
 }
 
-export interface SessionRenewalResult {
+export type SessionRenewalResult = {
     spotsSecured: number;
     expirationDateTime: string;
-}
+};
 
-export interface RegistrationEntryBlockViewModel {
+export type RegistrationEntryBlockViewModel = {
     timeoutMinutes: number | null;
     registrantsSameFamily: RegistrantsSameFamily;
     maxRegistrants: number;
@@ -125,38 +125,37 @@ export interface RegistrationEntryBlockViewModel {
     allowRegistrationUpdates: boolean;
     startAtBeginning: boolean;
     gatewayGuid: Guid | null;
-
     campuses: DropDownListOption[];
-}
+};
 
-export interface RegistrationEntryBlockFamilyMemberViewModel {
+export type RegistrationEntryBlockFamilyMemberViewModel = {
     guid: Guid;
     familyGuid: Guid;
     fullName: string;
     fieldValues: Record<Guid, unknown>;
-}
+};
 
-export interface RegistrationEntryBlockFeeViewModel {
+export type RegistrationEntryBlockFeeViewModel = {
     name: string;
     guid: Guid;
     allowMultiple: boolean;
     isRequired: boolean;
     items: RegistrationEntryBlockFeeItemViewModel[];
     discountApplies: boolean;
-}
+};
 
-export interface RegistrationEntryBlockFeeItemViewModel {
+export type RegistrationEntryBlockFeeItemViewModel = {
     name: string;
     guid: Guid;
     cost: number;
     countRemaining: number | null;
-}
+};
 
-export interface RegistrationEntryBlockFormViewModel {
+export type RegistrationEntryBlockFormViewModel = {
     fields: RegistrationEntryBlockFormFieldViewModel[];
-}
+};
 
-export interface RegistrationEntryBlockFormFieldViewModel {
+export type RegistrationEntryBlockFormFieldViewModel = {
     fieldSource: RegistrationFieldSource;
     personFieldType: RegistrationPersonFieldType;
     isRequired: boolean;
@@ -168,13 +167,13 @@ export interface RegistrationEntryBlockFormFieldViewModel {
     postHtml: string;
     showOnWaitList: boolean;
     guid: Guid;
-}
+};
 
-export interface RegistrationEntryBlockFormFieldRuleViewModel {
+export type RegistrationEntryBlockFormFieldRuleViewModel = {
     comparedToRegistrationTemplateFormFieldGuid: Guid;
     comparisonType: ComparisonType;
     comparedToValue: string;
-}
+};
 
 export type RegistrantInfo = {
     isOnWaitList: boolean;

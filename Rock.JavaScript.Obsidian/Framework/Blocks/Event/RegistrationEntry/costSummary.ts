@@ -32,21 +32,21 @@ enum RegistrationCostSummaryType {
     Total = 3
 }
 
-interface LineItem {
+type LineItem = {
     type: RegistrationCostSummaryType;
     description: string;
     cost: number;
     discountedCost: number;
     minPayment: number;
     defaultPayment: number | null;
-}
+};
 
-interface AugmentedLineItem extends LineItem {
+type AugmentedLineItem = LineItem & {
     isFee: boolean;
     discountHelp: string;
     discountedAmountFormatted: string;
     amountFormatted: string;
-}
+};
 
 export default defineComponent( {
     name: "Event.RegistrationEntry.CostSummary",

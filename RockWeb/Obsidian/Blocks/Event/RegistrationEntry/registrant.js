@@ -1,6 +1,6 @@
-System.register(["vue", "../../../Elements/dropDownList", "../../../Elements/radioButtonList", "../registrationEntry", "@Obsidian/Services/string", "../../../Elements/rockButton", "./registrantPersonField", "./registrantAttributeField", "../../../Elements/alert", "./registrationEntryBlockViewModel", "../../../Util/guid", "../../../Controls/rockForm", "./feeField", "../../../Elements/itemsWithPreAndPostHtml"], function (exports_1, context_1) {
+System.register(["vue", "../../../Elements/dropDownList", "../../../Elements/radioButtonList", "../registrationEntry", "@Obsidian/Services/string", "../../../Elements/rockButton", "./registrantPersonField", "./registrantAttributeField", "../../../Elements/alert", "../../../Util/guid", "../../../Controls/rockForm", "./feeField", "../../../Elements/itemsWithPreAndPostHtml"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, dropDownList_1, radioButtonList_1, registrationEntry_1, string_1, rockButton_1, registrantPersonField_1, registrantAttributeField_1, alert_1, registrationEntryBlockViewModel_1, guid_1, rockForm_1, feeField_1, itemsWithPreAndPostHtml_1;
+    var vue_1, dropDownList_1, radioButtonList_1, registrationEntry_1, string_1, rockButton_1, registrantPersonField_1, registrantAttributeField_1, alert_1, guid_1, rockForm_1, feeField_1, itemsWithPreAndPostHtml_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -30,9 +30,6 @@ System.register(["vue", "../../../Elements/dropDownList", "../../../Elements/rad
             },
             function (alert_1_1) {
                 alert_1 = alert_1_1;
-            },
-            function (registrationEntryBlockViewModel_1_1) {
-                registrationEntryBlockViewModel_1 = registrationEntryBlockViewModel_1_1;
             },
             function (guid_1_1) {
                 guid_1 = guid_1_1;
@@ -80,10 +77,10 @@ System.register(["vue", "../../../Elements/dropDownList", "../../../Elements/rad
                 data() {
                     return {
                         fieldSources: {
-                            personField: registrationEntryBlockViewModel_1.RegistrationFieldSource.PersonField,
-                            personAttribute: registrationEntryBlockViewModel_1.RegistrationFieldSource.PersonAttribute,
-                            groupMemberAttribute: registrationEntryBlockViewModel_1.RegistrationFieldSource.GroupMemberAttribute,
-                            registrantAttribute: registrationEntryBlockViewModel_1.RegistrationFieldSource.RegistrantAttribute
+                            personField: 0,
+                            personAttribute: 1,
+                            groupMemberAttribute: 2,
+                            registrantAttribute: 4
                         }
                     };
                 },
@@ -132,7 +129,7 @@ System.register(["vue", "../../../Elements/dropDownList", "../../../Elements/rad
                         var _a;
                         const options = [];
                         const usedFamilyGuids = {};
-                        if (this.viewModel.registrantsSameFamily !== registrationEntryBlockViewModel_1.RegistrantsSameFamily.Ask) {
+                        if (this.viewModel.registrantsSameFamily !== 2) {
                             return options;
                         }
                         for (let i = 0; i < this.registrationEntryState.currentRegistrantIndex; i++) {

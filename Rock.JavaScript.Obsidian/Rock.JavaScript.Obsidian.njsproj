@@ -73,7 +73,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="Core\vendor.ts" />
     <TypeScriptCompile Include="Framework\Blocks\Crm\attributeValues.ts" />
-    <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Event\registrationEntry.ts" />
     <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\costSummary.ts" />
     <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\discountCodeForm.ts" />
     <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\feeField.ts" />
@@ -85,7 +85,7 @@
     <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\registrar.ts" />
     <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\registrationEnd.ts" />
     <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\registrationEntryBlockArgs.d.ts" />
-    <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\registrationEntryBlockViewModel.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\registrationEntryBlockViewModel.d.ts" />
     <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\registrationStart.ts" />
     <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\sessionRenewal.ts" />
     <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\success.ts" />

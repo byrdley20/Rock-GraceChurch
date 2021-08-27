@@ -64,7 +64,6 @@ namespace Rock.Lava
 
         #region String Filters
 
-
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
@@ -5526,9 +5525,26 @@ namespace Rock.Lava
         {
             IEnumerable<object> e = input is IEnumerable<object> ? input as IEnumerable<object> : new List<object> { input };
 
-            if ( !e.Any() || string.IsNullOrWhiteSpace( property ) )
+            if ( !e.Any() )
             {
                 return e;
+            }
+
+            // If no sort property is specified, default to an ascending text sort.
+            property = property == null ? "asc" : property.Trim();
+
+            // If a simple sort order is specified, order by the string value of the objects in the list.
+            if ( property.ToLower() == "asc" )
+            {
+                var orderedList = e.OrderBy( x => x == null ? string.Empty : x.ToString() );
+
+                return orderedList;
+            }
+            else if ( property.ToLower() == "desc" )
+            {
+                var orderedList = e.OrderByDescending( x => x == null ? string.Empty : x.ToString() );
+
+                return orderedList;
             }
 
             //
@@ -5572,6 +5588,19 @@ namespace Rock.Lava
             }
 
             return qry.ToList();
+        }
+
+        /// <summary>
+        /// Orders a collection of elements by the specified property (or properties)
+        /// and returns a new collection in that order.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="property">The property or properties to order the collection by.</param>
+        /// <returns>A new collection sorted in the requested order.</returns>
+        /// <remarks>This is an alias for the OrderBy filter.</remarks>
+        public static IEnumerable Sort( object input, string property )
+        {
+            return OrderBy( input, property );
         }
 
         #endregion Array Filters

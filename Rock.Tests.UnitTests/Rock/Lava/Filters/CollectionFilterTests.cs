@@ -14,8 +14,10 @@
 // limitations under the License.
 // </copyright>
 //
+using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -251,6 +253,45 @@ Total: {{ '3,5,7' | Split:',' | Sum }}
         #region Filter Tests: OrderBy
 
         /// <summary>
+        /// Verify the OrderBy filter can be applied to a list of strings.
+        /// </summary>
+        [TestMethod]
+        public void OrderBy_AppliedToStringArrayWithNoParameters_CanSortByValue()
+        {
+            var mergeValues = new LavaDataDictionary { { "Items", new List<string> { "zebra", "octopus", "giraffe", "snake" } } };
+
+            TestHelper.AssertTemplateOutput( "giraffe;octopus;snake;zebra;",
+                "{% assign items = Items | OrderBy %}{% for item in items %}{{ item }};{% endfor %}",
+                mergeValues );
+        }
+
+        /// <summary>
+        /// Verify the OrderBy filter can be applied to a list of strings.
+        /// </summary>
+        [TestMethod]
+        public void OrderBy_AppliedToStringArrayWithAscOption_ReturnsCollectionInAscendingOrder()
+        {
+            var mergeValues = new LavaDataDictionary { { "Items", new List<string> { "zebra", "octopus", "giraffe", "snake" } } };
+
+            TestHelper.AssertTemplateOutput( "giraffe;octopus;snake;zebra;",
+                "{% assign items = Items | OrderBy:'asc' %}{% for item in items %}{{ item }};{% endfor %}",
+                mergeValues );
+        }
+
+        /// <summary>
+        /// Verify the OrderBy filter can be applied to a list of strings.
+        /// </summary>
+        [TestMethod]
+        public void OrderBy_AppliedToStringArrayWithDescOption_ReturnsCollectionInDescendingOrder()
+        {
+            var mergeValues = new LavaDataDictionary { { "Items", new List<string> { "zebra", "octopus", "giraffe", "snake" } } };
+
+            TestHelper.AssertTemplateOutput( "zebra;snake;octopus;giraffe;",
+                "{% assign items = Items | OrderBy:'desc' %}{% for item in items %}{{ item }};{% endfor %}",
+                mergeValues );
+        }
+
+        /// <summary>
         /// Verify ordering filter applied to a list of dynamically-typed objects.
         /// </summary>
         [TestMethod]
@@ -348,6 +389,19 @@ Total: {{ '3,5,7' | Split:',' | Sum }}
             return input;
         }
 
+        /// <summary>
+        /// Verify the standard Liquid Sort filter is correctly replaced by the extended Lava Sort filter.
+        /// </summary>
+        [TestMethod]
+        public void Sort_WithAdvancedOptions_ReturnsSameResultAsOrderBy()
+        {
+            var mergeValues = new LavaDataDictionary { { "Items", GetOrderByTestCollection() } };
+
+            TestHelper.AssertTemplateOutput( "A;B;C;D;",
+                "{% assign items = Items | Sort:'Order, Nested.Order DESC' %}{% for item in items %}{{ item.Title }};{% endfor %}",
+                mergeValues );
+        }
+
         #endregion
 
         /// <summary>
@@ -411,6 +465,8 @@ Total: {{ '3,5,7' | Split:',' | Sum }}
                 mergeValues );
         }
 
+        #region Filter Tests: Size
+
         /// <summary>
         /// Selecting an existing property from a collection returns a list of values.
         /// </summary>
@@ -434,5 +490,7 @@ Total: {{ '3,5,7' | Split:',' | Sum }}
 
             TestHelper.AssertTemplateOutput( testString.Length.ToString(), "{{ TestString | Size }}", mergeValues );
         }
+
+        #endregion
     }
 }

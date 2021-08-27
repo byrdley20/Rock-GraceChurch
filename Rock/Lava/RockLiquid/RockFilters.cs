@@ -5768,6 +5768,16 @@ namespace Rock.Lava
         }
 
         /// <summary>
+        /// Orders a collection of elements by the default string representation
+        /// and returns a new collection in that order.
+        /// </summary>
+        /// <param name="input"></param>
+        public static IEnumerable OrderBy( object input )
+        {
+            return OrderBy( input, null );
+        }
+
+        /// <summary>
         /// Orders a collection of elements by the specified property (or properties)
         /// and returns a new collection in that order.
         /// </summary>
@@ -5786,9 +5796,24 @@ namespace Rock.Lava
         {
             IEnumerable<object> e = input is IEnumerable<object> ? input as IEnumerable<object> : new List<object> { input };
 
-            if ( !e.Any() || string.IsNullOrWhiteSpace( property ) )
+            if ( !e.Any() )
             {
                 return e;
+            }
+
+            // If a simple sort order is specified, order by the string value of the objects in the list.
+            if ( string.IsNullOrWhiteSpace( property )
+                 || property.ToLower() == "asc" )
+            {
+                var orderedList = e.OrderBy( x => x == null ? string.Empty : x.ToString() );
+
+                return orderedList;
+            }
+            else if ( property.ToLower() == "desc" )
+            {
+                var orderedList = e.OrderByDescending( x => x == null ? string.Empty : x.ToString() );
+
+                return orderedList;
             }
 
             //
@@ -5832,6 +5857,30 @@ namespace Rock.Lava
             }
 
             return qry.ToList();
+        }
+
+        /// <summary>
+        /// Orders a collection of elements by the specified property (or properties)
+        /// and returns a new collection in that order.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="property">The property or properties to order the collection by.</param>
+        /// <returns>A new collection sorted in the requested order.</returns>
+        /// <remarks>This is an alias for the OrderBy filter.</remarks>
+        public static IEnumerable Sort( object input, string property )
+        {
+            return OrderBy( input, property );
+        }
+
+        /// <summary>
+        /// Orders a collection of elements by the default string representation
+        /// and returns a new collection in that order.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <remarks>This is an alias for the OrderBy filter.</remarks>
+        public static IEnumerable Sort( object input )
+        {
+            return OrderBy( input, null );
         }
 
         #endregion Array Filters

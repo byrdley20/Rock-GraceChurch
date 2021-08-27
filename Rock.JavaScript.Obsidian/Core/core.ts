@@ -17,7 +17,7 @@ declare type PackageMap = {
      * found that will be used for substitution.
      */
     wildcard: boolean;
-}
+};
 
 /**
  * Describes the export names from the vendor bundle.

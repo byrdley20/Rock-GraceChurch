@@ -119,7 +119,7 @@ export const enum DefinedValue {
     /** The credit card type discover */
     CreditcardTypeDiscover = "4B746601-E9EB-4660-BA13-C0B66B24E248",
     /** The credit card type JCB */
-    CreditcardTypeJcb = "	4DD7F0C2-F6B7-4510-90E6-287ADC25FD05",
+    CreditcardTypeJcb = "4DD7F0C2-F6B7-4510-90E6-287ADC25FD05",
     /** The credit card type MasterCard */
     CreditcardTypeMastercard = "6373A4B6-4DCA-4EB6-9ADE-B30E8A7F8621",
     /** The credit card type visa */

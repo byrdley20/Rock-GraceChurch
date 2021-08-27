@@ -1,4 +1,4 @@
-System.register(["../Util/http", "vue", "../Store/index", "../Elements/alert"], function (exports_1, context_1) {
+System.register(["./Util/http", "vue", "./Store/index"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,7 +9,7 @@ System.register(["../Util/http", "vue", "../Store/index", "../Elements/alert"], 
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var http_1, vue_1, index_1, alert_1;
+    var http_1, vue_1, index_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -21,17 +21,11 @@ System.register(["../Util/http", "vue", "../Store/index", "../Elements/alert"], 
             },
             function (index_1_1) {
                 index_1 = index_1_1;
-            },
-            function (alert_1_1) {
-                alert_1 = alert_1_1;
             }
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
                 name: "RockBlock",
-                components: {
-                    Alert: alert_1.default
-                },
                 props: {
                     config: {
                         type: Object,
@@ -130,14 +124,14 @@ System.register(["../Util/http", "vue", "../Store/index", "../Elements/alert"], 
                 },
                 template: `
 <div class="obsidian-block">
-    <Alert v-if="!blockComponent" alertType="danger">
+    <div v-if="!blockComponent" class="alert alert-danger">
         <strong>Not Found</strong>
         Could not find block component: "{{this.config.blockFileUrl}}"
-    </Alert>
-    <Alert v-if="error" alertType="danger" :dismissible="true" @dismiss="clearError">
+    </div>
+    <div v-if="error" class="alert alert-danger">
         <strong>Uncaught Error</strong>
         {{error}}
-    </Alert>
+    </div>
     <component :is="blockComponent" />
 </div>`
             }));

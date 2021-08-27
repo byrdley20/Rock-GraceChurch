@@ -14,12 +14,11 @@
 // limitations under the License.
 // </copyright>
 //
-import { doApiCall, HttpBodyData, HttpMethod, HttpUrlParams } from "../Util/http";
+import { doApiCall, HttpBodyData, HttpMethod, HttpUrlParams } from "./Util/http";
 import { Component, defineComponent, PropType, provide, reactive } from "vue";
-import { BlockConfig, BlockHttp, InvokeBlockActionFunc } from "../Util/block";
-import store, { MutationType, PageDebugTiming } from "../Store/index";
-import { Guid } from "../Util/guid";
-import Alert from "../Elements/alert";
+import { BlockConfig, BlockHttp, InvokeBlockActionFunc } from "./Util/block";
+import store, { MutationType, PageDebugTiming } from "./Store/index";
+import { Guid } from "./Util/guid";
 
 type LogItem = {
     date: Date;
@@ -29,9 +28,6 @@ type LogItem = {
 
 export default defineComponent( {
     name: "RockBlock",
-    components: {
-        Alert
-    },
     props: {
         config: {
             type: Object as PropType<BlockConfig>,
@@ -141,16 +137,19 @@ export default defineComponent( {
             } as PageDebugTiming );
         }
     },
+
+    // Note: We are using a custom alert so there is no dependency on the
+    // Controls package.
     template: `
 <div class="obsidian-block">
-    <Alert v-if="!blockComponent" alertType="danger">
+    <div v-if="!blockComponent" class="alert alert-danger">
         <strong>Not Found</strong>
         Could not find block component: "{{this.config.blockFileUrl}}"
-    </Alert>
-    <Alert v-if="error" alertType="danger" :dismissible="true" @dismiss="clearError">
+    </div>
+    <div v-if="error" class="alert alert-danger">
         <strong>Uncaught Error</strong>
         {{error}}
-    </Alert>
+    </div>
     <component :is="blockComponent" />
 </div>`
 } );

@@ -15,9 +15,7 @@
 // </copyright>
 //
 import { App, Component, createApp, markRaw } from "vue";
-import RockBlock from "./Controls/rockBlock";
-import PageDebugTimings from "./Controls/pageDebugTimings";
-import Alert from "./Elements/alert";
+import RockBlock from "./rockBlock";
 import store, { ActionType } from "./Store/index";
 import "./Rules/index";
 import { DebugTiming } from "@Obsidian/ViewModels";
@@ -58,8 +56,7 @@ export async function initializeBlock(config: BlockConfig): Promise<App> {
     const app = createApp({
         name,
         components: {
-            RockBlock,
-            Alert
+            RockBlock
         },
         data() {
             return {
@@ -69,12 +66,15 @@ export async function initializeBlock(config: BlockConfig): Promise<App> {
                 errorMessage
             };
         },
+
+        // Note: We are using a custom alert so there is not a dependency on
+        // the Controls package.
         template: `
-<Alert v-if="errorMessage" alertType="danger">
+<div v-if="errorMessage" class="alert alert-danger">
     <strong>Error Initializing Block</strong>
     <br />
     {{errorMessage}}
-</Alert>
+</div>
 <RockBlock v-else :config="config" :blockComponent="blockComponent" :startTimeMs="startTimeMs" />`
     });
 
@@ -97,7 +97,7 @@ export async function initializePage(pageConfig: PageConfig): Promise<void> {
  * Shows the Obsidian debug timings
  * @param debugTimingConfig
  */
-export function initializePageTimings(config: DebugTimingConfig): void {
+export async function initializePageTimings(config: DebugTimingConfig): Promise<void> {
     const rootElement = document.getElementById(config.elementId);
 
     if (!rootElement) {
@@ -105,10 +105,12 @@ export function initializePageTimings(config: DebugTimingConfig): void {
         return;
     }
 
+    const pageDebugTimings = (await import("./Controls/pageDebugTimings")).default;
+
     const app = createApp({
         name: "PageDebugTimingsRoot",
         components: {
-            PageDebugTimings
+            PageDebugTimings: pageDebugTimings
         },
         data() {
             return {

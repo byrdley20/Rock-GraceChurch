@@ -1,4 +1,4 @@
-System.register(["vue", "./Controls/rockBlock", "./Controls/pageDebugTimings", "./Elements/alert", "./Store/index", "./Rules/index"], function (exports_1, context_1) {
+System.register(["vue", "./rockBlock", "./Store/index", "./Rules/index"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,7 +9,7 @@ System.register(["vue", "./Controls/rockBlock", "./Controls/pageDebugTimings", "
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var vue_1, rockBlock_1, pageDebugTimings_1, alert_1, index_1;
+    var vue_1, rockBlock_1, index_1;
     var __moduleName = context_1 && context_1.id;
     function initializeBlock(config) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -31,8 +31,7 @@ System.register(["vue", "./Controls/rockBlock", "./Controls/pageDebugTimings", "
             const app = vue_1.createApp({
                 name,
                 components: {
-                    RockBlock: rockBlock_1.default,
-                    Alert: alert_1.default
+                    RockBlock: rockBlock_1.default
                 },
                 data() {
                     return {
@@ -43,11 +42,11 @@ System.register(["vue", "./Controls/rockBlock", "./Controls/pageDebugTimings", "
                     };
                 },
                 template: `
-<Alert v-if="errorMessage" alertType="danger">
+<div v-if="errorMessage" class="alert alert-danger">
     <strong>Error Initializing Block</strong>
     <br />
     {{errorMessage}}
-</Alert>
+</div>
 <RockBlock v-else :config="config" :blockComponent="blockComponent" :startTimeMs="startTimeMs" />`
             });
             app.use(index_1.default);
@@ -63,25 +62,28 @@ System.register(["vue", "./Controls/rockBlock", "./Controls/pageDebugTimings", "
     }
     exports_1("initializePage", initializePage);
     function initializePageTimings(config) {
-        const rootElement = document.getElementById(config.elementId);
-        if (!rootElement) {
-            console.error("Could not show Obsidian debug timings because the HTML element did not resolve.");
-            return;
-        }
-        const app = vue_1.createApp({
-            name: "PageDebugTimingsRoot",
-            components: {
-                PageDebugTimings: pageDebugTimings_1.default
-            },
-            data() {
-                return {
-                    viewModels: config.debugTimingViewModels
-                };
-            },
-            template: `<PageDebugTimings :serverViewModels="viewModels" />`
+        return __awaiter(this, void 0, void 0, function* () {
+            const rootElement = document.getElementById(config.elementId);
+            if (!rootElement) {
+                console.error("Could not show Obsidian debug timings because the HTML element did not resolve.");
+                return;
+            }
+            const pageDebugTimings = (yield context_1.import("./Controls/pageDebugTimings")).default;
+            const app = vue_1.createApp({
+                name: "PageDebugTimingsRoot",
+                components: {
+                    PageDebugTimings: pageDebugTimings
+                },
+                data() {
+                    return {
+                        viewModels: config.debugTimingViewModels
+                    };
+                },
+                template: `<PageDebugTimings :serverViewModels="viewModels" />`
+            });
+            app.use(index_1.default);
+            app.mount(rootElement);
         });
-        app.use(index_1.default);
-        app.mount(rootElement);
     }
     exports_1("initializePageTimings", initializePageTimings);
     return {
@@ -91,12 +93,6 @@ System.register(["vue", "./Controls/rockBlock", "./Controls/pageDebugTimings", "
             },
             function (rockBlock_1_1) {
                 rockBlock_1 = rockBlock_1_1;
-            },
-            function (pageDebugTimings_1_1) {
-                pageDebugTimings_1 = pageDebugTimings_1_1;
-            },
-            function (alert_1_1) {
-                alert_1 = alert_1_1;
             },
             function (index_1_1) {
                 index_1 = index_1_1;

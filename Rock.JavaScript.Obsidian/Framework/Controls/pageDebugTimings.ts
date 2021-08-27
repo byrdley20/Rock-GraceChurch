@@ -92,7 +92,7 @@ const pageDebugTimingRow = defineComponent({
 export default defineComponent({
     name: "PageDebugTimings",
     components: {
-        pageDebugTimingRow
+        PageDebugTimingRow: pageDebugTimingRow
     },
     props: {
         serverViewModels: {

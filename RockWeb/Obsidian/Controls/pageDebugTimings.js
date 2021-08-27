@@ -85,7 +85,7 @@ System.register(["@Obsidian/Services/number", "vue", "../Store/index"], function
             exports_1("default", vue_1.defineComponent({
                 name: "PageDebugTimings",
                 components: {
-                    pageDebugTimingRow
+                    PageDebugTimingRow: pageDebugTimingRow
                 },
                 props: {
                     serverViewModels: {

@@ -114,7 +114,7 @@
     <TypeScriptCompile Include="Framework\Controls\myWellGatewayControl.ts" />
     <TypeScriptCompile Include="Framework\Controls\pageDebugTimings.ts" />
     <TypeScriptCompile Include="Framework\Controls\primaryBlock.ts" />
-    <TypeScriptCompile Include="Framework\Controls\rockBlock.ts" />
+    <TypeScriptCompile Include="Framework\rockBlock.ts" />
     <TypeScriptCompile Include="Framework\Controls\rockField.ts" />
     <TypeScriptCompile Include="Framework\Controls\rockForm.ts" />
     <TypeScriptCompile Include="Framework\Controls\rockValidation.ts" />

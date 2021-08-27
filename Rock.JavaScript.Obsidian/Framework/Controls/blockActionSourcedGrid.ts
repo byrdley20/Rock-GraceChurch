@@ -17,7 +17,7 @@
 
 import { defineComponent, inject, PropType } from "vue";
 import Grid, { FilterOptions, RowData, SortDirection, SortProperty } from "./grid";
-import { InvokeBlockActionFunc } from "./rockBlock";
+import { InvokeBlockActionFunc } from "../Util/block";
 
 type BlockActionGridResponse = {
     totalCount: number,

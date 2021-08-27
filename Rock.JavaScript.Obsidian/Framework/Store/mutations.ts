@@ -16,7 +16,7 @@
 //
 
 import { MutationTree } from "vuex";
-import { PageConfig } from "../index";
+import { PageConfig } from "../Util/page";
 import { State } from "./state";
 
 export type PageDebugTiming = {

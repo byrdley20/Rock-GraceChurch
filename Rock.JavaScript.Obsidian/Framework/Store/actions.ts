@@ -19,7 +19,7 @@ import { ActionContext, ActionTree } from "vuex";
 //import { commonEntities } from './CommonEntities';
 import { Mutations, MutationType } from "./mutations";
 import { State } from "./state";
-import { PageConfig } from "../index";
+import { PageConfig } from "../Util/page";
 
 export const enum ActionType {
     Initialize = "initialize",

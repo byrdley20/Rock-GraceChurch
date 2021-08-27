@@ -1,4 +1,4 @@
-﻿// <copyright>
+// <copyright>
 // Copyright by the Spark Development Network
 //
 // Licensed under the Rock Community License (the "License");
@@ -15,23 +15,18 @@
 // </copyright>
 //
 
-import { IEntity, Person } from "@Obsidian/ViewModels";
-import { Guid } from "./guid";
-
-export type PageConfig = {
-    executionStartTime: Date;
-    pageId: number;
-    pageGuid: Guid;
-    pageParameters: Record<string, unknown>;
-    currentPerson: Person | null;
-    contextEntities: Record<string, IEntity>;
-    loginUrlWithReturnUrl: string;
-};
-
-export function smoothScrollToTop(): void {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-export default {
-    smoothScrollToTop
+/**
+ * Contains information about debug timings.
+ *
+ * Internal use only.
+ *
+ * @package
+ * */
+export type DebugTiming = {
+    timestampMs: number;
+    title: string;
+    subTitle: string;
+    indentLevel: number;
+    durationMs: number;
+    isTitleBold: boolean;
 };

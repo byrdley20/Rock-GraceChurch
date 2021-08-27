@@ -33,7 +33,7 @@ import CountdownTimer from "../../Elements/countdownTimer";
 import RegistrationEntrySuccess from "./RegistrationEntry/success";
 import Page from "../../Util/page";
 import { RegistrationEntryBlockArgs } from "./RegistrationEntry/registrationEntryBlockArgs";
-import { InvokeBlockActionFunc } from "../../Controls/rockBlock";
+import { InvokeBlockActionFunc } from "../../Util/block";
 import JavaScriptAnchor from "../../Elements/javaScriptAnchor";
 import { Person } from "@Obsidian/ViewModels";
 import SessionRenewal from "./RegistrationEntry/sessionRenewal";

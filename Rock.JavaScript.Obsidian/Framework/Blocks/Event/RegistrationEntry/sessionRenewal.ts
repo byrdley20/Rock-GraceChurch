@@ -17,7 +17,7 @@
 
 import { defineComponent, inject, PropType } from "vue";
 import Dialog from "../../../Controls/dialog";
-import { InvokeBlockActionFunc } from "../../../Controls/rockBlock";
+import { InvokeBlockActionFunc } from "../../../Util/block";
 import LoadingIndicator from "../../../Elements/loadingIndicator";
 import RockButton from "../../../Elements/rockButton";
 import { toWord } from "@Obsidian/Services/number";

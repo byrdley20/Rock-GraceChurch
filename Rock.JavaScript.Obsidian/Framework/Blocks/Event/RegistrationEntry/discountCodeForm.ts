@@ -16,7 +16,7 @@
 //
 
 import { defineComponent, inject } from "vue";
-import { InvokeBlockActionFunc } from "../../../Controls/rockBlock";
+import { InvokeBlockActionFunc } from "../../../Util/block";
 import Alert from "../../../Elements/alert";
 import RockButton from "../../../Elements/rockButton";
 import TextBox from "../../../Elements/textBox";

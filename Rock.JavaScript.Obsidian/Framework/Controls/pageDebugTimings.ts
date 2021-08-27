@@ -17,21 +17,13 @@
 import { asFormattedString } from "@Obsidian/Services/number";
 import { defineComponent, PropType } from "vue";
 import store from "../Store/index";
-
-export type DebugTimingViewModel = {
-    timestampMs: number;
-    title: string;
-    subTitle: string;
-    indentLevel: number;
-    durationMs: number;
-    isTitleBold: boolean;
-};
+import { DebugTiming } from "@Obsidian/ViewModels";
 
 const pageDebugTimingRow = defineComponent({
     name: "PageDebugTimingRow",
     props: {
         viewModel: {
-            type: Object as PropType<DebugTimingViewModel>,
+            type: Object as PropType<DebugTiming>,
             required: true
         },
         startTimeMs: {
@@ -104,7 +96,7 @@ export default defineComponent({
     },
     props: {
         serverViewModels: {
-            type: Array as PropType<DebugTimingViewModel[]>,
+            type: Array as PropType<DebugTiming[]>,
             required: true
         }
     },
@@ -145,17 +137,17 @@ export default defineComponent({
         totalMs(): number {
             return this.clientRelativeEndTimeMs - this.serverStartTimeMs;
         },
-        clientViewModels(): DebugTimingViewModel[] {
+        clientViewModels(): DebugTiming[] {
             return store.state.debugTimings;
         },
-        relativeClientViewModels(): DebugTimingViewModel[] {
+        relativeClientViewModels(): DebugTiming[] {
             // Add the server end time so they appear after the server
             return this.clientViewModels.map(vm => ({
                 ...vm,
                 timestampMs: this.serverEndTimeMs + vm.timestampMs
-            } as DebugTimingViewModel));
+            } as DebugTiming));
         },
-        clientHeader(): DebugTimingViewModel {
+        clientHeader(): DebugTiming {
             return {
                 durationMs: this.firstClientRelativeStartTimeMs - this.serverEndTimeMs,
                 indentLevel: 0,

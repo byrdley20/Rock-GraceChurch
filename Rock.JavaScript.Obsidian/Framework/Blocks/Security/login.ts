@@ -18,7 +18,7 @@ import TextBox from "../../Elements/textBox";
 import CheckBox from "../../Elements/checkBox";
 import RockButton from "../../Elements/rockButton";
 import { defineComponent, inject } from "vue";
-import { InvokeBlockActionFunc } from "../../Controls/rockBlock";
+import { InvokeBlockActionFunc } from "../../Util/block";
 import Alert from "../../Elements/alert";
 
 type AuthCookie = {

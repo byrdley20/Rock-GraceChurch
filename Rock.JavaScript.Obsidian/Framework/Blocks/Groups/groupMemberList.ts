@@ -22,7 +22,7 @@ import GridRow from "../../Controls/gridRow";
 import GridColumn from "../../Controls/gridColumn";
 import GridSelectColumn from "../../Controls/gridSelectColumn";
 import GridProfileLinkColumn from "../../Controls/gridProfileLinkColumn";
-import { InvokeBlockActionFunc } from "../../Controls/rockBlock";
+import { InvokeBlockActionFunc } from "../../Util/block";
 import Alert from "../../Elements/alert";
 
 type GroupMemberViewModel = {

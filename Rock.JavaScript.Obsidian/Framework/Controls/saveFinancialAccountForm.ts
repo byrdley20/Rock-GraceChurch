@@ -22,7 +22,7 @@ import RockButton from "../Elements/rockButton";
 import TextBox from "../Elements/textBox";
 import { Guid } from "../Util/guid";
 import { Person } from "@Obsidian/ViewModels";
-import { BlockHttp } from "./rockBlock";
+import { BlockHttp } from "../Util/block";
 import RockForm from "./rockForm";
 
 type SaveFinancialAccountFormResult = {

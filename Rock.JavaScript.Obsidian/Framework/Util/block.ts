@@ -15,8 +15,31 @@
 // </copyright>
 //
 
-import { InvokeBlockActionFunc } from "Controls/rockBlock";
+import { HttpBodyData, HttpResult, HttpUrlParams } from "../Util/http";
 import { inject } from "vue";
+import { Guid } from "./guid";
+
+export type ConfigurationValues = Record<string, unknown>;
+
+export type BlockConfig = {
+    blockFileUrl: string;
+    rootElement: Element;
+    blockGuid: Guid;
+    configurationValues: ConfigurationValues;
+};
+
+export type InvokeBlockActionFunc = <T>(actionName: string, data?: HttpBodyData) => Promise<HttpResult<T>>;
+
+export type BlockHttpGet = <T>(url: string, params?: HttpUrlParams) => Promise<HttpResult<T>>;
+
+export type BlockHttpPost = <T>(url: string, params?: HttpUrlParams, data?: HttpBodyData) => Promise<HttpResult<T>>;
+
+export type BlockHttp = {
+    get: BlockHttpGet;
+    post: BlockHttpPost;
+};
+
+
 
 // TODO: Change these to use symbols
 

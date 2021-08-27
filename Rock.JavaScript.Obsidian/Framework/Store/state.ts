@@ -15,8 +15,7 @@
 // </copyright>
 //
 
-import { IEntity, Person } from "@Obsidian/ViewModels";
-import { DebugTimingViewModel } from "../Controls/pageDebugTimings";
+import { IEntity, Person, DebugTiming } from "@Obsidian/ViewModels";
 import { Guid } from "../Util/guid";
 
 export type State = {
@@ -27,7 +26,7 @@ export type State = {
     pageId: number;
     pageGuid: Guid;
     executionStartTime: Date;
-    debugTimings: DebugTimingViewModel[],
+    debugTimings: DebugTiming[],
     loginUrlWithReturnUrl: string
 };
 

@@ -16,35 +16,17 @@
 //
 import { App, Component, createApp, markRaw } from "vue";
 import RockBlock from "./Controls/rockBlock";
-import store, { ActionType } from "./Store/index";
-import { Guid } from "./Util/guid";
-import "./Rules/index";
-import { Person, IEntity } from "@Obsidian/ViewModels";
-import PageDebugTimings, { DebugTimingViewModel } from "./Controls/pageDebugTimings";
+import PageDebugTimings from "./Controls/pageDebugTimings";
 import Alert from "./Elements/alert";
-
-export type ConfigurationValues = Record<string, unknown>;
-
-export type BlockConfig = {
-    blockFileUrl: string;
-    rootElement: Element;
-    blockGuid: Guid;
-    configurationValues: ConfigurationValues;
-};
-
-export type PageConfig = {
-    executionStartTime: Date;
-    pageId: number;
-    pageGuid: Guid;
-    pageParameters: Record<string, unknown>;
-    currentPerson: Person | null;
-    contextEntities: Record<string, IEntity>;
-    loginUrlWithReturnUrl: string;
-};
+import store, { ActionType } from "./Store/index";
+import "./Rules/index";
+import { DebugTiming } from "@Obsidian/ViewModels";
+import { BlockConfig } from "./Util/block";
+import { PageConfig } from "./Util/page";
 
 type DebugTimingConfig = {
     elementId: string;
-    debugTimingViewModels: DebugTimingViewModel[];
+    debugTimingViewModels: DebugTiming[];
 };
 
 /**

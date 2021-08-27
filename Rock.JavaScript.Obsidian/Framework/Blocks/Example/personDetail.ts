@@ -26,7 +26,7 @@ import RockForm from "../../Controls/rockForm";
 import { Guid } from "../../Util/guid";
 import Loading from "../../Controls/loading";
 import PrimaryBlock from "../../Controls/primaryBlock";
-import { InvokeBlockActionFunc } from "../../Controls/rockBlock";
+import { InvokeBlockActionFunc } from "../../Util/block";
 import { Person } from "@Obsidian/ViewModels";
 import { asDateString, formatAspDate } from "@Obsidian/Services/date";
 import DatePicker from "../../Elements/datePicker";

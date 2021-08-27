@@ -17,7 +17,7 @@
 
 import { defineComponent, inject } from "vue";
 import Loading from "../../../Controls/loading";
-import { InvokeBlockActionFunc } from "../../../Controls/rockBlock";
+import { InvokeBlockActionFunc } from "../../../Util/block";
 import CurrencyBox from "../../../Elements/currencyBox";
 import HelpBlock from "../../../Elements/helpBlock";
 import { ruleArrayToString } from "../../../Rules/index";

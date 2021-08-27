@@ -17,7 +17,7 @@
 
 import { defineComponent, inject } from "vue";
 import GatewayControl, { GatewayControlModel } from "../../../Controls/gatewayControl";
-import { InvokeBlockActionFunc } from "../../../Controls/rockBlock";
+import { InvokeBlockActionFunc } from "../../../Util/block";
 import RockForm from "../../../Controls/rockForm";
 import RockValidation from "../../../Controls/rockValidation";
 import Alert from "../../../Elements/alert";

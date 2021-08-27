@@ -279,6 +279,7 @@
     <TypeScriptCompile Include="Framework\Util\cache.ts" />
     <TypeScriptCompile Include="Framework\Util\guid.ts" />
     <TypeScriptCompile Include="Framework\Util\http.ts" />
+    <TypeScriptCompile Include="Framework\Util\linq.ts" />
     <TypeScriptCompile Include="Framework\Util\page.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\clientAttributeValue.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\clientAttributeValueCategory.d.ts" />

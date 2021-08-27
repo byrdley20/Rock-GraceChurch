@@ -33,7 +33,6 @@
   },
   "dependencies": {
     "axios": "^0.21.0",
-    "linqts": "^1.14.4",
     "mitt": "^2.1.0",
     "systemjs": " ^6.8.3",
     "vee-validate": "^4.2.2",

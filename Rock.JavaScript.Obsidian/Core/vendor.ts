@@ -3,11 +3,9 @@ import * as Mitt from "mitt";
 import * as Vue from "vue";
 import * as VeeValidate from "vee-validate";
 import * as Vuex from "vuex";
-import * as Linqts from "linqts";
 
 export {
     Axios, // 13.7KB
-    Linqts, // 8.2KB
     Mitt, // 374b
     Vue, // 127.2KB
     VeeValidate, // 28.1KB

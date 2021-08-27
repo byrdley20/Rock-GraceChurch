@@ -1,6 +1,6 @@
-System.register(["linqts", "./string"], function (exports_1, context_1) {
+System.register(["../Util/linq", "./string"], function (exports_1, context_1) {
     "use strict";
-    var linqts_1, string_1, englishDayNames, englishMonthNames, dateFormatters, dateFormatterKeys, standardDateFormats;
+    var linq_1, string_1, englishDayNames, englishMonthNames, dateFormatters, dateFormatterKeys, standardDateFormats;
     var __moduleName = context_1 && context_1.id;
     function parseDirtyRoundTripDateOrNull(value) {
         var _a, _b, _c, _d;
@@ -163,8 +163,8 @@ System.register(["linqts", "./string"], function (exports_1, context_1) {
     exports_1("formatAspDate", formatAspDate);
     return {
         setters: [
-            function (linqts_1_1) {
-                linqts_1 = linqts_1_1;
+            function (linq_1_1) {
+                linq_1 = linq_1_1;
             },
             function (string_1_1) {
                 string_1 = string_1_1;
@@ -238,9 +238,9 @@ System.register(["linqts", "./string"], function (exports_1, context_1) {
                 ":": () => ":",
                 "/": () => "/"
             };
-            dateFormatterKeys = new linqts_1.List(Object.keys(dateFormatters))
-                .OrderByDescending(k => k.length)
-                .ToArray();
+            dateFormatterKeys = new linq_1.List(Object.keys(dateFormatters))
+                .orderByDescending(k => k.length)
+                .toArray();
             standardDateFormats = {
                 "d": date => formatAspDate(date, "M/dd/yyyy"),
                 "D": date => formatAspDate(date, "dddd, MMMM dd, yyyy"),

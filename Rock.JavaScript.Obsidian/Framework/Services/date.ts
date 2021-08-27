@@ -15,7 +15,7 @@
 // </copyright>
 //
 
-import { List } from "linqts";
+import { List } from "../Util/linq";
 import { padLeft, padRight } from "./string";
 
 /**
@@ -258,8 +258,8 @@ const dateFormatters: Record<string, DateFormatterCommand> = {
 };
 
 const dateFormatterKeys = new List<string>(Object.keys(dateFormatters))
-    .OrderByDescending(k => k.length)
-    .ToArray();
+    .orderByDescending(k => k.length)
+    .toArray();
 
 const standardDateFormats: Record<string, DateFormatterCommand> = {
     "d": date => formatAspDate(date, "M/dd/yyyy"),

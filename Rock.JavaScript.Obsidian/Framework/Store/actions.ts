@@ -16,7 +16,6 @@
 //
 
 import { ActionContext, ActionTree } from "vuex";
-//import { commonEntities } from './CommonEntities';
 import { Mutations, MutationType } from "./mutations";
 import { State } from "./state";
 import { PageConfig } from "../Util/page";
@@ -43,11 +42,6 @@ export type Actions = {
 export const actions: ActionTree<State, State> & Actions = {
     [ActionType.Initialize](context, value) {
         context.commit(MutationType.SetPageInitializationData, { pageConfig: value.pageConfig });
-
-        // Initialize each common entity module
-    //    for (const commonEntity of commonEntities) {
-    //        context.dispatch(`${commonEntity.namespace}/initialize`);
-    //    }
     },
 
     // This should be replaced with something else, doesn't really fit as a store action.

@@ -131,7 +131,6 @@
     <Compile Include="ApiController.cs" />
     <Compile Include="ApiControllerBase.cs" />
     <Compile Include="v2\BlockActionsController.cs" />
-    <Compile Include="v2\CommonEntitiesController.cs" />
     <Compile Include="Controllers\AssetStorageProvidersController.Partial.cs" />
     <Compile Include="Controllers\AttendanceOccurrencesController.partial.cs" />
     <Compile Include="Controllers\CheckinController.cs" />

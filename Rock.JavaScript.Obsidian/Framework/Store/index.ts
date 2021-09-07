@@ -15,7 +15,6 @@
 // </copyright>
 //
 import { createStore, Store as VuexStore } from "vuex";
-//import { commonEntityModules } from './CommonEntities';
 import { State, state } from "./state";
 import { mutations } from "./mutations";
 import { actions } from "./actions";

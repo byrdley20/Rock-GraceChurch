@@ -1,4 +1,4 @@
-System.register(["vue", "../../../Controls/dialog", "../../../Elements/loadingIndicator", "../../../Elements/rockButton", "@Obsidian/Services/number", "@Obsidian/Services/string"], function (exports_1, context_1) {
+System.register(["vue", "../../../Controls/dialog", "../../../Elements/loadingIndicator", "../../../Elements/rockButton", "@Obsidian/Services/number", "@Obsidian/Services/string", "../../../Util/rockDateTime"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,7 +9,7 @@ System.register(["vue", "../../../Controls/dialog", "../../../Elements/loadingIn
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var vue_1, dialog_1, loadingIndicator_1, rockButton_1, number_1, string_1;
+    var vue_1, dialog_1, loadingIndicator_1, rockButton_1, number_1, string_1, rockDateTime_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -30,6 +30,9 @@ System.register(["vue", "../../../Controls/dialog", "../../../Elements/loadingIn
             },
             function (string_1_1) {
                 string_1 = string_1_1;
+            },
+            function (rockDateTime_1_1) {
+                rockDateTime_1 = rockDateTime_1_1;
             }
         ],
         execute: function () {
@@ -93,6 +96,7 @@ System.register(["vue", "../../../Controls/dialog", "../../../Elements/loadingIn
                         });
                     },
                     requestRenewal() {
+                        var _a;
                         return __awaiter(this, void 0, void 0, function* () {
                             this.spotsSecured = 0;
                             this.isLoading = true;
@@ -101,8 +105,8 @@ System.register(["vue", "../../../Controls/dialog", "../../../Elements/loadingIn
                                     registrationSessionGuid: this.registrationEntryState.registrationSessionGuid
                                 });
                                 if (response.data) {
-                                    const asDate = new Date(response.data.expirationDateTime);
-                                    this.registrationEntryState.sessionExpirationDate = asDate;
+                                    const asDate = rockDateTime_1.RockDateTime.parseISO(response.data.expirationDateTime);
+                                    this.registrationEntryState.sessionExpirationDateMs = (_a = asDate === null || asDate === void 0 ? void 0 : asDate.toMilliseconds()) !== null && _a !== void 0 ? _a : null;
                                     this.spotsSecured = response.data.spotsSecured;
                                     let deficiency = this.nonWaitlistRegistrantCount - this.spotsSecured;
                                     if (!deficiency) {

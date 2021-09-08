@@ -35,6 +35,7 @@
     <Content Include="Framework\.eslintrc.js" />
     <Content Include="Framework\Tests\tsconfig.json" />
     <Content Include="Framework\tsconfig.json" />
+    <Content Include="Framework\Util\aspDateFormat.ts" />
     <Content Include="webpack-eol-plugin.js" />
     <Content Include="webpack.config.js" />
     <None Include="Core\core.ts" />
@@ -220,7 +221,6 @@
     <TypeScriptCompile Include="Framework\index.ts" />
     <TypeScriptCompile Include="Framework\Rules\index.ts" />
     <TypeScriptCompile Include="Framework\Services\boolean.ts" />
-    <TypeScriptCompile Include="Framework\Services\date.ts" />
     <TypeScriptCompile Include="Framework\Services\dateKey.ts" />
     <TypeScriptCompile Include="Framework\Services\email.ts" />
     <TypeScriptCompile Include="Framework\Services\number.ts" />
@@ -268,7 +268,7 @@
     <TypeScriptCompile Include="Framework\Templates\paneledBlockTemplate.ts" />
     <TypeScriptCompile Include="Framework\Tests\Elements\rockFormField.spec.ignored.ts" />
     <TypeScriptCompile Include="Framework\Tests\Elements\textBox.spec.ignored.ts" />
-    <TypeScriptCompile Include="Framework\Tests\Services\dateTests.spec.ts" />
+    <TypeScriptCompile Include="Framework\Tests\Services\dateAspFormatTests.spec.ts" />
     <TypeScriptCompile Include="Framework\Util\block.ts" />
     <TypeScriptCompile Include="Framework\Util\bus.ts" />
     <TypeScriptCompile Include="Framework\Util\cache.ts" />
@@ -276,6 +276,7 @@
     <TypeScriptCompile Include="Framework\Util\http.ts" />
     <TypeScriptCompile Include="Framework\Util\linq.ts" />
     <TypeScriptCompile Include="Framework\Util\page.ts" />
+    <TypeScriptCompile Include="Framework\Util\rockDateTime.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\clientAttributeValue.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\clientAttributeValueCategory.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\clientEditableAttributeValue.d.ts" />

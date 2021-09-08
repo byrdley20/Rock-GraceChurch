@@ -1,6 +1,6 @@
-System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "./textBox", "./basicTimePicker", "@Obsidian/Services/string"], function (exports_1, context_1) {
+System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "./textBox", "./basicTimePicker", "@Obsidian/Services/string", "../Util/rockDateTime"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, number_1, rockFormField_1, textBox_1, basicTimePicker_1, string_1;
+    var vue_1, number_1, rockFormField_1, textBox_1, basicTimePicker_1, string_1, rockDateTime_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -21,6 +21,9 @@ System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "./textB
             },
             function (string_1_1) {
                 string_1 = string_1_1;
+            },
+            function (rockDateTime_1_1) {
+                rockDateTime_1 = rockDateTime_1_1;
             }
         ],
         execute: function () {
@@ -60,19 +63,26 @@ System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "./textB
                 },
                 computed: {
                     asRockDateTimeOrNull() {
+                        var _a;
                         if (this.internalDateValue) {
-                            const date = new Date(this.internalDateValue);
-                            if (this.internalTimeValue.hour !== undefined && this.internalTimeValue.minute !== undefined) {
-                                date.setHours(this.internalTimeValue.hour);
-                                date.setMinutes(this.internalTimeValue.minute);
+                            const dateMatch = /^(\d+)\/(\d+)\/(\d+)/.exec((_a = this.internalDateValue) !== null && _a !== void 0 ? _a : "");
+                            if (dateMatch === null) {
+                                return null;
                             }
-                            const year = date.getFullYear().toString();
-                            const month = string_1.padLeft((date.getMonth() + 1).toString(), 2, "0");
-                            const day = string_1.padLeft(date.getDate().toString(), 2, "0");
-                            const hour = string_1.padLeft(date.getHours().toString(), 2, "0");
-                            const minute = string_1.padLeft(date.getMinutes().toString(), 2, "0");
-                            const second = string_1.padLeft(date.getSeconds().toString(), 2, "0");
-                            const millisecond = string_1.padLeft(date.getMilliseconds().toString(), 3, "0");
+                            let date = rockDateTime_1.RockDateTime.fromParts(number_1.toNumber(dateMatch[3]), number_1.toNumber(dateMatch[1]), number_1.toNumber(dateMatch[2]));
+                            if (date === null) {
+                                return null;
+                            }
+                            if (this.internalTimeValue.hour !== undefined && this.internalTimeValue.minute !== undefined) {
+                                date = date === null || date === void 0 ? void 0 : date.addHours(this.internalTimeValue.hour).addMinutes(this.internalTimeValue.minute);
+                            }
+                            const year = date.year.toString();
+                            const month = string_1.padLeft(date.month.toString(), 2, "0");
+                            const day = string_1.padLeft(date.day.toString(), 2, "0");
+                            const hour = string_1.padLeft(date.hour.toString(), 2, "0");
+                            const minute = string_1.padLeft(date.minute.toString(), 2, "0");
+                            const second = string_1.padLeft(date.second.toString(), 2, "0");
+                            const millisecond = string_1.padLeft(date.millisecond.toString(), 3, "0");
                             return `${year}-${month}-${day}T${hour}:${minute}:${second}.${millisecond}`;
                         }
                         else {
@@ -123,16 +133,19 @@ System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "./textB
                                 }
                                 return;
                             }
-                            const date = new Date(this.modelValue);
-                            const month = date.getMonth() + 1;
-                            const day = date.getDate();
-                            const year = date.getFullYear();
+                            const date = rockDateTime_1.RockDateTime.parseISO(this.modelValue);
                             this.skipEmit = true;
-                            this.internalDateValue = `${month}/${day}/${year}`;
-                            this.internalTimeValue = {
-                                hour: date.getHours(),
-                                minute: date.getMinutes()
-                            };
+                            if (date === null) {
+                                this.internalDateValue = null;
+                                this.internalTimeValue = {};
+                            }
+                            else {
+                                this.internalDateValue = `${date.month}/${date.day}/${date.year}`;
+                                this.internalTimeValue = {
+                                    hour: date.hour,
+                                    minute: date.minute
+                                };
+                            }
                             this.skipEmit = false;
                         }
                     }

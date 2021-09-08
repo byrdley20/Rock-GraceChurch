@@ -19,7 +19,7 @@ import { IEntity, Person } from "@Obsidian/ViewModels";
 import { Guid } from "./guid";
 
 export type PageConfig = {
-    executionStartTime: Date;
+    executionStartTime: number;
     pageId: number;
     pageGuid: Guid;
     pageParameters: Record<string, unknown>;

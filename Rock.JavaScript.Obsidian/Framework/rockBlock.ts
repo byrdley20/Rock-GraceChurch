@@ -19,9 +19,10 @@ import { Component, defineComponent, PropType, provide, reactive } from "vue";
 import { BlockConfig, BlockHttp, InvokeBlockActionFunc } from "./Util/block";
 import { useStore } from "./Store/index";
 import { Guid } from "./Util/guid";
+import { RockDateTime } from "./Util/rockDateTime";
 
 type LogItem = {
-    date: Date;
+    date: RockDateTime;
     method: HttpMethod;
     url: string;
 };
@@ -47,9 +48,9 @@ export default defineComponent( {
     setup( props ) {
         const log: LogItem[] = reactive( [] );
 
-        const writeLog = ( method: HttpMethod, url: string ) => {
+        const writeLog = ( method: HttpMethod, url: string ): void => {
             log.push( {
-                date: new Date(),
+                date: RockDateTime.now(),
                 method,
                 url
             } );
@@ -121,7 +122,7 @@ export default defineComponent( {
         }
     },
     mounted() {
-        this.finishTimeMs = ( new Date() ).getTime();
+        this.finishTimeMs = RockDateTime.now().toMilliseconds();
         const componentName = this.blockComponent?.name || "";
         const nameParts = componentName.split( "." );
         let subtitle = nameParts[ 0 ] || "";

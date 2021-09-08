@@ -1,6 +1,6 @@
-System.register(["../Elements/alert", "vue"], function (exports_1, context_1) {
+System.register(["../Elements/alert", "vue", "../Util/rockDateTime"], function (exports_1, context_1) {
     "use strict";
-    var alert_1, vue_1;
+    var alert_1, vue_1, rockDateTime_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -9,6 +9,9 @@ System.register(["../Elements/alert", "vue"], function (exports_1, context_1) {
             },
             function (vue_1_1) {
                 vue_1 = vue_1_1;
+            },
+            function (rockDateTime_1_1) {
+                rockDateTime_1 = rockDateTime_1_1;
             }
         ],
         execute: function () {
@@ -43,7 +46,7 @@ System.register(["../Elements/alert", "vue"], function (exports_1, context_1) {
                     submitCount() {
                         const wasSubmitted = this.lastSubmitCount < this.submitCount;
                         if (wasSubmitted) {
-                            const now = new Date().getTime();
+                            const now = rockDateTime_1.RockDateTime.now().toMilliseconds();
                             this.errorsToShow = Object.assign({}, this.errors);
                             this.lastErrorChangeMs = now;
                             this.lastSubmitCount = this.submitCount;
@@ -56,7 +59,7 @@ System.register(["../Elements/alert", "vue"], function (exports_1, context_1) {
                                 this.errorsToShow = Object.assign({}, this.errors);
                                 return;
                             }
-                            const now = new Date().getTime();
+                            const now = rockDateTime_1.RockDateTime.now().toMilliseconds();
                             const msSinceLastChange = now - this.lastErrorChangeMs;
                             if (msSinceLastChange < 500) {
                                 this.errorsToShow = Object.assign({}, this.errors);

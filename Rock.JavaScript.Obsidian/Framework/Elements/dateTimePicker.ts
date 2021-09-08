@@ -21,6 +21,7 @@ import TextBox from "./textBox";
 import BasicTimePicker from "./basicTimePicker";
 import { TimePickerValue } from "./timePicker";
 import { padLeft } from "@Obsidian/Services/string";
+import { RockDateTime } from "../Util/rockDateTime";
 
 type Rock = {
     controls: {
@@ -80,20 +81,29 @@ export default defineComponent({
     computed: {
         asRockDateTimeOrNull(): string | null {
             if (this.internalDateValue) {
-                const date = new Date(this.internalDateValue);
+                const dateMatch = /^(\d+)\/(\d+)\/(\d+)/.exec(this.internalDateValue ?? "");
 
-                if (this.internalTimeValue.hour !== undefined && this.internalTimeValue.minute !== undefined) {
-                    date.setHours(this.internalTimeValue.hour);
-                    date.setMinutes(this.internalTimeValue.minute);
+                if (dateMatch === null) {
+                    return null;
                 }
 
-                const year = date.getFullYear().toString();
-                const month = padLeft((date.getMonth() + 1).toString(), 2, "0");
-                const day = padLeft(date.getDate().toString(), 2, "0");
-                const hour = padLeft(date.getHours().toString(), 2, "0");
-                const minute = padLeft(date.getMinutes().toString(), 2, "0");
-                const second = padLeft(date.getSeconds().toString(), 2, "0");
-                const millisecond = padLeft(date.getMilliseconds().toString(), 3, "0");
+                let date = RockDateTime.fromParts(toNumber(dateMatch[3]), toNumber(dateMatch[1]), toNumber(dateMatch[2]));
+
+                if (date === null) {
+                    return null;
+                }
+
+                if (this.internalTimeValue.hour !== undefined && this.internalTimeValue.minute !== undefined) {
+                    date = date?.addHours(this.internalTimeValue.hour).addMinutes(this.internalTimeValue.minute);
+                }
+
+                const year = date.year.toString();
+                const month = padLeft(date.month.toString(), 2, "0");
+                const day = padLeft(date.day.toString(), 2, "0");
+                const hour = padLeft(date.hour.toString(), 2, "0");
+                const minute = padLeft(date.minute.toString(), 2, "0");
+                const second = padLeft(date.second.toString(), 2, "0");
+                const millisecond = padLeft(date.millisecond.toString(), 3, "0");
 
                 // Construct it manually so it doesn't get converted to UTC.
                 return `${year}-${month}-${day}T${hour}:${minute}:${second}.${millisecond}`;
@@ -155,10 +165,7 @@ export default defineComponent({
                     return;
                 }
 
-                const date = new Date(this.modelValue);
-                const month = date.getMonth() + 1;
-                const day = date.getDate();
-                const year = date.getFullYear();
+                const date = RockDateTime.parseISO(this.modelValue);
 
                 /*
                  * This is an anti-pattern, but I couldn't find a quick way
@@ -167,11 +174,17 @@ export default defineComponent({
                  * time. There is likely a better way to do this. -dsh.
                  */
                 this.skipEmit = true;
-                this.internalDateValue = `${month}/${day}/${year}`;
-                this.internalTimeValue = {
-                    hour: date.getHours(),
-                    minute: date.getMinutes()
-                };
+                if (date === null) {
+                    this.internalDateValue = null;
+                    this.internalTimeValue = {};
+                }
+                else {
+                    this.internalDateValue = `${date.month}/${date.day}/${date.year}`;
+                    this.internalTimeValue = {
+                        hour: date.hour,
+                        minute: date.minute
+                    };
+                }
                 this.skipEmit = false;
             }
         }

@@ -15,12 +15,13 @@
 // </copyright>
 //
 import mitt from "mitt";
+import { RockDateTime } from "./rockDateTime";
 
 /**
  * The bus allows page components to send and receive arbitrary data from other page components.
  */
 type LogItem = {
-    date: Date;
+    date: RockDateTime;
     message: string;
 };
 
@@ -30,9 +31,9 @@ const log: LogItem[] = [];
 /**
 * Write a log entry that a payload was sent or received.
 */
-const writeLog = (msg: string) => {
+const writeLog = (msg: string): void => {
     log.push({
-        date: new Date(),
+        date: RockDateTime.now(),
         message: msg
     });
 };

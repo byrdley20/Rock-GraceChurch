@@ -1,4 +1,4 @@
-System.register(["../../Elements/dropDownList", "../../Elements/currencyBox", "vue", "../../Elements/datePicker", "../../Elements/rockButton", "../../Util/guid", "../../Elements/alert", "@Obsidian/Services/number", "../../Elements/toggle", "../../Store/index", "../../Elements/textBox", "@Obsidian/Services/string", "../../Controls/gatewayControl", "../../Controls/rockValidation", "@Obsidian/Services/date"], function (exports_1, context_1) {
+System.register(["../../Elements/dropDownList", "../../Elements/currencyBox", "vue", "../../Elements/datePicker", "../../Elements/rockButton", "../../Util/guid", "../../Util/rockDateTime", "../../Elements/alert", "@Obsidian/Services/number", "../../Elements/toggle", "../../Store/index", "../../Elements/textBox", "@Obsidian/Services/string", "../../Controls/gatewayControl", "../../Controls/rockValidation"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,7 +9,7 @@ System.register(["../../Elements/dropDownList", "../../Elements/currencyBox", "v
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var dropDownList_1, currencyBox_1, vue_1, datePicker_1, rockButton_1, guid_1, alert_1, number_1, toggle_1, index_1, textBox_1, string_1, gatewayControl_1, rockValidation_1, date_1, store;
+    var dropDownList_1, currencyBox_1, vue_1, datePicker_1, rockButton_1, guid_1, rockDateTime_1, alert_1, number_1, toggle_1, index_1, textBox_1, string_1, gatewayControl_1, rockValidation_1, store;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -30,6 +30,9 @@ System.register(["../../Elements/dropDownList", "../../Elements/currencyBox", "v
             },
             function (guid_1_1) {
                 guid_1 = guid_1_1;
+            },
+            function (rockDateTime_1_1) {
+                rockDateTime_1 = rockDateTime_1_1;
             },
             function (alert_1_1) {
                 alert_1 = alert_1_1;
@@ -54,9 +57,6 @@ System.register(["../../Elements/dropDownList", "../../Elements/currencyBox", "v
             },
             function (rockValidation_1_1) {
                 rockValidation_1 = rockValidation_1_1;
-            },
-            function (date_1_1) {
-                date_1 = date_1_1;
             }
         ],
         execute: function () {
@@ -112,7 +112,7 @@ System.register(["../../Elements/dropDownList", "../../Elements/currencyBox", "v
                             campusGuid: "",
                             businessGuid: null,
                             frequencyValueGuid: "",
-                            giftDate: date_1.formatAspDate(new Date(), "yyyy-MM-dd"),
+                            giftDate: rockDateTime_1.RockDateTime.now().toASPString("yyyy-MM-dd"),
                             isGiveAnonymously: false
                         }
                     };

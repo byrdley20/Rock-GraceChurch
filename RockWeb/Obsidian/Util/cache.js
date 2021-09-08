@@ -1,11 +1,10 @@
-System.register([], function (exports_1, context_1) {
+System.register(["./rockDateTime"], function (exports_1, context_1) {
     "use strict";
+    var rockDateTime_1;
     var __moduleName = context_1 && context_1.id;
     function set(key, value, expiration = null) {
         if (!expiration) {
-            const now = new Date();
-            const oneMinute = 60000;
-            expiration = new Date(now.getTime() + oneMinute);
+            expiration = rockDateTime_1.RockDateTime.now().addMinutes(1);
         }
         const cache = { expiration, value };
         const cacheJson = JSON.stringify(cache);
@@ -20,14 +19,17 @@ System.register([], function (exports_1, context_1) {
         if (!cache || !cache.expiration) {
             return null;
         }
-        const expiration = new Date(cache.expiration);
-        if (!expiration || expiration < new Date()) {
+        if (cache.expiration < rockDateTime_1.RockDateTime.now()) {
             return null;
         }
         return cache.value;
     }
     return {
-        setters: [],
+        setters: [
+            function (rockDateTime_1_1) {
+                rockDateTime_1 = rockDateTime_1_1;
+            }
+        ],
         execute: function () {
             exports_1("default", {
                 set,

@@ -1,4 +1,4 @@
-System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../../Elements/rockButton", "../../Elements/textBox", "vue", "../../Store/index", "../../Elements/emailBox", "../../Controls/rockValidation", "../../Controls/rockForm", "../../Controls/loading", "../../Controls/primaryBlock", "@Obsidian/Services/date", "../../Elements/datePicker", "../../Controls/addressControl", "@Obsidian/Services/number"], function (exports_1, context_1) {
+System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../../Elements/rockButton", "../../Elements/textBox", "vue", "../../Store/index", "../../Elements/emailBox", "../../Controls/rockValidation", "../../Controls/rockForm", "../../Controls/loading", "../../Controls/primaryBlock", "../../Elements/datePicker", "../../Controls/addressControl", "@Obsidian/Services/number", "../../Util/rockDateTime"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,7 +9,7 @@ System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../.
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var bus_1, paneledBlockTemplate_1, rockButton_1, textBox_1, vue_1, index_1, emailBox_1, rockValidation_1, rockForm_1, loading_1, primaryBlock_1, date_1, datePicker_1, addressControl_1, number_1, store;
+    var bus_1, paneledBlockTemplate_1, rockButton_1, textBox_1, vue_1, index_1, emailBox_1, rockValidation_1, rockForm_1, loading_1, primaryBlock_1, datePicker_1, addressControl_1, number_1, rockDateTime_1, store;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -46,9 +46,6 @@ System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../.
             function (primaryBlock_1_1) {
                 primaryBlock_1 = primaryBlock_1_1;
             },
-            function (date_1_1) {
-                date_1 = date_1_1;
-            },
             function (datePicker_1_1) {
                 datePicker_1 = datePicker_1_1;
             },
@@ -57,6 +54,9 @@ System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../.
             },
             function (number_1_1) {
                 number_1 = number_1_1;
+            },
+            function (rockDateTime_1_1) {
+                rockDateTime_1 = rockDateTime_1_1;
             }
         ],
         execute: function () {
@@ -97,8 +97,9 @@ System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../.
                         this.isEditMode = isEditMode;
                     },
                     doEdit() {
+                        var _a, _b;
                         this.personForEditing = this.person ? Object.assign({}, this.person) : null;
-                        this.birthdate = this.birthdateOrNull ? date_1.formatAspDate(this.birthdateOrNull, "yyyy-MM-dd") : null;
+                        this.birthdate = (_b = (_a = this.birthdateOrNull) === null || _a === void 0 ? void 0 : _a.toASPString("yyyy-MM-dd")) !== null && _b !== void 0 ? _b : null;
                         this.setIsEditMode(true);
                     },
                     doCancel() {
@@ -141,13 +142,13 @@ System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../.
                         if (!((_a = this.person) === null || _a === void 0 ? void 0 : _a.birthDay) || !this.person.birthMonth || !this.person.birthYear) {
                             return null;
                         }
-                        return new Date(`${this.person.birthYear}-${this.person.birthMonth}-${this.person.birthDay}`);
+                        return rockDateTime_1.RockDateTime.fromParts(this.person.birthYear, this.person.birthMonth, this.person.birthDay);
                     },
                     birthdateFormatted() {
                         if (!this.birthdateOrNull) {
                             return "Not Completed";
                         }
-                        return date_1.asDateString(this.birthdateOrNull);
+                        return this.birthdateOrNull.toLocaleString(rockDateTime_1.DateTimeFormat.DateTimeShort);
                     },
                     blockTitle() {
                         return this.person ?

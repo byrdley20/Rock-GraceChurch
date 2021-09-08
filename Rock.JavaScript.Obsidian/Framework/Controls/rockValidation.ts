@@ -16,6 +16,7 @@
 //
 import Alert from "../Elements/alert";
 import { defineComponent, PropType } from "vue";
+import { RockDateTime } from "../Util/rockDateTime";
 
 export default defineComponent({
     name: "RockValidation",
@@ -49,7 +50,7 @@ export default defineComponent({
             const wasSubmitted = this.lastSubmitCount < this.submitCount;
 
             if ( wasSubmitted ) {
-                const now = new Date().getTime();
+                const now = RockDateTime.now().toMilliseconds();
                 this.errorsToShow = { ...this.errors };
                 this.lastErrorChangeMs = now;
                 this.lastSubmitCount = this.submitCount;
@@ -69,7 +70,7 @@ export default defineComponent({
                 // However, we don't want the screen jumping around as the
                 // user fixes errors. The intent here is to have a 500ms window after a submit occurs for errors to be collected.
                 // After that window elapses, then no more errors can be added to the screen until the user submits again.
-                const now = new Date().getTime();
+                const now = RockDateTime.now().toMilliseconds();
                 const msSinceLastChange = now - this.lastErrorChangeMs;
 
                 if ( msSinceLastChange < 500 ) {

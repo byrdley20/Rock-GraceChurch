@@ -1,6 +1,6 @@
-System.register(["vue"], function (exports_1, context_1) {
+System.register(["vue", "../Util/rockDateTime"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, state, Store, store;
+    var vue_1, rockDateTime_1, state, Store, store;
     var __moduleName = context_1 && context_1.id;
     function useStore() {
         return store;
@@ -10,6 +10,9 @@ System.register(["vue"], function (exports_1, context_1) {
         setters: [
             function (vue_1_1) {
                 vue_1 = vue_1_1;
+            },
+            function (rockDateTime_1_1) {
+                rockDateTime_1 = rockDateTime_1_1;
             }
         ],
         execute: function () {
@@ -20,7 +23,7 @@ System.register(["vue"], function (exports_1, context_1) {
                 contextEntities: {},
                 pageId: 0,
                 pageGuid: "",
-                executionStartTime: new Date(),
+                executionStartTime: rockDateTime_1.RockDateTime.now().toMilliseconds(),
                 debugTimings: [],
                 loginUrlWithReturnUrl: ""
             });
@@ -41,7 +44,7 @@ System.register(["vue"], function (exports_1, context_1) {
                     state.loginUrlWithReturnUrl = pageConfig.loginUrlWithReturnUrl;
                 }
                 addPageDebugTiming(timing) {
-                    const pageStartTime = state.executionStartTime.getTime();
+                    const pageStartTime = state.executionStartTime;
                     const timestampMs = timing.startTimeMs - pageStartTime;
                     const durationMs = timing.finishTimeMs - timing.startTimeMs;
                     state.debugTimings.push({

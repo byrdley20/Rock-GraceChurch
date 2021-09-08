@@ -1,4 +1,4 @@
-System.register(["vue", "./fieldType", "@Obsidian/Services/date", "@Obsidian/Services/number"], function (exports_1, context_1) {
+System.register(["vue", "./fieldType", "../Util/rockDateTime", "@Obsidian/Services/number"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,7 +9,7 @@ System.register(["vue", "./fieldType", "@Obsidian/Services/date", "@Obsidian/Ser
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var vue_1, fieldType_1, date_1, number_1, editComponent, DateRangeFieldType;
+    var vue_1, fieldType_1, rockDateTime_1, number_1, editComponent, DateRangeFieldType;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -19,8 +19,8 @@ System.register(["vue", "./fieldType", "@Obsidian/Services/date", "@Obsidian/Ser
             function (fieldType_1_1) {
                 fieldType_1 = fieldType_1_1;
             },
-            function (date_1_1) {
-                date_1 = date_1_1;
+            function (rockDateTime_1_1) {
+                rockDateTime_1 = rockDateTime_1_1;
             },
             function (number_1_1) {
                 number_1 = number_1_1;
@@ -40,16 +40,16 @@ System.register(["vue", "./fieldType", "@Obsidian/Services/date", "@Obsidian/Ser
                     }
                     const lowerDateParts = /^(\d+)-(\d+)-(\d+)/.exec(dateParts[0]);
                     const upperDateParts = /^(\d+)-(\d+)-(\d+)/.exec(dateParts[1]);
-                    const lowerDate = lowerDateParts !== null ? new Date(number_1.toNumber(lowerDateParts[1]), number_1.toNumber(lowerDateParts[2]) - 1, number_1.toNumber(lowerDateParts[3])) : null;
-                    const upperDate = upperDateParts !== null ? new Date(number_1.toNumber(upperDateParts[1]), number_1.toNumber(upperDateParts[2]) - 1, number_1.toNumber(upperDateParts[3])) : null;
+                    const lowerDate = lowerDateParts !== null ? rockDateTime_1.RockDateTime.fromParts(number_1.toNumber(lowerDateParts[1]), number_1.toNumber(lowerDateParts[2]), number_1.toNumber(lowerDateParts[3])) : null;
+                    const upperDate = upperDateParts !== null ? rockDateTime_1.RockDateTime.fromParts(number_1.toNumber(upperDateParts[1]), number_1.toNumber(upperDateParts[2]), number_1.toNumber(upperDateParts[3])) : null;
                     if (lowerDate !== null && upperDate !== null) {
-                        value.textValue = `${date_1.formatAspDate(lowerDate, "d")} to ${date_1.formatAspDate(upperDate, "d")}`;
+                        value.textValue = `${lowerDate.toLocaleString(rockDateTime_1.DateTimeFormat.DateShort)} to ${upperDate.toLocaleString(rockDateTime_1.DateTimeFormat.DateShort)}`;
                     }
                     else if (lowerDate !== null) {
-                        value.textValue = `from ${date_1.formatAspDate(lowerDate, "d")}`;
+                        value.textValue = `from ${lowerDate.toLocaleString(rockDateTime_1.DateTimeFormat.DateShort)}`;
                     }
                     else if (upperDate !== null) {
-                        value.textValue = `through ${date_1.formatAspDate(upperDate, "d")}`;
+                        value.textValue = `through ${upperDate.toLocaleString(rockDateTime_1.DateTimeFormat.DateShort)}`;
                     }
                     else {
                         value.textValue = "";

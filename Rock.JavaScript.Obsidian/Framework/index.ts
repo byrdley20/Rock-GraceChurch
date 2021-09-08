@@ -21,6 +21,7 @@ import "./Rules/index";
 import { DebugTiming } from "@Obsidian/ViewModels";
 import { BlockConfig } from "./Util/block";
 import { PageConfig } from "./Util/page";
+import { RockDateTime } from "./Util/rockDateTime";
 
 type DebugTimingConfig = {
     elementId: string;
@@ -53,7 +54,7 @@ export async function initializeBlock(config: BlockConfig): Promise<App> {
     }
 
     const name = `Root${config.blockFileUrl.replace(/\//g, ".")}`;
-    const startTimeMs = (new Date()).getTime();
+    const startTimeMs = RockDateTime.now().toMilliseconds();
 
     const app = createApp({
         name,

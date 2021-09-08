@@ -19,7 +19,7 @@ import { FieldTypeBase } from "./fieldType";
 import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
 import { asBoolean } from "@Obsidian/Services/boolean";
 import { toNumber } from "@Obsidian/Services/number";
-import { parseDirtyRoundTripDateOrNull, asElapsedString, formatAspDate } from "@Obsidian/Services/date";
+import { RockDateTime } from "../Util/rockDateTime";
 
 export const enum ConfigurationValueKey {
     Format = "format",
@@ -58,17 +58,17 @@ export class DateTimeFieldType extends FieldTypeBase {
                 value.textValue = "Current Date";
             }
         }
-        else {
-            const dateValue = parseDirtyRoundTripDateOrNull(value.value);
+        else if (value.value) {
+            const dateValue = RockDateTime.parseISO(value.value);
             const dateFormatTemplate = value.configurationValues?.[ConfigurationValueKey.Format] || "MM/dd/yyy";
 
             if (dateValue !== null) {
-                let textValue = formatAspDate(dateValue, dateFormatTemplate);
+                let textValue = dateValue.toASPString(dateFormatTemplate);
 
                 const displayDiff = asBoolean(value.configurationValues?.[ConfigurationValueKey.DisplayAsElapsedTime]);
 
                 if (displayDiff === true) {
-                    textValue = `${textValue} ${asElapsedString(dateValue)}`;
+                    textValue = `${textValue} ${dateValue.toElapsedString()}`;
                 }
 
                 value.textValue = textValue;
@@ -76,6 +76,9 @@ export class DateTimeFieldType extends FieldTypeBase {
             else {
                 value.textValue = "";
             }
+        }
+        else {
+            value.textValue = "";
         }
     }
 

@@ -1,6 +1,6 @@
-System.register(["vue", "../Rules/index", "@Obsidian/Services/dateKey", "@Obsidian/Services/number", "./rockFormField"], function (exports_1, context_1) {
+System.register(["vue", "../Rules/index", "@Obsidian/Services/dateKey", "@Obsidian/Services/number", "./rockFormField", "../Util/rockDateTime"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, index_1, dateKey_1, number_1, rockFormField_1;
+    var vue_1, index_1, dateKey_1, number_1, rockFormField_1, rockDateTime_1;
     var __moduleName = context_1 && context_1.id;
     function getDefaultDatePartsPickerModel() {
         return {
@@ -26,6 +26,9 @@ System.register(["vue", "../Rules/index", "@Obsidian/Services/dateKey", "@Obsidi
             },
             function (rockFormField_1_1) {
                 rockFormField_1 = rockFormField_1_1;
+            },
+            function (rockDateTime_1_1) {
+                rockDateTime_1 = rockDateTime_1_1;
             }
         ],
         execute: function () {
@@ -81,11 +84,12 @@ System.register(["vue", "../Rules/index", "@Obsidian/Services/dateKey", "@Obsidi
                         };
                     },
                     updateDays() {
+                        var _a, _b, _c, _d;
                         let dayCount = 31;
                         const year = number_1.toNumber(this.internalYear);
                         const month = number_1.toNumber(this.internalMonth);
                         if (this.showYear && year > 0 && month > 0) {
-                            dayCount = new Date(year, month, 0).getDate();
+                            dayCount = (_d = (_c = (_b = (_a = rockDateTime_1.RockDateTime.fromParts(year, month, 1)) === null || _a === void 0 ? void 0 : _a.addMonths(1)) === null || _b === void 0 ? void 0 : _b.addDays(-1)) === null || _c === void 0 ? void 0 : _c.day) !== null && _d !== void 0 ? _d : 31;
                         }
                         else if ([1, 3, 5, 7, 8, 10, 12].indexOf(month) !== -1) {
                             dayCount = 31;
@@ -124,7 +128,7 @@ System.register(["vue", "../Rules/index", "@Obsidian/Services/dateKey", "@Obsidi
                     },
                     years() {
                         const years = [];
-                        let year = new Date().getFullYear();
+                        let year = rockDateTime_1.RockDateTime.now().year;
                         if (this.futureYearCount > 0 && this.allowFutureDates) {
                             year += this.futureYearCount;
                         }

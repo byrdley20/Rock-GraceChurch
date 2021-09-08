@@ -38,6 +38,7 @@ import JavaScriptAnchor from "../../Elements/javaScriptAnchor";
 import { Person } from "@Obsidian/ViewModels";
 import SessionRenewal from "./RegistrationEntry/sessionRenewal";
 import { useStore } from "../../Store/index";
+import { RockDateTime } from "../../Util/rockDateTime";
 
 const store = useStore();
 
@@ -73,7 +74,7 @@ export type RegistrationEntryState = {
     discountPercentage: number;
     successViewModel: RegistrationEntryBlockSuccessViewModel | null;
     amountToPayToday: number;
-    sessionExpirationDate: Date | null;
+    sessionExpirationDateMs: number | null;
     registrationSessionGuid: Guid;
 };
 
@@ -220,7 +221,7 @@ export default defineComponent( {
             discountPercentage: viewModel.session?.discountPercentage || 0,
             successViewModel: viewModel.successViewModel,
             amountToPayToday: 0,
-            sessionExpirationDate: null,
+            sessionExpirationDateMs: null,
             registrationSessionGuid: viewModel.session?.registrationSessionGuid || newGuid()
         } as RegistrationEntryState );
 
@@ -253,8 +254,9 @@ export default defineComponent( {
             });
 
             if ( response.data ) {
-                const asDate = new Date( response.data.expirationDateTime );
-                registrationEntryState.sessionExpirationDate = asDate;
+                const expirationDate = RockDateTime.parseISO(response.data.expirationDateTime);
+
+                registrationEntryState.sessionExpirationDateMs = expirationDate?.toMilliseconds() ?? null;
             }
         };
 
@@ -531,16 +533,16 @@ export default defineComponent( {
                 }
             }
         },
-        "registrationEntryState.sessionExpirationDate": {
+        "registrationEntryState.sessionExpirationDateMs": {
             immediate: true,
             handler () {
-                if ( !this.registrationEntryState?.sessionExpirationDate ) {
+                if ( !this.registrationEntryState?.sessionExpirationDateMs ) {
                     this.secondsBeforeExpiration = -1;
                     return;
                 }
 
-                const nowMs = new Date().getTime();
-                const thenMs = this.registrationEntryState.sessionExpirationDate.getTime();
+                const nowMs = RockDateTime.now().toMilliseconds();
+                const thenMs = this.registrationEntryState.sessionExpirationDateMs;
                 const diffMs = thenMs - nowMs;
                 this.secondsBeforeExpiration = diffMs / 1000;
             }

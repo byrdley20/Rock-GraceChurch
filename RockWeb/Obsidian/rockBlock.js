@@ -1,4 +1,4 @@
-System.register(["./Util/http", "vue", "./Store/index"], function (exports_1, context_1) {
+System.register(["./Util/http", "vue", "./Store/index", "./Util/rockDateTime"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,7 +9,7 @@ System.register(["./Util/http", "vue", "./Store/index"], function (exports_1, co
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var http_1, vue_1, index_1, store;
+    var http_1, vue_1, index_1, rockDateTime_1, store;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -21,6 +21,9 @@ System.register(["./Util/http", "vue", "./Store/index"], function (exports_1, co
             },
             function (index_1_1) {
                 index_1 = index_1_1;
+            },
+            function (rockDateTime_1_1) {
+                rockDateTime_1 = rockDateTime_1_1;
             }
         ],
         execute: function () {
@@ -45,7 +48,7 @@ System.register(["./Util/http", "vue", "./Store/index"], function (exports_1, co
                     const log = vue_1.reactive([]);
                     const writeLog = (method, url) => {
                         log.push({
-                            date: new Date(),
+                            date: rockDateTime_1.RockDateTime.now(),
                             method,
                             url
                         });
@@ -107,7 +110,7 @@ System.register(["./Util/http", "vue", "./Store/index"], function (exports_1, co
                 },
                 mounted() {
                     var _a;
-                    this.finishTimeMs = (new Date()).getTime();
+                    this.finishTimeMs = rockDateTime_1.RockDateTime.now().toMilliseconds();
                     const componentName = ((_a = this.blockComponent) === null || _a === void 0 ? void 0 : _a.name) || "";
                     const nameParts = componentName.split(".");
                     let subtitle = nameParts[0] || "";

@@ -13,10 +13,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // </copyright>
+
+import { RockDateTime } from "./rockDateTime";
+
 //
 type CacheEntry<T> = {
     value: T;
-    expiration: Date | string;
+    expiration: RockDateTime;
 };
 
 /**
@@ -26,12 +29,10 @@ type CacheEntry<T> = {
 * @param value
 * @param expiration
 */
-function set<T>(key: string, value: T, expiration: Date | null = null): void {
+function set<T>(key: string, value: T, expiration: RockDateTime | null = null): void {
     if (!expiration) {
         // Default to one minute
-        const now = new Date();
-        const oneMinute = 60000; // One minute: 1 * 60 * 1000
-        expiration = new Date(now.getTime() + oneMinute);
+        expiration = RockDateTime.now().addMinutes(1);
     }
 
     const cache: CacheEntry<T> = { expiration, value };
@@ -56,9 +57,7 @@ function get<T>(key: string): T | null {
         return null;
     }
 
-    const expiration = new Date(cache.expiration);
-
-    if (!expiration || expiration < new Date()) {
+    if (cache.expiration < RockDateTime.now()) {
         return null;
     }
 

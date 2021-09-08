@@ -16,6 +16,7 @@
 //
 
 import { IEntity, Person, DebugTiming } from "@Obsidian/ViewModels";
+import { RockDateTime } from "../Util/rockDateTime";
 import { Guid } from "../Util/guid";
 
 export type State = {
@@ -25,8 +26,7 @@ export type State = {
     contextEntities: Record<string, IEntity>;
     pageId: number;
     pageGuid: Guid;
-    executionStartTime: Date;
+    executionStartTime: number;
     debugTimings: DebugTiming[],
     loginUrlWithReturnUrl: string
 };
-

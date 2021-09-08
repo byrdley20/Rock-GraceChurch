@@ -28,10 +28,10 @@ import Loading from "../../Controls/loading";
 import PrimaryBlock from "../../Controls/primaryBlock";
 import { InvokeBlockActionFunc } from "../../Util/block";
 import { Person } from "@Obsidian/ViewModels";
-import { asDateString, formatAspDate } from "@Obsidian/Services/date";
 import DatePicker from "../../Elements/datePicker";
 import AddressControl, { getDefaultAddressControlModel } from "../../Controls/addressControl";
 import { toNumber } from "@Obsidian/Services/number";
+import { DateTimeFormat, RockDateTime } from "../../Util/rockDateTime";
 
 const store = useStore();
 
@@ -77,7 +77,7 @@ export default defineComponent({
 
         doEdit(): void {
             this.personForEditing = this.person ? { ...this.person } : null;
-            this.birthdate = this.birthdateOrNull ? formatAspDate(this.birthdateOrNull, "yyyy-MM-dd") : null;
+            this.birthdate = this.birthdateOrNull?.toASPString("yyyy-MM-dd") ?? null;
             this.setIsEditMode(true);
         },
 
@@ -127,12 +127,12 @@ export default defineComponent({
     },
 
     computed: {
-        birthdateOrNull(): Date | null {
+        birthdateOrNull(): RockDateTime | null {
             if (!this.person?.birthDay || !this.person.birthMonth || !this.person.birthYear) {
                 return null;
             }
 
-            return new Date(`${this.person.birthYear}-${this.person.birthMonth}-${this.person.birthDay}`);
+            return RockDateTime.fromParts(this.person.birthYear, this.person.birthMonth, this.person.birthDay);
         },
 
         birthdateFormatted(): string {
@@ -140,7 +140,7 @@ export default defineComponent({
                 return "Not Completed";
             }
 
-            return asDateString(this.birthdateOrNull);
+            return this.birthdateOrNull.toLocaleString(DateTimeFormat.DateTimeShort);
         },
 
         blockTitle(): string {

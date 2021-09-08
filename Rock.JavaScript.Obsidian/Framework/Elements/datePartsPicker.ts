@@ -19,6 +19,7 @@ import { ruleArrayToString, ruleStringToArray } from "../Rules/index";
 import DateKey from "@Obsidian/Services/dateKey";
 import { toNumber, toNumberOrNull } from "@Obsidian/Services/number";
 import RockFormField from "./rockFormField";
+import { RockDateTime } from "../Util/rockDateTime";
 
 export type DatePartsPickerValue = {
     year: number;
@@ -94,7 +95,7 @@ export default defineComponent({
             const year = toNumber(this.internalYear);
             const month = toNumber(this.internalMonth);
             if (this.showYear && year > 0 && month > 0) {
-                dayCount = new Date(year, month, 0).getDate();
+                dayCount = RockDateTime.fromParts(year, month, 1)?.addMonths(1)?.addDays(-1)?.day ?? 31;
             }
             else if ([1, 3, 5, 7, 8, 10, 12].indexOf(month) !== -1) {
                 dayCount = 31;
@@ -139,14 +140,14 @@ export default defineComponent({
         },
         years (): string[] {
             const years: string[] = [];
-            let year = new Date().getFullYear();
+            let year = RockDateTime.now().year;
 
             if (this.futureYearCount > 0 && this.allowFutureDates) {
                 year += this.futureYearCount;
             }
 
-            while ( year >= 1900 ) {
-                years.push( year.toString() );
+            while (year >= 1900) {
+                years.push(year.toString());
                 year--;
             }
 

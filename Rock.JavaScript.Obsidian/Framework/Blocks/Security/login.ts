@@ -20,6 +20,7 @@ import RockButton from "../../Elements/rockButton";
 import { defineComponent, inject } from "vue";
 import { InvokeBlockActionFunc } from "../../Util/block";
 import Alert from "../../Elements/alert";
+import { RockDateTime } from "../../Util/rockDateTime";
 
 type AuthCookie = {
     expires: string;
@@ -58,13 +59,13 @@ export default defineComponent( {
             let expires = "";
 
             if ( cookie.expires ) {
-                const date = new Date( cookie.expires );
+                const date = RockDateTime.parseHTTP(cookie.expires);
 
-                if ( date < new Date() ) {
+                if (date === null || date < RockDateTime.now()) {
                     expires = "";
                 }
                 else {
-                    expires = `; expires=${date.toUTCString()}`;
+                    expires = `; expires=${date.toHTTPString()}`;
                 }
             }
             else {

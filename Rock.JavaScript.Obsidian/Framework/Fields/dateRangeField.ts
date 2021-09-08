@@ -17,7 +17,7 @@
 import { Component, defineAsyncComponent } from "vue";
 import { FieldTypeBase } from "./fieldType";
 import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
-import { formatAspDate } from "@Obsidian/Services/date";
+import { DateTimeFormat, RockDateTime } from "../Util/rockDateTime";
 import { toNumber } from "@Obsidian/Services/number";
 
 
@@ -41,17 +41,17 @@ export class DateRangeFieldType extends FieldTypeBase {
         const lowerDateParts = /^(\d+)-(\d+)-(\d+)/.exec(dateParts[0]);
         const upperDateParts = /^(\d+)-(\d+)-(\d+)/.exec(dateParts[1]);
 
-        const lowerDate = lowerDateParts !== null ? new Date(toNumber(lowerDateParts[1]), toNumber(lowerDateParts[2]) - 1, toNumber(lowerDateParts[3])) : null;
-        const upperDate = upperDateParts !== null ? new Date(toNumber(upperDateParts[1]), toNumber(upperDateParts[2]) - 1, toNumber(upperDateParts[3])) : null;
+        const lowerDate = lowerDateParts !== null ? RockDateTime.fromParts(toNumber(lowerDateParts[1]), toNumber(lowerDateParts[2]), toNumber(lowerDateParts[3])) : null;
+        const upperDate = upperDateParts !== null ? RockDateTime.fromParts(toNumber(upperDateParts[1]), toNumber(upperDateParts[2]), toNumber(upperDateParts[3])) : null;
 
         if (lowerDate !== null && upperDate !== null) {
-            value.textValue = `${formatAspDate(lowerDate, "d")} to ${formatAspDate(upperDate, "d")}`;
+            value.textValue = `${lowerDate.toLocaleString(DateTimeFormat.DateShort)} to ${upperDate.toLocaleString(DateTimeFormat.DateShort)}`;
         }
         else if (lowerDate !== null) {
-            value.textValue = `from ${formatAspDate(lowerDate, "d")}`;
+            value.textValue = `from ${lowerDate.toLocaleString(DateTimeFormat.DateShort)}`;
         }
         else if (upperDate !== null) {
-            value.textValue = `through ${formatAspDate(upperDate, "d")}`;
+            value.textValue = `through ${upperDate.toLocaleString(DateTimeFormat.DateShort)}`;
         }
         else {
             value.textValue = "";

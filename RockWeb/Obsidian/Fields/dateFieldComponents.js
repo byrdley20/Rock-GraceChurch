@@ -1,4 +1,4 @@
-System.register(["vue", "./index", "../Elements/datePicker", "@Obsidian/Services/boolean", "@Obsidian/Services/number", "../Elements/datePartsPicker"], function (exports_1, context_1) {
+System.register(["vue", "./index", "../Elements/datePicker", "@Obsidian/Services/boolean", "@Obsidian/Services/number", "../Elements/datePartsPicker", "../Util/rockDateTime"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,7 +9,7 @@ System.register(["vue", "./index", "../Elements/datePicker", "@Obsidian/Services
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var vue_1, index_1, datePicker_1, boolean_1, number_1, datePartsPicker_1, EditComponent;
+    var vue_1, index_1, datePicker_1, boolean_1, number_1, datePartsPicker_1, rockDateTime_1, EditComponent;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -30,6 +30,9 @@ System.register(["vue", "./index", "../Elements/datePicker", "@Obsidian/Services
             },
             function (datePartsPicker_1_1) {
                 datePartsPicker_1 = datePartsPicker_1_1;
+            },
+            function (rockDateTime_1_1) {
+                rockDateTime_1 = rockDateTime_1_1;
             }
         ],
         execute: function () {
@@ -56,7 +59,7 @@ System.register(["vue", "./index", "../Elements/datePicker", "@Obsidian/Services
                         if (!((_a = this.internalDateParts) === null || _a === void 0 ? void 0 : _a.day) || !this.internalDateParts.month || !this.internalDateParts.year) {
                             return null;
                         }
-                        return new Date(this.internalDateParts.year, this.internalDateParts.month - 1, this.internalDateParts.day) || null;
+                        return rockDateTime_1.RockDateTime.fromParts(this.internalDateParts.year, this.internalDateParts.month, this.internalDateParts.day) || null;
                     },
                     isDatePartsPicker() {
                         const config = this.configurationValues["datePickerControlType"];
@@ -98,8 +101,8 @@ System.register(["vue", "./index", "../Elements/datePicker", "@Obsidian/Services
                         var _a;
                         if (this.isDatePartsPicker) {
                             const d1 = this.datePartsAsDate;
-                            const d2 = Date.parse((_a = this.modelValue) !== null && _a !== void 0 ? _a : "");
-                            if (d1 === null || isNaN(d2) || d1.getTime() !== d2) {
+                            const d2 = rockDateTime_1.RockDateTime.parseISO((_a = this.modelValue) !== null && _a !== void 0 ? _a : "");
+                            if (d1 === null || d2 === null || !d1.isEqualTo(d2)) {
                                 this.$emit("update:modelValue", d1 !== null ? d1.toISOString().split("T")[0] : "");
                             }
                         }
@@ -107,9 +110,9 @@ System.register(["vue", "./index", "../Elements/datePicker", "@Obsidian/Services
                     internalValue() {
                         var _a;
                         if (!this.isDatePartsPicker) {
-                            const d1 = Date.parse(this.internalValue);
-                            const d2 = Date.parse((_a = this.modelValue) !== null && _a !== void 0 ? _a : "");
-                            if (isNaN(d1) || isNaN(d2) || d1 !== d2) {
+                            const d1 = rockDateTime_1.RockDateTime.parseISO(this.internalValue);
+                            const d2 = rockDateTime_1.RockDateTime.parseISO((_a = this.modelValue) !== null && _a !== void 0 ? _a : "");
+                            if (d1 === null || d2 === null || !d1.isEqualTo(d2)) {
                                 this.$emit("update:modelValue", this.internalValue);
                             }
                         }

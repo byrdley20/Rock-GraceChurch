@@ -18,6 +18,7 @@ import { State } from "./state";
 import { shallowReadonly, reactive } from "vue";
 import { PageConfig } from "../Util/page";
 import { Group, IEntity, Person } from "@Obsidian/ViewModels";
+import { RockDateTime } from "../Util/rockDateTime";
 
 // This needs to move elsewhere probably.
 export type PageDebugTiming = {
@@ -35,7 +36,7 @@ const state: State = reactive({
     contextEntities: {},
     pageId: 0,
     pageGuid: "",
-    executionStartTime: new Date(),
+    executionStartTime: RockDateTime.now().toMilliseconds(),
     debugTimings: [],
     loginUrlWithReturnUrl: ""
 });
@@ -62,7 +63,7 @@ class Store {
     }
 
     addPageDebugTiming(timing: PageDebugTiming): void {
-        const pageStartTime = state.executionStartTime.getTime();
+        const pageStartTime = state.executionStartTime;
         const timestampMs = timing.startTimeMs - pageStartTime;
         const durationMs = timing.finishTimeMs - timing.startTimeMs;
 

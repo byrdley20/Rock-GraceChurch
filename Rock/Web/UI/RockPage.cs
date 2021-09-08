@@ -1371,7 +1371,7 @@ Rock.settings.initialize({{
 Obsidian.onReady(() => {{
     System.import('/Obsidian/Index.js').then(indexModule => {{
         indexModule.initializePage({{
-            executionStartTime: new Date(),
+            executionStartTime: new Date().getTime(),
             pageId: {_pageCache.Id},
             pageGuid: '{_pageCache.Guid}',
             pageParameters: {PageParameters().ToJson()},

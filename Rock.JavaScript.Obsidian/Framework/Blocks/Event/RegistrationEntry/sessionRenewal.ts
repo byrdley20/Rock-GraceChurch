@@ -24,6 +24,7 @@ import { toWord } from "@Obsidian/Services/number";
 import { pluralConditional } from "@Obsidian/Services/string";
 import { RegistrationEntryState } from "../registrationEntry";
 import { SessionRenewalResult } from "./registrationEntryBlockViewModel";
+import { RockDateTime } from "../../../Util/rockDateTime";
 
 export default defineComponent( {
     name: "Event.RegistrationEntry.SessionRenewal",
@@ -112,8 +113,8 @@ export default defineComponent( {
                 });
 
                 if (response.data) {
-                    const asDate = new Date(response.data.expirationDateTime);
-                    this.registrationEntryState.sessionExpirationDate = asDate;
+                    const asDate = RockDateTime.parseISO(response.data.expirationDateTime);
+                    this.registrationEntryState.sessionExpirationDateMs = asDate?.toMilliseconds() ?? null;
                     this.spotsSecured = response.data.spotsSecured;
 
                     // If there is a deficiency, then update the state to reflect the reduced spots available

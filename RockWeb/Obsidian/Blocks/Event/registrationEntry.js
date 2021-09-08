@@ -1,4 +1,4 @@
-System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./RegistrationEntry/intro", "./RegistrationEntry/registrants", "./RegistrationEntry/registrationStart", "./RegistrationEntry/registrationEnd", "./RegistrationEntry/summary", "../../Elements/progressTracker", "@Obsidian/Services/number", "@Obsidian/Services/string", "../../Elements/alert", "../../Elements/countdownTimer", "./RegistrationEntry/success", "../../Util/page", "../../Elements/javaScriptAnchor", "./RegistrationEntry/sessionRenewal", "../../Store/index"], function (exports_1, context_1) {
+System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./RegistrationEntry/intro", "./RegistrationEntry/registrants", "./RegistrationEntry/registrationStart", "./RegistrationEntry/registrationEnd", "./RegistrationEntry/summary", "../../Elements/progressTracker", "@Obsidian/Services/number", "@Obsidian/Services/string", "../../Elements/alert", "../../Elements/countdownTimer", "./RegistrationEntry/success", "../../Util/page", "../../Elements/javaScriptAnchor", "./RegistrationEntry/sessionRenewal", "../../Store/index", "../../Util/rockDateTime"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,7 +9,7 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var vue_1, rockButton_1, guid_1, intro_1, registrants_1, registrationStart_1, registrationEnd_1, summary_1, registrants_2, progressTracker_1, number_1, string_1, alert_1, countdownTimer_1, success_1, page_1, javaScriptAnchor_1, sessionRenewal_1, index_1, store, unknownSingleFamilyGuid;
+    var vue_1, rockButton_1, guid_1, intro_1, registrants_1, registrationStart_1, registrationEnd_1, summary_1, registrants_2, progressTracker_1, number_1, string_1, alert_1, countdownTimer_1, success_1, page_1, javaScriptAnchor_1, sessionRenewal_1, index_1, rockDateTime_1, store, unknownSingleFamilyGuid;
     var __moduleName = context_1 && context_1.id;
     function getForcedFamilyGuid(currentPerson, viewModel) {
         return (currentPerson && viewModel.registrantsSameFamily === 1) ?
@@ -107,6 +107,9 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
             },
             function (index_1_1) {
                 index_1 = index_1_1;
+            },
+            function (rockDateTime_1_1) {
+                rockDateTime_1 = rockDateTime_1_1;
             }
         ],
         execute: function () {
@@ -186,7 +189,7 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                         discountPercentage: ((_g = viewModel.session) === null || _g === void 0 ? void 0 : _g.discountPercentage) || 0,
                         successViewModel: viewModel.successViewModel,
                         amountToPayToday: 0,
-                        sessionExpirationDate: null,
+                        sessionExpirationDateMs: null,
                         registrationSessionGuid: ((_h = viewModel.session) === null || _h === void 0 ? void 0 : _h.registrationSessionGuid) || guid_1.newGuid()
                     });
                     vue_1.provide("registrationEntryState", registrationEntryState);
@@ -205,6 +208,7 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                     };
                     vue_1.provide("getRegistrationEntryBlockArgs", getRegistrationEntryBlockArgs);
                     const persistSession = (force = false) => __awaiter(this, void 0, void 0, function* () {
+                        var _j;
                         if (!force && !viewModel.timeoutMinutes) {
                             return;
                         }
@@ -212,8 +216,8 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                             args: getRegistrationEntryBlockArgs()
                         });
                         if (response.data) {
-                            const asDate = new Date(response.data.expirationDateTime);
-                            registrationEntryState.sessionExpirationDate = asDate;
+                            const expirationDate = rockDateTime_1.RockDateTime.parseISO(response.data.expirationDateTime);
+                            registrationEntryState.sessionExpirationDateMs = (_j = expirationDate === null || expirationDate === void 0 ? void 0 : expirationDate.toMilliseconds()) !== null && _j !== void 0 ? _j : null;
                         }
                     });
                     vue_1.provide("persistSession", persistSession);
@@ -478,16 +482,16 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                             }
                         }
                     },
-                    "registrationEntryState.sessionExpirationDate": {
+                    "registrationEntryState.sessionExpirationDateMs": {
                         immediate: true,
                         handler() {
                             var _a;
-                            if (!((_a = this.registrationEntryState) === null || _a === void 0 ? void 0 : _a.sessionExpirationDate)) {
+                            if (!((_a = this.registrationEntryState) === null || _a === void 0 ? void 0 : _a.sessionExpirationDateMs)) {
                                 this.secondsBeforeExpiration = -1;
                                 return;
                             }
-                            const nowMs = new Date().getTime();
-                            const thenMs = this.registrationEntryState.sessionExpirationDate.getTime();
+                            const nowMs = rockDateTime_1.RockDateTime.now().toMilliseconds();
+                            const thenMs = this.registrationEntryState.sessionExpirationDateMs;
                             const diffMs = thenMs - nowMs;
                             this.secondsBeforeExpiration = diffMs / 1000;
                         }

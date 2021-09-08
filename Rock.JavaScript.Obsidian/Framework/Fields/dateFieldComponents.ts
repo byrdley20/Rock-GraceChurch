@@ -21,6 +21,7 @@ import { asBoolean } from "@Obsidian/Services/boolean";
 import { toNumber } from "@Obsidian/Services/number";
 import DatePartsPicker, { getDefaultDatePartsPickerModel } from "../Elements/datePartsPicker";
 import { ConfigurationValueKey } from "./dateField";
+import { RockDateTime } from "../Util/rockDateTime";
 
 export const EditComponent = defineComponent({
     name: "DateField.Edit",
@@ -46,12 +47,12 @@ export const EditComponent = defineComponent({
     },
 
     computed: {
-        datePartsAsDate(): Date | null {
+        datePartsAsDate(): RockDateTime | null {
             if (!this.internalDateParts?.day || !this.internalDateParts.month || !this.internalDateParts.year) {
                 return null;
             }
 
-            return new Date(this.internalDateParts.year, this.internalDateParts.month - 1, this.internalDateParts.day) || null;
+            return RockDateTime.fromParts(this.internalDateParts.year, this.internalDateParts.month, this.internalDateParts.day) || null;
         },
 
         isDatePartsPicker(): boolean {
@@ -100,9 +101,9 @@ export const EditComponent = defineComponent({
         datePartsAsDate(): void {
             if (this.isDatePartsPicker) {
                 const d1 = this.datePartsAsDate;
-                const d2 = Date.parse(this.modelValue ?? "");
+                const d2 = RockDateTime.parseISO(this.modelValue ?? "");
 
-                if (d1 === null || isNaN(d2) || d1.getTime() !== d2) {
+                if (d1 === null || d2 === null || !d1.isEqualTo(d2)) {
                     this.$emit("update:modelValue", d1 !== null ? d1.toISOString().split("T")[0] : "");
                 }
             }
@@ -110,10 +111,10 @@ export const EditComponent = defineComponent({
 
         internalValue(): void {
             if (!this.isDatePartsPicker) {
-                const d1 = Date.parse(this.internalValue);
-                const d2 = Date.parse(this.modelValue ?? "");
+                const d1 = RockDateTime.parseISO(this.internalValue);
+                const d2 = RockDateTime.parseISO(this.modelValue ?? "");
 
-                if (isNaN(d1) || isNaN(d2) || d1 !== d2) {
+                if (d1 === null || d2 === null || !d1.isEqualTo(d2)) {
                     this.$emit("update:modelValue", this.internalValue);
                 }
             }

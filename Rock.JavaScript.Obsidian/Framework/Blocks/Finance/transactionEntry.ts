@@ -20,6 +20,7 @@ import { defineComponent, inject } from "vue";
 import DatePicker from "../../Elements/datePicker";
 import RockButton from "../../Elements/rockButton";
 import { areEqual, Guid, newGuid } from "../../Util/guid";
+import { RockDateTime } from "../../Util/rockDateTime";
 import Alert from "../../Elements/alert";
 import { asFormattedString } from "@Obsidian/Services/number";
 import { ConfigurationValues, InvokeBlockActionFunc } from "../../Util/block";
@@ -30,7 +31,6 @@ import TextBox from "../../Elements/textBox";
 import { asCommaAnd } from "@Obsidian/Services/string";
 import GatewayControl, { GatewayControlModel } from "../../Controls/gatewayControl";
 import RockValidation from "../../Controls/rockValidation";
-import { formatAspDate } from "@Obsidian/Services/date";
 
 const store = useStore();
 
@@ -114,7 +114,7 @@ export default defineComponent({
                 campusGuid: "",
                 businessGuid: null,
                 frequencyValueGuid: "",
-                giftDate: formatAspDate(new Date(), "yyyy-MM-dd"),
+                giftDate: RockDateTime.now().toASPString("yyyy-MM-dd"),
                 isGiveAnonymously: false
             } as ProcessTransactionArgs
         };

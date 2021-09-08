@@ -1,4 +1,4 @@
-System.register(["vue", "./rockBlock", "./Store/index", "./Rules/index"], function (exports_1, context_1) {
+System.register(["vue", "./rockBlock", "./Store/index", "./Rules/index", "./Util/rockDateTime"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,7 +9,7 @@ System.register(["vue", "./rockBlock", "./Store/index", "./Rules/index"], functi
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var vue_1, rockBlock_1, index_1, store;
+    var vue_1, rockBlock_1, index_1, rockDateTime_1, store;
     var __moduleName = context_1 && context_1.id;
     function initializeBlock(config) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -27,7 +27,7 @@ System.register(["vue", "./rockBlock", "./Store/index", "./Rules/index"], functi
                 errorMessage = `${e}`;
             }
             const name = `Root${config.blockFileUrl.replace(/\//g, ".")}`;
-            const startTimeMs = (new Date()).getTime();
+            const startTimeMs = rockDateTime_1.RockDateTime.now().toMilliseconds();
             const app = vue_1.createApp({
                 name,
                 components: {
@@ -96,6 +96,9 @@ System.register(["vue", "./rockBlock", "./Store/index", "./Rules/index"], functi
                 index_1 = index_1_1;
             },
             function (_1) {
+            },
+            function (rockDateTime_1_1) {
+                rockDateTime_1 = rockDateTime_1_1;
             }
         ],
         execute: function () {

@@ -1,4 +1,4 @@
-System.register(["../../Elements/textBox", "../../Elements/checkBox", "../../Elements/rockButton", "vue", "../../Elements/alert"], function (exports_1, context_1) {
+System.register(["../../Elements/textBox", "../../Elements/checkBox", "../../Elements/rockButton", "vue", "../../Elements/alert", "../../Util/rockDateTime"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,7 +9,7 @@ System.register(["../../Elements/textBox", "../../Elements/checkBox", "../../Ele
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var textBox_1, checkBox_1, rockButton_1, vue_1, alert_1;
+    var textBox_1, checkBox_1, rockButton_1, vue_1, alert_1, rockDateTime_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -27,6 +27,9 @@ System.register(["../../Elements/textBox", "../../Elements/checkBox", "../../Ele
             },
             function (alert_1_1) {
                 alert_1 = alert_1_1;
+            },
+            function (rockDateTime_1_1) {
+                rockDateTime_1 = rockDateTime_1_1;
             }
         ],
         execute: function () {
@@ -56,12 +59,12 @@ System.register(["../../Elements/textBox", "../../Elements/checkBox", "../../Ele
                     setCookie(cookie) {
                         let expires = "";
                         if (cookie.expires) {
-                            const date = new Date(cookie.expires);
-                            if (date < new Date()) {
+                            const date = rockDateTime_1.RockDateTime.parseHTTP(cookie.expires);
+                            if (date === null || date < rockDateTime_1.RockDateTime.now()) {
                                 expires = "";
                             }
                             else {
-                                expires = `; expires=${date.toUTCString()}`;
+                                expires = `; expires=${date.toHTTPString()}`;
                             }
                         }
                         else {

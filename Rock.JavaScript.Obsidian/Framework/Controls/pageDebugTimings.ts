@@ -16,8 +16,10 @@
 //
 import { asFormattedString } from "@Obsidian/Services/number";
 import { defineComponent, PropType } from "vue";
-import store from "../Store/index";
+import { useStore } from "../Store/index";
 import { DebugTiming } from "@Obsidian/ViewModels";
+
+const store = useStore();
 
 const pageDebugTimingRow = defineComponent({
     name: "PageDebugTimingRow",

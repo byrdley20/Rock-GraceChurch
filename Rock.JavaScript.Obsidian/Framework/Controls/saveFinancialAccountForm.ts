@@ -24,6 +24,9 @@ import { Guid } from "../Util/guid";
 import { Person } from "@Obsidian/ViewModels";
 import { BlockHttp } from "../Util/block";
 import RockForm from "./rockForm";
+import { useStore } from "../Store/index";
+
+const store = useStore();
 
 type SaveFinancialAccountFormResult = {
     title: string;
@@ -89,7 +92,7 @@ const SaveFinancialAccountForm = defineComponent( {
     computed: {
         /** The person currently authenticated */
         currentPerson (): Person | null {
-            return this.$store.state.currentPerson;
+            return store.state.currentPerson;
         },
 
         /** Is a new login account needed to attach the new saved financial account to? */

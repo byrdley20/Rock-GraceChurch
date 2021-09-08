@@ -37,6 +37,9 @@ import { InvokeBlockActionFunc } from "../../Util/block";
 import JavaScriptAnchor from "../../Elements/javaScriptAnchor";
 import { Person } from "@Obsidian/ViewModels";
 import SessionRenewal from "./RegistrationEntry/sessionRenewal";
+import { useStore } from "../../Store/index";
+
+const store = useStore();
 
 const enum Step {
     Intro = "intro",
@@ -275,7 +278,7 @@ export default defineComponent( {
     computed: {
         /** The person currently authenticated */
         currentPerson (): Person | null {
-            return this.$store.state.currentPerson;
+            return store.state.currentPerson;
         },
 
         /** Is the session expired? */
@@ -284,7 +287,7 @@ export default defineComponent( {
         },
 
         mustLogin (): boolean {
-            return !this.$store.state.currentPerson && this.viewModel != null && ( this.viewModel.isUnauthorized || this.viewModel.loginRequiredToRegister );
+            return !store.state.currentPerson && this.viewModel != null && ( this.viewModel.isUnauthorized || this.viewModel.loginRequiredToRegister );
         },
         isUnauthorized (): boolean {
             return this.viewModel?.isUnauthorized ?? false;
@@ -544,8 +547,8 @@ export default defineComponent( {
         }
     },
     mounted () {
-        if ( this.viewModel?.loginRequiredToRegister && !this.$store.state.currentPerson ) {
-            this.$store.dispatch( "redirectToLogin" );
+        if ( this.viewModel?.loginRequiredToRegister && !store.state.currentPerson ) {
+            store.redirectToLogin();
         }
     },
     template: `

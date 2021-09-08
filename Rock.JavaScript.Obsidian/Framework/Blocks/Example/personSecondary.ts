@@ -20,8 +20,10 @@ import SecondaryBlock from "../../Controls/secondaryBlock";
 import RockButton from "../../Elements/rockButton";
 import TextBox from "../../Elements/textBox";
 import { defineComponent } from "vue";
-import store from "../../Store/index";
+import { useStore } from "../../Store/index";
 import { Person } from "@Obsidian/ViewModels";
+
+const store = useStore();
 
 export default defineComponent({
     name: "Example.PersonSecondary",

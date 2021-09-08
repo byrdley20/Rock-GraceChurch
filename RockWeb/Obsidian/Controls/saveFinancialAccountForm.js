@@ -1,4 +1,4 @@
-System.register(["vue", "../Elements/alert", "../Elements/checkBox", "../Elements/rockButton", "../Elements/textBox", "./rockForm"], function (exports_1, context_1) {
+System.register(["vue", "../Elements/alert", "../Elements/checkBox", "../Elements/rockButton", "../Elements/textBox", "./rockForm", "../Store/index"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,7 +9,7 @@ System.register(["vue", "../Elements/alert", "../Elements/checkBox", "../Element
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var vue_1, alert_1, checkBox_1, rockButton_1, textBox_1, rockForm_1, SaveFinancialAccountForm;
+    var vue_1, alert_1, checkBox_1, rockButton_1, textBox_1, rockForm_1, index_1, store, SaveFinancialAccountForm;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -30,9 +30,13 @@ System.register(["vue", "../Elements/alert", "../Elements/checkBox", "../Element
             },
             function (rockForm_1_1) {
                 rockForm_1 = rockForm_1_1;
+            },
+            function (index_1_1) {
+                index_1 = index_1_1;
             }
         ],
         execute: function () {
+            store = index_1.useStore();
             SaveFinancialAccountForm = vue_1.defineComponent({
                 name: "SaveFinancialAccountForm",
                 components: {
@@ -77,7 +81,7 @@ System.register(["vue", "../Elements/alert", "../Elements/checkBox", "../Element
                 },
                 computed: {
                     currentPerson() {
-                        return this.$store.state.currentPerson;
+                        return store.state.currentPerson;
                     },
                     isLoginCreationNeeded() {
                         return !this.currentPerson;

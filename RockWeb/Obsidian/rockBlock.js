@@ -9,7 +9,7 @@ System.register(["./Util/http", "vue", "./Store/index"], function (exports_1, co
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var http_1, vue_1, index_1;
+    var http_1, vue_1, index_1, store;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -24,6 +24,7 @@ System.register(["./Util/http", "vue", "./Store/index"], function (exports_1, co
             }
         ],
         execute: function () {
+            store = index_1.useStore();
             exports_1("default", vue_1.defineComponent({
                 name: "RockBlock",
                 props: {
@@ -61,7 +62,7 @@ System.register(["./Util/http", "vue", "./Store/index"], function (exports_1, co
                     });
                     const invokeBlockAction = (actionName, data = undefined) => __awaiter(this, void 0, void 0, function* () {
                         return yield post(`/api/v2/BlockActions/${props.config.blockGuid}/${actionName}`, undefined, Object.assign({ __context: {
-                                pageParameters: index_1.default.state.pageParameters
+                                pageParameters: store.state.pageParameters
                             } }, data));
                     });
                     const blockHttp = { get, post };
@@ -89,7 +90,7 @@ System.register(["./Util/http", "vue", "./Store/index"], function (exports_1, co
                         return this.finishTimeMs - this.startTimeMs;
                     },
                     pageGuid() {
-                        return index_1.default.state.pageGuid;
+                        return store.state.pageGuid;
                     }
                 },
                 errorCaptured(err) {
@@ -114,7 +115,7 @@ System.register(["./Util/http", "vue", "./Store/index"], function (exports_1, co
                         subtitle = `(${subtitle})`;
                     }
                     if (nameParts.length) {
-                        index_1.default.commit("addPageDebugTiming", {
+                        store.addPageDebugTiming({
                             title: nameParts[1] || "<Unnamed>",
                             subtitle: subtitle,
                             startTimeMs: this.startTimeMs,

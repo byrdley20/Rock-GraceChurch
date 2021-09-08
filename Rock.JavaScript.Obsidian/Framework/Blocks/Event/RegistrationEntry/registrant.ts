@@ -30,6 +30,9 @@ import { areEqual, Guid } from "../../../Util/guid";
 import RockForm from "../../../Controls/rockForm";
 import FeeField from "./feeField";
 import ItemsWithPreAndPostHtml, { ItemWithPreAndPostHtml } from "../../../Elements/itemsWithPreAndPostHtml";
+import { useStore } from "../../../Store/index";
+
+const store = useStore();
 
 export default defineComponent( {
     name: "Event.RegistrationEntry.Registrant",
@@ -113,7 +116,7 @@ export default defineComponent( {
                 } ) );
         },
         currentPerson (): Person | null {
-            return this.$store.state.currentPerson;
+            return store.state.currentPerson;
         },
         pluralFeeTerm (): string {
             return StringFilter.toTitleCase( this.viewModel.pluralFeeTerm || "fees" );

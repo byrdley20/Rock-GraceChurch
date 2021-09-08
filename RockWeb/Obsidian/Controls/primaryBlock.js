@@ -1,6 +1,6 @@
 System.register(["vue", "../Store/index"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, index_1;
+    var vue_1, index_1, store;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -12,6 +12,7 @@ System.register(["vue", "../Store/index"], function (exports_1, context_1) {
             }
         ],
         execute: function () {
+            store = index_1.useStore();
             exports_1("default", vue_1.defineComponent({
                 name: "PrimaryBlock",
                 props: {
@@ -22,7 +23,7 @@ System.register(["vue", "../Store/index"], function (exports_1, context_1) {
                 },
                 methods: {
                     setAreSecondaryBlocksShown(isVisible) {
-                        index_1.default.commit("setAreSecondaryBlocksShown", { areSecondaryBlocksShown: isVisible });
+                        store.setAreSecondaryBlocksShown(isVisible);
                     }
                 },
                 watch: {

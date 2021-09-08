@@ -9,7 +9,7 @@ System.register(["../../Elements/dropDownList", "../../Elements/currencyBox", "v
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var dropDownList_1, currencyBox_1, vue_1, datePicker_1, rockButton_1, guid_1, alert_1, number_1, toggle_1, index_1, textBox_1, string_1, gatewayControl_1, rockValidation_1, date_1;
+    var dropDownList_1, currencyBox_1, vue_1, datePicker_1, rockButton_1, guid_1, alert_1, number_1, toggle_1, index_1, textBox_1, string_1, gatewayControl_1, rockValidation_1, date_1, store;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -60,6 +60,7 @@ System.register(["../../Elements/dropDownList", "../../Elements/currencyBox", "v
             }
         ],
         execute: function () {
+            store = index_1.useStore();
             exports_1("default", vue_1.defineComponent({
                 name: "Finance.TransactionEntry",
                 components: {
@@ -131,7 +132,7 @@ System.register(["../../Elements/dropDownList", "../../Elements/currencyBox", "v
                         return this.configurationValues["gatewayControl"];
                     },
                     currentPerson() {
-                        return index_1.default.state.currentPerson;
+                        return store.state.currentPerson;
                     },
                     accounts() {
                         return this.configurationValues["financialAccounts"] || [];

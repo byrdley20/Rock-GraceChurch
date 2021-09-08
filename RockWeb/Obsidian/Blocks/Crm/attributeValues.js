@@ -9,7 +9,7 @@ System.register(["vue", "../../Templates/paneledBlockTemplate", "../../Controls/
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var vue_1, paneledBlockTemplate_1, loading_1, index_1, block_1, javaScriptAnchor_1, rockForm_1, textBox_1, rockButton_1, attributeValuesContainer_1;
+    var vue_1, paneledBlockTemplate_1, loading_1, index_1, block_1, javaScriptAnchor_1, rockForm_1, textBox_1, rockButton_1, attributeValuesContainer_1, store;
     var __moduleName = context_1 && context_1.id;
     function sortedAttributeValues(attributeValues) {
         const sortedValues = [...attributeValues];
@@ -60,6 +60,7 @@ System.register(["vue", "../../Templates/paneledBlockTemplate", "../../Controls/
             }
         ],
         execute: function () {
+            store = index_1.useStore();
             exports_1("default", vue_1.defineComponent({
                 name: "Crm.AttributeValues",
                 components: {
@@ -75,10 +76,12 @@ System.register(["vue", "../../Templates/paneledBlockTemplate", "../../Controls/
                     const configurationValues = block_1.useConfigurationValues();
                     const invokeBlockAction = block_1.useInvokeBlockAction();
                     const attributeValues = vue_1.ref(sortedAttributeValues(configurationValues.attributes));
-                    const personGuid = vue_1.computed(() => { var _a; return ((_a = index_1.default.getters.personContext) === null || _a === void 0 ? void 0 : _a.guid) || null; });
+                    const personGuid = vue_1.computed(() => { var _a; return ((_a = store.personContext) === null || _a === void 0 ? void 0 : _a.guid) || null; });
                     const isLoading = vue_1.ref(false);
                     const isEditMode = vue_1.ref(false);
-                    const goToViewMode = () => isEditMode.value = false;
+                    const goToViewMode = () => {
+                        isEditMode.value = false;
+                    };
                     const goToEditMode = () => __awaiter(this, void 0, void 0, function* () {
                         var _a;
                         const result = yield invokeBlockAction("GetAttributeValuesForEdit");

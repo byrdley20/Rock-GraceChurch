@@ -15,7 +15,9 @@
 // </copyright>
 //
 import { defineComponent } from "vue";
-import store from "../Store/index";
+import { useStore } from "../Store/index";
+
+const store = useStore();
 
 export default defineComponent({
     name: "SecondaryBlock",

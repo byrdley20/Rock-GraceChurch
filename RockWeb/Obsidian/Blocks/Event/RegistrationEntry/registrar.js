@@ -1,6 +1,6 @@
-System.register(["vue", "../../../Elements/checkBox", "../../../Elements/emailBox", "../../../Elements/radioButtonList", "../../../Elements/staticFormControl", "../../../Elements/textBox", "../registrationEntry"], function (exports_1, context_1) {
+System.register(["vue", "../../../Elements/checkBox", "../../../Elements/emailBox", "../../../Elements/radioButtonList", "../../../Elements/staticFormControl", "../../../Elements/textBox", "../registrationEntry", "../../../Store/index"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, checkBox_1, emailBox_1, radioButtonList_1, staticFormControl_1, textBox_1, registrationEntry_1;
+    var vue_1, checkBox_1, emailBox_1, radioButtonList_1, staticFormControl_1, textBox_1, registrationEntry_1, index_1, store;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -24,9 +24,13 @@ System.register(["vue", "../../../Elements/checkBox", "../../../Elements/emailBo
             },
             function (registrationEntry_1_1) {
                 registrationEntry_1 = registrationEntry_1_1;
+            },
+            function (index_1_1) {
+                index_1 = index_1_1;
             }
         ],
         execute: function () {
+            store = index_1.useStore();
             exports_1("default", vue_1.defineComponent({
                 name: "Event.RegistrationEntry.Registrar",
                 components: {
@@ -52,7 +56,7 @@ System.register(["vue", "../../../Elements/checkBox", "../../../Elements/emailBo
                         return (!!this.currentPerson) && this.viewModel.registrarOption === 3;
                     },
                     currentPerson() {
-                        return this.$store.state.currentPerson;
+                        return store.state.currentPerson;
                     },
                     registrar() {
                         return this.registrationEntryState.registrar;

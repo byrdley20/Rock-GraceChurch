@@ -16,7 +16,7 @@
 //
 import PaneledBlockTemplate from "../../Templates/paneledBlockTemplate";
 import { defineComponent, inject } from "vue";
-import store from "../../Store/index";
+import { useStore } from "../../Store/index";
 import Grid, { FilterOptions, RowContext, SortDirection, SortProperty } from "../../Controls/grid";
 import GridRow from "../../Controls/gridRow";
 import GridColumn from "../../Controls/gridColumn";
@@ -37,6 +37,8 @@ type GroupMemberViewModel = {
 type GetGroupMemberListResponse = {
     groupMembers: GroupMemberViewModel[]
 };
+
+const store = useStore();
 
 export default defineComponent({
     name: "Groups.GroupMemberList",
@@ -67,7 +69,7 @@ export default defineComponent({
     },
     computed: {
         groupId(): number {
-            return (store.getters.groupContext || {}).id || 0;
+            return store.groupContext?.id || 0;
         },
     },
     methods: {

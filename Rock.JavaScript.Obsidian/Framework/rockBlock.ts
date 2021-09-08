@@ -17,7 +17,7 @@
 import { doApiCall, HttpBodyData, HttpMethod, HttpUrlParams } from "./Util/http";
 import { Component, defineComponent, PropType, provide, reactive } from "vue";
 import { BlockConfig, BlockHttp, InvokeBlockActionFunc } from "./Util/block";
-import store, { MutationType, PageDebugTiming } from "./Store/index";
+import { useStore } from "./Store/index";
 import { Guid } from "./Util/guid";
 
 type LogItem = {
@@ -25,6 +25,8 @@ type LogItem = {
     method: HttpMethod;
     url: string;
 };
+
+const store = useStore();
 
 export default defineComponent( {
     name: "RockBlock",
@@ -128,13 +130,13 @@ export default defineComponent( {
             subtitle = `(${subtitle})`;
         }
 
-        if ( nameParts.length ) {
-            store.commit( MutationType.AddPageDebugTiming, {
+        if (nameParts.length) {
+            store.addPageDebugTiming({
                 title: nameParts[ 1 ] || "<Unnamed>",
                 subtitle: subtitle,
                 startTimeMs: this.startTimeMs,
                 finishTimeMs: this.finishTimeMs
-            } as PageDebugTiming );
+            });
         }
     },
 

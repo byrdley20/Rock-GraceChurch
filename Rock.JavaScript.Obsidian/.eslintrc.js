@@ -36,6 +36,14 @@ module.exports = {
         // Allow things like `value: number = 5`.
         "@typescript-eslint/no-inferrable-types": "off",
 
+        // Enforce return types be specified on functions.
+        "@typescript-eslint/explicit-function-return-type": [
+            1,
+            {
+                allowExpressions: true
+            }
+        ],
+
         // Enforce certain naming conventions on all code.
         "@typescript-eslint/naming-convention": [
             "error",

@@ -30,14 +30,3 @@ export type State = {
     loginUrlWithReturnUrl: string
 };
 
-export const state: State = {
-    areSecondaryBlocksShown: true,
-    currentPerson: null,
-    pageParameters: {},
-    contextEntities: {},
-    pageId: 0,
-    pageGuid: "" as Guid,
-    executionStartTime: new Date(),
-    debugTimings: [],
-    loginUrlWithReturnUrl: ""
-};

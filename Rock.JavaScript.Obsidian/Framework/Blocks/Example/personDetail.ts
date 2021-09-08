@@ -19,7 +19,7 @@ import PaneledBlockTemplate from "../../Templates/paneledBlockTemplate";
 import RockButton from "../../Elements/rockButton";
 import TextBox from "../../Elements/textBox";
 import { defineComponent, inject } from "vue";
-import store from "../../Store/index";
+import { useStore } from "../../Store/index";
 import EmailBox from "../../Elements/emailBox";
 import RockValidation from "../../Controls/rockValidation";
 import RockForm from "../../Controls/rockForm";
@@ -32,6 +32,8 @@ import { asDateString, formatAspDate } from "@Obsidian/Services/date";
 import DatePicker from "../../Elements/datePicker";
 import AddressControl, { getDefaultAddressControlModel } from "../../Controls/addressControl";
 import { toNumber } from "@Obsidian/Services/number";
+
+const store = useStore();
 
 export default defineComponent({
     name: "Example.PersonDetail",

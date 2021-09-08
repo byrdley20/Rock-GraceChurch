@@ -1,4 +1,4 @@
-System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./RegistrationEntry/intro", "./RegistrationEntry/registrants", "./RegistrationEntry/registrationStart", "./RegistrationEntry/registrationEnd", "./RegistrationEntry/summary", "../../Elements/progressTracker", "@Obsidian/Services/number", "@Obsidian/Services/string", "../../Elements/alert", "../../Elements/countdownTimer", "./RegistrationEntry/success", "../../Util/page", "../../Elements/javaScriptAnchor", "./RegistrationEntry/sessionRenewal"], function (exports_1, context_1) {
+System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./RegistrationEntry/intro", "./RegistrationEntry/registrants", "./RegistrationEntry/registrationStart", "./RegistrationEntry/registrationEnd", "./RegistrationEntry/summary", "../../Elements/progressTracker", "@Obsidian/Services/number", "@Obsidian/Services/string", "../../Elements/alert", "../../Elements/countdownTimer", "./RegistrationEntry/success", "../../Util/page", "../../Elements/javaScriptAnchor", "./RegistrationEntry/sessionRenewal", "../../Store/index"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -9,7 +9,7 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var vue_1, rockButton_1, guid_1, intro_1, registrants_1, registrationStart_1, registrationEnd_1, summary_1, registrants_2, progressTracker_1, number_1, string_1, alert_1, countdownTimer_1, success_1, page_1, javaScriptAnchor_1, sessionRenewal_1, unknownSingleFamilyGuid;
+    var vue_1, rockButton_1, guid_1, intro_1, registrants_1, registrationStart_1, registrationEnd_1, summary_1, registrants_2, progressTracker_1, number_1, string_1, alert_1, countdownTimer_1, success_1, page_1, javaScriptAnchor_1, sessionRenewal_1, index_1, store, unknownSingleFamilyGuid;
     var __moduleName = context_1 && context_1.id;
     function getForcedFamilyGuid(currentPerson, viewModel) {
         return (currentPerson && viewModel.registrantsSameFamily === 1) ?
@@ -104,9 +104,13 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
             },
             function (sessionRenewal_1_1) {
                 sessionRenewal_1 = sessionRenewal_1_1;
+            },
+            function (index_1_1) {
+                index_1 = index_1_1;
             }
         ],
         execute: function () {
+            store = index_1.useStore();
             unknownSingleFamilyGuid = guid_1.newGuid();
             exports_1("default", vue_1.defineComponent({
                 name: "Event.RegistrationEntry",
@@ -229,13 +233,13 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                 },
                 computed: {
                     currentPerson() {
-                        return this.$store.state.currentPerson;
+                        return store.state.currentPerson;
                     },
                     isSessionExpired() {
                         return this.secondsBeforeExpiration === 0 && this.currentStep !== "success";
                     },
                     mustLogin() {
-                        return !this.$store.state.currentPerson && this.viewModel != null && (this.viewModel.isUnauthorized || this.viewModel.loginRequiredToRegister);
+                        return !store.state.currentPerson && this.viewModel != null && (this.viewModel.isUnauthorized || this.viewModel.loginRequiredToRegister);
                     },
                     isUnauthorized() {
                         var _a, _b;
@@ -491,8 +495,8 @@ System.register(["vue", "../../Elements/rockButton", "../../Util/guid", "./Regis
                 },
                 mounted() {
                     var _a;
-                    if (((_a = this.viewModel) === null || _a === void 0 ? void 0 : _a.loginRequiredToRegister) && !this.$store.state.currentPerson) {
-                        this.$store.dispatch("redirectToLogin");
+                    if (((_a = this.viewModel) === null || _a === void 0 ? void 0 : _a.loginRequiredToRegister) && !store.state.currentPerson) {
+                        store.redirectToLogin();
                     }
                 },
                 template: `

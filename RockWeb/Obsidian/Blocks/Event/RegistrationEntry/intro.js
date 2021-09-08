@@ -1,6 +1,6 @@
-System.register(["vue", "../../../Elements/alert", "../../../Elements/numberUpDown", "../../../Elements/rockButton", "@Obsidian/Services/string", "../../../Util/guid", "../registrationEntry"], function (exports_1, context_1) {
+System.register(["vue", "../../../Elements/alert", "../../../Elements/numberUpDown", "../../../Elements/rockButton", "@Obsidian/Services/string", "../../../Util/guid", "../registrationEntry", "../../../Store/index"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, alert_1, numberUpDown_1, rockButton_1, string_1, guid_1, registrationEntry_1;
+    var vue_1, alert_1, numberUpDown_1, rockButton_1, string_1, guid_1, registrationEntry_1, index_1, store;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -24,9 +24,13 @@ System.register(["vue", "../../../Elements/alert", "../../../Elements/numberUpDo
             },
             function (registrationEntry_1_1) {
                 registrationEntry_1 = registrationEntry_1_1;
+            },
+            function (index_1_1) {
+                index_1 = index_1_1;
             }
         ],
         execute: function () {
+            store = index_1.useStore();
             exports_1("default", vue_1.defineComponent({
                 name: "Event.RegistrationEntry.Intro",
                 components: {
@@ -44,7 +48,7 @@ System.register(["vue", "../../../Elements/alert", "../../../Elements/numberUpDo
                 },
                 computed: {
                     currentPerson() {
-                        return this.$store.state.currentPerson;
+                        return store.state.currentPerson;
                     },
                     viewModel() {
                         return this.registrationEntryState.viewModel;

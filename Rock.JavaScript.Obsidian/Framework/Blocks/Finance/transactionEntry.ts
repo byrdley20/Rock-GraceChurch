@@ -25,12 +25,14 @@ import { asFormattedString } from "@Obsidian/Services/number";
 import { ConfigurationValues, InvokeBlockActionFunc } from "../../Util/block";
 import Toggle from "../../Elements/toggle";
 import { FinancialAccount, Person } from "@Obsidian/ViewModels";
-import store from "../../Store/index";
+import { useStore } from "../../Store/index";
 import TextBox from "../../Elements/textBox";
 import { asCommaAnd } from "@Obsidian/Services/string";
 import GatewayControl, { GatewayControlModel } from "../../Controls/gatewayControl";
 import RockValidation from "../../Controls/rockValidation";
 import { formatAspDate } from "@Obsidian/Services/date";
+
+const store = useStore();
 
 export type ProcessTransactionArgs = {
     isGivingAsPerson: boolean;

@@ -9,7 +9,7 @@ System.register(["vue", "./rockBlock", "./Store/index", "./Rules/index"], functi
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var vue_1, rockBlock_1, index_1;
+    var vue_1, rockBlock_1, index_1, store;
     var __moduleName = context_1 && context_1.id;
     function initializeBlock(config) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -49,7 +49,6 @@ System.register(["vue", "./rockBlock", "./Store/index", "./Rules/index"], functi
 </div>
 <RockBlock v-else :config="config" :blockComponent="blockComponent" :startTimeMs="startTimeMs" />`
             });
-            app.use(index_1.default);
             app.mount(config.rootElement);
             return app;
         });
@@ -57,7 +56,7 @@ System.register(["vue", "./rockBlock", "./Store/index", "./Rules/index"], functi
     exports_1("initializeBlock", initializeBlock);
     function initializePage(pageConfig) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield index_1.default.dispatch("initialize", { pageConfig });
+            yield store.initialize(pageConfig);
         });
     }
     exports_1("initializePage", initializePage);
@@ -81,7 +80,6 @@ System.register(["vue", "./rockBlock", "./Store/index", "./Rules/index"], functi
                 },
                 template: `<PageDebugTimings :serverViewModels="viewModels" />`
             });
-            app.use(index_1.default);
             app.mount(rootElement);
         });
     }
@@ -101,6 +99,7 @@ System.register(["vue", "./rockBlock", "./Store/index", "./Rules/index"], functi
             }
         ],
         execute: function () {
+            store = index_1.useStore();
         }
     };
 });

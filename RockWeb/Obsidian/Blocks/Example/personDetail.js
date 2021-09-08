@@ -9,7 +9,7 @@ System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../.
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var bus_1, paneledBlockTemplate_1, rockButton_1, textBox_1, vue_1, index_1, emailBox_1, rockValidation_1, rockForm_1, loading_1, primaryBlock_1, date_1, datePicker_1, addressControl_1, number_1;
+    var bus_1, paneledBlockTemplate_1, rockButton_1, textBox_1, vue_1, index_1, emailBox_1, rockValidation_1, rockForm_1, loading_1, primaryBlock_1, date_1, datePicker_1, addressControl_1, number_1, store;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -60,6 +60,7 @@ System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../.
             }
         ],
         execute: function () {
+            store = index_1.useStore();
             exports_1("default", vue_1.defineComponent({
                 name: "Example.PersonDetail",
                 components: {
@@ -154,7 +155,7 @@ System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../.
                             "";
                     },
                     currentPerson() {
-                        return index_1.default.state.currentPerson;
+                        return store.state.currentPerson;
                     },
                     currentPersonGuid() {
                         return this.currentPerson ? this.currentPerson.guid : null;

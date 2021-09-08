@@ -16,7 +16,7 @@
 //
 import { App, Component, createApp, markRaw } from "vue";
 import RockBlock from "./rockBlock";
-import store, { ActionType } from "./Store/index";
+import { useStore } from "./Store/index";
 import "./Rules/index";
 import { DebugTiming } from "@Obsidian/ViewModels";
 import { BlockConfig } from "./Util/block";
@@ -26,6 +26,8 @@ type DebugTimingConfig = {
     elementId: string;
     debugTimingViewModels: DebugTiming[];
 };
+
+const store = useStore();
 
 /**
 * This should be called once per block on the page. The config contains configuration provided by the block's server side logic
@@ -78,7 +80,6 @@ export async function initializeBlock(config: BlockConfig): Promise<App> {
 <RockBlock v-else :config="config" :blockComponent="blockComponent" :startTimeMs="startTimeMs" />`
     });
 
-    app.use(store);
     app.mount(config.rootElement);
 
     return app;
@@ -90,7 +91,7 @@ export async function initializeBlock(config: BlockConfig): Promise<App> {
 * @param {object} pageData
 */
 export async function initializePage(pageConfig: PageConfig): Promise<void> {
-    await store.dispatch(ActionType.Initialize, { pageConfig });
+    await store.initialize(pageConfig);
 }
 
 /**
@@ -119,6 +120,5 @@ export async function initializePageTimings(config: DebugTimingConfig): Promise<
         },
         template: `<PageDebugTimings :serverViewModels="viewModels" />`
     });
-    app.use(store);
     app.mount(rootElement);
 }

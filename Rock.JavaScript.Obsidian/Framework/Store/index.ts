@@ -14,64 +14,98 @@
 // limitations under the License.
 // </copyright>
 //
-import { createStore, Store as VuexStore } from "vuex";
-import { State, state } from "./state";
-import { mutations } from "./mutations";
-import { actions } from "./actions";
-import { Getters, getters } from "./getters";
+import { State } from "./state";
+import { shallowReadonly, reactive } from "vue";
+import { PageConfig } from "../Util/page";
+import { Group, IEntity, Person } from "@Obsidian/ViewModels";
 
-export { MutationType, PageDebugTiming } from "./mutations";
-export { ActionType } from "./actions";
+// This needs to move elsewhere probably.
+export type PageDebugTiming = {
+    title: string;
+    subtitle: string;
+    startTimeMs: number;
+    finishTimeMs: number;
+};
 
-
-declare module "@vue/runtime-core" {
-    // provide typings for `this.$store`
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    interface ComponentCustomProperties {
-        $store: Store
-    }
-}
-
-
-// Declare the Vuex store
-export const store: Store = createStore<State>({
-    state,
-    getters,
-    mutations,
-    actions,
-    modules: {
-        //...commonEntityModules
-    }
+// This is the private state that we can modify.
+const state: State = reactive({
+    areSecondaryBlocksShown: true,
+    currentPerson: null,
+    pageParameters: {},
+    contextEntities: {},
+    pageId: 0,
+    pageGuid: "",
+    executionStartTime: new Date(),
+    debugTimings: [],
+    loginUrlWithReturnUrl: ""
 });
 
-export default store;
+class Store {
+    public state: Readonly<State>;
 
-export function useStore(): Store {
-    return store as Store;
+    constructor() {
+        this.state = shallowReadonly(state);
+    }
+
+    setAreSecondaryBlocksShown(areSecondaryBlocksShown: boolean): void {
+        state.areSecondaryBlocksShown = areSecondaryBlocksShown;
+    }
+
+    initialize(pageConfig: PageConfig): void {
+        state.currentPerson = pageConfig.currentPerson || null;
+        state.pageParameters = pageConfig.pageParameters || {};
+        state.contextEntities = pageConfig.contextEntities || {};
+        state.pageId = pageConfig.pageId || 0;
+        state.pageGuid = pageConfig.pageGuid || "";
+        state.executionStartTime = pageConfig.executionStartTime;
+        state.loginUrlWithReturnUrl = pageConfig.loginUrlWithReturnUrl;
+    }
+
+    addPageDebugTiming(timing: PageDebugTiming): void {
+        const pageStartTime = state.executionStartTime.getTime();
+        const timestampMs = timing.startTimeMs - pageStartTime;
+        const durationMs = timing.finishTimeMs - timing.startTimeMs;
+
+        state.debugTimings.push({
+            timestampMs: timestampMs,
+            durationMs: durationMs,
+            indentLevel: 1,
+            isTitleBold: false,
+            subTitle: timing.subtitle,
+            title: timing.title
+        });
+    }
+
+    // This should be replaced with something else, doesn't really fit as a store action.
+    redirectToLogin(): void {
+        if (state.loginUrlWithReturnUrl) {
+            window.location.href = state.loginUrlWithReturnUrl;
+        }
+    }
+
+    get isAuthenticated(): boolean {
+        return !!state.currentPerson;
+    }
+
+    getContextEntity(type: string): IEntity | null {
+        return state.contextEntities[type] || null;
+    }
+
+    get personContext(): Person | null {
+        return <Person | null>this.getContextEntity("person");
+    }
+
+    get groupContext(): Group | null {
+        return <Group | null>this.getContextEntity("group");
+    }
+
+    getPageParameter(key: string): unknown {
+        return state.pageParameters[key];
+    }
 }
 
-export type Store = Omit<
-    VuexStore<State>,
-    "getters" // | 'commit' | 'dispatch'
-> & {
-    getters: {
-        [K in keyof Getters]: ReturnType<Getters[K]>
-    } & {
-        [index: string]: unknown
-    }
-};
-// The following sets hard typescript bindings for what keys can be passed
-// to commit and dispatch. For now leave out until we decide if this is safe.
-//> & {
-//    commit<K extends keyof Mutations, P extends Parameters<Mutations[K]>[1]>(
-//        key: K,
-//        payload: P,
-//        options?: CommitOptions
-//    ): ReturnType<Mutations[K]>
-//} & {
-//    dispatch<K extends keyof Actions>(
-//        key: K,
-//        payload?: Parameters<Actions[K]>[1],
-//        options?: DispatchOptions
-//    ): ReturnType<Actions[K]>
-//}
+const store = new Store();
+
+export function useStore(): Store {
+    return store;
+}

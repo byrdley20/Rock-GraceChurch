@@ -27,6 +27,9 @@ import { Person } from "@Obsidian/ViewModels";
 import { getRegistrantBasicInfo, RegistrantBasicInfo, RegistrationEntryState } from "../registrationEntry";
 import { RegistrationEntryBlockArgs } from "./registrationEntryBlockArgs";
 import { RegistrantInfo, RegistrantsSameFamily, RegistrarInfo, RegistrarOption, RegistrationEntryBlockViewModel } from "./registrationEntryBlockViewModel";
+import { useStore } from "../../../Store/index";
+
+const store = useStore();
 
 export default defineComponent( {
     name: "Event.RegistrationEntry.Registrar",
@@ -57,7 +60,7 @@ export default defineComponent( {
 
         /** The person that is currently authenticated */
         currentPerson (): Person | null {
-            return this.$store.state.currentPerson;
+            return store.state.currentPerson;
         },
 
         /** The person entering the registration information. This object is part of the registration state. */

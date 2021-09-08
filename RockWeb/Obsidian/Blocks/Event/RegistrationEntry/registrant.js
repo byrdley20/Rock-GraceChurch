@@ -1,6 +1,6 @@
-System.register(["vue", "../../../Elements/dropDownList", "../../../Elements/radioButtonList", "../registrationEntry", "@Obsidian/Services/string", "../../../Elements/rockButton", "./registrantPersonField", "./registrantAttributeField", "../../../Elements/alert", "../../../Util/guid", "../../../Controls/rockForm", "./feeField", "../../../Elements/itemsWithPreAndPostHtml"], function (exports_1, context_1) {
+System.register(["vue", "../../../Elements/dropDownList", "../../../Elements/radioButtonList", "../registrationEntry", "@Obsidian/Services/string", "../../../Elements/rockButton", "./registrantPersonField", "./registrantAttributeField", "../../../Elements/alert", "../../../Util/guid", "../../../Controls/rockForm", "./feeField", "../../../Elements/itemsWithPreAndPostHtml", "../../../Store/index"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, dropDownList_1, radioButtonList_1, registrationEntry_1, string_1, rockButton_1, registrantPersonField_1, registrantAttributeField_1, alert_1, guid_1, rockForm_1, feeField_1, itemsWithPreAndPostHtml_1;
+    var vue_1, dropDownList_1, radioButtonList_1, registrationEntry_1, string_1, rockButton_1, registrantPersonField_1, registrantAttributeField_1, alert_1, guid_1, rockForm_1, feeField_1, itemsWithPreAndPostHtml_1, index_1, store;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -42,9 +42,13 @@ System.register(["vue", "../../../Elements/dropDownList", "../../../Elements/rad
             },
             function (itemsWithPreAndPostHtml_1_1) {
                 itemsWithPreAndPostHtml_1 = itemsWithPreAndPostHtml_1_1;
+            },
+            function (index_1_1) {
+                index_1 = index_1_1;
             }
         ],
         execute: function () {
+            store = index_1.useStore();
             exports_1("default", vue_1.defineComponent({
                 name: "Event.RegistrationEntry.Registrant",
                 components: {
@@ -120,7 +124,7 @@ System.register(["vue", "../../../Elements/dropDownList", "../../../Elements/rad
                         }));
                     },
                     currentPerson() {
-                        return this.$store.state.currentPerson;
+                        return store.state.currentPerson;
                     },
                     pluralFeeTerm() {
                         return string_1.default.toTitleCase(this.viewModel.pluralFeeTerm || "fees");

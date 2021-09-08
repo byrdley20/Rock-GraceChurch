@@ -17,7 +17,7 @@
 import { computed, defineComponent, ref } from "vue";
 import PaneledBlockTemplate from "../../Templates/paneledBlockTemplate";
 import Loading from "../../Controls/loading";
-import store from "../../Store/index";
+import { useStore } from "../../Store/index";
 import { Guid } from "../../Util/guid";
 import { useConfigurationValues, useInvokeBlockAction } from "../../Util/block";
 import JavaScriptAnchor from "../../Elements/javaScriptAnchor";
@@ -26,6 +26,8 @@ import TextBox from "../../Elements/textBox";
 import RockButton from "../../Elements/rockButton";
 import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
 import AttributeValuesContainer from "../../Controls/attributeValuesContainer";
+
+const store = useStore();
 
 type ConfigurationValues = {
     blockIconCssClass: string;
@@ -76,11 +78,13 @@ export default defineComponent({
         const configurationValues = useConfigurationValues<ConfigurationValues>();
         const invokeBlockAction = useInvokeBlockAction();
         const attributeValues = ref(sortedAttributeValues(configurationValues.attributes));
-        const personGuid = computed(() => store.getters.personContext?.guid || null);
+        const personGuid = computed(() => store.personContext?.guid || null);
         const isLoading = ref(false);
         const isEditMode = ref(false);
 
-        const goToViewMode = () => isEditMode.value = false;
+        const goToViewMode = (): void => {
+            isEditMode.value = false;
+        };
 
         const goToEditMode = async (): Promise<void> => {
             const result = await invokeBlockAction<ClientEditableAttributeValue[]>("GetAttributeValuesForEdit");

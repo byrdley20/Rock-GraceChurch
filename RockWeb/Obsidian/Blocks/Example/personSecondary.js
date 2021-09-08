@@ -1,6 +1,6 @@
 System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../../Controls/secondaryBlock", "../../Elements/rockButton", "../../Elements/textBox", "vue", "../../Store/index"], function (exports_1, context_1) {
     "use strict";
-    var bus_1, paneledBlockTemplate_1, secondaryBlock_1, rockButton_1, textBox_1, vue_1, index_1;
+    var bus_1, paneledBlockTemplate_1, secondaryBlock_1, rockButton_1, textBox_1, vue_1, index_1, store;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -27,6 +27,7 @@ System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../.
             }
         ],
         execute: function () {
+            store = index_1.useStore();
             exports_1("default", vue_1.defineComponent({
                 name: "Example.PersonSecondary",
                 components: {
@@ -55,7 +56,7 @@ System.register(["../../Util/bus", "../../Templates/paneledBlockTemplate", "../.
                 },
                 computed: {
                     currentPerson() {
-                        return index_1.default.state.currentPerson;
+                        return store.state.currentPerson;
                     },
                     currentPersonName() {
                         var _a;

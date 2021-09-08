@@ -15,7 +15,9 @@
 // </copyright>
 //
 import { defineComponent, PropType } from "vue";
-import store, { MutationType } from "../Store/index";
+import { useStore } from "../Store/index";
+
+const store = useStore();
 
 export default defineComponent({
     name: "PrimaryBlock",
@@ -27,7 +29,7 @@ export default defineComponent({
     },
     methods: {
         setAreSecondaryBlocksShown(isVisible: boolean): void {
-            store.commit(MutationType.SetAreSecondaryBlocksShown, { areSecondaryBlocksShown: isVisible });
+            store.setAreSecondaryBlocksShown(isVisible);
         }
     },
     watch: {

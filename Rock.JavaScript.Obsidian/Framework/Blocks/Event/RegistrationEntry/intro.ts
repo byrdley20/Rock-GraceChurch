@@ -24,6 +24,9 @@ import { areEqual } from "../../../Util/guid";
 import { Person } from "@Obsidian/ViewModels";
 import { getDefaultRegistrantInfo, getForcedFamilyGuid, RegistrationEntryState } from "../registrationEntry";
 import { RegistrationEntryBlockViewModel } from "./registrationEntryBlockViewModel";
+import { useStore } from "../../../Store/index";
+
+const store = useStore();
 
 export default defineComponent( {
     name: "Event.RegistrationEntry.Intro",
@@ -49,7 +52,7 @@ export default defineComponent( {
     computed: {
         /** The currently authenticated person */
         currentPerson (): Person | null {
-            return this.$store.state.currentPerson;
+            return store.state.currentPerson;
         },
 
         /** The view model sent by the C# code behind. This is just a convenient shortcut to the shared object. */

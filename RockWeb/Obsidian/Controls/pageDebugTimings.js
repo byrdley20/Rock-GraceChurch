@@ -1,6 +1,6 @@
 System.register(["@Obsidian/Services/number", "vue", "../Store/index"], function (exports_1, context_1) {
     "use strict";
-    var number_1, vue_1, index_1, pageDebugTimingRow;
+    var number_1, vue_1, index_1, store, pageDebugTimingRow;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -15,6 +15,7 @@ System.register(["@Obsidian/Services/number", "vue", "../Store/index"], function
             }
         ],
         execute: function () {
+            store = index_1.useStore();
             pageDebugTimingRow = vue_1.defineComponent({
                 name: "PageDebugTimingRow",
                 props: {
@@ -127,7 +128,7 @@ System.register(["@Obsidian/Services/number", "vue", "../Store/index"], function
                         return this.clientRelativeEndTimeMs - this.serverStartTimeMs;
                     },
                     clientViewModels() {
-                        return index_1.default.state.debugTimings;
+                        return store.state.debugTimings;
                     },
                     relativeClientViewModels() {
                         return this.clientViewModels.map(vm => (Object.assign(Object.assign({}, vm), { timestampMs: this.serverEndTimeMs + vm.timestampMs })));

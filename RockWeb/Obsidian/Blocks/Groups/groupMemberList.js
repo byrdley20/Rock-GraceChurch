@@ -9,7 +9,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Store/ind
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var paneledBlockTemplate_1, vue_1, index_1, grid_1, gridRow_1, gridColumn_1, gridSelectColumn_1, gridProfileLinkColumn_1, alert_1;
+    var paneledBlockTemplate_1, vue_1, index_1, grid_1, gridRow_1, gridColumn_1, gridSelectColumn_1, gridProfileLinkColumn_1, alert_1, store;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -42,6 +42,7 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Store/ind
             }
         ],
         execute: function () {
+            store = index_1.useStore();
             exports_1("default", vue_1.defineComponent({
                 name: "Groups.GroupMemberList",
                 components: {
@@ -71,7 +72,8 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Store/ind
                 },
                 computed: {
                     groupId() {
-                        return (index_1.default.getters.groupContext || {}).id || 0;
+                        var _a;
+                        return ((_a = store.groupContext) === null || _a === void 0 ? void 0 : _a.id) || 0;
                     },
                 },
                 methods: {

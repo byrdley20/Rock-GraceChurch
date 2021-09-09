@@ -28,6 +28,10 @@ const editComponent = defineAsyncComponent(async () => {
  * The field type handler for the Gender field.
  */
 export class GenderFieldType extends FieldTypeBase {
+    public override getTextValue(value: ClientAttributeValue): string {
+        return value.textValue || "Unknown";
+    }
+
     public override updateTextValue(value: ClientEditableAttributeValue): void {
         const numberValue = toNumberOrNull(value.value);
 

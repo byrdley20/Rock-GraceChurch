@@ -38,6 +38,10 @@ const editComponent = defineAsyncComponent(async () => {
  * The field type handler for the Rating field.
  */
 export class RatingFieldType extends FieldTypeBase {
+    public override getTextValue(value: ClientAttributeValue): string {
+        return value.textValue || "0";
+    }
+
     public override getHtmlValue(value: ClientAttributeValue): string {
         let ratingValue: RatingValue | null;
 

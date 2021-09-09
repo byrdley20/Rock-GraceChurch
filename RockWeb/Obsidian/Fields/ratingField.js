@@ -25,6 +25,9 @@ System.register(["vue", "./fieldType"], function (exports_1, context_1) {
                 return (yield context_1.import("./ratingFieldComponents")).EditComponent;
             }));
             RatingFieldType = class RatingFieldType extends fieldType_1.FieldTypeBase {
+                getTextValue(value) {
+                    return value.textValue || "0";
+                }
                 getHtmlValue(value) {
                     var _a, _b, _c;
                     let ratingValue;

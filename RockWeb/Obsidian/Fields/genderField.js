@@ -28,6 +28,9 @@ System.register(["vue", "./fieldType", "@Obsidian/Services/number"], function (e
                 return (yield context_1.import("./genderFieldComponents")).EditComponent;
             }));
             GenderFieldType = class GenderFieldType extends fieldType_1.FieldTypeBase {
+                getTextValue(value) {
+                    return value.textValue || "Unknown";
+                }
                 updateTextValue(value) {
                     const numberValue = number_1.toNumberOrNull(value.value);
                     if (numberValue === 0) {

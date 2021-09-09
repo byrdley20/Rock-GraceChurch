@@ -119,8 +119,8 @@ export default defineComponent({
         };
     },
     template: `
-<div v-if="!isEditMode" class="form-group static-control">
-    <template v-if="showValue">
+<template v-if="!isEditMode">
+    <div v-if="showValue" class="form-group static-control">
         <label class="control-label">
             {{ label }}
         </label>
@@ -129,8 +129,8 @@ export default defineComponent({
                 <component :is="valueComponent" />
             </div>
         </div>
-    </template>
-</div>
+    </div>
+</template>
 <template v-else>
     <component :is="editComponent"
         v-model="value"

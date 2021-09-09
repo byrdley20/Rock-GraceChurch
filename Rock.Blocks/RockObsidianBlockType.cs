@@ -29,6 +29,18 @@ namespace Rock.Blocks
         #region Properties
 
         /// <summary>
+        /// The browser not supported markup that will be displayed on the
+        /// browser if it is not supported.
+        /// </summary>
+        /// <remarks>
+        /// This might eventually become a virtual property to allow subclasses
+        /// to customize the error message.
+        /// </remarks>
+        private const string BrowserNotSupportedMarkup = @"<div class=""alert alert-warning"">
+    It looks like you are using a browser that is not supported, you will need to update before using this feature.
+</div>";
+
+        /// <summary>
         /// Gets the client block identifier.
         /// </summary>
         /// <value>
@@ -96,6 +108,11 @@ namespace Rock.Blocks
         {
             var rootElementId = $"obsidian-{BlockCache.Guid}";
 
+            if ( !IsBrowserSupported() )
+            {
+                return BrowserNotSupportedMarkup;
+            }
+
             return
 $@"<div id=""{rootElementId}""></div>
 <script type=""text/javascript"">
@@ -110,6 +127,53 @@ Obsidian.onReady(() => {{
     }});
 }});
 </script>";
+        }
+
+        /// <summary>
+        /// Determines whether the client browser is supported by this block.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if the browser is supported; otherwise, <c>false</c>.
+        /// </returns>
+        /// <remarks>
+        /// In the future this might become a virtual method to allow for
+        /// stricter checks by subclasses.
+        /// </remarks>
+        private bool IsBrowserSupported()
+        {
+            var browser = RequestContext.ClientInformation.Browser;
+
+            var family = browser.UA.Family;
+            var major = browser.UA.Major.AsIntegerOrNull();
+
+            // Logic taken from https://caniuse.com/?search=es6
+            // Vue 3 uses ES6 functionality heavily.
+
+            if ( major.HasValue )
+            {
+                if ( ( family == "Chrome" || family == "Chromium" ) && major.Value < 51 )
+                {
+                    return false;
+                }
+                else if ( family == "Edge" && major.Value < 15 )
+                {
+                    return false;
+                }
+                else if ( family == "Firefox" && major.Value < 54 )
+                {
+                    return false;
+                }
+                else if ( family == "IE" )
+                {
+                    return false;
+                }
+                else if ( ( family == "Safari" || family == "Mobile Safari" ) && major.Value < 10 )
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         #endregion Methods

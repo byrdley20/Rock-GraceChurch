@@ -862,6 +862,10 @@ mission. We are so grateful for your commitment.</p>
         /// </returns>
         public override object GetObsidianBlockInitialization()
         {
+            var rockContext = new RockContext();
+
+            var clientHelper = new Rock.ViewModel.Client.ClientHelper( rockContext, RequestContext.CurrentPerson );
+
             return new
             {
                 FinancialAccounts = GetAccountViewModels(),
@@ -870,23 +874,8 @@ mission. We are so grateful for your commitment.</p>
                     FileUrl = FinancialGatewayComponent?.GetObsidianControlFileUrl( FinancialGateway ),
                     Settings = FinancialGatewayComponent?.GetObsidianControlSettings( FinancialGateway )
                 },
-                Campuses = CampusCache.All()
-                    .Where( c => c.IsActive ?? false )
-                    .Select( c => new ListItemViewModel
-                    {
-                        Value = c.Guid.ToString(),
-                        Text = c.Name
-                    } )
-                    .ToList(),
-                Frequencies = DefinedTypeCache.Get( SystemGuid.DefinedType.FINANCIAL_FREQUENCY )
-                    .DefinedValues
-                    .Where( v => v.IsActive )
-                    .Select( v => new ListItemViewModel
-                    {
-                        Value = v.Guid.ToString(),
-                        Text = v.Value
-                    } )
-                    .ToList()
+                Campuses = clientHelper.GetCampusesAsListItems(),
+                Frequencies = clientHelper.GetDefinedValuesAsListItems( SystemGuid.DefinedType.FINANCIAL_FREQUENCY.AsGuid() )
             };
         }
 

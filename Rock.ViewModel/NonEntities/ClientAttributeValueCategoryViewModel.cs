@@ -17,7 +17,7 @@
 
 using System;
 
-namespace Rock.ViewModel
+namespace Rock.ViewModel.NonEntities
 {
     /// <summary>
     /// The category that an attribute is associated with.

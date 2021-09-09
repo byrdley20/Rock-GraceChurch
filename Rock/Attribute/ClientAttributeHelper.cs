@@ -17,13 +17,10 @@
 
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Rock.Field;
-using Rock.ViewModel;
+using Rock.ViewModel.NonEntities;
 using Rock.Web.Cache;
 
 namespace Rock.Attribute

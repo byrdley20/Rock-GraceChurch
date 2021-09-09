@@ -17,7 +17,7 @@
 
 using System.Collections.Generic;
 
-namespace Rock.ViewModel
+namespace Rock.ViewModel.NonEntities
 {
     /// <summary>
     /// Extends <see cref="ClientAttributeValueViewModel"/> to include additional

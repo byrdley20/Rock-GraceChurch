@@ -1932,6 +1932,8 @@ namespace Rock.Blocks.Event
             var startAtBeginning = !isExistingRegistration ||
                 ( context.RegistrationSettings.AllowExternalRegistrationUpdates && PageParameter( PageParameterKey.StartAtBeginning ).AsBoolean() );
 
+            var clientHelper = new Rock.ViewModel.Client.ClientHelper( rockContext, RequestContext.CurrentPerson );
+
             var viewModel = new RegistrationEntryBlockViewModel
             {
                 RegistrationAttributesStart = beforeAttributes,
@@ -1973,14 +1975,7 @@ namespace Rock.Blocks.Event
                 AllowRegistrationUpdates = allowRegistrationUpdates,
                 StartAtBeginning = startAtBeginning,
                 GatewayGuid = financialGateway?.Guid,
-                Campuses = CampusCache.All()
-                    .Where( c => c.IsActive ?? false )
-                    .Select( c => new ListItemViewModel
-                    {
-                        Value = c.Guid.ToString(),
-                        Text = c.Name
-                    } )
-                    .ToList()
+                Campuses = clientHelper.GetCampusesAsListItems()
             };
 
             return viewModel;

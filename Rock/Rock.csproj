@@ -1179,6 +1179,9 @@
     <Compile Include="Utility\Settings\RockInstanceDatabaseConfiguration.cs" />
     <Compile Include="Utility\TimeInterval.cs" />
     <Compile Include="Utility\TimeIntervalSetting.cs" />
+    <Compile Include="ViewModel\Client\CampusOptions.cs" />
+    <Compile Include="ViewModel\Client\ClientHelper.cs" />
+    <Compile Include="ViewModel\Client\DefinedValueOptions.cs" />
     <Compile Include="ViewModel\DefaultViewModelHelperAttribute.cs" />
     <Compile Include="ViewModel\IViewModelHelper.cs" />
     <Compile Include="Utility\CodeGenExcludeAttribute.cs" />

@@ -46,9 +46,9 @@
     <Compile Include="Blocks\RegistrationEntryBlockSuccessViewModel.cs" />
     <Compile Include="Blocks\RegistrationEntryBlockArgs.cs" />
     <Compile Include="Blocks\RegistrationEntryBlockViewModel.cs" />
-    <Compile Include="ClientAttributeValueCategoryViewModel.cs" />
-    <Compile Include="ClientEditableAttributeValueViewModel.cs" />
-    <Compile Include="ClientAttributeValueViewModel.cs" />
+    <Compile Include="NonEntities\ClientAttributeValueCategoryViewModel.cs" />
+    <Compile Include="NonEntities\ClientEditableAttributeValueViewModel.cs" />
+    <Compile Include="NonEntities\ClientAttributeValueViewModel.cs" />
     <Compile Include="CodeGenerated\AchievementAttemptViewModel.cs" />
     <Compile Include="CodeGenerated\AchievementTypePrerequisiteViewModel.cs" />
     <Compile Include="CodeGenerated\AchievementTypeViewModel.cs" />

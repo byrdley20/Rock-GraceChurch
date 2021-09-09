@@ -18,7 +18,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Rock.ViewModel
+namespace Rock.ViewModel.NonEntities
 {
     /// <summary>
     /// A slimmed down version of <see cref="AttributeValueViewModel"/> designed

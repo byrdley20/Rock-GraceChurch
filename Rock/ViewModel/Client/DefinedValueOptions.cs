@@ -15,38 +15,29 @@
 // </copyright>
 //
 
-using System;
-using System.Collections.Generic;
-
-using Rock.ViewModel.NonEntities;
-
-namespace Rock.ViewModel
+namespace Rock.ViewModel.Client
 {
-    public abstract class ViewModelBase : IViewModelWithAttributes
+    /// <summary>
+    /// Behavioral options for retrieving a list of defined values to be send
+    /// to the client.
+    /// </summary>
+    internal sealed class DefinedValueOptions
     {
         /// <summary>
-        /// Gets or sets the Id.
+        /// Gets or sets a value indicating whether inactive values should be included.
         /// </summary>
         /// <value>
-        /// The Id.
+        ///   <c>true</c> if inactive values should be included; otherwise, <c>false</c>.
         /// </value>
-        public int Id { get; set; }
+        public bool IncludeInactive { get; set; }
 
         /// <summary>
-        /// Gets or sets the Guid.
+        /// Gets or sets a value indicating whether the description should be
+        /// used instead of the value text.
         /// </summary>
         /// <value>
-        /// The Guid.
+        ///   <c>true</c> if the description should be used; otherwise, <c>false</c>.
         /// </value>
-        public Guid Guid { get; set; }
-
-        /// <summary>
-        /// Gets or sets the attributes.
-        /// </summary>
-        /// <value>
-        /// The attributes.
-        /// </value>
-        [TypeScriptType( "Record<string, ClientAttributeValue> | null", "import { ClientAttributeValue } from './clientAttributeValue';" )]
-        public Dictionary<string, ClientAttributeValueViewModel> Attributes { get; set; }
+        public bool UseDescription { get; set; }
     }
 }

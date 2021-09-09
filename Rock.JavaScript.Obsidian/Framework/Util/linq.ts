@@ -9,6 +9,10 @@ type ValueSelector<T> = (value: T) => string | number | boolean | null | undefin
  */
 type PredicateFn<T> = (value: T, index: number) => boolean;
 
+const moreThanOneElement = "More than one element was found in collection.";
+
+const noElementsFound = "No element was found in collection.";
+
 /**
  * Compares the values of two objects given the selector function.
  *
@@ -96,6 +100,182 @@ export class List<T> {
     // #endregion
 
     /**
+     * Returns the first element from the collection if there are any elements.
+     * Otherwise will throw an exception.
+     *
+     * @returns The first element in the collection.
+     */
+    public first(): T;
+
+    /**
+     * Filters the list by the predicate and then returns the first element
+     * in the collection if any remain. Otherwise throws an exception.
+     *
+     * @param predicate The predicate to filter the elements by.
+     *
+     * @returns The first element in the collection.
+     */
+    public first(predicate: PredicateFn<T>): T;
+
+    /**
+     * Filters the list by the predicate and then returns the first element
+     * in the collection if any remain. Otherwise throws an exception.
+     *
+     * @param predicate The predicate to filter the elements by.
+     *
+     * @returns The first element in the collection.
+     */
+    public first(predicate?: PredicateFn<T>): T {
+        let elements = this.elements;
+
+        if (predicate !== undefined) {
+            elements = elements.filter(predicate);
+        }
+
+        if (elements.length >= 1) {
+            return elements[0];
+        }
+        else {
+            throw noElementsFound;
+        }
+    }
+
+    /**
+     * Returns the first element found in the collection or undefined if the
+     * collection contains no elements.
+     *
+     * @returns The first element in the collection or undefined.
+     */
+    public firstOrUndefined(): T | undefined;
+
+    /**
+     * Filters the list by the predicate and then returns the first element
+     * found in the collection. If no elements remain then undefined is
+     * returned instead.
+     *
+     * @param predicate The predicate to filter the elements by.
+     *
+     * @returns The first element in the filtered collection or undefined.
+     */
+    public firstOrUndefined(predicate: PredicateFn<T>): T | undefined;
+
+    /**
+     * Filters the list by the predicate and then returns the first element
+     * found in the collection. If no elements remain then undefined is
+     * returned instead.
+     *
+     * @param predicate The predicate to filter the elements by.
+     *
+     * @returns The first element in the filtered collection or undefined.
+     */
+    public firstOrUndefined(predicate?: PredicateFn<T>): T | undefined {
+        let elements = this.elements;
+
+        if (predicate !== undefined) {
+            elements = elements.filter(predicate);
+        }
+
+        if (elements.length === 1) {
+            return elements[0];
+        }
+        else {
+            return undefined;
+        }
+    }
+
+    /**
+     * Returns a single element from the collection if there is a single
+     * element. Otherwise will throw an exception.
+     *
+     * @returns An element.
+     */
+    public single(): T;
+
+    /**
+     * Filters the list by the predicate and then returns the single remaining
+     * element from the collection. If more than one element remains then an
+     * exception will be thrown.
+     *
+     * @param predicate The predicate to filter the elements by.
+     *
+     * @returns An element.
+     */
+    public single(predicate: PredicateFn<T>): T;
+
+    /**
+     * Filters the list by the predicate and then returns the single remaining
+     * element from the collection. If more than one element remains then an
+     * exception will be thrown.
+     *
+     * @param predicate The predicate to filter the elements by.
+     *
+     * @returns An element.
+     */
+    public single(predicate?: PredicateFn<T>): T {
+        let elements = this.elements;
+
+        if (predicate !== undefined) {
+            elements = elements.filter(predicate);
+        }
+
+        if (elements.length === 1) {
+            return elements[0];
+        }
+        else {
+            throw moreThanOneElement;
+        }
+    }
+
+    /**
+     * Returns a single element from the collection if there is a single
+     * element. If no elements are found then undefined is returned. More
+     * than a single element will throw an exception.
+     *
+     * @returns An element or undefined.
+     */
+    public singleOrUndefined(): T | undefined;
+
+    /**
+     * Filters the list by the predicate and then returns the single element
+     * from the collection if there is only one remaining. If no elements
+     * remain then undefined is returned. More than a single element will throw
+     * an exception.
+     *
+     * @param predicate The predicate to filter the elements by.
+     *
+     * @returns An element or undefined.
+     */
+    public singleOrUndefined(predicate: PredicateFn<T>): T | undefined;
+
+    /**
+     * Filters the list by the predicate and then returns the single element
+     * from the collection if there is only one remaining. If no elements
+     * remain then undefined is returned. More than a single element will throw
+     * an exception.
+     *
+     * @param predicate The predicate to filter the elements by.
+     *
+     * @returns An element or undefined.
+     */
+    public singleOrUndefined(predicate?: PredicateFn<T>): T | undefined {
+        let elements = this.elements;
+
+        if (predicate !== undefined) {
+            elements = elements.filter(predicate);
+        }
+
+        if (elements.length === 0) {
+            return undefined;
+        }
+        else if (elements.length === 1) {
+            return elements[0];
+        }
+        else {
+            throw moreThanOneElement;
+        }
+    }
+
+    /**
      * Orders the elements of the array and returns a new list of items
      * in that order.
      * 
@@ -122,9 +302,12 @@ export class List<T> {
     }
 
     /**
+     * Filters the results and returns a new list containing only the elements
+     * that match the predicate.
      * 
-     * @param predicate The predicate.
-     * @returns 
+     * @param predicate The predicate to filter elements with.
+     * 
+     * @returns A new collection of elements that match the predicate.
      */
     public where(predicate: PredicateFn<T>): List<T> {
         return new List<T>(this.elements.filter(predicate));

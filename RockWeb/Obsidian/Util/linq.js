@@ -1,6 +1,6 @@
 System.register([], function (exports_1, context_1) {
     "use strict";
-    var List, OrderedList;
+    var moreThanOneElement, noElementsFound, List, OrderedList;
     var __moduleName = context_1 && context_1.id;
     function valueComparer(keySelector, descending) {
         return (a, b) => {
@@ -29,6 +29,8 @@ System.register([], function (exports_1, context_1) {
     return {
         setters: [],
         execute: function () {
+            moreThanOneElement = "More than one element was found in collection.";
+            noElementsFound = "No element was found in collection.";
             List = class List {
                 constructor(elements) {
                     if (elements === undefined) {
@@ -42,6 +44,57 @@ System.register([], function (exports_1, context_1) {
                     const list = new List();
                     list.elements = elements;
                     return list;
+                }
+                first(predicate) {
+                    let elements = this.elements;
+                    if (predicate !== undefined) {
+                        elements = elements.filter(predicate);
+                    }
+                    if (elements.length >= 1) {
+                        return elements[0];
+                    }
+                    else {
+                        throw noElementsFound;
+                    }
+                }
+                firstOrUndefined(predicate) {
+                    let elements = this.elements;
+                    if (predicate !== undefined) {
+                        elements = elements.filter(predicate);
+                    }
+                    if (elements.length === 1) {
+                        return elements[0];
+                    }
+                    else {
+                        return undefined;
+                    }
+                }
+                single(predicate) {
+                    let elements = this.elements;
+                    if (predicate !== undefined) {
+                        elements = elements.filter(predicate);
+                    }
+                    if (elements.length === 1) {
+                        return elements[0];
+                    }
+                    else {
+                        throw moreThanOneElement;
+                    }
+                }
+                singleOrUndefined(predicate) {
+                    let elements = this.elements;
+                    if (predicate !== undefined) {
+                        elements = elements.filter(predicate);
+                    }
+                    if (elements.length === 0) {
+                        return undefined;
+                    }
+                    else if (elements.length === 1) {
+                        return elements[0];
+                    }
+                    else {
+                        throw moreThanOneElement;
+                    }
                 }
                 orderBy(keySelector) {
                     const comparer = valueComparer(keySelector, false);

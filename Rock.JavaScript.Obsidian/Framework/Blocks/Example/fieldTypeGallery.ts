@@ -123,7 +123,7 @@ const galleryAndResult = defineComponent( {
  * @param fieldTypeGuid
  * @param configValues
  */
-const getFieldTypeGalleryComponent = ( name: string, initialValue: string, fieldTypeGuid: Guid, initialConfigValues: Record<string, string> ) => {
+const getFieldTypeGalleryComponent = ( name: string, initialValue: string, fieldTypeGuid: Guid, initialConfigValues: Record<string, string> ): Component => {
     return defineComponent( {
         name: `${name}Gallery`,
         components: {
@@ -270,6 +270,14 @@ const galleryComponents: Record<string, Component> = {
     }),
 
     IntegerRangeGallery: getFieldTypeGalleryComponent("IntegerRange", "0,100", FieldTypeGuids.IntegerRange, {
+    }),
+
+    KeyValueListGallery: getFieldTypeGalleryComponent("KeyValueList", `[{"key":"One","value":"Two"},{"key":"Three","value":"Four"}]`, FieldTypeGuids.KeyValueList, {
+        keyprompt: "Enter Key",
+        valueprompt: "Enter Value",
+        displayvaluefirst: "false",
+        allowhtml: "false",
+        values: JSON.stringify([])
     }),
 
     MemoGallery: getFieldTypeGalleryComponent("Memo", "This is a memo", FieldTypeGuids.Memo, {

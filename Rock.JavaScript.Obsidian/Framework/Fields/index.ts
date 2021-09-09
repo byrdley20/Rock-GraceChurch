@@ -158,6 +158,9 @@ registerFieldType(FieldTypeGuids.Integer, new IntegerFieldType());
 import { IntegerRangeFieldType } from "./integerRangeField";
 registerFieldType(FieldTypeGuids.IntegerRange, new IntegerRangeFieldType());
 
+import { KeyValueListFieldType } from "./keyValueListField";
+registerFieldType(FieldTypeGuids.KeyValueList, new KeyValueListFieldType());
+
 import { MemoFieldType } from "./memoField";
 registerFieldType(FieldTypeGuids.Memo, new MemoFieldType());
 

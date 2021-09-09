@@ -221,6 +221,13 @@ System.register(["../../Templates/paneledBlockTemplate", "vue", "../../Elements/
                 GenderGallery: getFieldTypeGalleryComponent("Gender", "2", "2E28779B-4C76-4142-AE8D-49EA31DDB503", {}),
                 IntegerGallery: getFieldTypeGalleryComponent("Integer", "20", "A75DFC58-7A1B-4799-BF31-451B2BBE38FF", {}),
                 IntegerRangeGallery: getFieldTypeGalleryComponent("IntegerRange", "0,100", "9D5F21E0-DEA0-4E8E-BA42-71151F6A8ED4", {}),
+                KeyValueListGallery: getFieldTypeGalleryComponent("KeyValueList", `[{"key":"One","value":"Two"},{"key":"Three","value":"Four"}]`, "73B02051-0D38-4AD9-BF81-A2D477DE4F70", {
+                    keyprompt: "Enter Key",
+                    valueprompt: "Enter Value",
+                    displayvaluefirst: "false",
+                    allowhtml: "false",
+                    values: JSON.stringify([])
+                }),
                 MemoGallery: getFieldTypeGalleryComponent("Memo", "This is a memo", "C28C7BF3-A552-4D77-9408-DEDCF760CED0", {
                     numberofrows: "10",
                     maxcharacters: "100",

@@ -1,6 +1,6 @@
-System.register(["../Util/guid", "./addressField", "./booleanField", "./campusField", "./campusesField", "./colorField", "./currencyField", "./dateField", "./dateRangeField", "./dateTimeField", "./dayOfWeekField", "./daysOfWeekField", "./decimalField", "./decimalRangeField", "./definedValueField", "./definedValueRangeField", "./emailField", "./genderField", "./integerField", "./integerRangeField", "./memoField", "./monthDayField", "./multiSelectField", "./phoneNumberField", "./ratingField", "./singleSelectField", "./ssnField", "./textField", "./timeField"], function (exports_1, context_1) {
+System.register(["../Util/guid", "./addressField", "./booleanField", "./campusField", "./campusesField", "./colorField", "./currencyField", "./dateField", "./dateRangeField", "./dateTimeField", "./dayOfWeekField", "./daysOfWeekField", "./decimalField", "./decimalRangeField", "./definedValueField", "./definedValueRangeField", "./emailField", "./genderField", "./integerField", "./integerRangeField", "./keyValueListField", "./memoField", "./monthDayField", "./multiSelectField", "./phoneNumberField", "./ratingField", "./singleSelectField", "./ssnField", "./textField", "./timeField"], function (exports_1, context_1) {
     "use strict";
-    var guid_1, fieldTypeTable, addressField_1, booleanField_1, campusField_1, campusesField_1, colorField_1, currencyField_1, dateField_1, dateRangeField_1, dateTimeField_1, dayOfWeekField_1, daysOfWeekField_1, decimalField_1, decimalRangeField_1, definedValueField_1, definedValueRangeField_1, emailField_1, genderField_1, integerField_1, integerRangeField_1, memoField_1, monthDayField_1, multiSelectField_1, phoneNumberField_1, ratingField_1, singleSelectField_1, ssnField_1, textField_1, timeField_1;
+    var guid_1, fieldTypeTable, addressField_1, booleanField_1, campusField_1, campusesField_1, colorField_1, currencyField_1, dateField_1, dateRangeField_1, dateTimeField_1, dayOfWeekField_1, daysOfWeekField_1, decimalField_1, decimalRangeField_1, definedValueField_1, definedValueRangeField_1, emailField_1, genderField_1, integerField_1, integerRangeField_1, keyValueListField_1, memoField_1, monthDayField_1, multiSelectField_1, phoneNumberField_1, ratingField_1, singleSelectField_1, ssnField_1, textField_1, timeField_1;
     var __moduleName = context_1 && context_1.id;
     function getFieldEditorProps() {
         return {
@@ -100,6 +100,9 @@ System.register(["../Util/guid", "./addressField", "./booleanField", "./campusFi
             function (integerRangeField_1_1) {
                 integerRangeField_1 = integerRangeField_1_1;
             },
+            function (keyValueListField_1_1) {
+                keyValueListField_1 = keyValueListField_1_1;
+            },
             function (memoField_1_1) {
                 memoField_1 = memoField_1_1;
             },
@@ -149,6 +152,7 @@ System.register(["../Util/guid", "./addressField", "./booleanField", "./campusFi
             registerFieldType("2E28779B-4C76-4142-AE8D-49EA31DDB503", new genderField_1.GenderFieldType());
             registerFieldType("A75DFC58-7A1B-4799-BF31-451B2BBE38FF", new integerField_1.IntegerFieldType());
             registerFieldType("9D5F21E0-DEA0-4E8E-BA42-71151F6A8ED4", new integerRangeField_1.IntegerRangeFieldType());
+            registerFieldType("73B02051-0D38-4AD9-BF81-A2D477DE4F70", new keyValueListField_1.KeyValueListFieldType());
             registerFieldType("C28C7BF3-A552-4D77-9408-DEDCF760CED0", new memoField_1.MemoFieldType());
             registerFieldType("8BED8DD8-8167-4052-B807-A1E72C133611", new monthDayField_1.MonthDayFieldType());
             registerFieldType("BD0D9B57-2A41-4490-89FF-F01DAB7D4904", new multiSelectField_1.MultiSelectFieldType());

@@ -20,7 +20,7 @@ import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/Vi
 import { asBooleanOrNull } from "@Obsidian/Services/boolean";
 
 export const enum ConfigurationValueKey {
-    BooleanControlType = "BooleanControlType",
+    BooleanControlType = "booleanControlType",
     FalseText = "falsetext",
     TrueText = "truetext"
 }

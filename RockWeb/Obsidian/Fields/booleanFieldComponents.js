@@ -45,7 +45,7 @@ System.register(["vue", "./index", "@Obsidian/Services/boolean", "../Elements/dr
                 },
                 computed: {
                     booleanControlType() {
-                        const controlType = this.configurationValues["BooleanControlType"];
+                        const controlType = this.configurationValues["booleanControlType"];
                         switch (controlType) {
                             case "1":
                                 return BooleanControlType.Checkbox;

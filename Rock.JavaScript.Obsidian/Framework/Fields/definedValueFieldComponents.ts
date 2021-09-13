@@ -21,6 +21,7 @@ import DropDownList, { DropDownListOption } from "../Elements/dropDownList";
 import { asBoolean } from "@Obsidian/Services/boolean";
 import { ClientValue, ConfigurationValueKey, ValueItem } from "./definedValueField";
 import { ListItem } from "@Obsidian/ViewModels";
+import { toNumber } from "../Services/number";
 
 function parseModelValue(modelValue: string | undefined): string {
     try {
@@ -111,6 +112,9 @@ export const EditComponent = defineComponent({
             return attributes;
         });
 
+        /** The number of columns wide the checkbox list will be. */
+        const repeatColumns = computed((): number => toNumber(props.configurationValues[ConfigurationValueKey.RepeatColumns]));
+
         watch(() => props.modelValue, () => {
             internalValue.value = parseModelValue(props.modelValue);
             internalValues.value = parseModelValue(props.modelValue).split(",").filter(v => v !== "");
@@ -139,12 +143,13 @@ export const EditComponent = defineComponent({
             isMultiple,
             isRequired: inject("isRequired") as boolean,
             options,
-            optionsMultiple
+            optionsMultiple,
+            repeatColumns
         };
     },
 
     template: `
 <DropDownList v-if="!isMultiple" v-model="internalValue" v-bind="configAttributes" :options="options" :showBlankItem="!isRequired" />
-<CheckBoxList v-else v-model="internalValues" :options="optionsMultiple" />
+<CheckBoxList v-else v-model="internalValues" :options="optionsMultiple" horizontal :repeatColumns="repeatColumns" />
 `
 });

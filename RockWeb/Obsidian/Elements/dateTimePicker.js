@@ -126,7 +126,6 @@ System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "./textB
                                 return;
                             }
                             if (this.modelValue.indexOf("CURRENT") === 0) {
-                                console.log(this.modelValue);
                                 const parts = this.modelValue.split(":");
                                 if (parts.length === 2) {
                                     this.currentDiff = `${number_1.toNumber(parts[1])}`;

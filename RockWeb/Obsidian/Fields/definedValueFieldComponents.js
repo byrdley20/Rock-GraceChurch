@@ -1,6 +1,6 @@
-System.register(["vue", "./index", "../Elements/checkBoxList", "../Elements/dropDownList", "@Obsidian/Services/boolean"], function (exports_1, context_1) {
+System.register(["vue", "./index", "../Elements/checkBoxList", "../Elements/dropDownList", "@Obsidian/Services/boolean", "../Services/number"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, index_1, checkBoxList_1, dropDownList_1, boolean_1, EditComponent;
+    var vue_1, index_1, checkBoxList_1, dropDownList_1, boolean_1, number_1, EditComponent;
     var __moduleName = context_1 && context_1.id;
     function parseModelValue(modelValue) {
         try {
@@ -45,6 +45,9 @@ System.register(["vue", "./index", "../Elements/checkBoxList", "../Elements/drop
             },
             function (boolean_1_1) {
                 boolean_1 = boolean_1_1;
+            },
+            function (number_1_1) {
+                number_1 = number_1_1;
             }
         ],
         execute: function () {
@@ -93,6 +96,7 @@ System.register(["vue", "./index", "../Elements/checkBoxList", "../Elements/drop
                         }
                         return attributes;
                     });
+                    const repeatColumns = vue_1.computed(() => number_1.toNumber(props.configurationValues["repeatColumns"]));
                     vue_1.watch(() => props.modelValue, () => {
                         internalValue.value = parseModelValue(props.modelValue);
                         internalValues.value = parseModelValue(props.modelValue).split(",").filter(v => v !== "");
@@ -116,12 +120,13 @@ System.register(["vue", "./index", "../Elements/checkBoxList", "../Elements/drop
                         isMultiple,
                         isRequired: vue_1.inject("isRequired"),
                         options,
-                        optionsMultiple
+                        optionsMultiple,
+                        repeatColumns
                     };
                 },
                 template: `
 <DropDownList v-if="!isMultiple" v-model="internalValue" v-bind="configAttributes" :options="options" :showBlankItem="!isRequired" />
-<CheckBoxList v-else v-model="internalValues" :options="optionsMultiple" />
+<CheckBoxList v-else v-model="internalValues" :options="optionsMultiple" horizontal :repeatColumns="repeatColumns" />
 `
             }));
         }

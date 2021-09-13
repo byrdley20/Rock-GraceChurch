@@ -20,6 +20,7 @@ using System.Web.UI;
 
 using Rock.Data;
 using Rock.Model;
+using Rock.Web.Cache;
 using Rock.Web.UI.Controls;
 
 namespace Rock.Field.Types
@@ -97,8 +98,13 @@ namespace Rock.Field.Types
             }
             else
             {
-                // Empty address field value.
-                return "{}";
+                var globalAttributesCache = GlobalAttributesCache.Get();
+
+                return new AddressFieldValue
+                {
+                    State = globalAttributesCache.OrganizationState,
+                    Country = globalAttributesCache.OrganizationCountry
+                }.ToCamelCaseJson( false, true );
             }
         }
 
@@ -112,6 +118,8 @@ namespace Rock.Field.Types
                 return string.Empty;
             }
 
+            var globalAttributesCache = GlobalAttributesCache.Get();
+
             using ( var rockContext = new RockContext() )
             {
                 var locationService = new LocationService( rockContext );
@@ -120,7 +128,7 @@ namespace Rock.Field.Types
                     addressValue.City,
                     addressValue.State,
                     addressValue.PostalCode,
-                    addressValue.Country );
+                    addressValue.Country.IfEmpty( globalAttributesCache.OrganizationCountry ) );
 
                 if ( location == null )
                 {

@@ -258,7 +258,7 @@ namespace Rock.Field
         /// <inheritdoc/>
         public virtual string GetClientEditValue( string value, Dictionary<string, ConfigurationValue> configurationValues )
         {
-            return value;
+            return GetClientValue( value, configurationValues );
         }
 
         /// <inheritdoc/>

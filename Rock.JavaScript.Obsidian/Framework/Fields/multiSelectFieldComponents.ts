@@ -18,10 +18,10 @@ import { defineComponent, inject } from "vue";
 import { getFieldEditorProps } from "./index";
 import ListBox from "../Elements/listBox";
 import CheckBoxList from "../Elements/checkBoxList";
-import { toNumberOrNull } from "@Obsidian/Services/number";
+import { toNumberOrNull } from "../Services/number";
 import { ConfigurationValueKey } from "./multiSelectField";
-import { ListItem } from "@Obsidian/ViewModels";
-import { asBoolean } from "@Obsidian/Services/boolean";
+import { ListItem } from "../ViewModels";
+import { asBoolean } from "../Services/boolean";
 
 export const EditComponent = defineComponent({
     name: "MultiSelectField.Edit",

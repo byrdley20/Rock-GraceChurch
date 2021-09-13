@@ -16,7 +16,7 @@
 //
 import { defineComponent, PropType } from "vue";
 import { ruleArrayToString, ruleStringToArray } from "../Rules/index";
-import { asFormattedString, toNumberOrNull } from "@Obsidian/Services/number";
+import { asFormattedString, toNumberOrNull } from "../Services/number";
 import RockFormField from "./rockFormField";
 
 /**

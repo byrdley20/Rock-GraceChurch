@@ -18,9 +18,9 @@ import { computed, defineComponent, inject, ref, watch } from "vue";
 import { getFieldEditorProps } from "./index";
 import CheckBoxList from "../Elements/checkBoxList";
 import DropDownList, { DropDownListOption } from "../Elements/dropDownList";
-import { asBoolean } from "@Obsidian/Services/boolean";
+import { asBoolean } from "../Services/boolean";
 import { ClientValue, ConfigurationValueKey, ValueItem } from "./definedValueField";
-import { ListItem } from "@Obsidian/ViewModels";
+import { ListItem } from "../ViewModels";
 import { toNumber } from "../Services/number";
 
 function parseModelValue(modelValue: string | undefined): string {

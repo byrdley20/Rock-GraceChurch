@@ -17,7 +17,7 @@
 import { defineComponent } from "vue";
 import { getFieldEditorProps } from "./index";
 import DateTimePicker from "../Elements/dateTimePicker";
-import { asBoolean } from "@Obsidian/Services/boolean";
+import { asBoolean } from "../Services/boolean";
 import { ConfigurationValueKey } from "./dateTimeField";
 
 export const EditComponent = defineComponent({

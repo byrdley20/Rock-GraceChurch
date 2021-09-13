@@ -15,7 +15,7 @@
 // </copyright>
 //
 import { defineComponent, PropType } from "vue";
-import { ClientAttributeValue } from "@Obsidian/ViewModels";
+import { ClientAttributeValue } from "../ViewModels";
 import RockField from "./rockField";
 import LoadingIndicator from "../Elements/loadingIndicator";
 

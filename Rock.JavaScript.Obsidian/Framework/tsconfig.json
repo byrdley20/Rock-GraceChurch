@@ -14,7 +14,6 @@
     "target": "ES2016",
     "module": "System",
     "moduleResolution": "Node",
-    "baseUrl": ".",
     "strict": true,
     "lib": [
       "DOM",
@@ -22,9 +21,6 @@
       "ES2020.Symbol.WellKnown" /* Fixes compile issue in Vue declaration files, not actually in use. */
     ],
     "paths": {
-      "@Obsidian/ViewModels": [ "ViewModels/index" ],
-      "@Obsidian/SystemGuids": [ "SystemGuids/index" ],
-      "@Obsidian/Services/*": [ "Services/*" ]
     }
   },
   "exclude": [

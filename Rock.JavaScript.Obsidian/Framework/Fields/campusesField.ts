@@ -16,7 +16,7 @@
 //
 import { Component, defineAsyncComponent } from "vue";
 import { FieldTypeBase } from "./fieldType";
-import { ClientAttributeValue, ClientEditableAttributeValue, ListItem } from "@Obsidian/ViewModels";
+import { ClientAttributeValue, ClientEditableAttributeValue, ListItem } from "../ViewModels";
 
 export const enum ConfigurationValueKey {
     Values = "values",

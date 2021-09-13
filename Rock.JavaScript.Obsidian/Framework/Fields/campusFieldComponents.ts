@@ -18,7 +18,7 @@ import { computed, defineComponent, ref, SetupContext, watch, watchEffect } from
 import { getFieldEditorProps } from "./index";
 import DropDownList, { DropDownListOption } from "../Elements/dropDownList";
 import { ConfigurationValueKey } from "./campusField";
-import { ListItem } from "@Obsidian/ViewModels";
+import { ListItem } from "../ViewModels";
 
 export const EditComponent = defineComponent({
     name: "CampusField.Edit",

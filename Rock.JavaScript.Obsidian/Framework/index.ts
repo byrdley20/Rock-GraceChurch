@@ -18,7 +18,7 @@ import { App, Component, createApp, markRaw } from "vue";
 import RockBlock from "./rockBlock";
 import { useStore } from "./Store/index";
 import "./Rules/index";
-import { DebugTiming } from "@Obsidian/ViewModels";
+import { DebugTiming } from "./ViewModels";
 import { BlockConfig } from "./Util/block";
 import { PageConfig } from "./Util/page";
 import { RockDateTime } from "./Util/rockDateTime";

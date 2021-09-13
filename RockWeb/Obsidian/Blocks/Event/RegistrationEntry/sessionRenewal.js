@@ -1,4 +1,4 @@
-System.register(["vue", "../../../Controls/dialog", "../../../Elements/loadingIndicator", "../../../Elements/rockButton", "@Obsidian/Services/number", "@Obsidian/Services/string", "../../../Util/rockDateTime"], function (exports_1, context_1) {
+System.register(["vue", "../../../Controls/dialog", "../../../Elements/loadingIndicator", "../../../Elements/rockButton", "../../../Services/number", "../../../Services/string", "../../../Util/rockDateTime"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }

@@ -17,7 +17,7 @@
 
 import { GatewayControlModel } from "../../../Controls/gatewayControl";
 import { Guid } from "../../../Util/guid";
-import { ClientEditableAttributeValue } from "@Obsidian/ViewModels";
+import { ClientEditableAttributeValue } from "../../../ViewModels";
 import { RegistrationEntryBlockSession } from "./registrationEntryBlockArgs";
 import { DropDownListOption } from "../../../Elements/dropDownList";
 

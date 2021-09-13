@@ -17,8 +17,8 @@
 import { defineComponent } from "vue";
 import { getFieldEditorProps } from "./index";
 import DatePicker from "../Elements/datePicker";
-import { asBoolean } from "@Obsidian/Services/boolean";
-import { toNumber } from "@Obsidian/Services/number";
+import { asBoolean } from "../Services/boolean";
+import { toNumber } from "../Services/number";
 import DatePartsPicker, { getDefaultDatePartsPickerModel } from "../Elements/datePartsPicker";
 import { ConfigurationValueKey } from "./dateField";
 import { RockDateTime } from "../Util/rockDateTime";

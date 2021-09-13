@@ -14,10 +14,10 @@
 // limitations under the License.
 // </copyright>
 //
-import { asFormattedString } from "@Obsidian/Services/number";
+import { asFormattedString } from "../Services/number";
 import { defineComponent, PropType } from "vue";
 import { useStore } from "../Store/index";
-import { DebugTiming } from "@Obsidian/ViewModels";
+import { DebugTiming } from "../ViewModels";
 
 const store = useStore();
 

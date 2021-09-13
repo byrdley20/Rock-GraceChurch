@@ -16,7 +16,7 @@
 //
 import { defineComponent } from "vue";
 import { getFieldEditorProps } from "./index";
-import { asTrueFalseOrNull, asBoolean } from "@Obsidian/Services/boolean";
+import { asTrueFalseOrNull, asBoolean } from "../Services/boolean";
 import { ConfigurationValueKey } from "./booleanField";
 import DropDownList, { DropDownListOption } from "../Elements/dropDownList";
 import Toggle from "../Elements/toggle";

@@ -14,7 +14,7 @@
 // limitations under the License.
 // </copyright>
 //
-import { asBoolean } from "@Obsidian/Services/boolean";
+import { asBoolean } from "../Services/boolean";
 import { computed, defineComponent, ref, watch } from "vue";
 import DropDownList, { DropDownListOption } from "../Elements/dropDownList";
 import RockFormField from "../Elements/rockFormField";

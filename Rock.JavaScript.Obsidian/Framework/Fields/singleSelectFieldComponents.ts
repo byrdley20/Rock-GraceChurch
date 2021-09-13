@@ -18,9 +18,9 @@ import { defineComponent, inject } from "vue";
 import { getFieldEditorProps } from "./index";
 import DropDownList, { DropDownListOption } from "../Elements/dropDownList";
 import RadioButtonList from "../Elements/radioButtonList";
-import { toNumberOrNull } from "@Obsidian/Services/number";
+import { toNumberOrNull } from "../Services/number";
 import { ConfigurationValueKey } from "./singleSelectField";
-import { ListItem } from "@Obsidian/ViewModels";
+import { ListItem } from "../ViewModels";
 
 export const EditComponent = defineComponent({
     name: "SingleSelectField.Edit",

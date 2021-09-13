@@ -16,8 +16,8 @@
 
 import { defineComponent, PropType } from "vue";
 import { ruleArrayToString, ruleStringToArray } from "../Rules/index";
-import DateKey from "@Obsidian/Services/dateKey";
-import { toNumber, toNumberOrNull } from "@Obsidian/Services/number";
+import DateKey from "../Services/dateKey";
+import { toNumber, toNumberOrNull } from "../Services/number";
 import RockFormField from "./rockFormField";
 import { RockDateTime } from "../Util/rockDateTime";
 

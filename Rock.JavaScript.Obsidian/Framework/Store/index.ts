@@ -17,7 +17,7 @@
 import { State } from "./state";
 import { shallowReadonly, reactive } from "vue";
 import { PageConfig } from "../Util/page";
-import { Group, IEntity, Person } from "@Obsidian/ViewModels";
+import { Group, IEntity, Person } from "../ViewModels";
 import { RockDateTime } from "../Util/rockDateTime";
 
 // This needs to move elsewhere probably.

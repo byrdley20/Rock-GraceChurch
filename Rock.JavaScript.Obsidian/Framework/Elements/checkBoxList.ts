@@ -16,7 +16,7 @@
 //
 import { computed, defineComponent, PropType, ref, watch, watchEffect } from "vue";
 import RockFormField from "./rockFormField";
-import { ListItem } from "@Obsidian/ViewModels";
+import { ListItem } from "../ViewModels";
 import { Guid } from "../Util/guid";
 
 export default defineComponent({

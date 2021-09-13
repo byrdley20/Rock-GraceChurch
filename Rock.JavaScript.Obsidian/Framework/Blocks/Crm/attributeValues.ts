@@ -25,7 +25,7 @@ import JavaScriptAnchor from "../../Elements/javaScriptAnchor";
 import RockForm from "../../Controls/rockForm";
 import TextBox from "../../Elements/textBox";
 import RockButton from "../../Elements/rockButton";
-import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
+import { ClientAttributeValue, ClientEditableAttributeValue } from "../../ViewModels";
 import AttributeValuesContainer from "../../Controls/attributeValuesContainer";
 import { List } from "../../Util/linq";
 

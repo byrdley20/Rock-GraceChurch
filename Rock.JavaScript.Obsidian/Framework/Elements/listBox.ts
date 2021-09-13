@@ -14,7 +14,7 @@
 // limitations under the License.
 // </copyright>
 //
-import { ListItem } from "@Obsidian/ViewModels";
+import { ListItem } from "../ViewModels";
 import { defineComponent, PropType } from "vue";
 import { newGuid } from "../Util/guid";
 import RockFormField from "./rockFormField";

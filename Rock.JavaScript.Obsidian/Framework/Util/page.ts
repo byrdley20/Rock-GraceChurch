@@ -15,7 +15,7 @@
 // </copyright>
 //
 
-import { IEntity, Person } from "@Obsidian/ViewModels";
+import { IEntity, Person } from "../ViewModels";
 import { Guid } from "./guid";
 
 export type PageConfig = {

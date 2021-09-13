@@ -1,4 +1,4 @@
-System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "./textBox", "./basicTimePicker", "@Obsidian/Services/string", "../Util/rockDateTime"], function (exports_1, context_1) {
+System.register(["vue", "../Services/number", "./rockFormField", "./textBox", "./basicTimePicker", "../Services/string", "../Util/rockDateTime"], function (exports_1, context_1) {
     "use strict";
     var vue_1, number_1, rockFormField_1, textBox_1, basicTimePicker_1, string_1, rockDateTime_1;
     var __moduleName = context_1 && context_1.id;

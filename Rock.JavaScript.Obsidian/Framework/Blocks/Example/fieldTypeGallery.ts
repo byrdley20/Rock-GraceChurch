@@ -21,8 +21,8 @@ import PanelWidget from "../../Elements/panelWidget";
 import AttributeValuesContainer from "../../Controls/attributeValuesContainer";
 import { Guid } from "../../Util/guid";
 import TextBox from "../../Elements/textBox";
-import { FieldType as FieldTypeGuids } from "@Obsidian/SystemGuids";
-import { ClientEditableAttributeValue, ListItem } from "@Obsidian/ViewModels";
+import { FieldType as FieldTypeGuids } from "../../SystemGuids";
+import { ClientEditableAttributeValue, ListItem } from "../../ViewModels";
 
 /**
  * Convert a simpler set of parameters into AttributeValueData

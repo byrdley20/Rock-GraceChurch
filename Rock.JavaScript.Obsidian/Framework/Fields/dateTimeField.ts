@@ -16,9 +16,9 @@
 //
 import { Component, defineAsyncComponent } from "vue";
 import { FieldTypeBase } from "./fieldType";
-import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
-import { asBoolean } from "@Obsidian/Services/boolean";
-import { toNumber } from "@Obsidian/Services/number";
+import { ClientAttributeValue, ClientEditableAttributeValue } from "../ViewModels";
+import { asBoolean } from "../Services/boolean";
+import { toNumber } from "../Services/number";
 import { RockDateTime } from "../Util/rockDateTime";
 
 export const enum ConfigurationValueKey {

@@ -18,8 +18,8 @@ import { computed, defineComponent, inject, ref, watch } from "vue";
 import { getFieldEditorProps } from "./index";
 import RockFormField from "../Elements/rockFormField";
 import { ClientValue, ConfigurationValueKey, ValueItem } from "./definedValueRangeField";
-import { ListItem } from "@Obsidian/ViewModels";
-import { asBoolean } from "@Obsidian/Services/boolean";
+import { ListItem } from "../ViewModels";
+import { asBoolean } from "../Services/boolean";
 import { List } from "../Util/linq";
 
 function parseModelValue(modelValue: string | undefined): string[] {

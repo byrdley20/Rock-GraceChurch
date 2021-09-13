@@ -1,4 +1,4 @@
-System.register(["vue", "../../../Elements/alert", "../../../Elements/checkBox", "../../../Elements/dropDownList", "../../../Elements/numberUpDown", "../../../Elements/numberUpDownGroup", "@Obsidian/Services/number", "../../../Util/guid"], function (exports_1, context_1) {
+System.register(["vue", "../../../Elements/alert", "../../../Elements/checkBox", "../../../Elements/dropDownList", "../../../Elements/numberUpDown", "../../../Elements/numberUpDownGroup", "../../../Services/number", "../../../Util/guid"], function (exports_1, context_1) {
     "use strict";
     var vue_1, alert_1, checkBox_1, dropDownList_1, numberUpDown_1, numberUpDownGroup_1, number_1, guid_1;
     var __moduleName = context_1 && context_1.id;

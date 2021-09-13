@@ -15,12 +15,12 @@
 // </copyright>
 //
 import { defineComponent, PropType } from "vue";
-import { toNumber } from "@Obsidian/Services/number";
+import { toNumber } from "../Services/number";
 import RockFormField from "./rockFormField";
 import TextBox from "./textBox";
 import BasicTimePicker from "./basicTimePicker";
 import { TimePickerValue } from "./timePicker";
-import { padLeft } from "@Obsidian/Services/string";
+import { padLeft } from "../Services/string";
 import { RockDateTime } from "../Util/rockDateTime";
 
 type Rock = {

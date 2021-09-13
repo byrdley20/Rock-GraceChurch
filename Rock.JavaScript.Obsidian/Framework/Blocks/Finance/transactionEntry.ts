@@ -22,13 +22,13 @@ import RockButton from "../../Elements/rockButton";
 import { areEqual, Guid, newGuid } from "../../Util/guid";
 import { RockDateTime } from "../../Util/rockDateTime";
 import Alert from "../../Elements/alert";
-import { asFormattedString } from "@Obsidian/Services/number";
+import { asFormattedString } from "../../Services/number";
 import { ConfigurationValues, InvokeBlockActionFunc } from "../../Util/block";
 import Toggle from "../../Elements/toggle";
-import { FinancialAccount, Person } from "@Obsidian/ViewModels";
+import { FinancialAccount, Person } from "../../ViewModels";
 import { useStore } from "../../Store/index";
 import TextBox from "../../Elements/textBox";
-import { asCommaAnd } from "@Obsidian/Services/string";
+import { asCommaAnd } from "../../Services/string";
 import GatewayControl, { GatewayControlModel } from "../../Controls/gatewayControl";
 import RockValidation from "../../Controls/rockValidation";
 

@@ -16,7 +16,7 @@
 //
 import { defineComponent } from "vue";
 import { getFieldEditorProps } from "./index";
-import { toNumber } from "@Obsidian/Services/number";
+import { toNumber } from "../Services/number";
 import DatePartsPicker, { DatePartsPickerValue } from "../Elements/datePartsPicker";
 
 export const EditComponent = defineComponent({

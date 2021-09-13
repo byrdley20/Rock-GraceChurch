@@ -16,7 +16,7 @@
 //
 import { defineComponent } from "vue";
 import { getFieldEditorProps } from "./index";
-import { toNumberOrNull } from "@Obsidian/Services/number";
+import { toNumberOrNull } from "../Services/number";
 import Rating from "../Elements/rating";
 import { ConfigurationValueKey, RatingValue } from "./ratingField";
 

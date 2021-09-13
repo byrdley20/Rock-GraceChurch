@@ -14,11 +14,11 @@
 // limitations under the License.
 // </copyright>
 //
-import DateKey from "@Obsidian/Services/dateKey";
-import { isEmail } from "@Obsidian/Services/email";
-import { isNullOrWhiteSpace } from "@Obsidian/Services/string";
+import DateKey from "../Services/dateKey";
+import { isEmail } from "../Services/email";
+import { isNullOrWhiteSpace } from "../Services/string";
 import { defineRule } from "vee-validate";
-import { toNumberOrNull } from "@Obsidian/Services/number";
+import { toNumberOrNull } from "../Services/number";
 
 export type ValidationRuleFunction = ( value: unknown ) => boolean | string | Promise<boolean | string>;
 

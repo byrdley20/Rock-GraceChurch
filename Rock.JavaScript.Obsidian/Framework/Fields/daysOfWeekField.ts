@@ -16,8 +16,8 @@
 //
 import { Component, defineAsyncComponent } from "vue";
 import { FieldTypeBase } from "./fieldType";
-import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
-import { toNumberOrNull } from "@Obsidian/Services/number";
+import { ClientAttributeValue, ClientEditableAttributeValue } from "../ViewModels";
+import { toNumberOrNull } from "../Services/number";
 import { DayOfWeek } from "./dayOfWeekField";
 
 

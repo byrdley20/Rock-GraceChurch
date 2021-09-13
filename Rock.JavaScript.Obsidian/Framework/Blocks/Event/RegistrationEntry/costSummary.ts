@@ -21,7 +21,7 @@ import { InvokeBlockActionFunc } from "../../../Util/block";
 import CurrencyBox from "../../../Elements/currencyBox";
 import HelpBlock from "../../../Elements/helpBlock";
 import { ruleArrayToString } from "../../../Rules/index";
-import { asFormattedString } from "@Obsidian/Services/number";
+import { asFormattedString } from "../../../Services/number";
 import { RegistrationEntryState } from "../registrationEntry";
 import { RegistrationEntryBlockArgs } from "./registrationEntryBlockArgs";
 

@@ -17,8 +17,8 @@
 import { defineComponent } from "vue";
 import { getFieldEditorProps } from "./index";
 import TextBox from "../Elements/textBox";
-import { asBooleanOrNull } from "@Obsidian/Services/boolean";
-import { toNumber } from "@Obsidian/Services/number";
+import { asBooleanOrNull } from "../Services/boolean";
+import { toNumber } from "../Services/number";
 import { ConfigurationValueKey } from "./memoField";
 
 export const EditComponent = defineComponent({

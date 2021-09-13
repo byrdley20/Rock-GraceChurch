@@ -17,9 +17,9 @@
 import { computed, defineComponent, ref, SetupContext, watch, watchEffect } from "vue";
 import { getFieldEditorProps } from "./index";
 import CheckBoxList from "../Elements/checkBoxList";
-import { toNumberOrNull } from "@Obsidian/Services/number";
+import { toNumberOrNull } from "../Services/number";
 import { ConfigurationValueKey } from "./campusesField";
-import { ListItem } from "@Obsidian/ViewModels";
+import { ListItem } from "../ViewModels";
 
 export const EditComponent = defineComponent({
     name: "CampusesField.Edit",

@@ -1,4 +1,4 @@
-System.register(["vue", "./index", "@Obsidian/Services/boolean", "../Elements/dropDownList", "../Elements/toggle", "../Elements/checkBox"], function (exports_1, context_1) {
+System.register(["vue", "./index", "../Services/boolean", "../Elements/dropDownList", "../Elements/toggle", "../Elements/checkBox"], function (exports_1, context_1) {
     "use strict";
     var vue_1, index_1, boolean_1, dropDownList_1, toggle_1, checkBox_1, BooleanControlType, EditComponent;
     var __moduleName = context_1 && context_1.id;

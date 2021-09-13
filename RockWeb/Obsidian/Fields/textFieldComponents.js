@@ -1,4 +1,4 @@
-System.register(["vue", "./index", "../Elements/textBox", "@Obsidian/Services/boolean"], function (exports_1, context_1) {
+System.register(["vue", "./index", "../Elements/textBox", "../Services/boolean"], function (exports_1, context_1) {
     "use strict";
     var vue_1, index_1, textBox_1, boolean_1, ConfigurationValueKey, EditComponent;
     var __moduleName = context_1 && context_1.id;

@@ -1,4 +1,4 @@
-System.register(["vue", "../../../Elements/dropDownList", "../../../Elements/radioButtonList", "../registrationEntry", "@Obsidian/Services/string", "../../../Elements/rockButton", "./registrantPersonField", "./registrantAttributeField", "../../../Elements/alert", "../../../Util/guid", "../../../Controls/rockForm", "./feeField", "../../../Elements/itemsWithPreAndPostHtml", "../../../Store/index"], function (exports_1, context_1) {
+System.register(["vue", "../../../Elements/dropDownList", "../../../Elements/radioButtonList", "../registrationEntry", "../../../Services/string", "../../../Elements/rockButton", "./registrantPersonField", "./registrantAttributeField", "../../../Elements/alert", "../../../Util/guid", "../../../Controls/rockForm", "./feeField", "../../../Elements/itemsWithPreAndPostHtml", "../../../Store/index"], function (exports_1, context_1) {
     "use strict";
     var vue_1, dropDownList_1, radioButtonList_1, registrationEntry_1, string_1, rockButton_1, registrantPersonField_1, registrantAttributeField_1, alert_1, guid_1, rockForm_1, feeField_1, itemsWithPreAndPostHtml_1, index_1, store;
     var __moduleName = context_1 && context_1.id;

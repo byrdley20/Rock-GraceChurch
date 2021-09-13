@@ -1,4 +1,4 @@
-System.register(["@Obsidian/Services/string", "vue", "./textFieldComponents"], function (exports_1, context_1) {
+System.register(["../Services/string", "vue", "./textFieldComponents"], function (exports_1, context_1) {
     "use strict";
     var string_1, vue_1, textFieldComponents_1, FieldTypeBase;
     var __moduleName = context_1 && context_1.id;

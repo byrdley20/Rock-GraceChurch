@@ -18,8 +18,8 @@ import { defineComponent } from "vue";
 import { getFieldEditorProps } from "./index";
 import { DayOfWeek } from "./dayOfWeekField";
 import CheckBoxList from "../Elements/checkBoxList";
-import { toNumber } from "@Obsidian/Services/number";
-import { ListItem } from "@Obsidian/ViewModels";
+import { toNumber } from "../Services/number";
+import { ListItem } from "../ViewModels";
 
 export const EditComponent = defineComponent({
     name: "DaysOfWeekField.Edit",

@@ -1,4 +1,4 @@
-System.register(["vue", "@Obsidian/Services/number", "@Obsidian/Services/string"], function (exports_1, context_1) {
+System.register(["vue", "../Services/number", "../Services/string"], function (exports_1, context_1) {
     "use strict";
     var vue_1, number_1, string_1;
     var __moduleName = context_1 && context_1.id;

@@ -21,7 +21,7 @@ import RockButton from "../../Elements/rockButton";
 import TextBox from "../../Elements/textBox";
 import { defineComponent } from "vue";
 import { useStore } from "../../Store/index";
-import { Person } from "@Obsidian/ViewModels";
+import { Person } from "../../ViewModels";
 
 const store = useStore();
 

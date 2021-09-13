@@ -1,4 +1,4 @@
-System.register(["@Obsidian/Services/number", "vue", "../Store/index"], function (exports_1, context_1) {
+System.register(["../Services/number", "vue", "../Store/index"], function (exports_1, context_1) {
     "use strict";
     var number_1, vue_1, index_1, store, pageDebugTimingRow;
     var __moduleName = context_1 && context_1.id;

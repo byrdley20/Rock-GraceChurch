@@ -20,7 +20,7 @@ import { InvokeBlockActionFunc } from "../../../Util/block";
 import Alert from "../../../Elements/alert";
 import RockButton from "../../../Elements/rockButton";
 import TextBox from "../../../Elements/textBox";
-import { asFormattedString } from "@Obsidian/Services/number";
+import { asFormattedString } from "../../../Services/number";
 import { RegistrationEntryState } from "../registrationEntry";
 import {  RegistrationEntryBlockViewModel } from "./registrationEntryBlockViewModel";
 

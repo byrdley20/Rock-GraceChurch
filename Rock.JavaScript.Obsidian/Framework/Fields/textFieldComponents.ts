@@ -17,7 +17,7 @@
 import { defineComponent } from "vue";
 import { getFieldEditorProps } from "./index";
 import TextBox from "../Elements/textBox";
-import { asBooleanOrNull } from "@Obsidian/Services/boolean";
+import { asBooleanOrNull } from "../Services/boolean";
 
 enum ConfigurationValueKey {
     IsPassword = "ispassword",

@@ -15,8 +15,8 @@
 // </copyright>
 
 import { defineComponent, PropType } from "vue";
-import { toNumber } from "@Obsidian/Services/number";
-import { padLeft } from "@Obsidian/Services/string";
+import { toNumber } from "../Services/number";
+import { padLeft } from "../Services/string";
 
 /** The value expected by the TimePicker. */
 export type BasicTimePickerValue = {

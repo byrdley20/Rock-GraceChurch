@@ -34,7 +34,7 @@ const vendorMaps: Record<string, string> = {
  * Describes the alias maps for package paths.
  */
 const packageMaps: Record<string, string> = {
-    "@Obsidian/Services/*": "/Obsidian/Services/*"
+    //"@Obsidian/Services/*": "/Obsidian/Services/*"
 };
 
 /**

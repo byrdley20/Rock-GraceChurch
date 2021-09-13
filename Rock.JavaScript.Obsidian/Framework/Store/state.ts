@@ -15,8 +15,7 @@
 // </copyright>
 //
 
-import { IEntity, Person, DebugTiming } from "@Obsidian/ViewModels";
-import { RockDateTime } from "../Util/rockDateTime";
+import { IEntity, Person, DebugTiming } from "../ViewModels";
 import { Guid } from "../Util/guid";
 
 export type State = {

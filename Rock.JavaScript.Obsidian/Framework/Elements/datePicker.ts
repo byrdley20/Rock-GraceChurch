@@ -15,7 +15,7 @@
 // </copyright>
 //
 import { defineComponent, PropType } from "vue";
-import { toNumber } from "@Obsidian/Services/number";
+import { toNumber } from "../Services/number";
 import RockFormField from "./rockFormField";
 import { newGuid } from "../Util/guid";
 import TextBox from "./textBox";

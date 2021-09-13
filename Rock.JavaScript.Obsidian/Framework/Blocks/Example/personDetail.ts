@@ -27,10 +27,10 @@ import { Guid } from "../../Util/guid";
 import Loading from "../../Controls/loading";
 import PrimaryBlock from "../../Controls/primaryBlock";
 import { InvokeBlockActionFunc } from "../../Util/block";
-import { Person } from "@Obsidian/ViewModels";
+import { Person } from "../../ViewModels";
 import DatePicker from "../../Elements/datePicker";
 import AddressControl, { getDefaultAddressControlModel } from "../../Controls/addressControl";
-import { toNumber } from "@Obsidian/Services/number";
+import { toNumber } from "../../Services/number";
 import { DateTimeFormat, RockDateTime } from "../../Util/rockDateTime";
 
 const store = useStore();

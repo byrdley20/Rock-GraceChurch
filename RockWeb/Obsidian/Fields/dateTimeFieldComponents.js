@@ -1,4 +1,4 @@
-System.register(["vue", "./index", "../Elements/dateTimePicker", "@Obsidian/Services/boolean"], function (exports_1, context_1) {
+System.register(["vue", "./index", "../Elements/dateTimePicker", "../Services/boolean"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }

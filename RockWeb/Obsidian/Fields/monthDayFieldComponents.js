@@ -1,4 +1,4 @@
-System.register(["vue", "./index", "@Obsidian/Services/number", "../Elements/datePartsPicker"], function (exports_1, context_1) {
+System.register(["vue", "./index", "../Services/number", "../Elements/datePartsPicker"], function (exports_1, context_1) {
     "use strict";
     var vue_1, index_1, number_1, datePartsPicker_1, EditComponent;
     var __moduleName = context_1 && context_1.id;

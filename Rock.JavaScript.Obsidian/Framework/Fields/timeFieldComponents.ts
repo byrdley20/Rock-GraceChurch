@@ -17,8 +17,8 @@
 import { defineComponent } from "vue";
 import { getFieldEditorProps } from "./index";
 import TimePicker, { TimePickerValue } from "../Elements/timePicker";
-import { toNumber } from "@Obsidian/Services/number";
-import { padLeft } from "@Obsidian/Services/string";
+import { toNumber } from "../Services/number";
+import { padLeft } from "../Services/string";
 
 export const EditComponent = defineComponent({
     name: "TimeField.Edit",

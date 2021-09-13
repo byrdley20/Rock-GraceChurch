@@ -1,4 +1,4 @@
-System.register(["Util/block", "vue", "../../Elements/alert", "../../Elements/rockButton", "../../Templates/paneledBlockTemplate"], function (exports_1, context_1) {
+System.register(["../../Util/block", "vue", "../../Elements/alert", "../../Elements/rockButton", "../../Templates/paneledBlockTemplate"], function (exports_1, context_1) {
     "use strict";
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }

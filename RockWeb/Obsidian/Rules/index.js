@@ -1,4 +1,4 @@
-System.register(["@Obsidian/Services/dateKey", "@Obsidian/Services/email", "@Obsidian/Services/string", "vee-validate", "@Obsidian/Services/number"], function (exports_1, context_1) {
+System.register(["../Services/dateKey", "../Services/email", "../Services/string", "vee-validate", "../Services/number"], function (exports_1, context_1) {
     "use strict";
     var dateKey_1, email_1, string_1, vee_validate_1, number_1;
     var __moduleName = context_1 && context_1.id;

@@ -17,7 +17,7 @@
 import { PropType } from "vue";
 import { Guid, normalize, isValidGuid } from "../Util/guid";
 import { IFieldType } from "./fieldType";
-import { FieldType as FieldTypeGuids } from "@Obsidian/SystemGuids";
+import { FieldType as FieldTypeGuids } from "../SystemGuids";
 
 const fieldTypeTable: Record<Guid, IFieldType> = {};
 

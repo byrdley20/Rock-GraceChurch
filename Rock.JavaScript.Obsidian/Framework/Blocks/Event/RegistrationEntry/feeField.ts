@@ -21,7 +21,7 @@ import CheckBox from "../../../Elements/checkBox";
 import DropDownList, { DropDownListOption } from "../../../Elements/dropDownList";
 import NumberUpDown from "../../../Elements/numberUpDown";
 import NumberUpDownGroup, { NumberUpDownGroupOption } from "../../../Elements/numberUpDownGroup";
-import Number from "@Obsidian/Services/number";
+import Number from "../../../Services/number";
 import GuidHelper, { Guid } from "../../../Util/guid";
 import { RegistrationEntryBlockFeeViewModel, RegistrationEntryBlockFeeItemViewModel } from "./registrationEntryBlockViewModel";
 

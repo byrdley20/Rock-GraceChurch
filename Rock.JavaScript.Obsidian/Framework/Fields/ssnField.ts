@@ -15,7 +15,7 @@
 // </copyright>
 //
 
-import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
+import { ClientAttributeValue, ClientEditableAttributeValue } from "../ViewModels";
 import { Component, defineAsyncComponent } from "vue";
 import { FieldTypeBase } from "./fieldType";
 

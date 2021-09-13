@@ -16,8 +16,8 @@
 //
 import { Component, defineAsyncComponent } from "vue";
 import { FieldTypeBase } from "./fieldType";
-import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
-import { toNumber } from "@Obsidian/Services/number";
+import { ClientAttributeValue, ClientEditableAttributeValue } from "../ViewModels";
+import { toNumber } from "../Services/number";
 
 // The edit component can be quite large, so load it only as needed.
 const editComponent = defineAsyncComponent(async () => {

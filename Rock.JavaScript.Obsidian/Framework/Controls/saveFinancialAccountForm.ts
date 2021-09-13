@@ -21,7 +21,7 @@ import CheckBox from "../Elements/checkBox";
 import RockButton from "../Elements/rockButton";
 import TextBox from "../Elements/textBox";
 import { Guid } from "../Util/guid";
-import { Person } from "@Obsidian/ViewModels";
+import { Person } from "../ViewModels";
 import { BlockHttp } from "../Util/block";
 import RockForm from "./rockForm";
 import { useStore } from "../Store/index";

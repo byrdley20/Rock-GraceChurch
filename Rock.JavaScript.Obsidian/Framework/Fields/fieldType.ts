@@ -15,9 +15,9 @@
 // </copyright>
 //
 
-import { escapeHtml, truncate } from "@Obsidian/Services/string";
+import { escapeHtml, truncate } from "../Services/string";
 import { compile, Component, defineComponent } from "vue";
-import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
+import { ClientAttributeValue, ClientEditableAttributeValue } from "../ViewModels";
 import { EditComponent as TextEditComponent } from "./textFieldComponents";
 
 /**

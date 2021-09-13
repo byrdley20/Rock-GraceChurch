@@ -16,7 +16,7 @@
 //
 import { Component, defineAsyncComponent } from "vue";
 import { FieldTypeBase } from "./fieldType";
-import { ClientAttributeValue } from "@Obsidian/ViewModels";
+import { ClientAttributeValue } from "../ViewModels";
 
 export const enum ConfigurationValueKey {
     NumberOfRows = "numberofrows",

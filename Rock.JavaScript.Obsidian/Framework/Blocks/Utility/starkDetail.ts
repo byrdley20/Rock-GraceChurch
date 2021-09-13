@@ -15,7 +15,7 @@
 // </copyright>
 //
 
-import { useConfigurationValues, useInvokeBlockAction } from "Util/block";
+import { useConfigurationValues, useInvokeBlockAction } from "../../Util/block";
 import { defineComponent } from "vue";
 import Alert from "../../Elements/alert";
 import RockButton from "../../Elements/rockButton";

@@ -19,7 +19,7 @@ import { defineComponent, inject } from "vue";
 import AttributeValuesContainer from "../../../Controls/attributeValuesContainer";
 import RockForm from "../../../Controls/rockForm";
 import RockButton from "../../../Elements/rockButton";
-import { ClientEditableAttributeValue } from "@Obsidian/ViewModels";
+import { ClientEditableAttributeValue } from "../../../ViewModels";
 import { RegistrationEntryState } from "../registrationEntry";
 
 export default defineComponent( {

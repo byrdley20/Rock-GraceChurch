@@ -18,7 +18,7 @@
 import { defineComponent, PropType } from "vue";
 import { newGuid } from "../Util/guid";
 import RockFormField from "./rockFormField";
-import { formatPhoneNumber, stripPhoneNumber } from "@Obsidian/Services/string";
+import { formatPhoneNumber, stripPhoneNumber } from "../Services/string";
 
 export default defineComponent({
     name: "PhoneNumberBox",

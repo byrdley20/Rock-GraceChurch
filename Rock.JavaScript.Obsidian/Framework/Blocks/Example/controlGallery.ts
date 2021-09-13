@@ -49,8 +49,8 @@ import SocialSecurityNumberBox from "../../Elements/socialSecurityNumberBox";
 import TimePicker from "../../Elements/timePicker";
 import CheckBoxList from "../../Elements/checkBoxList";
 import Rating from "../../Elements/rating";
-import { toNumber } from "@Obsidian/Services/number";
-import { ListItem } from "@Obsidian/ViewModels";
+import { toNumber } from "../../Services/number";
+import { ListItem } from "../../ViewModels";
 
 /** An inner component that describes the template used for each of the controls
  *  within this control gallery */

@@ -20,6 +20,7 @@ import RockFormField from "../Elements/rockFormField";
 import { ClientValue, ConfigurationValueKey, ValueItem } from "./definedValueRangeField";
 import { ListItem } from "@Obsidian/ViewModels";
 import { asBoolean } from "@Obsidian/Services/boolean";
+import { List } from "../Util/linq";
 
 function parseModelValue(modelValue: string | undefined): string[] {
     try {
@@ -37,15 +38,10 @@ function parseModelValue(modelValue: string | undefined): string[] {
     }
 }
 
-function firstOrDefault<T>(values: T[], predicate: (value: T) => boolean): T | undefined {
-    const filtered = values.filter(predicate);
-
-    return filtered.length >= 1 ? filtered[0] : undefined;
-}
-
 function getClientValue(lowerValue: string, upperValue: string, valueOptions: ValueItem[], showDescription: boolean): ClientValue {
-    const lv = firstOrDefault(valueOptions, v => v.value === lowerValue);
-    const uv = firstOrDefault(valueOptions, v => v.value === upperValue);
+    const options = new List(valueOptions);
+    const lv = options.firstOrUndefined(v => v.value === lowerValue);
+    const uv = options.firstOrUndefined(v => v.value === upperValue);
 
     if (!lv && !uv) {
         return {

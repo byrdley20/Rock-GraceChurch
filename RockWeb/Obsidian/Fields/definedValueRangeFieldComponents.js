@@ -1,6 +1,6 @@
-System.register(["vue", "./index", "../Elements/rockFormField", "@Obsidian/Services/boolean"], function (exports_1, context_1) {
+System.register(["vue", "./index", "../Elements/rockFormField", "@Obsidian/Services/boolean", "../Util/linq"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, index_1, rockFormField_1, boolean_1, EditComponent;
+    var vue_1, index_1, rockFormField_1, boolean_1, linq_1, EditComponent;
     var __moduleName = context_1 && context_1.id;
     function parseModelValue(modelValue) {
         var _a;
@@ -16,14 +16,11 @@ System.register(["vue", "./index", "../Elements/rockFormField", "@Obsidian/Servi
             return ["", ""];
         }
     }
-    function firstOrDefault(values, predicate) {
-        const filtered = values.filter(predicate);
-        return filtered.length >= 1 ? filtered[0] : undefined;
-    }
     function getClientValue(lowerValue, upperValue, valueOptions, showDescription) {
         var _a, _b, _c, _d, _e, _f;
-        const lv = firstOrDefault(valueOptions, v => v.value === lowerValue);
-        const uv = firstOrDefault(valueOptions, v => v.value === upperValue);
+        const options = new linq_1.List(valueOptions);
+        const lv = options.firstOrUndefined(v => v.value === lowerValue);
+        const uv = options.firstOrUndefined(v => v.value === upperValue);
         if (!lv && !uv) {
             return {
                 value: "",
@@ -50,6 +47,9 @@ System.register(["vue", "./index", "../Elements/rockFormField", "@Obsidian/Servi
             },
             function (boolean_1_1) {
                 boolean_1 = boolean_1_1;
+            },
+            function (linq_1_1) {
+                linq_1 = linq_1_1;
             }
         ],
         execute: function () {

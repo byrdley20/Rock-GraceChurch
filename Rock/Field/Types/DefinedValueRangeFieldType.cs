@@ -56,11 +56,11 @@ namespace Rock.Field.Types
         public override Dictionary<string, string> GetClientConfigurationValues( Dictionary<string, ConfigurationValue> configurationValues )
         {
             var clientConfiguration = base.GetClientConfigurationValues( configurationValues );
-            int? definedTypeId = clientConfiguration.ContainsKey( DEFINED_TYPE_KEY ) ? clientConfiguration[DEFINED_TYPE_KEY].AsIntegerOrNull() : null;
+            var definedTypeGuid = clientConfiguration.ContainsKey( DEFINED_TYPE_KEY ) ? clientConfiguration[DEFINED_TYPE_KEY].AsGuidOrNull() : null;
 
-            if ( definedTypeId.HasValue )
+            if ( definedTypeGuid.HasValue )
             {
-                var definedType = DefinedTypeCache.Get( definedTypeId.Value );
+                var definedType = DefinedTypeCache.Get( definedTypeGuid.Value );
 
                 clientConfiguration[CLIENT_VALUES] = definedType.DefinedValues
                     .OrderBy( v => v.Order )

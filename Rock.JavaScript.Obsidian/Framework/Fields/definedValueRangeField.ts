@@ -18,6 +18,7 @@ import { Component, defineAsyncComponent } from "vue";
 import { FieldTypeBase } from "./fieldType";
 import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
 import { asBoolean } from "@Obsidian/Services/boolean";
+import { List } from "../Util/linq";
 
 export const enum ConfigurationValueKey {
     Values = "values",
@@ -41,12 +42,6 @@ export type ClientValue = {
 const editComponent = defineAsyncComponent(async () => {
     return (await import("./definedValueRangeFieldComponents")).EditComponent;
 });
-
-function firstOrDefault<T>(values: T[], predicate: (value: T) => boolean): T | undefined {
-    const filtered = values.filter(predicate);
-
-    return filtered.length >= 1 ? filtered[0] : undefined;
-}
 
 /**
  * The field type handler for the Defined Value Range field.
@@ -81,7 +76,7 @@ export class DefinedValueRangeFieldType extends FieldTypeBase {
             const clientValue = JSON.parse(value.value ?? "") as ClientValue;
 
             try {
-                const values = JSON.parse(value.configurationValues?.[ConfigurationValueKey.Values] ?? "[]") as ValueItem[];
+                const values = new List(JSON.parse(value.configurationValues?.[ConfigurationValueKey.Values] ?? "[]") as ValueItem[]);
                 const displayDescription = asBoolean(value.configurationValues?.[ConfigurationValueKey.DisplayDescription]);
                 const rawValues = (clientValue.value ?? "").split(",");
 
@@ -90,8 +85,8 @@ export class DefinedValueRangeFieldType extends FieldTypeBase {
                     return;
                 }
 
-                const lowerValue = firstOrDefault(values, v => v?.value === rawValues[0]);
-                const upperValue = firstOrDefault(values, v => v?.value === rawValues[1]);
+                const lowerValue = values.firstOrUndefined(v => v?.value === rawValues[0]);
+                const upperValue = values.firstOrUndefined(v => v?.value === rawValues[1]);
 
                 if (lowerValue === undefined && upperValue === undefined) {
                     value.textValue = "";

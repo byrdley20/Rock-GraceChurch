@@ -538,7 +538,7 @@ namespace Rock.Financial
         {
             var returnUrl = $"{metadata["ReturnUrl"]}&paymentToken={fundId}:{amount}";
 
-            /**
+            /*
              * Okay, there are about 18 levels of madness here.
              *
              * Level 1: We can't actually redirect anywhere since we don't have

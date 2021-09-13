@@ -76,7 +76,15 @@ namespace Rock.Field.Types
             {
                 var definedType = DefinedTypeCache.Get( definedTypeId.Value );
 
+                int[] selectableValues = configurationValues.ContainsKey( SELECTABLE_VALUES_KEY ) && configurationValues[SELECTABLE_VALUES_KEY].Value.IsNotNullOrWhiteSpace()
+                    ? configurationValues[SELECTABLE_VALUES_KEY].Value.Split( ',' ).Select( int.Parse ).ToArray()
+                    : null;
+
+                var includeInactive = configurationValues.GetValueOrNull( INCLUDE_INACTIVE_KEY ).AsBooleanOrNull() ?? false;
+
                 clientConfiguration[CLIENT_VALUES] = definedType.DefinedValues
+                    .Where( v => ( includeInactive || v.IsActive )
+                        && ( selectableValues == null || selectableValues.Contains( v.Id ) ) )
                     .OrderBy( v => v.Order )
                     .Select( v => new
                     {

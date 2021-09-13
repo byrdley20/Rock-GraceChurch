@@ -14,7 +14,7 @@
 // limitations under the License.
 // </copyright>
 //
-import { defineComponent, PropType } from "vue";
+import { computed, defineComponent, PropType, ref, watch, watchEffect } from "vue";
 import RockFormField from "./rockFormField";
 
 /**
@@ -43,92 +43,86 @@ export default defineComponent({
         }
     },
 
-    /** Defines the read-write properties on this component. */
-    data: function () {
-        return {
-            /** The current value selected by the person. */
-            internalValue: this.modelValue,
+    setup(props, { emit }) {
+        /** The current value selected by the person. */
+        const internalValue = ref(props.modelValue);
 
-            /**
-             * The current value being hovered by the person or null if no
-             * hover operation is happening.
-             */
-            hoverValue: null as number | null
-        };
-    },
+        /**
+         * The current value being hovered by the person or null if no
+         * hover operation is happening.
+         */
+        const hoverValue = ref(null as number | null);
 
-    /** Methods to define on this instance. */
-    methods: {
+        /** True if the clear button should be visible. */
+        const showClear = computed((): boolean => internalValue.value > 0);
+
+        /** Watch for changes in the value we are supposed to be editing. */
+        watch(() => props.modelValue, () => internalValue.value = props.modelValue);
+
+        /** Watch for changes in our internal value and emit the new value. */
+        watchEffect(() => emit("update:modelValue", internalValue.value));
+
         /**
          * Set the rating value from an action.
-         * 
+         *
          * @param value The new rating value.
          */
-        setRating(value: number): void {
-            this.internalValue = value;
-        },
+        const setRating = (value: number): void => {
+            internalValue.value = value;
+        };
 
         /**
          * Handles the clear selection event from the person.
          * 
          * @param e The event that triggered this handler.
+         * 
          * @returns A value indicating if the event has been handled.
          */
-        onClear(e: Event): boolean {
+        const onClear = (e: Event): boolean => {
             e.preventDefault();
 
-            this.setRating(0);
+            setRating(0);
 
             return false;
-        },
+        };
 
         /**
          * Gets the CSS class to use for the given rating position.
          * 
          * @param position The rating position being queried.
          */
-        classForRating(position: number): string {
-            const filledCount = Math.min(this.maxRating, this.hoverValue ?? this.internalValue);
+        const classForRating = (position: number): string => {
+            const filledCount = Math.min(props.maxRating, hoverValue.value ?? internalValue.value);
 
             return position <= filledCount ? "fa fa-rating-selected" : "fa fa-rating-unselected";
-        },
+        };
 
         /**
          * Sets the current rating position being hovered.
          * 
          * @param position The position being hovered.
          */
-        setHover(position: number): void {
-            this.hoverValue = position;
-        },
+        const setHover = (position: number): void => {
+            hoverValue.value = position;
+        };
 
         /**
          * Clears any hover rating position value.
          */
-        clearHover(): void {
-            this.hoverValue = null;
-        }
-    },
+        const clearHover = (): void => {
+            hoverValue.value = null;
+        };
 
-    /** Any read-only property values that get computed automatically. */
-    computed: {
-    },
-
-    /** Event handlers for when property values change. */
-    watch: {
-        /**
-         * The parent component has given us a new value.
-         */
-        modelValue() {
-            this.internalValue = this.modelValue;
-        },
-
-        /**
-         * The internal user value has changed, notify the parent component.
-         */
-        internalValue() {
-            this.$emit("update:modelValue", this.internalValue);
-        },
+        return {
+            classForRating,
+            clearHover,
+            hoverValue,
+            internalValue,
+            onClear,
+            setHover,
+            setRating,
+            showClear
+        };
     },
 
     template: `
@@ -140,7 +134,7 @@ export default defineComponent({
         <div class="control-wrapper">
             <div class="rating-input">
                 <i v-for="i in maxRating" :key="i" :class="classForRating(i)" @click="setRating(i)" @mouseover="setHover(i)" @mouseleave="clearHover()"></i>
-                <a class="clear-rating" href="#" v-on:click="onClear" @mouseover="setHover(0)" @mouseleave="clearHover()">
+                <a v-if="showClear" class="clear-rating" href="#" v-on:click="onClear" @mouseover="setHover(0)" @mouseleave="clearHover()">
                     <span class="fa fa-remove"></span>
                 </a>
             </div>

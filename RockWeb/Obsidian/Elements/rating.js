@@ -27,41 +27,41 @@ System.register(["vue", "./rockFormField"], function (exports_1, context_1) {
                         default: 5
                     }
                 },
-                data: function () {
-                    return {
-                        internalValue: this.modelValue,
-                        hoverValue: null
+                setup(props, { emit }) {
+                    const internalValue = vue_1.ref(props.modelValue);
+                    const hoverValue = vue_1.ref(null);
+                    const showClear = vue_1.computed(() => internalValue.value > 0);
+                    vue_1.watch(() => props.modelValue, () => internalValue.value = props.modelValue);
+                    vue_1.watchEffect(() => emit("update:modelValue", internalValue.value));
+                    const setRating = (value) => {
+                        internalValue.value = value;
                     };
-                },
-                methods: {
-                    setRating(value) {
-                        this.internalValue = value;
-                    },
-                    onClear(e) {
+                    const onClear = (e) => {
                         e.preventDefault();
-                        this.setRating(0);
+                        setRating(0);
                         return false;
-                    },
-                    classForRating(position) {
+                    };
+                    const classForRating = (position) => {
                         var _a;
-                        const filledCount = Math.min(this.maxRating, (_a = this.hoverValue) !== null && _a !== void 0 ? _a : this.internalValue);
+                        const filledCount = Math.min(props.maxRating, (_a = hoverValue.value) !== null && _a !== void 0 ? _a : internalValue.value);
                         return position <= filledCount ? "fa fa-rating-selected" : "fa fa-rating-unselected";
-                    },
-                    setHover(position) {
-                        this.hoverValue = position;
-                    },
-                    clearHover() {
-                        this.hoverValue = null;
-                    }
-                },
-                computed: {},
-                watch: {
-                    modelValue() {
-                        this.internalValue = this.modelValue;
-                    },
-                    internalValue() {
-                        this.$emit("update:modelValue", this.internalValue);
-                    },
+                    };
+                    const setHover = (position) => {
+                        hoverValue.value = position;
+                    };
+                    const clearHover = () => {
+                        hoverValue.value = null;
+                    };
+                    return {
+                        classForRating,
+                        clearHover,
+                        hoverValue,
+                        internalValue,
+                        onClear,
+                        setHover,
+                        setRating,
+                        showClear
+                    };
                 },
                 template: `
 <RockFormField
@@ -72,7 +72,7 @@ System.register(["vue", "./rockFormField"], function (exports_1, context_1) {
         <div class="control-wrapper">
             <div class="rating-input">
                 <i v-for="i in maxRating" :key="i" :class="classForRating(i)" @click="setRating(i)" @mouseover="setHover(i)" @mouseleave="clearHover()"></i>
-                <a class="clear-rating" href="#" v-on:click="onClear" @mouseover="setHover(0)" @mouseleave="clearHover()">
+                <a v-if="showClear" class="clear-rating" href="#" v-on:click="onClear" @mouseover="setHover(0)" @mouseleave="clearHover()">
                     <span class="fa fa-remove"></span>
                 </a>
             </div>

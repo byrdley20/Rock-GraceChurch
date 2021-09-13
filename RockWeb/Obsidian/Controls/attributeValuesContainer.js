@@ -1,6 +1,6 @@
-System.register(["vue", "./rockField"], function (exports_1, context_1) {
+System.register(["vue", "./rockField", "../Elements/loadingIndicator"], function (exports_1, context_1) {
     "use strict";
-    var vue_1, rockField_1;
+    var vue_1, rockField_1, loadingIndicator_1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -9,13 +9,17 @@ System.register(["vue", "./rockField"], function (exports_1, context_1) {
             },
             function (rockField_1_1) {
                 rockField_1 = rockField_1_1;
+            },
+            function (loadingIndicator_1_1) {
+                loadingIndicator_1 = loadingIndicator_1_1;
             }
         ],
         execute: function () {
             exports_1("default", vue_1.defineComponent({
                 name: "AttributeValuesContainer",
                 components: {
-                    RockField: rockField_1.default
+                    RockField: rockField_1.default,
+                    LoadingIndicator: loadingIndicator_1.default
                 },
                 props: {
                     isEditMode: {
@@ -41,13 +45,18 @@ System.register(["vue", "./rockField"], function (exports_1, context_1) {
                     }
                 },
                 template: `
-<template v-for="a in validAttributeValues">
-    <RockField
-        :isEditMode="isEditMode"
-        :attributeValue="a"
-        :showEmptyValue="showEmptyValues"
-        :showAbbreviatedName="showAbbreviatedName" />
-</template>
+<suspense>
+    <template v-for="a in validAttributeValues">
+        <RockField
+            :isEditMode="isEditMode"
+            :attributeValue="a"
+            :showEmptyValue="showEmptyValues"
+            :showAbbreviatedName="showAbbreviatedName" />
+    </template>
+    <template #fallback>
+        <LoadingIndicator />
+    </template>
+</suspense>
 `
             }));
         }

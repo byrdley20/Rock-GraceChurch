@@ -27,6 +27,7 @@ import TextBox from "../../Elements/textBox";
 import RockButton from "../../Elements/rockButton";
 import { ClientAttributeValue, ClientEditableAttributeValue } from "@Obsidian/ViewModels";
 import AttributeValuesContainer from "../../Controls/attributeValuesContainer";
+import { List } from "../../Util/linq";
 
 const store = useStore();
 
@@ -45,23 +46,10 @@ type ConfigurationValues = {
 };
 
 function sortedAttributeValues(attributeValues: ClientAttributeValue[]): ClientAttributeValue[] {
-    const sortedValues = [...attributeValues];
-
-    sortedValues.sort((a, b) => {
-        if (a.order === b.order) {
-            if (a.name > b.name) {
-                return 1;
-            }
-
-            if (a.name < b.name) {
-                return -1;
-            }
-        }
-
-        return a.order - b.order;
-    });
-
-    return sortedValues;
+    return new List(attributeValues)
+        .orderBy(v => v.order)
+        .thenBy(v => v.name)
+        .toArray();
 }
 
 export default defineComponent({

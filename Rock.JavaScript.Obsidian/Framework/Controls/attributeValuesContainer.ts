@@ -17,11 +17,13 @@
 import { defineComponent, PropType } from "vue";
 import { ClientAttributeValue } from "@Obsidian/ViewModels";
 import RockField from "./rockField";
+import LoadingIndicator from "../Elements/loadingIndicator";
 
 export default defineComponent({
     name: "AttributeValuesContainer",
     components: {
-        RockField
+        RockField,
+        LoadingIndicator
     },
     props: {
         isEditMode: {
@@ -47,12 +49,17 @@ export default defineComponent({
         }
     },
     template: `
-<template v-for="a in validAttributeValues">
-    <RockField
-        :isEditMode="isEditMode"
-        :attributeValue="a"
-        :showEmptyValue="showEmptyValues"
-        :showAbbreviatedName="showAbbreviatedName" />
-</template>
+<suspense>
+    <template v-for="a in validAttributeValues">
+        <RockField
+            :isEditMode="isEditMode"
+            :attributeValue="a"
+            :showEmptyValue="showEmptyValues"
+            :showAbbreviatedName="showAbbreviatedName" />
+    </template>
+    <template #fallback>
+        <LoadingIndicator />
+    </template>
+</suspense>
 `
 });

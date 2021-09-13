@@ -126,11 +126,12 @@ System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "./textB
                                 return;
                             }
                             if (this.modelValue.indexOf("CURRENT") === 0) {
-                                this.isCurrent = true;
+                                console.log(this.modelValue);
                                 const parts = this.modelValue.split(":");
                                 if (parts.length === 2) {
                                     this.currentDiff = `${number_1.toNumber(parts[1])}`;
                                 }
+                                this.isCurrent = true;
                                 return;
                             }
                             const date = rockDateTime_1.RockDateTime.parseISO(this.modelValue);
@@ -183,7 +184,7 @@ System.register(["vue", "@Obsidian/Services/number", "./rockFormField", "./textB
                     <div class="checkbox">
                         <label title="">
                         <input type="checkbox" v-model="isCurrent" />
-                        <span class="label-text">Current Date</span></label>
+                        <span class="label-text">Current Time</span></label>
                     </div>
                 </div>
             </div>

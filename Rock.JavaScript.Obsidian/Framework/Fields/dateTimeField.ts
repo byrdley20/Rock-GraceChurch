@@ -43,19 +43,19 @@ export class DateTimeFieldType extends FieldTypeBase {
             const diff = parts.length === 2 ? toNumber(parts[1]) : 0;
 
             if (diff === 1) {
-                value.textValue = "Current Date plus 1 day";
+                value.textValue = "Current Time plus 1 minute";
             }
             else if (diff > 0) {
-                value.textValue = `Current Date plus ${diff} days`;
+                value.textValue = `Current Time plus ${diff} minutes`;
             }
             else if (diff === -1) {
-                value.textValue = "Current Date minus 1 day";
+                value.textValue = "Current Time minus 1 minute";
             }
             else if (diff < 0) {
-                value.textValue = `Current Date minus ${Math.abs(diff)} days`;
+                value.textValue = `Current Time minus ${Math.abs(diff)} minutes`;
             }
             else {
-                value.textValue = "Current Date";
+                value.textValue = "Current Time";
             }
         }
         else if (value.value) {

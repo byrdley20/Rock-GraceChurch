@@ -155,12 +155,13 @@ export default defineComponent({
                 }
 
                 if (this.modelValue.indexOf("CURRENT") === 0) {
-                    this.isCurrent = true;
                     const parts = this.modelValue.split(":");
 
                     if (parts.length === 2) {
                         this.currentDiff = `${toNumber(parts[1])}`;
                     }
+
+                    this.isCurrent = true;
 
                     return;
                 }
@@ -225,7 +226,7 @@ export default defineComponent({
                     <div class="checkbox">
                         <label title="">
                         <input type="checkbox" v-model="isCurrent" />
-                        <span class="label-text">Current Date</span></label>
+                        <span class="label-text">Current Time</span></label>
                     </div>
                 </div>
             </div>

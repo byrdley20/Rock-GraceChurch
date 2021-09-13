@@ -82,7 +82,11 @@ System.register(["@Obsidian/Services/boolean", "vue", "../Elements/dropDownList"
                         deep: true
                     });
                     const onAddClick = () => {
-                        internalValues.value.push({ key: "", value: "" });
+                        let defaultValue = "";
+                        if (hasValues.value) {
+                            defaultValue = valueOptions.value[0].value;
+                        }
+                        internalValues.value.push({ key: "", value: defaultValue });
                     };
                     const onRemoveClick = (index) => {
                         internalValues.value.splice(index, 1);

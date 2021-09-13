@@ -91,7 +91,13 @@ export const EditComponent = defineComponent({
         });
 
         const onAddClick = (): void => {
-            internalValues.value.push({key: "", value: ""});
+            let defaultValue = "";
+
+            if (hasValues.value) {
+                defaultValue = valueOptions.value[0].value;
+            }
+
+            internalValues.value.push({ key: "", value: defaultValue });
         };
 
         const onRemoveClick = (index: number): void => {

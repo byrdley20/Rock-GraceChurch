@@ -56,6 +56,6 @@ export const EditComponent = defineComponent({
     },
 
     template: `
-<DropDownList v-model="internalValue" :options="dropDownListOptions" />
+<DropDownList v-model="internalValue" :options="dropDownListOptions" formControlClasses="input-width-md" />
 `
 });

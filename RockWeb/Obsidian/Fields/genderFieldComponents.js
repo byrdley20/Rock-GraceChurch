@@ -47,7 +47,7 @@ System.register(["vue", "./index", "../Elements/dropDownList"], function (export
                     }
                 },
                 template: `
-<DropDownList v-model="internalValue" :options="dropDownListOptions" />
+<DropDownList v-model="internalValue" :options="dropDownListOptions" formControlClasses="input-width-md" />
 `
             }));
         }

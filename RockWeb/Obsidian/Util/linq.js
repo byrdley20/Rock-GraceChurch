@@ -98,11 +98,11 @@ System.register([], function (exports_1, context_1) {
                 }
                 orderBy(keySelector) {
                     const comparer = valueComparer(keySelector, false);
-                    return OrderedList.fromArrayNoCopy([...this.elements].sort(comparer));
+                    return new OrderedList(this.elements, comparer);
                 }
                 orderByDescending(keySelector) {
                     const comparer = valueComparer(keySelector, true);
-                    return OrderedList.fromArrayNoCopy([...this.elements].sort(comparer));
+                    return new OrderedList(this.elements, comparer);
                 }
                 where(predicate) {
                     return new List(this.elements.filter(predicate));
@@ -113,16 +113,18 @@ System.register([], function (exports_1, context_1) {
             };
             exports_1("List", List);
             OrderedList = class OrderedList extends List {
-                static fromArrayNoCopy(elements) {
-                    const list = new OrderedList();
-                    list.elements = elements;
-                    return list;
+                constructor(elements, baseComparer) {
+                    super(elements);
+                    this.baseComparer = baseComparer;
+                    this.elements.sort(this.baseComparer);
                 }
                 thenBy(keySelector) {
-                    return this.orderBy(keySelector);
+                    const comparer = valueComparer(keySelector, false);
+                    return new OrderedList(this.elements, (a, b) => this.baseComparer(a, b) || comparer(a, b));
                 }
                 thenByDescending(keySelector) {
-                    return this.orderByDescending(keySelector);
+                    const comparer = valueComparer(keySelector, true);
+                    return new OrderedList(this.elements, (a, b) => this.baseComparer(a, b) || comparer(a, b));
                 }
             };
         }

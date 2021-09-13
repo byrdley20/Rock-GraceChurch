@@ -9,6 +9,12 @@ type ValueSelector<T> = (value: T) => string | number | boolean | null | undefin
  */
 type PredicateFn<T> = (value: T, index: number) => boolean;
 
+/**
+ * A function that will compare two values to see which one should
+ * be ordered first.
+ */
+type ValueComparer<T> = (a: T, b: T) => number;
+
 const moreThanOneElement = "More than one element was found in collection.";
 
 const noElementsFound = "No element was found in collection.";
@@ -23,7 +29,7 @@ const noElementsFound = "No element was found in collection.";
  * @param keySelector The function that will select the value.
  * @param descending True if this comparison should be in descending order.
  */
-function valueComparer<T>(keySelector: ValueSelector<T>, descending: boolean): ((a: T, b: T) => number) {
+function valueComparer<T>(keySelector: ValueSelector<T>, descending: boolean): ValueComparer<T> {
     return (a: T, b: T): number => {
         const valueA = keySelector(a);
         const valueB = keySelector(b);
@@ -285,7 +291,7 @@ export class List<T> {
     public orderBy(keySelector: ValueSelector<T>): OrderedList<T> {
         const comparer = valueComparer(keySelector, false);
 
-        return OrderedList.fromArrayNoCopy([...this.elements].sort(comparer));
+        return new OrderedList(this.elements, comparer);
     }
 
     /**
@@ -298,7 +304,7 @@ export class List<T> {
     public orderByDescending(keySelector: ValueSelector<T>): OrderedList<T> {
         const comparer = valueComparer(keySelector, true);
 
-        return OrderedList.fromArrayNoCopy([...this.elements].sort(comparer));
+        return new OrderedList(this.elements, comparer);
     }
 
     /**
@@ -327,20 +333,16 @@ export class List<T> {
  * A list of items that has ordering already applied.
  */
 class OrderedList<T> extends List<T> {
+    /** The base comparer to use when ordering. */
+    private baseComparer!: ValueComparer<T>;
+
     // #region Constructors
 
-    /**
-     * Creates a new OrderedList from the elements without copying to a new array.
-     * 
-     * @param elements The elements to initialize the list with.
-     * @returns A new list of elements.
-     */
-    public static override fromArrayNoCopy<T>(elements: T[]): OrderedList<T> {
-        const list = new OrderedList<T>();
+    constructor(elements: T[], baseComparer: ValueComparer<T>) {
+        super(elements);
 
-        list.elements = elements;
-
-        return list;
+        this.baseComparer = baseComparer;
+        this.elements.sort(this.baseComparer);
     }
 
     // #endregion
@@ -353,7 +355,9 @@ class OrderedList<T> extends List<T> {
      * @returns A new ordered list of elements.
      */
     public thenBy(keySelector: ValueSelector<T>): OrderedList<T> {
-        return this.orderBy(keySelector);
+        const comparer = valueComparer(keySelector, false);
+
+        return new OrderedList(this.elements, (a: T, b: T) => this.baseComparer(a, b) || comparer(a, b));
     }
 
     /**
@@ -364,6 +368,8 @@ class OrderedList<T> extends List<T> {
      * @returns A new ordered list of elements.
      */
     public thenByDescending(keySelector: ValueSelector<T>): OrderedList<T> {
-        return this.orderByDescending(keySelector);
+        const comparer = valueComparer(keySelector, true);
+
+        return new OrderedList(this.elements, (a: T, b: T) => this.baseComparer(a, b) || comparer(a, b));
     }
 }

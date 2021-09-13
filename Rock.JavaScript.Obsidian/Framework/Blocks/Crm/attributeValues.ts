@@ -17,6 +17,7 @@
 import { computed, defineComponent, ref } from "vue";
 import PaneledBlockTemplate from "../../Templates/paneledBlockTemplate";
 import Loading from "../../Controls/loading";
+import Alert from "../../Elements/alert";
 import { useStore } from "../../Store/index";
 import { Guid } from "../../Util/guid";
 import { useConfigurationValues, useInvokeBlockAction } from "../../Util/block";
@@ -67,6 +68,7 @@ export default defineComponent({
     name: "Crm.AttributeValues",
     components: {
         PaneledBlockTemplate,
+        Alert,
         Loading,
         JavaScriptAnchor,
         RockForm,
@@ -81,6 +83,7 @@ export default defineComponent({
         const personGuid = computed(() => store.personContext?.guid || null);
         const isLoading = ref(false);
         const isEditMode = ref(false);
+        const errorMessage = ref("");
 
         const goToViewMode = (): void => {
             isEditMode.value = false;
@@ -110,9 +113,12 @@ export default defineComponent({
 
             if (result.isSuccess) {
                 attributeValues.value = sortedAttributeValues(result.data ?? []);
+                goToViewMode();
+            }
+            else {
+                errorMessage.value = "Failed to save values.";
             }
 
-            goToViewMode();
             isLoading.value = false;
         };
 
@@ -121,6 +127,7 @@ export default defineComponent({
             blockIconCssClass: computed(() => configurationValues.blockIconCssClass),
             isLoading,
             isEditMode,
+            errorMessage,
             goToViewMode,
             goToEditMode,
             doSave,
@@ -146,6 +153,7 @@ export default defineComponent({
     </template>
     <template v-slot:default>
         <Loading :isLoading="isLoading">
+            <Alert v-if="errorMessage" alertType="warning">{{ errorMessage }}</Alert>
             <AttributeValuesContainer v-if="!isEditMode" :attributeValues="attributeValues" :showEmptyValues="false" />
             <RockForm v-else @submit="doSave">
                 <AttributeValuesContainer :attributeValues="attributeValues" isEditMode :showAbbreviatedName="useAbbreviatedNames" />

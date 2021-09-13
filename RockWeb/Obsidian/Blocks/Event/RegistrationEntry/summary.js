@@ -176,7 +176,8 @@ System.register(["vue", "../../../Controls/gatewayControl", "../../../Controls/r
                     getPaymentRedirect() {
                         return __awaiter(this, void 0, void 0, function* () {
                             const result = yield this.invokeBlockAction("GetPaymentRedirect", {
-                                args: this.getRegistrationEntryBlockArgs()
+                                args: this.getRegistrationEntryBlockArgs(),
+                                sourceUrl: window.location.toString()
                             });
                             if (result.isError || !result.data) {
                                 this.submitErrorMessage = result.errorMessage || "Unknown error";

@@ -212,9 +212,10 @@ namespace Rock.Blocks.Event
         /// Gets the payment redirect.
         /// </summary>
         /// <param name="args">The arguments.</param>
-        /// <returns></returns>
+        /// <param name="sourceUrl">The source URL that was originally used to display this block. This is usually the URL in the browser window.</param>
+        /// <returns>The URL to redirect the person to in order to handle payment.</returns>
         [BlockAction]
-        public BlockActionResult GetPaymentRedirect( RegistrationEntryBlockArgs args )
+        public BlockActionResult GetPaymentRedirect( RegistrationEntryBlockArgs args, string sourceUrl )
         {
             var currentPerson = GetCurrentPerson();
 
@@ -238,12 +239,9 @@ namespace Rock.Blocks.Event
 
                 rockContext.SaveChanges();
 
-                var registrationInstanceService = new RegistrationInstanceService( rockContext );
-                var costs = registrationInstanceService.GetRegistrationCostSummaryInfo( context, args );
-                var discountedCost = costs.Sum( c => c.DiscountedCost );
-
                 // Generate the redirect URL
-                var redirectUrl = GenerateRedirectUrl( rockContext, context, discountedCost, args.Registrar, args.Registrants, session.Guid );
+                var redirectUrl = GenerateRedirectUrl( rockContext, context, sourceUrl, args.AmountToPayNow, args.Registrar, args.Registrants, session.Guid );
+
                 return new BlockActionResult( System.Net.HttpStatusCode.Created, redirectUrl );
             }
         }
@@ -1994,6 +1992,7 @@ namespace Rock.Blocks.Event
         private string GenerateRedirectUrl(
             RockContext rockContext,
             RegistrationContext context,
+            string sourceUrl,
             decimal amount,
             RegistrarInfo registrar,
             List<ViewModel.Blocks.RegistrantInfo> registrants,
@@ -2019,8 +2018,20 @@ namespace Rock.Blocks.Event
             var registrantNames = registrants.Select( r => GetRegistrantFullName( context, r ) ).JoinStringsWithCommaAnd();
             var registrarName = $"{registrar.NickName} {registrar.LastName}";
 
+            var returnUri = new UriBuilder( sourceUrl );
+            if ( returnUri.Query.IsNotNullOrWhiteSpace() )
+            {
+                // Skip the starting ? because it is automatically prepended on set.
+                returnUri.Query = $"{returnUri.Query.Substring( 1 )}&sr={registrationSessionGuid}";
+            }
+            else
+            {
+                returnUri.Query = $"sr={registrationSessionGuid}";
+            }
+
             return redirectGateway.GetEventRegistrationRedirectUrl( fundId.ToStringSafe(), amount, new Dictionary<string, string>
             {
+                { "ReturnUrl", returnUri.ToString() },
                 { "FirstName", registrar.NickName },
                 { "LastName", registrar.LastName },
                 { "EmailAddress", registrar.Email },

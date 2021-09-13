@@ -536,7 +536,29 @@ namespace Rock.Financial
         /// <returns></returns>
         public string GetEventRegistrationRedirectUrl( string fundId, decimal amount, Dictionary<string, string> metadata )
         {
-            return "https://www.google.com/search?q=rockrms";
+            var returnUrl = $"{metadata["ReturnUrl"]}&paymentToken={fundId}:{amount}";
+
+            /**
+             * Okay, there are about 18 levels of madness here.
+             *
+             * Level 1: We can't actually redirect anywhere since we don't have
+             * a test give page setup anywhere.
+             * 
+             * Level 2: Instead, we construct some fake HTML that we can display
+             * in the browser.
+             * 
+             * Level 3: data: URLs aren't allowed to be set from Javascript anymore.
+             * 
+             * Level 4: Use a javascript: URL to replace the body contents with
+             * our custom HTML.
+             *
+             * -Daniel Hazelbaker 9/13/2021
+             */
+            var javascript = $@"javascript:window.document.body.innerHTML = '<h1>Test Redirection Gateway</h1>
+<p>You will pay a simulated amount of {amount.FormatAsCurrency()}</p>
+<p><a href=""{returnUrl}"">Pay and Return</a></p>'";
+
+            return javascript;
         }
 
         /// <summary>
@@ -549,12 +571,16 @@ namespace Rock.Financial
         /// <returns></returns>
         public FinancialTransaction FetchTransaction( Data.RockContext rockContext, FinancialGateway financialGateway, string merchantId, string paymentToken )
         {
+            var tokenComponents = paymentToken.ToStringSafe().Split( ':' );
+
+            decimal amount = tokenComponents.Length >= 2 ? tokenComponents[1].AsDecimalOrNull() ?? 10 : 10;
+
             return new FinancialTransaction
             {
                 TransactionCode = paymentToken,
                 TransactionDetails = new List<FinancialTransactionDetail> {
                     new FinancialTransactionDetail {
-                        Amount = 10
+                        Amount = amount
                     }
                 }
             };

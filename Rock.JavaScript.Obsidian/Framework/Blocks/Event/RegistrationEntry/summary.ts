@@ -201,7 +201,8 @@ export default defineComponent( {
         /** Persist the args to the server so the user can be redirected for payment. Returns the redirect URL. */
         async getPaymentRedirect (): Promise<string> {
             const result = await this.invokeBlockAction<string>( "GetPaymentRedirect", {
-                args: this.getRegistrationEntryBlockArgs()
+                args: this.getRegistrationEntryBlockArgs(),
+                sourceUrl: window.location.toString()
             } );
 
             if ( result.isError || !result.data ) {

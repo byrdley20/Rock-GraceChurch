@@ -25,6 +25,10 @@ System.register(["vue", "./fieldType"], function (exports_1, context_1) {
                 return (yield context_1.import("./emailFieldComponents")).EditComponent;
             }));
             EmailFieldType = class EmailFieldType extends fieldType_1.FieldTypeBase {
+                getHtmlValue(value) {
+                    const textValue = this.getTextValue(value);
+                    return textValue ? `<a href="mailto:${textValue}">${textValue}</a>` : "";
+                }
                 getEditComponent(_value) {
                     return editComponent;
                 }

@@ -27,6 +27,12 @@ const editComponent = defineAsyncComponent(async () => {
  * The field type handler for the Email field.
  */
 export class EmailFieldType extends FieldTypeBase {
+    public override getHtmlValue(value: ClientAttributeValue): string {
+        const textValue = this.getTextValue(value);
+
+        return textValue ? `<a href="mailto:${textValue}">${textValue}</a>` : "";
+    }
+
     public override getEditComponent(_value: ClientAttributeValue): Component {
         return editComponent;
     }

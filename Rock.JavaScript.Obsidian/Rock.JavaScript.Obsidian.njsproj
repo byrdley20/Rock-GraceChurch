@@ -500,6 +500,9 @@
     <TypeScriptCompile Include="Framework\ViewModels\listItem.d.ts" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
+  <Target Name="InstallNodePackages">
+    <Exec Command="npm install" />
+  </Target>
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">

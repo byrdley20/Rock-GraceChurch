@@ -500,8 +500,8 @@
     <TypeScriptCompile Include="Framework\ViewModels\listItem.d.ts" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
-  <Target Name="InstallNodePackages">
-    <Exec Command="npm install" />
+  <Target Name="InstallNodePackages" AfterTargets="BeforeCompile">
+    <Exec Command="npm install" Condition="'$(EnableTypeScript)' == 'true' And !Exists('$(QualifiedProjectHome)node_modules\.bin\tsc')" />
   </Target>
   <ProjectExtensions>
     <VisualStudio>

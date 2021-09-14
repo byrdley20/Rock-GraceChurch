@@ -3608,7 +3608,6 @@ if Exist "$(ProjectDir)..\RockWeb\Bin\Rock.TransNational.Pi.dll" del "$(ProjectD
   <PropertyGroup>
     <PostBuildEvent>REM Check if the JavaScript projects have been built.
 If Not Exist "$(ProjectDir)..\Rock.JavaScript.Obsidian\dist" (
-    "$(DevEnvDir)..\..\MSBuild\Current\Bin\MSBuild.exe" "$(ProjectDir)..\Rock.JavaScript.Obsidian\Rock.JavaScript.Obsidian.njsproj" -t:InstallNodePackages -p:Configuration=$(ConfigurationName)
     "$(DevEnvDir)..\..\MSBuild\Current\Bin\MSBuild.exe" "$(ProjectDir)..\Rock.JavaScript.Obsidian\Rock.JavaScript.Obsidian.njsproj" -p:Configuration=$(ConfigurationName)
 )</PostBuildEvent>
   </PropertyGroup>

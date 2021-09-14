@@ -8,7 +8,7 @@
     "precopy": "node cleanDistForRelease.js",
     "copy": "npm run copy-webforms",
     "copy-webforms": "npm run copy-webforms-core && npm run copy-webforms-framework",
-    "copy-webforms-core": "copyfiles -u 1 \"dist/obsidian-core.*\" \"../RockWeb/Scripts\" && copyfiles -u 1 \"dist/obsidian-vendor.*\" \"../RockWeb/Obsidian/\"",
+    "copy-webforms-core": "copyfiles -u 1 \"dist/obsidian-core.*\" \"dist/obsidian-vendor.*\" \"../RockWeb/Obsidian/\"",
     "copy-webforms-framework": "copyfiles -u 2 \"dist/Framework/**/*\" -e \"dist/Framework/tsconfig.tsbuildinfo\" \"../RockWeb/Obsidian/\"",
     "copy-webforms-types": "copyfiles -u 1 \"Framework/**/*.d.ts\" \"../RockWeb/Obsidian/\"",
     "clean": "rimraf dist",

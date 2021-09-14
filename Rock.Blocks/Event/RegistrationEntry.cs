@@ -195,10 +195,10 @@ namespace Rock.Blocks.Event
                 if ( discount == null )
                 {
                     // The code is not found
-                    return new BlockActionResult( System.Net.HttpStatusCode.NotFound );
+                    return ActionNotFound();
                 }
 
-                return new BlockActionResult( System.Net.HttpStatusCode.OK, new
+                return ActionOk( new
                 {
                     DiscountCode = discount.RegistrationTemplateDiscount.Code,
                     UsagesRemaining = discount.UsagesRemaining,
@@ -227,14 +227,14 @@ namespace Rock.Blocks.Event
 
                 if ( !errorMessage.IsNullOrWhiteSpace() )
                 {
-                    return new BlockActionResult( System.Net.HttpStatusCode.BadRequest, errorMessage );
+                    return ActionBadRequest( errorMessage );
                 }
 
                 var session = UpsertSession( rockContext, context, args, SessionStatus.PaymentPending, out errorMessage );
 
                 if ( !errorMessage.IsNullOrWhiteSpace() )
                 {
-                    return new BlockActionResult( System.Net.HttpStatusCode.BadRequest, errorMessage );
+                    return ActionBadRequest( errorMessage );
                 }
 
                 rockContext.SaveChanges();
@@ -242,7 +242,7 @@ namespace Rock.Blocks.Event
                 // Generate the redirect URL
                 var redirectUrl = GenerateRedirectUrl( rockContext, context, sourceUrl, args.AmountToPayNow, args.Registrar, args.Registrants, session.Guid );
 
-                return new BlockActionResult( System.Net.HttpStatusCode.Created, redirectUrl );
+                return ActionOk( redirectUrl );
             }
         }
 
@@ -264,14 +264,14 @@ namespace Rock.Blocks.Event
 
                 if ( !errorMessage.IsNullOrWhiteSpace() )
                 {
-                    return new BlockActionResult( System.Net.HttpStatusCode.BadRequest, errorMessage );
+                    return ActionBadRequest( errorMessage );
                 }
 
                 var session = UpsertSession( rockContext, context, args, SessionStatus.PaymentPending, out errorMessage );
 
                 if ( !errorMessage.IsNullOrWhiteSpace() )
                 {
-                    return new BlockActionResult( System.Net.HttpStatusCode.BadRequest, errorMessage );
+                    return ActionBadRequest( errorMessage );
                 }
 
                 rockContext.SaveChanges();
@@ -297,12 +297,13 @@ namespace Rock.Blocks.Event
 
                 if ( !errorMessage.IsNullOrWhiteSpace() )
                 {
-                    return new BlockActionResult( System.Net.HttpStatusCode.BadRequest, errorMessage );
+                    return ActionBadRequest( errorMessage );
                 }
 
                 var registrationInstanceService = new RegistrationInstanceService( rockContext );
                 var costs = registrationInstanceService.GetRegistrationCostSummaryInfo( context, args );
-                return new BlockActionResult( System.Net.HttpStatusCode.OK, costs );
+
+                return ActionOk( costs );
             }
         }
 
@@ -372,17 +373,18 @@ namespace Rock.Blocks.Event
 
                 if ( !errorMessage.IsNullOrWhiteSpace() )
                 {
-                    return new BlockActionResult( System.Net.HttpStatusCode.BadRequest, errorMessage );
+                    return ActionBadRequest( errorMessage );
                 }
 
                 SubmitRegistration( rockContext, context, args, out errorMessage );
 
                 if ( !errorMessage.IsNullOrWhiteSpace() )
                 {
-                    return new BlockActionResult( System.Net.HttpStatusCode.BadRequest, errorMessage );
+                    return ActionBadRequest( errorMessage );
                 }
 
                 var successViewModel = GetSuccessViewModel( context.Registration.Id, context.TransactionCode, context.GatewayPersonIdentifier );
+
                 return new BlockActionResult( System.Net.HttpStatusCode.Created, successViewModel );
             }
         }

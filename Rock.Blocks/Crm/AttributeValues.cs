@@ -164,7 +164,7 @@ namespace Rock.Blocks.Crm
 
                 if ( person == null || currentPerson == null )
                 {
-                    return new BlockActionResult( HttpStatusCode.NotFound );
+                    return ActionNotFound();
                 }
 
                 person.LoadAttributes();

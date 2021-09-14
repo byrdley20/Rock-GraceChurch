@@ -4,7 +4,7 @@ const EolPlugin = require("./webpack-eol-plugin");
 
 module.exports = {
     mode: "production",
-    devtool: "source-map",
+    devtool: process.env.CONFIGURATION === "Debug" ? "source-map" : false,
     entry: {
         "obsidian-core": {
             import: "./Core/core.ts",

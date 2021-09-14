@@ -2,9 +2,11 @@
   "private": true,
   "description": "Project for all Rock Obsidian UI functionality.",
   "scripts": {
-    "build": "npm run build-core && npm run build-framework && npm run copy-webforms",
+    "build": "npm run build-core && npm run build-framework && npm run copy",
     "build-framework": "tsc --build Framework",
     "build-core": "webpack --no-color",
+    "precopy": "node cleanDistForRelease.js",
+    "copy": "npm run copy-webforms",
     "copy-webforms": "npm run copy-webforms-core && npm run copy-webforms-framework",
     "copy-webforms-core": "copyfiles -u 1 \"dist/obsidian-core.*\" \"../RockWeb/Scripts\" && copyfiles -u 1 \"dist/obsidian-vendor.*\" \"../RockWeb/Obsidian/\"",
     "copy-webforms-framework": "copyfiles -u 2 \"dist/Framework/**/*\" -e \"dist/Framework/tsconfig.tsbuildinfo\" \"../RockWeb/Obsidian/\"",

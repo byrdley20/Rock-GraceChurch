@@ -1361,7 +1361,7 @@ Rock.settings.initialize({{
 
                     if ( _pageNeedsObsidian )
                     {
-                        AddScriptLink( "~/Scripts/obsidian-core.js", true );
+                        AddScriptLink( "~/Obsidian/obsidian-core.js", true );
 
                         Page.Trace.Warn( "Initializing Obsidian" );
 

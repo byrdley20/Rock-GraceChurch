@@ -276,9 +276,9 @@ namespace Rock.Blocks.Event
 
                 rockContext.SaveChanges();
 
-                return new BlockActionResult( System.Net.HttpStatusCode.OK, new
+                return ActionOk( new
                 {
-                    session.ExpirationDateTime
+                    ExpirationDateTime = session.ExpirationDateTime.ToRockDateTimeOffset()
                 } );
             }
         }
@@ -309,7 +309,7 @@ namespace Rock.Blocks.Event
         /// <summary>
         /// Persists the session.
         /// </summary>
-        /// <param name="args">The arguments.</param>
+        /// <param name="registrationSessionGuid">The registration session unique identifier to be renewed.</param>
         /// <returns></returns>
         [BlockAction]
         public BlockActionResult TryToRenewSession( Guid registrationSessionGuid )
@@ -322,7 +322,7 @@ namespace Rock.Blocks.Event
 
                 if ( !errorMessage.IsNullOrWhiteSpace() )
                 {
-                    return new BlockActionResult( System.Net.HttpStatusCode.BadRequest, errorMessage );
+                    return ActionBadRequest( errorMessage );
                 }
 
                 var registrationSessionService = new RegistrationSessionService( rockContext );
@@ -330,7 +330,7 @@ namespace Rock.Blocks.Event
 
                 if ( registrationSession is null )
                 {
-                    return new BlockActionResult( System.Net.HttpStatusCode.NotFound );
+                    return ActionNotFound();
                 }
 
                 // Set the new expiration
@@ -350,10 +350,10 @@ namespace Rock.Blocks.Event
                 // The session wasn't expired yet, there is no capacity limit, or there are enough spots, so renew without issue
                 rockContext.SaveChanges();
 
-                return new BlockActionResult( System.Net.HttpStatusCode.OK, new SessionRenewalResult
+                return ActionOk( new SessionRenewalResult
                 {
                     SpotsSecured = registrationSession.RegistrationCount,
-                    ExpirationDateTime = registrationSession.ExpirationDateTime
+                    ExpirationDateTime = registrationSession.ExpirationDateTime.ToRockDateTimeOffset()
                 } );
             }
         }

@@ -15,7 +15,7 @@
 // </copyright>
 //
 import { computed, defineComponent, ref, SetupContext, watch, watchEffect } from "vue";
-import { getFieldEditorProps } from "./index";
+import { getFieldEditorProps } from "./utils";
 import DropDownList, { DropDownListOption } from "../Elements/dropDownList";
 import { ConfigurationValueKey } from "./campusField";
 import { ListItem } from "../ViewModels";

@@ -17,7 +17,7 @@
 import { defineComponent } from "vue";
 import DropDownList, { DropDownListOption } from "../Elements/dropDownList";
 import ColorPicker from "../Elements/colorPicker";
-import { getFieldEditorProps } from "./index";
+import { getFieldEditorProps } from "./utils";
 
 enum ColorControlType {
     ColorPicker,

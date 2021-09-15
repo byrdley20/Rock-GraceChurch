@@ -19,7 +19,7 @@ import { computed, defineComponent, ref, watch } from "vue";
 import DropDownList, { DropDownListOption } from "../Elements/dropDownList";
 import RockFormField from "../Elements/rockFormField";
 import TextBox from "../Elements/textBox";
-import { getFieldEditorProps } from "./index";
+import { getFieldEditorProps } from "./utils";
 import { ClientValue, ConfigurationValueKey, ValueItem } from "./keyValueListField";
 
 function parseModelValue(modelValue: string | undefined): ClientValue[] {

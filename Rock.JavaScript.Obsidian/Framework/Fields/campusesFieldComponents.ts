@@ -15,7 +15,7 @@
 // </copyright>
 //
 import { computed, defineComponent, ref, SetupContext, watch, watchEffect } from "vue";
-import { getFieldEditorProps } from "./index";
+import { getFieldEditorProps } from "./utils";
 import CheckBoxList from "../Elements/checkBoxList";
 import { toNumberOrNull } from "../Services/number";
 import { ConfigurationValueKey } from "./campusesField";

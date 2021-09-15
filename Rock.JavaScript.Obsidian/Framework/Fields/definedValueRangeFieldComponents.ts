@@ -15,7 +15,7 @@
 // </copyright>
 //
 import { computed, defineComponent, inject, ref, watch } from "vue";
-import { getFieldEditorProps } from "./index";
+import { getFieldEditorProps } from "./utils";
 import RockFormField from "../Elements/rockFormField";
 import { ClientValue, ConfigurationValueKey, ValueItem } from "./definedValueRangeField";
 import { ListItem } from "../ViewModels";

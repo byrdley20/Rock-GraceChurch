@@ -15,7 +15,7 @@
 // </copyright>
 //
 import { defineComponent } from "vue";
-import { getFieldEditorProps } from "./index";
+import { getFieldEditorProps } from "./utils";
 import DropDownList, { DropDownListOption } from "../Elements/dropDownList";
 
 export const EditComponent = defineComponent({

@@ -15,7 +15,7 @@
 // </copyright>
 //
 import { defineComponent } from "vue";
-import { getFieldEditorProps } from "./index";
+import { getFieldEditorProps } from "./utils";
 import DateTimePicker from "../Elements/dateTimePicker";
 import { asBoolean } from "../Services/boolean";
 import { ConfigurationValueKey } from "./dateTimeField";

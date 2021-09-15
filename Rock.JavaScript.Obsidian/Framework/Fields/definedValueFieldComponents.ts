@@ -15,7 +15,7 @@
 // </copyright>
 //
 import { computed, defineComponent, inject, ref, watch } from "vue";
-import { getFieldEditorProps } from "./index";
+import { getFieldEditorProps } from "./utils";
 import CheckBoxList from "../Elements/checkBoxList";
 import DropDownList, { DropDownListOption } from "../Elements/dropDownList";
 import { asBoolean } from "../Services/boolean";

@@ -15,7 +15,7 @@
 // </copyright>
 //
 import { defineComponent } from "vue";
-import { getFieldEditorProps } from "./index";
+import { getFieldEditorProps } from "./utils";
 import TimePicker, { TimePickerValue } from "../Elements/timePicker";
 import { toNumber } from "../Services/number";
 import { padLeft } from "../Services/string";

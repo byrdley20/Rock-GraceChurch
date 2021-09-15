@@ -15,7 +15,7 @@
 // </copyright>
 //
 import { defineComponent } from "vue";
-import { getFieldEditorProps } from "./index";
+import { getFieldEditorProps } from "./utils";
 import { toNumberOrNull } from "../Services/number";
 import NumberBox from "../Elements/numberBox";
 

@@ -15,7 +15,7 @@
 // </copyright>
 //
 import { defineComponent } from "vue";
-import { getFieldEditorProps } from "./index";
+import { getFieldEditorProps } from "./utils";
 import TextBox from "../Elements/textBox";
 import { asBooleanOrNull } from "../Services/boolean";
 

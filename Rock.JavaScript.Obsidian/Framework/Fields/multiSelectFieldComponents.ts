@@ -15,7 +15,7 @@
 // </copyright>
 //
 import { defineComponent, inject } from "vue";
-import { getFieldEditorProps } from "./index";
+import { getFieldEditorProps } from "./utils";
 import ListBox from "../Elements/listBox";
 import CheckBoxList from "../Elements/checkBoxList";
 import { toNumberOrNull } from "../Services/number";

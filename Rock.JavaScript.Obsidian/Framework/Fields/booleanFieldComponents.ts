@@ -15,7 +15,7 @@
 // </copyright>
 //
 import { defineComponent } from "vue";
-import { getFieldEditorProps } from "./index";
+import { getFieldEditorProps } from "./utils";
 import { asTrueFalseOrNull, asBoolean } from "../Services/boolean";
 import { ConfigurationValueKey } from "./booleanField";
 import DropDownList, { DropDownListOption } from "../Elements/dropDownList";

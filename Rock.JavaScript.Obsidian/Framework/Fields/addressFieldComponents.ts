@@ -15,7 +15,7 @@
 // </copyright>
 //
 import { defineComponent, ref, watch } from "vue";
-import { getFieldEditorProps } from "./index";
+import { getFieldEditorProps } from "./utils";
 import AddressControl from "../Controls/addressControl";
 import { AddressFieldValue } from "./addressField";
 

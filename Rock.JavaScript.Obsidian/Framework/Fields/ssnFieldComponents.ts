@@ -15,7 +15,7 @@
 // </copyright>
 //
 import { defineComponent, ref, watch, watchEffect } from "vue";
-import { getFieldEditorProps } from "./index";
+import { getFieldEditorProps } from "./utils";
 import SocialSecurityNumberBox from "../Elements/socialSecurityNumberBox";
 
 export const EditComponent = defineComponent({

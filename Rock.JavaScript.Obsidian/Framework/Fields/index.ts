@@ -14,88 +14,10 @@
 // limitations under the License.
 // </copyright>
 //
-import { PropType } from "vue";
-import { Guid, normalize, isValidGuid } from "../Util/guid";
-import { IFieldType } from "./fieldType";
 import { FieldType as FieldTypeGuids } from "../SystemGuids";
+import { registerFieldType } from "./utils";
 
-const fieldTypeTable: Record<Guid, IFieldType> = {};
-
-export type ConfigurationValues = Record<string, string>;
-
-/**
- * The basic properties that all field editor components must support.
- */
-type FieldEditorBaseProps = {
-    modelValue: {
-        type: PropType<string>,
-        required: boolean
-    };
-
-    configurationValues: {
-        type: PropType<ConfigurationValues>;
-        default: () => ConfigurationValues;
-    };
-};
-
-/**
- * Get the standard properties that all field editor components must support.
- */
-export function getFieldEditorProps(): FieldEditorBaseProps {
-    return {
-        modelValue: {
-            type: String as PropType<string>,
-            required: true
-        },
-
-        configurationValues: {
-            type: Object as PropType<ConfigurationValues>,
-            default: () => ({})
-        }
-    };
-}
-
-/**
- * Register a new field type in the system. This must be called for all field
- * types a plugin registers.
- * 
- * @param fieldTypeGuid The unique identifier of the field type.
- * @param fieldType The class instance that will handle the field type.
- */
-export function registerFieldType(fieldTypeGuid: Guid, fieldType: IFieldType): void {
-    const normalizedGuid = normalize(fieldTypeGuid);
-
-    if (!isValidGuid(fieldTypeGuid) || normalizedGuid === null) {
-        throw "Invalid guid specified when registering field type.";
-    }
-
-    if (fieldTypeTable[normalizedGuid] !== undefined) {
-        throw "Invalid attempt to replace existing field type.";
-    }
-
-    fieldTypeTable[normalizedGuid] = fieldType;
-}
-
-/**
- * Get the field type handler for a given unique identifier.
- *
- * @param fieldTypeGuid The unique identifier of the field type.
- * @returns The field type instance or null if not found.
- */
-export function getFieldType(fieldTypeGuid: Guid): IFieldType | null {
-    const normalizedGuid = normalize(fieldTypeGuid);
-
-    if (normalizedGuid !== null) {
-        const field = fieldTypeTable[normalizedGuid];
-
-        if (field) {
-            return field;
-        }
-    }
-
-    console.error(`Field type "${fieldTypeGuid}" was not found`);
-    return null;
-}
+export { ConfigurationValues, getFieldEditorProps, registerFieldType, getFieldType } from "./utils";
 
 /*
  * Define the standard field types in Rock.

@@ -15,7 +15,7 @@
 // </copyright>
 //
 import { defineComponent, inject } from "vue";
-import { getFieldEditorProps } from "./index";
+import { getFieldEditorProps } from "./utils";
 import DropDownList, { DropDownListOption } from "../Elements/dropDownList";
 import RadioButtonList from "../Elements/radioButtonList";
 import { toNumberOrNull } from "../Services/number";

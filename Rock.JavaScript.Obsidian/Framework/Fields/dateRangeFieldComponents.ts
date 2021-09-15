@@ -15,7 +15,7 @@
 // </copyright>
 //
 import { defineComponent } from "vue";
-import { getFieldEditorProps } from "./index";
+import { getFieldEditorProps } from "./utils";
 import DateRangePicker, { DateRangeParts } from "../Elements/dateRangePicker";
 
 export const EditComponent = defineComponent({

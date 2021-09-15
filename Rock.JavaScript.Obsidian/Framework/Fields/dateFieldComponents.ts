@@ -15,7 +15,7 @@
 // </copyright>
 //
 import { defineComponent } from "vue";
-import { getFieldEditorProps } from "./index";
+import { getFieldEditorProps } from "./utils";
 import DatePicker from "../Elements/datePicker";
 import { asBoolean } from "../Services/boolean";
 import { toNumber } from "../Services/number";

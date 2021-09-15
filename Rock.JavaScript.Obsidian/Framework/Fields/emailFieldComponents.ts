@@ -15,7 +15,7 @@
 // </copyright>
 //
 import { defineComponent } from "vue";
-import { getFieldEditorProps } from "./index";
+import { getFieldEditorProps } from "./utils";
 import EmailBox from "../Elements/emailBox";
 
 export const EditComponent = defineComponent({

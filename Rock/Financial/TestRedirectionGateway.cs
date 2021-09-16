@@ -536,7 +536,7 @@ namespace Rock.Financial
         /// <returns></returns>
         public string GetEventRegistrationRedirectUrl( string fundId, decimal amount, Dictionary<string, string> metadata )
         {
-            var returnUrl = $"{metadata["ReturnUrl"]}&paymentToken={fundId}:{amount}";
+            var returnUrl = $"sr={metadata["SourceReference"]}&paymentToken={fundId}:{amount}";
 
             /*
              * Okay, there are about 18 levels of madness here.
@@ -551,12 +551,15 @@ namespace Rock.Financial
              * 
              * Level 4: Use a javascript: URL to replace the body contents with
              * our custom HTML.
+             * 
+             * Level 5: When the person clicks the link in the fake body page it
+             * redirects them back to the current page with the new query parameters.
              *
              * -Daniel Hazelbaker 9/13/2021
              */
             var javascript = $@"javascript:window.document.body.innerHTML = '<h1>Test Redirection Gateway</h1>
 <p>You will pay a simulated amount of {amount.FormatAsCurrency()}</p>
-<p><a href=""{returnUrl}"">Pay and Return</a></p>'";
+<p><a href=""' + window.location.href + (window.location.href.indexOf('?') !== -1 ? '&' : '?') + '{returnUrl}"">Pay and Return</a></p>'";
 
             return javascript;
         }

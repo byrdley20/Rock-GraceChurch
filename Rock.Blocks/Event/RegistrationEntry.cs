@@ -216,13 +216,9 @@ namespace Rock.Blocks.Event
         [BlockAction]
         public BlockActionResult GetPaymentRedirect( RegistrationEntryBlockArgs args )
         {
-            var currentPerson = GetCurrentPerson();
-
             using ( var rockContext = new RockContext() )
             {
-                var registrationInstanceId = GetRegistrationInstanceId( rockContext );
-                var registrationService = new RegistrationService( rockContext );
-                var context = registrationService.GetRegistrationContext( registrationInstanceId, currentPerson, args, out var errorMessage );
+                var context = GetContext( rockContext, args, out var errorMessage );
 
                 if ( !errorMessage.IsNullOrWhiteSpace() )
                 {
@@ -253,13 +249,9 @@ namespace Rock.Blocks.Event
         [BlockAction]
         public BlockActionResult PersistSession( RegistrationEntryBlockArgs args )
         {
-            var currentPerson = GetCurrentPerson();
-
             using ( var rockContext = new RockContext() )
             {
-                var registrationInstanceId = GetRegistrationInstanceId( rockContext );
-                var registrationService = new RegistrationService( rockContext );
-                var context = registrationService.GetRegistrationContext( registrationInstanceId, currentPerson, args, out var errorMessage );
+                var context = GetContext( rockContext, args, out var errorMessage );
 
                 if ( !errorMessage.IsNullOrWhiteSpace() )
                 {
@@ -316,39 +308,16 @@ namespace Rock.Blocks.Event
         {
             using ( var rockContext = new RockContext() )
             {
-                var registrationInstanceId = GetRegistrationInstanceId( rockContext );
-                var registrationService = new RegistrationService( rockContext );
-                var context = registrationService.GetRegistrationContext( registrationInstanceId, out var errorMessage );
-
-                if ( !errorMessage.IsNullOrWhiteSpace() )
-                {
-                    return ActionBadRequest( errorMessage );
-                }
-
                 var registrationSessionService = new RegistrationSessionService( rockContext );
-                var registrationSession = registrationSessionService.Get( registrationSessionGuid );
 
-                if ( registrationSession is null )
+                var registrationSession = registrationSessionService.TryToRenewSession( registrationSessionGuid );
+
+                // Null means the session failed to renew, generally because the
+                // Guid wasn't valid.
+                if ( registrationSession == null )
                 {
                     return ActionNotFound();
                 }
-
-                // Set the new expiration
-                var wasExpired = registrationSession.ExpirationDateTime < RockDateTime.Now;
-                var newExpiration = context.RegistrationSettings.TimeoutMinutes.HasValue ?
-                    RockDateTime.Now.AddMinutes( context.RegistrationSettings.TimeoutMinutes.Value ) :
-                    RockDateTime.Now.AddDays( 1 );
-
-                registrationSession.ExpirationDateTime = newExpiration;
-
-                if ( wasExpired && context.SpotsRemaining.HasValue && context.SpotsRemaining.Value < registrationSession.RegistrationCount )
-                {
-                    // Adjust the number of registrants to fit the available spots
-                    registrationSession.RegistrationCount = context.SpotsRemaining.Value;
-                }
-
-                // The session wasn't expired yet, there is no capacity limit, or there are enough spots, so renew without issue
-                rockContext.SaveChanges();
 
                 return ActionOk( new SessionRenewalResult
                 {
@@ -393,7 +362,7 @@ namespace Rock.Blocks.Event
         #region Helpers
 
         /// <summary>
-        /// Upserts the session.
+        /// Updates or Inserts the session.
         /// </summary>
         /// <param name="rockContext">The rock context.</param>
         /// <param name="context">The context.</param>
@@ -419,48 +388,31 @@ namespace Rock.Blocks.Event
                 RegistrationSessionGuid = args.RegistrationSessionGuid
             };
 
+            var nonWaitlistRegistrantCount = args.Registrants.Count( r => !r.IsOnWaitList );
+
             var registrationSessionService = new RegistrationSessionService( rockContext );
-            var registrationSession = registrationSessionService.Get( args.RegistrationSessionGuid );
-            var newExpiration = context.RegistrationSettings.TimeoutMinutes.HasValue ?
-                RockDateTime.Now.AddMinutes( context.RegistrationSettings.TimeoutMinutes.Value ) :
-                RockDateTime.Now.AddDays( 1 );
 
-            var wasExpired = registrationSession != null && registrationSession.ExpirationDateTime < RockDateTime.Now;
-
-            if ( registrationSession is null )
-            {
-                registrationSession = new RegistrationSession
+            var registrationSession = registrationSessionService.CreateOrUpdateSession( args.RegistrationSessionGuid,
+                // Create
+                () => new RegistrationSession
                 {
                     Guid = args.RegistrationSessionGuid,
                     RegistrationInstanceId = context.RegistrationSettings.RegistrationInstanceId,
                     RegistrationData = sessionData.ToJson(),
                     SessionStartDateTime = RockDateTime.Now,
-                    ExpirationDateTime = newExpiration,
+                    RegistrationCount = nonWaitlistRegistrantCount,
                     RegistrationId = context.Registration?.Id,
                     SessionStatus = sessionStatus
-                };
+                },
+                // Update
+                session =>
+                {
+                    session.RegistrationData = sessionData.ToJson();
+                    session.SessionStatus = sessionStatus;
+                    session.RegistrationCount = nonWaitlistRegistrantCount;
+                },
+                out errorMessage );
 
-                registrationSessionService.Add( registrationSession );
-            }
-
-            registrationSession.RegistrationData = sessionData.ToJson();
-            registrationSession.ExpirationDateTime = newExpiration;
-            registrationSession.SessionStatus = sessionStatus;
-
-            var nonWaitlistRegistrantCount = args.Registrants.Count( r => !r.IsOnWaitList );
-            var newRegistrantCount = wasExpired ?
-                nonWaitlistRegistrantCount :
-                ( nonWaitlistRegistrantCount - registrationSession.RegistrationCount );
-
-            // Handle the possibility that there is a change in the number of registrants in the session
-            if ( context.SpotsRemaining.HasValue && context.SpotsRemaining.Value < newRegistrantCount )
-            {
-                errorMessage = "There is not enough capacity remaining for this many registrants";
-                return registrationSession;
-            }
-
-            errorMessage = string.Empty;
-            registrationSession.RegistrationCount = nonWaitlistRegistrantCount;
             return registrationSession;
         }
 
@@ -2599,7 +2551,56 @@ namespace Rock.Blocks.Event
             var currentPerson = GetCurrentPerson();
             var registrationInstanceId = GetRegistrationInstanceId( rockContext );
             var registrationService = new RegistrationService( rockContext );
-            var context = registrationService.GetRegistrationContext( registrationInstanceId, currentPerson, args, out errorMessage );
+
+            // Basic check on the args to see that they appear valid
+            if ( args == null )
+            {
+                errorMessage = "The args cannot be null";
+                return null;
+            }
+
+            if ( args.Registrants?.Any() != true )
+            {
+                errorMessage = "At least one registrant is required";
+                return null;
+            }
+
+            if ( args.Registrar == null )
+            {
+                errorMessage = "A registrar is required";
+                return null;
+            }
+
+            var context = registrationService.GetRegistrationContext( registrationInstanceId, args.RegistrationGuid, currentPerson, args.DiscountCode, out errorMessage );
+
+            // Validate the amount to pay today
+            var cost = context.RegistrationSettings.PerRegistrantCost;
+
+            // Cannot pay less than 0
+            if ( args.AmountToPayNow < 0 )
+            {
+                args.AmountToPayNow = 0;
+            }
+
+            // Cannot pay more than is owed
+            if ( args.AmountToPayNow > cost )
+            {
+                args.AmountToPayNow = cost;
+            }
+
+            var isNewRegistration = context.Registration == null;
+
+            // Validate the charge amount is not too low according to the initial payment amount
+            if ( isNewRegistration && cost > 0 )
+            {
+                var minimumInitialPayment = context.RegistrationSettings.PerRegistrantMinInitialPayment ?? cost;
+
+                if ( args.AmountToPayNow < minimumInitialPayment )
+                {
+                    args.AmountToPayNow = minimumInitialPayment;
+                }
+            }
+
             return context;
         }
 
@@ -2614,8 +2615,8 @@ namespace Rock.Blocks.Event
         {
             var registrationInstanceId = GetRegistrationInstanceId( rockContext );
             var registrationService = new RegistrationService( rockContext );
-            var context = registrationService.GetRegistrationContext( registrationInstanceId, out errorMessage );
-            return context;
+
+            return registrationService.GetRegistrationContext( registrationInstanceId, out errorMessage );
         }
 
         /// <summary>

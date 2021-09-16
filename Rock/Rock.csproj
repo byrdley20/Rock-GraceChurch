@@ -751,6 +751,7 @@
     <Compile Include="Model\Event\RegistrationInstance\RegistrationInstance.SaveHook.cs" />
     <Compile Include="Model\Event\RegistrationRegistrantFee\RegistrationRegistrantFee.Logic.cs" />
     <Compile Include="Model\Event\RegistrationRegistrant\RegistrationRegistrant.Logic.cs" />
+    <Compile Include="Model\Event\RegistrationSession\RegistrationSessionService.cs" />
     <Compile Include="Model\Event\RegistrationSession\SessionStatus.cs" />
     <Compile Include="Model\Event\RegistrationTemplateDiscount\RegistrationTemplateDiscount.Logic.cs" />
     <Compile Include="Model\Event\RegistrationTemplateFeeItem\RegistrationTemplateFeeItem.Logic.cs" />

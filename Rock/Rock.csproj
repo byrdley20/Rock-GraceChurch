@@ -595,6 +595,7 @@
     <Compile Include="Blocks\Types\Mobile\Prayer\AnswerToPrayer.cs" />
     <Compile Include="Blocks\Types\Mobile\Prayer\MyPrayerRequests.cs" />
     <Compile Include="Blocks\Types\Mobile\Security\OnboardPerson.cs" />
+    <Compile Include="Bus\Message\AuthorizationCacheWasUpdatedMessage.cs" />
     <Compile Include="Bus\Message\GivingUnitWasClassifiedMessage.cs" />
     <Compile Include="Bus\Message\TransactionWasAlertedMessage.cs" />
     <Compile Include="Bus\Queue\GivingEventQueue.cs" />
@@ -737,6 +738,11 @@
     <Compile Include="Model\Engagement\StreakType\StreakStructureType.cs" />
     <Compile Include="Model\Engagement\Streak\Streak.Logic.cs" />
     <Compile Include="Model\Engagement\Streak\Streak.SaveHook.cs" />
+    <Compile Include="Model\Event\AttendanceOccurrence\AttendanceGraphBy.cs" />
+    <Compile Include="Model\Event\AttendanceOccurrence\AttendanceOccurrence.Logic.cs" />
+    <Compile Include="Model\Event\Attendance\Attendance.Logic.cs" />
+    <Compile Include="Model\Event\Attendance\Attendance.SaveHook.cs" />
+    <Compile Include="Model\Event\Attendance\RSVP.cs" />
     <Compile Include="Model\Event\EventCalendarContentChannel\EventCalendarContentChannel.cs" />
     <Compile Include="Model\Event\EventCalendarContentChannel\EventCalendarContentChannel.Logic.cs" />
     <Compile Include="Model\Event\EventCalendarItem\EventCalendarItem.Logic.cs" />
@@ -1070,7 +1076,7 @@
     <Compile Include="Model\CMS\MediaAccount\MediaAccount.cs" />
     <Compile Include="Model\CMS\MediaAccount\MediaAccountService.cs" />
     <Compile Include="Model\CMS\MediaElement\MediaElement.cs" />
-    <Compile Include="Model\CMS\MediaElement\MediaElementService.Partial.cs" />
+    <Compile Include="Model\CMS\MediaElement\MediaElementService.cs" />
     <Compile Include="Model\CMS\MediaFolder\MediaFolder.cs" />
     <Compile Include="Model\CMS\MediaFolder\MediaFolderService.cs" />
     <Compile Include="Model\PersonalLink.cs" />
@@ -1085,7 +1091,7 @@
     <Compile Include="Model\Core\FollowingSuggested\FollowingSuggestedService.cs" />
     <Compile Include="Model\WebFarmNodeLog.cs" />
     <Compile Include="Model\WebFarmNode.cs" />
-    <Compile Include="Model\AttendanceCheckInSession.cs" />
+    <Compile Include="Model\Event\AttendanceCheckInSession\AttendanceCheckInSession.cs" />
     <Compile Include="Model\AuthClaim.cs" />
     <Compile Include="Model\AuthClient.cs" />
     <Compile Include="Model\AuthClientService.Partial.cs" />
@@ -1119,6 +1125,7 @@
     <Compile Include="Plugin\HotFixes\129_MigrationRollupsFor11_1_0.cs" />
     <Compile Include="Security\Authentication\ClaimExtensionMethods.cs" />
     <Compile Include="Security\Authentication\OidcClient.cs" />
+    <Compile Include="Security\AuthorizationCacheConsumer.cs" />
     <Compile Include="SystemGuid\Badge.cs" />
     <Compile Include="SystemGuid\AuthScope.cs" />
     <Compile Include="SystemGuid\BinaryFile.cs" />
@@ -1214,6 +1221,7 @@
     <Compile Include="Logging\RockLoggerSerilog.cs" />
     <Compile Include="Logging\RockLogger.cs" />
     <Compile Include="Logging\RockLogConfiguration.cs" />
+    <Compile Include="Web\Cache\NonEntities\EntityTypeAttributesCache.cs" />
     <Compile Include="Web\Cache\RockCacheConsumer.cs" />
     <Compile Include="Web\UI\Controls\FieldVisibilityRuleField.cs" />
     <Compile Include="Web\UI\Controls\IDoNotBlockValidate.cs" />
@@ -1409,7 +1417,7 @@
     <Compile Include="Financial\IThreeStepGatewayComponent.cs" />
     <Compile Include="Model\CRM\Assessment\Assessment.cs" />
     <Compile Include="Model\CRM\Assessment\AssessmentService.cs" />
-    <Compile Include="Model\AssessmentType.cs" />
+    <Compile Include="Model\CRM\AssessmentType\AssessmentType.cs" />
     <Compile Include="Model\CodeGenerated\AssessmentService.cs" />
     <Compile Include="Model\CodeGenerated\AssessmentTypeService.cs" />
     <Compile Include="Model\AttendanceData.cs" />
@@ -1422,7 +1430,7 @@
     <Compile Include="Model\CodeGenerated\PersonScheduleExclusionService.cs" />
     <Compile Include="Model\CodeGenerated\StepWorkflowService.cs" />
     <Compile Include="Model\CodeGenerated\StepWorkflowTriggerService.cs" />
-    <Compile Include="Model\Engagement\StreakTypeExclusion\StreakTypeExclusionService.Partial.cs" />
+    <Compile Include="Model\Engagement\StreakTypeExclusion\StreakTypeExclusionService.cs" />
     <Compile Include="Model\Engagement\Streak\StreakService.cs" />
     <Compile Include="Model\Engagement\StreakType\StreakTypeService.cs" />
     <Compile Include="Model\CodeGenerated\RegistrationTemplateFeeItemService.cs" />
@@ -1623,7 +1631,7 @@
     <Compile Include="Web\Cache\Entities\PageCache.cs" />
     <Compile Include="Web\Cache\Entities\SiteCache.cs" />
     <Compile Include="Web\Cache\NonEntities\AttributeValueCache.cs" />
-    <Compile Include="Web\Cache\NonEntities\EntityAttributesCache.cs" />
+    <Compile Include="Web\Cache\Entities\Obsolete\EntityAttributesCache.cs" />
     <Compile Include="Web\Cache\NonEntities\GlobalAttributesCache.cs" />
     <Compile Include="Web\Cache\NonEntities\LavaTemplateCache.cs" />
     <Compile Include="Web\Cache\NonEntities\RoleCache.cs" />
@@ -1974,10 +1982,10 @@
     <Compile Include="Model\CodeGenerated\AssetStorageProviderService.cs" />
     <Compile Include="Model\CodeGenerated\ServiceJobHistoryService.cs" />
     <Compile Include="Model\Connection\ConnectionType\ConnectionTypeService.cs" />
-    <Compile Include="Model\AttendanceOccurrence.cs" />
-    <Compile Include="Model\Attendance.cs" />
-    <Compile Include="Model\AttendanceCode.cs" />
-    <Compile Include="Model\AttendanceOccurrenceService.Partial.cs" />
+    <Compile Include="Model\Event\AttendanceOccurrence\AttendanceOccurrence.cs" />
+    <Compile Include="Model\Event\Attendance\Attendance.cs" />
+    <Compile Include="Model\Event\AttendanceCode\AttendanceCode.cs" />
+    <Compile Include="Model\Event\AttendanceOccurrence\AttendanceOccurrenceService.cs" />
     <Compile Include="Model\AttributeMatrix.cs" />
     <Compile Include="Model\AttributeMatrixItem.cs" />
     <Compile Include="Model\AttributeMatrixTemplate.cs" />
@@ -2031,8 +2039,8 @@
     <Compile Include="Model\MetaLastNameLookup.cs" />
     <Compile Include="Model\MetaNickNameLookup.cs" />
     <Compile Include="Model\Reporting\Metric\MetricService.cs" />
-    <Compile Include="Model\AttendanceCodeService.Partial.cs" />
-    <Compile Include="Model\AttendanceService.Partial.cs" />
+    <Compile Include="Model\Event\AttendanceCode\AttendanceCodeService.cs" />
+    <Compile Include="Model\Event\Attendance\AttendanceService.cs" />
     <Compile Include="Model\Attribute.cs" />
     <Compile Include="Model\AttributeQualifier.cs" />
     <Compile Include="Model\AttributeQualifierService.Partial.cs" />

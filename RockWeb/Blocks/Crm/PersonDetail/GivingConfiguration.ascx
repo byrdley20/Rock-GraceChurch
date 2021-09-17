@@ -8,11 +8,6 @@
             return Rock.dialogs.confirmPreventOnCancel(event, 'Are you sure you want to inactivate this scheduled transaction?');
         });
 
-        $('.js-delete-scheduled-transaction').on('click', function (event) {
-            event.stopImmediatePropagation();
-            return Rock.dialogs.confirmDelete(event, 'scheduled transaction');
-        });
-
         $('.js-delete-saved-account').on('click', function (event) {
             event.stopImmediatePropagation();
             return Rock.dialogs.confirmDelete(event, 'saved account');
@@ -60,6 +55,7 @@
                                         </td>
 
                                         <td class="w-1 text-right pr-0 py-4">
+                                            <span class="d-block"><asp:Literal ID="lScheduledTransactionStatusHtml" runat="server" /></span>
                                             <span class="scheduled-total font-weight-semibold text-sm d-block">
                                                 <asp:Literal ID="lScheduledTransactionTotalAmount" runat="server"/>
                                             </span>
@@ -69,10 +65,6 @@
                                                     <i class="fa fa-pencil"></i>
                                                     </asp:LinkButton>
                                                     <asp:LinkButton runat="server" ID="btnScheduledTransactionInactivate" OnCommand="rptScheduledTransaction_Inactivate" CssClass="btn btn-sm btn-link text-muted py-0 px-1 ml-1 js-inactivate-scheduled-transaction" Visible="true">
-                                                        <i class="fa fa-times"></i>
-                                                    </asp:LinkButton>
-                                                    <%-- Note that Delete and Inactivate scheduled transactions both just Inactivate the Transaction. See engineering notes in rptScheduledTransaction_Delete --%>
-                                                    <asp:LinkButton runat="server" ID="btnScheduledTransactionDelete" OnCommand="rptScheduledTransaction_Delete" CssClass="btn btn-sm btn-link text-muted py-0 px-1 ml-1 js-delete-scheduled-transaction" Visible="false">
                                                         <i class="fa fa-times"></i>
                                                     </asp:LinkButton>
                                                 </div>
@@ -88,6 +80,7 @@
                                 <asp:LinkButton ID="lbAddScheduledTransaction"
                                     runat="server"
                                     CssClass="btn btn-default btn-square btn-xs mt-3 pull-right"
+                                    ToolTip="Add Scheduled Transaction"
                                     Text="<i class='fa fa-plus'></i>"
                                     OnClick="lbAddScheduledTransaction_Click" />
                             </div>
@@ -128,7 +121,10 @@
                                     <tr class="rollover-container-nested">
                                         <td class="pl-0 py-4">
                                             <strong class="d-block text-sm"><asp:Literal ID="lPledgeDate" runat="server" /></strong>
-                                            <span class="d-block text-sm text-muted"><asp:Literal ID="lPledgeAccountName" runat="server" /></span>
+                                            <span class="d-block text-sm text-muted">
+                                                <asp:Literal ID="lPledgeAccountName" runat="server" />
+                                                <asp:Literal ID="lPledgeFrequency" runat="server" />
+                                            </span>
                                         </td>
 
                                         <td class="w-1 text-right pr-0 py-4">
@@ -155,6 +151,7 @@
                                 <asp:LinkButton ID="lbAddPledge"
                                     runat="server"
                                     CssClass="btn btn-default btn-square btn-xs mt-3 pull-right"
+                                    Tooltip="Add Pledge"
                                     Text="<i class='fa fa-plus'></i>"
                                     OnClick="lbAddPledge_Click" />
                             </div>

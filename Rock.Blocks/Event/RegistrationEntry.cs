@@ -1609,17 +1609,6 @@ namespace Rock.Blocks.Event
                 var newValueAsString = ClientAttributeHelper.GetValueFromClient( attribute, newValue.ToStringSafe() );
                 registrant.SetAttributeValue( attribute.Key, newValueAsString );
 
-                // Commented out 8/12/2021, in theory this is handled by new field type logic.
-                // DateTime values must be stored in ISO8601
-                //var isDateAttribute =
-                //    attribute.FieldType.Guid.Equals( Rock.SystemGuid.FieldType.DATE.AsGuid() ) ||
-                //    attribute.FieldType.Guid.Equals( Rock.SystemGuid.FieldType.DATE_TIME.AsGuid() );
-
-                //if ( isDateAttribute && DateTime.TryParse( newValueAsString, out var asDateTime ) )
-                //{
-                //    newValueAsString = asDateTime.ToISO8601DateString();
-                //}
-
                 if ( ( originalValue ?? string.Empty ).Trim() != ( newValueAsString ?? string.Empty ).Trim() )
                 {
                     var formattedOriginalValue = string.Empty;

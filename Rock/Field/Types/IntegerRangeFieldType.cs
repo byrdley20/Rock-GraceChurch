@@ -39,23 +39,20 @@ namespace Rock.Field.Types
                 return string.Empty;
             }
 
-            if ( value != null )
+            string[] valuePair = value.Split( new char[] { ',' }, StringSplitOptions.None );
+
+            if ( valuePair.Length == 2 )
             {
-                string[] valuePair = value.Split( new char[] { ',' }, StringSplitOptions.None );
+                string lowerValue = string.IsNullOrWhiteSpace( valuePair[0] ) ? Rock.Constants.None.TextHtml : valuePair[0];
+                string upperValue = string.IsNullOrWhiteSpace( valuePair[1] ) ? Rock.Constants.None.TextHtml : valuePair[1];
 
-                if ( valuePair.Length == 2 )
+                if ( !string.IsNullOrWhiteSpace( lowerValue ) || !string.IsNullOrWhiteSpace( upperValue ) )
                 {
-                    string lowerValue = string.IsNullOrWhiteSpace( valuePair[0] ) ? Rock.Constants.None.TextHtml : valuePair[0];
-                    string upperValue = string.IsNullOrWhiteSpace( valuePair[1] ) ? Rock.Constants.None.TextHtml : valuePair[1];
-
-                    if ( !string.IsNullOrWhiteSpace( lowerValue ) || !string.IsNullOrWhiteSpace( upperValue ) )
-                    {
-                        return string.Format( "{0} to {1}", lowerValue, upperValue );
-                    }
-                    else
-                    {
-                        return string.Empty;
-                    }
+                    return string.Format( "{0} to {1}", lowerValue, upperValue );
+                }
+                else
+                {
+                    return string.Empty;
                 }
             }
 

@@ -3,7 +3,7 @@ var Rock;
 (function (Rock) {
     var UI;
     (function (UI) {
-        const DefaultOptions = {
+        var DefaultOptions = {
             mediaUrl: "",
             trackProgress: true,
             resumePlaying: true,
@@ -19,8 +19,9 @@ var Rock;
             map: "",
             debug: false
         };
-        class MediaPlayer {
-            constructor(elementSelector, options = {}) {
+        var MediaPlayer = (function () {
+            function MediaPlayer(elementSelector, options) {
+                if (options === void 0) { options = {}; }
                 this.timerId = null;
                 this.watchBits = Array();
                 this.watchBitsInitialized = false;
@@ -32,7 +33,7 @@ var Rock;
                 this.options = Object.assign({}, DefaultOptions, options);
                 this.elementId = elementSelector;
                 MediaPlayer.AllPlayers.push(this);
-                const element = document.querySelector(elementSelector);
+                var element = document.querySelector(elementSelector);
                 if (element === null) {
                     throw "Element not found to initialize media player with.";
                 }
@@ -49,25 +50,38 @@ var Rock;
                 }
                 this.setupPlayer();
             }
-            get map() {
-                return MediaPlayer.toRle(this.watchBits);
-            }
-            get percentWatched() {
-                return this.percentWatchedInternal;
-            }
-            get duration() {
-                return this.player.duration;
-            }
-            seek(positionInSeconds) {
+            Object.defineProperty(MediaPlayer.prototype, "map", {
+                get: function () {
+                    return MediaPlayer.toRle(this.watchBits);
+                },
+                enumerable: false,
+                configurable: true
+            });
+            Object.defineProperty(MediaPlayer.prototype, "percentWatched", {
+                get: function () {
+                    return this.percentWatchedInternal;
+                },
+                enumerable: false,
+                configurable: true
+            });
+            Object.defineProperty(MediaPlayer.prototype, "duration", {
+                get: function () {
+                    return this.player.duration;
+                },
+                enumerable: false,
+                configurable: true
+            });
+            MediaPlayer.prototype.seek = function (positionInSeconds) {
                 this.player.currentTime = positionInSeconds;
-            }
-            setupPlayer() {
-                const mediaElement = document.createElement(this.options.type === "audio" ? "audio" : "video");
+            };
+            MediaPlayer.prototype.setupPlayer = function () {
+                var _this = this;
+                var mediaElement = document.createElement(this.options.type === "audio" ? "audio" : "video");
                 mediaElement.setAttribute("playsinline", "");
                 mediaElement.setAttribute("controls", "");
                 mediaElement.setAttribute("style", "width: 100%;");
                 this.element.appendChild(mediaElement);
-                const plyrOptions = {
+                var plyrOptions = {
                     storage: {
                         enabled: false
                     },
@@ -84,44 +98,44 @@ var Rock;
                     return;
                 }
                 var hls = new Hls();
-                const updateQuality = function (newQuality) {
+                var updateQuality = function (newQuality) {
                     if (newQuality === 0) {
                         hls.currentLevel = -1;
                     }
                     else {
-                        hls.levels.forEach((level, levelIndex) => {
+                        hls.levels.forEach(function (level, levelIndex) {
                             if (level.height === newQuality) {
                                 hls.currentLevel = levelIndex;
                             }
                         });
                     }
                 };
-                hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                    const availableQualities = hls.levels.map((l) => l.height);
+                hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                    var availableQualities = hls.levels.map(function (l) { return l.height; });
                     availableQualities.unshift(0);
                     plyrOptions.quality = {
                         default: 0,
                         options: availableQualities,
                         forced: true,
-                        onChange: (e) => updateQuality(e),
+                        onChange: function (e) { return updateQuality(e); },
                     };
                     plyrOptions.i18n = plyrOptions.i18n || {};
                     plyrOptions.i18n.qualityLabel = {
                         0: 'Auto'
                     };
                     hls.currentLevel = -1;
-                    this.initializePlayer(mediaElement, plyrOptions);
+                    _this.initializePlayer(mediaElement, plyrOptions);
                 });
                 if (this.options.posterUrl !== undefined) {
                     mediaElement.setAttribute("poster", this.options.posterUrl);
                 }
                 hls.loadSource(this.options.mediaUrl);
                 hls.attachMedia(mediaElement);
-            }
-            initializePlayer(mediaElement, plyrOptions) {
+            };
+            MediaPlayer.prototype.initializePlayer = function (mediaElement, plyrOptions) {
                 this.player = new Plyr(mediaElement, plyrOptions);
-                this.writeDebugMessage(`Setting media URL to ${this.options.mediaUrl}`);
-                let sourceInfo = {
+                this.writeDebugMessage("Setting media URL to " + this.options.mediaUrl);
+                var sourceInfo = {
                     type: this.options.type === "audio" ? "audio" : "video",
                     title: this.options.title,
                     sources: [
@@ -144,49 +158,49 @@ var Rock;
                     this.player.source = sourceInfo;
                 }
                 this.wireEvents();
-            }
-            getFilenameFromUrl(url) {
+            };
+            MediaPlayer.prototype.getFilenameFromUrl = function (url) {
                 var _a, _b;
                 return ((_b = (_a = url.split('#').shift()) === null || _a === void 0 ? void 0 : _a.split('?').shift()) === null || _b === void 0 ? void 0 : _b.split('/').pop()) || url;
-            }
-            stringEndsWith(haystack, needle) {
+            };
+            MediaPlayer.prototype.stringEndsWith = function (haystack, needle) {
                 return haystack.substr(-needle.length) === needle;
-            }
-            isAudio(url) {
-                const filename = this.getFilenameFromUrl(url).toLowerCase();
+            };
+            MediaPlayer.prototype.isAudio = function (url) {
+                var filename = this.getFilenameFromUrl(url).toLowerCase();
                 return this.stringEndsWith(filename, ".aac") === true
                     || this.stringEndsWith(filename, ".flac") === true
                     || this.stringEndsWith(filename, ".mp3") === true
                     || this.stringEndsWith(filename, ".wav") === true;
-            }
-            isHls(url) {
-                const filename = this.getFilenameFromUrl(url).toLowerCase();
+            };
+            MediaPlayer.prototype.isHls = function (url) {
+                var filename = this.getFilenameFromUrl(url).toLowerCase();
                 return this.stringEndsWith(filename, ".m3u8") === true && Hls !== undefined && Hls.isSupported() === true;
-            }
-            isYouTubeEmbed(url) {
-                const pattern = /https?:\/\/www\.youtube\.com\/embed\/([^\?]+)\??/i;
-                const match = pattern.exec(url);
+            };
+            MediaPlayer.prototype.isYouTubeEmbed = function (url) {
+                var pattern = /https?:\/\/www\.youtube\.com\/embed\/([^\?]+)\??/i;
+                var match = pattern.exec(url);
                 return match !== null;
-            }
-            isVimeoEmbed(url) {
-                const pattern = /https?:\/\/player\.vimeo\.com\/video\/([^\?]+)\??/i;
-                const match = pattern.exec(url);
+            };
+            MediaPlayer.prototype.isVimeoEmbed = function (url) {
+                var pattern = /https?:\/\/player\.vimeo\.com\/video\/([^\?]+)\??/i;
+                var match = pattern.exec(url);
                 return match !== null;
-            }
-            translateWellKnownUrls(url) {
-                const youTubePattern = /https?:\/\/(?:www\.)youtube\.com\/watch(?:[?&]v=([^&]+))/i;
-                const vimeoPattern = /https?:\/\/vimeo\.com\/([0-9]+)/i;
-                let match = youTubePattern.exec(url);
+            };
+            MediaPlayer.prototype.translateWellKnownUrls = function (url) {
+                var youTubePattern = /https?:\/\/(?:www\.)youtube\.com\/watch(?:[?&]v=([^&]+))/i;
+                var vimeoPattern = /https?:\/\/vimeo\.com\/([0-9]+)/i;
+                var match = youTubePattern.exec(url);
                 if (match !== null) {
-                    return `https://www.youtube.com/embed/${match[1]}`;
+                    return "https://www.youtube.com/embed/" + match[1];
                 }
                 match = vimeoPattern.exec(url);
                 if (match !== null) {
-                    return `https://player.vimeo.com/video/${match[1]}`;
+                    return "https://player.vimeo.com/video/" + match[1];
                 }
                 return url;
-            }
-            markBitWatched() {
+            };
+            MediaPlayer.prototype.markBitWatched = function () {
                 var playBit = Math.floor(this.player.currentTime);
                 if (playBit == this.previousPlayBit) {
                     return;
@@ -195,14 +209,14 @@ var Rock;
                     this.watchBits[playBit]++;
                     this.watchBitsDirty = true;
                 }
-                const watchedItemCount = this.watchBits.filter(item => item > 0).length;
+                var watchedItemCount = this.watchBits.filter(function (item) { return item > 0; }).length;
                 this.percentWatchedInternal = watchedItemCount / this.watchBits.length;
                 this.previousPlayBit = playBit;
                 this.emit("progress");
-                this.writeDebugMessage(`RLE: ${MediaPlayer.toRle(this.watchBits)}`);
-                this.writeDebugMessage(`Player Time: ${this.player.currentTime}; Current Time: ${playBit}; Percent Watched: ${this.percentWatched}; Unwatched Items: ${this.watchBits.length - watchedItemCount}; Map Size: ${this.watchBits.length}`);
-            }
-            prepareForPlay() {
+                this.writeDebugMessage("RLE: " + MediaPlayer.toRle(this.watchBits));
+                this.writeDebugMessage("Player Time: " + this.player.currentTime + "; Current Time: " + playBit + "; Percent Watched: " + this.percentWatched + "; Unwatched Items: " + (this.watchBits.length - watchedItemCount) + "; Map Size: " + this.watchBits.length);
+            };
+            MediaPlayer.prototype.prepareForPlay = function () {
                 if (this.watchBitsInitialized !== false) {
                     return;
                 }
@@ -210,138 +224,139 @@ var Rock;
                 this.initializeMap();
                 this.setResume();
                 this.emit("ready");
-            }
-            setResume() {
-                this.writeDebugMessage(`The media length is ${this.player.duration} seconds.`);
+            };
+            MediaPlayer.prototype.setResume = function () {
+                this.writeDebugMessage("The media length is " + this.player.duration + " seconds.");
                 if (this.options.resumePlaying === false || this.percentWatched === 1) {
                     return;
                 }
-                let startPosition = 0;
-                for (let i = 0; i < this.watchBits.length; i++) {
+                var startPosition = 0;
+                for (var i = 0; i < this.watchBits.length; i++) {
                     if (this.watchBits[i] == 0) {
                         startPosition = i;
                         break;
                     }
                 }
                 this.player.currentTime = startPosition;
-                this.writeDebugMessage(`Set starting position at: ${startPosition}`);
-                this.writeDebugMessage(`The current starting position is: ${this.player.currentTime}`);
-            }
-            initializeMap() {
+                this.writeDebugMessage("Set starting position at: " + startPosition);
+                this.writeDebugMessage("The current starting position is: " + this.player.currentTime);
+            };
+            MediaPlayer.prototype.initializeMap = function () {
                 this.loadExistingMap();
                 this.validateMap();
                 this.watchBitsInitialized = true;
-                this.writeDebugMessage(`Initialize Map (${this.watchBits.length}): ${this.watchBits.join("")}`);
-            }
-            loadExistingMap() {
+                this.writeDebugMessage("Initialize Map (" + this.watchBits.length + "): " + this.watchBits.join(""));
+            };
+            MediaPlayer.prototype.loadExistingMap = function () {
                 this.writeDebugMessage("Loading existing map.");
                 if (this.options.map === "") {
                     this.createBlankMap();
                     this.writeDebugMessage("No previous map provided, creating a blank map.");
                     return;
                 }
-                const existingMapString = this.options.map;
-                this.writeDebugMessage(`Map provided in .map property: ${existingMapString}`);
+                var existingMapString = this.options.map;
+                this.writeDebugMessage("Map provided in .map property: " + existingMapString);
                 this.watchBits = MediaPlayer.rleToArray(existingMapString);
-                const watchedItemCount = this.watchBits.filter(item => item > 0).length;
+                var watchedItemCount = this.watchBits.filter(function (item) { return item > 0; }).length;
                 this.percentWatchedInternal = watchedItemCount / this.watchBits.length;
-            }
-            validateMap() {
-                let mediaLength = Math.ceil(this.player.duration);
+            };
+            MediaPlayer.prototype.validateMap = function () {
+                var mediaLength = Math.ceil(this.player.duration);
                 if (this.watchBits.length !== mediaLength) {
-                    this.writeDebugMessage(`Provided map size (${this.watchBits.length}) did not match the media (${mediaLength}). Using a blank map.`);
+                    this.writeDebugMessage("Provided map size (" + this.watchBits.length + ") did not match the media (" + mediaLength + "). Using a blank map.");
                     this.createBlankMap();
                 }
-            }
-            createBlankMap() {
-                let mapSize = Math.ceil(this.player.duration);
+            };
+            MediaPlayer.prototype.createBlankMap = function () {
+                var mapSize = Math.ceil(this.player.duration);
                 if (mapSize < 0) {
                     mapSize = 0;
                 }
                 this.watchBits = new Array(mapSize).fill(0);
                 this.percentWatchedInternal = 0;
-                this.writeDebugMessage(`Blank map created of size: ${this.watchBits.length}`);
-            }
-            static rleToArray(value) {
-                let unencoded = new Array();
-                let rleArray = value.split(",");
+                this.writeDebugMessage("Blank map created of size: " + this.watchBits.length);
+            };
+            MediaPlayer.rleToArray = function (value) {
+                var unencoded = new Array();
+                var rleArray = value.split(",");
                 for (var i = 0; i < rleArray.length; i++) {
-                    let components = rleArray[i];
-                    let value = parseInt(components[components.length - 1]);
-                    let size = parseInt(components.substring(0, components.length - 1));
-                    let segment = new Array(size).fill(value);
-                    unencoded.push(...segment);
+                    var components = rleArray[i];
+                    var value_1 = parseInt(components[components.length - 1]);
+                    var size = parseInt(components.substring(0, components.length - 1));
+                    var segment = new Array(size).fill(value_1);
+                    unencoded.push.apply(unencoded, segment);
                 }
                 return unencoded;
-            }
-            trackPlay() {
-                this.writeDebugMessage(`${this.player.currentTime}`);
+            };
+            MediaPlayer.prototype.trackPlay = function () {
+                this.writeDebugMessage("" + this.player.currentTime);
                 this.markBitWatched();
-            }
-            writeDebugMessage(message) {
+            };
+            MediaPlayer.prototype.writeDebugMessage = function (message) {
                 if (this.options.debug) {
-                    console.log(`RMP(${this.elementId}): ${message}`);
+                    console.log("RMP(" + this.elementId + "): " + message);
                 }
-            }
-            wireEvents() {
-                const self = this;
-                const pageHideHandler = function () {
+            };
+            MediaPlayer.prototype.wireEvents = function () {
+                var _this = this;
+                var self = this;
+                var pageHideHandler = function () {
                     self.writeInteraction(false);
                 };
-                const visibilityChangeHandler = function () {
+                var visibilityChangeHandler = function () {
                     if (document.visibilityState === "hidden") {
                         self.writeInteraction(false);
                     }
                 };
-                this.player.on("play", () => {
-                    this.prepareForPlay();
-                    if (this.options.trackProgress) {
-                        this.timerId = setInterval(() => this.trackPlay(), 250);
+                this.player.on("play", function () {
+                    _this.prepareForPlay();
+                    if (_this.options.trackProgress) {
+                        _this.timerId = setInterval(function () { return _this.trackPlay(); }, 250);
                     }
-                    if (this.options.autopause) {
-                        MediaPlayer.AllPlayers.forEach(mp => {
-                            if (mp !== this && mp.player.playing === true) {
+                    if (_this.options.autopause) {
+                        MediaPlayer.AllPlayers.forEach(function (mp) {
+                            if (mp !== _this && mp.player.playing === true) {
                                 mp.player.pause();
                             }
                         });
                     }
-                    this.emit("play");
+                    _this.emit("play");
                     window.addEventListener("pagehide", pageHideHandler);
                     window.addEventListener("visibilitychange", visibilityChangeHandler);
-                    this.writeDebugMessage("Event 'play' called.");
+                    _this.writeDebugMessage("Event 'play' called.");
                 });
-                this.player.on("pause", () => {
-                    if (this.timerId) {
-                        clearInterval(this.timerId);
+                this.player.on("pause", function () {
+                    if (_this.timerId) {
+                        clearInterval(_this.timerId);
                     }
-                    this.markBitWatched();
+                    _this.markBitWatched();
                     window.removeEventListener("pagehide", pageHideHandler);
                     window.removeEventListener("visibilitychange", visibilityChangeHandler);
-                    this.emit("pause");
-                    this.writeInteraction(true);
-                    this.writeDebugMessage("Event 'pause' called.");
+                    _this.emit("pause");
+                    _this.writeInteraction(true);
+                    _this.writeDebugMessage("Event 'pause' called.");
                 });
-                this.player.on("ended", () => {
-                    this.emit("completed");
-                    this.writeDebugMessage("Event 'ended' called.");
+                this.player.on("ended", function () {
+                    _this.emit("completed");
+                    _this.writeDebugMessage("Event 'ended' called.");
                 });
-                this.player.on("ready", () => {
-                    this.writeDebugMessage(`Event 'ready' called: ${this.player.duration}`);
-                    if (this.player.duration > 0) {
-                        this.prepareForPlay();
+                this.player.on("ready", function () {
+                    _this.writeDebugMessage("Event 'ready' called: " + _this.player.duration);
+                    if (_this.player.duration > 0) {
+                        _this.prepareForPlay();
                     }
                     else {
-                        const readyTimerId = setInterval(() => {
-                            if (this.player.duration > 0) {
-                                clearInterval(readyTimerId);
-                                this.prepareForPlay();
+                        var readyTimerId_1 = setInterval(function () {
+                            if (_this.player.duration > 0) {
+                                clearInterval(readyTimerId_1);
+                                _this.prepareForPlay();
                             }
                         }, 250);
-                        setTimeout(() => clearInterval(readyTimerId), 5000);
+                        setTimeout(function () { return clearInterval(readyTimerId_1); }, 5000);
                     }
                 });
-            }
-            writeInteraction(async) {
+            };
+            MediaPlayer.prototype.writeInteraction = function (async) {
                 if (this.options.writeInteraction === false || this.options.mediaElementGuid === undefined || this.options.mediaElementGuid.length === 0) {
                     return;
                 }
@@ -349,21 +364,21 @@ var Rock;
                     return;
                 }
                 this.watchBitsDirty = false;
-                const data = {
+                var data = {
                     InteractionGuid: this.options.interactionGuid,
                     MediaElementGuid: this.options.mediaElementGuid,
                     WatchMap: MediaPlayer.toRle(this.watchBits),
                     RelatedEntityTypeId: this.options.relatedEntityTypeId,
                     RelatedEntityId: this.options.relatedEntityId
                 };
-                const xmlRequest = new XMLHttpRequest();
-                const self = this;
+                var xmlRequest = new XMLHttpRequest();
+                var self = this;
                 xmlRequest.open("POST", "/api/MediaElements/WatchInteraction", async);
                 xmlRequest.setRequestHeader("Content-Type", "application/json");
                 xmlRequest.onreadystatechange = function () {
                     if (xmlRequest.readyState === 4) {
                         if (xmlRequest.status === 200) {
-                            const response = JSON.parse(xmlRequest.responseText);
+                            var response = JSON.parse(xmlRequest.responseText);
                             self.options.interactionGuid = response.InteractionGuid;
                         }
                         else {
@@ -373,18 +388,18 @@ var Rock;
                     }
                 };
                 xmlRequest.send(JSON.stringify(data));
-            }
-            static toRle(value) {
+            };
+            MediaPlayer.toRle = function (value) {
                 if (!Array.isArray(value)) {
-                    value = value.split("").map(x => +x);
+                    value = value.split("").map(function (x) { return +x; });
                 }
                 if (value.length == 0) {
                     return "";
                 }
-                let encoding = [];
-                let previous = value[0];
-                let count = 1;
-                for (let i = 1; i < value.length; i++) {
+                var encoding = [];
+                var previous = value[0];
+                var count = 1;
+                for (var i = 1; i < value.length; i++) {
                     if (value[i] !== previous) {
                         encoding.push(count.toString() + previous.toString());
                         count = 1;
@@ -396,24 +411,24 @@ var Rock;
                 }
                 encoding.push(count.toString() + previous.toString());
                 return encoding.join(",");
-            }
-            on(event, fn) {
+            };
+            MediaPlayer.prototype.on = function (event, fn) {
                 this.callbacks = this.callbacks || {};
                 if (event === undefined || fn === undefined) {
                     return this;
                 }
-                const key = `$${event}`;
+                var key = "$" + event;
                 this.callbacks[key] = this.callbacks[key] || [];
                 this.callbacks[key].push(fn);
                 return this;
-            }
-            off(event, fn) {
+            };
+            MediaPlayer.prototype.off = function (event, fn) {
                 this.callbacks = this.callbacks || {};
                 if (event === undefined) {
                     this.callbacks = {};
                     return this;
                 }
-                const key = `$${event}`;
+                var key = "$" + event;
                 if (fn === undefined) {
                     delete this.callbacks[key];
                     return this;
@@ -421,7 +436,7 @@ var Rock;
                 if (this.callbacks[key] === undefined) {
                     return this;
                 }
-                for (let i = 0; i < this.callbacks[key].length; i++) {
+                for (var i = 0; i < this.callbacks[key].length; i++) {
                     if (fn === this.callbacks[key][i]) {
                         this.callbacks[key].slice(i, 1);
                         break;
@@ -431,20 +446,25 @@ var Rock;
                     delete this.callbacks[key];
                 }
                 return this;
-            }
-            emit(event, ...args) {
+            };
+            MediaPlayer.prototype.emit = function (event) {
+                var args = [];
+                for (var _i = 1; _i < arguments.length; _i++) {
+                    args[_i - 1] = arguments[_i];
+                }
                 this.callbacks = this.callbacks || {};
-                let callbacks = this.callbacks[`$${event}`];
+                var callbacks = this.callbacks["$" + event];
                 if (callbacks === undefined) {
                     return;
                 }
                 callbacks = callbacks.slice(0);
-                for (let i = 0; i < callbacks.length; i++) {
+                for (var i = 0; i < callbacks.length; i++) {
                     callbacks[i].apply(this, args);
                 }
-            }
-        }
-        MediaPlayer.AllPlayers = [];
+            };
+            MediaPlayer.AllPlayers = [];
+            return MediaPlayer;
+        }());
         UI.MediaPlayer = MediaPlayer;
     })(UI = Rock.UI || (Rock.UI = {}));
 })(Rock || (Rock = {}));

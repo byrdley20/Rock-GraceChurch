@@ -15,7 +15,6 @@
     "allowUnreachableCode": false
   },
   "exclude": [
-    "Obsidian/**/*"
   ],
   "compileOnSave": true
 }

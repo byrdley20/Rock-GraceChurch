@@ -47,6 +47,7 @@
 // Fake it so TypeScript knows that Hls is a global variable.
 declare var Hls: any;
 
+/* eslint-disable @typescript-eslint/no-namespace */
 namespace Rock.UI {
     /**
      * The options that can be passed into the MediaPlayer

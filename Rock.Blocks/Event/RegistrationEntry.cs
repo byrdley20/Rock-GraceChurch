@@ -225,14 +225,12 @@ namespace Rock.Blocks.Event
                     return ActionBadRequest( errorMessage );
                 }
 
-                var session = UpsertSession( rockContext, context, args, SessionStatus.PaymentPending, out errorMessage );
+                var session = UpsertSession( context, args, SessionStatus.PaymentPending, out errorMessage );
 
                 if ( !errorMessage.IsNullOrWhiteSpace() )
                 {
                     return ActionBadRequest( errorMessage );
                 }
-
-                rockContext.SaveChanges();
 
                 // Generate the redirect URL
                 var redirectUrl = GenerateRedirectUrl( rockContext, context, args.AmountToPayNow, args.Registrar, args.Registrants, session.Guid );
@@ -258,14 +256,12 @@ namespace Rock.Blocks.Event
                     return ActionBadRequest( errorMessage );
                 }
 
-                var session = UpsertSession( rockContext, context, args, SessionStatus.PaymentPending, out errorMessage );
+                var session = UpsertSession( context, args, SessionStatus.PaymentPending, out errorMessage );
 
                 if ( !errorMessage.IsNullOrWhiteSpace() )
                 {
                     return ActionBadRequest( errorMessage );
                 }
-
-                rockContext.SaveChanges();
 
                 return ActionOk( new
                 {
@@ -308,9 +304,7 @@ namespace Rock.Blocks.Event
         {
             using ( var rockContext = new RockContext() )
             {
-                var registrationSessionService = new RegistrationSessionService( rockContext );
-
-                var registrationSession = registrationSessionService.TryToRenewSession( registrationSessionGuid );
+                var registrationSession = RegistrationSessionService.TryToRenewSession( registrationSessionGuid );
 
                 // Null means the session failed to renew, generally because the
                 // Guid wasn't valid.
@@ -364,11 +358,12 @@ namespace Rock.Blocks.Event
         /// <summary>
         /// Updates or Inserts the session.
         /// </summary>
-        /// <param name="rockContext">The rock context.</param>
         /// <param name="context">The context.</param>
         /// <param name="args">The arguments.</param>
+        /// <param name="sessionStatus">The status to set the session to.</param>
+        /// <param name="errorMessage">On exit will contain any error message.</param>
+        /// <returns>The <see cref="RegistrationSession"/> or <c>null</c> if an error occurred.</returns>
         private RegistrationSession UpsertSession(
-            RockContext rockContext,
             RegistrationContext context,
             RegistrationEntryBlockArgs args,
             SessionStatus sessionStatus,
@@ -390,9 +385,7 @@ namespace Rock.Blocks.Event
 
             var nonWaitlistRegistrantCount = args.Registrants.Count( r => !r.IsOnWaitList );
 
-            var registrationSessionService = new RegistrationSessionService( rockContext );
-
-            var registrationSession = registrationSessionService.CreateOrUpdateSession( args.RegistrationSessionGuid,
+            var registrationSession = RegistrationSessionService.CreateOrUpdateSession( args.RegistrationSessionGuid,
                 // Create
                 () => new RegistrationSession
                 {

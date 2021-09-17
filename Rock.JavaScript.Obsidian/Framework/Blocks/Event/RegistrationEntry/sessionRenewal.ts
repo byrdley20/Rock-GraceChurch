@@ -112,43 +112,47 @@ export default defineComponent( {
                     registrationSessionGuid: this.registrationEntryState.registrationSessionGuid
                 });
 
-                if (response.data) {
+                if (response.isSuccess && response.data) {
                     const asDate = RockDateTime.parseISO(response.data.expirationDateTime);
                     this.registrationEntryState.sessionExpirationDateMs = asDate?.toMilliseconds() ?? null;
                     this.spotsSecured = response.data.spotsSecured;
+                }
+                else {
+                    this.registrationEntryState.sessionExpirationDateMs = null;
+                    this.spotsSecured = 0;
+                }
 
-                    // If there is a deficiency, then update the state to reflect the reduced spots available
-                    let deficiency = this.nonWaitlistRegistrantCount - this.spotsSecured;
+                // If there is a deficiency, then update the state to reflect the reduced spots available
+                let deficiency = this.nonWaitlistRegistrantCount - this.spotsSecured;
 
+                if (!deficiency) {
+                    this.$emit("success");
+                    this.close();
+                    return;
+                }
+
+                this.registrationEntryState.viewModel.spotsRemaining = this.spotsSecured;
+
+                if (!this.hasWaitlist) {
+                    // Reduce the registrants down to fit the spots available
+                    this.registrationEntryState.registrants.length = this.spotsSecured;
+                    return;
+                }
+
+                // Work backward through the registrants until the deficiency is removed
+                for (let i = this.allRegistrantCount - 1; i >= 0; i--) {
                     if (!deficiency) {
-                        this.$emit("success");
-                        this.close();
-                        return;
+                        break;
                     }
 
-                    this.registrationEntryState.viewModel.spotsRemaining = this.spotsSecured;
+                    const registrant = this.registrationEntryState.registrants[i];
 
-                    if (!this.hasWaitlist) {
-                        // Reduce the registrants down to fit the spots available
-                        this.registrationEntryState.registrants.length = this.spotsSecured;
-                        return;
+                    if (registrant.isOnWaitList) {
+                        continue;
                     }
 
-                    // Work backward through the registrants until the deficiency is removed
-                    for (let i = this.allRegistrantCount - 1; i >= 0; i--) {
-                        if (!deficiency) {
-                            break;
-                        }
-
-                        const registrant = this.registrationEntryState.registrants[i];
-
-                        if (registrant.isOnWaitList) {
-                            continue;
-                        }
-
-                        registrant.isOnWaitList = true;
-                        deficiency--;
-                    }
+                    registrant.isOnWaitList = true;
+                    deficiency--;
                 }
             }
             finally {

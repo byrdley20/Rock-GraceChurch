@@ -47,32 +47,34 @@ namespace Rock.Rest.v2
         /// <summary>
         /// Executes an action handler on a specific block.
         /// </summary>
+        /// <param name="pageGuid">The page unique identifier.</param>
         /// <param name="blockGuid">The block unique identifier.</param>
         /// <param name="actionName">Name of the action.</param>
         /// <returns></returns>
         [Authenticate]
         [HttpGet]
-        [Route( "api/v2/BlockActions/{blockGuid:guid}/{actionName}" )]
-        public IHttpActionResult BlockAction( Guid blockGuid, string actionName )
+        [Route( "api/v2/BlockActions/{pageGuid:guid}/{blockGuid:guid}/{actionName}" )]
+        public IHttpActionResult BlockAction( Guid pageGuid, Guid blockGuid, string actionName )
         {
-            return ProcessAction( this, blockGuid, actionName, null );
+            return ProcessAction( this, pageGuid, blockGuid, actionName, null );
         }
 
         /// <summary>
         /// Executes an action handler on a specific block.
         /// </summary>
+        /// <param name="pageGuid">The page unique identifier.</param>
         /// <param name="blockGuid">The block unique identifier.</param>
         /// <param name="actionName">Name of the action.</param>
         /// <param name="parameters">The parameters.</param>
         /// <returns></returns>
         [Authenticate]
         [HttpPost]
-        [Route( "api/v2/BlockActions/{blockGuid:guid}/{actionName}" )]
-        public IHttpActionResult BlockActionAsPost( Guid blockGuid, string actionName, [NakedBody] string parameters )
+        [Route( "api/v2/BlockActions/{pageGuid:guid}/{blockGuid:guid}/{actionName}" )]
+        public IHttpActionResult BlockActionAsPost( Guid pageGuid, Guid blockGuid, string actionName, [NakedBody] string parameters )
         {
             if ( parameters == string.Empty )
             {
-                return ProcessAction( this, blockGuid, actionName, null );
+                return ProcessAction( this, pageGuid, blockGuid, actionName, null );
             }
 
             //
@@ -88,7 +90,7 @@ namespace Rock.Rest.v2
                 {
                     var parameterToken = JToken.ReadFrom( jsonReader );
 
-                    return ProcessAction( this, blockGuid, actionName, parameterToken );
+                    return ProcessAction( this, pageGuid, blockGuid, actionName, parameterToken );
                 }
             }
         }
@@ -101,15 +103,17 @@ namespace Rock.Rest.v2
         /// Processes the action.
         /// </summary>
         /// <param name="controller">The API controller that initiated this action.</param>
+        /// <param name="pageGuid">The page unique identifier.</param>
         /// <param name="blockGuid">The block unique identifier.</param>
         /// <param name="actionName">Name of the action.</param>
         /// <param name="parameters">The parameters.</param>
         /// <returns></returns>
-        internal static IHttpActionResult ProcessAction( ApiControllerBase controller, Guid? blockGuid, string actionName, JToken parameters )
+        internal static IHttpActionResult ProcessAction( ApiControllerBase controller, Guid? pageGuid, Guid? blockGuid, string actionName, JToken parameters )
         {
             try
             {
                 BlockCache blockCache = null;
+                PageCache pageCache = null;
 
                 //
                 // Find the block.
@@ -124,6 +128,24 @@ namespace Rock.Rest.v2
                     return new NotFoundResult( controller );
                 }
 
+                // Find the page.
+                if ( pageGuid.HasValue )
+                {
+                    pageCache = PageCache.Get( pageGuid.Value );
+                }
+                else
+                {
+                    // This can be removed once the obsolete API endpoints
+                    // that allowed for sending an action to a block identifier
+                    // without a page identifier are removed.
+                    pageCache = blockCache.Page;
+                }
+
+                if ( blockCache == null || pageCache == null )
+                {
+                    return new NotFoundResult( controller );
+                }
+
                 //
                 // Get the authenticated person and make sure it's cached.
                 //
@@ -133,7 +155,7 @@ namespace Rock.Rest.v2
                 //
                 // Ensure the user has access to both the page and block.
                 //
-                if ( !blockCache.Page.IsAuthorized( Security.Authorization.VIEW, person ) || !blockCache.IsAuthorized( Security.Authorization.VIEW, person ) )
+                if ( !pageCache.IsAuthorized( Security.Authorization.VIEW, person ) || !blockCache.IsAuthorized( Security.Authorization.VIEW, person ) )
                 {
                     return new StatusCodeResult( HttpStatusCode.Unauthorized, controller );
                 }
@@ -155,7 +177,7 @@ namespace Rock.Rest.v2
                 // Set the basic block parameters.
                 //
                 rockBlock.BlockCache = blockCache;
-                rockBlock.PageCache = blockCache.Page;
+                rockBlock.PageCache = pageCache;
                 rockBlock.RequestContext = requestContext;
 
                 var actionParameters = new Dictionary<string, JToken>( StringComparer.InvariantCultureIgnoreCase );
@@ -202,7 +224,7 @@ namespace Rock.Rest.v2
                     actionParameters.AddOrReplace( q.Key, JToken.FromObject( q.Value.ToString() ) );
                 }
 
-                requestContext.AddContextEntitiesForPage( blockCache.Page );
+                requestContext.AddContextEntitiesForPage( pageCache );
 
                 return InvokeAction( controller, rockBlock, actionName, actionParameters, parameters );
             }

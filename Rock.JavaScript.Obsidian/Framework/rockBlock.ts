@@ -14,7 +14,7 @@
 // limitations under the License.
 // </copyright>
 //
-import { doApiCall, HttpBodyData, HttpMethod, HttpUrlParams } from "./Util/http";
+import { doApiCall, HttpBodyData, HttpMethod, HttpResult, HttpUrlParams } from "./Util/http";
 import { Component, defineComponent, PropType, provide, reactive } from "vue";
 import { BlockConfig, BlockHttp, InvokeBlockActionFunc } from "./Util/block";
 import { useStore } from "./Store/index";
@@ -56,26 +56,26 @@ export default defineComponent( {
             } );
         };
 
-        const httpCall = async <T>( method: HttpMethod, url: string, params: HttpUrlParams = undefined, data: HttpBodyData = undefined ) => {
-            writeLog( method, url );
-            return await doApiCall<T>( method, url, params, data );
+        const httpCall = async <T>(method: HttpMethod, url: string, params: HttpUrlParams = undefined, data: HttpBodyData = undefined): Promise<HttpResult<T>> => {
+            writeLog(method, url);
+            return await doApiCall<T>(method, url, params, data);
         };
 
-        const get = async <T>( url: string, params: HttpUrlParams = undefined ) => {
-            return await httpCall<T>( "GET", url, params );
+        const get = async <T>(url: string, params: HttpUrlParams = undefined): Promise<HttpResult<T>> => {
+            return await httpCall<T>("GET", url, params);
         };
 
-        const post = async <T>( url: string, params: HttpUrlParams = undefined, data: HttpBodyData = undefined ) => {
-            return await httpCall<T>( "POST", url, params, data );
+        const post = async <T>(url: string, params: HttpUrlParams = undefined, data: HttpBodyData = undefined): Promise<HttpResult<T>> => {
+            return await httpCall<T>("POST", url, params, data);
         };
 
-        const invokeBlockAction: InvokeBlockActionFunc = async <T>( actionName: string, data: HttpBodyData = undefined ) => {
-            return await post<T>( `/api/v2/BlockActions/${props.config.blockGuid}/${actionName}`, undefined, {
+        const invokeBlockAction: InvokeBlockActionFunc = async <T>(actionName: string, data: HttpBodyData = undefined) => {
+            return await post<T>(`/api/v2/BlockActions/${store.state.pageGuid}/${props.config.blockGuid}/${actionName}`, undefined, {
                 __context: {
                     pageParameters: store.state.pageParameters
                 },
                 ...data
-            } );
+            });
         };
 
         const blockHttp: BlockHttp = { get, post };

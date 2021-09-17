@@ -115,9 +115,11 @@ namespace Rock.Rest.Controllers
         [Authenticate]
         [HttpGet]
         [Route( "api/blocks/action/{blockGuid}/{actionName}" )]
+        [RockObsolete( "1.13" )]
+        [Obsolete( "Does not provide access to site-level or layout-level blocks. Use api/blocks/actions/{pageGuid}/{blockGuid}/{actionName} instead.")]
         public IHttpActionResult BlockAction( Guid blockGuid, string actionName )
         {
-            return v2.BlockActionsController.ProcessAction( this, blockGuid, actionName, null );
+            return v2.BlockActionsController.ProcessAction( this, null, blockGuid, actionName, null );
         }
 
         /// <summary>
@@ -130,11 +132,13 @@ namespace Rock.Rest.Controllers
         [Authenticate]
         [HttpPost]
         [Route( "api/blocks/action/{blockGuid}/{actionName}" )]
+        [RockObsolete( "1.13" )]
+        [Obsolete( "Does not provide access to site-level or layout-level blocks. Use api/blocks/actions/{pageGuid}/{blockGuid}/{actionName} instead." )]
         public IHttpActionResult BlockActionAsPost( string blockGuid, string actionName, [NakedBody] string parameters )
         {
             if ( parameters == string.Empty )
             {
-                return v2.BlockActionsController.ProcessAction( this, blockGuid.AsGuidOrNull(), actionName, null );
+                return v2.BlockActionsController.ProcessAction( this, null, blockGuid.AsGuidOrNull(), actionName, null );
             }
 
             //
@@ -150,7 +154,7 @@ namespace Rock.Rest.Controllers
                 {
                     var parameterToken = JToken.ReadFrom( jsonReader );
 
-                    return v2.BlockActionsController.ProcessAction( this, blockGuid.AsGuidOrNull(), actionName, parameterToken );
+                    return v2.BlockActionsController.ProcessAction( this, null, blockGuid.AsGuidOrNull(), actionName, parameterToken );
                 }
             }
         }
@@ -158,34 +162,35 @@ namespace Rock.Rest.Controllers
         /// <summary>
         /// Executes an action handler on a specific block.
         /// </summary>
-        /// <param name="page">The page unique identifier.</param>
-        /// <param name="block">The block unique identifier.</param>
+        /// <param name="pageGuid">The page unique identifier.</param>
+        /// <param name="blockGuid">The block unique identifier.</param>
         /// <param name="actionName">Name of the action.</param>
         /// <returns></returns>
-        /// <remarks>Use api/blocks/action/{blockGuid}/{actionName} instead, used by Rock Mobile shell v1 only.</remarks>
         [Authenticate]
         [HttpGet]
-        [Route( "api/blocks/action/{page}/{block}/{actionName}" )]
-        [RockObsolete( "1.12" )]
-        public IHttpActionResult BlockAction( string page, string block, string actionName )
+        [Route( "api/blocks/action/{pageGuid:guid}/{blockGuid:guid}/{actionName}" )]
+        public IHttpActionResult BlockAction( string pageGuid, string blockGuid, string actionName )
         {
-            return v2.BlockActionsController.ProcessAction( this, block.AsGuidOrNull(), actionName, null );
+            return v2.BlockActionsController.ProcessAction( this, pageGuid.AsGuidOrNull(), blockGuid.AsGuidOrNull(), actionName, null );
         }
 
         /// <summary>
         /// Executes an action handler on a specific block.
         /// </summary>
-        /// <param name="pageIdentifier">The page unique identifier.</param>
-        /// <param name="blockIdentifier">The block unique identifier.</param>
+        /// <param name="pageGuid">The page unique identifier.</param>
+        /// <param name="blockGuid">The block unique identifier.</param>
         /// <param name="actionName">Name of the action.</param>
         /// <param name="parameters">The parameters.</param>
         /// <returns></returns>
-        /// <remarks>Use api/blocks/action/{blockGuid}/{actionName} instead, used by Rock Mobile shell v1 only.</remarks>
         [Authenticate]
-        [Route( "api/blocks/action/{pageIdentifier}/{blockIdentifier}/{actionName}" )]
-        [RockObsolete( "1.12" )]
-        public IHttpActionResult BlockAction( string pageIdentifier, string blockIdentifier, string actionName, [NakedBody] string parameters )
+        [Route( "api/blocks/action/{pageGuid:guid}/{blockGuid:guid}/{actionName}" )]
+        public IHttpActionResult BlockAction( string pageGuid, string blockGuid, string actionName, [NakedBody] string parameters )
         {
+            if ( parameters == string.Empty )
+            {
+                return v2.BlockActionsController.ProcessAction( this, pageGuid.AsGuidOrNull(), blockGuid.AsGuidOrNull(), actionName, null );
+            }
+
             //
             // We have to manually parse the JSON data, otherwise any strings
             // that look like dates get converted to Date objects. This causes
@@ -199,7 +204,7 @@ namespace Rock.Rest.Controllers
                 {
                     var parameterToken = JToken.ReadFrom( jsonReader );
 
-                    return v2.BlockActionsController.ProcessAction( this, blockIdentifier.AsGuidOrNull(), actionName, parameterToken );
+                    return v2.BlockActionsController.ProcessAction( this, pageGuid.AsGuidOrNull(), blockGuid.AsGuidOrNull(), actionName, parameterToken );
                 }
             }
         }
@@ -216,7 +221,7 @@ namespace Rock.Rest.Controllers
         [Authenticate]
         public IHttpActionResult BlockAction( string pageIdentifier, string blockIdentifier, string actionName, [FromBody] JToken parameters )
         {
-            return v2.BlockActionsController.ProcessAction( this, blockIdentifier.AsGuidOrNull(), actionName, parameters );
+            return v2.BlockActionsController.ProcessAction( this, pageIdentifier.AsGuidOrNull(), blockIdentifier.AsGuidOrNull(), actionName, parameters );
         }
     }
 }

@@ -13,13 +13,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // </copyright>
-//
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
-using System.Linq.Dynamic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.UI;
@@ -251,7 +249,6 @@ namespace RockWeb.Blocks.Connection
             public const string WorkflowEntryPage = "WorkflowEntryPage";
             public const string StatusTemplate = "StatusTemplate";
             public const string ConnectionRequestHistoryPage = "ConnectionRequestHistoryPage";
-
         }
 
         /// <summary>
@@ -831,6 +828,7 @@ namespace RockWeb.Blocks.Connection
 
             lRequestModalViewModeHeading.Text = GetAttributeValue( AttributeKey.LavaHeadingTemplate ).ResolveMergeFields( mergeFields );
             lRequestModalViewModeBadgeBar.Text = GetAttributeValue( AttributeKey.LavaBadgeBar ).ResolveMergeFields( mergeFields );
+            mdRequest.OnCancelScript = "Rock.controls.connectionRequestBoard.removeConnectionQuerystringParameters('ConnectionRequestId');";
 
             // Bind the more straightforward UI pieces
             divRequestModalViewModePhoto.Attributes["title"] = string.Format( "{0} Profile Photo", viewModel.PersonFullname );
@@ -944,9 +942,6 @@ namespace RockWeb.Blocks.Connection
                         Helper.AddDisplayControls( groupMember, phGroupMemberAttributesView, null, false, false );
                     }
                 }
-
-
-
             }
 
             rightDescList.Add( "Placement Group", placementGroupHtml );
@@ -986,7 +981,7 @@ namespace RockWeb.Blocks.Connection
                 {
                     Value = at.Id,
                     Text = at.Name
-                } ).ToList();
+                } ).OrderBy( a => a.Text ).ToList();
                 ddlRequestModalViewModeAddActivityModeType.DataBind();
                 BindConnectorOptions( ddlRequestModalViewModeAddActivityModeConnector, true, viewModel.CampusId, connectorPersonAliasId );
 
@@ -1129,6 +1124,11 @@ namespace RockWeb.Blocks.Connection
         private string GetLabelMarkup( string labelClass, string text )
         {
             return string.Format( @"<span class=""label label-{0}"">{1}</span>", labelClass, text );
+        }
+
+        internal string UpdateConnectionQuerystring( string connectionRequestId )
+        {
+            return string.Format( "return Rock.controls.connectionRequestBoard.updateConnectionQuerystringParameters(\"{0}\", \"{1}\", \"{2}\");", "ConnectionOpportunityId", connectionRequestId.ToStringSafe(), false );
         }
 
         #endregion Helper Methods
@@ -2048,7 +2048,6 @@ namespace RockWeb.Blocks.Connection
             gRequests.IsDeleteEnabled = canEdit;
             deleteField.Visible = canEdit;
 
-
             var securityField = gRequests.ColumnsOfType<SecurityField>().FirstOrDefault();
             securityField.EntityTypeId = connectionRequestEntityId;
             securityField.Visible = ShowSecurityButton;
@@ -2692,12 +2691,9 @@ namespace RockWeb.Blocks.Connection
                 if ( connectionRequest != null )
                 {
                     int? newOpportunityId = ddlRequestModalViewModeTransferModeOpportunity.SelectedValueAsId();
+                    int? sourceConnectorPersonAliasId = connectionRequest.ConnectorPersonAliasId;
+                    int sourceOpportunityId = connectionRequest.ConnectionOpportunityId;
 
-                    if ( connectionRequest.ConnectionOpportunityId == newOpportunityId )
-                    {
-                        nbTranferFailed.Visible = true;
-                        return;
-                    }
                     nbTranferFailed.Visible = false;
 
                     var guid = Rock.SystemGuid.ConnectionActivityType.TRANSFERRED.AsGuid();
@@ -2760,6 +2756,13 @@ namespace RockWeb.Blocks.Connection
                             }
 
                             connectionRequest.ConnectorPersonAliasId = connectorPersonAliasId;
+                        }
+
+                        // if the Opportunity and Connector haven't changed then don't transfer.
+                        if ( connectionRequest.ConnectionOpportunityId == sourceOpportunityId && connectionRequest.ConnectorPersonAliasId == sourceConnectorPersonAliasId )
+                        {
+                            nbTranferFailed.Visible = true;
+                            return;
                         }
 
                         // Add a new request activity to log the transfer
@@ -3878,6 +3881,7 @@ namespace RockWeb.Blocks.Connection
                 ShowError( "At least one connection opportunity is required before this block can be used" );
                 return;
             }
+
             var connectionOpportunity = GetConnectionOpportunity();
 
             BindHeader();
@@ -4708,6 +4712,7 @@ namespace RockWeb.Blocks.Connection
                         Name = ct.Name,
                         IconCssClass = ct.IconCssClass,
                         DaysUntilRequestIdle = ct.DaysUntilRequestIdle,
+                        Order = ct.Order,
                         ConnectionOpportunities = ct.ConnectionOpportunities
                             .Where( co => co.IsActive )
                             .Select( co => new ConnectionOpportunityViewModel
@@ -4727,7 +4732,8 @@ namespace RockWeb.Blocks.Connection
                             .ToList()
                     } )
                     .ToList()
-                    .OrderBy( ct => ct.Name )
+                    .OrderBy( ct => ct.Order )
+                    .ThenBy( ct => ct.Name )
                     .ThenBy( ct => ct.Id )
                     .ToList();
 
@@ -4787,7 +4793,7 @@ namespace RockWeb.Blocks.Connection
                 {
                     LastName = p.LastName,
                     NickName = p.NickName,
-                    PersonAliasId = p.Aliases.FirstOrDefault().Id
+                    PersonAliasId = p.Aliases.Where( a => a.AliasPersonId == p.Id ).FirstOrDefault().Id
                 } )
                 .ToList();
 
@@ -5053,10 +5059,7 @@ namespace RockWeb.Blocks.Connection
 
             return service.Queryable()
                 .AsNoTracking()
-                .Where( at =>
-                    ( !at.ConnectionTypeId.HasValue ||
-                    at.ConnectionTypeId == connectionType.Id ) &&
-                    at.IsActive );
+                .Where( at => at.ConnectionTypeId == connectionType.Id && at.IsActive );
         }
 
         /// <summary>
@@ -5320,6 +5323,11 @@ namespace RockWeb.Blocks.Connection
             /// Gets or sets the icon CSS class.
             /// </summary>
             public string IconCssClass { get; set; }
+
+            /// <summary>
+            /// Gets or sets the order.
+            /// </summary>
+            public int Order { get; set; }
 
             /// <summary>
             /// Gets or sets the days until request idle.

@@ -12,14 +12,13 @@
             <div class="panel-body">
 
                 <fieldset>
-                    <h4>Summary</h4>
                     <div class="row">
                         <div class="col-md-12">
                             <asp:Literal ID="lExceptionSummary" runat="server" />
                         </div>
                     </div>
 
-                    <div class="actions">
+                    <div class="panel-actions">
                         <a href="#" id="btnShowCookies" runat="server" class="js-btn-show-cookies btn btn-default">
                             <i class="fa fa-laptop"></i>
                             Show Cookies
@@ -115,7 +114,6 @@
 
 <script type="text/javascript">
     function toggleStackTrace(exceptionId) {
-        debugger
         $("[id*=trStackTrace_" + exceptionId + "]").first().toggleClass("exceptionDetail-stackTrace-hide");
         $("[id*=trStackTrace_" + exceptionId + "]").first().toggleClass("exceptionDetail-stackTrace-show");
 

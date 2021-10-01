@@ -59,9 +59,9 @@ namespace RockWeb.Blocks.Crm.PersonDetail
         #region Constants
 
         /// <summary>
-        /// The "plus or minus" symbol to use for markup strings
+        /// The HTML escaped "plus or minus" symbol to use for markup strings.
         /// </summary>
-        private const string PlusOrMinus = "±";
+        private const string PlusOrMinus = "&#177;";
 
         #endregion Constants
 
@@ -227,7 +227,7 @@ namespace RockWeb.Blocks.Crm.PersonDetail
             var contributionByMonths = new Dictionary<DateTime, decimal>();
 
             var historyJson = Person.GetAttributeValue( Rock.SystemGuid.Attribute.PERSON_GIVING_HISTORY_JSON.AsGuid() );
-            var historyObjects = FinancialTransactionService.GetGivingAnalyticsMonthlyAccountGivingHistoryFromJson( historyJson );
+            var historyObjects = FinancialTransactionService.GetGivingAutomationMonthlyAccountGivingHistoryFromJson( historyJson );
 
             for ( var i = 35; i >= 0; i-- )
             {
@@ -344,7 +344,7 @@ namespace RockWeb.Blocks.Crm.PersonDetail
             string kpi = GetKpiShortCode(
                 "Last 12 Months",
                 FormatAsCurrency( last12MonthTotal ),
-                subValue: string.Format( "<div class=\"d-block mt-2\"><span class=\"badge badge-warning \">First Gift: {0}</span></div>", Person.GetAttributeValue( "core_EraFirstGave" ).AsDateTime().ToShortDateString() ) );
+                subValue: string.Format( "<div class=\"d-block mt-2\"><span class=\"badge badge-info \">First Gift: {0}</span></div>", Person.GetAttributeValue( "core_EraFirstGave" ).AsDateTime().ToShortDateString() ) );
 
             kpi += GetKpiShortCode(
                 "Last 90 Days",
@@ -358,7 +358,7 @@ namespace RockWeb.Blocks.Crm.PersonDetail
 
             kpi += GetKpiShortCode( "Gifts Last 12 Months", last12MonthCount.ToStringSafe() );
             kpi += GetKpiShortCode( "Gifts Last 90 Days", last90DayCount.ToStringSafe() );
-            lLastGiving.Text = string.Format( @"{{[kpis size:'lg' columnmin:'200px' columncount:'4' columncountmd:'3' columncountsm:'2']}}{0}{{[endkpis]}}", kpi ).ResolveMergeFields( mergeFields );
+            lLastGiving.Text = string.Format( @"{{[kpis size:'lg' style:'edgeless' columnmin:'200px' columncount:'4' columncountmd:'3' columncountsm:'2']}}{0}{{[endkpis]}}", kpi ).ResolveMergeFields( mergeFields );
 
             GetGivingAnalyticsKPI( rockContext );
 
@@ -487,7 +487,7 @@ namespace RockWeb.Blocks.Crm.PersonDetail
                     hasAlertListLink ? "</a>" : string.Empty ), // 3
                 icon: "fa-fw fa-comment-alt" ) );
 
-            lGivingAnalytics.Text = string.Format( @"{{[kpis columnmin:'200px' iconbackground:'false' columncount:'4' columncountmd:'3' columncountsm:'2']}}{0}{{[endkpis]}}", stringBuilder ).ResolveMergeFields( mergeFields );
+            lGivingAnalytics.Text = string.Format( @"{{[kpis columnmin:'200px' style:'edgeless' iconbackground:'false' columncount:'4' columncountmd:'3' columncountsm:'2']}}{0}{{[endkpis]}}", stringBuilder ).ResolveMergeFields( mergeFields );
         }
 
         /// <summary>
@@ -534,7 +534,7 @@ namespace RockWeb.Blocks.Crm.PersonDetail
         private void BindYearlySummary()
         {
             var historyJson = Person.GetAttributeValue( Rock.SystemGuid.Attribute.PERSON_GIVING_HISTORY_JSON.AsGuid() );
-            var historyObjects = FinancialTransactionService.GetGivingAnalyticsMonthlyAccountGivingHistoryFromJson( historyJson );
+            var historyObjects = FinancialTransactionService.GetGivingAutomationMonthlyAccountGivingHistoryFromJson( historyJson );
 
             if ( !IsYearlySummaryExpanded )
             {

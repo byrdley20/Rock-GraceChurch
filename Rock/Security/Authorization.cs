@@ -23,9 +23,11 @@ using System.Text;
 using System.Web;
 using System.Web.Security;
 
+using Rock.Bus.Message;
 using Rock.Data;
 using Rock.Model;
 using Rock.Utility;
+using Rock.Utility.Settings;
 using Rock.Web.Cache;
 using Rock.Web.UI;
 
@@ -146,6 +148,11 @@ namespace Rock.Security
         /// </summary>
         public const string COOKIE_UNSECURED_PERSON_IDENTIFIER = ".ROCK-UnauthenticatedPersonIdentifier";
 
+        /// <summary>
+        /// Authorization to manage the steps
+        /// </summary>
+        public const string MANAGE_STEPS = "ManageSteps";
+
         #endregion
 
         #region Public Methods
@@ -168,6 +175,7 @@ namespace Rock.Security
         private static void AddOrUpdate( Dictionary<int, Dictionary<int, Dictionary<string, List<AuthRule>>>> authorizations )
         {
             RockCache.AddOrUpdate( CACHE_KEY, authorizations );
+            AuthorizationCacheWasUpdatedMessage.Publish( CACHE_KEY );
         }
 
         private static Dictionary<int, Dictionary<int, Dictionary<string, List<AuthRule>>>> LoadAuthorizations()
@@ -778,8 +786,8 @@ namespace Rock.Security
             var ticket = new FormsAuthenticationTicket(
                 1,
                 userName,
-                RockDateTime.Now,
-                RockDateTime.Now.Add( FormsAuthentication.Timeout ),
+                RockInstanceConfig.SystemDateTime,
+                RockInstanceConfig.SystemDateTime.Add( FormsAuthentication.Timeout ),
                 isPersisted,
                 IsImpersonated.ToString(),
                 FormsAuthentication.FormsCookiePath );
@@ -862,7 +870,7 @@ namespace Rock.Security
             if ( domainCookie != null )
             {
                 var authCookie = GetAuthCookie( domainCookie.Value, null );
-                authCookie.Expires = DateTime.Now.AddDays( -1d );
+                authCookie.Expires = RockInstanceConfig.SystemDateTime.AddDays( -1d );
                 RockPage.AddOrUpdateCookie( authCookie );
 
                 domainCookie = new HttpCookie( domainCookieName )
@@ -871,7 +879,7 @@ namespace Rock.Security
                     Domain = authCookie.Domain,
                     Path = FormsAuthentication.FormsCookiePath,
                     Secure = FormsAuthentication.RequireSSL,
-                    Expires = DateTime.Now.AddDays( -1d )
+                    Expires = RockInstanceConfig.SystemDateTime.AddDays( -1d )
                 };
 
                 RockPage.AddOrUpdateCookie( domainCookie );
@@ -891,7 +899,7 @@ namespace Rock.Security
         {
             if ( HttpContext.Current.Request.Cookies.AllKeys.Contains( Rock.Security.Authorization.COOKIE_UNSECURED_PERSON_IDENTIFIER ) )
             {
-                RockPage.AddOrUpdateCookie( Rock.Security.Authorization.COOKIE_UNSECURED_PERSON_IDENTIFIER, null, RockDateTime.Now.AddDays( -1d ) );
+                RockPage.AddOrUpdateCookie( Rock.Security.Authorization.COOKIE_UNSECURED_PERSON_IDENTIFIER, null, RockInstanceConfig.SystemDateTime.AddDays( -1d ) );
             }
         }
 
@@ -906,8 +914,12 @@ namespace Rock.Security
             // Get the SameSite setting from the Global Attributes. If not set then default to Lax. Official IETF values are "Lax", "Strict", and "None".
             SameSiteCookieSetting sameSiteCookieSetting = GlobalAttributesCache.Get().GetValue( "core_SameSiteCookieSetting" ).ConvertToEnumOrNull<SameSiteCookieSetting>() ?? SameSiteCookieSetting.Lax;
 
+            // If IsSecureConnection is false then check the scheme in case the web server is behind a load balancer.
+            // The server could use unencrypted traffic to the balancer, which would encrypt it before sending to the browser.
+            var secureSetting = HttpContext.Current.Request.IsSecureConnection || HttpContext.Current.Request.UrlProxySafe().Scheme == "https" ? ";Secure" : string.Empty;
+
             // For browsers to recognize SameSite=none the Secure tag is required, but it doesn't hurt to add it for all samesite settings.
-            string sameSiteCookieValue = ";SameSite=" + sameSiteCookieSetting + ";Secure";
+            string sameSiteCookieValue = $";SameSite={sameSiteCookieSetting}{secureSetting}";
 
             var httpCookie = new HttpCookie( FormsAuthentication.FormsCookieName, value )
             {
@@ -979,7 +991,7 @@ namespace Rock.Security
         {
             HttpCookie httpcookie = new HttpCookie( Rock.Security.Authorization.COOKIE_UNSECURED_PERSON_IDENTIFIER );
             httpcookie.Value = personAliasGuid.ToString();
-            httpcookie.Expires = DateTime.Now.AddYears( 1 );
+            httpcookie.Expires = RockInstanceConfig.SystemDateTime.AddYears( 1 );
             RockPage.AddOrUpdateCookie( httpcookie );
         }
 

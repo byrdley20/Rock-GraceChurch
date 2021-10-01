@@ -159,6 +159,15 @@ namespace Rock.Model
         [IncludeForReporting]
         public int? CategoryId { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [auto inactivate when complete].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [auto inactivate when complete]; otherwise, <c>false</c>.
+        /// </value>
+        [DataMember]
+        public bool AutoInactivateWhenComplete { get; set; } = false;
+
         #endregion
 
         #region Virtual Properties
@@ -1645,7 +1654,7 @@ namespace Rock.Model
         /// </summary>
         /// <param name="iCalendarContent">RFC 5545 ICal Content</param>
         /// <returns></returns>
-        [RockObsolete( "12.4" )]
+        [RockObsolete( "1.12.4" )]
         [Obsolete( "Use CreateCalendarEvent instead" )]
         public static Ical.Net.Event GetCalendarEvent( string iCalendarContent )
         {
@@ -1685,7 +1694,7 @@ namespace Rock.Model
         /// <param name="startTime">The start time.</param>
         /// <returns></returns>
         [Obsolete("Use the override with the string instead of the Ical.Net.Event.")]
-        [RockObsolete("12.4")]
+        [RockObsolete( "1.12.4" )]
         public static IList<Occurrence> GetOccurrences( Ical.Net.Event icalEvent, DateTime startTime )
         {
             return icalEvent.GetOccurrences( startTime ).ToList();
@@ -1699,7 +1708,7 @@ namespace Rock.Model
         /// <param name="endTime">The end time.</param>
         /// <returns></returns>
         [Obsolete("Use the override with the string instead of the Ical.Net.Event.")]
-        [RockObsolete("12.4")]
+        [RockObsolete( "1.12.4" )]
         public static IList<Occurrence> GetOccurrences( Ical.Net.Event icalEvent, DateTime startTime, DateTime endTime )
         {
             return icalEvent.GetOccurrences( startTime, endTime ).ToList();
@@ -1788,7 +1797,7 @@ namespace Rock.Model
     /// <summary>
     /// DDay.ical LoadFromStream is not threadsafe, so use locking
     /// </summary>
-    [RockObsolete( "v1.12" )]
+    [RockObsolete( "1.12" )]
     [Obsolete( "Use InetCalendarHelper instead." )]
     public static class ScheduleICalHelper
     {

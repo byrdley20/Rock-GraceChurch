@@ -50,7 +50,7 @@ namespace RockWeb.Blocks.Examples
     [Category( "Examples" )]
     [Description( "Loads the Rock Solid Church sample data into your Rock system." )]
 
-    [TextField( "XML Document URL", @"The URL for the input sample data XML document. You can also use a local Windows file path (e.g. C:\Rock\Documentation\sampledata_1_7_0.xml) if you want to test locally with your own fake data.  The file format is loosely defined on the <a target='blank' href='https://github.com/SparkDevNetwork/Rock/wiki/z.-Rock-Solid-Demo-Church-Specification-(sample-data)'>Rock Solid Demo Church Specification</a> wiki.", false, "http://storage.rockrms.com/sampledata/sampledata_1_7_0.xml", "", 1 )]
+    [TextField( "XML Document URL", @"The URL for the input sample data XML document. You can also use a local Windows file path (e.g. C:\Rock\Documentation\sampledata_1_7_0.xml) if you want to test locally with your own fake data.  The file format is loosely defined on the <a target='blank' href='https://github.com/SparkDevNetwork/Rock/wiki/z.-Rock-Solid-Demo-Church-Specification-(sample-data)'>Rock Solid Demo Church Specification</a> wiki.", false, "http://storage.rockrms.com/sampledata/sampledata_1_13_0.xml", "", 1 )]
     [BooleanField( "Fabricate Attendance", "If true, then fake attendance data will be fabricated (if the right parameters are in the XML)", true, "", 2 )]
     [BooleanField( "Enable Stopwatch", "If true, a stopwatch will be used to time each of the major operations.", false, "", 3 )]
     [BooleanField( "Enable Giving", "If true, the giving data will be loaded otherwise it will be skipped.", true, "", 4 )]
@@ -137,7 +137,7 @@ namespace RockWeb.Blocks.Examples
         /// <summary>
         /// A random number generator for use when calculating random attendance data and financial giving frequency (skipping).
         /// </summary>
-        private static Random _random = new Random( ( int ) DateTime.Now.Ticks );
+        private static Random _random = new Random( ( int ) RockDateTime.Now.Ticks );
 
         /// <summary>
         /// The number of characters (length) that security codes should be.
@@ -684,22 +684,7 @@ namespace RockWeb.Blocks.Examples
                 GetHubContext().Clients.All.receiveNotification( "sampleDataImport", x );
             }
         }
-
-        /// <summary>
-        /// Adds a transaction to add the meta-phone stuff for each person we've added.
-        /// </summary>
-        private void AddMetaphone( Person person )
-        {
-            var addNewMetaphonesMsg = new AddNewMetaphones.Message
-            {
-                FirstName = person.FirstName,
-                LastName = person.LastName,
-                NickName = person.NickName
-            };
-
-            addNewMetaphonesMsg.Send();
-        }
-
+        
         /// <summary>
         /// Adds any registration templates given in the XML file.
         /// </summary>
@@ -1887,7 +1872,26 @@ namespace RockWeb.Blocks.Examples
                         groupMember.GroupRoleId = roleId ?? -1;
                     }
 
-                    groupMember.PersonId = _peopleDictionary[personGuid];
+                    // Normally, a personGuid will be in the dictionary, but in some cases it
+                    // might be an existing well known Guid (i.e., the 'Admin Admin' record) so
+                    // in that case, we'll try to fetch the ID from the db.
+                    if ( _peopleDictionary.ContainsKey( personGuid ) )
+                    {
+                        groupMember.PersonId = _peopleDictionary[personGuid];
+                    }
+                    else
+                    {
+                        var existingPerson = new PersonService( rockContext ).Get( personGuid );
+                        if ( existingPerson == null )
+                        {
+                            // skip this group member record if it could not be found.
+                            continue;
+                        }
+
+                        _peopleDictionary.Add( personGuid, existingPerson.Id );
+                        groupMember.PersonId = existingPerson.Id;
+                    }
+
                     group.Members.Add( groupMember );
                 }
 
@@ -3015,7 +3019,8 @@ namespace RockWeb.Blocks.Examples
                                 person.ConnectionStatusValueId = DefinedValueCache.Get( Rock.SystemGuid.DefinedValue.PERSON_CONNECTION_STATUS_ATTENDEE.AsGuid() ).Id;
                                 break;
                             case "web prospect":
-                                person.ConnectionStatusValueId = DefinedValueCache.Get( Rock.SystemGuid.DefinedValue.PERSON_CONNECTION_STATUS_WEB_PROSPECT.AsGuid() ).Id;
+                            case "prospect":
+                                person.ConnectionStatusValueId = DefinedValueCache.Get( Rock.SystemGuid.DefinedValue.PERSON_CONNECTION_STATUS_PROSPECT.AsGuid() ).Id;
                                 break;
                             case "visitor":
                             default:
@@ -3072,7 +3077,7 @@ namespace RockWeb.Blocks.Examples
 
                 groupMember.Person = person;
 
-                AddMetaphone( person );
+                new Rock.Transactions.SaveMetaphoneTransaction( person ).Enqueue();
 
                 if ( personElem.Attribute( "familyRole" ) != null && personElem.Attribute( "familyRole" ).Value.Trim().ToLower() == "adult" )
                 {

@@ -22,6 +22,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rock.Data;
 using Rock.Model;
 using Rock.Tests.Shared;
+using Rock.Utility;
+using Rock.Utility.Settings;
 
 namespace Rock.Tests.Integration.Lava
 {
@@ -56,7 +58,7 @@ namespace Rock.Tests.Integration.Lava
         #region TitleCase
 
         [DataTestMethod]
-        [DataRow( @"{{ ""men's gathering/get-together"" | TitleCase }}", "Men's Gathering/get-together"  )]
+        [DataRow( @"{{ ""men's gathering/get-together"" | TitleCase }}", "Men's Gathering/get-together" )]
         [DataRow( @"{{ 'mATTHEw 24:29-41 - KJV' | TitleCase }}", "Matthew 24:29-41 - KJV" )]
         public void TitleCase_TextWithPunctuation_PreservesPunctuation( string inputTemplate, string expectedOutput )
         {
@@ -117,7 +119,6 @@ namespace Rock.Tests.Integration.Lava
         }
 
         [TestMethod]
-        //[Ignore( "This test may fail for Fluid if run in series with other tests." )]
         public void Where_WithMultipleConditions_ReturnsOnlyMatchingItems()
         {
             var mergeFields = new Dictionary<string, object> { { "CurrentPerson", GetWhereFilterTestPersonTedDecker() } };
@@ -159,7 +160,6 @@ Employer: Rock Solid Church <br>
         }
 
         [TestMethod]
-        //[Ignore( "This test may fail for Fluid if run in series with other tests." )]
         public void Where_WithSingleConditionNotEqual_ReturnsOnlyNotEqualValues()
         {
             var mergeFields = new Dictionary<string, object> { { "CurrentPerson", GetWhereFilterTestPersonTedDecker() } };
@@ -211,7 +211,6 @@ Employer:RockSolidChurch<br>
         }
 
         [TestMethod]
-        //[Ignore( "This test may fail for Fluid if run in series with other tests." )]
         public void Where_WithSingleConditionOnNestedProperty_ReturnsOnlyEqualValues()
         {
             var mergeFields = new Dictionary<string, object> { { "CurrentPerson", GetWhereFilterTestPersonTedDecker() } };
@@ -231,7 +230,38 @@ Home: (623)555-3322 <br>
         }
 
         [TestMethod]
-        //[Ignore( "This test may fail for Fluid if run in series with other tests." )]
+        public void Where_WithSingleConditionOnEnumProperty_ReturnsOnlyEqualValues()
+        {
+            var items = new List<TestWhereFilterCollectionItem>();
+
+            items.Add( new TestWhereFilterCollectionItem { Gender = Gender.Male, Name = "Ted Decker" } );
+            items.Add( new TestWhereFilterCollectionItem { Gender = Gender.Female, Name = "Cindy Decker" } );
+            items.Add( new TestWhereFilterCollectionItem { Gender = Gender.Female, Name = "Alex Decker" } );
+            items.Add( new TestWhereFilterCollectionItem { Gender = Gender.Male, Name = "Bill Marble" } );
+            items.Add( new TestWhereFilterCollectionItem { Gender = Gender.Female, Name = "Alisha Marble" } );
+
+            var mergeFields = new Dictionary<string, object> { { "Items", items }, { "FemaleId", ( int ) Gender.Female } };
+
+            var templateInput = @"
+{% assign matches = Items | Where:'Gender','Male' %}
+{% for match in matches %}
+    {{ match.Name }}<br>
+{% endfor %}
+{% assign matches = Items | Where:'Gender',FemaleId %}
+{% for match in matches %}
+    {{ match.Name }}<br>
+{% endfor %}
+";
+
+            var expectedOutput = @"
+Ted Decker<br>Bill Marble<br>
+Cindy Decker<br>Alex Decker<br>Alisha Marble<br>
+";
+
+            TestHelper.AssertTemplateOutput( expectedOutput, templateInput, new LavaTestRenderOptions { MergeFields = mergeFields } );
+        }
+
+        [TestMethod]
         public void Where_RepeatExecutions_ReturnsSameResult()
         {
             Debug.Write( "** Pass 1:" );
@@ -301,12 +331,6 @@ Home: (623)555-3322 <br>
             TestHelper.AssertTemplateOutput( expectedOutput, templateInput, new LavaTestRenderOptions { MergeFields = mergeFields } );
         }
 
-        private class TestWhereFilterCollectionItem
-        {
-            public string Id { get; set; }
-            public string Name { get; set; }
-        }
-
         private string GetWhereFilterTestTemplatePersonAttributes( string whereParameters )
         {
             var template = @"
@@ -334,6 +358,14 @@ Home: (623)555-3322 <br>
             return personTedDecker;
         }
 
+        private class TestWhereFilterCollectionItem : RockDynamic
+        {
+            public string Id { get; set; }
+            public string Name { get; set; }
+
+            public Gender Gender { get; set; }
+        }
+
         #endregion
 
         #region ReadCookie/WriteCookie
@@ -343,16 +375,19 @@ Home: (623)555-3322 <br>
         {
             var template = @"{{ 'cookie1' | WriteCookie:'oatmeal' }}";
 
-            var simulator = new Http.TestLibrary.HttpSimulator();
-
-            using ( simulator.SimulateRequest() )
+            TestHelper.ExecuteForActiveEngines( ( engine ) =>
             {
-                var output = template.ResolveMergeFields( null );
+                var simulator = new Http.TestLibrary.HttpSimulator();
 
-                var cookie = GetExistingCookie( simulator, "cookie1" );
+                using ( simulator.SimulateRequest() )
+                {
+                    engine.RenderTemplate( template );
 
-                Assert.That.AreEqual( "oatmeal", cookie.Value );
-            }
+                    var cookie = GetExistingCookie( simulator, "cookie1" );
+
+                    Assert.That.AreEqual( "oatmeal", cookie.Value );
+                }
+            } );
         }
 
         [TestMethod]
@@ -360,14 +395,15 @@ Home: (623)555-3322 <br>
         {
             var template = @"{{ '' | WriteCookie:'fudge' }}";
 
-            var simulator = new Http.TestLibrary.HttpSimulator();
-
-            using ( simulator.SimulateRequest() )
+            TestHelper.ExecuteForActiveEngines( ( engine ) =>
             {
-                var output = template.ResolveMergeFields( null );
+                var simulator = new Http.TestLibrary.HttpSimulator();
 
-                Assert.That.AreEqual( "WriteCookie failed: A Key must be specified.", output );
-            }
+                using ( simulator.SimulateRequest() )
+                {
+                    TestHelper.AssertTemplateOutput( "WriteCookie failed: A Key must be specified.", template );
+                }
+            } );
         }
 
         [TestMethod]
@@ -376,27 +412,29 @@ Home: (623)555-3322 <br>
             // Set a cookie to expire in 30 minutes.
             var template = "{{ 'cookie1' | WriteCookie:'oreo','30' }}";
 
-            var simulator = new Http.TestLibrary.HttpSimulator();
-
-            using ( simulator.SimulateRequest() )
+            TestHelper.ExecuteForActiveEngines( ( engine ) =>
             {
-                // Write the cookie value and verify that it exists.
-                var output = template.ResolveMergeFields( null );
+                var simulator = new Http.TestLibrary.HttpSimulator();
 
-                var cookie = GetExistingCookie( simulator, "cookie1" );
+                using ( simulator.SimulateRequest() )
+                {
+                    // Write the cookie value and verify that it exists.
+                    engine.RenderTemplate( template );
 
-                Assert.That.AreProximate( cookie.Expires, RockDateTime.Now, new System.TimeSpan( 0, 35, 0 ) );
-            }
+                    var cookie = GetExistingCookie( simulator, "cookie1" );
+
+                    Assert.That.AreProximate( cookie.Expires, RockInstanceConfig.SystemDateTime, new System.TimeSpan( 0, 35, 0 ) );
+                }
+            } );
         }
 
         [TestMethod]
         public void WriteCookie_WithNoCurrentHttpRequest_RendersErrorMessage()
         {
             var template = @"{{ 'cookie1' | WriteCookie:'fudge' }}";
+            var expectedOutput = "WriteCookie failed: A Http Session is required.";
 
-            var output = template.ResolveMergeFields( null );
-
-            Assert.That.AreEqual( "WriteCookie failed: A Http Session is required.", output );
+            TestHelper.AssertTemplateOutput( expectedOutput, template );
         }
 
         [TestMethod]
@@ -405,17 +443,18 @@ Home: (623)555-3322 <br>
             var template = @"{{ 'cookie1' | ReadCookie }}";
             var expectedValue = "choc-chip";
 
-            var simulator = new Http.TestLibrary.HttpSimulator();
-
-            using ( simulator.SimulateRequest() )
+            TestHelper.ExecuteForActiveEngines( ( engine ) =>
             {
-                // Set the cookie in the response.
-                simulator.Context.Response.Cookies.Add( new HttpCookie( "cookie1", expectedValue ) );
+                var simulator = new Http.TestLibrary.HttpSimulator();
 
-                var output = template.ResolveMergeFields( null );
+                using ( simulator.SimulateRequest() )
+                {
+                    // Set the cookie in the response.
+                    simulator.Context.Response.Cookies.Add( new HttpCookie( "cookie1", expectedValue ) );
 
-                Assert.That.AreEqualIgnoreNewline( expectedValue, output );
-            }
+                    TestHelper.AssertTemplateOutput( engine, expectedValue, template );
+                }
+            } );
         }
 
         [TestMethod]
@@ -423,14 +462,15 @@ Home: (623)555-3322 <br>
         {
             var template = @"{{ 'invalid_cookie_key' | ReadCookie }}";
 
-            var simulator = new Http.TestLibrary.HttpSimulator();
-
-            using ( simulator.SimulateRequest() )
+            TestHelper.ExecuteForActiveEngines( ( engine ) =>
             {
-                var output = template.ResolveMergeFields( null );
+                var simulator = new Http.TestLibrary.HttpSimulator();
 
-                Assert.That.IsTrue( output.IsNullOrWhiteSpace(), "Unexpected template output." );
-            }
+                using ( simulator.SimulateRequest() )
+                {
+                    TestHelper.AssertTemplateOutput( engine, string.Empty, template );
+                }
+            } );
         }
 
         [TestMethod]
@@ -438,9 +478,10 @@ Home: (623)555-3322 <br>
         {
             var template = @"{{ 'invalid_cookie_key' | ReadCookie }}";
 
-            var output = template.ResolveMergeFields( null );
-
-            Assert.That.IsTrue( output.IsNullOrWhiteSpace(), "Unexpected template output." );
+            TestHelper.ExecuteForActiveEngines( ( engine ) =>
+            {
+                TestHelper.AssertTemplateOutput( engine, string.Empty, template );
+            } );
         }
 
         /// <summary>

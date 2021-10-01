@@ -206,9 +206,9 @@ namespace Rock.Tests.UnitTests.Lava
             var template = "{{ '<content>' | ReadTime }}"
                 .Replace( "<content>", documentText );
 
-            TestHelper.ExecuteTestAction( ( engine ) =>
+            TestHelper.ExecuteForActiveEngines( ( engine ) =>
             {
-                var output = TestHelper.GetTemplateOutput( engine.EngineType, template );
+                var output = TestHelper.GetTemplateOutput( engine, template );
 
                 Assert.That.False( string.IsNullOrWhiteSpace( output ) );
 
@@ -230,9 +230,9 @@ namespace Rock.Tests.UnitTests.Lava
             var template = "{{ '<content>' | ReadTime:5,30 }}"
                 .Replace( "<content>", documentText );
 
-            TestHelper.ExecuteTestAction( ( engine ) =>
+            TestHelper.ExecuteForActiveEngines( ( engine ) =>
             {
-                var output = TestHelper.GetTemplateOutput( engine.EngineType, template );
+                var output = TestHelper.GetTemplateOutput( engine, template );
 
                 Assert.That.False( string.IsNullOrWhiteSpace( output ) );
 
@@ -254,9 +254,9 @@ namespace Rock.Tests.UnitTests.Lava
             var template = "{{ '<content>' | ReadTime:500,6 }}"
                 .Replace( "<content>", documentText );
 
-            TestHelper.ExecuteTestAction( ( engine ) =>
+            TestHelper.ExecuteForActiveEngines( ( engine ) =>
             {
-                var output = TestHelper.GetTemplateOutput( engine.EngineType, template );
+                var output = TestHelper.GetTemplateOutput( engine, template );
                 var readTime = TimeSpan.ParseExact( output, _timeSpanOutputFormats, CultureInfo.CurrentCulture );
 
                 Assert.That.AreProximate( 50, readTime.TotalSeconds, 10 );

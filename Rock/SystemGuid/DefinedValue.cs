@@ -14,6 +14,8 @@
 // limitations under the License.
 // </copyright>
 //
+using System;
+
 namespace Rock.SystemGuid
 {
     /// <summary>
@@ -72,6 +74,11 @@ namespace Rock.SystemGuid
         /// The block template for mobile my prayer requests.
         /// </summary>
         public const string BLOCK_TEMPLATE_MOBILE_MY_PRAYER_REQUESTS = "198F3006-5F0F-48AB-9EA0-2FA56F633753";
+
+        /// <summary>
+        /// The block template for Mobile > Prayer > Prayer Card View block.
+        /// </summary>
+        public const string BLOCK_TEMPLATE_MOBILE_PRAYER_PRAYER_CARD_VIEW = "DCFECA8C-CDF5-4863-851E-7EFEE6758EE9";
 
         /// <summary>
         /// The block template for the mobile prayer session block.
@@ -298,7 +305,7 @@ namespace Rock.SystemGuid
         /// <summary>
         /// The credit card type JCB
         /// </summary>
-        public const string CREDITCARD_TYPE_JCB = "	4DD7F0C2-F6B7-4510-90E6-287ADC25FD05";
+        public const string CREDITCARD_TYPE_JCB = "4DD7F0C2-F6B7-4510-90E6-287ADC25FD05";
 
         /// <summary>
         /// The credit card type MasterCard
@@ -678,8 +685,15 @@ namespace Rock.SystemGuid
         public const string PERSON_CONNECTION_STATUS_PARTICIPANT = "8EBC0CEB-474D-4C1B-A6BA-734C3A9AB061";
 
         /// <summary>
+        /// Person Connection Status - Prospect
+        /// </summary>
+        public const string PERSON_CONNECTION_STATUS_PROSPECT = "368DD475-242C-49C4-A42C-7278BE690CC2";
+
+        /// <summary>
         /// Person Connection Status - Web Prospect
         /// </summary>
+        [Obsolete( "This is the same as the old Web Prospect but it is renamed to just Prospect." )]
+        [RockObsolete( "1.13" )]
         public const string PERSON_CONNECTION_STATUS_WEB_PROSPECT = "368DD475-242C-49C4-A42C-7278BE690CC2";
 
         #endregion

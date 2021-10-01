@@ -296,6 +296,13 @@ namespace Rock.Financial
                 scheduledTransaction.LastStatusUpdateDateTime = RockDateTime.Now;
                 scheduledTransaction.Status = FinancialScheduledTransactionStatus.Active;
                 scheduledTransaction.StatusMessage = "active";
+
+                scheduledTransaction.FinancialPaymentDetail = new FinancialPaymentDetail()
+                {
+                    ExpirationMonth = ( paymentInfo as ReferencePaymentInfo )?.PaymentExpirationDate?.Month,
+                    ExpirationYear = ( paymentInfo as ReferencePaymentInfo )?.PaymentExpirationDate?.Year
+                };
+
                 return scheduledTransaction;
             }
 
@@ -327,7 +334,7 @@ namespace Rock.Financial
             errorMessage = string.Empty;
             var referencePaymentInfo = paymentInfo as ReferencePaymentInfo;
 
-            if (referencePaymentInfo != null)
+            if ( referencePaymentInfo != null )
             {
                 transaction.TransactionCode = referencePaymentInfo.TransactionCode;
             }
@@ -357,6 +364,11 @@ namespace Rock.Financial
         public override bool GetScheduledPaymentStatus( FinancialScheduledTransaction transaction, out string errorMessage )
         {
             transaction.LastStatusUpdateDateTime = RockDateTime.Now;
+            if ( !transaction.IsActive )
+            {
+                transaction.NextPaymentDate = null;
+            }
+
             errorMessage = string.Empty;
             return true;
         }
@@ -410,7 +422,6 @@ namespace Rock.Financial
                 fakePayments.Add( fakePayment );
             }
 
-
             return fakePayments;
         }
 
@@ -446,7 +457,14 @@ namespace Rock.Financial
         /// <returns></returns>
         public override DateTime? GetNextPaymentDate( FinancialScheduledTransaction scheduledTransaction, DateTime? lastTransactionDate )
         {
-            return CalculateNextPaymentDate( scheduledTransaction, lastTransactionDate );
+            if ( scheduledTransaction.IsActive )
+            {
+                return CalculateNextPaymentDate( scheduledTransaction, lastTransactionDate );
+            }
+            else
+            {
+                return scheduledTransaction.NextPaymentDate;
+            }
         }
 
         #endregion

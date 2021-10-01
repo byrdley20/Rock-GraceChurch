@@ -56,10 +56,10 @@ namespace RockWeb.Blocks.Event
     [DefinedValueField( "Connection Status",
         Key = AttributeKey.ConnectionStatus,
         DefinedTypeGuid = Rock.SystemGuid.DefinedType.PERSON_CONNECTION_STATUS,
-        Description = "The connection status to use for new individuals (default: 'Web Prospect'.)",
+        Description = "The connection status to use for new individuals (default: 'Prospect'.)",
         IsRequired = true,
         AllowMultiple = false,
-        DefaultValue = Rock.SystemGuid.DefinedValue.PERSON_CONNECTION_STATUS_WEB_PROSPECT,
+        DefaultValue = Rock.SystemGuid.DefinedValue.PERSON_CONNECTION_STATUS_PROSPECT,
         Order = 0 )]
 
     [DefinedValueField( "Record Status",
@@ -779,7 +779,7 @@ namespace RockWeb.Blocks.Event
                                     {
                                         // Redirect to the digital signature provider page to initialize a cookie.
                                         // The returnUrl specifies the current Rock page as the address to return to once the cookie has been created.
-                                        var returnUrl = ResolvePublicUrl( Request.Url.PathAndQuery );
+                                        var returnUrl = ResolvePublicUrl( Request.UrlProxySafe().PathAndQuery );
                                         returnUrl = returnUrl + ( returnUrl.Contains( "?" ) ? "&" : "?" ) + "Redirected=True";
 
                                         /*
@@ -918,8 +918,8 @@ namespace RockWeb.Blocks.Event
         {
             if ( _saveNavigationHistory )
             {
-                // make sure that a URL with navigation history parameters is really from a browser navigation and not a Link or Refresh
-                hfAllowNavigate.Value = ( CurrentPanel == PanelIndex.PanelSummary ? false : true ).ToTrueFalse();
+                // Do not allow a browser back button to bo back from the Success panel, the registration is complete at that point and cannot be navigated.
+                hfAllowNavigate.Value = ( CurrentPanel == PanelIndex.PanelSuccess ? false : true ).ToTrueFalse();
                 try
                 {
                     if ( CurrentPanel != PanelIndex.PanelRegistrant )
@@ -928,7 +928,7 @@ namespace RockWeb.Blocks.Event
                     }
                     else
                     {
-                        this.AddHistory( "event", string.Format( "1,{0},{1}", CurrentRegistrantIndex, CurrentFormIndex ) );
+                        this.AddHistory( "event", string.Format( "2,{0},{1}", CurrentRegistrantIndex, CurrentFormIndex ) );
                     }
                 }
                 catch ( System.InvalidOperationException )
@@ -973,45 +973,33 @@ namespace RockWeb.Blocks.Event
                 switch ( panelIndex )
                 {
                     case PanelIndex.PanelRegistrationAttributesStart:
-                        {
-                            ShowRegistrationAttributesStart( true );
-                            break;
-                        }
+                        ShowRegistrationAttributesStart( true );
+                        break;
 
                     case PanelIndex.PanelRegistrant:
-                        {
-                            CurrentRegistrantIndex = registrantId;
-                            CurrentFormIndex = formId;
-                            ShowRegistrant();
-                            break;
-                        }
+                        CurrentRegistrantIndex = registrantId;
+                        CurrentFormIndex = formId;
+                        ShowRegistrant();
+                        break;
 
                     case PanelIndex.PanelRegistrationAttributesEnd:
-                        {
-                            ShowRegistrationAttributesEnd( true );
-                            break;
-                        }
+                        ShowRegistrationAttributesEnd( true );
+                        break;
 
                     case PanelIndex.PanelSummary:
-                        {
-                            ShowSummary();
-                            break;
-                        }
+                        ShowSummary();
+                        break;
 
                     case PanelIndex.PanelPayment:
-                        {
-                            ShowPayment();
-                            break;
-                        }
+                        ShowPayment();
+                        break;
 
                     default:
-                        {
-                            ShowStart();
-                            break;
-                        }
+                        ShowStart();
+                        break;
                 }
             }
-            else if ( CurrentPanel == PanelIndex.PanelSummary && !hfAllowNavigate.Value.AsBoolean() )
+            else if ( CurrentPanel == PanelIndex.PanelSuccess && !hfAllowNavigate.Value.AsBoolean() )
             {
                 Dictionary<string, string> qryParams = new Dictionary<string, string>();
                 if ( RegistrationInstanceState != null )
@@ -2446,8 +2434,13 @@ namespace RockWeb.Blocks.Event
                             }
                         }
 
-                        newRegistration.LaunchWorkflow( RegistrationTemplate.RegistrationWorkflowTypeId, newRegistration.ToString() );
-                        newRegistration.LaunchWorkflow( RegistrationInstanceState.RegistrationWorkflowTypeId, newRegistration.ToString() );
+                        foreach ( var item in newRegistration.Registrants.Where( r => r.PersonAlias != null && r.PersonAlias.Person != null ) )
+                        {
+                            newRegistration.LaunchWorkflow( RegistrationTemplate.RegistrantWorkflowTypeId, newRegistration.ToString(), null, null );
+                        }
+
+                        newRegistration.LaunchWorkflow( RegistrationTemplate.RegistrationWorkflowTypeId, newRegistration.ToString(), null, null );
+                        newRegistration.LaunchWorkflow( RegistrationInstanceState.RegistrationWorkflowTypeId, newRegistration.ToString(), null, null );
                     }
 
                     RegistrationInstanceState = newRegistration.RegistrationInstance;
@@ -2612,7 +2605,9 @@ namespace RockWeb.Blocks.Event
                 var family = registrar.GetFamily( rockContext );
                 if ( family != null )
                 {
-                    multipleFamilyGroupIds.AddOrIgnore( RegistrationState.FamilyGuid, family.Id );
+                    // This is the registrar's entry into the dictionary.
+                    multipleFamilyGroupIds.AddOrIgnore( family.Guid, family.Id );
+
                     if ( !singleFamilyId.HasValue )
                     {
                         singleFamilyId = family.Id;
@@ -3835,12 +3830,16 @@ namespace RockWeb.Blocks.Event
                 RegistrationInstanceState.RegistrationInstructions;
 
             // Sanitize for empty check catches things like empty paragraph tags.
-            if ( !string.IsNullOrEmpty( instructions.SanitizeHtml() ) )
+            // ...But don't sanitize if the instructions contains an img tag.
+            if ( instructions.IsNotNullOrWhiteSpace() && ( instructions.ToLower().Contains( "<img " ) || instructions.SanitizeHtml().IsNotNullOrWhiteSpace() ) )
             {
                 lInstructions.Text = string.Format( "<div class='text-left'>{0}</div>", instructions );
+                return true;
             }
-
-            return instructions.SanitizeHtml().IsNotNullOrWhiteSpace();
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -3857,17 +3856,14 @@ namespace RockWeb.Blocks.Event
             lRegistrantTerm.Text = RegistrantTerm.Pluralize().ToLower();
 
             // If this is an existing registration, go directly to the summary
-            if ( !Page.IsPostBack && RegistrationState != null && RegistrationState.RegistrationId.HasValue && !PageParameter( START_AT_BEGINNING ).AsBoolean() )
+            if ( !Page.IsPostBack && RegistrationState != null && RegistrationState.RegistrationId.HasValue && ( !PageParameter( START_AT_BEGINNING ).AsBoolean() || !RegistrationTemplate.AllowExternalRegistrationUpdates ) )
             {
                 // ShowSummary will set visibility on things like the lbSummaryPrev button, so we want to
                 // call this before we might change that lbSummaryPrev button's visibility below.
                 ShowSummary();
 
                 // check if template does not allow updating the saved registration, if so hide the back button on the summary screen
-                if ( !RegistrationTemplate.AllowExternalRegistrationUpdates )
-                {
-                    lbSummaryPrev.Visible = false;
-                }
+                lbSummaryPrev.Visible = RegistrationTemplate.AllowExternalRegistrationUpdates;
             }
             else
             {
@@ -4482,16 +4478,17 @@ namespace RockWeb.Blocks.Event
         /// <returns></returns>
         private string ResolvePublicUrl( string relativeUrl )
         {
-            string resolvedUrl = ResolveRockUrl( relativeUrl );
+            string resolvedUrl = ResolveRockUrl( relativeUrl ).RemoveLeadingForwardslash();
+            var proxySafeUri = Request.UrlProxySafe();
 
-            string url = string.Format( "{0}://{1}", Request.Url.Scheme, Request.Url.Authority ).EnsureTrailingForwardslash() + resolvedUrl.RemoveLeadingForwardslash();
+            string url = ( $"{proxySafeUri.Scheme}://{proxySafeUri.Authority }" ).EnsureTrailingForwardslash() + resolvedUrl;
 
             try
             {
                 var appRootUri = new Uri( GlobalAttributesCache.Get().GetValue( "PublicApplicationRoot" ) );
                 if ( appRootUri != null )
                 {
-                    url = string.Format( "{0}://{1}", Request.Url.Scheme, appRootUri.Authority ).EnsureTrailingForwardslash() + resolvedUrl.RemoveLeadingForwardslash();
+                    url = ( $"{proxySafeUri.Scheme}://{appRootUri.Authority}" ).EnsureTrailingForwardslash() + resolvedUrl;
                 }
             }
             catch { }

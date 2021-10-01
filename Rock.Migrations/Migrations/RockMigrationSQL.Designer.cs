@@ -713,5 +713,168 @@ namespace Rock.Migrations.Migrations {
                 return ResourceManager.GetString("_202107121730176_RegistrationInstanceTimeout_UpdatePersonEntity", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DECLARE @EntityTypeIdAccumulativeAchievementComponent INT = (
+        ///        SELECT TOP 1 Id
+        ///        FROM EntityType
+        ///        WHERE [Guid] = &apos;05D8CD17-E07D-4927-B9C4-5018F7C4B715&apos;
+        ///        )
+        ///    , @EntityTypeIdStreakAchievementComponent INT = (
+        ///        SELECT TOP 1 Id
+        ///        FROM EntityType
+        ///        WHERE [Guid] = &apos;174F0AFF-3A5E-4A20-AE8B-D8D83D43BACD&apos;
+        ///        )
+        ///    , @EntityTypeIdStreak INT = (
+        ///        SELECT TOP 1 Id
+        ///        FROM EntityType
+        ///        WHERE [Guid] = &apos;D953B0A5-0065-4624-8844-10010DE01E5C&apos; [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string _202107141741515_AchievementType_AddAchievementTypes {
+            get {
+                return ResourceManager.GetString("_202107141741515_AchievementType_AddAchievementTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DECLARE
+        ///	@BinaryFileId int
+        ///	,@BinaryFileTypeIdDefault int = (SELECT TOP 1 Id from [BinaryFileType] where [Guid] = &apos;C1142570-8CD6-4A20-83B1-ACB47C1CD377&apos;)
+        ///	,@StorageEntityTypeIdDatabase int = (SELECT TOP 1 Id FROM [EntityType] WHERE [Guid] = &apos;0AA42802-04FD-4AEC-B011-FEB127FC85CD&apos;)
+        ///	
+        ///	-- Add AchievementMedal.svg
+        ///	IF NOT EXISTS (SELECT * FROM [BinaryFile] WHERE [Guid] = &apos;80331F03-4F4B-46B3-B789-8D34C12B4F42&apos; )
+        ///	BEGIN
+        ///	INSERT INTO [BinaryFile] ([IsTemporary], [IsSystem], [BinaryFileTypeId], [FileName],  [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string _202107141741515_AchievementType_AddMedalBinaryFile {
+            get {
+                return ResourceManager.GetString("_202107141741515_AchievementType_AddMedalBinaryFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DECLARE @BinaryFileId INT
+        ///    , @BinaryFileTypeIdDefault INT = (
+        ///        SELECT TOP 1 Id
+        ///        FROM [BinaryFileType]
+        ///        WHERE [Guid] = &apos;C1142570-8CD6-4A20-83B1-ACB47C1CD377&apos;
+        ///        )
+        ///    , @StorageEntityTypeIdDatabase INT = (
+        ///        SELECT TOP 1 Id
+        ///        FROM [EntityType]
+        ///        WHERE [Guid] = &apos;0AA42802-04FD-4AEC-B011-FEB127FC85CD&apos;
+        ///        )
+        ///
+        ///-- Add AchievementTrophy.svg
+        ///IF NOT EXISTS (
+        ///        SELECT *
+        ///        FROM [BinaryFile]
+        ///        WHERE [Guid] = &apos;9A1503BC-D965-4BD4-AEA4-803 [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string _202107141741515_AchievementType_AddTrophyBinaryFile {
+            get {
+                return ResourceManager.GetString("_202107141741515_AchievementType_AddTrophyBinaryFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IF NOT EXISTS (
+        ///        SELECT *
+        ///        FROM StreakType
+        ///        WHERE [Guid] = &apos;B9FADD97-38A4-4141-B6DB-48154563A2A9&apos;
+        ///        )
+        ///BEGIN
+        ///    INSERT INTO [dbo].[StreakType] (
+        ///        [Name]
+        ///        , [Description]
+        ///        , [StructureType]
+        ///        , [StructureEntityId]
+        ///        , [EnableAttendance]
+        ///        , [RequiresEnrollment]
+        ///        , [OccurrenceFrequency]
+        ///        , [StartDate]
+        ///        , [OccurrenceMap]
+        ///        , [IsActive]
+        ///        , [Guid]
+        ///        , [FirstDayOfWeek]
+        ///        )
+        ///    VALUES [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string _202107141741515_AchievementType_AddWeeklyAttendanceStreakType {
+            get {
+                return ResourceManager.GetString("_202107141741515_AchievementType_AddWeeklyAttendanceStreakType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UPDATE [LavaShortcode] SET [Documentation]=N&apos;&lt;p&gt;
+        ///The panel shortcode allows you to easily add a 
+        ///&lt;a href=&quot;https://community.rockrms.com/styling/components/panels&quot; target=&quot;_blank&quot;&gt;Bootstrap panel&lt;/a&gt; to your markup. This is a pretty simple shortcode, but it does save you some time.
+        ///&lt;/p&gt;
+        ///
+        ///&lt;p&gt;Basic Usage:&lt;br&gt;  
+        ///&lt;/p&gt;&lt;pre&gt;{[ panel title:&apos;&apos;Important Stuff&apos;&apos; icon:&apos;&apos;fa fa-star&apos;&apos; ]}&lt;br&gt;  
+        ///This is a super simple panel.&lt;br&gt; 
+        ///{[ endpanel ]}&lt;/pre&gt;
+        ///
+        ///&lt;p&gt;&lt;/p&gt;&lt;p&gt;
+        ///As you can see the body of the shortcode is placed [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string _202108031829239_Rollup_0803_LavaDocumentationUpdates {
+            get {
+                return ResourceManager.GetString("_202108031829239_Rollup_0803_LavaDocumentationUpdates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UPDATE [LavaShortcode] SET [Documentation]=N&apos;&lt;p&gt;Basic Usage:&lt;/p&gt;
+        ///&lt;pre&gt;&lt;code&gt;{[kpis]}
+        ///  [&lt;span class=&quot;hljs-string&quot;&gt;[ kpi icon:&apos;&apos;fa-highlighter&apos;&apos; value:&apos;&apos;4&apos;&apos; label:&apos;&apos;Highlighters&apos;&apos; color:&apos;&apos;yellow-700&apos;&apos;&lt;/span&gt;]][[ endkpi ]]
+        ///  [&lt;span class=&quot;hljs-string&quot;&gt;[ kpi icon:&apos;&apos;fa-pen-fancy&apos;&apos; value:&apos;&apos;8&apos;&apos; label:&apos;&apos;Pens&apos;&apos; color:&apos;&apos;indigo-700&apos;&apos;&lt;/span&gt;]][[ endkpi ]]
+        ///  [&lt;span class=&quot;hljs-string&quot;&gt;[ kpi icon:&apos;&apos;fa-pencil-alt&apos;&apos; value:&apos;&apos;15&apos;&apos; label:&apos;&apos;Pencils&apos;&apos; color:&apos;&apos;green-600&apos;&apos;&lt;/span&gt;]][[ endkpi ]]
+        ///{[endkpis]}
+        ///&lt;/code&gt;&lt;/pre&gt;
+        ///&lt;h [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string _202108251744427_Rollups_20210825_kpilinkshortcode {
+            get {
+                return ResourceManager.GetString("_202108251744427_Rollups_20210825_kpilinkshortcode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///-- Update Capitalization on Routes
+        ///UPDATE [PageRoute] SET [Route]=N&apos;person/{PersonId}/steps/{StepTypeId}/{StepId}&apos; WHERE ([Guid]=&apos;6BA3B394-C827-4548-94AE-CA9AD585CF3A&apos;)
+        ///
+        ///UPDATE [PageRoute] SET [Route]=N&apos;person/{PersonId}/steps&apos; WHERE ([Guid]=&apos;181A8246-0F80-44BE-A448-DADF680E6F73&apos;)
+        ///
+        ///UPDATE [PageRoute] SET [Route]=N&apos;person/{PersonId}/security&apos; WHERE ([Guid]=&apos;3F1A5C3F-53B6-46CA-AA66-6587C8FC56BC&apos;)
+        ///
+        ///UPDATE [PageRoute] SET [Route]=N&apos;person/{PersonId}/persondocs&apos; WHERE ([Guid]=&apos;AF2B7CB5-9CBA-41C4-A2DE-AB [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string _202109081805229_Rollup_20210908_routemigration {
+            get {
+                return ResourceManager.GetString("_202109081805229_Rollup_20210908_routemigration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///-- Update Capitalization on Routes
+        ///UPDATE [PageRoute] SET [Route]=N&apos;person/{PersonId}/steps/{StepTypeId}/{StepId}&apos; WHERE ([Guid]=&apos;6BA3B394-C827-4548-94AE-CA9AD585CF3A&apos;)
+        ///
+        ///UPDATE [PageRoute] SET [Route]=N&apos;person/{PersonId}/steps&apos; WHERE ([Guid]=&apos;181A8246-0F80-44BE-A448-DADF680E6F73&apos;)
+        ///
+        ///UPDATE [PageRoute] SET [Route]=N&apos;person/{PersonId}/security&apos; WHERE ([Guid]=&apos;3F1A5C3F-53B6-46CA-AA66-6587C8FC56BC&apos;)
+        ///
+        ///UPDATE [PageRoute] SET [Route]=N&apos;person/{PersonId}/persondocs&apos; WHERE ([Guid]=&apos;AF2B7CB5-9CBA-41C4-A2DE-AB84FB5C35 [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string _202109212048053_Rollup_20210921_routemigration {
+            get {
+                return ResourceManager.GetString("_202109212048053_Rollup_20210921_routemigration", resourceCulture);
+            }
+        }
     }
 }

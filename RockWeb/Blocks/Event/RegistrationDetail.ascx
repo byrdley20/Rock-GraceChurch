@@ -94,7 +94,7 @@
                             </div>
                         </div>
 
-                        <div class="actions margin-t-md">
+                        <div class="actions">
                             <asp:LinkButton ID="btnSave" runat="server" AccessKey="s" ToolTip="Alt+s" Text="Save" CssClass="btn btn-primary" OnClick="btnSave_Click" />
                             <asp:LinkButton ID="btnCancel" runat="server" AccessKey="c" ToolTip="Alt+c" Text="Cancel" CssClass="btn btn-link" CausesValidation="false" OnClick="btnCancel_Click" />
                         </div>
@@ -138,7 +138,7 @@
                                         <asp:Panel ID="pnlCosts" runat="server" Visible="false" CssClass="well">
 
                                             <div class="fee-table">
-                                                <h4>Cost Summary</h4>
+                                                <h4 class="mt-0">Cost Summary</h4>
                                                 <div class="registrationentry-summary">
                                                     <asp:Repeater ID="rptFeeSummary" runat="server">
                                                         <HeaderTemplate>
@@ -261,14 +261,17 @@
                             </div>
                         </div>
 
-                        <div class="actions margin-t-md">
+                        <div class="actions">
                             <asp:LinkButton ID="btnEdit" runat="server" AccessKey="m" ToolTip="Alt+m" Text="Edit" CssClass="btn btn-primary" OnClick="btnEdit_Click" CausesValidation="false" />
                             <Rock:ModalAlert ID="mdDeleteWarning" runat="server" />
                             <Rock:HiddenFieldWithClass ID="hfHasPayments" runat="server" CssClass="js-has-payments" />
                             <asp:LinkButton ID="btnDelete" runat="server" Text="Delete" CssClass="btn btn-link js-delete-registration" OnClick="btnDelete_Click" CausesValidation="false" />
 
-                            <asp:LinkButton ID="lbShowMoveRegistrationDialog" runat="server" CssClass="btn btn-default btn-sm btn-square pull-right margin-l-sm" ToolTip="Move Registration" CausesValidation="false" OnClick="lbShowMoveRegistrationDialog_Click"><i class="fa fa-external-link"></i></asp:LinkButton>
-                            <asp:LinkButton ID="lbHistory" runat="server" CssClass="btn btn-default pull-right btn-sm" CausesValidation="false" ToolTip="View Audit Log" OnClick="lbHistory_Click"><i class="fa fa-file-text-o"></i> Audit Log</asp:LinkButton>
+                            <div class="pull-right">
+                                <asp:LinkButton ID="lbHistory" runat="server" CssClass="btn btn-default btn-sm" CausesValidation="false" ToolTip="View Audit Log" OnClick="lbHistory_Click"><i class="fa fa-file-text-o"></i> Audit Log</asp:LinkButton>
+                                <asp:LinkButton ID="lbShowMoveRegistrationDialog" runat="server" CssClass="btn btn-default btn-sm btn-square margin-l-sm" ToolTip="Move Registration" CausesValidation="false" OnClick="lbShowMoveRegistrationDialog_Click"><i class="fa fa-external-link"></i></asp:LinkButton>
+                            </div>
+
                         </div>
 
                     </div>

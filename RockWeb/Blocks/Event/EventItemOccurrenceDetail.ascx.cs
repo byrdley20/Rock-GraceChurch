@@ -19,7 +19,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
-using System.Linq.Dynamic;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Newtonsoft.Json;
@@ -585,7 +584,7 @@ namespace RockWeb.Blocks.Event
             if ( eventItemOccurrence.Schedule != null )
             {
                 sbSchedule.iCalendarContent = eventItemOccurrence.Schedule.iCalendarContent;
-                lScheduleText.Text = eventItemOccurrence.Schedule.FriendlyScheduleText;
+                lScheduleText.Text = "<span class='text-sm'>" + eventItemOccurrence.Schedule.FriendlyScheduleText + "</span>";
             }
             else
             {
@@ -614,7 +613,7 @@ namespace RockWeb.Blocks.Event
         protected void sbSchedule_SaveSchedule( object sender, EventArgs e )
         {
             var schedule = new Schedule { iCalendarContent = sbSchedule.iCalendarContent };
-            lScheduleText.Text = schedule.FriendlyScheduleText;
+            lScheduleText.Text = "<span class='text-sm'>" + schedule.FriendlyScheduleText + "</span>";
         }
 
         /// <summary>
@@ -804,12 +803,14 @@ namespace RockWeb.Blocks.Event
                     }
                 }
 
-                foreach ( var x in linkedRegistrationsToRemove )
+                // Remove the link from the linkages and then delete it from the occurrence group map.
+                foreach ( var linkedRegistration in linkedRegistrationsToRemove )
                 {
-                    eventItemOccurrence.Linkages.Remove( x );
+                    eventItemOccurrence.Linkages.Remove( linkedRegistration );
+                    eventItemOccurrenceGroupMapService.Delete( linkedRegistration );
                 }
 
-                // Add/update
+                // Add/update links to the event occurrence.
                 foreach ( var linkedRegistrationState in LinkedRegistrationsState )
                 {
                     // Get or create the linkage

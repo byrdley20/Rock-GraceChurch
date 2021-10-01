@@ -34,6 +34,7 @@ using Rock.Logging;
 using Rock.Model;
 using Rock.Transactions;
 using Rock.Utility;
+using Rock.Utility.Settings;
 using Rock.Web.Cache;
 using Rock.Web.UI;
 using Rock.WebStartup;
@@ -762,7 +763,7 @@ namespace RockWeb
                             "An error occurred{0} on the {1} site on page: <br>{2}<p>{3}</p>",
                                 person != null ? " for " + person.FullName : string.Empty,
                                 siteName,
-                                Context.Request.Url.OriginalString,
+                                Context.Request.UrlProxySafe().OriginalString,
                                 FormatException( ex, string.Empty ) );
 
                         // setup merge codes for email
@@ -836,7 +837,7 @@ namespace RockWeb
                     "IISCallBack",
                     60,
                     null,
-                    DateTime.Now.AddSeconds( 60 ),
+                    RockInstanceConfig.SystemDateTime.AddSeconds( 60 ),
                     Cache.NoSlidingExpiration,
                     CacheItemPriority.NotRemovable,
                     _onCacheRemove );

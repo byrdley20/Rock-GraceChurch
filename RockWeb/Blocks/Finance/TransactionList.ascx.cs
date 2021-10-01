@@ -310,7 +310,7 @@ namespace RockWeb.Blocks.Finance
             if ( _canEdit )
             {
                 _ddlMove.ID = "ddlMove";
-                _ddlMove.CssClass = "pull-left input-width-xl";
+                _ddlMove.CssClass = "pull-left input-width-xl input-xs";
                 _ddlMove.DataValueField = "Id";
                 _ddlMove.DataTextField = "Name";
                 _ddlMove.DataSource = new FinancialBatchService( new RockContext() )
@@ -338,7 +338,7 @@ namespace RockWeb.Blocks.Finance
                 gTransactions.Actions.AddCustomActionControl( _ddlMove );
 
                 _lbReassign.ID = "lbReassign";
-                _lbReassign.CssClass = "btn btn-default btn-sm pull-left";
+                _lbReassign.CssClass = "btn btn-default btn-sm btn-grid-custom-action pull-left";
                 _lbReassign.Click += _lbReassign_Click;
                 _lbReassign.Text = "Reassign Transactions";
                 gTransactions.Actions.AddCustomActionControl( _lbReassign );

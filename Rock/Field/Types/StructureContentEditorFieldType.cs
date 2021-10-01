@@ -24,7 +24,8 @@ using Rock.Web.UI.Controls;
 namespace Rock.Field.Types
 {
     /// <summary>
-    ///
+    /// Field type to encapsulate a structured content editor which allows
+    /// the individual a nice UI interface to editing content.
     /// </summary>
     public class StructureContentEditorFieldType : FieldType
     {
@@ -82,13 +83,8 @@ namespace Rock.Field.Types
         #region Formatting
 
         /// <inheritdoc/>
-        public override string FormatValue( string value, Dictionary<string, ConfigurationValue> configurationValues, bool condensed )
+        public override string GetHtmlValue( string value, Dictionary<string, ConfigurationValue> configurationValues )
         {
-            if ( condensed )
-            {
-                return base.FormatValue( value, configurationValues, condensed );
-            }
-
             var helper = new StructuredContentHelper( value );
 
             return helper.Render();
@@ -100,13 +96,11 @@ namespace Rock.Field.Types
         /// <param name="parentControl">The parent control.</param>
         /// <param name="value">The value.</param>
         /// <param name="configurationValues">The configuration values.</param>
-        /// <param name="condensed">if set to <c>true</c> [condesed].</param>
+        /// <param name="condensed">if set to <c>true</c> [condensed].</param>
         /// <returns></returns>
         public override string FormatValueAsHtml( Control parentControl, string value, Dictionary<string, ConfigurationValue> configurationValues, bool condensed = false )
         {
-            var helper = new StructuredContentHelper( value );
-
-            return helper.Render();
+            return GetHtmlValue( value, configurationValues );
         }
 
         /// <summary>
@@ -121,9 +115,7 @@ namespace Rock.Field.Types
         /// <returns></returns>
         public override string FormatValueAsHtml( Control parentControl, int? entityTypeId, int? entityId, string value, Dictionary<string, ConfigurationValue> configurationValues, bool condensed = false )
         {
-            var helper = new StructuredContentHelper( value );
-
-            return helper.Render();
+            return GetHtmlValue( value, configurationValues );
         }
 
         #endregion

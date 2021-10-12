@@ -422,6 +422,89 @@ namespace Rock.Tests.UnitTests.Lava
 
         #endregion
 
+        #region Filter Tests: Split
+
+        /// <summary>
+        /// Split filter applied with default parameters should remove zero-length entries.
+        /// This mirrors the standard Liquid language behavior for this filter.
+        /// </summary>
+        [TestMethod]
+        public void Split_WithDefaultParameters_RemovesEmptyEntries()
+        {
+            var input = ",1,,3,4,5,6,7,,9,";
+            var expected = "1+3+4+5+6+7+9+";
+
+            var template = @"
+{% assign items = '<inputString>' | Split:',' %}
+{% for item in items %}
+{{ item }}+
+{% endfor %}
+";
+
+            template = template.Replace( "<inputString>", input );
+
+            TestHelper.AssertTemplateOutput( expected, template, ignoreWhitespace: true );
+        }
+
+        /// <summary>
+        /// Split filter applied with option to preserve empty entries should return zero-length items.
+        /// </summary>
+        [TestMethod]
+        public void Split_WithPreserveEmptyEntriesOption_PreservesEmptyEntries()
+        {
+            var input = ",1,,3,4,5,6,7,,9,";
+            var expected = "+1++3+4+5+6+7++9++";
+
+            var template = @"
+{% assign items = '<inputString>' | Split:',',false %}
+{% for item in items %}
+{{ item }}+
+{% endfor %}
+";
+
+            template = template.Replace( "<inputString>", input );
+
+            TestHelper.AssertTemplateOutput( expected, template, ignoreWhitespace: true );
+        }
+
+        /// <summary>
+        /// Split filter applied with option to remove empty entries should eliminate zero-length items.
+        /// </summary>
+        [TestMethod]
+        public void Split_WithRemoveEmptyEntriesOption_RemovesEmptyEntries()
+        {
+            var input = ",1,,3,4,5,6,7,,9,";
+            var expected = "1+3+4+5+6+7+9+";
+
+            var template = @"
+{% assign items = '<inputString>' | Split:',',true %}
+{% for item in items %}
+{{ item }}+
+{% endfor %}
+";
+
+            template = template.Replace( "<inputString>", input );
+
+            TestHelper.AssertTemplateOutput( expected, template, ignoreWhitespace: true );
+        }
+
+        /// <summary>
+        /// Split filter applied with option to remove empty entries should eliminate zero-length items.
+        /// </summary>
+        [TestMethod]
+        public void Split_DocumentationExamples_ProduceExpectedSampleOutput()
+        {
+            var expected = "1 and 3 and 4 and 5 and 6 and 7 and 9";
+
+            var template = @"
+{{ '1,,3,4,5,6,7,,9' | Split:',',true | Join:' and ' }}
+";
+
+            TestHelper.AssertTemplateOutput( expected, template, ignoreWhitespace: true );
+        }
+
+        #endregion
+
         #region Filter Tests: ToCssClass
 
         /// <summary>

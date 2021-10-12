@@ -426,6 +426,22 @@ namespace Rock.Lava.Filters
         }
 
         /// <summary>
+        /// Split the input string into an array of substrings separated by a given pattern.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="pattern"></param>
+        /// <param name="removeEmpty"></param>
+        /// <returns></returns>
+        public static List<string> Split( string input, string pattern, bool removeEmpty = true )
+        {
+            var options = removeEmpty ? StringSplitOptions.RemoveEmptyEntries : StringSplitOptions.None;
+
+            return input.IsNullOrWhiteSpace()
+                ? new List<string> { input }
+                : input.Split( new[] { pattern }, options ).ToList();
+        }
+
+        /// <summary>
         /// returns sentence in 'PascalCase'
         /// </summary>
         /// <param name="input"></param>

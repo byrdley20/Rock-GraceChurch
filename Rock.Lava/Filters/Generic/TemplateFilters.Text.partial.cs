@@ -430,11 +430,11 @@ namespace Rock.Lava.Filters
         /// </summary>
         /// <param name="input"></param>
         /// <param name="pattern"></param>
-        /// <param name="removeEmpty"></param>
+        /// <param name="removeEmpty">if set to <c>true</c>, empty values will be excluded from the results.</param>
         /// <returns></returns>
-        public static List<string> Split( string input, string pattern, bool removeEmpty = true )
+        public static List<string> Split( string input, string pattern, object removeEmpty = null )
         {
-            var options = removeEmpty ? StringSplitOptions.RemoveEmptyEntries : StringSplitOptions.None;
+            var options = removeEmpty.ToBoolSafe( true ) ? StringSplitOptions.RemoveEmptyEntries : StringSplitOptions.None;
 
             return input.IsNullOrWhiteSpace()
                 ? new List<string> { input }

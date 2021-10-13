@@ -199,6 +199,43 @@ namespace Rock
         }
 
         /// <summary>
+        /// The true/false strings for ToBoolSafe.
+        /// </summary>
+        private static string[] _trueStrings = new string[] { "true", "yes", "t", "y", "1" };
+        private static string[] _falseStrings = new string[] { "false", "no", "f", "n", "0" };
+
+        /// <summary>
+        /// Safely attempt to convert any object to a boolean value, or return a default value if unsuccessful.
+        /// </summary>
+        /// <param name="obj">an object</param>
+        /// <param name="defaultValue">the value to return if the conversion is unsuccessful</param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Returns True for 'True', 'Yes', 'T', 'Y', '1' (case-insensitive).
+        /// </remarks>
+        public static bool ToBoolSafe( this object obj, bool defaultValue = false )
+        {
+            if ( obj == null )
+            {
+                return defaultValue;
+            }
+
+            var testValue = obj.ToString().Trim().ToLower();
+
+            // Return True or False if the input matches a recognized value, otherwise return the default.
+            if ( _trueStrings.Contains( testValue ) )
+            {
+                return true;
+            }
+            if ( _falseStrings.Contains( testValue ) )
+            {
+                return false;
+            }
+
+            return defaultValue;
+        }
+
+        /// <summary>
         /// Gets the data annotation attribute from. http://stackoverflow.com/questions/7027613/how-to-retrieve-data-annotations-from-code-programmatically
         /// </summary>
         /// <typeparam name="T"></typeparam>

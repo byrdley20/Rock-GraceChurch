@@ -258,12 +258,41 @@ namespace Rock.Blocks.Types.Mobile.Connection
         }
 
         /// <summary>
+        /// Gets the activity view models.
+        /// </summary>
+        /// <returns></returns>
+        private static IQueryable<ConnectionRequestActivity> GetConnectionRequestActivities( ConnectionRequest connectionRequest, RockContext rockContext )
+        {
+            var connectionType = connectionRequest.ConnectionOpportunity.ConnectionType;
+            var connectionRequestActivityService = new ConnectionRequestActivityService( rockContext );
+            var query = connectionRequestActivityService.Queryable()
+                .AsNoTracking()
+                .Include( a => a.ConnectionRequest.ConnectionOpportunity )
+                .Include( a => a.ConnectorPersonAlias.Person )
+                .Include( a => a.ConnectionActivityType )
+                .Where( a => a.ConnectionRequest.PersonAliasId == connectionRequest.PersonAliasId );
+
+            if ( connectionType.EnableFullActivityList )
+            {
+                query = query.Where( a => a.ConnectionOpportunity.ConnectionTypeId == connectionType.Id );
+            }
+            else
+            {
+                query = query.Where( a => a.ConnectionRequestId == connectionRequest.Id );
+            }
+
+            return query;
+        }
+
+
+        /// <summary>
         /// Gets the request view model that represents the request in a way the
         /// client can properly display.
         /// </summary>
         /// <param name="request">The request.</param>
+        /// <param name="rockContext">The Rock database context.</param>
         /// <returns>The view model that represents the request.</returns>
-        private RequestViewModel GetRequestViewModel( ConnectionRequest request )
+        private RequestViewModel GetRequestViewModel( ConnectionRequest request, RockContext rockContext )
         {
             var baseUrl = GlobalAttributesCache.Value( "PublicApplicationRoot" );
 
@@ -274,7 +303,7 @@ namespace Rock.Blocks.Types.Mobile.Connection
             var headerContent = HeaderTemplate.ResolveMergeFields( mergeFields );
 
             // Generate the content that will be used to display the activities.
-            mergeFields.Add( "Activities", request.ConnectionRequestActivities );
+            mergeFields.Add( "Activities", GetConnectionRequestActivities( request, rockContext ) );
             var activityContent = ActivityTemplate.ResolveMergeFields( mergeFields );
 
             // Get all the workflows that can be manually triggered by the person.
@@ -561,7 +590,7 @@ namespace Rock.Blocks.Types.Mobile.Connection
 
                 request.LoadAttributes( rockContext );
 
-                return ActionOk( GetRequestViewModel( request ) );
+                return ActionOk( GetRequestViewModel( request, rockContext ) );
             }
         }
 
@@ -722,7 +751,7 @@ namespace Rock.Blocks.Types.Mobile.Connection
                 rockContext.SaveChanges();
                 //requestActivity.SaveAttributeValues( rockContext );
 
-                return ActionOk( GetRequestViewModel( request ) );
+                return ActionOk( GetRequestViewModel( request, rockContext ) );
             }
         }
 

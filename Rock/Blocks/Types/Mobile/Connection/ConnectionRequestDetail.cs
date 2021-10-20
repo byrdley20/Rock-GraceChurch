@@ -244,17 +244,16 @@ namespace Rock.Blocks.Types.Mobile.Connection
         /// <param name="connectionOpportunity">The connection opportunity.</param>
         /// <param name="currentPerson">The current person for security checks.</param>
         /// <returns>An enumeration of all manually triggered workflow types.</returns>
-        private static IEnumerable<WorkflowType> GetConnectionOpportunityManualWorkflowTypes( ConnectionOpportunity connectionOpportunity, Person currentPerson )
+        private static IEnumerable<ConnectionWorkflow> GetConnectionOpportunityManualWorkflowTypes( ConnectionOpportunity connectionOpportunity, Person currentPerson )
         {
             return connectionOpportunity.ConnectionWorkflows
                 .Union( connectionOpportunity.ConnectionType.ConnectionWorkflows )
                 .Where( w => w.TriggerType == ConnectionWorkflowTriggerType.Manual
                     && w.WorkflowType != null
                     && ( w.WorkflowType.IsActive ?? true ) )
-                .Select( w => w.WorkflowType )
-                .OrderBy( w => w.Name )
+                .OrderBy( w => w.WorkflowType.Name )
                 .Distinct()
-                .Where( w => w.IsAuthorized( Authorization.VIEW, currentPerson ) );
+                .Where( w => w.WorkflowType.IsAuthorized( Authorization.VIEW, currentPerson ) );
         }
 
         /// <summary>
@@ -310,8 +309,8 @@ namespace Rock.Blocks.Types.Mobile.Connection
                 .Select( w => new WorkflowTypeItemViewModel
                 {
                     Guid = w.Guid,
-                    Name = w.Name,
-                    IconClass = w.IconCssClass
+                    Name = w.WorkflowType.Name,
+                    IconClass = w.WorkflowType.IconCssClass
                 } )
                 .ToList();
 
@@ -356,19 +355,7 @@ namespace Rock.Blocks.Types.Mobile.Connection
         /// <returns>The edit view model that represents the request.</returns>
         private RequestEditViewModel GetRequestEditViewModel( ConnectionRequest request, RockContext rockContext )
         {
-            var baseUrl = GlobalAttributesCache.Value( "PublicApplicationRoot" );
             var clientHelper = new ClientHelper( rockContext, RequestContext.CurrentPerson );
-
-            // Get the workflow types that can be triggered manually by the
-            // user in a format that can be used by the client.
-            var connectionWorkflows = GetConnectionOpportunityManualWorkflowTypes( request.ConnectionOpportunity, RequestContext.CurrentPerson )
-                .Select( w => new WorkflowTypeItemViewModel
-                {
-                    Guid = w.Guid,
-                    Name = w.Name,
-                    IconClass = w.IconCssClass
-                } )
-                .ToList();
 
             // Get the list of connectors that are available to pick from
             // for the client to use.
@@ -567,6 +554,103 @@ namespace Rock.Blocks.Types.Mobile.Connection
                     .ToList();
 
                 return availablePlacementGroups;
+            }
+        }
+
+        /// <summary>
+        /// Launches a workflow for the connection request. All linkages are automatically
+        /// configured.
+        /// </summary>
+        /// <param name="connectionRequest">The connection request that will be passed to the workflow as the Entity.</param>
+        /// <param name="connectionWorkflow">The connection workflow to be launched.</param>
+        /// <param name="currentPerson">The logged in person that is launching the workflow.</param>
+        /// <param name="rockContext">The Rock database context.</param>
+        /// <returns>A view model that describes the result of the operation.</returns>
+        private static ConnectionWorkflowLaunchedViewModel LaunchConnectionRequestWorkflow( ConnectionRequest connectionRequest, ConnectionWorkflow connectionWorkflow, Person currentPerson, RockContext rockContext )
+        {
+            if ( connectionRequest == null )
+            {
+                throw new ArgumentNullException( nameof( connectionRequest ) );
+            }
+
+            if ( connectionWorkflow == null )
+            {
+                throw new ArgumentNullException( nameof( connectionWorkflow ) );
+            }
+
+            // Validate that the workflow type is configured properly.
+            var workflowService = new WorkflowService( rockContext );
+            var workflowType = connectionWorkflow.WorkflowTypeCache;
+
+            if ( workflowType == null || workflowType.IsActive == false )
+            {
+                return new ConnectionWorkflowLaunchedViewModel
+                {
+                    WorkflowTypeGuid = workflowType?.Guid,
+                    Errors = new List<string> { "Workflow was not found or is not active." }
+                };
+            }
+
+            // Do the initial activation of the workflow.
+            var workflow = Rock.Model.Workflow.Activate( workflowType, connectionWorkflow.WorkflowType.WorkTerm, rockContext );
+
+            // Attempt to process the workflow, check if an error has prevented
+            // the workflow from processing correctly.
+            if ( !workflowService.Process( workflow, connectionRequest, out var workflowErrors ) )
+            {
+                return new ConnectionWorkflowLaunchedViewModel
+                {
+                    WorkflowTypeGuid = workflowType.Guid,
+                    WorkflowGuid = workflow.Guid,
+                    Errors = workflowErrors
+                };
+            }
+
+            // Workflow processed, see if it is persisted. If not then it was a
+            // one-off and we just need to return a status that it processed.
+            if ( workflow.Id == 0 )
+            {
+                return new ConnectionWorkflowLaunchedViewModel
+                {
+                    WorkflowTypeGuid = workflowType.Guid,
+                    WorkflowGuid = workflow.Guid,
+                    Message = $"A '{workflowType.Name}' workflow was processed."
+                };
+            }
+
+            // The workflow is persisted, so we need to create the link between
+            // the workflow and this connection request.
+            new ConnectionRequestWorkflowService( rockContext ).Add( new ConnectionRequestWorkflow
+            {
+                ConnectionRequestId = connectionRequest.Id,
+                WorkflowId = workflow.Id,
+                ConnectionWorkflowId = connectionWorkflow.Id,
+                TriggerType = connectionWorkflow.TriggerType,
+                TriggerQualifier = connectionWorkflow.QualifierValue
+            } );
+
+            rockContext.SaveChanges();
+
+            // Check if there is an entry form waiting for this person to enter
+            // data into.
+            if ( workflow.HasActiveEntryForm( currentPerson ) )
+            {
+                return new ConnectionWorkflowLaunchedViewModel
+                {
+                    WorkflowTypeGuid = workflowType.Guid,
+                    WorkflowGuid = workflow.Guid,
+                    HasActiveEntryForm = true,
+                    Message = $"A '{workflowType.Name}' workflow was processed."
+                };
+            }
+            else
+            {
+                return new ConnectionWorkflowLaunchedViewModel
+                {
+                    WorkflowTypeGuid = workflowType.Guid,
+                    WorkflowGuid = workflow.Guid,
+                    Message = $"A '{workflowType.Name}' workflow was processed."
+                };
             }
         }
 
@@ -798,6 +882,53 @@ namespace Rock.Blocks.Types.Mobile.Connection
                 rockContext.SaveChanges();
 
                 return ActionOk( GetRequestViewModel( request, rockContext ) );
+            }
+        }
+
+        /// <summary>
+        /// Launches a new workflow for the connection request.
+        /// </summary>
+        /// <param name="connectionRequestGuid">The connection request unique identifier.</param>
+        /// <param name="connectionWorkflowGuid">The connection workflow unique identifier, the value from <see cref="WorkflowTypeItemViewModel.Guid"/>.</param>
+        /// <returns>A response that determines if the workflow launched and if the user needs to be directed to the workflow entry page.</returns>
+        [BlockAction]
+        public BlockActionResult LaunchWorkflow( Guid connectionRequestGuid, Guid connectionWorkflowGuid )
+        {
+            using ( var rockContext = new RockContext() )
+            {
+                var connectionRequestService = new ConnectionRequestService( rockContext );
+                var connectionWorkflowService = new ConnectionWorkflowService( rockContext );
+
+                var connectionRequest = connectionRequestService.Get( connectionRequestGuid );
+                var connectionWorkflow = connectionWorkflowService.Get( connectionWorkflowGuid );
+
+                // Make sure we found the connection request and then check if they
+                // even have permission to see this connection request.
+                if ( connectionRequest == null || connectionWorkflow == null )
+                {
+                    return ActionNotFound();
+                }
+
+                if ( !connectionRequest.IsAuthorized( Authorization.VIEW, RequestContext.CurrentPerson ) )
+                {
+                    return ActionUnauthorized();
+                }
+
+                // Verify that the workflow they specified matches one that they
+                // are allowed to launch.
+                var workflows = GetConnectionOpportunityManualWorkflowTypes( connectionRequest.ConnectionOpportunity, RequestContext.CurrentPerson );
+
+                if ( !workflows.Any( w => w.Guid == connectionWorkflow.Guid ) )
+                {
+                    return ActionNotFound();
+                }
+
+                var result = LaunchConnectionRequestWorkflow( connectionRequest, connectionWorkflow, RequestContext.CurrentPerson, rockContext );
+
+                // Even if result returned an error, send back an OK response
+                // since the workflow at least partially ran. The client can
+                // decide how to proceed.
+                return ActionOk( result );
             }
         }
 
@@ -1232,6 +1363,54 @@ namespace Rock.Blocks.Types.Mobile.Connection
             /// The connectors available.
             /// </value>
             public List<ConnectorItemViewModel> Connectors { get; set; }
+        }
+
+        /// <summary>
+        /// Contains details about the result of a request to launch a connection
+        /// request workflow.
+        /// </summary>
+        public class ConnectionWorkflowLaunchedViewModel
+        {
+            /// <summary>
+            /// Gets or sets the workflow type unique identifier.
+            /// </summary>
+            /// <value>
+            /// The workflow type unique identifier.
+            /// </value>
+            public Guid? WorkflowTypeGuid { get; set; }
+
+            /// <summary>
+            /// Gets or sets the workflow unique identifier.
+            /// </summary>
+            /// <value>
+            /// The workflow unique identifier.
+            /// </value>
+            public Guid? WorkflowGuid { get; set; }
+
+            /// <summary>
+            /// Gets or sets a value indicating whether this instance has active entry form.
+            /// </summary>
+            /// <value>
+            ///   <c>true</c> if this instance has active entry form; otherwise, <c>false</c>.
+            /// </value>
+            public bool HasActiveEntryForm { get; set; }
+
+            /// <summary>
+            /// Gets or sets the message to be displayed to the user after
+            /// successful completion.
+            /// </summary>
+            /// <value>
+            /// The message to be displayed to the user after successful completion.
+            /// </value>
+            public string Message { get; set; }
+
+            /// <summary>
+            /// Gets or sets the errors messages generated by the workflow.
+            /// </summary>
+            /// <value>
+            /// The errors messages generated by the workflow.
+            /// </value>
+            public IList<string> Errors { get; set; }
         }
 
         #endregion

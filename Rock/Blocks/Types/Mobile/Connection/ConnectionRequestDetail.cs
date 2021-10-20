@@ -281,9 +281,8 @@ namespace Rock.Blocks.Types.Mobile.Connection
                 query = query.Where( a => a.ConnectionRequestId == connectionRequest.Id );
             }
 
-            return query;
+            return query.OrderByDescending( a => a.CreatedDateTime );
         }
-
 
         /// <summary>
         /// Gets the request view model that represents the request in a way the
@@ -373,16 +372,7 @@ namespace Rock.Blocks.Types.Mobile.Connection
 
             // Get the list of connectors that are available to pick from
             // for the client to use.
-            var additionalConnectorAliasIds = new List<int>();
-            if ( request.ConnectorPersonAliasId.HasValue )
-            {
-                additionalConnectorAliasIds.Add( request.ConnectorPersonAliasId.Value );
-            }
-            if ( RequestContext.CurrentPerson != null )
-            {
-                additionalConnectorAliasIds.Add( RequestContext.CurrentPerson.PrimaryAliasId.Value );
-            }
-            var connectors = GetConnectionOpportunityConnectors( request.ConnectionOpportunityId, additionalConnectorAliasIds, rockContext );
+            var connectors = GetAvailableConnectors( request, rockContext );
 
             var viewModel = new RequestEditViewModel
             {
@@ -403,13 +393,40 @@ namespace Rock.Blocks.Types.Mobile.Connection
         }
 
         /// <summary>
-        /// Gets a list of connectors
+        /// Gets the possible connectors for the specified connection request.
+        /// All possible connectors are returned, campus filtering is not applied.
+        /// </summary>
+        /// <param name="request">The connection request.</param>
+        /// <param name="rockContext">The Rock database context.</param>
+        /// <returns>A list of connectors that are valid for the request.</returns>
+        private List<ConnectorItemViewModel> GetAvailableConnectors( ConnectionRequest request, RockContext rockContext )
+        {
+            var additionalConnectorAliasIds = new List<int>();
+
+            // Add the current connector if there is one.
+            if ( request.ConnectorPersonAliasId.HasValue )
+            {
+                additionalConnectorAliasIds.Add( request.ConnectorPersonAliasId.Value );
+            }
+
+            // Add the logged in person.
+            if ( RequestContext.CurrentPerson != null )
+            {
+                additionalConnectorAliasIds.Add( RequestContext.CurrentPerson.PrimaryAliasId.Value );
+            }
+
+            return GetConnectionOpportunityConnectors( request.ConnectionOpportunityId, null, additionalConnectorAliasIds, rockContext );
+        }
+
+        /// <summary>
+        /// Gets a list of connectors that match the specified criteria.
         /// </summary>
         /// <param name="connectionOpportunityId">The connection opportunity identifier.</param>
+        /// <param name="campusGuid">The campus to limit connectors to.</param>
         /// <param name="additionalPersonAliasIds">The additional person alias ids.</param>
-        /// <param name="rockContext">The rock database context.</param>
-        /// <returns></returns>
-        private static List<ConnectorItemViewModel> GetConnectionOpportunityConnectors( int connectionOpportunityId, List<int> additionalPersonAliasIds, RockContext rockContext )
+        /// <param name="rockContext">The Rock database context.</param>
+        /// <returns>A list of connectors that are valid for the request.</returns>
+        private static List<ConnectorItemViewModel> GetConnectionOpportunityConnectors( int connectionOpportunityId, Guid? campusGuid, List<int> additionalPersonAliasIds, RockContext rockContext )
         {
             var connectorGroupService = new ConnectionOpportunityConnectorGroupService( rockContext );
             var personAliasService = new PersonAliasService( rockContext );
@@ -418,7 +435,8 @@ namespace Rock.Blocks.Types.Mobile.Connection
             // Include all the currently active members of the groups and then
             // build the connector view model
             var connectorList = connectorGroupService.Queryable()
-                .Where( a => a.ConnectionOpportunityId == connectionOpportunityId )
+                .Where( a => a.ConnectionOpportunityId == connectionOpportunityId
+                    && ( !campusGuid.HasValue || a.ConnectorGroup.Campus.Guid == campusGuid ) )
                 .SelectMany( g => g.ConnectorGroup.Members )
                 .Where( m => m.GroupMemberStatus == GroupMemberStatus.Active )
                 .Select( m => new ConnectorItemViewModel
@@ -639,12 +657,12 @@ namespace Rock.Blocks.Types.Mobile.Connection
         }
 
         /// <summary>
-        /// Gets the activity types available for the connection request.
+        /// Gets the activity options available for the connection request.
         /// </summary>
         /// <param name="connectionRequestGuid">The connection request unique identifier.</param>
-        /// <returns>The activity types available.</returns>
+        /// <returns>A description of options available when adding a new activity.</returns>
         [BlockAction]
-        public BlockActionResult GetActivityTypes( Guid connectionRequestGuid )
+        public BlockActionResult GetActivityOptions( Guid connectionRequestGuid )
         {
             using ( var rockContext = new RockContext() )
             {
@@ -681,7 +699,15 @@ namespace Rock.Blocks.Types.Mobile.Connection
                     } )
                     .ToList();
 
-                return ActionOk( activityTypes );
+                // Get the list of connectors that are available to pick from
+                // for the client to use.
+                var connectors = GetAvailableConnectors( request, rockContext );
+
+                return ActionOk( new ActivityOptionsViewModel
+                {
+                    ActivityTypes = activityTypes,
+                    Connectors = connectors
+                } );
             }
         }
 
@@ -699,6 +725,8 @@ namespace Rock.Blocks.Types.Mobile.Connection
                 var connectionRequestService = new ConnectionRequestService( rockContext );
                 var connectionRequestActivityService = new ConnectionRequestActivityService( rockContext );
                 var connectionActivityTypeService = new ConnectionActivityTypeService( rockContext );
+                var personAliasService = new PersonAliasService( rockContext );
+                int? connectorAliasId = null;
 
                 // Load the connection request. Include the connection opportunity
                 // and type for security check.
@@ -721,7 +749,7 @@ namespace Rock.Blocks.Types.Mobile.Connection
                 // Load the activity identifier from the database, making sure
                 // the Guid they gave us is actually for the correct connection type.
                 var activityTypeId = connectionActivityTypeService.Queryable()
-                    .Where( a => a.Guid == activity.Guid
+                    .Where( a => a.Guid == activity.ActivityTypeGuid
                         && a.ConnectionTypeId == request.ConnectionOpportunity.ConnectionTypeId )
                     .Select( a => a.Id )
                     .FirstOrDefault();
@@ -731,25 +759,43 @@ namespace Rock.Blocks.Types.Mobile.Connection
                     return ActionBadRequest( "Invalid activity type specified." );
                 }
 
+                // Load the connector primary alias from the database and verify
+                // that it is valid option.
+                if ( activity.ConnectorGuid.HasValue )
+                {
+                    var connectors = GetAvailableConnectors( request, rockContext );
+
+                    if ( !connectors.Any( c => c.Guid == activity.ConnectorGuid.Value ) )
+                    {
+                        return ActionBadRequest( "Invalid connector was specified." );
+                    }
+
+                    connectorAliasId = personAliasService.GetPrimaryAliasId( activity.ConnectorGuid.Value );
+
+                    if ( !connectorAliasId.HasValue )
+                    {
+                        return ActionBadRequest( "Invalid connector was specified." );
+                    }
+                }
+
                 // Load attributes since we need them to generate the view model
                 // later.
                 request.LoadAttributes( rockContext );
 
                 // Create the new activity via the Create() method so that lazy
-                // loading will work after it has been saved.
+                // loading will work after it has been saved. This gets used by
+                // the lava template.
                 var requestActivity = rockContext.ConnectionRequestActivities.Create();
                 requestActivity.ConnectionOpportunityId = request.ConnectionOpportunityId;
                 requestActivity.ConnectionActivityTypeId = activityTypeId;
                 requestActivity.ConnectorPersonAliasId = RequestContext.CurrentPerson?.PrimaryAliasId;
                 requestActivity.Note = activity.Note;
+                requestActivity.ConnectorPersonAliasId = connectorAliasId;
 
                 request.ConnectionRequestActivities.Add( requestActivity );
                 connectionRequestActivityService.Add( requestActivity );
-                //requestActivity.LoadAttributes();
-                //avcActivityAttributes.GetEditValues( requestActivity );
 
                 rockContext.SaveChanges();
-                //requestActivity.SaveAttributeValues( rockContext );
 
                 return ActionOk( GetRequestViewModel( request, rockContext ) );
             }
@@ -1077,7 +1123,7 @@ namespace Rock.Blocks.Types.Mobile.Connection
             /// <value>
             /// The activity type unique identifier.
             /// </value>
-            public Guid Guid { get; set; }
+            public Guid ActivityTypeGuid { get; set; }
 
             /// <summary>
             /// Gets or sets the note to save with the activity.
@@ -1086,6 +1132,14 @@ namespace Rock.Blocks.Types.Mobile.Connection
             /// The note to save with the activity.
             /// </value>
             public string Note { get; set; }
+
+            /// <summary>
+            /// Gets or sets the connector unique identifier.
+            /// </summary>
+            /// <value>
+            /// The connector unique identifier.
+            /// </value>
+            public Guid? ConnectorGuid { get; set; }
         }
 
         /// <summary>
@@ -1155,6 +1209,29 @@ namespace Rock.Blocks.Types.Mobile.Connection
             /// The campus unique identifier to limit this connector to.
             /// </value>
             public Guid? CampusGuid { get; set; }
+        }
+
+        /// <summary>
+        /// Contains the details about what options are available when adding
+        /// a new activity.
+        /// </summary>
+        public class ActivityOptionsViewModel
+        {
+            /// <summary>
+            /// Gets or sets the activity types available to pick from.
+            /// </summary>
+            /// <value>
+            /// The activity types available to pick from.
+            /// </value>
+            public List<ListItemViewModel> ActivityTypes { get; set; }
+
+            /// <summary>
+            /// Gets or sets the connectors available.
+            /// </summary>
+            /// <value>
+            /// The connectors available.
+            /// </value>
+            public List<ConnectorItemViewModel> Connectors { get; set; }
         }
 
         #endregion

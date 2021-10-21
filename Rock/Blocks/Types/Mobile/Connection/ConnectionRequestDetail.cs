@@ -369,6 +369,7 @@ namespace Rock.Blocks.Types.Mobile.Connection
                 ConnectorGuid = request.ConnectorPersonAlias?.Person.Guid,
                 PlacementGroupGuid = request.AssignedGroup?.Guid,
                 State = request.ConnectionState,
+                FutureFollowUpDate = request.FollowupDate?.ToRockDateTimeOffset(),
                 StatusGuid = request.ConnectionStatus.Guid,
                 Connectors = connectors,
                 Campuses = clientHelper.GetCampusesAsListItems(),
@@ -654,6 +655,43 @@ namespace Rock.Blocks.Types.Mobile.Connection
             }
         }
 
+        /// <summary>
+        /// Creates a new <see cref="ConnectionRequestActivity"/> for when
+        /// a request is assigned to a connector.
+        /// </summary>
+        /// <remarks>
+        /// This does not attach the new entity or save the changes.
+        /// </remarks>
+        /// <param name="connectionRequest">The connection request that was assigned a connector.</param>
+        /// <param name="rockContext">The Rock database context to use for data lookups.</param>
+        /// <returns>A new <see cref="ConnectionRequestActivity"/> or <c>null</c> if one is not needed.</returns>
+        private static ConnectionRequestActivity CreateAssignedActivity( ConnectionRequest connectionRequest, RockContext rockContext )
+        {
+            if ( !connectionRequest.ConnectorPersonAliasId.HasValue )
+            {
+                return null;
+            }
+
+            var guid = Rock.SystemGuid.ConnectionActivityType.ASSIGNED.AsGuid();
+            var assignedActivityId = new ConnectionActivityTypeService( rockContext ).Queryable()
+                .Where( t => t.Guid == guid )
+                .Select( t => t.Id )
+                .FirstOrDefault();
+
+            if ( assignedActivityId == 0 )
+            {
+                return null;
+            }
+
+            return new ConnectionRequestActivity
+            {
+                ConnectionRequestId = connectionRequest.Id,
+                ConnectionOpportunityId = connectionRequest.ConnectionOpportunityId,
+                ConnectionActivityTypeId = assignedActivityId,
+                ConnectorPersonAliasId = connectionRequest.ConnectorPersonAliasId
+            };
+        }
+
         #endregion
 
         #region Action Methods
@@ -737,7 +775,137 @@ namespace Rock.Blocks.Types.Mobile.Connection
         [BlockAction]
         public BlockActionResult UpdateRequest( Guid connectionRequestGuid, RequestSaveViewModel requestDetails )
         {
-            return ActionInternalServerError();
+            using ( var rockContext = new RockContext() )
+            {
+                var connectionRequestService = new ConnectionRequestService( rockContext );
+                var connectionStatusService = new ConnectionStatusService( rockContext );
+                var personAliasService = new PersonAliasService( rockContext );
+
+                // Load the connection request and include the opportunity and type
+                // to speed up the security check.
+                var request = connectionRequestService.Queryable()
+                    .Include( r => r.ConnectionOpportunity.ConnectionType )
+                    .Where( r => r.Guid == connectionRequestGuid )
+                    .FirstOrDefault();
+
+                if ( request == null )
+                {
+                    return ActionNotFound();
+                }
+                else if ( !request.IsAuthorized( Authorization.EDIT, RequestContext.CurrentPerson ) )
+                {
+                    return ActionUnauthorized();
+                }
+
+                request.LoadAttributes( rockContext );
+
+                var originalConnectorPersonAliasId = request.ConnectorPersonAliasId;
+
+                // Set the basic values that don't require lookups.
+                request.Comments = requestDetails.Comments;
+                request.ConnectionState = requestDetails.State;
+
+                // Set the future follow up date.
+                if ( request.ConnectionState == ConnectionState.FutureFollowUp )
+                {
+                    if (  !requestDetails.FutureFollowUpDate.HasValue )
+                    {
+                        return ActionBadRequest( "Invalid data." );
+                    }
+
+                    request.FollowupDate = RockDateTime.ConvertLocalDateTimeToRockDateTime( requestDetails.FutureFollowUpDate.Value.LocalDateTime );
+                }
+                else
+                {
+                    request.FollowupDate = null;
+                }
+
+                // Perform a lookup and validate the campus then set it.
+                CampusCache campus;
+                if ( requestDetails.CampusGuid.HasValue )
+                {
+                    campus = CampusCache.Get( requestDetails.CampusGuid.Value );
+
+                    if ( campus == null )
+                    {
+                        return ActionBadRequest( "Invalid Data." );
+                    }
+
+                    request.CampusId = campus.Id;
+                }
+                else
+                {
+                    request.CampusId = null;
+                    campus = null;
+                }
+
+                // Perform a lookup and validate the connector then set it.
+                if ( requestDetails.ConnectorGuid.HasValue )
+                {
+                    var isValidConnector = GetAvailableConnectors( request, rockContext )
+                        .Where( c => campus == null || !c.CampusGuid.HasValue || campus.Guid == c.CampusGuid )
+                        .Any( c => c.Guid == requestDetails.ConnectorGuid );
+
+                    var connectorPersonAliasId = personAliasService.GetPrimaryAliasId( requestDetails.ConnectorGuid.Value );
+
+                    if ( !connectorPersonAliasId.HasValue || !isValidConnector )
+                    {
+                        return ActionBadRequest( "Invalid data." );
+                    }
+
+                    request.ConnectorPersonAliasId = connectorPersonAliasId;
+                }
+                else
+                {
+                    request.ConnectorPersonAliasId = null;
+                }
+
+                // Set the status which requires a lookup.
+                var status = connectionStatusService.Queryable()
+                    .Where( s => s.ConnectionTypeId == request.ConnectionOpportunity.ConnectionTypeId
+                        && s.Guid == requestDetails.StatusGuid )
+                    .SingleOrDefault();
+
+                if ( status == null )
+                {
+                    return ActionBadRequest( "Invalid data." );
+                }
+
+                request.ConnectionStatusId = status.Id;
+
+                // Perform a lookup and validate the placement group then set it.
+                if ( requestDetails.PlacementGroupGuid.HasValue )
+                {
+                    // TODO:
+                    return ActionBadRequest( "Setting Placement Group is not yet supported." );
+                }
+                else
+                {
+                    request.AssignedGroupId = null;
+                    request.AssignedGroupMemberRoleId = null;
+                    request.AssignedGroupMemberStatus = null;
+                }
+
+                // Add an activity that the connector was assigned or changed.
+                if ( originalConnectorPersonAliasId != request.ConnectorPersonAliasId )
+                {
+                    var connectionRequestActivityService = new ConnectionRequestActivityService( rockContext );
+                    var activity = CreateAssignedActivity( request, rockContext );
+
+                    if ( activity != null )
+                    {
+                        connectionRequestActivityService.Add( activity );
+                    }
+                }
+
+                rockContext.SaveChanges();
+
+            }
+
+            // Even though calling this method will load a whole new entity
+            // that is what we want anyway. If we changed any values then
+            // all the in-memory navigation properties are probably incorrect.
+            return GetRequestDetails( connectionRequestGuid );
         }
 
         /// <summary>
@@ -1219,6 +1387,14 @@ namespace Rock.Blocks.Types.Mobile.Connection
             public List<ListItemViewModel> Statuses { get; set; }
 
             /// <summary>
+            /// Gets or sets the future follow up date.
+            /// </summary>
+            /// <value>
+            /// The future follow up date.
+            /// </value>
+            public DateTimeOffset? FutureFollowUpDate { get; set; }
+
+            /// <summary>
             /// Gets or sets the attributes that can be edited.
             /// </summary>
             /// <value>
@@ -1235,12 +1411,28 @@ namespace Rock.Blocks.Types.Mobile.Connection
         public class RequestSaveViewModel : RequestViewModelBase
         {
             /// <summary>
+            /// Gets or sets the future follow up date.
+            /// </summary>
+            /// <value>
+            /// The future follow up date.
+            /// </value>
+            public DateTimeOffset? FutureFollowUpDate { get; set; }
+
+            /// <summary>
             /// Gets or sets the attribute values to be saved.
             /// </summary>
             /// <value>
             /// The attribute values to be saved.
             /// </value>
             public Dictionary<string, string> AttributeValues { get; set; }
+
+            /// <summary>
+            /// Gets or sets the placement group attribute values.
+            /// </summary>
+            /// <value>
+            /// The placement group attribute values.
+            /// </value>
+            public Dictionary<string, string> PlacementGroupAttributeValues { get; set; }
         }
 
         /// <summary>
@@ -1302,6 +1494,14 @@ namespace Rock.Blocks.Types.Mobile.Connection
             /// The campus unique identifier to limit this group to.
             /// </value>
             public Guid? CampusGuid { get; set; }
+
+            /// <summary>
+            /// Gets or sets the attributes that can be edited.
+            /// </summary>
+            /// <value>
+            /// The attributes that can be edited.
+            /// </value>
+            public List<ClientEditableAttributeValueViewModel> Attributes { get; set; }
         }
 
         /// <summary>

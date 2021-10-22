@@ -592,6 +592,9 @@
     <Compile Include="Blocks\Types\Mobile\Prayer\PrayerCardView.cs" />
     <Compile Include="Bus\Exceptions\BusException.cs" />
     <Compile Include="Bus\Faults\ReceiveFaultObserver.cs" />
+    <Compile Include="Bus\Message\PageRouteWasUpdatedMessage.cs" />
+    <Compile Include="Bus\Queue\PageRouteEventQueue.cs" />
+    <Compile Include="CheckIn\CompletedAchievement.cs" />
     <Compile Include="Cms\StructuredContent\BlockTypes\ChecklistRenderer.cs" />
     <Compile Include="Cms\StructuredContent\BlockTypes\ChecklistData.cs" />
     <Compile Include="Cms\StructuredContent\BlockTypes\ChecklistDataItem.cs" />
@@ -722,9 +725,11 @@
     <Compile Include="Field\Types\MediaWatchFieldType.cs" />
     <Compile Include="Financial\GivingJourneyHelper.cs" />
     <Compile Include="Financial\IObsidianFinancialGateway.cs" />
+    <Compile Include="Jobs\ConnectionRequestsAutomation.cs" />
     <Compile Include="Jobs\GivingAutomation.cs" />
     <Compile Include="Lava\Blocks\ReturnTag.cs" />
     <Compile Include="Lava\RockLiquid\Blocks\Return.cs" />
+    <Compile Include="Model\AuthAuditLog.cs" />
     <Compile Include="Model\CMS\ContentChannelItem\ContentChannelItem.Logic.cs" />
     <Compile Include="Model\CMS\ContentChannelItem\ContentChannelItem.SaveHook.cs" />
     <Compile Include="Model\CMS\ContentChannelItem\ContentChannelItemStatus.cs" />
@@ -737,6 +742,7 @@
     <Compile Include="Model\CMS\MediaAccount\MediaAccount.Logic.cs" />
     <Compile Include="Model\CMS\MediaElement\MediaElement.Logic.cs" />
     <Compile Include="Model\CMS\MediaElement\MediaElement.SaveHook.cs" />
+    <Compile Include="Model\CodeGenerated\AuthAuditLogService.CodeGenerated.cs" />
     <Compile Include="Model\CodeGenerated\ConnectionStatusAutomationService.CodeGenerated.cs" />
     <Compile Include="Model\Connection\ConnectionOpportunity\ConnectionOpportunity.Logic.cs" />
     <Compile Include="Model\Connection\ConnectionOpportunity\ConnectionOpportunity.WebForms.cs" />
@@ -757,6 +763,9 @@
     <Compile Include="Model\Connection\ConnectionWorkflow\ConnectionWorkflow.Logic.cs" />
     <Compile Include="Model\Connection\ConnectionWorkflow\ConnectionWorkflow.SaveHook.cs" />
     <Compile Include="Model\Connection\ConnectionWorkflow\ConnectionWorkflowTriggerType.cs" />
+    <Compile Include="Model\Core\Audit\AuditType.cs" />
+    <Compile Include="Model\Core\Auth\Auth.SaveHook.cs" />
+    <Compile Include="Model\Core\Auth\SpecialRole.cs" />
     <Compile Include="Model\Core\Campus\Campus.Logic.cs" />
     <Compile Include="Model\Core\Campus\Campus.SaveHook.cs" />
     <Compile Include="Model\Core\DocumentType\DocumentType.Logic.cs" />
@@ -975,6 +984,13 @@
     <Compile Include="Model\Workflow\Workflow\Workflow.WebForms.cs" />
     <Compile Include="Model\Workflow\Workflow\Workflow.Logic.cs" />
     <Compile Include="Model\Workflow\Workflow\Workflow.SaveHook.cs" />
+    <Compile Include="Reporting\DataFilter\ConnectionRequest\ActivityFilter.cs" />
+    <Compile Include="Reporting\DataFilter\ConnectionRequest\AttendanceInPlacementGroup.cs" />
+    <Compile Include="Reporting\DataFilter\ConnectionRequest\ConnectionOpportunityFilter.cs" />
+    <Compile Include="Reporting\DataFilter\ConnectionRequest\ConnectionTypeFilter.cs" />
+    <Compile Include="Reporting\DataFilter\ConnectionRequest\GroupMemberDataViewFilter.cs" />
+    <Compile Include="Reporting\DataFilter\ConnectionRequest\PersonDataViewFilter.cs" />
+    <Compile Include="Reporting\DataFilter\ConnectionRequest\PlacementGroupTypeFilter.cs" />
     <Compile Include="Storage\Common\AzureBlobStorageClient.cs" />
     <Compile Include="Storage\Provider\AzureBlobStorage.cs" />
     <Compile Include="Model\Core\NoteType\NoteType.Logic.cs" />
@@ -1028,6 +1044,7 @@
     <Compile Include="Store\StoreApiResult.cs" />
     <Compile Include="UniversalSearch\IndexModels\EventItemIndex.cs" />
     <Compile Include="Utility\CodeGenFeature.cs" />
+    <Compile Include="Plugin\HotFixes\142_AddMobileGroupFinderBlock.cs" />
     <Compile Include="Utility\Enums\PrayerRequestOrder.cs" />
     <Compile Include="Utility\Enums\TimePeriodOfDay.cs" />
     <Compile Include="Utility\Enums\UserLoginValidationState.cs" />
@@ -1156,10 +1173,10 @@
     <Compile Include="Model\WebFarmNodeLog.cs" />
     <Compile Include="Model\WebFarmNode.cs" />
     <Compile Include="Model\Event\AttendanceCheckInSession\AttendanceCheckInSession.cs" />
-    <Compile Include="Model\AuthClaim.cs" />
-    <Compile Include="Model\AuthClient.cs" />
-    <Compile Include="Model\AuthClientService.Partial.cs" />
-    <Compile Include="Model\AuthScope.cs" />
+    <Compile Include="Model\Core\AuthClaim\AuthClaim.cs" />
+    <Compile Include="Model\Core\AuthClient\AuthClient.cs" />
+    <Compile Include="Model\Core\AuthClaim\AuthClientService.cs" />
+    <Compile Include="Model\Core\AuthScope\AuthScope.cs" />
     <Compile Include="Model\CodeGenerated\AttendanceCheckInSessionService.CodeGenerated.cs" />
     <Compile Include="Model\CodeGenerated\AuthClaimService.CodeGenerated.cs" />
     <Compile Include="Model\CodeGenerated\AuthClientService.CodeGenerated.cs" />
@@ -1171,6 +1188,7 @@
     <Compile Include="Model\FinancialPaymentDetailService.Partial.cs" />
     <Compile Include="Model\WebFarmNodeService.Partial.cs" />
     <Compile Include="Model\WebFarmNodeMetricService.Partial.cs" />
+    <Compile Include="Plugin\HotFixes\141_MigratePlacementGroupsData.cs" />
     <Compile Include="Plugin\HotFixes\140_MigrateFieldVisibilityRulesJSONData.cs" />
     <Compile Include="Plugin\HotFixes\139_ProfileEdit_RequireGender.cs" />
     <Compile Include="Plugin\HotFixes\138_MigrationRollupsFor11_4_1.cs" />
@@ -1291,6 +1309,7 @@
     <Compile Include="Logging\RockLogConfiguration.cs" />
     <Compile Include="Web\Cache\NonEntities\EntityTypeAttributesCache.cs" />
     <Compile Include="Web\Cache\RockCacheConsumer.cs" />
+    <Compile Include="Web\PageRouteWasUpdatedConsumer.cs" />
     <Compile Include="Web\UI\Controls\CompositePlaceHolder.cs" />
     <Compile Include="Web\UI\Controls\FieldVisibilityRuleField.cs" />
     <Compile Include="Web\UI\Controls\IDoNotBlockValidate.cs" />
@@ -2110,11 +2129,11 @@
     <Compile Include="Model\AttributeService.Partial.cs" />
     <Compile Include="Model\AttributeValue.cs" />
     <Compile Include="Model\AttributeValueService.Partial.cs" />
-    <Compile Include="Model\Audit.cs" />
+    <Compile Include="Model\Core\Audit\Audit.cs" />
     <Compile Include="Model\AuditDetail.cs" />
-    <Compile Include="Model\Auth.cs" />
-    <Compile Include="Model\AuthService.Partial.cs" />
-    <Compile Include="Model\BackgroundCheck.cs" />
+    <Compile Include="Model\Core\Auth\Auth.cs" />
+    <Compile Include="Model\Core\Auth\AuthService.cs" />
+    <Compile Include="Model\CRM\BackgroundCheck\BackgroundCheck.cs" />
     <Compile Include="Model\Finance\BenevolenceRequestDocument\BenevolenceRequestDocument.cs" />
     <Compile Include="Model\Finance\BenevolenceRequest\BenevolenceRequest.cs" />
     <Compile Include="Model\Finance\BenevolenceResult\BenevolenceResult.cs" />
@@ -3563,6 +3582,7 @@
     <None Include="App.config" />
     <Compile Include="Model\Event\RegistrationTemplateFee\RegistrationTemplateFeeService.cs" />
     <None Include="CheckIn\_DiagramCheckInClasses.cd" />
+    <Compile Include="Model\Core\Auth\Auth.Logic.cs" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

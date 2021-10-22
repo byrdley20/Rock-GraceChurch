@@ -42,37 +42,6 @@
             padding: 16px;
         }
 
-    .communication-grid .table {
-        background-color: #fff;
-        margin-bottom: 0px;
-    }
-
-    .communication-grid .table-striped tbody tr {
-        background-color: #fff;
-    }
-
-    .communication-grid .grid-select-cell {
-        padding: 0px;
-    }
-
-    .communication-grid .form-group {
-        padding: 0px;
-        margin-bottom: 0px;
-    }
-
-    .communication-grid .form-control-static {
-        padding: 0px;
-        margin-bottom: 0px;
-    }
-
-    .communication-grid .grid-table th {
-        padding: 0px;
-    }
-
-    .grid-table {
-        padding: 0px;
-    }
-
     .sms-bubble {
         background: #0084FF;
         border-radius: 20px;
@@ -179,7 +148,7 @@
                     </asp:UpdatePanel>
                     <div class="communication-grid">
                         <Rock:Grid CssClass="communication-grid" ID="gCommunication" runat="server" AllowSorting="false" PageSizes="50,100"
-                            RowClickEnabled="false">
+                            RowClickEnabled="false" TableStriped="false">
                             <Columns>
                                 <Rock:RockTemplateField ItemStyle-CssClass="py-0">
                                     <ItemTemplate>

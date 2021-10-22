@@ -1604,47 +1604,6 @@ namespace Rock.Lava
             return defaultValue;
         }
 
-        /// <summary>
-        /// Returns the difference between two datetime values in the specified units.
-        /// </summary>
-        /// <param name="sStartDate">The start date.</param>
-        /// <param name="sEndDate">The end date.</param>
-        /// <param name="unit">The unit of measurement.</param>
-        /// <returns></returns>
-        public static Int64? DateDiff( object sStartDate, object sEndDate, string unit )
-        {
-            var startDate = GetDateTimeOffsetFromInputParameter( sStartDate, null );
-            var endDate = GetDateTimeOffsetFromInputParameter( sEndDate, null );
-
-            if ( startDate != null && endDate != null )
-            {
-                var difference = endDate.Value - startDate.Value;
-
-                switch ( unit )
-                {
-                    case "d":
-                        return ( Int64 ) difference.TotalDays;
-                    case "h":
-                        return ( Int64 ) difference.TotalHours;
-                    case "m":
-                        return ( Int64 ) difference.TotalMinutes;
-                    case "M":
-                        return ( Int64 ) GetMonthsBetween( startDate.Value, endDate.Value );
-                    case "Y":
-                        // Return the difference between the dates as the number of whole years.
-                        return ( Int64 ) Math.Truncate( endDate.Value.Subtract( startDate.Value ).TotalDays / 365.25 );
-                    case "s":
-                        return ( Int64 ) difference.TotalSeconds;
-                    default:
-                        return null;
-                }
-            }
-            else
-            {
-                return null;
-            }
-        }
-
         private static int GetMonthsBetween( DateTimeOffset from, DateTimeOffset to )
         {
             if ( from > to )
@@ -3845,15 +3804,6 @@ namespace Rock.Lava
                 mergeFields = mergeFields.Where( a => a.Value == input ).ToDictionary( k => k.Key, v => v.Value );
             }
 
-            //var mergeFields = context.GetEnvironments().SelectMany( a => a ).ToDictionary( k => k.Key, v => v.Value );
-            //var allFields = mergeFields.Union( context.GetScopes().SelectMany( a => a ).DistinctBy( x => x.Key ).ToDictionary( k => k.Key, v => v.Value ) );
-
-            // if a specific MergeField was specified as the Input, limit the help to just that MergeField
-            //if ( input != null && allFields.Any( a => a.Value == input ) )
-            //{
-            //    mergeFields = allFields.Where( a => a.Value == input ).ToDictionary( k => k.Key, v => v.Value );
-            //}
-
             // TODO: implement the outputFormat option to support ASCII
             return mergeFields.lavaDebugInfo();
         }
@@ -3890,10 +3840,10 @@ namespace Rock.Lava
 
             if ( input != null )
             {
-                // Don't call Redirect with a false -- we want it to throw the thread abort exception
-                // so remaining lava does not continue to execute.  We'll catch the exception in the
-                // LavaExtension's ResolveMergeFields method.
-                HttpContext.Current.Response.Redirect( input, true );
+                HttpContext.Current.Response.Redirect( input, false );
+
+                // Having redirected to a new page, abort the rendering process for the current page.
+                throw new LavaInterruptException( "Render aborted by PageRedirect filter." );
             }
 
             return string.Empty;

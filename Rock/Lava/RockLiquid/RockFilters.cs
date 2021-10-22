@@ -1187,7 +1187,7 @@ namespace Rock.Lava
             {
                 // To correctly include the Rock configured timezone, we need to use a DateTimeOffset.
                 // The DateTime object can only represent local server time or UTC time.
-                input = new DateTimeOffset( RockDateTime.Now, RockDateTime.OrgTimeZoneInfo.BaseUtcOffset );
+                input = new DateTimeOffset( RockDateTime.Now, RockDateTime.OrgTimeZoneInfo.GetUtcOffset( RockDateTime.Now ) );
             }
 
             // Use the General Short Date/Long Time format by default.
@@ -1230,8 +1230,8 @@ namespace Rock.Lava
                 }
                 else
                 {
-                    // The input date kind is unspecified, so assume it is expressed in Rock time?
-                    var rockDateTime = new DateTimeOffset( dt, RockDateTime.OrgTimeZoneInfo.BaseUtcOffset );
+                    // The input date kind is local or unspecified, so assume it is expressed in Rock time.
+                    var rockDateTime = new DateTimeOffset( dt, RockDateTime.OrgTimeZoneInfo.GetUtcOffset( dt ) );
 
                     return rockDateTime.ToString( format ).Trim();
                 }
@@ -1781,36 +1781,7 @@ namespace Rock.Lava
         /// <returns></returns>
         public static Int64? DateDiff( object sStartDate, object sEndDate, string unit )
         {
-            var startDate = GetDateTimeOffsetFromInputParameter( sStartDate, null );
-            var endDate = GetDateTimeOffsetFromInputParameter( sEndDate, null );
-
-            if ( startDate != null && endDate != null )
-            {
-                var difference = endDate.Value - startDate.Value;
-
-                switch ( unit )
-                {
-                    case "d":
-                        return ( Int64 ) difference.TotalDays;
-                    case "h":
-                        return ( Int64 ) difference.TotalHours;
-                    case "m":
-                        return ( Int64 ) difference.TotalMinutes;
-                    case "M":
-                        return ( Int64 ) GetMonthsBetween( startDate.Value, endDate.Value );
-                    case "Y":
-                        // Return the difference between the dates as the number of whole years.
-                        return ( Int64 ) Math.Truncate( endDate.Value.Subtract( startDate.Value ).TotalDays / 365.25 );
-                    case "s":
-                        return ( Int64 ) difference.TotalSeconds;
-                    default:
-                        return null;
-                }
-            }
-            else
-            {
-                return null;
-            }
+            return Rock.Lava.Filters.TemplateFilters.DateDiff( sStartDate, sEndDate, unit );
         }
 
         private static int GetMonthsBetween( DateTimeOffset from, DateTimeOffset to )

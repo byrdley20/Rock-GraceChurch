@@ -70,15 +70,6 @@ namespace Rock.Lava.Fluid
         protected override ILavaRenderContext OnCreateRenderContext()
         {
             var fluidContext = new global::Fluid.TemplateContext( _templateOptions );
-
-            // Context variables are case-sensitive, so add both upper/lower case entries for built-in symbols.
-            fluidContext.SetValue( "Empty", NilValue.Empty );
-            fluidContext.SetValue( "empty", NilValue.Empty );
-
-            fluidContext.SetValue( "Blank", NilValue.Empty );
-            fluidContext.SetValue( "blank", NilValue.Empty );
-
-
             var context = new FluidRenderContext( fluidContext );
 
             return context;
@@ -443,9 +434,24 @@ namespace Rock.Lava.Fluid
                     }
                 }
 
-                var result = lavaFilterMethod.Invoke( null, lavaFilterMethodArguments );
+                try
+                {
+                    var result = lavaFilterMethod.Invoke( null, lavaFilterMethodArguments );
 
-                return FluidValue.Create( result, templateOptions );
+                    return FluidValue.Create( result, templateOptions );
+                }
+                catch ( TargetInvocationException ex )
+                {
+                    // Any exceptions thrown from the filter method are wrapped in a TargetInvocationException by the .NET framework.
+                    if ( ex.InnerException is LavaInterruptException )
+                    {
+                        // This exception is intentionally thrown by a component to abort the render process, so ensure it propagates to the caller.
+                        throw ex.InnerException;
+                    }
+
+                    // Rethrow the actual exception thrown by the filter, where possible.
+                    throw ex.InnerException ?? ex;
+                }
             }
 
             templateOptions.Filters.AddFilter( filterName, fluidFilterFunction );
@@ -592,14 +598,7 @@ namespace Rock.Lava.Fluid
             var sb = new StringBuilder();
             var writer = new StringWriter( sb );
 
-            try
-            {
-                template.Render( templateContext.FluidContext, NullEncoder.Default, writer );
-            }
-            catch ( LavaInterruptException )
-            {
-                // Ignore this exception, it is thrown by custom Lava components to terminate the render process prematurely.
-            }
+            template.Render( templateContext.FluidContext, NullEncoder.Default, writer );
 
             writer.Flush();
 
@@ -668,6 +667,16 @@ namespace Rock.Lava.Fluid
             {
                 _parser.RegisterLavaBlock( name, LavaTagFormatSpecifier.LiquidTag );
             }
+        }
+
+        /// <summary>
+        /// Process a template and return the list of valid tokens identified by the parser.
+        /// </summary>
+        /// <param name="lavaTemplate"></param>
+        /// <returns></returns>
+        public List<string> TokenizeTemplate( string lavaTemplate )
+        {
+            return LavaFluidParser.ParseToTokens( lavaTemplate );
         }
 
         protected override ILavaTemplate OnParseTemplate( string lavaTemplate )

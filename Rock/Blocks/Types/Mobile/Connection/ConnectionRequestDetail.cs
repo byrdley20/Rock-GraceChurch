@@ -293,6 +293,7 @@ namespace Rock.Blocks.Types.Mobile.Connection
         private RequestViewModel GetRequestViewModel( ConnectionRequest request, RockContext rockContext )
         {
             var baseUrl = GlobalAttributesCache.Value( "PublicApplicationRoot" );
+            var connectionRequestService = new ConnectionRequestService( rockContext );
 
             var mergeFields = RequestContext.GetCommonMergeFields();
             mergeFields.Add( "ConnectionRequest", request );
@@ -314,6 +315,8 @@ namespace Rock.Blocks.Types.Mobile.Connection
                 } )
                 .ToList();
 
+            var isEditable = request.IsAuthorized( Authorization.EDIT, RequestContext.CurrentPerson );
+
             var viewModel = new RequestViewModel
             {
                 ActivityContent = activityContent,
@@ -324,9 +327,10 @@ namespace Rock.Blocks.Types.Mobile.Connection
                 ConnectorGuid = request.ConnectorPersonAlias?.Person.Guid,
                 ConnectorFullName = request.ConnectorPersonAlias?.Person.FullName,
                 HeaderContent = headerContent,
-                IsEditable = request.IsAuthorized( Authorization.EDIT, RequestContext.CurrentPerson ),
+                IsEditable = isEditable,
                 IsCritical = IsRequestCritical( request ),
                 IsIdle = IsRequestIdle( request ),
+                CanConnect = isEditable && connectionRequestService.CanConnect( request ),
                 OpportunityName = request.ConnectionOpportunity.Name,
                 PersonGuid = request.PersonAlias.Person.Guid,
                 PersonFullName = request.PersonAlias.Person.FullName,
@@ -342,6 +346,11 @@ namespace Rock.Blocks.Types.Mobile.Connection
                 StatusName = request.ConnectionStatus.Name,
                 WorkflowTypes = connectionWorkflows
             };
+
+            if ( isEditable )
+            {
+                viewModel.PlacementGroupRequirements = GetPlacementGroupRequirements( request, rockContext, out _ );
+            }
 
             return viewModel;
         }
@@ -771,6 +780,271 @@ namespace Rock.Blocks.Types.Mobile.Connection
             };
         }
 
+        /// <summary>
+        /// Gets the placement group member requirements for the connection request.
+        /// </summary>
+        /// <param name="request">The connection request.</param>
+        /// <param name="rockContext">The Rock database context.</param>
+        /// <param name="requirementErrors">On return will contain any requirement errors that were encountered.</param>
+        /// <returns>A list of requirements that the person must meet before being connected.</returns>
+        private static List<GroupMemberRequirementViewModel> GetPlacementGroupRequirements( ConnectionRequest request, RockContext rockContext, out List<string> requirementErrors )
+        {
+            // Get the requirements
+            var requirementsResults = GetGroupRequirementStatuses( request, rockContext );
+            var requirementViewModels = new List<GroupMemberRequirementViewModel>();
+
+            foreach ( var requirementResult in requirementsResults )
+            {
+                if ( requirementResult.GroupRequirement.GroupRequirementType.RequirementCheckType == RequirementCheckType.Manual )
+                {
+                    // A manual requirement that must be acknowledged before the
+                    // person can be placed in the group.
+                    requirementViewModels.Add( new GroupMemberRequirementViewModel
+                    {
+                        Guid = requirementResult.GroupRequirement.Guid,
+                        Label = requirementResult.GroupRequirement.GroupRequirementType.CheckboxLabel.IfEmpty( requirementResult.GroupRequirement.GroupRequirementType.Name ),
+                        IsManual = true,
+                        MustMeetRequirementToAddMember = requirementResult.GroupRequirement.MustMeetRequirementToAddMember,
+                        MeetsGroupRequirement = requirementResult.MeetsGroupRequirement
+                    } );
+                }
+                else
+                {
+                    string labelText;
+                    DateTimeOffset? lastCheckedDateTime = null;
+
+                    // Determine the label text to use for this requirement.
+                    if ( requirementResult.MeetsGroupRequirement == MeetsGroupRequirement.Meets )
+                    {
+                        labelText = requirementResult.GroupRequirement.GroupRequirementType.PositiveLabel;
+                    }
+                    else if ( requirementResult.MeetsGroupRequirement == MeetsGroupRequirement.MeetsWithWarning )
+                    {
+                        labelText = requirementResult.GroupRequirement.GroupRequirementType.WarningLabel;
+                    }
+                    else
+                    {
+                        if ( requirementResult.GroupRequirement.MustMeetRequirementToAddMember )
+                        {
+                            labelText = requirementResult.GroupRequirement.GroupRequirementType.NegativeLabel;
+                        }
+                        else
+                        {
+                            labelText = string.Empty;
+                        }
+                    }
+
+                    if ( string.IsNullOrEmpty( labelText ) )
+                    {
+                        labelText = requirementResult.GroupRequirement.GroupRequirementType.Name;
+                    }
+
+                    // Determine the last checked date time for this requirement.
+                    if ( requirementResult.MeetsGroupRequirement == MeetsGroupRequirement.MeetsWithWarning )
+                    {
+                        lastCheckedDateTime = requirementResult.RequirementWarningDateTime;
+                    }
+                    else
+                    {
+                        lastCheckedDateTime = requirementResult.LastRequirementCheckDateTime;
+                    }
+
+                    requirementViewModels.Add( new GroupMemberRequirementViewModel
+                    {
+                        Guid = requirementResult.GroupRequirement.Guid,
+                        Label = labelText,
+                        MustMeetRequirementToAddMember = requirementResult.GroupRequirement.MustMeetRequirementToAddMember,
+                        MeetsGroupRequirement = requirementResult.MeetsGroupRequirement,
+                        LastCheckedDateTime = lastCheckedDateTime
+                    } );
+                }
+            }
+
+            // Set any errors we may have run into.
+            requirementErrors = requirementsResults
+                .Where( a => a.MeetsGroupRequirement == MeetsGroupRequirement.Error )
+                .Select( a => a.ToString() )
+                .ToList();
+
+            return requirementViewModels;
+        }
+
+        /// <summary>
+        /// Gets the group requirement statuses for the connection request.
+        /// </summary>
+        /// <param name="request">The connection request.</param>
+        /// <param name="rockContext">The Rock database context.</param>
+        /// <returns></returns>
+        private static List<PersonGroupRequirementStatus> GetGroupRequirementStatuses( ConnectionRequest request, RockContext rockContext )
+        {
+            if ( request == null || !request.AssignedGroupId.HasValue || request.PersonAlias == null )
+            {
+                return new List<PersonGroupRequirementStatus>();
+            }
+
+            var groupId = request.AssignedGroupId.Value;
+            var group = new GroupService( rockContext )
+                .GetNoTracking( request.AssignedGroupId.Value );
+
+            if ( group == null )
+            {
+                return new List<PersonGroupRequirementStatus>();
+            }
+
+            var requirementsResults = group.PersonMeetsGroupRequirements( rockContext, request.PersonAlias.PersonId, request.AssignedGroupMemberRoleId );
+
+            if ( requirementsResults != null )
+            {
+                // Ignore the NotApplicable requirements.
+                requirementsResults = requirementsResults.Where( r => r.MeetsGroupRequirement != MeetsGroupRequirement.NotApplicable );
+            }
+
+            return requirementsResults.ToList();
+        }
+
+        /// <summary>
+        /// Attempts to mark the connection request as connected.
+        /// </summary>
+        /// <param name="connectionRequest">The connection request to be updated.</param>
+        /// <param name="manualRequirementsMet">A dictionary of manual requirements that have been met.</param>
+        /// <param name="currentPerson">The person that is performing the operation.</param>
+        /// <param name="rockContext">The Rock database context.</param>
+        /// <param name="errorMessage">On return, contains any error message.</param>
+        /// <returns><c>true</c> if the request has been marked as connected; otherwise <c>false</c>.</returns>
+        /// <remarks>
+        /// This method will call SaveChanges() on <paramref name="rockContext"/> before returning <c>true</c>.
+        /// </remarks>
+        private static bool TryMarkRequestConnected( ConnectionRequest connectionRequest, Dictionary<Guid, bool> manualRequirementsMet, Person currentPerson, RockContext rockContext, out string errorMessage )
+        {
+            var groupMemberService = new GroupMemberService( rockContext );
+            var connectionActivityTypeService = new ConnectionActivityTypeService( rockContext );
+            var connectionRequestActivityService = new ConnectionRequestActivityService( rockContext );
+
+            if ( connectionRequest == null || connectionRequest.PersonAlias == null || connectionRequest.ConnectionOpportunity == null )
+            {
+                errorMessage = "Connection request is not in a valid state.";
+                return false;
+            }
+
+            // If it is already connected then nothing to do.
+            if ( connectionRequest.ConnectionState == ConnectionState.Connected )
+            {
+                errorMessage = null;
+                return true;
+            }
+
+            GroupMember groupMember = null;
+            var hasGroupAssignment = connectionRequest.AssignedGroupId.HasValue
+                && connectionRequest.AssignedGroupMemberRoleId.HasValue
+                && connectionRequest.AssignedGroupMemberStatus.HasValue
+                && connectionRequest.AssignedGroup != null;
+
+            // Only do group member placement if the request has an assigned
+            // placement group, role, and status.
+            if ( hasGroupAssignment )
+            {
+                var group = connectionRequest.AssignedGroup;
+
+                // Only attempt the add if person does not already exist in group with same role
+                groupMember = groupMemberService.GetByGroupIdAndPersonIdAndGroupRoleId(
+                    connectionRequest.AssignedGroupId.Value,
+                    connectionRequest.PersonAlias.PersonId,
+                    connectionRequest.AssignedGroupMemberRoleId.Value );
+
+                if ( groupMember == null )
+                {
+                    groupMember = new GroupMember();
+                    groupMember.PersonId = connectionRequest.PersonAlias.PersonId;
+                    groupMember.GroupId = connectionRequest.AssignedGroupId.Value;
+                    groupMember.GroupRoleId = connectionRequest.AssignedGroupMemberRoleId.Value;
+                    groupMember.GroupMemberStatus = connectionRequest.AssignedGroupMemberStatus.Value;
+
+                    // Load all the manual group requirements for this group.
+                    var manualGroupRequirements = group.GetGroupRequirements( rockContext )
+                        .Where( r => r.GroupRequirementType.RequirementCheckType == RequirementCheckType.Manual )
+                        .ToList();
+
+                    // Walk through each manual requirement to ensure they
+                    // have been explicitly marked as meeting the requirement.
+                    foreach ( var requirement in manualGroupRequirements )
+                    {
+                        var meetsRequirement = manualRequirementsMet.GetValueOrDefault( requirement.Guid, false );
+
+                        if ( !meetsRequirement && requirement.MustMeetRequirementToAddMember )
+                        {
+                            errorMessage = "Group Requirements have not been met. Please verify all of the requirements.";
+                            return false;
+                        }
+
+                        // If they meet the requirement, create the record
+                        // that notes it has been met.
+                        if ( meetsRequirement )
+                        {
+                            groupMember.GroupMemberRequirements.Add( new GroupMemberRequirement
+                            {
+                                GroupRequirementId = requirement.Id,
+                                RequirementMetDateTime = RockDateTime.Now,
+                                LastRequirementCheckDateTime = RockDateTime.Now
+                            } );
+                        }
+                    }
+
+                    // All requirements have been met, add the group member.
+                    groupMemberService.Add( groupMember );
+
+                    // If there are any assigned group member attribute values
+                    // that should be filled in then do so.
+                    if ( !string.IsNullOrWhiteSpace( connectionRequest.AssignedGroupMemberAttributeValues ) )
+                    {
+                        var savedValues = connectionRequest.AssignedGroupMemberAttributeValues.FromJsonOrNull<Dictionary<string, string>>();
+
+                        if ( savedValues != null )
+                        {
+                            groupMember.LoadAttributes();
+
+                            foreach ( var item in savedValues )
+                            {
+                                groupMember.SetAttributeValue( item.Key, item.Value );
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Always record the connection activity and change the state to connected.
+            var connectedGuid = Rock.SystemGuid.ConnectionActivityType.CONNECTED.AsGuid();
+            var connectedActivityId = connectionActivityTypeService.Queryable()
+                .Where( t => t.Guid == connectedGuid )
+                .Select( t => t.Id )
+                .FirstOrDefault();
+
+            if ( connectedActivityId > 0 )
+            {
+                var connectionRequestActivity = new ConnectionRequestActivity();
+                connectionRequestActivity.ConnectionRequestId = connectionRequest.Id;
+                connectionRequestActivity.ConnectionOpportunityId = connectionRequest.ConnectionOpportunityId;
+                connectionRequestActivity.ConnectionActivityTypeId = connectedActivityId;
+                connectionRequestActivity.ConnectorPersonAliasId = currentPerson.PrimaryAliasId;
+                connectionRequestActivityService.Add( connectionRequestActivity );
+            }
+
+            connectionRequest.ConnectionState = ConnectionState.Connected;
+
+            rockContext.WrapTransaction( () =>
+            {
+                rockContext.SaveChanges();
+
+                if ( groupMember != null && connectionRequest.AssignedGroupMemberAttributeValues.IsNotNullOrWhiteSpace() )
+                {
+                    groupMember.SaveAttributeValues( rockContext );
+                }
+            } );
+
+            errorMessage = null;
+
+            return true;
+        }
+
         #endregion
 
         #region Action Methods
@@ -851,6 +1125,12 @@ namespace Rock.Blocks.Types.Mobile.Connection
             }
         }
 
+        /// <summary>
+        /// Updates the connection request to match the data provided.
+        /// </summary>
+        /// <param name="connectionRequestGuid">The connection request unique identifier to be updated.</param>
+        /// <param name="requestDetails">The details that will be updated on the connection request.</param>
+        /// <returns>A model that contains the updated connection request details to be displayed.</returns>
         [BlockAction]
         public BlockActionResult UpdateRequest( Guid connectionRequestGuid, RequestSaveViewModel requestDetails )
         {
@@ -1333,10 +1613,63 @@ namespace Rock.Blocks.Types.Mobile.Connection
 
                 groupMember.LoadAttributes( rockContext );
 
+                // Restore the saved group member attribute values if we have any.
+                var savedMemberAttributeValues = request.AssignedGroupMemberAttributeValues?.FromJsonOrNull<Dictionary<string, string>>();
+                if ( savedMemberAttributeValues != null )
+                {
+                    foreach ( var item in savedMemberAttributeValues )
+                    {
+                        groupMember.SetAttributeValue( item.Key, item.Value );
+                    }
+                }
+
                 var attributes = groupMember.GetClientEditableAttributeValues( RequestContext.CurrentPerson );
 
                 return ActionOk( attributes );
             }
+        }
+
+        /// <summary>
+        /// Attempts to mark the connection request as connected.
+        /// </summary>
+        /// <param name="connectionRequestGuid">The connection request to be marked as connected.</param>
+        /// <param name="manualRequirements"></param>
+        /// <returns></returns>
+        [BlockAction]
+        public BlockActionResult MarkRequestConnected( Guid connectionRequestGuid, Dictionary<Guid, bool> manualRequirements )
+        {
+            using ( var rockContext = new RockContext() )
+            {
+                var connectionRequestService = new ConnectionRequestService( rockContext );
+                var connectionStatusService = new ConnectionStatusService( rockContext );
+                var personAliasService = new PersonAliasService( rockContext );
+
+                // Load the connection request and include the opportunity and type
+                // to speed up the security check.
+                var request = connectionRequestService.Queryable()
+                    .Include( r => r.ConnectionOpportunity.ConnectionType )
+                    .Where( r => r.Guid == connectionRequestGuid )
+                    .FirstOrDefault();
+
+                if ( request == null )
+                {
+                    return ActionNotFound();
+                }
+                else if ( !request.IsAuthorized( Authorization.EDIT, RequestContext.CurrentPerson ) )
+                {
+                    return ActionUnauthorized();
+                }
+
+                if ( !TryMarkRequestConnected( request, manualRequirements, RequestContext.CurrentPerson, rockContext, out var errorMessage ) )
+                {
+                    return ActionBadRequest( errorMessage );
+                }
+            }
+
+            // Even though calling this method will load a whole new entity
+            // that is what we want anyway. If we changed any values then
+            // all the in-memory navigation properties are probably incorrect.
+            return GetRequestDetails( connectionRequestGuid );
         }
 
         #endregion
@@ -1500,6 +1833,14 @@ namespace Rock.Blocks.Types.Mobile.Connection
             public bool IsEditable { get; set; }
 
             /// <summary>
+            /// Gets or sets a value indicating whether this instance can be connected.
+            /// </summary>
+            /// <value>
+            ///   <c>true</c> if this instance can be connected; otherwise, <c>false</c>.
+            /// </value>
+            public bool CanConnect { get; set; }
+
+            /// <summary>
             /// Gets or sets the name of the campus.
             /// </summary>
             /// <value>
@@ -1514,6 +1855,14 @@ namespace Rock.Blocks.Types.Mobile.Connection
             /// The name of the placement group.
             /// </value>
             public string PlacementGroupName { get; set; }
+
+            /// <summary>
+            /// Gets or sets the placement group requirements.
+            /// </summary>
+            /// <value>
+            /// The placement group requirements.
+            /// </value>
+            public List<GroupMemberRequirementViewModel> PlacementGroupRequirements { get; set; }
 
             /// <summary>
             /// Gets or sets the name of the status.
@@ -1554,6 +1903,61 @@ namespace Rock.Blocks.Types.Mobile.Connection
             /// The content of the activity.
             /// </value>
             public string ActivityContent { get; set; }
+        }
+
+        /// <summary>
+        /// Identifies a single requirement that must be met before a person
+        /// is placed in a placement group.
+        /// </summary>
+        public class GroupMemberRequirementViewModel
+        {
+            /// <summary>
+            /// Gets or sets the unique identifier.
+            /// </summary>
+            /// <value>
+            /// The unique identifier.
+            /// </value>
+            public Guid Guid { get; set; }
+
+            /// <summary>
+            /// Gets or sets the label.
+            /// </summary>
+            /// <value>
+            /// The label.
+            /// </value>
+            public string Label { get; set; }
+
+            /// <summary>
+            /// Gets or sets a value indicating whether this requirement is manual.
+            /// </summary>
+            /// <value>
+            ///   <c>true</c> if this requirement is manual; otherwise, <c>false</c>.
+            /// </value>
+            public bool IsManual { get; set; }
+
+            /// <summary>
+            /// Gets or sets the meets group requirement state.
+            /// </summary>
+            /// <value>
+            /// The meets group requirement state.
+            /// </value>
+            public MeetsGroupRequirement MeetsGroupRequirement { get; set; }
+
+            /// <summary>
+            /// Gets or sets a value indicating whether the requirement must be met before being placed.
+            /// </summary>
+            /// <value>
+            ///   <c>true</c> if the requirement must be met before being placed; otherwise, <c>false</c>.
+            /// </value>
+            public bool MustMeetRequirementToAddMember { get; set; }
+
+            /// <summary>
+            /// Gets or sets the last checked date time.
+            /// </summary>
+            /// <value>
+            /// The last checked date time.
+            /// </value>
+            public DateTimeOffset? LastCheckedDateTime { get; set; }
         }
 
         /// <summary>

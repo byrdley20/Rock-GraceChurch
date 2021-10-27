@@ -892,7 +892,8 @@ namespace Rock.Blocks.Types.Mobile.Connection
                         return ActionBadRequest( "Invalid data." );
                     }
 
-                    request.FollowupDate = RockDateTime.ConvertLocalDateTimeToRockDateTime( requestDetails.FutureFollowUpDate.Value.LocalDateTime );
+                    // Drop the timezone since we are just setting a "raw" date.
+                    request.FollowupDate = requestDetails.FutureFollowUpDate.Value.DateTime;
                 }
                 else
                 {

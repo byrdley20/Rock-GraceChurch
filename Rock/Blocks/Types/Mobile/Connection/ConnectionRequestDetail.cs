@@ -489,7 +489,7 @@ namespace Rock.Blocks.Types.Mobile.Connection
         /// <param name="additionalGroupId">An optional additional group to include, such as the currently assigned group for a request.</param>
         /// <param name="rockContext">The rock database context.</param>
         /// <returns>A queryable of all the Group objects that can be used with the request.</returns>
-        private static IQueryable<Group> GetPlacementGroupsQuery( int connectionOpportunityId, int? additionalGroupId, RockContext rockContext )
+        private static IQueryable<Group> GetAvailablePlacementGroupsQuery( int connectionOpportunityId, int? additionalGroupId, RockContext rockContext )
         {
             var opportunityService = new ConnectionOpportunityService( rockContext );
             var groupService = new GroupService( rockContext );
@@ -507,8 +507,7 @@ namespace Rock.Blocks.Types.Mobile.Connection
                 .Where( o => o.Id == connectionOpportunityId )
                 .SelectMany( o => o.ConnectionOpportunityGroupConfigs )
                 .Where( gc => gc.UseAllGroupsOfType )
-                .Select( gc => gc.GroupType )
-                .SelectMany( gt => gt.Groups );
+                .SelectMany( gc => gc.GroupType.Groups );
 
             var allGroupsQuery = specificConfigQuery.Union( allGroupsOfTypeQuery );
 
@@ -528,7 +527,8 @@ namespace Rock.Blocks.Types.Mobile.Connection
         }
 
         /// <summary>
-        /// Gets the request placement group view models.
+        /// Gets the request placement group view models. This takes into account
+        /// the existing assigned group view model
         /// </summary>
         /// <param name="request">The connection request.</param>
         /// <returns>A list of group placement view models.</returns>
@@ -536,25 +536,104 @@ namespace Rock.Blocks.Types.Mobile.Connection
         {
             using ( var rockContext = new RockContext() )
             {
-                var availablePlacementGroups = GetPlacementGroupsQuery( request.ConnectionOpportunityId, request.AssignedGroupId, rockContext )
-                    .Where( g => g.IsActive && !g.IsArchived )
+                var connectionOpportunityGroupConfigQuery = new ConnectionOpportunityGroupConfigService( rockContext ).Queryable()
+                    .Where( c => c.ConnectionOpportunityId == request.ConnectionOpportunityId );
+
+                // Translate the query of available placement groups
+                // into data we can use to construct our view models.
+                var availablePlacementGroups = GetAvailablePlacementGroupsQuery( request.ConnectionOpportunityId, request.AssignedGroupId, rockContext )
                     .Select( g => new
                     {
+                        g.Id,
                         g.Guid,
                         g.Name,
                         CampusGuid = ( Guid? ) g.Campus.Guid,
-                        CampusName = g.Campus.Name
+                        CampusName = g.Campus.Name,
+                        Configs = connectionOpportunityGroupConfigQuery
+                            .Where( c => c.GroupTypeId == g.GroupTypeId )
+                            .Select( c => new
+                            {
+                                c.GroupMemberRole.Id,
+                                c.GroupMemberRole.Guid,
+                                c.GroupMemberRole.Name,
+                                Status = c.GroupMemberStatus
+                            } )
+                            .ToList()
                     } )
-                    .ToList()
+                    .ToList();
+
+                // Translate the data into the actual view models. The
+                // configs could have duplicated Guid and Name properties
+                // so we group those and then put all resulting status
+                // values in the object.
+                var availableGroupViewModels = availablePlacementGroups
                     .Select( g => new PlacementGroupItemViewModel
                     {
                         Guid = g.Guid,
                         Name = $"{g.Name} ({( g.CampusName.IsNotNullOrWhiteSpace() ? g.CampusName : "No Campus" )})",
-                        CampusGuid = g.CampusGuid
+                        CampusGuid = g.CampusGuid,
+                        Roles = g.Configs
+                            .GroupBy( c => new { c.Guid, c.Name } )
+                            .Select( cgrp => new PlacementGroupRoleItemViewModel
+                            {
+                                Guid = cgrp.Key.Guid,
+                                Name = cgrp.Key.Name,
+                                Statuses = cgrp.Select( s => s.Status ).ToList()
+                            } )
+                            .ToList()
                     } )
                     .ToList();
 
-                return availablePlacementGroups;
+                // Check if we have fully qualified assigned values.
+                var hasAssignedValues = request.AssignedGroupId.HasValue
+                        && request.AssignedGroupMemberRoleId.HasValue
+                        && request.AssignedGroupMemberStatus.HasValue;
+
+                // If we do then try to load the group type role they are
+                // supposed to be assigned to.
+                var assignedGroupMemberRole = hasAssignedValues
+                    ? new GroupTypeRoleService( rockContext ).Queryable()
+                        .Where( r => r.Id == request.AssignedGroupMemberRoleId.Value )
+                        .Select( r => new
+                        {
+                            r.Guid,
+                            r.Name
+                        } )
+                        .SingleOrDefault()
+                    : null;
+
+                // Now, if we have an assigned role, that means we have assigned
+                // values. Check to make sure the existing values exist and if
+                // not add then in.
+                if ( assignedGroupMemberRole != null )
+                {
+                    var existingGroupViewModel = availableGroupViewModels.Single( g => g.Guid == request.AssignedGroup.Guid );
+                    var existingRole = existingGroupViewModel.Roles.SingleOrDefault( r => r.Guid == assignedGroupMemberRole.Guid );
+
+                    // Check if the group member role is already present.
+                    if ( existingRole != null )
+                    {
+                        // If the currently assigned status doesn't exist as
+                        // an option in the role configuration then add it to the
+                        // list of available options.
+                        if ( !existingRole.Statuses.Contains( request.AssignedGroupMemberStatus.Value ) )
+                        {
+                            existingRole.Statuses.Add( request.AssignedGroupMemberStatus.Value );
+                        }
+                    }
+                    else
+                    {
+                        // Add the role as a valid option to select.
+                        existingGroupViewModel.Roles.Add( new PlacementGroupRoleItemViewModel
+                        {
+                            Guid = assignedGroupMemberRole.Guid,
+                            Name = assignedGroupMemberRole.Name,
+                            Statuses = new List<GroupMemberStatus> { request.AssignedGroupMemberStatus.Value }
+                        } );
+                    }
+                }
+
+                return availableGroupViewModels;
             }
         }
 
@@ -874,16 +953,82 @@ namespace Rock.Blocks.Types.Mobile.Connection
                 request.ConnectionStatusId = status.Id;
 
                 // Perform a lookup and validate the placement group then set it.
-                if ( requestDetails.PlacementGroupGuid.HasValue )
+                if ( requestDetails.PlacementGroupGuid.HasValue || requestDetails.PlacementGroupMemberRoleGuid.HasValue || requestDetails.PlacementGroupMemberStatus.HasValue )
                 {
-                    // TODO:
-                    return ActionBadRequest( "Setting Placement Group is not yet supported." );
+                    // Check if they gave us any one of the three placement values
+                    // but not all three. That is an error.
+                    if ( !requestDetails.PlacementGroupGuid.HasValue || !requestDetails.PlacementGroupMemberRoleGuid.HasValue || !requestDetails.PlacementGroupMemberStatus.HasValue )
+                    {
+                        return ActionBadRequest( "Invalid data." );
+                    }
+
+                    // Validate that the information they provided is valid
+                    // group placement options.
+                    var validPlacementGroups = GetRequestPlacementGroups( request );
+                    var placementGroup = validPlacementGroups.SingleOrDefault( g => g.Guid == requestDetails.PlacementGroupGuid );
+                    var placementRole = placementGroup?.Roles.SingleOrDefault( r => r.Guid == requestDetails.PlacementGroupMemberRoleGuid );
+
+                    if ( placementGroup == null || placementRole == null || !placementRole.Statuses.Contains( requestDetails.PlacementGroupMemberStatus.Value ) )
+                    {
+                        return ActionBadRequest( "Invalid data." );
+                    }
+
+                    var groupId = new GroupService( rockContext ).GetId( placementGroup.Guid );
+                    var roleId = new GroupTypeRoleService( rockContext ).GetId( placementRole.Guid );
+
+                    request.AssignedGroupId = groupId;
+                    request.AssignedGroupMemberRoleId = roleId;
+                    request.AssignedGroupMemberStatus = requestDetails.PlacementGroupMemberStatus.Value;
+
+                    var memberAttributeValues = new Dictionary<string, string>();
+                    if ( requestDetails.PlacementGroupMemberAttributeValues != null )
+                    {
+                        // Load the attribute data for an empty group member so we can
+                        // decode the data from the client.
+                        var groupMember = new GroupMember
+                        {
+                            GroupId = request.AssignedGroupId.Value,
+                            GroupRoleId = request.AssignedGroupMemberRoleId.Value
+                        };
+
+                        groupMember.LoadAttributes( rockContext );
+
+                        foreach ( var memberValue in requestDetails.PlacementGroupMemberAttributeValues )
+                        {
+                            if ( !groupMember.Attributes.TryGetValue( memberValue.Key, out var attribute ) )
+                            {
+                                return ActionBadRequest( "Invalid data." );
+                            }
+
+                            if ( !attribute.IsAuthorized( Authorization.VIEW, RequestContext.CurrentPerson ) )
+                            {
+                                return ActionBadRequest( "Invalid data." );
+                            }
+
+                            var value = ClientAttributeHelper.GetValueFromClient( attribute, memberValue.Value );
+
+                            memberAttributeValues.Add( memberValue.Key, value );
+                        }
+
+                        request.AssignedGroupMemberAttributeValues = memberAttributeValues.ToJson();
+                    }
+                    else
+                    {
+                        request.AssignedGroupMemberAttributeValues = null;
+                    }
                 }
                 else
                 {
                     request.AssignedGroupId = null;
                     request.AssignedGroupMemberRoleId = null;
                     request.AssignedGroupMemberStatus = null;
+                    request.AssignedGroupMemberAttributeValues = null;
+                }
+
+                // Set any custom request attribute values.
+                if ( requestDetails.AttributeValues != null )
+                {
+                    request.SetClientAttributeValues( requestDetails.AttributeValues, RequestContext.CurrentPerson );
                 }
 
                 // Add an activity that the connector was assigned or changed.
@@ -898,8 +1043,11 @@ namespace Rock.Blocks.Types.Mobile.Connection
                     }
                 }
 
-                rockContext.SaveChanges();
-
+                rockContext.WrapTransaction( () =>
+                {
+                    rockContext.SaveChanges();
+                    request.SaveAttributeValues( rockContext );
+                } );
             }
 
             // Even though calling this method will load a whole new entity
@@ -1097,6 +1245,96 @@ namespace Rock.Blocks.Types.Mobile.Connection
                 // since the workflow at least partially ran. The client can
                 // decide how to proceed.
                 return ActionOk( result );
+            }
+        }
+
+        /// <summary>
+        /// Get the placement group member attributes that should be set when
+        /// the client changes either the placement group or the member role.
+        /// </summary>
+        /// <param name="connectionRequestGuid">The connection request unique identifier.</param>
+        /// <param name="groupGuid">The unique identifier of the group the person will be placed into.</param>
+        /// <param name="groupMemberRoleGuid">The unique identifier of the role the person will be assigned.</param>
+        /// <returns>The attributes that can be filled in by the individual.</returns>
+        [BlockAction]
+        public BlockActionResult GetPlacementGroupMemberAttributes( Guid connectionRequestGuid, Guid groupGuid, Guid groupMemberRoleGuid )
+        {
+            using ( var rockContext = new RockContext() )
+            {
+                var connectionRequestService = new ConnectionRequestService( rockContext );
+                var groupService = new GroupService( rockContext );
+
+                // Load the connection request. Include the connection opportunity
+                // and type for security check.
+                var request = connectionRequestService.Queryable()
+                    .Where( r => r.Guid == connectionRequestGuid )
+                    .Include( r => r.ConnectionOpportunity.ConnectionType )
+                    .FirstOrDefault();
+
+                // Validate the request exists and the current person has permission
+                // to make changes to it.
+                if ( request == null )
+                {
+                    return ActionNotFound();
+                }
+                else if ( !request.IsAuthorized( Authorization.EDIT, RequestContext.CurrentPerson ) )
+                {
+                    return ActionUnauthorized();
+                }
+
+                // Validate that the information they provided is valid
+                // group placement options.
+                var validPlacementGroups = GetRequestPlacementGroups( request );
+                var placementGroup = validPlacementGroups.SingleOrDefault( g => g.Guid == groupGuid );
+                var placementRole = placementGroup?.Roles.SingleOrDefault( r => r.Guid == groupMemberRoleGuid );
+
+                if ( placementGroup == null || placementRole == null )
+                {
+                    return ActionBadRequest( "Invalid data." );
+                }
+
+                // Try to load the group identifier along with the group type
+                // identifier so we can load the role from cache.
+                var groupInfo = groupService.Queryable()
+                    .Where( g => g.Guid == groupGuid )
+                    .Select( g => new
+                    {
+                        g.Id,
+                        g.GroupTypeId
+                    } )
+                    .FirstOrDefault();
+
+                if ( groupInfo == null )
+                {
+                    return ActionBadRequest( "Invalid data." );
+                }
+
+                // Try to load the group member role identifier. This also ensures
+                // the unique identifier they provided belongs to the correct
+                // group type.
+                var groupTypeCache = GroupTypeCache.Get( groupInfo.GroupTypeId );
+                var groupMemberRoleId = groupTypeCache?.Roles
+                    .FirstOrDefault( r => r.Guid == groupMemberRoleGuid )
+                    ?.Id;
+
+                if ( !groupMemberRoleId.HasValue )
+                {
+                    return ActionBadRequest( "Invalid data." );
+                }
+
+                // Load the attribute data for an empty group member so we can
+                // send the data to the client.
+                var groupMember = new GroupMember
+                {
+                    GroupId = groupInfo.Id,
+                    GroupRoleId = groupMemberRoleId.Value
+                };
+
+                groupMember.LoadAttributes( rockContext );
+
+                var attributes = groupMember.GetClientEditableAttributeValues( RequestContext.CurrentPerson );
+
+                return ActionOk( attributes );
             }
         }
 
@@ -1427,12 +1665,28 @@ namespace Rock.Blocks.Types.Mobile.Connection
             public Dictionary<string, string> AttributeValues { get; set; }
 
             /// <summary>
-            /// Gets or sets the placement group attribute values.
+            /// Gets or sets the placement group member role unique identifier.
             /// </summary>
             /// <value>
-            /// The placement group attribute values.
+            /// The placement group member role unique identifier.
             /// </value>
-            public Dictionary<string, string> PlacementGroupAttributeValues { get; set; }
+            public Guid? PlacementGroupMemberRoleGuid { get; set; }
+
+            /// <summary>
+            /// Gets or sets the placement group member status.
+            /// </summary>
+            /// <value>
+            /// The placement group member status.
+            /// </value>
+            public GroupMemberStatus? PlacementGroupMemberStatus { get; set; }
+
+            /// <summary>
+            /// Gets or sets the placement group member attribute values.
+            /// </summary>
+            /// <value>
+            /// The placement group member attribute values.
+            /// </value>
+            public Dictionary<string, string> PlacementGroupMemberAttributeValues { get; set; }
         }
 
         /// <summary>
@@ -1496,12 +1750,43 @@ namespace Rock.Blocks.Types.Mobile.Connection
             public Guid? CampusGuid { get; set; }
 
             /// <summary>
-            /// Gets or sets the attributes that can be edited.
+            /// Gets or sets the roles that are available on this group.
             /// </summary>
             /// <value>
-            /// The attributes that can be edited.
+            /// The roles that are available on this group.
             /// </value>
-            public List<ClientEditableAttributeValueViewModel> Attributes { get; set; }
+            public List<PlacementGroupRoleItemViewModel> Roles { get; set; }
+        }
+
+        /// <summary>
+        /// Contains details about a group member role that is available to
+        /// choose from on a placement group.
+        /// </summary>
+        public class PlacementGroupRoleItemViewModel
+        {
+            /// <summary>
+            /// Gets or sets the unique identifier.
+            /// </summary>
+            /// <value>
+            /// The unique identifier.
+            /// </value>
+            public Guid Guid { get; set; }
+
+            /// <summary>
+            /// Gets or sets the name.
+            /// </summary>
+            /// <value>
+            /// The name.
+            /// </value>
+            public string Name { get; set; }
+
+            /// <summary>
+            /// Gets or sets the statuses that can be chosen for this role.
+            /// </summary>
+            /// <value>
+            /// The statuses that can be chosen for this role.
+            /// </value>
+            public List<GroupMemberStatus> Statuses { get; set; }
         }
 
         /// <summary>

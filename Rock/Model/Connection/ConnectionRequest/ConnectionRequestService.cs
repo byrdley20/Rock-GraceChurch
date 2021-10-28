@@ -98,7 +98,7 @@ namespace Rock.Model
         }
 
         /// <summary>
-        /// Doeses the status change cause workflows.
+        /// Checks if the status change would cause workflows to launch.
         /// </summary>
         /// <param name="connectionOpportunityId">The connection opportunity identifier.</param>
         /// <param name="fromStatusId">From status identifier.</param>

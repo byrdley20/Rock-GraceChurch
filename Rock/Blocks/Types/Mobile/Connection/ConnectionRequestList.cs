@@ -13,7 +13,7 @@ using Rock.Security;
 namespace Rock.Blocks.Types.Mobile.Connection
 {
     /// <summary>
-    /// Displays the details of the given connection request for editing state, status, etc.
+    /// Displays the list of connection requests for a single opportunity.
     /// </summary>
     /// <seealso cref="Rock.Blocks.RockMobileBlockType" />
 
@@ -42,7 +42,7 @@ namespace Rock.Blocks.Types.Mobile.Connection
 
     [LinkedPage(
         "Detail Page",
-        Description = "Page to link to when user taps on a connection request.",
+        Description = "Page to link to when user taps on a connection request. ConnectionRequestGuid is passed in the query string.",
         IsRequired = false,
         Key = AttributeKey.DetailPage,
         Order = 2 )]
@@ -139,7 +139,7 @@ namespace Rock.Blocks.Types.Mobile.Connection
         /// <param name="rockContext">The Rock database context.</param>
         /// <returns>A queryable of <see cref="ConnectionRequest"/> objects.</returns>
         /// <exception cref="System.ArgumentNullException">filter</exception>
-        private static IQueryable<ConnectionRequest> GetConnectionRequestsQuery( Guid connectionOpportunityGuid, Person currentPerson, GetConnectionRequestsFilterViewModel filter, RockContext rockContext )
+        private static IQueryable<ConnectionRequest> GetConnectionRequestsQuery( Guid connectionOpportunityGuid, Person currentPerson, GetConnectionRequestsFilter filter, RockContext rockContext )
         {
             if ( filter == null )
             {
@@ -151,16 +151,9 @@ namespace Rock.Blocks.Types.Mobile.Connection
             var qry = connectionRequestService.Queryable()
                 .Where( r => r.ConnectionOpportunity.Guid == connectionOpportunityGuid );
 
-            if ( filter.OnlyMyConnections )
+            if ( filter.ConnectorPersonIds != null && filter.ConnectorPersonIds.Any() )
             {
-                if ( currentPerson != null )
-                {
-                    qry = qry.Where( r => r.ConnectorPersonAlias.PersonId == currentPerson.Id );
-                }
-                else
-                {
-                    qry = qry.Where( r => false );
-                }
+                qry = qry.Where( r => filter.ConnectorPersonIds.Contains( r.ConnectorPersonAlias.PersonId ) );
             }
 
             if ( filter.ConnectionStates != null && filter.ConnectionStates.Any() )
@@ -175,34 +168,54 @@ namespace Rock.Blocks.Types.Mobile.Connection
         /// Gets the connection requests view model that can be sent to the client.
         /// </summary>
         /// <param name="connectionOpportunityGuid">The connection opportunity unique identifier.</param>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filterViewModel">The filter.</param>
         /// <param name="pageNumber">The page number.</param>
         /// <returns>The <see cref="GetRequestsViewModel"/> that contains the information about the response.</returns>
-        private GetRequestsViewModel GetConnectionRequests( Guid connectionOpportunityGuid, GetConnectionRequestsFilterViewModel filter, int pageNumber )
+        private GetRequestsViewModel GetConnectionRequests( Guid connectionOpportunityGuid, GetConnectionRequestsFilterViewModel filterViewModel, int pageNumber )
         {
             using ( var rockContext = new RockContext() )
             {
                 var connectionOpportunity = new ConnectionOpportunityService( rockContext ).GetNoTracking( connectionOpportunityGuid );
+                bool hasMore;
+                List<ConnectionRequest> requests;
 
-                var qry = GetConnectionRequestsQuery( connectionOpportunityGuid, RequestContext.CurrentPerson, filter, rockContext );
+                if ( filterViewModel.OnlyMyConnections && RequestContext.CurrentPerson == null )
+                {
+                    hasMore = false;
+                    requests = new List<ConnectionRequest>();
+                }
+                else
+                {
+                    var filter = new GetConnectionRequestsFilter
+                    {
+                        ConnectionStates = filterViewModel.ConnectionStates
+                    };
 
-                // We currently don't support showing inactive connection requests
-                // since that could end up being a massive list for mobile.
-                qry = qry.Where( r => r.ConnectionState != ConnectionState.Inactive );
+                    if ( filterViewModel.OnlyMyConnections )
+                    {
+                        filter.ConnectorPersonIds = new List<int> { RequestContext.CurrentPerson.Id };
+                    }
 
-                // Put all the requests in memory so we can check security and
-                // then get the current set of requests, plus one. The extra is
-                // so that we can tell if there are more to load.
-                var requests = qry.ToList()
-                    .Where( r => r.IsAuthorized( Authorization.VIEW, RequestContext.CurrentPerson ) )
-                    .Skip( ( pageNumber * MaxRequestsToShow ) )
-                    .Take( MaxRequestsToShow + 1 )
-                    .ToList();
+                    var qry = GetConnectionRequestsQuery( connectionOpportunityGuid, RequestContext.CurrentPerson, filter, rockContext );
 
-                // Determine if we have more requests to show and then properly
-                // limit the requests to the correct amount.
-                var hasMore = requests.Count > MaxRequestsToShow;
-                requests = requests.Take( MaxRequestsToShow ).ToList();
+                    // We currently don't support showing inactive connection requests
+                    // since that could end up being a massive list for mobile.
+                    qry = qry.Where( r => r.ConnectionState != ConnectionState.Inactive );
+
+                    // Put all the requests in memory so we can check security and
+                    // then get the current set of requests, plus one. The extra is
+                    // so that we can tell if there are more to load.
+                    requests = qry.ToList()
+                        .Where( r => r.IsAuthorized( Authorization.VIEW, RequestContext.CurrentPerson ) )
+                        .Skip( ( pageNumber * MaxRequestsToShow ) )
+                        .Take( MaxRequestsToShow + 1 )
+                        .ToList();
+
+                    // Determine if we have more requests to show and then properly
+                    // limit the requests to the correct amount.
+                    hasMore = requests.Count > MaxRequestsToShow;
+                    requests = requests.Take( MaxRequestsToShow ).ToList();
+                }
 
                 // Process the connection requests with the template.
                 var mergeFields = RequestContext.GetCommonMergeFields();
@@ -255,6 +268,31 @@ namespace Rock.Blocks.Types.Mobile.Connection
         }
 
         #endregion
+
+        #region Support Classes
+
+        /// <summary>
+        /// The filtering options when getting requests.
+        /// </summary>
+        public class GetConnectionRequestsFilter
+        {
+            /// <summary>
+            /// Gets or sets the connector person identifiers to limit the
+            /// results to.
+            /// </summary>
+            /// <value>
+            /// The connector person identifiers.
+            /// </value>
+            public List<int> ConnectorPersonIds { get; set; }
+
+            /// <summary>
+            /// Gets or sets the states that results will be limited to.
+            /// </summary>
+            /// <value>
+            /// The states that results will be limited to.
+            /// </value>
+            public List<ConnectionState> ConnectionStates { get; set; }
+        }
 
         /// <summary>
         /// The view model that defines the filtering options when getting requests.
@@ -316,5 +354,7 @@ namespace Rock.Blocks.Types.Mobile.Connection
             /// </value>
             public string Content { get; set; }
         }
+
+        #endregion
     }
 }

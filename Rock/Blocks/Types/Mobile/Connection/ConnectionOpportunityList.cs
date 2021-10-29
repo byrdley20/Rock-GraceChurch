@@ -106,7 +106,6 @@ namespace Rock.Blocks.Types.Mobile.Connection
         {
             return new
             {
-                DetailPageGuid
             };
         }
 
@@ -158,50 +157,42 @@ namespace Rock.Blocks.Types.Mobile.Connection
         /// </summary>
         /// <param name="connectionTypeGuid">The connection type unique identifier.</param>
         /// <param name="filterViewModel">The filter.</param>
-        /// <returns>The <see cref="GetOpportunitiesViewModel"/> that contains the information about the response.</returns>
-        private GetOpportunitiesViewModel GetConnectionOpportunities( Guid connectionTypeGuid, GetConnectionOpportunitiesFilterViewModel filterViewModel )
+        /// <returns>The <see cref="GetContentViewModel"/> that contains the information about the response.</returns>
+        private GetContentViewModel GetConnectionOpportunities( Guid connectionTypeGuid, GetConnectionOpportunitiesFilterViewModel filterViewModel )
         {
             using ( var rockContext = new RockContext() )
             {
                 var connectionType = new ConnectionTypeService( rockContext ).GetNoTracking( connectionTypeGuid );
-                List<ConnectionOpportunity> opportunities;
 
-                if ( filterViewModel.OnlyMyConnections && RequestContext.CurrentPerson == null )
+                var filter = new GetConnectionOpportunitiesFilter
                 {
-                    opportunities = new List<ConnectionOpportunity>();
-                }
-                else
+                    IncludeInactive = true
+                };
+
+                if ( filterViewModel.OnlyMyConnections )
                 {
-                    var filter = new GetConnectionOpportunitiesFilter
-                    {
-                        IncludeInactive = true
-                    };
-
-                    if ( filterViewModel.OnlyMyConnections )
-                    {
-                        filter.ConnectorPersonIds = new List<int> { RequestContext.CurrentPerson?.Id ?? 0 };
-                    }
-
-                    var qry = GetConnectionOpportunitiesQuery( connectionTypeGuid, filter, rockContext );
-
-                    // Make a list of any opportunity identifiers that are
-                    // configured for request security and the person is assigned
-                    // as the connector to any request.
-                    var currentPersonId = RequestContext.CurrentPerson?.Id;
-                    var selfAssignedSecurityOpportunities = new ConnectionRequestService( rockContext )
-                        .Queryable()
-                        .Where( r => r.ConnectorPersonAlias.PersonId == currentPersonId
-                            && r.ConnectionOpportunity.ConnectionType.EnableRequestSecurity )
-                        .Select( r => r.ConnectionOpportunityId )
-                        .Distinct()
-                        .ToList();
-
-                    // Put all the opportunities in memory so we can check security.
-                    opportunities = qry.ToList()
-                        .Where( o => o.IsAuthorized( Authorization.VIEW, RequestContext.CurrentPerson )
-                            || selfAssignedSecurityOpportunities.Contains( o.Id ) )
-                        .ToList();
+                    filter.ConnectorPersonIds = new List<int> { RequestContext.CurrentPerson?.Id ?? 0 };
                 }
+
+                var qry = GetConnectionOpportunitiesQuery( connectionTypeGuid, filter, rockContext );
+
+                // Make a list of any opportunity identifiers that are
+                // configured for request security and the person is assigned
+                // as the connector to any request.
+                var currentPersonId = RequestContext.CurrentPerson?.Id;
+                var selfAssignedSecurityOpportunities = new ConnectionRequestService( rockContext )
+                    .Queryable()
+                    .Where( r => r.ConnectorPersonAlias.PersonId == currentPersonId
+                        && r.ConnectionOpportunity.ConnectionType.EnableRequestSecurity )
+                    .Select( r => r.ConnectionOpportunityId )
+                    .Distinct()
+                    .ToList();
+
+                // Put all the opportunities in memory so we can check security.
+                var opportunities = qry.ToList()
+                    .Where( o => o.IsAuthorized( Authorization.VIEW, RequestContext.CurrentPerson )
+                        || selfAssignedSecurityOpportunities.Contains( o.Id ) )
+                    .ToList();
 
                 // Get the various counts to make available to the Lava template.
                 var requestCounts = GetOpportunityRequestCounts( opportunities, RequestContext.CurrentPerson, rockContext );
@@ -226,7 +217,7 @@ namespace Rock.Blocks.Types.Mobile.Connection
                     headerContent = HeaderTemplate.ResolveMergeFields( mergeFields );
                 }
 
-                return new GetOpportunitiesViewModel
+                return new GetContentViewModel
                 {
                     HeaderContent = headerContent,
                     Content = content
@@ -303,12 +294,9 @@ namespace Rock.Blocks.Types.Mobile.Connection
         /// <param name="filter">The filter options.</param>
         /// <returns>A response that describes the result of the operation.</returns>
         [BlockAction]
-        public BlockActionResult GetOpportunities( Guid connectionTypeGuid, GetConnectionOpportunitiesFilterViewModel filter )
+        public BlockActionResult GetContent( Guid connectionTypeGuid, GetConnectionOpportunitiesFilterViewModel filter = null )
         {
-            if ( filter == null )
-            {
-                return ActionBadRequest();
-            }
+            filter = filter ?? new GetConnectionOpportunitiesFilterViewModel();
 
             return ActionOk( GetConnectionOpportunities( connectionTypeGuid, filter ) );
         }
@@ -360,9 +348,9 @@ namespace Rock.Blocks.Types.Mobile.Connection
         }
 
         /// <summary>
-        /// The view model returned by the GetOpportunities action.
+        /// The view model returned by the GetContent action.
         /// </summary>
-        public class GetOpportunitiesViewModel
+        public class GetContentViewModel
         {
             /// <summary>
             /// Gets or sets the rendered content for the header.

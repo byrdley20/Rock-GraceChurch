@@ -1674,7 +1674,7 @@ namespace Rock.Blocks.Types.Mobile.Connection
 
         #endregion
 
-        #region Action Classes
+        #region Support Classes
 
         /// <summary>
         /// Common details about a connection request.

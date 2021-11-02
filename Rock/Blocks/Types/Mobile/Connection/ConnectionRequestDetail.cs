@@ -52,10 +52,11 @@ namespace Rock.Blocks.Types.Mobile.Connection
         Key = AttributeKey.HeaderTemplate,
         Order = 0 )]
 
-    [CodeEditorField( "Activity Template",
-        Description = "Lava template used to render the activity history for the connection request.",
+    [BlockTemplateField( "Activity Template",
+        Description = "The template used to render the activity history for the connection request.",
+        TemplateBlockValueGuid = SystemGuid.DefinedValue.BLOCK_TEMPLATE_MOBILE_CONNECTION_CONNECTION_REQUEST_DETAIL,
+        DefaultValue = "D19A6D1A-BB4F-45FB-92DE-17EB97479F40",
         IsRequired = true,
-        EditorMode = Rock.Web.UI.Controls.CodeEditorMode.Xml,
         Key = AttributeKey.ActivityTemplate,
         Order = 1 )]
 
@@ -116,8 +117,7 @@ namespace Rock.Blocks.Types.Mobile.Connection
         /// <value>
         /// The activity template.
         /// </value>
-        //protected string ActivityTemplate => Rock.Field.Types.BlockTemplateFieldType.GetTemplateContent( GetAttributeValue( AttributeKey.ActivityTemplate ) );
-        protected string ActivityTemplate => GetAttributeValue( AttributeKey.ActivityTemplate );
+        protected string ActivityTemplate => Rock.Field.Types.BlockTemplateFieldType.GetTemplateContent( GetAttributeValue( AttributeKey.ActivityTemplate ) );
 
         /// <summary>
         /// Gets the person profile page unique identifier.

@@ -32,11 +32,11 @@ namespace Rock.Blocks.Types.Mobile.Connection
         Key = AttributeKey.HeaderTemplate,
         Order = 0 )]
 
-    [CodeEditorField(
-        "Request Template",
-        Description = "Lava template used to render the connection requests.",
+    [BlockTemplateField( "Request Template",
+        Description = "The template used to render the connection requests.",
+        TemplateBlockValueGuid = SystemGuid.DefinedValue.BLOCK_TEMPLATE_MOBILE_CONNECTION_CONNECTION_REQUEST_LIST,
+        DefaultValue = "787BFAA8-FF61-49BA-80DD-67074DC362C2",
         IsRequired = true,
-        EditorMode = Rock.Web.UI.Controls.CodeEditorMode.Xml,
         Key = AttributeKey.RequestTemplate,
         Order = 1 )]
 
@@ -89,8 +89,7 @@ namespace Rock.Blocks.Types.Mobile.Connection
         /// <value>
         /// The request template.
         /// </value>
-        //protected string RequestTemplate => Rock.Field.Types.BlockTemplateFieldType.GetTemplateContent( GetAttributeValue( AttributeKey.RequestTemplate ) );
-        protected string RequestTemplate => GetAttributeValue( AttributeKey.RequestTemplate );
+        protected string RequestTemplate => Rock.Field.Types.BlockTemplateFieldType.GetTemplateContent( GetAttributeValue( AttributeKey.RequestTemplate ) );
 
         /// <summary>
         /// Gets the detail page unique identifier.

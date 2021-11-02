@@ -31,12 +31,12 @@ namespace Rock.Blocks.Types.Mobile.Connection
         Key = AttributeKey.HeaderTemplate,
         Order = 0 )]
 
-    [CodeEditorField(
-        "Template",
-        Description = "Lava template used to render the connection types.",
+    [BlockTemplateField( "Type Template",
+        Description = "The template used to render the connection types.",
+        TemplateBlockValueGuid = SystemGuid.DefinedValue.BLOCK_TEMPLATE_MOBILE_CONNECTION_CONNECTION_TYPE_LIST,
+        DefaultValue = "E0D00422-7895-4081-9C06-16DE9BF48E1A",
         IsRequired = true,
-        EditorMode = Rock.Web.UI.Controls.CodeEditorMode.Xml,
-        Key = AttributeKey.Template,
+        Key = AttributeKey.TypeTemplate,
         Order = 1 )]
 
     [LinkedPage(
@@ -59,7 +59,7 @@ namespace Rock.Blocks.Types.Mobile.Connection
         {
             public const string HeaderTemplate = "HeaderTemplate";
 
-            public const string Template = "Template";
+            public const string TypeTemplate = "TypeTemplate";
 
             public const string DetailPage = "DetailPage";
         }
@@ -78,8 +78,7 @@ namespace Rock.Blocks.Types.Mobile.Connection
         /// <value>
         /// The opportunity template.
         /// </value>
-        //protected string Template => Rock.Field.Types.BlockTemplateFieldType.GetTemplateContent( GetAttributeValue( AttributeKey.Template ) );
-        protected string Template => GetAttributeValue( AttributeKey.Template );
+        protected string TypeTemplate => Rock.Field.Types.BlockTemplateFieldType.GetTemplateContent( GetAttributeValue( AttributeKey.TypeTemplate ) );
 
         /// <summary>
         /// Gets the detail page unique identifier.
@@ -211,7 +210,7 @@ namespace Rock.Blocks.Types.Mobile.Connection
                 mergeFields.AddOrReplace( "DetailPage", DetailPageGuid );
                 mergeFields.AddOrReplace( "ConnectionRequestCounts", requestCounts );
 
-                var content = Template.ResolveMergeFields( mergeFields );
+                var content = TypeTemplate.ResolveMergeFields( mergeFields );
 
                 // If we found a connection opportunity then process the header
                 // template.

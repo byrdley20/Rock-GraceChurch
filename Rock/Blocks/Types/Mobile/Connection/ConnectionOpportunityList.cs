@@ -33,11 +33,11 @@ namespace Rock.Blocks.Types.Mobile.Connection
         Key = AttributeKey.HeaderTemplate,
         Order = 0 )]
 
-    [CodeEditorField(
-        "Opportunity Template",
-        Description = "Lava template used to render the connection opportunities.",
+    [BlockTemplateField( "Opportunity Template",
+        Description = "The template used to render the connection opportunities.",
+        TemplateBlockValueGuid = SystemGuid.DefinedValue.BLOCK_TEMPLATE_MOBILE_CONNECTION_CONNECTION_OPPORTUNITY_LIST,
+        DefaultValue = "1FB8E236-DF34-4BA2-B5C6-CA8B542ABC7A",
         IsRequired = true,
-        EditorMode = Rock.Web.UI.Controls.CodeEditorMode.Xml,
         Key = AttributeKey.OpportunityTemplate,
         Order = 1 )]
 
@@ -80,8 +80,7 @@ namespace Rock.Blocks.Types.Mobile.Connection
         /// <value>
         /// The opportunity template.
         /// </value>
-        //protected string OpportunityTemplate => Rock.Field.Types.BlockTemplateFieldType.GetTemplateContent( GetAttributeValue( AttributeKey.OpportunityTemplate ) );
-        protected string OpportunityTemplate => GetAttributeValue( AttributeKey.OpportunityTemplate );
+        protected string OpportunityTemplate => Rock.Field.Types.BlockTemplateFieldType.GetTemplateContent( GetAttributeValue( AttributeKey.OpportunityTemplate ) );
 
         /// <summary>
         /// Gets the detail page unique identifier.

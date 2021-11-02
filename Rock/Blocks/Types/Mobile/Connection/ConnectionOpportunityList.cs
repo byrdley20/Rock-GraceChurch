@@ -228,7 +228,7 @@ namespace Rock.Blocks.Types.Mobile.Connection
         /// Gets the opportunity request counts for the given opportunities.
         /// </summary>
         /// <param name="opportunities">The opportunities.</param>
-        /// <param name="currentPerson">The current person to use for security and count checks.</param>
+        /// <param name="currentPerson">The current person to use for count checks.</param>
         /// <param name="rockContext">The rock context.</param>
         /// <returns>A dictionary of connection request count objects.</returns>
         internal static Dictionary<int, ConnectionRequestCountsViewModel> GetOpportunityRequestCounts( List<ConnectionOpportunity> opportunities, Person currentPerson, RockContext rockContext )

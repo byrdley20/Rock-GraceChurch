@@ -148,6 +148,45 @@ namespace Rock.Blocks.Types.Mobile.Connection
         }
 
         /// <summary>
+        /// Gets the type request counts for the given connection types.
+        /// </summary>
+        /// <param name="connectionTypeIds">The connection type identifiers.</param>
+        /// <param name="currentPerson">The current person to use for count checks.</param>
+        /// <param name="rockContext">The rock context.</param>
+        /// <returns>A dictionary of connection request count objects.</returns>
+        internal static Dictionary<int, ConnectionOpportunityList.ConnectionRequestCountsViewModel> GetConnectionTypeCounts( List<int> connectionTypeIds, Person currentPerson, RockContext rockContext )
+        {
+            var opportunities = new ConnectionOpportunityService( rockContext )
+                .Queryable()
+                .AsNoTracking()
+                .Where( o => connectionTypeIds.Contains( o.ConnectionTypeId ) )
+                .ToList();
+
+            var requestCounts = ConnectionOpportunityList.GetOpportunityRequestCounts( opportunities, currentPerson, rockContext )
+                .Select( c => new
+                {
+                    TypeId = opportunities.Single( o => o.Id == c.Key ).ConnectionTypeId,
+                    Counts = c.Value
+                } )
+                .GroupBy( c => c.TypeId )
+                .ToDictionary( g => g.Key, g => new ConnectionOpportunityList.ConnectionRequestCountsViewModel
+                {
+                    AssignedToYouCount = g.Sum( c => c.Counts.AssignedToYouCount )
+                } );
+
+            // Fill in any missing types with empty counts.
+            foreach ( var typeId in connectionTypeIds )
+            {
+                if ( !requestCounts.ContainsKey( typeId ) )
+                {
+                    requestCounts.Add( typeId, new ConnectionOpportunityList.ConnectionRequestCountsViewModel() );
+                }
+            }
+
+            return requestCounts;
+        }
+
+        /// <summary>
         /// Gets the connection types view model that can be sent to the client.
         /// </summary>
         /// <returns>The <see cref="GetContentViewModel"/> that contains the information about the response.</returns>
@@ -187,22 +226,7 @@ namespace Rock.Blocks.Types.Mobile.Connection
 
                 // Get the various counts to make available to the Lava template.
                 var connectionTypeIds = types.Select( t => t.Id ).ToList();
-                var opportunities = new ConnectionOpportunityService( rockContext )
-                    .Queryable()
-                    .AsNoTracking()
-                    .Where( o => connectionTypeIds.Contains( o.ConnectionTypeId ) )
-                    .ToList();
-                var requestCounts = ConnectionOpportunityList.GetOpportunityRequestCounts( opportunities, RequestContext.CurrentPerson, rockContext )
-                    .Select( c => new
-                    {
-                        TypeId = opportunities.Single( o => o.Id == c.Key ).ConnectionTypeId,
-                        Counts = c.Value
-                    } )
-                    .GroupBy( c => c.TypeId )
-                    .ToDictionary( g => g.Key, g => new ConnectionOpportunityList.ConnectionRequestCountsViewModel
-                    {
-                        AssignedToYouCount = g.Sum( c => c.Counts.AssignedToYouCount )
-                    } );
+                var requestCounts = GetConnectionTypeCounts( connectionTypeIds, RequestContext.CurrentPerson, rockContext );
 
                 // Process the connection opportunities with the template.
                 var mergeFields = RequestContext.GetCommonMergeFields();

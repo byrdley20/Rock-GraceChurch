@@ -1618,6 +1618,99 @@ formfield .required-indicator {
 }
 
 
+/*** Connection Type List block ***/
+.connection-type-list-layout .connection-type {
+    border-color: #e7e7e7;
+    border-radius: ?radius-base;
+    padding: 12;
+}
+
+.connection-type-list-layout .connection-type-icon {
+    font-size: 36;
+    margin: 0, 0, 10, 0;
+}
+
+.connection-type-list-layout .connection-type-name {
+    font-style: bold;
+}
+
+
+
+
+/*** Connection Opportunity List block ***/
+.connection-opportunity-list-layout .connection-opportunities {
+    margin: 0, 12, 0, 0;
+}
+
+.connection-opportunity-list-layout .connection-opportunity {
+    border-color: #e7e7e7;
+    border-radius: ?radius-base;
+    padding: 12;
+}
+
+.connection-opportunity-list-layout .connection-opportunity-icon {
+    font-size: 36;
+    margin: 0, 0, 10, 0;
+}
+
+.connection-opportunity-list-layout .connection-opportunity-name {
+    font-style: bold;
+}
+
+.connection-opportunity-list-layout .filter-button {
+    padding: 4 12;
+    background-color: #f5f5f5;
+    color: #767676;
+    border-color: #b9b9b9;
+    border-width: 1;
+    border-radius: 4;
+}
+
+.connection-opportunity-list-layout .filter-button.active {
+    background-color: #007acc;
+    color: #fff;
+}
+
+
+/*** Connection Request List block ***/
+.connection-request-list-layout .connection-requests {
+    margin: 0, 12, 0, 0;
+}
+
+.connection-request-list-layout .connection-request {
+    border-color: #e7e7e7;
+    border-radius: ?radius-base;
+    padding: 12;
+    margin: 0, 0, 0, 12;
+}
+
+.connection-request-list-layout .connection-request-image {
+    width: 35;
+    margin: 0, 0, 10, 0;
+}
+
+.connection-request-list-layout .connection-request-name {
+    font-style: bold;
+}
+
+.connection-request-list-layout .connection-request-date {
+    font-size: ?shell-font-scale(12);
+}
+
+.connection-request-list-layout .filter-button {
+    padding: 4 12;
+    background-color: #f5f5f5;
+    color: #767676;
+    border-color: #b9b9b9;
+    border-width: 1;
+    border-radius: 4;
+}
+
+.connection-request-list-layout .filter-button.active {
+    background-color: #007acc;
+    color: #fff;
+}
+
 /*** Connection Request Detail Block ***/
 .connection-request-detail-content {
     -xf-spacing: 0;
@@ -1678,7 +1771,7 @@ formfield .required-indicator {
 
 .connection-request-detail-content .workflow-action-button {
     font-size: 12;
-    color: ?text-color;
+    color: ?color-text;
     padding: 12, 0, 12, 0;
     margin: 0, 0, 8, 8;
     height: 24;
@@ -1696,45 +1789,6 @@ formfield .required-indicator {
     margin: 0, 0, 0, 8;
 }
 
-
-/*** Connection Opportunity List block ***/
-.connection-opportunity-list-layout .connection-opportunities {
-    margin: 0, 12, 0, 0;
-}
-
-.connection-opportunity-list-layout .filter-button {
-    padding: 4 12;
-    background-color: #f5f5f5;
-    color: #767676;
-    border-color: #b9b9b9;
-    border-width: 1;
-    border-radius: 4;
-}
-
-.connection-opportunity-list-layout .filter-button.active {
-    background-color: #007acc;
-    color: #fff;
-}
-
-
-/*** Connection Request List block ***/
-.connection-request-list-layout .connection-requests {
-    margin: 0, 12, 0, 0;
-}
-
-.connection-request-list-layout .filter-button {
-    padding: 4 12;
-    background-color: #f5f5f5;
-    color: #767676;
-    border-color: #b9b9b9;
-    border-width: 1;
-    border-radius: 4;
-}
-
-.connection-request-list-layout .filter-button.active {
-    background-color: #007acc;
-    color: #fff;
-}
 
 ";
         #endregion

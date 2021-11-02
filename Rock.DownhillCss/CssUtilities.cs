@@ -1616,6 +1616,126 @@ formfield .required-indicator {
 .group-finder-container .group-more-icon {
     color: #999999;
 }
+
+
+/*** Connection Request Detail Block ***/
+.connection-request-detail-content {
+    -xf-spacing: 0;
+}
+
+.connection-request-detail-content .status-pill-layout {
+    margin: 0, 0, 0, 20;
+}
+
+.connection-request-detail-content .status-pill-layout ^tag {
+    margin: 0, 0, 6, 0;
+}
+
+.connection-request-detail-content .person-photo {
+    width: 80;
+    height: 80;
+    margin: 0, 0, 12, 0;
+}
+
+.connection-request-detail-content .person-name {
+    font-style: bold;
+    font-size: 22;
+}
+
+.connection-request-detail-content .person-detail {
+    margin: 0, 0, 0, 20;
+}
+
+.connection-request-detail-content .person-contact-buttons {
+    margin: 0, 8, 0, 0;
+}
+
+.connection-request-detail-content .contact-button {
+    border-radius: 6;
+    width: 50;
+    background-color: #e3e3e3;
+    padding: 4;
+}
+
+.connection-request-detail-content .contact-button-icon {
+    font-size: 14;
+}
+
+.connection-request-detail-content .contact-button-text {
+    font-size: 11;
+}
+
+.connection-request-detail-content .request-details {
+    margin: 0, 0, 0, 0;
+}
+
+.connection-request-detail-content .request-attributes {
+}
+
+.connection-request-detail-content .workflow-actions {
+    margin: 0, 0, 0, 4;
+}
+
+.connection-request-detail-content .workflow-action-button {
+    font-size: 12;
+    color: ?text-color;
+    padding: 12, 0, 12, 0;
+    margin: 0, 0, 8, 8;
+    height: 24;
+    border-width: 1;
+    border-radius: 12;
+    border-color: #999999;
+    background-color: transparent;
+}
+
+.connection-request-detail-content .group-requirements {
+    margin: 0, 0, 0, 0;
+}
+
+.connection-request-detail-content .group-manual-requirement {
+    margin: 0, 0, 0, 8;
+}
+
+
+/*** Connection Opportunity List block ***/
+.connection-opportunity-list-layout .connection-opportunities {
+    margin: 0, 12, 0, 0;
+}
+
+.connection-opportunity-list-layout .filter-button {
+    padding: 4 12;
+    background-color: #f5f5f5;
+    color: #767676;
+    border-color: #b9b9b9;
+    border-width: 1;
+    border-radius: 4;
+}
+
+.connection-opportunity-list-layout .filter-button.active {
+    background-color: #007acc;
+    color: #fff;
+}
+
+
+/*** Connection Request List block ***/
+.connection-request-list-layout .connection-requests {
+    margin: 0, 12, 0, 0;
+}
+
+.connection-request-list-layout .filter-button {
+    padding: 4 12;
+    background-color: #f5f5f5;
+    color: #767676;
+    border-color: #b9b9b9;
+    border-width: 1;
+    border-radius: 4;
+}
+
+.connection-request-list-layout .filter-button.active {
+    background-color: #007acc;
+    color: #fff;
+}
+
 ";
         #endregion
     }

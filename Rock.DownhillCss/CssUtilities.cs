@@ -1623,6 +1623,7 @@ formfield .required-indicator {
     border-color: #e7e7e7;
     border-radius: ?radius-base;
     padding: 12;
+    margin: 0, 0, 0, 12;
 }
 
 .connection-type-list-layout .connection-type-icon {
@@ -1646,6 +1647,7 @@ formfield .required-indicator {
     border-color: #e7e7e7;
     border-radius: ?radius-base;
     padding: 12;
+    margin: 0, 0, 0, 12;
 }
 
 .connection-opportunity-list-layout .connection-opportunity-icon {
@@ -1789,6 +1791,37 @@ formfield .required-indicator {
     margin: 0, 0, 0, 8;
 }
 
+.connection-request-detail-content .request-activities > ^Divider {
+    margin: 0, 12, 0, 0;
+}
+
+.connection-request-detail-content .request-activities > .title {
+    margin: 0, 6, 0, 6;
+}
+
+.connection-request-detail-content .request-activity {
+    border-color: #e7e7e7;
+    border-radius: ?radius-base;
+    padding: 12;
+    margin: 0, 0, 0, 12;
+}
+
+.connection-request-detail-content .request-activity.related-activity {
+    background-color: #e0e0e0;
+    opacity: 0.7;
+}
+
+.connection-request-detail-content .activity-image {
+    width: 35;
+}
+
+.connection-request-detail-content .activity-connector-name {
+    font-style: bold;
+}
+
+.connection-request-detail-content .activity-date {
+    font-size: ?shell-font-scale(12);
+}
 
 ";
         #endregion

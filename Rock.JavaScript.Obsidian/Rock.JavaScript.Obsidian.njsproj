@@ -79,6 +79,7 @@
     <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\discountCodeForm.ts" />
     <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\feeField.ts" />
     <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\intro.ts" />
+    <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\payment.ts" />
     <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\registrant.ts" />
     <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\registrantAttributeField.ts" />
     <TypeScriptCompile Include="Framework\Blocks\Event\RegistrationEntry\registrantPersonField.ts" />
@@ -501,6 +502,9 @@
     <TypeScriptCompile Include="Framework\ViewModels\entity.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\index.d.ts" />
     <TypeScriptCompile Include="Framework\ViewModels\listItem.d.ts" />
+    <TypeScriptCompile Include="Framework\ViewModels\savedFinancialAccountListItem.d.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <Target Name="InstallNodePackages" AfterTargets="BeforeCompile;BeforeClean">

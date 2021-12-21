@@ -307,5 +307,26 @@ namespace Rock.Oidc.Authorization
 
             return result;
         }
+
+        /// <summary>
+        /// Represents an event called for each validated configuration request
+        /// to allow the user code to decide how the request should be handled.
+        /// </summary>
+        /// <param name="context">The context instance associated with this event.</param>
+        /// <returns>A <see cref="T:System.Threading.Tasks.Task" /> that can be used to monitor the asynchronous operation.</returns>
+        public override Task HandleConfigurationRequest( HandleConfigurationRequestContext context )
+        {
+            var result = base.HandleConfigurationRequest( context );
+            using ( var rockContext = new RockContext() )
+            {
+                var activeScopes = RockIdentityHelper.GetActiveAuthScopes( rockContext );
+                context.Scopes.UnionWith( activeScopes );
+
+                var activeClaims = RockIdentityHelper.GetActiveAuthClaims( rockContext, activeScopes );
+                context.Claims.UnionWith( activeClaims );
+            }
+
+            return result;
+        }
     }
 }

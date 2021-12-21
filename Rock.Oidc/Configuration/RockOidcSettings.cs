@@ -22,33 +22,49 @@ namespace Rock.Oidc.Configuration
     public class RockOidcSettings
     {
         /// <summary>
-        /// Gets or sets the access token lifetime.
+        /// Gets or sets the access token lifetime in seconds
         /// </summary>
         /// <value>
         /// The access token lifetime.
         /// </value>
         public int AccessTokenLifetime { get; set; }
+
         /// <summary>
-        /// Gets or sets the identity token lifetime.
+        /// Gets or sets the identity token lifetime in seconds.
         /// </summary>
         /// <value>
         /// The identity token lifetime.
         /// </value>
         public int IdentityTokenLifetime { get; set; }
+
         /// <summary>
-        /// Gets or sets the refresh token lifetime.
+        /// Gets or sets the refresh token lifetime in seconds.
         /// </summary>
         /// <value>
         /// The refresh token lifetime.
         /// </value>
         public int RefreshTokenLifetime { get; set; }
+
         /// <summary>
-        /// Gets or sets the signing key lifetime.
+        /// Gets or sets the signing key lifetime in seconds.
         /// </summary>
         /// <value>
         /// The signing key lifetime.
         /// </value>
         public int SigningKeyLifetime { get; set; }
+        public double AuthorizationCodeLifetime { get; internal set; }
+
+        public static RockOidcSettings GetDebugSettings()
+        {
+            return new RockOidcSettings
+            {
+                AccessTokenLifetime = 60,
+                IdentityTokenLifetime = 60, 
+                RefreshTokenLifetime = 120,
+                SigningKeyLifetime = 300,
+                AuthorizationCodeLifetime = 60
+            };
+        }
 
         /// <summary>
         /// Gets the default settings.
@@ -61,7 +77,8 @@ namespace Rock.Oidc.Configuration
                 AccessTokenLifetime = 1 * 60 * 60, // One hour
                 IdentityTokenLifetime = 20 * 60, // twenty minutes
                 RefreshTokenLifetime = 14 * 24 * 60 * 60, // two weeks
-                SigningKeyLifetime = 24 * 60 * 60 // one day
+                SigningKeyLifetime = 24 * 60 * 60, // one day
+                AuthorizationCodeLifetime = 5 * 60 // five minutes
             };
         }
     }

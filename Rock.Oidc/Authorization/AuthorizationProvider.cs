@@ -19,10 +19,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+
 using AspNet.Security.OpenIdConnect.Primitives;
+
 using Microsoft.Owin.Security;
+
 using Owin.Security.OpenIdConnect.Extensions;
 using Owin.Security.OpenIdConnect.Server;
+
 using Rock.Data;
 using Rock.Model;
 using Rock.Security;
@@ -263,6 +267,45 @@ namespace Rock.Oidc.Authorization
             }
 
             context.Validate();
+        }
+
+        /// <summary>
+        /// Represents an event called for each validated userinfo request
+        /// to allow the user code to decide how the request should be handled.
+        /// </summary>
+        /// <param name="context">The context instance associated with this event.</param>
+        /// <returns>A <see cref="T:System.Threading.Tasks.Task" /> that can be used to monitor the asynchronous operation.</returns>
+        public override Task HandleUserinfoRequest( HandleUserinfoRequestContext context )
+        {
+            var result = base.HandleUserinfoRequest( context );
+            var clientId = context.Ticket?.Identity?.GetClaim( "client_id" );
+            var userName = context.Ticket?.Identity?.GetClaim( "username" );
+            if ( clientId.IsNullOrWhiteSpace() || userName.IsNullOrWhiteSpace() )
+            {
+                return result;
+            }
+
+            // Populate claims
+            // See https://github.com/aspnet-contrib/AspNet.Security.OpenIdConnect.Server/issues/543
+            using ( var rockContext = new RockContext() )
+            {
+                var user = new UserLoginService( rockContext ).GetByUserName( userName );
+                if ( user == null )
+                {
+                    return result;
+                }
+
+                var allowedScopes = RockIdentityHelper.GetAllowedClientScopes( rockContext, clientId );
+                var allowedClientClaims = RockIdentityHelper.GetAllowedClientClaims( rockContext, clientId, allowedScopes );
+                var claimsIdentity = RockIdentityHelper.GetRockClaimsIdentity( user, allowedClientClaims, clientId );
+
+                foreach ( var claim in claimsIdentity?.Claims )
+                {
+                    context.Claims.Add( claim.Type, claim.Value );
+                }
+            }
+
+            return result;
         }
     }
 }

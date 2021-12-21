@@ -41,7 +41,7 @@ namespace Rock.Oidc
                 Reason: Future Development
             */
 
-            var rockOidcSettings = RockOidcSettings.GetDefaultSettings();
+            var rockOidcSettings = RockOidcSettings.GetDebugSettings();
 
             /*
 	            9/2/2020 - MSB
@@ -95,8 +95,12 @@ namespace Rock.Oidc
                 options.IdentityTokenLifetime = TimeSpan.FromSeconds( rockOidcSettings.IdentityTokenLifetime );
                 options.RefreshTokenLifetime = TimeSpan.FromSeconds( rockOidcSettings.RefreshTokenLifetime );
 
+                // 5 minutes??
+                options.AuthorizationCodeLifetime = TimeSpan.FromSeconds( rockOidcSettings.AuthorizationCodeLifetime );
+
                 options.ApplicationCanDisplayErrors = System.Web.Hosting.HostingEnvironment.IsDevelopmentEnvironment;
                 options.AllowInsecureHttp = !isSecure || System.Web.Hosting.HostingEnvironment.IsDevelopmentEnvironment;
+                
 
                 var rockSigningCredentials = new RockOidcSigningCredentials( rockOidcSettings );
 

@@ -239,9 +239,10 @@ namespace Rock.Rest.Jwt
                 var jwtToken = validatedToken as JwtSecurityToken;
                 return jwtToken;
             }
-            catch
+            catch (Exception ex)
             {
                 // The JWT was not well formed or did not validate in some other way
+                ExceptionLogService.LogException( ex );
                 return null;
             }
         }
@@ -255,10 +256,12 @@ namespace Rock.Rest.Jwt
         {
             if ( !_configurationManagerCache.ContainsKey( jwksJsonFileUrl ) )
             {
+                var httpDocumentRetriever = new HttpDocumentRetriever();
+                httpDocumentRetriever.RequireHttps = !System.Web.Hosting.HostingEnvironment.IsDevelopmentEnvironment;
                 var configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>(
                     jwksJsonFileUrl,
                     new OpenIdConnectConfigurationRetriever(),
-                    new HttpDocumentRetriever() );
+                   httpDocumentRetriever );
 
                 _configurationManagerCache[jwksJsonFileUrl] = configurationManager;
             }

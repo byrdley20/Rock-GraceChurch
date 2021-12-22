@@ -52,5 +52,12 @@ namespace Rock.Security
         /// </value>
         [DataMember]
         public bool Persisted { get; set; }
+
+        /// <summary>
+        /// Gets or sets the token.
+        /// </summary>
+        /// <value>The token.</value>
+        [DataMember]
+        public string Token { get; set; }
     }
 }

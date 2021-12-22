@@ -73,6 +73,10 @@ namespace Rock.Security.ExternalAuthentication
         IsRequired = false,
         Key = AttributeKey.RequestedScopes,
         Order = 6 )]
+
+
+    [TextField( "Login Button Text", "The text shown on the login button.", defaultValue: "Auth0 Login", required: false, order: 3 )]
+    [TextField( "Login Button CSS Class", "The CSS class applied to the login button.", required: false, order: 4 )]
     public class OidcClient : AuthenticationComponent
     {
         /// <summary>
@@ -389,8 +393,11 @@ namespace Rock.Security.ExternalAuthentication
             var authServer = GetAttributeValue( AttributeKey.AuthenticationServer ).EnsureTrailingForwardslash();
             string stsDiscoveryEndpoint = $"{authServer}{OidcConstants.Discovery.DiscoveryEndpoint}";
 
+            var httpDocumentRetriever = new HttpDocumentRetriever();
+            httpDocumentRetriever.RequireHttps = !System.Web.Hosting.HostingEnvironment.IsDevelopmentEnvironment;
+
             ConfigurationManager<OpenIdConnectConfiguration> configManager =
-                 new ConfigurationManager<OpenIdConnectConfiguration>( stsDiscoveryEndpoint, new OpenIdConnectConfigurationRetriever() );
+                 new ConfigurationManager<OpenIdConnectConfiguration>( stsDiscoveryEndpoint, new OpenIdConnectConfigurationRetriever(), httpDocumentRetriever );
 
             return configManager.GetConfigurationAsync().Result;
         }

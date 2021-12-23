@@ -369,6 +369,7 @@ namespace Rock.Model
                 _groupViewLavaTemplate = value;
             }
         }
+
         private string _groupViewLavaTemplate;
         private string _defaultLavaTemplate = @"{% if Group.GroupType.GroupCapacityRule != 'None' and Group.GroupCapacity != '' %}
 		{% assign warningLevel = 'warning' %}
@@ -645,6 +646,14 @@ namespace Rock.Model
         [DataMember]
         public bool AllowAnyChildGroupType { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is capacity required.
+        /// </summary>
+        /// <value><c>true</c> if this instance is capacity required; otherwise, <c>false</c>.</value>
+        [Required]
+        [DataMember( IsRequired = true )]
+        public bool IsCapacityRequired { get; set; } = false;
+        
         #endregion Entity Properties
 
         #region Group Scheduling Related

@@ -357,8 +357,6 @@ namespace RockWeb.Blocks.Groups
 
         #region Events
 
-        #region Action Events
-
         /// <summary>
         /// Handles the Click event of the btnSave control.
         /// </summary>
@@ -512,6 +510,7 @@ namespace RockWeb.Blocks.Groups
             groupType.SendAttendanceReminder = cbSendAttendanceReminder.Checked;
             groupType.AttendanceRule = ddlAttendanceRule.SelectedValueAsEnum<AttendanceRule>();
             groupType.GroupCapacityRule = ddlGroupCapacityRule.SelectedValueAsEnum<GroupCapacityRule>();
+            groupType.IsCapacityRequired = cbRequireCapacityRule.Checked;
             groupType.AttendancePrintTo = ddlPrintTo.SelectedValueAsEnum<PrintTo>();
             groupType.AllowedScheduleTypes = allowedScheduleTypes;
             groupType.LocationSelectionMode = locationSelectionMode;
@@ -686,9 +685,23 @@ namespace RockWeb.Blocks.Groups
             NavigateToParentPage();
         }
 
-        #endregion
-
-        #region Control Events
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of the ddlGroupCapacityRule control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void ddlGroupCapacityRule_SelectedIndexChanged( object sender, EventArgs e )
+        {
+            if ( ddlGroupCapacityRule.SelectedIndex == 0 )
+            {
+                cbRequireCapacityRule.Visible = false;
+                cbRequireCapacityRule.Checked = false;
+            }
+            else
+            {
+                cbRequireCapacityRule.Visible = true;
+            }
+        }
 
         /// <summary>
         /// Handles the SelectedIndexChanged event of the gtpInheritedGroupType control.
@@ -702,8 +715,6 @@ namespace RockWeb.Blocks.Groups
             var attributeService = new AttributeService( rockContext );
             BindInheritedAttributes( gtpInheritedGroupType.SelectedValueAsInt(), groupTypeService, attributeService );
         }
-
-        #endregion
 
         #endregion
 
@@ -838,6 +849,8 @@ namespace RockWeb.Blocks.Groups
             ddlGroupStatusDefinedType.SetValue( groupType.GroupStatusDefinedTypeId );
 
             ddlGroupCapacityRule.SetValue( (int)groupType.GroupCapacityRule );
+            cbRequireCapacityRule.Visible = groupType.GroupCapacityRule != GroupCapacityRule.None;
+            cbRequireCapacityRule.Checked = groupType.IsCapacityRequired;
 
             cbAllowAnyChildGroupType.Checked = groupType.AllowAnyChildGroupType;
             rcwAllowedChildGroupTypes.Visible = !cbAllowAnyChildGroupType.Checked;
@@ -3025,5 +3038,7 @@ namespace RockWeb.Blocks.Groups
         }
 
         #endregion
+
+
     }
 }

@@ -1723,6 +1723,7 @@ namespace RockWeb.Blocks.Groups
             tbName.Text = group.Name;
             tbDescription.Text = group.Description;
             nbGroupCapacity.Text = group.GroupCapacity.ToString();
+            nbGroupCapacity.Required = group.GroupType != null && group.GroupType.IsCapacityRequired;
             cbIsSecurityRole.Checked = group.IsSecurityRole;
 
             LoadElevatedSecurityRadioList();
@@ -1946,6 +1947,13 @@ namespace RockWeb.Blocks.Groups
 
             if ( groupType != null )
             {
+                nbGroupCapacity.Visible = groupType.GroupCapacityRule != GroupCapacityRule.None;
+                if ( setValues )
+                {
+                    nbGroupCapacity.Text = group.GroupCapacity.ToString();
+                    nbGroupCapacity.Required = groupType.IsCapacityRequired;
+                }
+
                 if ( cbIsSecurityRole.Checked || groupType.Guid == Rock.SystemGuid.GroupType.GROUPTYPE_SECURITY_ROLE.AsGuid() )
                 {
                     pnlElevatedSecurity.Visible = true;

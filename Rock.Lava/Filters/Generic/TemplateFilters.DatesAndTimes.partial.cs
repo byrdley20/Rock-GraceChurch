@@ -710,6 +710,43 @@ namespace Rock.Lava.Filters
             }
         }
 
+        /// <summary>
+        /// Returns a human-friendly description of the time of day.
+        /// </summary>
+        /// <param name="input">A valid date/time value</param>
+        /// <returns></returns>
+        public static string TimeOfDay( object input )
+        {
+            var dtoInput = GetDateTimeOffsetFromInputParameter( input, null );
+
+            if ( dtoInput == null )
+            {
+                return string.Empty;
+            }
+
+            string response;
+
+            var hour = dtoInput.Value.Hour;
+            if ( hour >= 5 && hour < 12 )
+            {
+                response = "Morning";
+            }
+            else if ( hour >= 12 && hour < 17 )
+            {
+                response = "Afternoon";
+            }
+            else if ( hour >= 17 && hour < 21 )
+            {
+                response = "Evening";
+            }
+            else
+            {
+                response = "Night";
+            }
+
+            return response;
+        }
+
         #region Support Functions
 
         /// <summary>

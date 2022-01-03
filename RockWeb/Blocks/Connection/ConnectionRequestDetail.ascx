@@ -303,11 +303,23 @@
                 <Rock:Grid ID="gConnectionRequestActivities" runat="server" AllowPaging="false" DisplayType="Light"
                     RowItemText="Activity" OnRowDataBound="gConnectionRequestActivities_RowDataBound" OnRowSelected="gConnectionRequestActivities_Edit">
                     <Columns>
-                        <Rock:RockBoundField DataField="Date" HeaderText="Date" />
+                        <%--<Rock:RockBoundField DataField="Date" HeaderText="Date" />
                         <Rock:RockBoundField DataField="Activity" HeaderText="Activity" />
                         <Rock:RockBoundField DataField="Opportunity" HeaderText="Opportunity" />
                         <Rock:RockBoundField DataField="Connector" HeaderText="Connector" />
-                        <Rock:RockBoundField DataField="Note" HeaderText="Note" />
+                        <Rock:RockBoundField DataField="Note" HeaderText="Note" />--%>
+                        
+
+                        <Rock:RockTemplateField>
+                            <ItemTemplate>
+                                <div class="row">
+                                    <div class="col"><asp:Image CssClass="person-image img-responsive" ID="imgViewConnector" runat="server" /></div>
+                                    <div class="col"></div>
+                                    <div class="col"></div>
+                                    <div class="col"></div>
+                                </div>
+                            </ItemTemplate>
+                        </Rock:RockTemplateField>
                         <Rock:DeleteField OnClick ="gConnectionRequestActivities_Delete" />
                     </Columns>
                 </Rock:Grid>

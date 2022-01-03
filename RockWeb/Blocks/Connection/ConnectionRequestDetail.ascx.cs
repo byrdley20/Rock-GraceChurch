@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity;
+using System.Dynamic;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -1336,7 +1337,8 @@ namespace RockWeb.Blocks.Connection
                     qry = qry.Where( a => a.ConnectionRequestId == connectionRequest.Id );
                 }
 
-                gConnectionRequestActivities.DataSource = qry.ToList()
+                var dataSource = qry
+                    .ToList()
                     .Select( a => new
                     {
                         a.Id,
@@ -1354,6 +1356,11 @@ namespace RockWeb.Blocks.Connection
                     } )
                     .OrderByDescending( a => a.CreatedDate )
                     .ToList();
+                      
+
+
+
+                gConnectionRequestActivities.DataSource = dataSource;
                 gConnectionRequestActivities.DataBind();
             }
         }
@@ -1547,7 +1554,7 @@ namespace RockWeb.Blocks.Connection
             {
                 return;
             }
-                        
+
             var connector = connectionRequest.ConnectorPersonAlias != null ?
                 connectionRequest.ConnectorPersonAlias.Person :
                 null;

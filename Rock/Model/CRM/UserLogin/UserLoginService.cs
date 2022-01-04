@@ -16,8 +16,12 @@
 //
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net;
 using System.Text.RegularExpressions;
+
+using RestSharp;
 
 using Rock.Communication;
 using Rock.Data;
@@ -51,6 +55,65 @@ namespace Rock.Model
         public IQueryable<UserLogin> GetByPersonId( int? personId )
         {
             return Queryable().Where( t => ( t.PersonId == personId || ( personId == null && t.PersonId == null ) ) );
+        }
+
+        private const string JwtPrefix = "Bearer ";
+
+        public UserLogin GetByJSONWebToken( string jwtString )
+        {
+            // It is standard to prefix JWTs with "Bearer ", but JwtSecurityTokenHandler.ValidateToken will
+            // say the token is malformed if the prefix is not removed
+            if ( jwtString.StartsWith( JwtPrefix ) )
+            {
+                jwtString = jwtString.Substring( JwtPrefix.Length );
+            }
+
+            var jwtToken = new JwtSecurityToken( jwtString );
+            string subject = jwtToken.Payload?.Sub;
+            if ( subject.IsNullOrWhiteSpace() )
+            {
+                // Subject not included, so need to get it from the /userinfo endpoint
+                // See section 5.3.1 https://openid.net/specs/openid-connect-core-1_0.html
+
+                var issurer = jwtToken.Payload?.Iss ?? ( string ) jwtToken.Header["iss"];
+                if ( issurer.IsNullOrWhiteSpace() )
+                {
+                    return null;
+                }
+
+                var restClient = new RestClient( issurer );
+                var userInfoRequest = new RestRequest( $"userinfo", Method.GET );
+                userInfoRequest.AddHeader( "Authorization", $"Bearer {jwtToken.RawData}" );
+                var userInfoRestResponse = restClient.Execute( userInfoRequest );
+                if ( userInfoRestResponse.StatusCode == HttpStatusCode.OK )
+                {
+                    var payload = JwtPayload.Deserialize( userInfoRestResponse.Content );
+                    subject = payload?.Sub;
+                }
+            }
+
+            if ( subject.IsNullOrWhiteSpace() )
+            {
+                return null;
+            }
+
+            // first try AUTH0
+            string auth0UserName = "AUTH0_" + subject;
+            var oidcUserName = "OIDC_" + subject;
+
+            var userLogin = GetByUserName( auth0UserName );
+            if (userLogin != null)
+            {
+                return userLogin;
+            }
+
+            userLogin = GetByUserName( oidcUserName );
+            if ( userLogin != null )
+            {
+                return userLogin;
+            }
+
+            return null;
         }
 
         /// <summary>

@@ -21,6 +21,12 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 
+using IdentityModel;
+
+using Microsoft.IdentityModel.Protocols;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Microsoft.IdentityModel.Tokens;
+
 using RestSharp;
 
 using Rock.Communication;
@@ -59,6 +65,16 @@ namespace Rock.Model
 
         private const string JwtPrefix = "Bearer ";
 
+        private OpenIdConnectConfiguration GetOpenIdConnectConfiguration( string authServerUrl )
+        {
+            string stsDiscoveryEndpoint = $"{authServerUrl}{OidcConstants.Discovery.DiscoveryEndpoint}";
+
+            ConfigurationManager<OpenIdConnectConfiguration> configManager =
+                 new ConfigurationManager<OpenIdConnectConfiguration>( stsDiscoveryEndpoint, new OpenIdConnectConfigurationRetriever() );
+
+            return configManager.GetConfigurationAsync().Result;
+        }
+
         public UserLogin GetByJSONWebToken( string jwtString )
         {
             // It is standard to prefix JWTs with "Bearer ", but JwtSecurityTokenHandler.ValidateToken will
@@ -69,18 +85,44 @@ namespace Rock.Model
             }
 
             var jwtToken = new JwtSecurityToken( jwtString );
+            var issurer = jwtToken.Payload?.Iss ?? ( string ) jwtToken.Header["iss"];
+            if ( issurer.IsNullOrWhiteSpace() )
+            {
+                return null;
+            }
+
+            var configuration = GetOpenIdConnectConfiguration( issurer );
+
+
+            // Validate the items that are configured to be validated
+            var validateAudience = false;//!jwtConfig.Audience.IsNullOrWhiteSpace();
+            var validateIssuer = false;//!jwtConfig.Issuer.IsNullOrWhiteSpace();
+
+            var validationParameters = new TokenValidationParameters
+            {
+                ValidateAudience = validateAudience,
+                ValidAudience = null, //validateAudience ? jwtConfig.Audience : null,
+                ValidateIssuer = validateIssuer,
+                ValidIssuer = null, //validateIssuer ? jwtConfig.Issuer : null,
+                RequireExpirationTime = true,
+                RequireSignedTokens = false,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKeys = configuration.SigningKeys,
+                TokenDecryptionKeys = configuration.JsonWebKeySet.GetSigningKeys(),
+                ValidateLifetime = true,
+                ClockSkew = TimeSpan.FromMinutes( 1 ) // Allow a minute of play in server times since we're dealing with a third party key provider
+            };
+
+            validationParameters.IssuerSigningKeys = configuration.SigningKeys;
+
+            System.Security.Claims.ClaimsPrincipal validateTokenResult = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler().ValidateToken( jwtString, validationParameters, out var validatedToken );
+
+
             string subject = jwtToken.Payload?.Sub;
             if ( subject.IsNullOrWhiteSpace() )
             {
                 // Subject not included, so need to get it from the /userinfo endpoint
                 // See section 5.3.1 https://openid.net/specs/openid-connect-core-1_0.html
-
-                var issurer = jwtToken.Payload?.Iss ?? ( string ) jwtToken.Header["iss"];
-                if ( issurer.IsNullOrWhiteSpace() )
-                {
-                    return null;
-                }
-
                 var restClient = new RestClient( issurer );
                 var userInfoRequest = new RestRequest( $"userinfo", Method.GET );
                 userInfoRequest.AddHeader( "Authorization", $"Bearer {jwtToken.RawData}" );
@@ -102,7 +144,7 @@ namespace Rock.Model
             var oidcUserName = "OIDC_" + subject;
 
             var userLogin = GetByUserName( auth0UserName );
-            if (userLogin != null)
+            if ( userLogin != null )
             {
                 return userLogin;
             }

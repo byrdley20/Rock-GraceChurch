@@ -60,7 +60,7 @@ namespace Rock.Rest.Controllers
             userName = null;
             if ( loginParameters == null )
             {
-                errorMessage = "Invalid Login Paramters";
+                errorMessage = "Invalid Login Parameters";
                 return false;
             }
 
@@ -82,7 +82,7 @@ namespace Rock.Rest.Controllers
                 }
                 else
                 {
-                    errorMessage = "Invalid Login Paramters";
+                    errorMessage = "Invalid Login Parameters";
                     return false;
                 }
 

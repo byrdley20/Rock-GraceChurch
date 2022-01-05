@@ -38,9 +38,9 @@ using Attribute = Rock.Model.Attribute;
 
 namespace RockWeb.Blocks.Connection
 {
-    [DisplayName( "Connection Opportunity Select Lava" )]
-    [Category( "Connection" )]
-    [Description( "Displays the connection type opportunities in a lava formatted block." )]
+    [DisplayName( "Connection Request List" )]
+    [Category( "Connection > WebView" )]
+    [Description( "Displays the connection request in a lava formatted block." )]
 
     #region Block Attributes
     [CodeEditorField( "Lava Template",
@@ -52,15 +52,30 @@ namespace RockWeb.Blocks.Connection
         IsRequired = true,
         DefaultValue = "{% include '~~/Assets/Lava/Connections/ConnectionOpportunitySelect.lava' %}",
         Order = 1 )]
-    #endregion
+    #endregion Block Attributes
 
-    public partial class ConnectionOpportunitySelectLava : RockBlock
+    public partial class WebConnectionRequestListLava : RockBlock
     {
         #region Attribute Keys
         private static class AttributeKey
         {
             public const string LavaTemplate = "LavaTemplate";
         }
-        #endregion
+        #endregion Attribute Keys
+
+        #region Base Control Events
+        protected override void OnInit( EventArgs e )
+        {
+            base.OnInit( e );
+        }
+
+        protected override void OnLoad( EventArgs e )
+        {
+            base.OnLoad( e );
+        }
+        #endregion Base Control Events
+
+        #region Methods
+        #endregion Methods
     }
 }

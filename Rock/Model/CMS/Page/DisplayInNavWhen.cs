@@ -14,28 +14,27 @@
 // limitations under the License.
 // </copyright>
 //
-using System;
-
-using Rock.Web.Cache;
 
 namespace Rock.Model
 {
-    public partial class RestActionService
+    /// <summary>
+    /// Represents how a <see cref="Rock.Model.Page"/> should be displayed in the page navigation controls.
+    /// </summary>
+    public enum DisplayInNavWhen
     {
         /// <summary>
-        /// Gets the Guid for the RestAction that has the specified Id
+        /// Display this page in navigation controls when allowed by security
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
-        public override Guid? GetGuid( int id )
-        {
-            var campus = RestActionCache.Get( id );
-            if ( campus != null )
-            {
-                return campus.Guid;
-            }
+        WhenAllowed = 0,
 
-            return null;
-        }
+        /// <summary>
+        /// Always display this page in navigation controls, regardless of security
+        /// </summary>
+        Always = 1,
+
+        /// <summary>
+        /// Never display this page in navigation controls
+        /// </summary>
+        Never = 2
     }
 }

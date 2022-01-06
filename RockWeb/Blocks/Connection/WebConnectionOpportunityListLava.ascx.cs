@@ -219,5 +219,10 @@ namespace RockWeb.Blocks.Connection
         {
 
         }
+
+        protected void lbOptions_Click( object sender, EventArgs e )
+        {
+            mdOptions.Show();
+        }
     }
 }

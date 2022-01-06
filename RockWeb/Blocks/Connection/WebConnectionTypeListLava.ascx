@@ -2,6 +2,6 @@
 
 <asp:UpdatePanel ID="upConnectionSelectLava" runat="server">
     <ContentTemplate>
-         <asp:Literal ID="lContent" runat="server"></asp:Literal> 
+         <asp:Literal  ID="lContent" runat="server"></asp:Literal> 
     </ContentTemplate>
 </asp:UpdatePanel>

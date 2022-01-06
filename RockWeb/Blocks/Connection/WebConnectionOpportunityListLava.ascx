@@ -7,28 +7,22 @@
                 <asp:Literal ID="lTitle" runat="server"></asp:Literal>
             </div>
             <div class="col-xs-12 pb-2">
-                <asp:HyperLink ID="hlOptions" runat="server" CssClass="text-muted text-semibold pull-right"><i class="fa fa-sliders"></i>&nbsp;&nbsp;Options</asp:HyperLink>
+                <asp:LinkButton ID="lbOptions" runat="server" CssClass="text-muted text-semibold pull-right" OnClick="lbOptions_Click"><i class="fa fa-sliders"></i>&nbsp;&nbsp;Options</asp:LinkButton>
             </div>
             <div class="col-xs-12">
-                <asp:Literal ID="lContent" runat="server"></asp:Literal>
+                <asp:Literal  ID="lContent" runat="server"></asp:Literal>
             </div>
         </div>
 
         <Rock:ModalDialog ID="mdOptions" runat="server" Title="Options" SaveButtonText="Save" OnSaveClick="mdOptions_SaveClick">
             <Content>
-                <%-- <div class="row">
-                    <div class="col-md-4">
-                        <Rock:RockDropDownList ID="ddlMovePersonSchedule" runat="server" Label="Service" AutoPostBack="false" />
-                    </div>
-                    <div class="col-md-4">
-                        <Rock:LocationItemPicker ID="lpMovePersonLocation" runat="server" Label="Location" OnSelectItem="lpMovePersonLocation_SelectItem" EnableFullWidth="true" />
-                    </div>
-                    <div class="col-md-4">
-                        <Rock:RockDropDownList ID="ddlMovePersonGroup" runat="server" Label="Group" AutoPostBack="true" OnSelectedIndexChanged="ddlMovePersonGroup_SelectedIndexChanged" />
+                 <div class="row">
+                    <div class="col-xs-12">
+                       <asp:Literal  ID="lToggle" runat="server"></asp:Literal>
                     </div>
                 </div>
 
-                <Rock:NotificationBox ID="nbMovePersonLocationFull" runat="server" NotificationBoxType="Warning" />--%>
+                <Rock:NotificationBox ID="nbMovePersonLocationFull" runat="server" NotificationBoxType="Warning" />
             </Content>
         </Rock:ModalDialog>
     </ContentTemplate>

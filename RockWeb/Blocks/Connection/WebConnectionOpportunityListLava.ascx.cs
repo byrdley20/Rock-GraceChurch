@@ -133,7 +133,7 @@ namespace RockWeb.Blocks.Connection
         /// <value>
         /// The opportunity template.
         /// </value>
-        protected string OpportunityTemplate =>  GetAttributeValue( AttributeKey.OpportunityTemplate );
+        protected string OpportunityTemplate => GetAttributeValue( AttributeKey.OpportunityTemplate );
 
         /// <summary>
         /// Gets the detail page unique identifier.
@@ -162,8 +162,20 @@ namespace RockWeb.Blocks.Connection
         }
         #endregion Base Control Events
 
+        #region Page Control Events
+        protected void mdOptions_SaveClick( object sender, EventArgs e )
+        {
+
+        }
+
+        protected void lbOptions_Click( object sender, EventArgs e )
+        {
+            mdOptions.Show();
+        }
+        #endregion Page Control Events
+
         #region Methods
-        private  string GetConnectionTypeTitle(Guid connectionTypeGuid )
+        private string GetConnectionTypeTitle( Guid connectionTypeGuid )
         {
             var connectionType = new ConnectionTypeService( new RockContext() ).GetNoTracking( connectionTypeGuid );
             return connectionType?.Name;
@@ -171,7 +183,7 @@ namespace RockWeb.Blocks.Connection
         /// <summary>
         /// Gets the connection types view model that can be sent to the client.
         /// </summary>
-        private void GetConnectionOpportunities( Guid connectionTypeGuid)
+        private void GetConnectionOpportunities( Guid connectionTypeGuid )
         {
             using ( var rockContext = new RockContext() )
             {
@@ -214,15 +226,5 @@ namespace RockWeb.Blocks.Connection
             }
         }
         #endregion Methods
-
-        protected void mdOptions_SaveClick( object sender, EventArgs e )
-        {
-
-        }
-
-        protected void lbOptions_Click( object sender, EventArgs e )
-        {
-            mdOptions.Show();
-        }
     }
 }

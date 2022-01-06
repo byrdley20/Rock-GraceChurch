@@ -122,7 +122,7 @@ namespace RockWeb.Blocks.Connection
         #region Page PageParameterKeys
         private static class PageParameterKey
         {
-            public const string DetailsPageGuid = "DetailPageGuid";
+            public const string ConnectionTypeGuid = "ConnectionTypeGuid";
         }
 
         #endregion Page PageParameterKeys
@@ -153,15 +153,21 @@ namespace RockWeb.Blocks.Connection
         protected override void OnLoad( EventArgs e )
         {
             base.OnLoad( e );
-            var detailsPageGuid = PageParameter( PageParameterKey.DetailsPageGuid ).AsGuid();
+            var detailsPageGuid = PageParameter( PageParameterKey.ConnectionTypeGuid ).AsGuid();
             if ( !Page.IsPostBack )
             {
+                lTitle.Text = $"<h2>{GetConnectionTypeTitle( detailsPageGuid )}</h2>";
             }
             GetConnectionOpportunities( detailsPageGuid );
         }
         #endregion Base Control Events
 
         #region Methods
+        private  string GetConnectionTypeTitle(Guid connectionTypeGuid )
+        {
+            var connectionType = new ConnectionTypeService( new RockContext() ).GetNoTracking( connectionTypeGuid );
+            return connectionType?.Name;
+        }
         /// <summary>
         /// Gets the connection types view model that can be sent to the client.
         /// </summary>
@@ -208,5 +214,10 @@ namespace RockWeb.Blocks.Connection
             }
         }
         #endregion Methods
+
+        protected void mdOptions_SaveClick( object sender, EventArgs e )
+        {
+
+        }
     }
 }

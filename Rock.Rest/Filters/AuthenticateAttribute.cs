@@ -18,9 +18,9 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.ServiceModel.Channels;
-using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
+
 using Rock.Data;
 using Rock.Model;
 using Rock.Rest.Jwt;
@@ -127,15 +127,7 @@ namespace Rock.Rest.Filters
             // If still not successful, check for a JSON Web Token
             if ( TryRetrieveHeader( actionContext, HeaderTokens.JWT, out var jwtString ) )
             {
-                Person person = null;
-
-                // We need to wait for the JwtHelper.GetPerson method rather than using the await keyword. The await keyword
-                // forces this entire method to be async causing the Secured attribute to process before everything
-                // is finished here
-                Task.Run( async () =>
-                {
-                    person = await JwtHelper.GetPerson( jwtString );
-                } ).Wait();
+                var person = JwtHelper.GetUserLoginByJSONWebToken( new RockContext(), jwtString )?.Person;
 
                 if ( person != null )
                 {

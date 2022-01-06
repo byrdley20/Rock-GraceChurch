@@ -20,6 +20,7 @@ using System.Web.Http;
 
 using Rock.Data;
 using Rock.Model;
+using Rock.Rest.Jwt;
 using Rock.Security;
 
 namespace Rock.Rest.Controllers
@@ -72,8 +73,14 @@ namespace Rock.Rest.Controllers
                 var userLoginService = new UserLoginService( rockContext );
                 if ( loginParameters.Authorization.IsNotNullOrWhiteSpace() )
                 {
-                    userLogin = userLoginService.GetByJSONWebToken( loginParameters.Authorization );
-                    isAuthenticatedFromToken = userLogin != null;
+                    userLogin = JwtHelper.GetUserLoginByJSONWebToken( rockContext, loginParameters.Authorization );
+                    if ( userLogin == null )
+                    {
+                        errorMessage = "Invalid Token";
+                        return false;
+                    }
+
+                    isAuthenticatedFromToken = true;
                 }
                 else if ( loginParameters.Username.IsNotNullOrWhiteSpace() )
                 {

@@ -19,9 +19,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
+
 using AspNet.Security.OpenIdConnect.Primitives;
+
 using Owin.Security.OpenIdConnect.Extensions;
 using Owin.Security.OpenIdConnect.Server;
+
 using Rock.Data;
 using Rock.Model;
 using Rock.Web.Cache;
@@ -113,6 +116,7 @@ namespace Rock.Oidc.Authorization
 
                             return $"{publicAppRoot}GetImage.ashx?guid={photoGuid}";
                         }
+
                         return string.Empty;
                     }
                 },
@@ -121,7 +125,7 @@ namespace Rock.Oidc.Authorization
 
             // Handle custom scopes
             var mergeFields = Lava.LavaHelper.GetCommonMergeFields( null, user.Person );
-            
+
             foreach ( var unprocessedClaim in allowedClaims )
             {
                 var claimValue = unprocessedClaim.Value;
@@ -212,12 +216,30 @@ namespace Rock.Oidc.Authorization
                 return emptyScopeList;
             }
 
-            var activeClientScopes = new AuthScopeService( rockContext )
+            var activeClientScopes = GetActiveAuthScopes( rockContext );
+
+            return parsedClientScopes.Intersect( activeClientScopes );
+        }
+
+        /// <summary>
+        /// Gets the active client scopes.
+        /// </summary>
+        /// <param name="rockContext">The rock context.</param>
+        /// <returns>IEnumerable&lt;System.String&gt;.</returns>
+        /// <exception cref="System.ArgumentException"></exception>
+        public static IEnumerable<string> GetActiveAuthScopes( RockContext rockContext )
+        {
+            if ( rockContext == null )
+            {
+                throw new ArgumentException( $"{nameof( rockContext )} cannot be null." );
+            }
+
+            var activeAuthScopes = new AuthScopeService( rockContext )
                 .Queryable()
                 .Where( s => s.IsActive )
                 .Select( s => s.Name );
 
-            return parsedClientScopes.Intersect( activeClientScopes );
+            return activeAuthScopes;
         }
 
         /// <summary>
@@ -262,6 +284,28 @@ namespace Rock.Oidc.Authorization
                 .Where( ac => allowedClientScopes.Contains( ac.Scope.Name ) )
                 .Where( ac => ac.Scope.IsActive )
                 .ToDictionary( vc => vc.Name, vc => vc.Value );
+        }
+
+        /// <summary>
+        /// Gets the active authentication claims.
+        /// </summary>
+        /// <param name="rockContext">The rock context.</param>
+        /// <param name="activeClientScopes">The active client scopes.</param>
+        /// <returns>IEnumerable&lt;System.String&gt;.</returns>
+        /// <exception cref="System.ArgumentException"></exception>
+        public static IEnumerable<string> GetActiveAuthClaims( RockContext rockContext, IEnumerable<string> activeClientScopes )
+        {
+            if ( rockContext == null )
+            {
+                throw new ArgumentException( $"{nameof( rockContext )} cannot be null." );
+            }
+
+            return new AuthClaimService( rockContext )
+                .Queryable()
+                .Where( ac => ac.IsActive )
+                .Where( ac => activeClientScopes.Contains( ac.Scope.Name ) )
+                .Where( ac => ac.Scope.IsActive )
+                .Select( a => a.Name );
         }
     }
 }

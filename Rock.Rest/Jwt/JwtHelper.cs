@@ -255,10 +255,12 @@ namespace Rock.Rest.Jwt
         {
             if ( !_configurationManagerCache.ContainsKey( jwksJsonFileUrl ) )
             {
+                var httpDocumentRetriever = new HttpDocumentRetriever();
+                httpDocumentRetriever.RequireHttps = !System.Web.Hosting.HostingEnvironment.IsDevelopmentEnvironment;
                 var configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>(
                     jwksJsonFileUrl,
                     new OpenIdConnectConfigurationRetriever(),
-                    new HttpDocumentRetriever() );
+                   httpDocumentRetriever );
 
                 _configurationManagerCache[jwksJsonFileUrl] = configurationManager;
             }

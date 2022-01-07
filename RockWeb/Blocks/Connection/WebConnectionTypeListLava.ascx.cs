@@ -47,10 +47,6 @@ namespace RockWeb.Blocks.Connection
     [IconCssClass( "fa fa-list" )]
 
     #region Block Attributes
-    [LinkedPage( "Detail Page", Description = "Page to link to when user taps on a connection type. ConnectionTypeGuid is passed in the query string.",
-        Order = 0,
-        Key = AttributeKey.DetailPage
-         )]
     [CodeEditorField( "Type Template",
         Order = 1,
         Key = AttributeKey.TypeTemplate,
@@ -64,6 +60,11 @@ namespace RockWeb.Blocks.Connection
         IsRequired = false,
         DefaultValue = Lava.ConnectionTypes
         )]
+    [LinkedPage( "Detail Page",
+        Description = "Page to link to when user taps on a connection type. ConnectionTypeGuid is passed in the query string.",
+        Order = 2,
+        Key = AttributeKey.DetailPage
+         )]
     #endregion
 
     public partial class WebConnectionTypeListLava : RockBlock
@@ -86,24 +87,24 @@ namespace RockWeb.Blocks.Connection
 {% endcomment %}
 <style>
     .card:hover {
-      transform: scale(1.05);
+      transform: scale(1.01);
       box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
     }
 </style>
 {% for connectionType in ConnectionTypes %}
     <a href='{{ DetailPage | Default:'0' | PageRoute }}?ConnectionTypeGuid={{ connectionType.Guid }}' stretched-link>
-        <div class='card mb-2' style='height:120px;'>
+        <div class='card mb-2'>
             <div class='card-body'>
-                <div class='row'>
-                    <div class='col-xs-1 pt-4 pl-1 pr-1' style='width:30px;'>
-                        <i class='{{ connectionType.IconCssClass }} text-muted' style=';font-size:26px;'></i>
+              <div class='row pt-2' style='height:60px;'>
+                    <div class='col-xs-2 col-md-1 mx-auto'>
+                        <i class='{{ connectionType.IconCssClass }} text-muted' style=';font-size:30px;'></i>
                     </div>
-                    <div class='col-xs-10 pr-0'>
+                    <div class='col-xs-8 col-md-10 mx-auto'>
                         <span class='text-color'><strong>{{ connectionType.Name }}</strong></span>
                         </br>
                         <span class='text-muted'><small>{{ connectionType.Description }}</small></span>
                     </div>
-                    <div class='col-xs-1 pt-4 pl-0' style='width:10px;'>
+                    <div class='col-xs-1 col-md-1 mx-auto'>
                         <span class='badge badge-pill badge-primary bg-blue-500'><small>{{ ConnectionRequestCounts[connectionType.Id] | Map: 'Value' }}</small></span>
                     </div>
                 </div>

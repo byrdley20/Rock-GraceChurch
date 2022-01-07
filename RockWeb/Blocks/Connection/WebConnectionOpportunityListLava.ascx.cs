@@ -51,14 +51,18 @@ namespace RockWeb.Blocks.Connection
         Key = AttributeKey.OpportunityTemplate,
         Description = @"This Lava template will be used to display the Connection Types.
                          <i>(Note: The Lava will include the following merge fields:
-                            <p><strong>ConnectionTypes, DetailPage, ConnectionRequestCounts, CurrentPerson, Context, PageParameter, Campuses</strong>)</p>
+                            <p><strong>ConnectionOpportunities, DetailPage, ConnectionRequestCounts, CurrentPerson, Context, PageParameter, Campuses</strong>)</p>
                          </i>",
         EditorMode = CodeEditorMode.Lava,
         EditorTheme = CodeEditorTheme.Rock,
         EditorHeight = 400,
-        IsRequired = true,
+        IsRequired = false,
         DefaultValue = Lava.ConnectionOpportunities,
         Order = 1 )]
+    [LinkedPage( "Detail Page", Description = "Page to link to when user taps on a connection opportunity. ConnectionOpportunityGuid is passed in the query string.",
+        Order = 2,
+        Key = AttributeKey.DetailPage
+         )]
     #endregion
 
     public partial class WebConnectionOpportunityListLava : RockBlock
@@ -81,24 +85,24 @@ namespace RockWeb.Blocks.Connection
 {% endcomment %}
 <style>
     .card:hover {
-      transform: scale(1.05);
+      transform: scale(1.01);
       box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
     }
 </style>
 {% for connectionOpportunity in ConnectionOpportunities %}
     <a href='{{ DetailPage | Default:'0' | PageRoute }}?ConnectionOpportunityGuid={{ connectionOpportunity.Guid }}' stretched-link>
-        <div class='card mb-2' style='height:120px;'>
+        <div class='card mb-2'>
             <div class='card-body'>
-                <div class='row'>
-                    <div class='col-xs-1 pt-4 pl-1 pr-1' style='width:30px;'>
-                        <i class='{{ connectionOpportunity.IconCssClass }} text-gray-600' style=';font-size:26px;'></i>
+              <div class='row pt-2' style='height:60px;'>
+                    <div class='col-xs-2 col-md-1 mx-auto'>
+                        <i class='{{ connectionOpportunity.IconCssClass }} text-gray-600' style=';font-size:30px;'></i>
                     </div>
-                    <div class='col-xs-10 pr-0'>
+                    <div class='col-xs-8 col-md-10 mx-auto'>
                         <span class='text-black'><strong>{{ connectionOpportunity.Name }}</strong></span>
                         </br>
                         <span class='text-gray-600'><small>{{ connectionOpportunity.Description | Truncate:100,'...' }}</small></span>
                     </div>
-                    <div class='col-xs-1 pt-4 pl-0' style='width:10px;'>
+                    <div class='col-xs-1 col-md-1 mx-auto'>
                         <span class='badge badge-pill badge-primary bg-blue-500'><small>{{ ConnectionRequestCounts[connectionOpportunity.Id] | Map: 'Value' }}</small></span>
                     </div>
                 </div>
@@ -114,7 +118,6 @@ namespace RockWeb.Blocks.Connection
         private static class AttributeKey
         {
             public const string OpportunityTemplate = "OpportunityTemplate";
-
             public const string DetailPage = "DetailPage";
         }
         #endregion
@@ -125,7 +128,15 @@ namespace RockWeb.Blocks.Connection
             public const string ConnectionTypeGuid = "ConnectionTypeGuid";
         }
 
+        #region User Preference Keys
+        private static class UserPreferenceKey
+        {
+            public const string OnlyShowOpportunitiesWithRequestsForUser = "OnlyShowOpportunitiesWithRequestsForUser";
+        }
+        #endregion
+
         #endregion Page PageParameterKeys
+
         #region Properties
         /// <summary>
         /// Gets the opportunity template.
@@ -144,6 +155,11 @@ namespace RockWeb.Blocks.Connection
         protected Guid? DetailPageGuid => GetAttributeValue( AttributeKey.DetailPage ).AsGuidOrNull();
         #endregion
 
+        #region Private Fields
+        private bool _onlyShowOpportunitiesWithRequestsForUser = false;
+        private Guid _connectionTypeGuid = Guid.Empty;
+        #endregion
+
         #region Base Control Events
         protected override void OnInit( EventArgs e )
         {
@@ -153,50 +169,69 @@ namespace RockWeb.Blocks.Connection
         protected override void OnLoad( EventArgs e )
         {
             base.OnLoad( e );
-            var detailsPageGuid = PageParameter( PageParameterKey.ConnectionTypeGuid ).AsGuid();
+            _connectionTypeGuid = PageParameter( PageParameterKey.ConnectionTypeGuid ).AsGuid();
             if ( !Page.IsPostBack )
             {
-                lTitle.Text = $"<h2>{GetConnectionTypeTitle( detailsPageGuid )}</h2>";
+                lTitle.Text = $"<h2>{GetConnectionTypeTitle()}</h2>";
+                bool onlyShowOpportunitiesWithRequestsForUserPref;
+                bool.TryParse( GetBlockUserPreference( UserPreferenceKey.OnlyShowOpportunitiesWithRequestsForUser ), out onlyShowOpportunitiesWithRequestsForUserPref );
+                swOnlyShowOpportunitiesWithRequestsForUser.Checked = onlyShowOpportunitiesWithRequestsForUserPref;
+                _onlyShowOpportunitiesWithRequestsForUser = onlyShowOpportunitiesWithRequestsForUserPref;
+
+                GetConnectionOpportunities();
             }
-            GetConnectionOpportunities( detailsPageGuid );
         }
         #endregion Base Control Events
 
         #region Page Control Events
-        protected void mdOptions_SaveClick( object sender, EventArgs e )
-        {
-
-        }
-
         protected void lbOptions_Click( object sender, EventArgs e )
         {
             mdOptions.Show();
         }
+
+        protected void mdOptions_SaveClick( object sender, EventArgs e )
+        {
+            SetBlockUserPreference( UserPreferenceKey.OnlyShowOpportunitiesWithRequestsForUser, swOnlyShowOpportunitiesWithRequestsForUser.Checked.ToString(), true );
+            _onlyShowOpportunitiesWithRequestsForUser = swOnlyShowOpportunitiesWithRequestsForUser.Checked;
+
+            GetConnectionOpportunities();
+
+            mdOptions.Hide();
+        }
         #endregion Page Control Events
 
         #region Methods
-        private string GetConnectionTypeTitle( Guid connectionTypeGuid )
+        private string GetConnectionTypeTitle()
         {
-            var connectionType = new ConnectionTypeService( new RockContext() ).GetNoTracking( connectionTypeGuid );
+            var connectionType = new ConnectionTypeService( new RockContext() ).GetNoTracking( _connectionTypeGuid );
             return connectionType?.Name;
         }
         /// <summary>
         /// Gets the connection types view model that can be sent to the client.
         /// </summary>
-        private void GetConnectionOpportunities( Guid connectionTypeGuid )
+        private void GetConnectionOpportunities()
         {
             using ( var rockContext = new RockContext() )
             {
                 var opportunityService = new ConnectionOpportunityService( rockContext );
+
                 var opportunityClientService = new ConnectionOpportunityClientService( rockContext, CurrentPerson );
-                var connectionType = new ConnectionTypeService( rockContext ).GetNoTracking( connectionTypeGuid );
+                var connectionType = new ConnectionTypeService( rockContext ).GetNoTracking( _connectionTypeGuid );
 
                 var filterOptions = new ConnectionOpportunityQueryOptions
                 {
-                    ConnectionTypeGuids = new List<Guid> { connectionTypeGuid },
+                    ConnectionTypeGuids = new List<Guid> { _connectionTypeGuid },
                     IncludeInactive = true
                 };
 
+                if ( _onlyShowOpportunitiesWithRequestsForUser )
+                {
+                    filterOptions.ConnectorPersonIds = new List<int> { CurrentPerson.Id };
+                }
+                else
+                {
+                    filterOptions.ConnectorPersonIds = null;
+                }
                 // Put all the opportunities in memory so we can check security.
                 var connectionOpportunityQuery = opportunityService.GetConnectionOpportunitiesQuery( filterOptions );
                 var opportunities = connectionOpportunityQuery.ToList()

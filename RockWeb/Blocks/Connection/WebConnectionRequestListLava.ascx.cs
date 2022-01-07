@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
+using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -54,7 +55,7 @@ namespace RockWeb.Blocks.Connection
         EditorMode = CodeEditorMode.Lava,
         EditorTheme = CodeEditorTheme.Rock,
         EditorHeight = 400,
-        IsRequired = true,
+        IsRequired = false,
         DefaultValue = Lava.ConnectionRequests,
         Order = 1 )]
     [LinkedPage(
@@ -120,19 +121,19 @@ namespace RockWeb.Blocks.Connection
                     <div class='col-xs-2 col-md-1 mx-auto'>
                         <img class='person-image-small' src='{{ connectionRequest.ConnectorPersonAlias.Person.PhotoUrl | Default: '/Assets/Images/person-no-photo-unknown.svg'  }}' alt=''>
                     </div>
-                    <div class='col-xs-6 col-md-10 mx-auto'>
-                        <span>
-                           <strong class='text-color'>{{ connectionRequest.ConnectorPersonAlias.Person.FullName | Default: 'Unassigned' }}</strong>
-                           <small class='pl-1 text-muted'>{{ connectionRequest.Campus.Name | Default: 'Main Campus' }}</small>
-                           </br>
-                           {% assign lastActivity = connectionRequest.ConnectionRequestActivities | Last %}
-                           <small class='text-muted'>Last Activity: {{ lastActivity.Note | Default: 'No Activity' | Capitalize  }} ({{ lastActivity.CreatedDateTime | Default: '' | DaysFromNow }})</small>
-                        </span>
+                    <div class='col-xs-6 col-md-9 pl-md-0 mx-auto'>
+                       <strong class='text-color'>{{ connectionRequest.ConnectorPersonAlias.Person.FullName | Default: 'Unassigned' }}</strong>
+                       <small class='pl-1 text-muted'>{{ connectionRequest.Campus.Name | Default: 'Main Campus' }}</small>
+                       </br>
+                       {% assign lastActivity = connectionRequest.ConnectionRequestActivities | Last %}
+                       <small class='text-muted'>Last Activity: {{ lastActivity.Note | Default: 'No Activity' | Capitalize  }}
+                           {% if lastActivity.CreatedDateTime %}
+                               ({{ lastActivity.CreatedDateTime | DaysFromNow }})
+                           {% endif %}
+                       </small>
                     </div>
-                    <div class='col-xs-4 col-md-1 mx-auto'>
-                        <span>
-                           <small class='text-muted'>{{ connectionRequest.CreatedDateTime | Date:'M/d/yyyy' }}</small>
-                        </span>
+                    <div class='col-xs-4 col-md-2 mx-auto text-right'>
+                        <small class='text-muted'>{{ connectionRequest.CreatedDateTime | Date:'M/d/yyyy' }}</small>
                     </div>
                 </div>
             </div>
@@ -157,6 +158,7 @@ namespace RockWeb.Blocks.Connection
         private static class PageParameterKey
         {
             public const string ConnectionOpportunityGuid = "ConnectionOpportunityGuid";
+            public const string CurrentPage = "CurrentPage";
         }
         #endregion Page PageParameterKeys
 
@@ -167,6 +169,11 @@ namespace RockWeb.Blocks.Connection
             public const string ConnectionStates = "ConnectionStates";
         }
         #endregion User Preference Keys
+
+        private static class ViewStateKeys
+        {
+            public const string GetRequestsViewModel = "GetRequestsViewModel";
+        }
 
         #region Properties
         /// <summary>
@@ -198,6 +205,7 @@ namespace RockWeb.Blocks.Connection
         private bool _onlyShowMyConnections = false;
         private List<ConnectionState> _connectionStates = null;
         private Guid _connectionOpportunityGuid = Guid.Empty;
+        private GetRequestsViewModel _currentRequestsViewModel = null;
         #endregion Private Fields
 
         #region Base Control Events
@@ -215,41 +223,15 @@ namespace RockWeb.Blocks.Connection
 
             if ( !Page.IsPostBack )
             {
-                var titles = GetConnectionOpportunityTitles();
-                var connectionOpportunityTitle = titles.Item1;
-                var connectionTypeTitle = titles.Item2;
-                lTitle.Text = connectionOpportunityTitle;
-                lSubTitle.Text = connectionTypeTitle;
-                
-                foreach ( var state in GetConnectionStates() )
-                {
-                    cblStates.Items.Add( new ListItem { Text = state.ToString().SplitCase(), Value = ( ( int ) state ).ToString() } );
-                }
+                ConfigureSettings();
 
-                // Get the OnlyShowMyConnections user preference on load
-                bool onlyShowMyConnections;
-                bool.TryParse( GetBlockUserPreference( UserPreferenceKey.OnlyShowMyConnections ), out onlyShowMyConnections );
-                swOnlyShowMyConnections.Checked = onlyShowMyConnections;
-                _onlyShowMyConnections = onlyShowMyConnections;
-
-                // Get the ConnectionStates user preference on load
-                var connectionStateString = GetBlockUserPreference( UserPreferenceKey.ConnectionStates );
-                if ( !string.IsNullOrEmpty( connectionStateString ) )
-                {
-                    _connectionStates = connectionStateString
-                        .SplitDelimitedValues( "^", StringSplitOptions.RemoveEmptyEntries )?
-                        .Select( v => ( ConnectionState ) Enum.Parse( typeof( ConnectionState ), v ) )?
-                        .ToList();
-                }
                 LoadConnectionStates();
-
 
                 // Get the GetConnectionRequests and use the set options
                 GetConnectionRequests();
             }
         }
         #endregion Base Control Events
-
 
         #region Page Control Events
         protected void lbOptions_Click( object sender, EventArgs e )
@@ -267,13 +249,21 @@ namespace RockWeb.Blocks.Connection
 
             mdOptions.Hide();
         }
+        protected void lbLoadMode_Click( object sender, EventArgs e )
+        {
+            GetConnectionRequests();
+        }
+        protected void lbLoadPrevious_Click( object sender, EventArgs e )
+        {
+            GetConnectionRequests( true );
+        }
         #endregion Page Control Events
 
         #region Methods
-        private Tuple<string,string> GetConnectionOpportunityTitles()
+        private Tuple<string, string> GetConnectionOpportunityTitles()
         {
             var connectionOpportunity = new ConnectionOpportunityService( new RockContext() ).GetNoTracking( _connectionOpportunityGuid );
-            return new Tuple<string, string>(connectionOpportunity?.Name, connectionOpportunity?.ConnectionType?.Name);
+            return new Tuple<string, string>( connectionOpportunity?.Name, connectionOpportunity?.ConnectionType?.Name );
         }
         private IEnumerable<ConnectionState> GetConnectionStates()
         {
@@ -312,11 +302,23 @@ namespace RockWeb.Blocks.Connection
                 DeleteBlockUserPreference( UserPreferenceKey.ConnectionStates );
             }
         }
+
         /// <summary>
         /// Gets the connection requests view model that can be sent to the client.
         /// </summary>
-        private void GetConnectionRequests( int pageNumber = 0 )
+        private void GetConnectionRequests( bool previous = false )
         {
+            if ( ViewState[ViewStateKeys.GetRequestsViewModel] != null )
+            {
+                _currentRequestsViewModel = ViewState[ViewStateKeys.GetRequestsViewModel] as GetRequestsViewModel;
+            }
+
+            int pageNumber = 0;
+            if ( !previous )
+            {
+                pageNumber = _currentRequestsViewModel != null ? _currentRequestsViewModel.PageNumber + 1 : 0;
+            }
+
             using ( var rockContext = new RockContext() )
             {
                 var connectionRequestService = new ConnectionRequestService( rockContext );
@@ -359,7 +361,9 @@ namespace RockWeb.Blocks.Connection
                     // Put all the requests in memory so we can check security and
                     // then get the current set of requests, plus one. The extra is
                     // so that we can tell if there are more to load.
-                    requests = qry.ToList()
+
+                    requests = qry
+                        .ToList()
                         .Where( r => r.IsAuthorized( Authorization.VIEW, CurrentPerson ) )
                         .Skip( ( pageNumber * MaxRequestsToShow ) )
                         .Take( MaxRequestsToShow + 1 )
@@ -380,18 +384,83 @@ namespace RockWeb.Blocks.Connection
                     .ResolveMergeFields( mergeFields )
                     .ResolveClientIds( upConnectionSelectLava.ClientID );
 
-                string headerContent = string.Empty;
-
-                // If we found a connection opportunity then process the header
-                // template.
                 if ( connectionOpportunity != null )
                 {
                     mergeFields.Add( "ConnectionOpportunity", connectionOpportunity );
                 }
 
                 lContent.Text = content;
+
+                _currentRequestsViewModel = new GetRequestsViewModel
+                {
+                    HasMore = hasMore
+                };
+
+                divLoadPrevious.Visible = pageNumber != 0;
+                divLoadMore.Visible = _currentRequestsViewModel.HasMore;
+
+
+                //Store current page information in view state so we can load next data pages
+                ViewState[ViewStateKeys.GetRequestsViewModel] = _currentRequestsViewModel;
+            }
+        }
+
+        private void ConfigureSettings()
+        {
+
+            var titles = GetConnectionOpportunityTitles();
+            var connectionOpportunityTitle = titles.Item1;
+            var connectionTypeTitle = titles.Item2;
+            lTitle.Text = connectionOpportunityTitle;
+            lSubTitle.Text = connectionTypeTitle;
+
+            foreach ( var state in GetConnectionStates() )
+            {
+                cblStates.Items.Add( new ListItem { Text = state.ToString().SplitCase(), Value = ( ( int ) state ).ToString() } );
+            }
+
+            // Get the OnlyShowMyConnections user preference on load
+            bool onlyShowMyConnections;
+            bool.TryParse( GetBlockUserPreference( UserPreferenceKey.OnlyShowMyConnections ), out onlyShowMyConnections );
+            swOnlyShowMyConnections.Checked = onlyShowMyConnections;
+            _onlyShowMyConnections = onlyShowMyConnections;
+
+            // Get the ConnectionStates user preference on load
+            var connectionStateString = GetBlockUserPreference( UserPreferenceKey.ConnectionStates );
+            if ( !string.IsNullOrEmpty( connectionStateString ) )
+            {
+                _connectionStates = connectionStateString
+                    .SplitDelimitedValues( "^", StringSplitOptions.RemoveEmptyEntries )?
+                    .Select( v => ( ConnectionState ) Enum.Parse( typeof( ConnectionState ), v ) )?
+                    .ToList();
             }
         }
         #endregion Methods
+
+        #region Support Classes
+        /// <summary>
+        /// The view model returned by the GetRequests action.
+        /// </summary>
+        [Serializable]
+        public class GetRequestsViewModel
+        {
+            /// <summary>
+            /// Gets or sets a value indicating whether this instance has more connection requests.
+            /// </summary>
+            /// <value>
+            ///   <c>true</c> if this instance has more connection requests; otherwise, <c>false</c>.
+            /// </value>
+            public bool HasMore { get; set; }
+
+            /// <summary>
+            /// Gets or sets the page number for these results.
+            /// </summary>
+            /// <value>
+            /// The page number for these results.
+            /// </value>
+            public int PageNumber { get; set; }
+        }
+
+        #endregion
     }
 }

@@ -99,12 +99,12 @@ namespace RockWeb.Blocks.Connection
                     <div class='col-xs-2 col-md-1 mx-auto'>
                         <i class='{{ connectionType.IconCssClass }} text-muted' style=';font-size:30px;'></i>
                     </div>
-                    <div class='col-xs-8 col-md-10 mx-auto'>
+                    <div class='col-xs-8 col-md-10 pl-md-0 mx-auto'>
                         <span class='text-color'><strong>{{ connectionType.Name }}</strong></span>
                         </br>
                         <span class='text-muted'><small>{{ connectionType.Description }}</small></span>
                     </div>
-                    <div class='col-xs-1 col-md-1 mx-auto'>
+                    <div class='col-xs-1 col-md-1 mx-auto text-right'>
                         <span class='badge badge-pill badge-primary bg-blue-500'><small>{{ ConnectionRequestCounts[connectionType.Id] | Map: 'Value' }}</small></span>
                     </div>
                 </div>

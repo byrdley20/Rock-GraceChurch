@@ -97,12 +97,12 @@ namespace RockWeb.Blocks.Connection
                     <div class='col-xs-2 col-md-1 mx-auto'>
                         <i class='{{ connectionOpportunity.IconCssClass }} text-gray-600' style=';font-size:30px;'></i>
                     </div>
-                    <div class='col-xs-8 col-md-10 mx-auto'>
+                    <div class='col-xs-8 col-md-10 pl-md-0 mx-auto'>
                         <span class='text-black'><strong>{{ connectionOpportunity.Name }}</strong></span>
                         </br>
                         <span class='text-gray-600'><small>{{ connectionOpportunity.Description | Truncate:100,'...' }}</small></span>
                     </div>
-                    <div class='col-xs-1 col-md-1 mx-auto'>
+                    <div class='col-xs-1 col-md-1 text-right mx-auto'>
                         <span class='badge badge-pill badge-primary bg-blue-500'><small>{{ ConnectionRequestCounts[connectionOpportunity.Id] | Map: 'Value' }}</small></span>
                     </div>
                 </div>

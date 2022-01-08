@@ -89,6 +89,17 @@ namespace RockWeb.Blocks.Connection
         EditorMode = CodeEditorMode.Lava,
         Description = "The HTML Content intended to be used as a kind of custom badge bar for the connection request. Includes merge fields ConnectionRequest and Person. <span class='tip tip-lava'></span>",
         Order = 7 )]
+    [CodeEditorField( "Activity Lava Template",
+        Key = AttributeKeys.ActivityLavaTemplate,
+        Description = @"This Lava template will be used to display the activity records.
+                         <i>(Note: The Lava will include the following merge fields:
+                            <p><strong>ConnectionRequests, ConnectionOpportunity, DetailPage, CurrentPerson, Context, PageParameter, Campuses</strong>)</p>
+                         </i>",
+        EditorMode = CodeEditorMode.Lava,
+        DefaultValue = Lava.ConnectionRequestDetails, //For Testing
+        IsRequired = false,
+        Order = 8 )]
+    
     #endregion Block Attributes
     public partial class ConnectionRequestDetail : PersonBlock
     {
@@ -104,6 +115,7 @@ namespace RockWeb.Blocks.Connection
             public const string Badges = "Badges";
             public const string LavaBadgeBar = "LavaBadgeBar";
             public const string LavaHeadingTemplate = "LavaHeadingTemplate";
+            public const string ActivityLavaTemplate = "Activity Lava Template";
         }
 
         #endregion Attribute Keys
@@ -121,6 +133,54 @@ namespace RockWeb.Blocks.Connection
         }
 
         #endregion
+
+        #region Default Lava
+        private static class Lava
+        {
+            public const string ConnectionRequestDetails = @"
+{% comment %}
+   This is the default lava template for the ConnectionOpportunitySelect block
+
+   Available Lava Fields:
+       ConnectionTypes
+       DetailPage (Detail Page GUID)
+       ConnectionRequestCounts
+       CurrentPerson
+       Context
+       PageParameter
+       Campuses
+{% endcomment %}
+<style>
+    .card:hover {
+      transform: scale(1.01);
+      box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    }
+</style>
+{% for connectionType in ConnectionTypes %}
+    <a href='{{ DetailPage | Default:'0' | PageRoute }}?ConnectionTypeGuid={{ connectionType.Guid }}' stretched-link>
+        <div class='card mb-2'>
+            <div class='card-body'>
+              <div class='row pt-2' style='height:60px;'>
+                    <div class='col-xs-2 col-md-1 mx-auto'>
+                        <i class='{{ connectionType.IconCssClass }} text-muted' style=';font-size:30px;'></i>
+                    </div>
+                    <div class='col-xs-8 col-md-10 pl-md-0 mx-auto'>
+                        <span class='text-color'><strong>{{ connectionType.Name }}</strong></span>
+                        </br>
+                        <span class='text-muted'><small>{{ connectionType.Description }}</small></span>
+                    </div>
+                    <div class='col-xs-1 col-md-1 mx-auto text-right'>
+                        <span class='badge badge-pill badge-primary bg-blue-500'><small>{{ ConnectionRequestCounts[connectionType.Id] | Map: 'Value' }}</small></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+       </a>
+{% endfor %}
+";
+
+        }
+        #endregion Lava
 
         #region Fields
 
@@ -194,8 +254,8 @@ namespace RockWeb.Blocks.Connection
         });
     });
 ";
-            ScriptManager.RegisterStartupScript( lbConnect, lbConnect.GetType(), "confirmConnectScript", confirmConnectScript, true );
 
+            ScriptManager.RegisterStartupScript( lbConnect, lbConnect.GetType(), "confirmConnectScript", confirmConnectScript, true );
             // this event gets fired after block settings are updated. it's nice to repaint the screen if these settings would alter it
             this.AddConfigurationUpdateTrigger( upDetail );
 
@@ -239,7 +299,7 @@ namespace RockWeb.Blocks.Connection
                 nbNoParameterMessage.Visible = true;
                 pnlContents.Visible = false;
                 wpConnectionRequestWorkflow.Visible = false;
-                wpConnectionRequestActivities.Visible = false;
+                pnlConnectionRequestActivities.Visible = false;
                 return;
             }
 
@@ -401,7 +461,7 @@ namespace RockWeb.Blocks.Connection
             {
                 ShowReadonlyDetails( new ConnectionRequestService( new RockContext() ).Get( connectionRequestId ) );
                 pnlReadDetails.Visible = true;
-                wpConnectionRequestActivities.Visible = true;
+                pnlConnectionRequestActivities.Visible = true;
                 wpConnectionRequestWorkflow.Visible = true;
                 pnlEditDetails.Visible = false;
                 pnlTransferDetails.Visible = false;
@@ -690,7 +750,7 @@ namespace RockWeb.Blocks.Connection
                     connectionRequest.ConnectionOpportunity.ConnectionType != null )
                 {
                     pnlReadDetails.Visible = false;
-                    wpConnectionRequestActivities.Visible = false;
+                    pnlConnectionRequestActivities.Visible = false;
                     wpConnectionRequestWorkflow.Visible = false;
                     pnlTransferDetails.Visible = true;
 
@@ -971,7 +1031,7 @@ namespace RockWeb.Blocks.Connection
                         rockContext.SaveChanges();
 
                         pnlReadDetails.Visible = true;
-                        wpConnectionRequestActivities.Visible = true;
+                        pnlConnectionRequestActivities.Visible = true;
                         wpConnectionRequestWorkflow.Visible = true;
                         pnlTransferDetails.Visible = false;
                         ShowDetail( connectionRequest.Id, connectionRequest.ConnectionOpportunityId );
@@ -1996,6 +2056,17 @@ namespace RockWeb.Blocks.Connection
 
                 lHeading.Text = GetAttributeValue( AttributeKeys.LavaHeadingTemplate ).ResolveMergeFields( mergeFields );
                 lBadgeBar.Text = GetAttributeValue( AttributeKeys.LavaBadgeBar ).ResolveMergeFields( mergeFields );
+                lActivityLavaTemplate.Text = GetAttributeValue( AttributeKeys.ActivityLavaTemplate ).ResolveMergeFields( mergeFields );
+                if ( lActivityLavaTemplate.Text.Length > 0 )
+                {
+                    pnlActivityLavaTemplate.Visible = true;
+                    pnlConnectionRequestActivities.Visible = false;
+                }
+                else
+                {
+                    pnlActivityLavaTemplate.Visible = false;
+                    pnlConnectionRequestActivities.Visible = true;
+                }
 
                 avcAttributesReadOnly.AddDisplayControls( connectionRequest, Rock.Security.Authorization.VIEW, this.CurrentPerson );
 
@@ -2022,7 +2093,7 @@ namespace RockWeb.Blocks.Connection
             pnlReadDetails.Visible = false;
             pnlEditDetails.Visible = true;
 
-            wpConnectionRequestActivities.Visible = false;
+            pnlConnectionRequestActivities.Visible = false;
             wpConnectionRequestWorkflow.Visible = false;
 
             // Requester

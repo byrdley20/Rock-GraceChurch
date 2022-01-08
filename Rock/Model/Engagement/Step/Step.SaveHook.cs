@@ -61,7 +61,7 @@ namespace Rock.Model
                 var rockContext = ( RockContext ) this.RockContext;
                 if ( Entity.Caption.IsNullOrWhiteSpace() )
                 {
-                    Entity.Caption = new StepTypeService( rockContext ).Get( Entity.StepTypeId ).Name;
+                    Entity.Caption = StepTypeCache.Get( Entity.StepTypeId )?.Name;
                 }
 
                 switch ( State )
@@ -158,12 +158,12 @@ namespace Rock.Model
 
                 if ( PersonHistoryChangeList?.Any() == true )
                 {
-                    var personAlias = Entity.PersonAlias ?? new PersonAliasService( rockContext ).Get( Entity.PersonAliasId );
+                    var personId = Entity.PersonAlias?.PersonId ?? new PersonAliasService( rockContext ).GetPersonId( Entity.PersonAliasId ) ?? 0;
                     HistoryService.SaveChanges(
                                 rockContext,
                                 typeof( Person ),
                                 Rock.SystemGuid.Category.HISTORY_PERSON_STEP.AsGuid(),
-                                personAlias.PersonId,
+                                personId,
                                 PersonHistoryChangeList,
                                 Entity.Caption,
                                 typeof( Step ),
@@ -186,7 +186,7 @@ namespace Rock.Model
                 }
 
                 var stepTypeService = new StepTypeService( rockContext );
-                var stepType = Entity.StepType ?? stepTypeService.Get( Entity.StepTypeId );
+                var stepType = StepTypeCache.Get( Entity.StepTypeId );
 
                 if ( stepType == null )
                 {

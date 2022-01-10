@@ -118,7 +118,7 @@ namespace Rock.Jobs
             var updatedResults = new ConcurrentBag<int>();
 
             // Get the step type view query
-            var stepTypeViews = GetStepTypeViews();
+            var stepTypeViews = GetStepTypeViews().OrderBy( a => a.Order ).ToList();
 
             // Get the day threshold for adding new steps
             var minDaysBetweenSteps = GetDuplicatePreventionDayRange( context );
@@ -320,17 +320,6 @@ namespace Rock.Jobs
                     try
                     {
                         jobContext.UpdateLastStatusMessage( $"Processing {stepTypeView.Name } steps : {progressCount}/{totalCount}" );
-
-                        Debug.WriteLine( $@"
-####
-progressCount:{progressCount},
-totalCount:{totalCount},
-addedCount:{addedCount},
-updatedCount:{updatedCount},
-stopwatchStepElapsedMS:{stepElapsedMS} 
-_stepElapsedMSList.Min:{_stepElapsedMSList.Min()}
-_stepElapsedMSList.Max:{_stepElapsedMSList.Max()}
-_stepElapsedMSList.Average:{_stepElapsedMSList.Average()}" );
                     }
                     catch ( Exception ex )
                     {
@@ -372,6 +361,7 @@ _stepElapsedMSList.Average:{_stepElapsedMSList.Average()}" );
                 {
                     StepTypeId = st.Id,
                     Name = st.Name,
+                    Order = st.Order,
                     StepProgramId = st.StepProgramId,
                     AllowMultiple = st.AllowMultiple,
                     AutoCompleteDataViewId = st.AutoCompleteDataViewId.Value,
@@ -529,6 +519,18 @@ _stepElapsedMSList.Average:{_stepElapsedMSList.Average()}" );
             public int StepTypeId { get; set; }
 
             /// <summary>
+            /// Gets or sets the name.
+            /// </summary>
+            /// <value>The name.</value>
+            public string Name { get; internal set; }
+
+            /// <summary>
+            /// Gets or sets the order.
+            /// </summary>
+            /// <value>The order.</value>
+            public int Order { get; internal set; }
+
+            /// <summary>
             /// Gets or sets the step program identifier.
             /// </summary>
             /// <value>
@@ -564,7 +566,7 @@ _stepElapsedMSList.Average:{_stepElapsedMSList.Average()}" );
             /// Prerequisite StepTypeIds
             /// </summary>
             public IEnumerable<int> PrerequisiteStepTypeIds { get; set; }
-            public string Name { get; internal set; }
+            
         }
 
         #endregion SQL Views

@@ -28,7 +28,11 @@
         display: inline-flex;
         justify-content: center;
         position: relative;
-        vertical-align: top;
+        vertical-align: top; 
+    }
+
+    .no-table-border {
+        border-style:hidden !important;
     }
 </style>
 
@@ -44,16 +48,17 @@
                 Text="This block requires a valid connection request id and/or a connection opportunity id as query string parameters." />
 
             <asp:Panel ID="pnlContents" runat="server" CssClass="panel panel-block">
-
-                <div class="panel-heading">
-                    <h1 class="panel-title">
-                        <asp:Literal ID="lConnectionOpportunityIconHtml" runat="server" />
-                        Connection Request Detail</h1>
-                    <div class="panel-labels">
-                        <Rock:HighlightLabel ID="hlCampus" runat="server" LabelType="Campus" />
-                        <Rock:HighlightLabel ID="hlOpportunity" runat="server" LabelType="Info" />
-                        <Rock:HighlightLabel ID="hlStatus" runat="server" LabelType="Default" Visible="false" />
-                        <Rock:HighlightLabel ID="hlState" runat="server" Visible="false" />
+                <div id="divHeaderDefault" runat="server">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">
+                            <asp:Literal ID="lConnectionOpportunityIconHtml" runat="server" />Connection Request Detail
+                        </h1>
+                        <div class="panel-labels pt-2 mb-3">
+                            <Rock:HighlightLabel ID="hlCampus" runat="server" LabelType="Campus" />
+                            <Rock:HighlightLabel ID="hlOpportunity" runat="server" LabelType="Info" />
+                            <Rock:HighlightLabel ID="hlStatus" runat="server" LabelType="Default" Visible="false" />
+                            <Rock:HighlightLabel ID="hlState" runat="server" Visible="false" />
+                        </div>
                     </div>
                 </div>
                 <asp:Panel ID="pnlReadDetails" runat="server">
@@ -285,57 +290,76 @@
 
             </asp:Panel>
 
-             <Rock:PanelWidget ID="wpConnectionRequestWorkflow" runat="server" Title="Workflows" CssClass="clickable">
-            <div class="grid">
-                <Rock:Grid ID="gConnectionRequestWorkflows" runat="server" AllowPaging="false" DisplayType="Light" RowItemText="Location" OnRowSelected="gConnectionRequestWorkflows_RowSelected">
-                    <Columns>
-                        <Rock:RockBoundField DataField="WorkflowType" HeaderText="Workflow Type" />
-                        <Rock:RockBoundField DataField="Trigger" HeaderText="Trigger" />
-                        <Rock:RockBoundField DataField="CurrentActivity" HeaderText="Current Activity" />
-                        <Rock:RockBoundField DataField="Date" HeaderText="Start Date" />
-                        <Rock:RockBoundField DataField="Status" HeaderText="Status" HtmlEncode="false" />
-                    </Columns>
-                </Rock:Grid>
-            </div>
-        </Rock:PanelWidget>
-
-            <asp:Panel ID="pnlActivityLavaTemplate" runat="server" CssClass="panel panel-block" Visible="false">
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <h2>
-                                Activity
-                            </h2>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <asp:Literal ID="lActivityLavaTemplate" runat="server"></asp:Literal>
-                        </div>
-                    </div>
+            <Rock:PanelWidget ID="wpConnectionRequestWorkflow" runat="server" Title="Workflows" CssClass="clickable">
+                <div class="grid">
+                    <Rock:Grid ID="gConnectionRequestWorkflows" runat="server" AllowPaging="false" DisplayType="Light" RowItemText="Location" OnRowSelected="gConnectionRequestWorkflows_RowSelected">
+                        <Columns>
+                            <Rock:RockBoundField DataField="WorkflowType" HeaderText="Workflow Type" />
+                            <Rock:RockBoundField DataField="Trigger" HeaderText="Trigger" />
+                            <Rock:RockBoundField DataField="CurrentActivity" HeaderText="Current Activity" />
+                            <Rock:RockBoundField DataField="Date" HeaderText="Start Date" />
+                            <Rock:RockBoundField DataField="Status" HeaderText="Status" HtmlEncode="false" />
+                        </Columns>
+                    </Rock:Grid>
                 </div>
-            </asp:Panel>
+            </Rock:PanelWidget>
+
             <asp:Panel ID="pnlConnectionRequestActivities" runat="server" CssClass="panel panel-block" Visible="true">
-                <div class="panel-heading">
-                    <h1 class="panel-title">Activities</h1>
+                <div id="divLavaActivities" runat="server">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h2>Activity</h2>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div id="divLavaActivitiesContent" class="col-xs-12">
+                                <asp:Literal ID="lActivityLavaTemplate" runat="server"></asp:Literal>
+                               
+                            </div>
+                        </div>
+                        <table class="table table-condensed table-light no-table-border">
+                            <tfoot>
+                                <tr title="">
+                                    <td class="grid-actions" colspan="6">
+                                        <asp:LinkButton id="lbActivityAdd" runat="server" AccessKey="n" ToolTip="Alt+N" CssClass="btn btn-grid-action btn-add btn-default btn-sm" OnClick="lbActivityAdd_Click">
+                                            <i class="fa fa-plus-circle fa-fw"></i>
+                                        </asp:LinkButton>
+                                    </td>
+                                </tr>
+							</tfoot>
+                        </table>
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <div class="grid grid-panel">
-                        <Rock:Grid ID="gConnectionRequestActivities" runat="server" AllowPaging="false" DisplayType="Light"
-                            RowItemText="Activity" OnRowDataBound="gConnectionRequestActivities_RowDataBound" OnRowSelected="gConnectionRequestActivities_Edit">
-                            <Columns>
-                                <Rock:RockBoundField DataField="Date" HeaderText="Date" />
-                                <Rock:RockBoundField DataField="Activity" HeaderText="Activity" />
-                                <Rock:RockBoundField DataField="Opportunity" HeaderText="Opportunity" />
-                                <Rock:RockBoundField DataField="Connector" HeaderText="Connector" />
-                                <Rock:RockBoundField DataField="Note" HeaderText="Note" />
-                                <Rock:DeleteField OnClick="gConnectionRequestActivities_Delete" />
-                            </Columns>
-                        </Rock:Grid>
+                <div id="divGridActivities" runat="server">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">Activities</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="grid grid-panel">
+                            <Rock:Grid ID="gConnectionRequestActivities" runat="server" AllowPaging="false" DisplayType="Light" RowItemText="Activity"
+                                OnRowDataBound="gConnectionRequestActivities_RowDataBound" OnRowSelected="gConnectionRequestActivities_Edit">
+                                <Columns>
+                                    <Rock:RockBoundField DataField="Date" HeaderText="Date" />
+                                    <Rock:RockBoundField DataField="Activity" HeaderText="Activity" />
+                                    <Rock:RockBoundField DataField="Opportunity" HeaderText="Opportunity" />
+                                    <Rock:RockBoundField DataField="Connector" HeaderText="Connector" />
+                                    <Rock:RockBoundField DataField="Note" HeaderText="Note" />
+                                    <Rock:DeleteField OnClick="gConnectionRequestActivities_Delete" />
+                                </Columns>
+                            </Rock:Grid>
+                        </div>
                     </div>
                 </div>
             </asp:Panel>
+
+             <Rock:ModalDialog ID="dlgDeleteActivity" runat="server" SaveButtonText="Ok" OnSaveClick="dlgDeleteActivity_SaveClick" Title="Delete Activity">
+                <Content>
+                     <asp:HiddenField ID="hfActivityId" runat="server" />
+                    <span>Are you sure you want to delete this Activity?</span>
+                </Content>
+            </Rock:ModalDialog>
 
             <Rock:ModalDialog ID="dlgConnectionRequestActivities" runat="server" SaveButtonText="Add" OnSaveClick="btnAddConnectionRequestActivity_Click" Title="Add Activity" ValidationGroup="Activity">
                 <Content>
@@ -374,7 +398,6 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <%# Eval("Description") %>
-
                                                 <br />
                                                 <Rock:BootstrapButton ID="btnSearchSelect" runat="server" CommandArgument='<%# Eval("Id") %>' CommandName="Display" Text="Select" CssClass="btn btn-default btn-sm" />
                                             </div>
@@ -387,14 +410,14 @@
                 </Content>
             </Rock:ModalDialog>
             <script>
-            Sys.Application.add_load(function () {
-                $(".js-transfer-connector").on("click", function (a) {
-                    $("#<%=ddlTransferOpportunityConnector.ClientID%>").toggle($(this).is('#<%=rbTransferSelectConnector.ClientID%>'));
-                });
+                Sys.Application.add_load(function () {
+                    $(".js-transfer-connector").on("click", function (a) {
+                        $("#<%=ddlTransferOpportunityConnector.ClientID%>").toggle($(this).is('#<%=rbTransferSelectConnector.ClientID%>'));
+                    });
 
-                $("#<%=ddlTransferOpportunityConnector.ClientID%>").toggle($('#<%=rbTransferSelectConnector.ClientID%>').is(":checked"));
-            })
+                    $("#<%=ddlTransferOpportunityConnector.ClientID%>").toggle($('#<%=rbTransferSelectConnector.ClientID%>').is(":checked"));
+                })
             </script>
-</asp:Panel>
+        </asp:Panel>
     </ContentTemplate>
 </asp:UpdatePanel>

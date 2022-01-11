@@ -93,13 +93,13 @@ namespace RockWeb.Blocks.Connection
         Key = AttributeKeys.ActivityLavaTemplate,
         Description = @"This Lava template will be used to display the activity records.
                          <i>(Note: The Lava will include the following merge fields:
-                            <p><strong>ConnectionRequests, ConnectionOpportunity, DetailPage, CurrentPerson, Context, PageParameter, Campuses</strong>)</p>
+                            <p><strong>ConnectionRequest, CurrentPerson, Context, PageParameter, Campuses</strong>)</p>
                          </i>",
         EditorMode = CodeEditorMode.Lava,
         DefaultValue = Lava.ConnectionRequestDetails, //For Testing
         IsRequired = false,
         Order = 8 )]
-    
+
     #endregion Block Attributes
     public partial class ConnectionRequestDetail : PersonBlock
     {
@@ -142,9 +142,7 @@ namespace RockWeb.Blocks.Connection
    This is the default lava template for the ConnectionOpportunitySelect block
 
    Available Lava Fields:
-       ConnectionTypes
-       DetailPage (Detail Page GUID)
-       ConnectionRequestCounts
+       ConnectionRequest
        CurrentPerson
        Context
        PageParameter
@@ -155,28 +153,50 @@ namespace RockWeb.Blocks.Connection
       transform: scale(1.01);
       box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
     }
+
+    .person-image-small {
+        position: relative;
+        box-sizing: border-box;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        vertical-align: top;
+        background: center/cover #cbd4db;
+        border-radius: 50%;
+        box-shadow: inset 0 0 0 1px rgba(0,0,0,0.07)
+    }
 </style>
-{% for connectionType in ConnectionTypes %}
+{% for connectionRequestActivity in ConnectionRequest.ConnectionRequestActivities %}
     <a href='{{ DetailPage | Default:'0' | PageRoute }}?ConnectionTypeGuid={{ connectionType.Guid }}' stretched-link>
         <div class='card mb-2'>
             <div class='card-body'>
-              <div class='row pt-2' style='height:60px;'>
+                <div class='row pt-2' style='height:60px;'>
                     <div class='col-xs-2 col-md-1 mx-auto'>
-                        <i class='{{ connectionType.IconCssClass }} text-muted' style=';font-size:30px;'></i>
+                        <img class='person-image-small' src='{{ connectionRequestActivity.ConnectorPersonAlias.Person.PhotoUrl | Default: '/Assets/Images/person-no-photo-unknown.svg'  }}' alt=''>
+                    </div>     
+                    <div class='col-xs-6 col-md-9 pl-md-0 mx-auto'>
+                       <strong class='text-color'>{{ connectionRequestActivity.ConnectorPersonAlias.Person.FullName | Default: 'Unassigned' }}</strong>
+                       <br/>
+                       <span class='text-muted'><small><strong>{{ connectionRequestActivity.ConnectionActivityType.Name }}</strong>: {{ connectionRequestActivity.Note }}</small></span>
                     </div>
-                    <div class='col-xs-8 col-md-10 pl-md-0 mx-auto'>
-                        <span class='text-color'><strong>{{ connectionType.Name }}</strong></span>
-                        </br>
-                        <span class='text-muted'><small>{{ connectionType.Description }}</small></span>
+                    <div class='col-xs-4 col-md-2 mx-auto text-right'>
+                        <small class='text-muted'>{{ connectionRequestActivity.CreatedDateTime | Date:'M/d/yy' }}</small>
                     </div>
-                    <div class='col-xs-1 col-md-1 mx-auto text-right'>
-                        <span class='badge badge-pill badge-primary bg-blue-500'><small>{{ ConnectionRequestCounts[connectionType.Id] | Map: 'Value' }}</small></span>
+                </div>
+                <div class='row grid-actions text-right'>
+                    <div class='col-xs-12'>
+                         <a title='Delete' class='btn btn-default btn-grid-action btn-sm grid-delete-button' href='javascript:void(0);' onclick=""{{ connectionRequestActivity.Id | Postback : 'DeleteActivity' }}"">
+                             <i class='fa fa-times' style='font-size:22px;'></i>
+                         </a>
                     </div>
                 </div>
             </div>
         </div>
-       </a>
+    </a>
 {% endfor %}
+
 ";
 
         }
@@ -185,7 +205,7 @@ namespace RockWeb.Blocks.Connection
         #region Fields
 
         private const string CAMPUS_SETTING = "ConnectionRequestDetail_Campus";
-
+        private bool _webViewMode = false;
         #endregion
 
         #region Properties
@@ -223,14 +243,17 @@ namespace RockWeb.Blocks.Connection
                 false );
         }
 
+
         /// <summary>
         /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
         /// </summary>
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit( EventArgs e )
         {
+
             base.OnInit( e );
 
+            Page.PreRenderComplete += Page_PreRenderComplete;
             this.BlockUpdated += Block_BlockUpdated;
 
             gConnectionRequestActivities.DataKeyNames = new string[] { "Guid" };
@@ -244,18 +267,6 @@ namespace RockWeb.Blocks.Connection
             rptRequestWorkflows.ItemCommand += rptRequestWorkflows_ItemCommand;
             rptSearchResult.ItemCommand += rptSearchResult_ItemCommand;
 
-            string confirmConnectScript = @"
-    $('a.js-confirm-connect').on('click', function( e ){
-        e.preventDefault();
-        Rock.dialogs.confirm('This person does not currently meet all of the requirements of the group. Are you sure you want to add them to the group?', function (result) {
-            if (result) {
-                window.location = e.target.href ? e.target.href : e.target.parentElement.href;
-            }
-        });
-    });
-";
-
-            ScriptManager.RegisterStartupScript( lbConnect, lbConnect.GetType(), "confirmConnectScript", confirmConnectScript, true );
             // this event gets fired after block settings are updated. it's nice to repaint the screen if these settings would alter it
             this.AddConfigurationUpdateTrigger( upDetail );
 
@@ -290,6 +301,8 @@ namespace RockWeb.Blocks.Connection
         {
             base.OnLoad( e );
 
+            HandleFormPostbacks();
+
             nbErrorMessage.Visible = false;
             nbRequirementsErrors.Visible = false;
             nbNoParameterMessage.Visible = false;
@@ -303,10 +316,7 @@ namespace RockWeb.Blocks.Connection
                 return;
             }
 
-            if ( !Page.IsPostBack )
-            {
-                ShowDetail( PageParameter( PageParameterKey.ConnectionRequestId ).AsInteger(), PageParameter( PageParameterKey.ConnectionOpportunityId ).AsIntegerOrNull() );
-            }
+            ShowDetail( PageParameter( PageParameterKey.ConnectionRequestId ).AsInteger(), PageParameter( PageParameterKey.ConnectionOpportunityId ).AsIntegerOrNull() );
 
             var connectionRequest = GetConnectionRequest();
             if ( connectionRequest != null )
@@ -314,6 +324,16 @@ namespace RockWeb.Blocks.Connection
                 // Set the person
                 Person = connectionRequest.PersonAlias.Person;
             }
+        }
+
+        /// <summary>
+        /// Handles the PreRenderComplete event of the Page control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void Page_PreRenderComplete( object sender, EventArgs e )
+        {
+            RegisterScripts();
         }
 
         /// <summary>
@@ -376,6 +396,62 @@ namespace RockWeb.Blocks.Connection
             return breadCrumbs;
         }
 
+        private void RegisterScripts()
+        {
+            var confirmConnectScript = @"
+                $('a.js-confirm-connect').on('click', function( e ) {
+                    e.preventDefault();
+                        Rock.dialogs.confirm('This person does not currently meet all of the requirements of the group. Are you sure you want to add them to the group?', function (result) {
+                            if (result) {
+                                 window.location = e.target.href ? e.target.href : e.target.parentElement.href;
+                            }
+                        });
+                 });";
+
+            ScriptManager.RegisterStartupScript( lbConnect, lbConnect.GetType(), "confirmConnectScript", confirmConnectScript, true );
+
+            //var displayActivityRowButtons = @"
+            //   var deleteActionHtml = $('.activity-delete-action').html();
+            //   $('#divLavaActivitiesContent .card-body').each(function() {
+            //        var self=$(this);
+            //        $(self).append(deleteActionHtml);
+            //        console.debug('confirmConnectScript',self);     
+            //    });";
+            //ScriptManager.RegisterStartupScript( divLavaActivities, divLavaActivities.GetType(), "displayActivityRowButtons", displayActivityRowButtons, true );
+        }
+
+        private void HandleFormPostbacks()
+        {
+            if ( Request.Form["__EVENTARGUMENT"] != null )
+            {
+                try
+                {
+                    string[] eventArgs = Request.Form["__EVENTARGUMENT"].Split( '^' );
+
+                    if ( eventArgs.Length == 2 )
+                    {
+                        string action = eventArgs[0];
+                        string parameters = eventArgs[1];
+
+                        int argument = 0;
+                        int.TryParse( parameters, out argument );
+
+                        switch ( action )
+                        {
+                            case "DeleteActivity":
+                                {
+                                    DeleteActivity( argument );
+                                }
+                                break;
+                        }
+                    }
+                }
+                finally
+                {
+                    Response.Redirect( GetCurrentPageUrl() );
+                }
+            }
+        }
         #endregion
 
         #region Events
@@ -1416,7 +1492,7 @@ namespace RockWeb.Blocks.Connection
                     } )
                     .OrderByDescending( a => a.CreatedDate )
                     .ToList();
-                      
+
 
 
 
@@ -1431,6 +1507,11 @@ namespace RockWeb.Blocks.Connection
 
         #region Internal Methods
 
+        private void DeleteActivity( int activityId )
+        {
+            hfActivityId.Value = activityId.ToString();
+            dlgDeleteActivity.Show();
+        }
         /// <summary>
         /// Adds the assigned activity.
         /// </summary>
@@ -2056,16 +2137,16 @@ namespace RockWeb.Blocks.Connection
 
                 lHeading.Text = GetAttributeValue( AttributeKeys.LavaHeadingTemplate ).ResolveMergeFields( mergeFields );
                 lBadgeBar.Text = GetAttributeValue( AttributeKeys.LavaBadgeBar ).ResolveMergeFields( mergeFields );
-                lActivityLavaTemplate.Text = GetAttributeValue( AttributeKeys.ActivityLavaTemplate ).ResolveMergeFields( mergeFields );
-                if ( lActivityLavaTemplate.Text.Length > 0 )
+
+                var activityLavaTemplate = GetAttributeValue( AttributeKeys.ActivityLavaTemplate ).ResolveMergeFields( mergeFields );
+                var activityWebViewMode = !string.IsNullOrEmpty( activityLavaTemplate );
+                if ( activityWebViewMode )
                 {
-                    pnlActivityLavaTemplate.Visible = true;
-                    pnlConnectionRequestActivities.Visible = false;
+                    EnableActivityWebViewMode( activityLavaTemplate );
                 }
                 else
                 {
-                    pnlActivityLavaTemplate.Visible = false;
-                    pnlConnectionRequestActivities.Visible = true;
+                    EnableDefaultActivityViewMode();
                 }
 
                 avcAttributesReadOnly.AddDisplayControls( connectionRequest, Rock.Security.Authorization.VIEW, this.CurrentPerson );
@@ -2082,6 +2163,19 @@ namespace RockWeb.Blocks.Connection
                 lblWorkflows.Visible = false;
                 lbConnect.Enabled = false;
             }
+        }
+
+        private void EnableActivityWebViewMode( string activityLavaTemplate )
+        {
+            lActivityLavaTemplate.Text = activityLavaTemplate;
+            divLavaActivities.Visible = true;
+            divGridActivities.Visible = false;
+        }
+
+        private void EnableDefaultActivityViewMode()
+        {
+            divLavaActivities.Visible = false;
+            divGridActivities.Visible = true;
         }
 
         /// <summary>
@@ -3030,5 +3124,39 @@ namespace RockWeb.Blocks.Connection
         }
 
         #endregion View Models
+
+        protected void lbActivityAdd_Click( object sender, EventArgs e )
+        {
+            ShowActivityDialog( Guid.Empty );
+        }
+
+        protected void dlgDeleteActivity_SaveClick( object sender, EventArgs e )
+        {
+            var activityId = hfActivityId.ToIntSafe();
+            try
+            {
+                using ( var rockContext = new RockContext() )
+                {
+                    // only allow deleting if current user created the activity, and not a system activity
+                    var connectionRequestActivityService = new ConnectionRequestActivityService( rockContext );
+                    var activity = connectionRequestActivityService.Get( activityId );
+                    if ( activity != null &&
+                        ( activity.CreatedByPersonAliasId.Equals( CurrentPersonAliasId ) || activity.ConnectorPersonAliasId.Equals( CurrentPersonAliasId ) ) &&
+                        activity.ConnectionActivityType.ConnectionTypeId.HasValue )
+                    {
+                        connectionRequestActivityService.Delete( activity );
+                        rockContext.SaveChanges();
+                    }
+
+                    var connectionRequestService = new ConnectionRequestService( rockContext );
+                    var connectionRequest = connectionRequestService.Get( hfConnectionRequestId.ValueAsInt() );
+                }
+            }
+            finally
+            {
+                hfActivityId.Value = string.Empty;
+            }
+            
+        }
     }
 }

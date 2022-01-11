@@ -17,8 +17,10 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -106,7 +108,8 @@ function() {
         /// <returns></returns>
         public override string FormatSelection( Type entityType, string selection )
         {
-            var result = "Document Type";
+            StringBuilder result = new StringBuilder();
+            result.Append( "Document Type" );
 
             var selectionConfig = SelectionConfig.Parse( selection );
 
@@ -116,20 +119,20 @@ function() {
 
                 if ( documentTypeService != null )
                 {
-                    result = "Document Type: " + documentTypeService.Name;
+                    result.Append( ": " + documentTypeService.Name );
 
                     if ( selectionConfig.SlidingDateRangePickerDelimitedValues.IsNotNullOrWhiteSpace() )
                     {
                         var dateRangeString = SlidingDateRangePicker.FormatDelimitedValues( selectionConfig.SlidingDateRangePickerDelimitedValues );
                         if ( dateRangeString.IsNotNullOrWhiteSpace() )
                         {
-                            result += ", Date Range: " + dateRangeString;
+                            result.Append( ", Date Range: " + dateRangeString );
                         }
                     }
                 }
             }
 
-            return result;
+            return result.ToString();
         }
 
         /// <summary>
@@ -148,11 +151,12 @@ function() {
             filterControl.Controls.Add( ddlDocumentType );
 
             var documentTypeService = new DocumentTypeService( new RockContext() );
-            var documentTypes = documentTypeService.Queryable().OrderBy( a => a.Order ).ThenBy( a => a.Name ).Select( a => new
-            {
-                a.Id,
-                a.Name
-            } ).ToList();
+            var documentTypes = documentTypeService.Queryable().AsNoTracking()
+                .OrderBy( a => a.Order ).ThenBy( a => a.Name ).Select( a => new
+                {
+                    a.Id,
+                    a.Name
+                } ).ToList();
 
             ddlDocumentType.Items.Clear();
             ddlDocumentType.Items.Add( new ListItem() );
@@ -250,8 +254,7 @@ function() {
             var selectedDocumentType = DocumentTypeCache.Get( selectionConfig.DocumentTypeId );
 
             var documentService = new DocumentService( rockContext );
-            var documentQuery = documentService
-                .Queryable()
+            var documentQuery = documentService.Queryable().AsNoTracking()
                 .Where( d => d.DocumentType.Id == selectedDocumentType.Id );
 
             if ( selectionConfig.SlidingDateRangePickerDelimitedValues.IsNotNullOrWhiteSpace() )
@@ -269,7 +272,7 @@ function() {
             }
 
             // Get all of the people corresponding to the qualifying documents.
-            var qry = new PersonService( context ).Queryable()
+            var qry = new PersonService( context ).Queryable().AsNoTracking()
                 .Where( p => documentQuery.Any( d => d.EntityId == p.Id ) );
 
             // Retrieve the Filter Expression.

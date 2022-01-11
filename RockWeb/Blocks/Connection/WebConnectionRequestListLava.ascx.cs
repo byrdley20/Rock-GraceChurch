@@ -275,7 +275,7 @@ namespace RockWeb.Blocks.Connection
             {
                 foreach ( var state in _connectionStates )
                 {
-                    cblStates.Items.FindByValue( ( ( int ) state ).ToString() ).Selected = true;
+                     cblStates.Items.FindByValue( ( ( int ) state ).ToString() ).Selected = true;
                 }
             }
         }
@@ -416,6 +416,11 @@ namespace RockWeb.Blocks.Connection
 
             foreach ( var state in GetConnectionStates() )
             {
+                if(state== ConnectionState.Connected )
+                {
+                    continue;
+                }
+
                 cblStates.Items.Add( new ListItem { Text = state.ToString().SplitCase(), Value = ( ( int ) state ).ToString() } );
             }
 

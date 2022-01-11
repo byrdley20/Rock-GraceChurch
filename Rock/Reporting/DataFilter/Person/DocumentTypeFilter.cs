@@ -15,7 +15,6 @@
 // </copyright>
 //
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -34,7 +33,7 @@ namespace Rock.Reporting.DataFilter.Person
     /// <summary>
     /// 
     /// </summary>
-    [Description( "Filter people on document types within a specific date range" )]
+    [Description( "Filter people based on their document types within a specific date range" )]
     [Export( typeof( DataFilterComponent ) )]
     [ExportMetadata( "ComponentName", "Person Document Type Filter" )]
     public class DocumentTypeFilter : DataFilterComponent
@@ -54,85 +53,7 @@ namespace Rock.Reporting.DataFilter.Person
 
         #endregion Properties
 
-
-        /// <summary>
-        /// Sets the selection.
-        /// </summary>
-        /// <param name="entityType">Type of the entity.</param>
-        /// <param name="controls">The controls.</param>
-        /// <param name="selection">The selection.</param>
-        public override void SetSelection( Type entityType, Control[] controls, string selection )
-        {
-            SelectionConfig selectionConfig = SelectionConfig.Parse( selection );
-
-            var documentType = new DocumentTypeService( new RockContext() ).Get( selectionConfig.DocumentTypeId );
-            var ddlDocumentType = controls[0] as RockDropDownList;
-            var slidingDateRangePicker = controls[1] as SlidingDateRangePicker;
-            if ( documentType != null )
-            {
-                ddlDocumentType.SetValue( selectionConfig.DocumentTypeId );
-            }
-
-            slidingDateRangePicker.DelimitedValues = selectionConfig.SlidingDateRangePickerDelimitedValues;
-        }
-
-
-        /// <summary>
-        /// Gets the expression.
-        /// </summary>
-        /// <param name="entityType">Type of the entity.</param>
-        /// <param name="serviceInstance">The service instance.</param>
-        /// <param name="parameterExpression">The parameter expression.</param>
-        /// <param name="selection">The selection.</param>
-        /// <returns></returns>
-        public override Expression GetExpression( Type entityType, IService serviceInstance, ParameterExpression parameterExpression, string selection )
-        {
-            var rockContext = ( RockContext ) serviceInstance.Context;
-
-            SelectionConfig selectionConfig = SelectionConfig.Parse( selection );
-            if ( selectionConfig == null )
-            {
-                return null;
-            }
-
-            var context = ( RockContext ) serviceInstance.Context;
-
-            var docs = DocumentTypeCache.Get( selectionConfig.DocumentTypeId );
-
-            var personTypeId = EntityTypeCache.Get( SystemGuid.EntityType.PERSON ).Id;
-
-            var documentService = new DocumentService( rockContext );
-            var documentQuery = documentService
-                .Queryable()
-                .Where( d => d.DocumentType.EntityTypeId == personTypeId );
-
-
-            if ( selectionConfig.SlidingDateRangePickerDelimitedValues.IsNotNullOrWhiteSpace() )
-            {
-                var dateRange = SlidingDateRangePicker.CalculateDateRangeFromDelimitedValues( selectionConfig.SlidingDateRangePickerDelimitedValues );
-                if ( dateRange.Start.HasValue )
-                {
-                    documentQuery = documentQuery.Where( d => d.CreatedDateTime >= dateRange.Start.Value );
-                }
-
-                if ( dateRange.End.HasValue )
-                {
-                    documentQuery = documentQuery.Where( d => d.CreatedDateTime <= dateRange.End.Value );
-                }
-            }
-
-
-            // Get all of the People corresponding to the qualifying documents.
-            var qry = new PersonService( context ).Queryable()
-                .Where( p => documentQuery.Any( d => d.EntityId == p.Id ) );
-
-            // Retrieve the Filter Expression.
-            var extractedFilterExpression = FilterExpressionExtractor.Extract<Rock.Model.Person>( qry, parameterExpression, "p" );
-
-            return extractedFilterExpression;
-
-        }
-
+        #region Public Methods
         /// <summary>
         /// Gets the title.
         /// </summary>
@@ -168,7 +89,7 @@ function() {
 
                     var dateRangeText = $('.js-slidingdaterange-text-value', $content).val();
                     if( dateRangeText ) {{
-                        result +=  "" Date Range: "" + dateRangeText
+                        result +=  "", Date Range: "" + dateRangeText
                     }}
   }
 
@@ -192,14 +113,18 @@ function() {
             if ( selectionConfig != null )
             {
                 var documentTypeService = new DocumentTypeService( new RockContext() ).Get( selectionConfig.DocumentTypeId );
-                result += $": {documentTypeService.Name}";
 
-                if ( selectionConfig.SlidingDateRangePickerDelimitedValues.IsNotNullOrWhiteSpace() )
+                if ( documentTypeService != null )
                 {
-                    var dateRangeString = SlidingDateRangePicker.FormatDelimitedValues( selectionConfig.SlidingDateRangePickerDelimitedValues );
-                    if ( dateRangeString.IsNotNullOrWhiteSpace() )
+                    result = "Document Type: " + documentTypeService.Name;
+
+                    if ( selectionConfig.SlidingDateRangePickerDelimitedValues.IsNotNullOrWhiteSpace() )
                     {
-                        result += $" Date Range: {dateRangeString}";
+                        var dateRangeString = SlidingDateRangePicker.FormatDelimitedValues( selectionConfig.SlidingDateRangePickerDelimitedValues );
+                        if ( dateRangeString.IsNotNullOrWhiteSpace() )
+                        {
+                            result += ", Date Range: " + dateRangeString;
+                        }
                     }
                 }
             }
@@ -220,11 +145,10 @@ function() {
             ddlDocumentType.Required = true;
             ddlDocumentType.AutoPostBack = true;
             ddlDocumentType.EnhanceForLongLists = true;
-            ddlDocumentType.SelectedIndexChanged += ddlDocumentType_SelectedIndexChanged;
             filterControl.Controls.Add( ddlDocumentType );
 
             var documentTypeService = new DocumentTypeService( new RockContext() );
-            var documentTypes = documentTypeService.Queryable().OrderBy( a => a.Name ).Select( a => new
+            var documentTypes = documentTypeService.Queryable().OrderBy( a => a.Order ).ThenBy( a => a.Name ).Select( a => new
             {
                 a.Id,
                 a.Name
@@ -237,21 +161,6 @@ function() {
             int? documentTypeId = filterControl.Page.Request.Params[ddlDocumentType.UniqueID].AsIntegerOrNull();
             ddlDocumentType.SetValue( documentTypeId );
 
-            //var ddlInteractionComponent = new RockDropDownList();
-            //ddlInteractionComponent.ID = filterControl.ID + "_ddlInteractionComponent";
-            //ddlInteractionComponent.Label = "Interaction Component";
-            //ddlInteractionComponent.CssClass = "js-interaction-component";
-            //ddlInteractionComponent.EnhanceForLongLists = true;
-            //filterControl.Controls.Add( ddlInteractionComponent );
-
-            //PopulateInteractionComponent( selectedInteractionChannelId, ddlInteractionComponent );
-
-            //RockTextBox tbOperation = new RockTextBox();
-            //tbOperation.Label = "Operation";
-            //tbOperation.ID = filterControl.ID + "_tbOperation";
-            //tbOperation.CssClass = "js-tbOperation";
-            //filterControl.Controls.Add( tbOperation );
-
             SlidingDateRangePicker slidingDateRangePicker = new SlidingDateRangePicker();
             slidingDateRangePicker.ID = filterControl.ID + "_slidingDateRangePicker";
             slidingDateRangePicker.AddCssClass( "js-sliding-date-range" );
@@ -259,21 +168,117 @@ function() {
             slidingDateRangePicker.Help = "The date range of the documents";
             filterControl.Controls.Add( slidingDateRangePicker );
 
-            return new Control[2] { ddlDocumentType, slidingDateRangePicker };
+            var controls = new Control[2] { ddlDocumentType, slidingDateRangePicker };
+
+            return controls;
         }
 
         /// <summary>
-        /// Handles the SelectedIndexChanged event of the ddlInteractionChannel control.
+        /// Renders the controls.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void ddlDocumentType_SelectedIndexChanged( object sender, EventArgs e )
+        /// <param name="entityType">Type of the entity.</param>
+        /// <param name="filterControl">The filter control.</param>
+        /// <param name="writer">The writer.</param>
+        /// <param name="controls">The controls.</param>
+        public override void RenderControls( Type entityType, FilterField filterControl, HtmlTextWriter writer, Control[] controls )
         {
-            FilterField filterField = ( sender as Control ).FirstParentControlOfType<FilterField>();
-
-            var ddlDocumentType = filterField.ControlsOfTypeRecursive<RockDropDownList>().FirstOrDefault( a => a.HasCssClass( "js-document-type" ) );
-
+            base.RenderControls( entityType, filterControl, writer, controls );
         }
+
+        /// <summary>
+        /// Gets the selection.
+        /// Implement this version of GetSelection if your DataFilterComponent works the same in all FilterModes
+        /// </summary>
+        /// <param name="entityType">The System Type of the entity to which the filter will be applied.</param>
+        /// <param name="controls">The collection of controls used to set the filter values.</param>
+        /// <returns>A formatted string representing the filter settings.</returns>
+        public override string GetSelection( Type entityType, Control[] controls )
+        {
+            DropDownList ddlDocumentType = controls[0] as DropDownList;
+            SlidingDateRangePicker slidingDateRangePicker = controls[1] as SlidingDateRangePicker;
+
+            var selectionConfig = new SelectionConfig
+            {
+                DocumentTypeId = ddlDocumentType.SelectedValue.AsInteger(),
+                SlidingDateRangePickerDelimitedValues = slidingDateRangePicker.DelimitedValues,
+            };
+
+            return selectionConfig.ToJson();
+        }
+
+        /// <summary>
+        /// Sets the selection.
+        /// </summary>
+        /// <param name="entityType">Type of the entity.</param>
+        /// <param name="controls">The controls.</param>
+        /// <param name="selection">The selection.</param>
+        public override void SetSelection( Type entityType, Control[] controls, string selection )
+        {
+            SelectionConfig selectionConfig = SelectionConfig.Parse( selection );
+
+            var documentType = new DocumentTypeService( new RockContext() ).Get( selectionConfig.DocumentTypeId );
+            var ddlDocumentType = controls[0] as RockDropDownList;
+            var slidingDateRangePicker = controls[1] as SlidingDateRangePicker;
+            if ( documentType != null )
+            {
+                ddlDocumentType.SetValue( selectionConfig.DocumentTypeId );
+            }
+
+            slidingDateRangePicker.DelimitedValues = selectionConfig.SlidingDateRangePickerDelimitedValues;
+        }
+
+        /// <summary>
+        /// Gets the expression.
+        /// </summary>
+        /// <param name="entityType">Type of the entity.</param>
+        /// <param name="serviceInstance">The service instance.</param>
+        /// <param name="parameterExpression">The parameter expression.</param>
+        /// <param name="selection">The selection.</param>
+        /// <returns></returns>
+        public override Expression GetExpression( Type entityType, IService serviceInstance, ParameterExpression parameterExpression, string selection )
+        {
+            var rockContext = ( RockContext ) serviceInstance.Context;
+
+            SelectionConfig selectionConfig = SelectionConfig.Parse( selection );
+            if ( selectionConfig == null )
+            {
+                return null;
+            }
+
+            var context = ( RockContext ) serviceInstance.Context;
+
+            var selectedDocumentType = DocumentTypeCache.Get( selectionConfig.DocumentTypeId );
+
+            var documentService = new DocumentService( rockContext );
+            var documentQuery = documentService
+                .Queryable()
+                .Where( d => d.DocumentType.Id == selectedDocumentType.Id );
+
+            if ( selectionConfig.SlidingDateRangePickerDelimitedValues.IsNotNullOrWhiteSpace() )
+            {
+                var dateRange = SlidingDateRangePicker.CalculateDateRangeFromDelimitedValues( selectionConfig.SlidingDateRangePickerDelimitedValues );
+                if ( dateRange.Start.HasValue )
+                {
+                    documentQuery = documentQuery.Where( d => d.CreatedDateTime >= dateRange.Start.Value );
+                }
+
+                if ( dateRange.End.HasValue )
+                {
+                    documentQuery = documentQuery.Where( d => d.CreatedDateTime <= dateRange.End.Value );
+                }
+            }
+
+            // Get all of the people corresponding to the qualifying documents.
+            var qry = new PersonService( context ).Queryable()
+                .Where( p => documentQuery.Any( d => d.EntityId == p.Id ) );
+
+            // Retrieve the Filter Expression.
+            var extractedFilterExpression = FilterExpressionExtractor.Extract<Rock.Model.Person>( qry, parameterExpression, "p" );
+
+            return extractedFilterExpression;
+        }
+
+        #endregion Public Methods
 
         /// <summary>
         /// Get and set the filter settings from DataViewFilter.Selection
@@ -285,7 +290,6 @@ function() {
             /// </summary>
             public SelectionConfig()
             {
-
             }
 
             /// <summary>
@@ -417,47 +421,10 @@ function() {
                             }
                         }
                     }
-
                 }
 
                 return selectionConfig;
             }
-
-            /// <summary>
-            /// Creates the sliding date range picker delimited values.
-            /// </summary>
-            /// <returns></returns>
-            private string CreateSlidingDateRangePickerDelimitedValues()
-            {
-                return string.Format(
-                    "{0}|{1}|{2}|{3}|{4}",
-                    this.DateRangeMode,
-                    ( SlidingDateRangeType.Last | SlidingDateRangeType.Previous | SlidingDateRangeType.Next | SlidingDateRangeType.Upcoming ).HasFlag( DateRangeMode ) ? this.NumberOfTimeUnits : ( int? ) null,
-                    ( SlidingDateRangeType.Last | SlidingDateRangeType.Previous | SlidingDateRangeType.Next | SlidingDateRangeType.Upcoming | SlidingDateRangeType.Current ).HasFlag( this.DateRangeMode ) ? this.TimeUnit : ( TimeUnitType? ) null,
-                    this.DateRangeMode == SlidingDateRangeType.DateRange ? this.StartDate : null,
-                    this.DateRangeMode == SlidingDateRangeType.DateRange ? this.EndDate : null );
-            }
-        }
-
-        /// <summary>
-        /// Gets the selection.
-        /// Implement this version of GetSelection if your DataFilterComponent works the same in all FilterModes
-        /// </summary>
-        /// <param name="entityType">The System Type of the entity to which the filter will be applied.</param>
-        /// <param name="controls">The collection of controls used to set the filter values.</param>
-        /// <returns>A formatted string representing the filter settings.</returns>
-        public override string GetSelection( Type entityType, Control[] controls )
-        {
-            DropDownList ddlDocumentType = controls[0] as DropDownList;
-            SlidingDateRangePicker slidingDateRangePicker = controls[1] as SlidingDateRangePicker;
-
-            var selectionConfig = new SelectionConfig
-            {
-                DocumentTypeId = ddlDocumentType.SelectedValue.AsInteger(),
-                SlidingDateRangePickerDelimitedValues = slidingDateRangePicker.DelimitedValues,
-            };
-
-            return selectionConfig.ToJson();
         }
     }
 }

@@ -130,8 +130,14 @@ namespace RockWeb.Blocks.Connection
             public const string WorkflowId = "WorkflowId";
             public const string ConnectionRequestId = "ConnectionRequestId";
             public const string ConnectionOpportunityId = "ConnectionOpportunityId";
+            public const string ConnectionRequestActivityId = "ConnectionRequestActivityId";
+            public const string PostBackAction = "PostBackAction";
         }
 
+        public static class PostbackActionKey
+        {
+            public const string DeleteActivity = "DeleteActivity";
+        }
         #endregion
 
         #region Default Lava
@@ -253,7 +259,6 @@ namespace RockWeb.Blocks.Connection
 
             base.OnInit( e );
 
-            Page.PreRenderComplete += Page_PreRenderComplete;
             this.BlockUpdated += Block_BlockUpdated;
 
             gConnectionRequestActivities.DataKeyNames = new string[] { "Guid" };
@@ -266,6 +271,8 @@ namespace RockWeb.Blocks.Connection
 
             rptRequestWorkflows.ItemCommand += rptRequestWorkflows_ItemCommand;
             rptSearchResult.ItemCommand += rptSearchResult_ItemCommand;
+
+            RegisterScripts();
 
             // this event gets fired after block settings are updated. it's nice to repaint the screen if these settings would alter it
             this.AddConfigurationUpdateTrigger( upDetail );
@@ -302,6 +309,7 @@ namespace RockWeb.Blocks.Connection
             base.OnLoad( e );
 
             HandleFormPostbacks();
+            HandlePostbackActions();
 
             nbErrorMessage.Visible = false;
             nbRequirementsErrors.Visible = false;
@@ -316,7 +324,10 @@ namespace RockWeb.Blocks.Connection
                 return;
             }
 
-            ShowDetail( PageParameter( PageParameterKey.ConnectionRequestId ).AsInteger(), PageParameter( PageParameterKey.ConnectionOpportunityId ).AsIntegerOrNull() );
+            if ( !Page.IsPostBack )
+            {
+                ShowDetail( PageParameter( PageParameterKey.ConnectionRequestId ).AsInteger(), PageParameter( PageParameterKey.ConnectionOpportunityId ).AsIntegerOrNull() );
+            }
 
             var connectionRequest = GetConnectionRequest();
             if ( connectionRequest != null )
@@ -324,16 +335,6 @@ namespace RockWeb.Blocks.Connection
                 // Set the person
                 Person = connectionRequest.PersonAlias.Person;
             }
-        }
-
-        /// <summary>
-        /// Handles the PreRenderComplete event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void Page_PreRenderComplete( object sender, EventArgs e )
-        {
-            RegisterScripts();
         }
 
         /// <summary>
@@ -409,47 +410,47 @@ namespace RockWeb.Blocks.Connection
                  });";
 
             ScriptManager.RegisterStartupScript( lbConnect, lbConnect.GetType(), "confirmConnectScript", confirmConnectScript, true );
-
-            //var displayActivityRowButtons = @"
-            //   var deleteActionHtml = $('.activity-delete-action').html();
-            //   $('#divLavaActivitiesContent .card-body').each(function() {
-            //        var self=$(this);
-            //        $(self).append(deleteActionHtml);
-            //        console.debug('confirmConnectScript',self);     
-            //    });";
-            //ScriptManager.RegisterStartupScript( divLavaActivities, divLavaActivities.GetType(), "displayActivityRowButtons", displayActivityRowButtons, true );
         }
 
         private void HandleFormPostbacks()
         {
             if ( Request.Form["__EVENTARGUMENT"] != null )
             {
-                try
+                string[] eventArgs = Request.Form["__EVENTARGUMENT"].Split( '^' );
+
+                if ( eventArgs.Length == 2 )
                 {
-                    string[] eventArgs = Request.Form["__EVENTARGUMENT"].Split( '^' );
+                    string action = eventArgs[0];
+                    string parameters = eventArgs[1];
 
-                    if ( eventArgs.Length == 2 )
+                    int argument = 0;
+                    int.TryParse( parameters, out argument );
+
+                    switch ( action )
                     {
-                        string action = eventArgs[0];
-                        string parameters = eventArgs[1];
-
-                        int argument = 0;
-                        int.TryParse( parameters, out argument );
-
-                        switch ( action )
-                        {
-                            case "DeleteActivity":
-                                {
-                                    DeleteActivity( argument );
-                                }
-                                break;
-                        }
+                        case PostbackActionKey.DeleteActivity:
+                            {
+                                DeleteActivity( argument );
+                            }
+                            break;
                     }
                 }
-                finally
-                {
-                    Response.Redirect( GetCurrentPageUrl() );
-                }
+            }
+        }
+        private void HandlePostbackActions()
+        {
+            var postbackAction = PageParameter( PageParameterKey.PostBackAction );
+            if ( string.IsNullOrEmpty( postbackAction ) )
+            {
+                return;
+            }
+            switch ( postbackAction )
+            {
+                case PostbackActionKey.DeleteActivity:
+                    {
+                        dlgDeleteActivity.Show();
+                    }
+                    break;
             }
         }
         #endregion
@@ -1509,8 +1510,13 @@ namespace RockWeb.Blocks.Connection
 
         private void DeleteActivity( int activityId )
         {
-            hfActivityId.Value = activityId.ToString();
-            dlgDeleteActivity.Show();
+            var postBackParams = new Dictionary<string, string> {
+                { PageParameterKey.ConnectionRequestId,PageParameter(PageParameterKey.ConnectionRequestId) },
+                { PageParameterKey.ConnectionOpportunityId,PageParameter(PageParameterKey.ConnectionOpportunityId) },
+                {PageParameterKey.ConnectionRequestActivityId,activityId.ToString() },
+                { PageParameterKey.PostBackAction, PostbackActionKey.DeleteActivity }
+            };
+           NavigateToCurrentPage(  postBackParams  );
         }
         /// <summary>
         /// Adds the assigned activity.
@@ -3132,31 +3138,32 @@ namespace RockWeb.Blocks.Connection
 
         protected void dlgDeleteActivity_SaveClick( object sender, EventArgs e )
         {
-            var activityId = hfActivityId.ToIntSafe();
-            try
-            {
-                using ( var rockContext = new RockContext() )
-                {
-                    // only allow deleting if current user created the activity, and not a system activity
-                    var connectionRequestActivityService = new ConnectionRequestActivityService( rockContext );
-                    var activity = connectionRequestActivityService.Get( activityId );
-                    if ( activity != null &&
-                        ( activity.CreatedByPersonAliasId.Equals( CurrentPersonAliasId ) || activity.ConnectorPersonAliasId.Equals( CurrentPersonAliasId ) ) &&
-                        activity.ConnectionActivityType.ConnectionTypeId.HasValue )
-                    {
-                        connectionRequestActivityService.Delete( activity );
-                        rockContext.SaveChanges();
-                    }
+            var activityId = PageParameter( PageParameterKey.ConnectionRequestActivityId ).ToIntSafe();
 
-                    var connectionRequestService = new ConnectionRequestService( rockContext );
-                    var connectionRequest = connectionRequestService.Get( hfConnectionRequestId.ValueAsInt() );
-                }
-            }
-            finally
+            using ( var rockContext = new RockContext() )
             {
-                hfActivityId.Value = string.Empty;
+                // only allow deleting if current user created the activity, and not a system activity
+                var connectionRequestActivityService = new ConnectionRequestActivityService( rockContext );
+                var activity = connectionRequestActivityService.Get( activityId );
+                if ( activity != null &&
+                    ( activity.CreatedByPersonAliasId.Equals( CurrentPersonAliasId ) || activity.ConnectorPersonAliasId.Equals( CurrentPersonAliasId ) ) &&
+                    activity.ConnectionActivityType.ConnectionTypeId.HasValue )
+                {
+                    connectionRequestActivityService.Delete( activity );
+                    rockContext.SaveChanges();
+                }
+
+                var connectionRequestService = new ConnectionRequestService( rockContext );
+                var connectionRequest = connectionRequestService.Get( hfConnectionRequestId.ValueAsInt() );
             }
-            
+
+            var pageParams = new Dictionary<string, string>
+            {
+                { PageParameterKey.ConnectionRequestId,PageParameter(PageParameterKey.ConnectionRequestId) },
+                { PageParameterKey.ConnectionOpportunityId,PageParameter(PageParameterKey.ConnectionOpportunityId) }
+            };
+
+            NavigateToCurrentPage( pageParams );
         }
     }
 }

@@ -305,6 +305,11 @@
             </Rock:PanelWidget>
 
             <asp:Panel ID="pnlConnectionRequestActivities" runat="server" CssClass="panel panel-block" Visible="true">
+                 <Rock:ModalDialog ID="dlgDeleteActivity" runat="server" SaveButtonText="Ok" OnSaveClick="dlgDeleteActivity_SaveClick" Title="Delete Activity">
+                        <Content>
+                            <span>Are you sure you want to delete this Activity?</span>
+                        </Content>
+                    </Rock:ModalDialog>
                 <div id="divLavaActivities" runat="server">
                     <div class="panel-body">
                         <div class="row">
@@ -316,19 +321,19 @@
                         <div class="row">
                             <div id="divLavaActivitiesContent" class="col-xs-12">
                                 <asp:Literal ID="lActivityLavaTemplate" runat="server"></asp:Literal>
-                               
+
                             </div>
                         </div>
                         <table class="table table-condensed table-light no-table-border">
                             <tfoot>
                                 <tr title="">
                                     <td class="grid-actions" colspan="6">
-                                        <asp:LinkButton id="lbActivityAdd" runat="server" AccessKey="n" ToolTip="Alt+N" CssClass="btn btn-grid-action btn-add btn-default btn-sm" OnClick="lbActivityAdd_Click">
+                                        <asp:LinkButton ID="lbActivityAdd" runat="server" AccessKey="n" ToolTip="Alt+N" CssClass="btn btn-grid-action btn-add btn-default btn-sm" OnClick="lbActivityAdd_Click">
                                             <i class="fa fa-plus-circle fa-fw"></i>
                                         </asp:LinkButton>
                                     </td>
                                 </tr>
-							</tfoot>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -353,13 +358,6 @@
                     </div>
                 </div>
             </asp:Panel>
-
-             <Rock:ModalDialog ID="dlgDeleteActivity" runat="server" SaveButtonText="Ok" OnSaveClick="dlgDeleteActivity_SaveClick" Title="Delete Activity">
-                <Content>
-                     <asp:HiddenField ID="hfActivityId" runat="server" />
-                    <span>Are you sure you want to delete this Activity?</span>
-                </Content>
-            </Rock:ModalDialog>
 
             <Rock:ModalDialog ID="dlgConnectionRequestActivities" runat="server" SaveButtonText="Add" OnSaveClick="btnAddConnectionRequestActivity_Click" Title="Add Activity" ValidationGroup="Activity">
                 <Content>

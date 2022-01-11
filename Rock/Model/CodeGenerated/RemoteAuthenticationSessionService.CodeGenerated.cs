@@ -31,15 +31,15 @@ using Rock.Web.Cache;
 namespace Rock.Model
 {
     /// <summary>
-    /// RelatedEntity Service class
+    /// RemoteAuthenticationSession Service class
     /// </summary>
-    public partial class RelatedEntityService : Service<RelatedEntity>
+    public partial class RemoteAuthenticationSessionService : Service<RemoteAuthenticationSession>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="RelatedEntityService"/> class
+        /// Initializes a new instance of the <see cref="RemoteAuthenticationSessionService"/> class
         /// </summary>
         /// <param name="context">The context.</param>
-        public RelatedEntityService(RockContext context) : base(context)
+        public RemoteAuthenticationSessionService(RockContext context) : base(context)
         {
         }
 
@@ -51,7 +51,7 @@ namespace Rock.Model
         /// <returns>
         ///   <c>true</c> if this instance can delete the specified item; otherwise, <c>false</c>.
         /// </returns>
-        public bool CanDelete( RelatedEntity item, out string errorMessage )
+        public bool CanDelete( RemoteAuthenticationSession item, out string errorMessage )
         {
             errorMessage = string.Empty;
             return true;
@@ -59,10 +59,10 @@ namespace Rock.Model
     }
 
     /// <summary>
-    /// RelatedEntity View Model Helper
+    /// RemoteAuthenticationSession View Model Helper
     /// </summary>
-    [DefaultViewModelHelper( typeof( RelatedEntity ) )]
-    public partial class RelatedEntityViewModelHelper : ViewModelHelper<RelatedEntity, Rock.ViewModel.RelatedEntityViewModel>
+    [DefaultViewModelHelper( typeof( RemoteAuthenticationSession ) )]
+    public partial class RemoteAuthenticationSessionViewModelHelper : ViewModelHelper<RemoteAuthenticationSession, Rock.ViewModel.RemoteAuthenticationSessionViewModel>
     {
         /// <summary>
         /// Converts the model to a view model.
@@ -71,28 +71,26 @@ namespace Rock.Model
         /// <param name="currentPerson">The current person.</param>
         /// <param name="loadAttributes">if set to <c>true</c> [load attributes].</param>
         /// <returns></returns>
-        public override Rock.ViewModel.RelatedEntityViewModel CreateViewModel( RelatedEntity model, Person currentPerson = null, bool loadAttributes = true )
+        public override Rock.ViewModel.RemoteAuthenticationSessionViewModel CreateViewModel( RemoteAuthenticationSession model, Person currentPerson = null, bool loadAttributes = true )
         {
             if ( model == null )
             {
                 return default;
             }
 
-            var viewModel = new Rock.ViewModel.RelatedEntityViewModel
+            var viewModel = new Rock.ViewModel.RemoteAuthenticationSessionViewModel
             {
                 Id = model.Id,
                 Guid = model.Guid,
-                AdditionalSettingsJson = model.AdditionalSettingsJson,
-                IsSystem = model.IsSystem,
-                Note = model.Note,
-                Order = model.Order,
-                PurposeKey = model.PurposeKey,
-                QualifierValue = model.QualifierValue,
-                Quantity = model.Quantity,
-                SourceEntityId = model.SourceEntityId,
-                SourceEntityTypeId = model.SourceEntityTypeId,
-                TargetEntityId = model.TargetEntityId,
-                TargetEntityTypeId = model.TargetEntityTypeId,
+                AuthenticationIpAddress = model.AuthenticationIpAddress,
+                AuthorizedPersonAliasId = model.AuthorizedPersonAliasId,
+                ClientIpAddress = model.ClientIpAddress,
+                Code = model.Code,
+                DeviceUniqueIdentifier = model.DeviceUniqueIdentifier,
+                SessionAuthenticatedDateTime = model.SessionAuthenticatedDateTime,
+                SessionEndDateTime = model.SessionEndDateTime,
+                SessionStartDateTime = model.SessionStartDateTime,
+                SiteId = model.SiteId,
                 CreatedDateTime = model.CreatedDateTime,
                 ModifiedDateTime = model.ModifiedDateTime,
                 CreatedByPersonAliasId = model.CreatedByPersonAliasId,
@@ -109,36 +107,36 @@ namespace Rock.Model
     /// <summary>
     /// Generated Extension Methods
     /// </summary>
-    public static partial class RelatedEntityExtensionMethods
+    public static partial class RemoteAuthenticationSessionExtensionMethods
     {
         /// <summary>
-        /// Clones this RelatedEntity object to a new RelatedEntity object
+        /// Clones this RemoteAuthenticationSession object to a new RemoteAuthenticationSession object
         /// </summary>
         /// <param name="source">The source.</param>
         /// <param name="deepCopy">if set to <c>true</c> a deep copy is made. If false, only the basic entity properties are copied.</param>
         /// <returns></returns>
-        public static RelatedEntity Clone( this RelatedEntity source, bool deepCopy )
+        public static RemoteAuthenticationSession Clone( this RemoteAuthenticationSession source, bool deepCopy )
         {
             if (deepCopy)
             {
-                return source.Clone() as RelatedEntity;
+                return source.Clone() as RemoteAuthenticationSession;
             }
             else
             {
-                var target = new RelatedEntity();
+                var target = new RemoteAuthenticationSession();
                 target.CopyPropertiesFrom( source );
                 return target;
             }
         }
 
         /// <summary>
-        /// Clones this RelatedEntity object to a new RelatedEntity object with default values for the properties in the Entity and Model base classes.
+        /// Clones this RemoteAuthenticationSession object to a new RemoteAuthenticationSession object with default values for the properties in the Entity and Model base classes.
         /// </summary>
         /// <param name="source">The source.</param>
         /// <returns></returns>
-        public static RelatedEntity CloneWithoutIdentity( this RelatedEntity source )
+        public static RemoteAuthenticationSession CloneWithoutIdentity( this RemoteAuthenticationSession source )
         {
-            var target = new RelatedEntity();
+            var target = new RemoteAuthenticationSession();
             target.CopyPropertiesFrom( source );
 
             target.Id = 0;
@@ -155,26 +153,24 @@ namespace Rock.Model
         }
 
         /// <summary>
-        /// Copies the properties from another RelatedEntity object to this RelatedEntity object
+        /// Copies the properties from another RemoteAuthenticationSession object to this RemoteAuthenticationSession object
         /// </summary>
         /// <param name="target">The target.</param>
         /// <param name="source">The source.</param>
-        public static void CopyPropertiesFrom( this RelatedEntity target, RelatedEntity source )
+        public static void CopyPropertiesFrom( this RemoteAuthenticationSession target, RemoteAuthenticationSession source )
         {
             target.Id = source.Id;
-            target.AdditionalSettingsJson = source.AdditionalSettingsJson;
+            target.AuthenticationIpAddress = source.AuthenticationIpAddress;
+            target.AuthorizedPersonAliasId = source.AuthorizedPersonAliasId;
+            target.ClientIpAddress = source.ClientIpAddress;
+            target.Code = source.Code;
+            target.DeviceUniqueIdentifier = source.DeviceUniqueIdentifier;
             target.ForeignGuid = source.ForeignGuid;
             target.ForeignKey = source.ForeignKey;
-            target.IsSystem = source.IsSystem;
-            target.Note = source.Note;
-            target.Order = source.Order;
-            target.PurposeKey = source.PurposeKey;
-            target.QualifierValue = source.QualifierValue;
-            target.Quantity = source.Quantity;
-            target.SourceEntityId = source.SourceEntityId;
-            target.SourceEntityTypeId = source.SourceEntityTypeId;
-            target.TargetEntityId = source.TargetEntityId;
-            target.TargetEntityTypeId = source.TargetEntityTypeId;
+            target.SessionAuthenticatedDateTime = source.SessionAuthenticatedDateTime;
+            target.SessionEndDateTime = source.SessionEndDateTime;
+            target.SessionStartDateTime = source.SessionStartDateTime;
+            target.SiteId = source.SiteId;
             target.CreatedDateTime = source.CreatedDateTime;
             target.ModifiedDateTime = source.ModifiedDateTime;
             target.CreatedByPersonAliasId = source.CreatedByPersonAliasId;
@@ -190,9 +186,9 @@ namespace Rock.Model
         /// <param name="model">The entity.</param>
         /// <param name="currentPerson" >The currentPerson.</param>
         /// <param name="loadAttributes" >Load attributes?</param>
-        public static Rock.ViewModel.RelatedEntityViewModel ToViewModel( this RelatedEntity model, Person currentPerson = null, bool loadAttributes = false )
+        public static Rock.ViewModel.RemoteAuthenticationSessionViewModel ToViewModel( this RemoteAuthenticationSession model, Person currentPerson = null, bool loadAttributes = false )
         {
-            var helper = new RelatedEntityViewModelHelper();
+            var helper = new RemoteAuthenticationSessionViewModelHelper();
             var viewModel = helper.CreateViewModel( model, currentPerson, loadAttributes );
             return viewModel;
         }

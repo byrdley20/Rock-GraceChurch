@@ -21,21 +21,18 @@
 // </copyright>
 //
 
-import { IEntity } from "../entity";
+using Rock.Model;
 
-export type RelatedEntity = IEntity & {
-    additionalSettingsJson?: string | null;
-    isSystem?: boolean;
-    order?: number;
-    purposeKey?: string | null;
-    qualifierValue?: string | null;
-    quantity?: number | null;
-    sourceEntityId?: number;
-    sourceEntityTypeId?: number;
-    targetEntityId?: number;
-    targetEntityTypeId?: number;
-    createdDateTime?: string | null;
-    modifiedDateTime?: string | null;
-    createdByPersonAliasId?: number | null;
-    modifiedByPersonAliasId?: number | null;
-};
+namespace Rock.Rest.Controllers
+{
+    /// <summary>
+    /// RemoteAuthenticationSessions REST API
+    /// </summary>
+    public partial class RemoteAuthenticationSessionsController : Rock.Rest.ApiController<Rock.Model.RemoteAuthenticationSession>
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RemoteAuthenticationSessionsController"/> class.
+        /// </summary>
+        public RemoteAuthenticationSessionsController() : base( new Rock.Model.RemoteAuthenticationSessionService( new Rock.Data.RockContext() ) ) { } 
+    }
+}

@@ -27,97 +27,81 @@ using System.Linq;
 namespace Rock.ViewModel
 {
     /// <summary>
-    /// RelatedEntity View Model
+    /// RemoteAuthenticationSession View Model
     /// </summary>
-    public partial class RelatedEntityViewModel : ViewModelBase
+    public partial class RemoteAuthenticationSessionViewModel : ViewModelBase
     {
         /// <summary>
-        /// Gets or sets the AdditionalSettingsJson.
+        /// Gets or sets the AuthenticationIpAddress.
         /// </summary>
         /// <value>
-        /// The AdditionalSettingsJson.
+        /// The AuthenticationIpAddress.
         /// </value>
-        public string AdditionalSettingsJson { get; set; }
+        public string AuthenticationIpAddress { get; set; }
 
         /// <summary>
-        /// Gets or sets the IsSystem.
+        /// Gets or sets the AuthorizedPersonAliasId.
         /// </summary>
         /// <value>
-        /// The IsSystem.
+        /// The AuthorizedPersonAliasId.
         /// </value>
-        public bool IsSystem { get; set; }
+        public int? AuthorizedPersonAliasId { get; set; }
 
         /// <summary>
-        /// Gets or sets the Note.
+        /// Gets or sets the ClientIpAddress.
         /// </summary>
         /// <value>
-        /// The Note.
+        /// The ClientIpAddress.
         /// </value>
-        public string Note { get; set; }
+        public string ClientIpAddress { get; set; }
 
         /// <summary>
-        /// Gets or sets the Order.
+        /// Gets or sets the Code.
         /// </summary>
         /// <value>
-        /// The Order.
+        /// The Code.
         /// </value>
-        public int Order { get; set; }
+        public string Code { get; set; }
 
         /// <summary>
-        /// Gets or sets the PurposeKey.
+        /// Gets or sets the DeviceUniqueIdentifier.
         /// </summary>
         /// <value>
-        /// The PurposeKey.
+        /// The DeviceUniqueIdentifier.
         /// </value>
-        public string PurposeKey { get; set; }
+        public string DeviceUniqueIdentifier { get; set; }
 
         /// <summary>
-        /// Gets or sets the QualifierValue.
+        /// Gets or sets the SessionAuthenticatedDateTime.
         /// </summary>
         /// <value>
-        /// The QualifierValue.
+        /// The SessionAuthenticatedDateTime.
         /// </value>
-        public string QualifierValue { get; set; }
+        public DateTime? SessionAuthenticatedDateTime { get; set; }
 
         /// <summary>
-        /// Gets or sets the Quantity.
+        /// Gets or sets the SessionEndDateTime.
         /// </summary>
         /// <value>
-        /// The Quantity.
+        /// The SessionEndDateTime.
         /// </value>
-        public int? Quantity { get; set; }
+        public DateTime? SessionEndDateTime { get; set; }
 
         /// <summary>
-        /// Gets or sets the SourceEntityId.
+        /// Gets or sets the SessionStartDateTime.
         /// </summary>
         /// <value>
-        /// The SourceEntityId.
+        /// The SessionStartDateTime.
         /// </value>
-        public int SourceEntityId { get; set; }
+        public DateTime? SessionStartDateTime { get; set; }
 
         /// <summary>
-        /// Gets or sets the SourceEntityTypeId.
+        /// Gets or sets the SiteId.
         /// </summary>
         /// <value>
-        /// The SourceEntityTypeId.
+        /// The SiteId.
         /// </value>
-        public int SourceEntityTypeId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the TargetEntityId.
-        /// </summary>
-        /// <value>
-        /// The TargetEntityId.
-        /// </value>
-        public int TargetEntityId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the TargetEntityTypeId.
-        /// </summary>
-        /// <value>
-        /// The TargetEntityTypeId.
-        /// </value>
-        public int TargetEntityTypeId { get; set; }
+        public int? SiteId { get; set; }
 
         /// <summary>
         /// Gets or sets the CreatedDateTime.

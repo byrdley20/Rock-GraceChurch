@@ -315,17 +315,8 @@
             <asp:Panel ID="pnlConnectionRequestActivities" runat="server" CssClass="panel panel-block" Visible="true">
                 <div id="divLavaActivities" runat="server">
                     <div class="panel-body">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <h2>Activity</h2>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div id="divLavaActivitiesContent" class="col-xs-12">
-                                <asp:Literal ID="lActivityLavaTemplate" runat="server"></asp:Literal>
-
-                            </div>
+                        <div id="divLavaActivitiesContent" >
+                            <asp:Literal ID="lActivityLavaTemplate" runat="server"></asp:Literal>
                         </div>
                         <table class="table table-condensed table-light lava-activity-add-no-table-border">
                             <tfoot>

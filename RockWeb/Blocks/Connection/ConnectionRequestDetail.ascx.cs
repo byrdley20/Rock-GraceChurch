@@ -96,7 +96,7 @@ namespace RockWeb.Blocks.Connection
                             <p><strong>ConnectionRequest, CurrentPerson, Context, PageParameter, Campuses</strong>)</p>
                          </i>",
         EditorMode = CodeEditorMode.Lava,
-        //DefaultValue = Lava.ConnectionRequestDetails, // For Testing Only
+        DefaultValue = Lava.ConnectionRequestDetails, // For Testing Only
         IsRequired = false,
         Order = 8 )]
 
@@ -184,6 +184,12 @@ namespace RockWeb.Blocks.Connection
     }
 </style>
 
+    <div class='row>
+       <div class='col-xs-12>
+           <h2>Activity</h2>
+       </div>
+    </div>
+
 {% for connectionRequestActivity in ConnectionRequest.ConnectionRequestActivities %}
    {% if connectionRequestActivity.CreatedByPersonAliasId == CurrentPerson.PrimaryAliasId or connectionRequestActivity.ConnectorPersonAliasId == CurrentPerson.PrimaryAliasId %}
       {%if connectionRequestActivity.ConnectionActivityType.ConnectionTypeId %}
@@ -230,6 +236,7 @@ namespace RockWeb.Blocks.Connection
         </div>
     </a>
 {% endfor %}
+
 {% comment %} {{ 'Lava' | Debug }} {% endcomment %}";
         }
 

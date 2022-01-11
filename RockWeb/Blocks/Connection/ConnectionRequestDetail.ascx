@@ -31,17 +31,25 @@
         vertical-align: top; 
     }
 
-    .no-table-border {
+    .lava-activity-add-no-table-border {
         border-style:hidden !important;
     }
 </style>
+
+<script type="text/javascript">
+    function cancelDeleteActivity() {
+        var pathName = window.location.pathname + "?ConnectionRequestId=" + escape($("#hfConnectionRequestId").val()) + "&ConnectionOpportunityId=" + escape($("#hfConnectionOpportunityId").val());
+        console.debug('cancelDeleteActivity', pathName);
+        window.location = pathName;
+    }
+</script>
 
 <asp:UpdatePanel ID="upDetail" runat="server">
     <ContentTemplate>
         <Rock:NotificationBox ID="nbSecurityWarning" runat="server" NotificationBoxType="Warning" Text="The information provided is not valid or you are not authorized to view this content." Visible="false" />
         <asp:Panel ID="pnlDetail" runat="server">
-            <asp:HiddenField ID="hfConnectionOpportunityId" runat="server" />
-            <asp:HiddenField ID="hfConnectionRequestId" runat="server" />
+            <asp:HiddenField ID="hfConnectionOpportunityId" ClientIDMode="Static" runat="server" />
+            <asp:HiddenField ID="hfConnectionRequestId" ClientIDMode="Static" runat="server" />
             <asp:HiddenField ID="hfActiveDialog" runat="server" />
 
             <Rock:NotificationBox ID="nbNoParameterMessage" runat="server" NotificationBoxType="Warning" Heading="Missing Parameter(s)"
@@ -305,11 +313,6 @@
             </Rock:PanelWidget>
 
             <asp:Panel ID="pnlConnectionRequestActivities" runat="server" CssClass="panel panel-block" Visible="true">
-                 <Rock:ModalDialog ID="dlgDeleteActivity" runat="server" SaveButtonText="Ok" OnSaveClick="dlgDeleteActivity_SaveClick" Title="Delete Activity">
-                        <Content>
-                            <span>Are you sure you want to delete this Activity?</span>
-                        </Content>
-                    </Rock:ModalDialog>
                 <div id="divLavaActivities" runat="server">
                     <div class="panel-body">
                         <div class="row">
@@ -324,7 +327,7 @@
 
                             </div>
                         </div>
-                        <table class="table table-condensed table-light no-table-border">
+                        <table class="table table-condensed table-light lava-activity-add-no-table-border">
                             <tfoot>
                                 <tr title="">
                                     <td class="grid-actions" colspan="6">
@@ -337,6 +340,7 @@
                         </table>
                     </div>
                 </div>
+
                 <div id="divGridActivities" runat="server">
                     <div class="panel-heading">
                         <h1 class="panel-title">Activities</h1>
@@ -358,6 +362,12 @@
                     </div>
                 </div>
             </asp:Panel>
+
+            <Rock:ModalDialog ID="dlgDeleteActivity" runat="server" SaveButtonText="Ok" OnSaveClick="dlgDeleteActivity_SaveClick" OnCancelScript="cancelDeleteActivity()" Title="Delete Activity">
+                <Content>
+                    <span>Are you sure you want to delete this Activity?</span>
+                </Content>
+            </Rock:ModalDialog>
 
             <Rock:ModalDialog ID="dlgConnectionRequestActivities" runat="server" SaveButtonText="Add" OnSaveClick="btnAddConnectionRequestActivity_Click" Title="Add Activity" ValidationGroup="Activity">
                 <Content>

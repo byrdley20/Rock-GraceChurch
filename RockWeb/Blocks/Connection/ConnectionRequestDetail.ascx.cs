@@ -150,7 +150,7 @@ namespace RockWeb.Blocks.Connection
         {
             public const string ConnectionRequestDetails = @"
 {% comment %}
-   This is the default lava template for the ConnectionOpportunitySelect block
+   This is the default lava template for the ConnectionRequestDetail block's Activity List.
 
    Available Lava Fields:
        ConnectionRequest

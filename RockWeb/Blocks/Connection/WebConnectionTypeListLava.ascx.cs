@@ -92,6 +92,8 @@ namespace RockWeb.Blocks.Connection
     }
 </style>
 {% for connectionType in ConnectionTypes %}
+{% assign count = ConnectionRequestCounts[connectionType.Id] | Map:'Value' | First | AsInteger %}
+{% if count >0 %}
     <a href='{{ DetailPage | Default:'0' | PageRoute }}?ConnectionTypeGuid={{ connectionType.Guid }}' stretched-link>
         <div class='card mb-2'>
             <div class='card-body'>
@@ -105,13 +107,15 @@ namespace RockWeb.Blocks.Connection
                         <span class='text-muted'><small>{{ connectionType.Description }}</small></span>
                     </div>
                     <div class='col-xs-1 col-md-1 mx-auto text-right'>
-                        <span class='badge badge-pill badge-primary bg-blue-500'><small>{{ ConnectionRequestCounts[connectionType.Id] | Map: 'Value' }}</small></span>
+                        <span class='badge badge-pill badge-primary bg-blue-500'><small>{{ count }}</small></span>
                     </div>
                 </div>
             </div>
         </div>
        </a>
+{%endif %}
 {% endfor %}
+{{ 'Lava' | Debug }}
 ";
 
         }

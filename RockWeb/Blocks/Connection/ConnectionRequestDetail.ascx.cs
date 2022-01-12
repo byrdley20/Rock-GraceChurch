@@ -101,6 +101,7 @@ namespace RockWeb.Blocks.Connection
         Order = 8 )]
 
     #endregion Block Attributes
+
     public partial class ConnectionRequestDetail : PersonBlock
     {
         #region Attribute Keys
@@ -179,6 +180,10 @@ namespace RockWeb.Blocks.Connection
         box-shadow: inset 0 0 0 1px rgba(0,0,0,0.07)
     }
 
+  .delete-button {
+        color: black !important;
+   }
+
   .delete-button:hover {
         color: red !important;
     }
@@ -209,7 +214,7 @@ namespace RockWeb.Blocks.Connection
                     <div class='col-xs-6 col-md-9 pl-md-0 mx-auto'>
                        <strong class='text-color'>{{ connectionRequestActivity.ConnectorPersonAlias.Person.FullName | Default: 'Unassigned' }}</strong>
                        <br/>
-                       {% if connectionRequestActivity.Note %}
+                       {% if connectionRequestActivity.Note | StripNewlines | Trim | Size > 0 %}
                           <span class='text-muted'><small><strong>{{ connectionRequestActivity.ConnectionActivityType.Name }}</strong>: {{ connectionRequestActivity.Note }}</small></span>
                        {% else %}
                           <span class='text-muted'><small><strong>{{ connectionRequestActivity.ConnectionActivityType.Name }}</strong></small></span>         

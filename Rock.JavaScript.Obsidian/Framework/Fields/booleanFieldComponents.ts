@@ -202,8 +202,8 @@ export const ConfigurationComponent = defineComponent({
         // Watch for changes coming in from the parent component and update our
         // data to match the new information.
         watch(() => [props.modelValue, props.configurationProperties], () => {
-            trueText.value = props.modelValue[ConfigurationValueKey.TrueText];
-            falseText.value = props.modelValue[ConfigurationValueKey.FalseText];
+            trueText.value = props.modelValue[ConfigurationValueKey.TrueText] ?? "Yes";
+            falseText.value = props.modelValue[ConfigurationValueKey.FalseText] ?? "No";
             controlType.value = parseInt(props.modelValue[ConfigurationValueKey.BooleanControlType], 10) || 0;
         }, {
             immediate: true

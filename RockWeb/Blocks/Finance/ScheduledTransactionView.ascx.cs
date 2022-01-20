@@ -244,7 +244,7 @@ namespace RockWeb.Blocks.Finance
             var financialScheduledTransaction = GetScheduledTransaction();
             if ( financialScheduledTransaction != null && financialScheduledTransaction.AuthorizedPersonAlias != null && financialScheduledTransaction.AuthorizedPersonAlias.Person != null )
             {
-                if ( !financialScheduledTransaction.AuthorizedPersonAlias.Person.IsPersonTokenUsageAllowed() )
+                if ( !financialScheduledTransaction.AuthorizedPersonAlias.Person.IsPersonTokenUsageAllowed() && !IsUserAuthorized( Rock.Security.Authorization.EDIT ) )
                 {
                     if ( financialScheduledTransaction.AuthorizedPersonAlias.PersonId != this.CurrentPersonId )
                     {

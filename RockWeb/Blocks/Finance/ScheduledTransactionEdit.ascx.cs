@@ -603,68 +603,85 @@ achieve our mission.  We are so grateful for your commitment.
         /// <returns></returns>
         private FinancialScheduledTransaction GetScheduledTransaction( bool refresh = false )
         {
-            Person targetPerson = null;
+            // Default target to the current person
+            Person targetPerson = CurrentPerson;
+
             using ( var rockContext = new RockContext() )
             {
-                // If impersonation is allowed, and a valid person key was used, set the target to that person
+                // If impersonation is allowed by the block settings and a valid person key was used then set the target to that person
                 if ( IsImpersonationAllowed() )
                 {
                     string personKey = PageParameter( "Person" );
-                    if ( !string.IsNullOrWhiteSpace( personKey ) )
+                    if ( !string.IsNullOrWhiteSpace( personKey ) && personKey != "TokenProhibited" )
                     {
                         targetPerson = new PersonService( rockContext ).GetByUrlEncodedKey( personKey );
                     }
                 }
 
+                // If there is no person then don't return a transaction
                 if ( targetPerson == null )
                 {
-                    targetPerson = CurrentPerson;
+                    return null;
                 }
 
-                // Verify that transaction id is valid for selected person
-                if ( targetPerson != null )
+                // If the tranaction ID is missing or invalid then return null
+                int txnId = int.MinValue;
+                if ( !int.TryParse( PageParameter( "ScheduledTransactionId" ), out txnId ) )
                 {
-                    int txnId = int.MinValue;
-                    if ( int.TryParse( PageParameter( "ScheduledTransactionId" ), out txnId ) )
+                    return null;
+                }
+
+                FinancialScheduledTransaction scheduledTransaction = null;
+                var service = new FinancialScheduledTransactionService( rockContext );
+
+                // If the user has edit permission then just get the transaction.
+                if ( IsUserAuthorized( Rock.Security.Authorization.EDIT ) )
+                {
+                    scheduledTransaction = service
+                        .Queryable( "AuthorizedPersonAlias.Person,ScheduledTransactionDetails,FinancialGateway,FinancialPaymentDetail.CurrencyTypeValue,FinancialPaymentDetail.CreditCardTypeValue" )
+                        .Where( t => t.Id == txnId  )
+                        .FirstOrDefault();
+                }
+                else
+                {
+                    // check if the current person has permission to edit the transaction
+                    var personService = new PersonService( rockContext );
+
+                    var validGivingIds = new List<string> { targetPerson.GivingId };
+                    validGivingIds.AddRange( personService.GetBusinesses( targetPerson.Id ).Select( b => b.GivingId ) );
+
+                    scheduledTransaction = service
+                        .Queryable( "AuthorizedPersonAlias.Person,ScheduledTransactionDetails,FinancialGateway,FinancialPaymentDetail.CurrencyTypeValue,FinancialPaymentDetail.CreditCardTypeValue" )
+                        .Where( t =>
+                            t.Id == txnId &&
+                            t.AuthorizedPersonAlias != null &&
+                            t.AuthorizedPersonAlias.Person != null &&
+                            validGivingIds.Contains( t.AuthorizedPersonAlias.Person.GivingId ) )
+                        .FirstOrDefault();
+                }
+
+                if ( scheduledTransaction != null )
+                {
+                    if ( scheduledTransaction.AuthorizedPersonAlias != null )
                     {
-                        var personService = new PersonService( rockContext );
-
-                        var validGivingIds = new List<string> { targetPerson.GivingId };
-                        validGivingIds.AddRange( personService.GetBusinesses( targetPerson.Id ).Select( b => b.GivingId ) );
-
-                        var service = new FinancialScheduledTransactionService( rockContext );
-                        var scheduledTransaction = service
-                            .Queryable( "AuthorizedPersonAlias.Person,ScheduledTransactionDetails,FinancialGateway,FinancialPaymentDetail.CurrencyTypeValue,FinancialPaymentDetail.CreditCardTypeValue" )
-                            .Where( t =>
-                                t.Id == txnId &&
-                                t.AuthorizedPersonAlias != null &&
-                                t.AuthorizedPersonAlias.Person != null &&
-                                validGivingIds.Contains( t.AuthorizedPersonAlias.Person.GivingId ) )
-                            .FirstOrDefault();
-
-                        if ( scheduledTransaction != null )
-                        {
-                            if ( scheduledTransaction.AuthorizedPersonAlias != null )
-                            {
-                                TargetPersonId = scheduledTransaction.AuthorizedPersonAlias.PersonId;
-                            }
-                            ScheduledTransactionId = scheduledTransaction.Id;
-
-                            if ( scheduledTransaction.FinancialGateway != null )
-                            {
-                                scheduledTransaction.FinancialGateway.LoadAttributes( rockContext );
-                            }
-
-                            if ( refresh )
-                            {
-                                string errorMessages = string.Empty;
-                                service.GetStatus( scheduledTransaction, out errorMessages );
-                                rockContext.SaveChanges();
-                            }
-
-                            return scheduledTransaction;
-                        }
+                        TargetPersonId = scheduledTransaction.AuthorizedPersonAlias.PersonId;
                     }
+
+                    ScheduledTransactionId = scheduledTransaction.Id;
+
+                    if ( scheduledTransaction.FinancialGateway != null )
+                    {
+                        scheduledTransaction.FinancialGateway.LoadAttributes( rockContext );
+                    }
+
+                    if ( refresh )
+                    {
+                        string errorMessages = string.Empty;
+                        service.GetStatus( scheduledTransaction, out errorMessages );
+                        rockContext.SaveChanges();
+                    }
+
+                    return scheduledTransaction;
                 }
             }
 
